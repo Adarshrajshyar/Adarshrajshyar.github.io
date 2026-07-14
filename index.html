@@ -294,6 +294,31 @@ darkModeBtn.addEventListener("click", function () {
     });
 
 });
+    document.querySelectorAll(".shareBtn").forEach(function(button){
+
+    button.addEventListener("click", async function(){
+
+        const shayari = this.previousElementSibling.previousElementSibling.innerText;
+
+        if (navigator.share) {
+
+            await navigator.share({
+                title: "Adarsh Raj Shayar",
+                text: shayari,
+                url: window.location.href
+            });
+
+        } else {
+
+            navigator.clipboard.writeText(shayari);
+
+            alert("Sharing is not supported.\nShayari copied to clipboard.");
+
+        }
+
+    });
+
+});
 </script>
 
 </body>
