@@ -204,6 +204,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 हमसे जलने वालों की,<br>
 अभी और भीड़ लगेगी।
 </p>
+    <button class="copyBtn">📋 Copy</button>
 </div>
 
 <div class="card" id="friendship">
@@ -212,6 +213,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 दोस्ती वो नहीं जो वक्त के साथ बदल जाए,<br>
 दोस्ती वो है जो हर हाल में साथ निभाए।
 </p>
+    <button class="copyBtn">📋 Copy</button>
 </div>
 
 <div class="card" id="sad">
@@ -220,6 +222,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 जो अपने थे वही बदल गए,<br>
 हम देखते रहे और लोग निकल गए।
 </p>
+    <button class="copyBtn">📋 Copy</button>
 </div>
 <button id="topBtn" onclick="topFunction()">⬆</button>
 <footer>
@@ -276,17 +279,21 @@ darkModeBtn.addEventListener("click", function () {
         darkModeBtn.innerHTML = "🌙 Dark Mode";
     }
 });
-    document.querySelector(".copyBtn").addEventListener("click", function () {
+    document.querySelectorAll(".copyBtn").forEach(function(button){
 
-    const shayari = this.previousElementSibling.innerText;
+    button.addEventListener("click", function(){
 
-    navigator.clipboard.writeText(shayari);
+        const shayari = this.previousElementSibling.innerText;
 
-    this.innerHTML = "✅ Copied!";
+        navigator.clipboard.writeText(shayari);
 
-    setTimeout(() => {
-        this.innerHTML = "📋 Copy";
-    }, 1500);
+        this.innerHTML = "✅ Copied!";
+
+        setTimeout(() => {
+            this.innerHTML = "📋 Copy";
+        }, 1500);
+
+    });
 
 });
 </script>
