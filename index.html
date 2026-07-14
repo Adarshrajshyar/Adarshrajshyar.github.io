@@ -136,6 +136,23 @@ background:#000;
 }
 background:#000;
 }
+    .copyBtn{
+    background:#FFD700;
+    color:#111;
+    border:none;
+    padding:8px 16px;
+    margin-top:10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.copyBtn:hover{
+    background:#111;
+    color:#FFD700;
+    border:2px solid #FFD700;
+}
 </style>
 
 </head>
@@ -177,6 +194,8 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 तेरी मुस्कान मेरी जान बन गई,<br>
 तेरी हर अदा मेरी पहचान बन गई।
 </p>
+    <button class="copyBtn">📋 Copy</button>
+    
 </div>
 
 <div class="card" id="attitude">
@@ -256,6 +275,19 @@ darkModeBtn.addEventListener("click", function () {
     } else {
         darkModeBtn.innerHTML = "🌙 Dark Mode";
     }
+});
+    document.querySelector(".copyBtn").addEventListener("click", function () {
+
+    const shayari = this.previousElementSibling.innerText;
+
+    navigator.clipboard.writeText(shayari);
+
+    this.innerHTML = "✅ Copied!";
+
+    setTimeout(() => {
+        this.innerHTML = "📋 Copy";
+    }, 1500);
+
 });
 </script>
 
