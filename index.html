@@ -222,6 +222,8 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 अभी और भीड़ लगेगी।
 </p>
     <button class="copyBtn">📋 Copy</button>
+    <button class="shareBtn">📤 Share</button>
+<button class="likeBtn">🤍 Like</button>
 </div>
 
 <div class="card" id="friendship">
@@ -231,6 +233,8 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 दोस्ती वो है जो हर हाल में साथ निभाए।
 </p>
     <button class="copyBtn">📋 Copy</button>
+    <button class="shareBtn">📤 Share</button>
+<button class="likeBtn">🤍 Like</button>
 </div>
 
 <div class="card" id="sad">
@@ -240,6 +244,9 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
 हम देखते रहे और लोग निकल गए।
 </p>
     <button class="copyBtn">📋 Copy</button>
+    <button class="shareBtn">📤 Share</button>
+<button class="likeBtn">🤍 Like</button>
+    
 </div>
 <button id="topBtn" onclick="topFunction()">⬆</button>
 <footer>
@@ -338,15 +345,17 @@ darkModeBtn.addEventListener("click", function () {
     });
 
 });
-    const likeBtn = document.querySelector(".likeBtn");
+  document.querySelectorAll(".likeBtn").forEach(function(button){
 
-likeBtn.addEventListener("click", function(){
+    button.addEventListener("click", function(){
 
-    if(this.innerHTML=="🤍 Like"){
-        this.innerHTML="❤️ Liked";
-    }else{
-        this.innerHTML="🤍 Like";
-    }
+        if(this.innerHTML=="🤍 Like"){
+            this.innerHTML="❤️ Liked";
+        }else{
+            this.innerHTML="🤍 Like";
+        }
+
+    });
 
 });
 </script>
