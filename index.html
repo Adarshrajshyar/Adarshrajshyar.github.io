@@ -339,7 +339,7 @@ darkModeBtn.addEventListener("click", function () {
 
     button.addEventListener("click", function(){
 
-        const shayari = this.previousElementSibling.innerText;
+        const shayari = this.parentElement.querySelector("p").innerText;
 
         navigator.clipboard.writeText(shayari);
 
@@ -356,7 +356,7 @@ darkModeBtn.addEventListener("click", function () {
 
     button.addEventListener("click", async function(){
 
-        const shayari = this.previousElementSibling.previousElementSibling.innerText;
+        const shayari = this.parentElement.querySelector("p").innerText;
 
         if (navigator.share) {
 
