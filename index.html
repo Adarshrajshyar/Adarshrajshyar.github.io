@@ -380,6 +380,21 @@ document.querySelectorAll(".likeBtn").forEach(function(button){
     });
 
 });
+    // Save Dark Mode
+if(localStorage.getItem("darkMode") === "on"){
+    document.body.classList.add("dark-mode");
+    darkModeBtn.innerHTML = "☀️ Light Mode";
+}
+
+darkModeBtn.addEventListener("click", function () {
+
+    if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("darkMode","on");
+    }else{
+        localStorage.setItem("darkMode","off");
+    }
+
+});
 </script>
 
 </body>
