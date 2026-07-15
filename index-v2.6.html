@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adarsh Raj Shayar</title>
+
+<style>
+html{
+    scroll-behavior:smooth;
+    
+}
+body{
+    font-family:Arial,sans-serif;
+    background:#f8f8f8;
+    margin:0;
+    text-align:center;
+}
+
+header{
+    background:#111;
+    color:#FFD700;
+    padding:20px;
+    text-align:center;
+}
+
+header img{
+    width:120px;
+    border-radius:50%;
+    box-shadow:0 0 20px gold;
+    margin-bottom:10px;
+}
+
+nav{
+    background:#222;
+    padding:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:15px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:gold;
+}
+
+.card{
+    background:white;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px #ccc;
+}
+
+input{
+    outline:none;
+}
+
+footer{
+    background:#222;
+    color:white;
+    padding:10px;
+    margin-top:20px;
+}#topBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+display:none;
+background:#FFD700;
+color:black;
+border:none;
+padding:12px 16px;
+border-radius:50%;
+font-size:18px;
+cursor:pointer;
+box-shadow:0 0 10px gold;
+}
+
+#topBtn:hover{
+background:white;
+}#darkModeBtn{
+background:#FFD700;
+color:#111;
+border:none;
+padding:10px 18px;
+margin:15px;
+font-size:16px;
+font-weight:bold;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#darkModeBtn:hover{
+background:#111;
+color:#FFD700;
+border:2px solid #FFD700;
+}
+
+.dark-mode{
+background:#111;
+color:white;
+}
+
+.dark-mode .card{
+background:#222;
+color:white;
+}
+
+.dark-mode input{
+background:#333;
+color:white;
+border:1px solid #FFD700;
+}
+
+.dark-mode nav{
+background:#000;
+}
+
+.dark-mode footer{
+    background:#000;
+}
+
+.dark-mode header{
+    background:#000;
+    color:#FFD700;
+}
+
+.dark-mode #darkModeBtn{
+    background:#FFD700;
+    color:#000;
+}
+    .copyBtn{
+    background:#FFD700;
+    color:#111;
+    border:none;
+    padding:8px 16px;
+    margin-top:10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.copyBtn:hover{
+    background:#111;
+    color:#FFD700;
+    border:2px solid #FFD700;
+}
+    .favBtn{
+    background:#FFD700;
+    color:#111;
+    border:none;
+    padding:8px 16px;
+    margin-top:10px;
+    margin-left:8px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.favBtn:hover{
+    background:#111;
+    color:#FFD700;
+    border:2px solid #FFD700;
+}
+    .likeBtn{
+    background:#FFD700;
+    color:#111;
+    border:none;
+    padding:8px 16px;
+    margin-top:10px;
+    margin-left:5px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.likeBtn:hover{
+    background:#111;
+    color:#FFD700;
+    border:2px solid #FFD700;
+}
+    .likeCount{
+    color:#d32f2f;
+    font-weight:bold;
+    margin-top:10px;
+    font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="logo.png" alt="ARS Logo">
+
+<h1>🌹 Adarsh Raj Shayar 🌹</h1>
+
+<p>दिल से निकली हुई खूबसूरत हिंदी शायरियाँ</p>
+
+</header>
+<button id="darkModeBtn">🌙 Dark Mode</button>
+<nav>
+<a href="#">Home</a>
+<a href="#love">Love</a>
+<a href="#sad">Sad</a>
+<a href="#attitude">Attitude</a>
+<a href="#friendship">Friendship</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+</nav>
+
+<img src="banner.png" alt="ARS Banner"
+style="width:100%;max-width:1200px;display:block;margin:auto;">
+
+<input
+type="text"
+id="search"
+placeholder="🔍 Shayari Search..."
+style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;border:1px solid #ccc;font-size:16px;">
+
+<div class="card" id="love">
+<h2>❤️ Love Shayari</h2>
+<p>
+तेरी मुस्कान मेरी जान बन गई,<br>
+तेरी हर अदा मेरी पहचान बन गई।
+</p>
+    <button class="copyBtn">📋 Copy</button>
+   <button class="shareBtn">📤 Share</button> 
+    <button class="likeBtn">🤍 Like</button>
+    <button class="favBtn">⭐ Favorite</button>
+    <p class="likeCount">❤️ Likes: 0</p>
+</div>
+
+<div class="card" id="attitude">
+<h2>🔥 Attitude Shayari</h2>
+<p>
+हमसे जलने वालों की,<br>
+अभी और भीड़ लगेगी।
+</p>
+    <button class="copyBtn">📋 Copy</button>
+    <button class="shareBtn">📤 Share</button>
+<button class="likeBtn">🤍 Like</button>
+    <button class="favBtn">⭐ Favorite</button>
+    <p class="likeCount">❤️ Likes: 0</p>
+</div>
+
+<div class="card" id="friendship">
+<h2>🤝 Friendship Shayari</h2>
+<p>
+दोस्ती वो नहीं जो वक्त के साथ बदल जाए,<br>
+दोस्ती वो है जो हर हाल में साथ निभाए।
+</p>
+    <button class="copyBtn">📋 Copy</button>
+    <button class="shareBtn">📤 Share</button>
+<button class="likeBtn">🤍 Like</button>
+    <button class="favBtn">⭐ Favorite</button>
+    <p class="likeCount">❤️ Likes: 0</p>
+</div>
+
+<div class="card" id="sad">
+<h2>💔 Sad Shayari</h2>
+<p>
+जो अपने थे वही बदल गए,<br>
+हम देखते रहे और लोग निकल गए।
+</p>
+    <button class="copyBtn">📋 Copy</button>
+    <button class="shareBtn">📤 Share</button>
+<button class="likeBtn">🤍 Like</button>
+    <button class="favBtn">⭐ Favorite</button>
+    <p class="likeCount">❤️ Likes: 0</p>
+    
+</div>
+<button id="topBtn" onclick="topFunction()">⬆</button>
+<footer>
+© 2026 Adarsh Raj Shayar
+</footer>
+
+<script>
+
+const search = document.getElementById("search");
+
+search.addEventListener("keyup",function(){
+
+let filter=search.value.toLowerCase();
+
+let cards=document.querySelectorAll(".card");
+
+cards.forEach(function(card){
+
+let text=card.innerText.toLowerCase();
+
+if(text.includes(filter)){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+
+});
+
+});
+const topBtn=document.getElementById("topBtn");
+
+window.onscroll=function(){
+if(document.body.scrollTop>200||document.documentElement.scrollTop>200){
+topBtn.style.display="block";
+}else{
+topBtn.style.display="none";
+}
+};
+
+function topFunction(){
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+
+const darkModeBtn = document.getElementById("darkModeBtn");
+darkModeBtn.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        darkModeBtn.innerHTML = "☀️ Light Mode";
+    } else {
+        darkModeBtn.innerHTML = "🌙 Dark Mode";
+    }
+});
+    document.querySelectorAll(".copyBtn").forEach(function(button){
+
+    button.addEventListener("click", function(){
+
+        const shayari = this.parentElement.querySelector("p").innerText;
+
+        navigator.clipboard.writeText(shayari);
+
+        this.innerHTML = "✅ Copied!";
+
+        setTimeout(() => {
+            this.innerHTML = "📋 Copy";
+        }, 1500);
+
+    });
+
+});
+    document.querySelectorAll(".shareBtn").forEach(function(button){
+
+    button.addEventListener("click", async function(){
+
+        const shayari = this.parentElement.querySelector("p").innerText;
+
+        if (navigator.share) {
+
+            await navigator.share({
+                title: "Adarsh Raj Shayar",
+                text: shayari,
+                url: window.location.href
+            });
+
+        } else {
+
+            navigator.clipboard.writeText(shayari);
+
+            alert("Sharing is not supported.\nShayari copied to clipboard.");
+
+        }
+
+    });
+
+});
+document.querySelectorAll(".likeBtn").forEach(function(button,index){
+
+    const counter = button.parentElement.querySelector(".likeCount");
+
+    let likes = localStorage.getItem("likes"+index);
+
+    if(likes===null){
+        likes=0;
+    }
+
+    counter.innerHTML="❤️ Likes: "+likes;
+
+    if(localStorage.getItem("liked"+index)=="yes"){
+        button.innerHTML="❤️ Liked";
+    }
+
+    button.addEventListener("click",function(){
+
+        let count=parseInt(localStorage.getItem("likes"+index) || 0);
+
+        if(button.innerHTML=="🤍 Like"){
+
+            button.innerHTML="❤️ Liked";
+            count++;
+            localStorage.setItem("liked"+index,"yes");
+
+        }else{
+
+            button.innerHTML="🤍 Like";
+            count--;
+            if(count<0) count=0;
+            localStorage.setItem("liked"+index,"no");
+
+        }
+
+        localStorage.setItem("likes"+index,count);
+        counter.innerHTML="❤️ Likes: "+count;
+
+    });
+
+});
+    // Save Dark Mode
+if(localStorage.getItem("darkMode") === "on"){
+    document.body.classList.add("dark-mode");
+    darkModeBtn.innerHTML = "☀️ Light Mode";
+}
+
+darkModeBtn.addEventListener("click", function () {
+
+    if(document.body.classList.contains("dark-mode")){
+        localStorage.setItem("darkMode","on");
+    }else{
+        localStorage.setItem("darkMode","off");
+    }
+
+});
+    // Like Button का पूरा Code यहाँ खत्म होगा
+
+
+// 👇 यहीं Favorite वाला Code Paste करना है
+document.querySelectorAll(".favBtn").forEach(function(button){
+
+    const card = button.closest(".card");
+    const title = card.querySelector("h2").innerText;
+
+    // पहले से Favorite है या नहीं
+    if(localStorage.getItem(title + "_fav") === "yes"){
+        button.innerHTML = "⭐ Favorited";
+    }
+
+    button.addEventListener("click", function(){
+
+        if(localStorage.getItem(title + "_fav") === "yes"){
+
+            localStorage.removeItem(title + "_fav");
+            button.innerHTML = "⭐ Favorite";
+
+        }else{
+
+            localStorage.setItem(title + "_fav","yes");
+            button.innerHTML = "⭐ Favorited";
+
+        }
+
+    });
+
+});
+</script>
+
+</body>
+</html>
