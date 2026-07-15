@@ -355,27 +355,43 @@ darkModeBtn.addEventListener("click", function () {
     });
 
 });
-document.querySelectorAll(".likeBtn").forEach(function(button){
+document.querySelectorAll(".likeBtn").forEach(function(button,index){
 
-    button.addEventListener("click", function(){
+    const counter = button.nextElementSibling;
 
-        let counter = this.nextElementSibling;
+    let likes = localStorage.getItem("likes"+index);
 
-        let likes = parseInt(counter.innerText.replace("❤️ Likes: ",""));
+    if(likes===null){
+        likes=0;
+    }
 
-        if(this.innerHTML=="🤍 Like"){
+    counter.innerHTML="❤️ Likes: "+likes;
 
-            this.innerHTML="❤️ Liked";
-            likes++;
-            counter.innerHTML="❤️ Likes: " + likes;
+    if(localStorage.getItem("liked"+index)=="yes"){
+        button.innerHTML="❤️ Liked";
+    }
+
+    button.addEventListener("click",function(){
+
+        let count=parseInt(localStorage.getItem("likes"+index) || 0);
+
+        if(button.innerHTML=="🤍 Like"){
+
+            button.innerHTML="❤️ Liked";
+            count++;
+            localStorage.setItem("liked"+index,"yes");
 
         }else{
 
-            this.innerHTML="🤍 Like";
-            likes--;
-            counter.innerHTML="❤️ Likes: " + likes;
+            button.innerHTML="🤍 Like";
+            count--;
+            if(count<0) count=0;
+            localStorage.setItem("liked"+index,"no");
 
         }
+
+        localStorage.setItem("likes"+index,count);
+        counter.innerHTML="❤️ Likes: "+count;
 
     });
 
