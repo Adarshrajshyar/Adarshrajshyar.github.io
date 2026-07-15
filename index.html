@@ -169,6 +169,12 @@ background:#000;
     color:#FFD700;
     border:2px solid #FFD700;
 }
+    .likeCount{
+    color:#d32f2f;
+    font-weight:bold;
+    margin-top:10px;
+    font-size:16px;
+}
 </style>
 
 </head>
@@ -213,6 +219,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
     <button class="copyBtn">📋 Copy</button>
    <button class="shareBtn">📤 Share</button> 
     <button class="likeBtn">🤍 Like</button>
+    <p class="likeCount">❤️ Likes: 0</p>
 </div>
 
 <div class="card" id="attitude">
@@ -224,6 +231,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
     <button class="copyBtn">📋 Copy</button>
     <button class="shareBtn">📤 Share</button>
 <button class="likeBtn">🤍 Like</button>
+    <p class="likeCount">❤️ Likes: 0</p>
 </div>
 
 <div class="card" id="friendship">
@@ -235,6 +243,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
     <button class="copyBtn">📋 Copy</button>
     <button class="shareBtn">📤 Share</button>
 <button class="likeBtn">🤍 Like</button>
+    <p class="likeCount">❤️ Likes: 0</p>
 </div>
 
 <div class="card" id="sad">
@@ -246,6 +255,7 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
     <button class="copyBtn">📋 Copy</button>
     <button class="shareBtn">📤 Share</button>
 <button class="likeBtn">🤍 Like</button>
+    <p class="likeCount">❤️ Likes: 0</p>
     
 </div>
 <button id="topBtn" onclick="topFunction()">⬆</button>
@@ -345,14 +355,26 @@ darkModeBtn.addEventListener("click", function () {
     });
 
 });
-  document.querySelectorAll(".likeBtn").forEach(function(button){
+document.querySelectorAll(".likeBtn").forEach(function(button){
 
     button.addEventListener("click", function(){
 
+        let counter = this.nextElementSibling;
+
+        let likes = parseInt(counter.innerText.replace("❤️ Likes: ",""));
+
         if(this.innerHTML=="🤍 Like"){
+
             this.innerHTML="❤️ Liked";
+            likes++;
+            counter.innerHTML="❤️ Likes: " + likes;
+
         }else{
+
             this.innerHTML="🤍 Like";
+            likes--;
+            counter.innerHTML="❤️ Likes: " + likes;
+
         }
 
     });
