@@ -379,7 +379,7 @@ darkModeBtn.addEventListener("click", function () {
 });
 document.querySelectorAll(".likeBtn").forEach(function(button,index){
 
-    const counter = button.nextElementSibling;
+    const counter = button.parentElement.querySelector(".likeCount");
 
     let likes = localStorage.getItem("likes"+index);
 
