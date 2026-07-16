@@ -468,7 +468,9 @@ document.querySelectorAll(".favBtn").forEach(function(button){
 
             localStorage.setItem(title + "_fav","yes");
             button.innerHTML = "⭐ Favorited";
-
+            
+const shayari = card.querySelector("p").innerHTML;
+favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
         }
 
     });
