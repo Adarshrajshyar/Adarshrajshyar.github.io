@@ -363,18 +363,7 @@ darkModeBtn.addEventListener("click", function () {
 
 });
     document.querySelectorAll(".shareBtn").forEach(function(button){
-
-    button.addEventListener("click", async function(){
-
-        const shayari = this.parentElement.querySelector("p").innerText;
-
-        if (navigator.share) {
-
-            await navigator.share({
-                title: "Adarsh Raj Shayar",
-                text: shayari,
-                url: window.location.href
-            });
+        
 
         } else {
 
@@ -478,7 +467,6 @@ document.querySelectorAll(".favBtn").forEach(function(button){
             
 const favoriteList = document.getElementById("favoriteList");            
 const shayari = card.querySelector("p").innerHTML;
-favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
         }
 
     });
