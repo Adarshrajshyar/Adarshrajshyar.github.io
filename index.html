@@ -215,6 +215,7 @@ background:#000;
 <a href="#sad">Sad</a>
 <a href="#attitude">Attitude</a>
 <a href="#friendship">Friendship</a>
+    <a href="#favorite">Favorite</a>
 <a href="#">About</a>
 <a href="#">Contact</a>
 </nav>
@@ -266,7 +267,16 @@ style="width:90%;padding:12px;margin:20px auto;display:block;border-radius:10px;
     <button class="favBtn">⭐ Favorite</button>
     <p class="likeCount">❤️ Likes: 0</p>
 </div>
+<div class="card" id="favorite">
+<h2>⭐ Favorite Shayari</h2>
 
+<p>
+यहाँ आपकी Favorite की हुई Shayari दिखाई देगी।
+</p>
+
+<div id="favoriteList"></div>
+
+</div>
 <div class="card" id="sad">
 <h2>💔 Sad Shayari</h2>
 <p>
@@ -464,6 +474,23 @@ document.querySelectorAll(".favBtn").forEach(function(button){
     });
 
 });
+    const favoriteList = document.getElementById("favoriteList");
+
+document.querySelectorAll(".favBtn").forEach(function(button){
+
+    button.addEventListener("click", function(){
+
+        const card = this.closest(".card");
+        const shayari = card.querySelector("p").innerHTML;
+
+        if(this.innerHTML === "⭐ Favorited"){
+            favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
+        }
+
+    });
+
+});
+    
 </script>
 
 </body>
