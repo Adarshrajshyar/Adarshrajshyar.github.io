@@ -464,11 +464,19 @@ document.querySelectorAll(".favBtn").forEach(function(button){
             localStorage.removeItem(title + "_fav");
             button.innerHTML = "⭐ Favorite";
 
-        }else{
+      }else{
 
-            localStorage.setItem(title + "_fav","yes");
-            button.innerHTML = "⭐ Favorited";
+    localStorage.setItem(title + "_fav","yes");
+    button.innerHTML = "⭐ Favorited";
+
+    const favoriteList = document.getElementById("favoriteList");
+    const shayari = card.querySelector("p").innerHTML;
+
+    favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
+
+}
             
+const favoriteList = document.getElementById("favoriteList");            
 const shayari = card.querySelector("p").innerHTML;
 favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
         }
@@ -476,22 +484,7 @@ favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
     });
 
 });
-    const favoriteList = document.getElementById("favoriteList");
-
-document.querySelectorAll(".favBtn").forEach(function(button){
-
-    button.addEventListener("click", function(){
-
-        const card = this.closest(".card");
-        const shayari = card.querySelector("p").innerHTML;
-
-        if(this.innerHTML === "⭐ Favorited"){
-            favoriteList.innerHTML += "<p>" + shayari + "</p><hr>";
-        }
-
-    });
-
-});
+   
     
 </script>
 
