@@ -300,7 +300,16 @@ color:white;
 }
     
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script>
+(function () {
+    emailjs.init({
+        publicKey: v5vnTSXnFe2kvgWEM
+    });
+})();
+</script>
+    
 </head>
 
 <body>
@@ -1058,7 +1067,7 @@ adarshraj53015@gmail.com
 🙏 धन्यवाद! हमारी वेबसाइट पर आने के लिए।
 </p>
 
-       <form action="mailto:adarshraj53015@gmail.com" method="post" enctype="text/plain">
+      <form id="contact-form">
 
 <h3>📝 Contact Form</h3>
 
@@ -1381,6 +1390,34 @@ function closePopup(){
   //  localStorage.setItem("welcomeShown","yes");
 
 }
+
+        // ==========================
+// EMAILJS CONTACT FORM
+// ==========================
+
+document.getElementById("contact-form").addEventListener("submit", function(event){
+
+event.preventDefault();
+
+emailjs.sendForm(
+"service_x6aju4h",
+"template_r93yuzg",
+this
+).then(function(){
+
+alert("✅ Message Sent Successfully!");
+
+document.getElementById("contact-form").reset();
+
+}, function(error){
+
+alert("❌ Failed to Send Message");
+
+console.log(error);
+
+});
+
+});
         
 </script>
 
