@@ -203,12 +203,125 @@ color:white;
 
 }
 
+    /* ==========================
+   WELCOME POPUP
+========================== */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.75);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.popup-box{
+
+background:white;
+width:90%;
+max-width:420px;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 25px gold;
+animation:popupZoom .5s ease;
+
+}
+
+.popup-box h1{
+
+color:#d32f2f;
+margin:10px 0;
+
+}
+
+.popup-box h2{
+
+color:#ff9800;
+
+}
+
+.popup-box p{
+
+font-size:18px;
+line-height:30px;
+margin:20px 0;
+
+}
+
+.popup-box button{
+
+background:#FFD700;
+border:none;
+padding:12px 28px;
+font-size:18px;
+font-weight:bold;
+border-radius:10px;
+cursor:pointer;
+transition:.3s;
+
+}
+
+.popup-box button:hover{
+
+background:#111;
+color:#FFD700;
+
+}
+
+@keyframes popupZoom{
+
+from{
+
+transform:scale(.7);
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+opacity:1;
+
+}
+
+}
+
+.dark-mode .popup-box{
+
+background:#222;
+color:white;
+
+}
+    
 </style>
 
 </head>
 
 <body>
 
+    <!-- Welcome Popup -->
+<div id="welcomePopup" class="popup">
+  <div class="popup-box">
+    <h2>🌹 Welcome to</h2>
+    <h1>Adarsh Raj Shayar</h1>
+
+    <p>
+      ❤️ "शब्द दिल से निकलते हैं,<br>
+      इसलिए सीधे दिल तक पहुँचते हैं।"
+    </p>
+
+    <button onclick="closePopup()">
+      🚀 Enter Website
+    </button>
+  </div>
+</div>
+    
 <header>
 
 <img src="logo.png" alt="ARS Logo">
@@ -1240,6 +1353,25 @@ favoriteList.innerHTML+=`
 
 });
 
+        // ==========================
+// WELCOME POPUP
+// ==========================
+
+const welcomePopup = document.getElementById("welcomePopup");
+
+// अगर पहले वेबसाइट खुल चुकी है, तो Popup मत दिखाओ
+//if(localStorage.getItem("welcomeShown") === "yes"){
+  //  welcomePopup.style.display = "none";
+//}
+
+function closePopup(){
+
+    welcomePopup.style.display = "none";
+
+  //  localStorage.setItem("welcomeShown","yes");
+
+}
+        
 </script>
 
 </body>
