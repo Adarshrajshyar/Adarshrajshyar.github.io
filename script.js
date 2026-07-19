@@ -1,4 +1,9 @@
-   <script>
+// ==========================================
+// Adarsh Raj Shayar
+// script.js Part 1
+// ==========================================
+
+"use strict";
 
 // ==========================
 // SEARCH
@@ -6,171 +11,186 @@
 
 const search = document.getElementById("search");
 
-search.addEventListener("keyup", function(){
+if (search) {
+  search.addEventListener("keyup", function () {
 
-let filter = search.value.toLowerCase();
+    const filter = this.value.toLowerCase();
 
-document.querySelectorAll(".card").forEach(function(card){
+    document.querySelectorAll(".card").forEach(function (card) {
 
-if(card.innerText.toLowerCase().includes(filter)){
+      if (card.innerText.toLowerCase().includes(filter)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
 
-card.style.display="block";
+    });
 
-}else{
-
-card.style.display="none";
-
+  });
 }
-
-});
-
-});
-
-
-// ==========================
-// TOP BUTTON
-// ==========================
-
-const topBtn=document.getElementById("topBtn");
-
-window.addEventListener("scroll",function(){
-
-if(window.scrollY>200){
-
-topBtn.style.display="block";
-
-}else{
-
-topBtn.style.display="none";
-
-}
-
-});
-
-topBtn.addEventListener("click",function(){
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-});
-
 
 // ==========================
 // DARK MODE
 // ==========================
 
-const darkModeBtn=document.getElementById("darkModeBtn");
+const darkBtn = document.getElementById("darkModeBtn");
 
-if(localStorage.getItem("darkMode")=="on"){
+if (localStorage.getItem("darkMode") === "on") {
 
-document.body.classList.add("dark-mode");
+  document.body.classList.add("dark-mode");
 
-darkModeBtn.innerHTML="☀️ Light Mode";
-
-}
-
-darkModeBtn.addEventListener("click",function(){
-
-document.body.classList.toggle("dark-mode");
-
-if(document.body.classList.contains("dark-mode")){
-
-localStorage.setItem("darkMode","on");
-
-darkModeBtn.innerHTML="☀️ Light Mode";
-
-}else{
-
-localStorage.setItem("darkMode","off");
-
-darkModeBtn.innerHTML="🌙 Dark Mode";
+  if (darkBtn) {
+    darkBtn.innerHTML = "☀️ Light Mode";
+  }
 
 }
 
-});
+if (darkBtn) {
 
+  darkBtn.addEventListener("click", function () {
 
-// ==========================
-// COPY
-// ==========================
+    document.body.classList.toggle("dark-mode");
 
-document.querySelectorAll(".copyBtn").forEach(function(btn){
+    if (document.body.classList.contains("dark-mode")) {
 
-btn.addEventListener("click",function(){
+      localStorage.setItem("darkMode", "on");
+      darkBtn.innerHTML = "☀️ Light Mode";
 
-const text=this.parentElement.querySelector("p").innerText;
+    } else {
 
-navigator.clipboard.writeText(text);
+      localStorage.setItem("darkMode", "off");
+      darkBtn.innerHTML = "🌙 Dark Mode";
 
-this.innerHTML="✅ Copied";
+    }
 
-setTimeout(()=>{
-
-this.innerHTML="📋 Copy";
-
-},1500);
-
-});
-
-});
-
-
-// ==========================
-// PART 4 से आगे
-// ==========================
-        // ==========================
-// SHARE
-// ==========================
-
-document.querySelectorAll(".shareBtn").forEach(function(btn){
-
-btn.addEventListener("click",async function(){
-
-const text=this.parentElement.querySelector("p").innerText;
-
-if(navigator.share){
-
-await navigator.share({
-
-title:"Adarsh Raj Shayar",
-
-text:text,
-
-url:window.location.href
-
-});
-
-}else{
-
-navigator.clipboard.writeText(text);
-
-alert("Sharing is not supported.\nShayari copied.");
+  });
 
 }
 
-});
+// ==========================
+// BACK TO TOP BUTTON
+// ==========================
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", function () {
+
+  if (!topBtn) return;
+
+  if (window.scrollY > 250) {
+
+    topBtn.style.display = "block";
+
+  } else {
+
+    topBtn.style.display = "none";
+
+  }
 
 });
 
+if (topBtn) {
+
+  topBtn.addEventListener("click", function () {
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  });
+
+}
 
 // ==========================
-// LIKE
+// COPY BUTTON
+// ==========================
+
+document.querySelectorAll(".copyBtn").forEach(function (btn) {
+
+  btn.addEventListener("click", function () {
+
+    const card = this.closest(".card");
+
+    if (!card) return;
+
+    const text = card.querySelector("p").innerText;
+
+    navigator.clipboard.writeText(text);
+
+    const oldText = this.innerHTML;
+
+    this.innerHTML = "✅ Copied";
+
+    setTimeout(() => {
+
+      this.innerHTML = oldText;
+
+    }, 1500);
+
+  });
+
+});
+
+// ==========================
+// SHARE BUTTON
+// ==========================
+
+document.querySelectorAll(".shareBtn").forEach(function (btn) {
+
+  btn.addEventListener("click", async function () {
+
+    const card = this.closest(".card");
+
+    if (!card) return;
+
+    const text = card.querySelector("p").innerText;
+
+    if (navigator.share) {
+
+      await navigator.share({
+
+        title: "Adarsh Raj Shayar",
+
+        text: text,
+
+        url: location.href
+
+      });
+
+    } else {
+
+      navigator.clipboard.writeText(text);
+
+      alert("Sharing supported नहीं है। Shayari Copy हो गई है।");
+
+    }
+
+  });
+
+});
+
+// ==========================================
+// End of Part 1
+// ==========================================
+// ==========================================
+// Part 2
+// Like + Favorite System
+// ==========================================
+
+// ==========================
+// LIKE SYSTEM
 // ==========================
 
 document.querySelectorAll(".likeBtn").forEach(function(btn,index){
 
 const counter=btn.parentElement.querySelector(".likeCount");
 
-let likes=parseInt(localStorage.getItem("likes"+index)||0);
+let likes=Number(localStorage.getItem("likes_"+index)||0);
 
 counter.innerHTML="❤️ Likes: "+likes;
 
-if(localStorage.getItem("liked"+index)=="yes"){
+if(localStorage.getItem("liked_"+index)=="yes"){
 
 btn.innerHTML="❤️ Liked";
 
@@ -178,27 +198,31 @@ btn.innerHTML="❤️ Liked";
 
 btn.addEventListener("click",function(){
 
-let count=parseInt(localStorage.getItem("likes"+index)||0);
+let liked=localStorage.getItem("liked_"+index);
 
-if(btn.innerHTML=="🤍 Like"){
+let count=Number(localStorage.getItem("likes_"+index)||0);
 
-btn.innerHTML="❤️ Liked";
+if(liked=="yes"){
 
-count++;
+count--;
 
-localStorage.setItem("liked"+index,"yes");
+if(count<0) count=0;
 
-}else{
+localStorage.setItem("liked_"+index,"no");
 
 btn.innerHTML="🤍 Like";
 
-count=Math.max(0,count-1);
+}else{
 
-localStorage.setItem("liked"+index,"no");
+count++;
+
+localStorage.setItem("liked_"+index,"yes");
+
+btn.innerHTML="❤️ Liked";
 
 }
 
-localStorage.setItem("likes"+index,count);
+localStorage.setItem("likes_"+index,count);
 
 counter.innerHTML="❤️ Likes: "+count;
 
@@ -206,108 +230,338 @@ counter.innerHTML="❤️ Likes: "+count;
 
 });
 
-
 // ==========================
-// FAVORITE
+// FAVORITE SYSTEM
 // ==========================
 
 const favoriteList=document.getElementById("favoriteList");
+
+function loadFavorites(){
+
+if(!favoriteList) return;
+
+favoriteList.innerHTML="";
 
 document.querySelectorAll(".favBtn").forEach(function(btn,index){
 
 const card=btn.closest(".card");
 
-const title=card.querySelector("h2").innerText;
+const title=card.querySelector("h2").innerHTML;
 
-const shayari=card.querySelector("p").innerHTML;
+const text=card.querySelector("p").innerHTML;
 
-if(localStorage.getItem("fav"+index)=="yes"){
+if(localStorage.getItem("fav_"+index)=="yes"){
 
-btn.innerHTML="⭐ Favorited";
+btn.innerHTML="⭐ Saved";
 
 favoriteList.innerHTML+=`
+
 <div class="card">
+
 <h3>${title}</h3>
-<p>${shayari}</p>
+
+<p>${text}</p>
+
 </div>
+
 `;
-
-}
-
-btn.addEventListener("click",function(){
-
-if(localStorage.getItem("fav"+index)=="yes"){
-
-localStorage.removeItem("fav"+index);
-
-btn.innerHTML="⭐ Favorite";
-
-location.reload();
 
 }else{
 
-localStorage.setItem("fav"+index,"yes");
-
-btn.innerHTML="⭐ Favorited";
-
-favoriteList.innerHTML+=`
-<div class="card">
-<h3>${title}</h3>
-<p>${shayari}</p>
-</div>
-`;
+btn.innerHTML="⭐ Favorite";
 
 }
 
 });
 
+}
+
+loadFavorites();
+
+// ==========================
+// FAVORITE BUTTON
+// ==========================
+
+document.querySelectorAll(".favBtn").forEach(function(btn,index){
+
+btn.addEventListener("click",function(){
+
+if(localStorage.getItem("fav_"+index)=="yes"){
+
+localStorage.removeItem("fav_"+index);
+
+}else{
+
+localStorage.setItem("fav_"+index,"yes");
+
+}
+
+loadFavorites();
+
 });
 
-        // ==========================
+});
+
+// ==========================================
+// END PART 2
+// ==========================================
+// ==========================================
+// Part 3
+// Welcome Popup + EmailJS
+// ==========================================
+
+// ==========================
 // WELCOME POPUP
 // ==========================
 
 const welcomePopup = document.getElementById("welcomePopup");
 
-// अगर पहले वेबसाइट खुल चुकी है, तो Popup मत दिखाओ
-//if(localStorage.getItem("welcomeShown") === "yes"){
-  //  welcomePopup.style.display = "none";
-//}
+function closePopup() {
 
-function closePopup(){
-
-    welcomePopup.style.display = "none";
-
-  //  localStorage.setItem("welcomeShown","yes");
+    if (welcomePopup) {
+        welcomePopup.style.display = "none";
+    }
 
 }
 
-        // ==========================
+// ==========================
 // EMAILJS CONTACT FORM
 // ==========================
 
-document.getElementById("contact-form").addEventListener("submit", function(event){
+const contactForm = document.getElementById("contact-form");
 
-event.preventDefault();
+if (contactForm) {
 
-emailjs.sendForm(
-"service_x6aju4h",
-"template_r93yuzg",
-this
-).then(function(){
+    contactForm.addEventListener("submit", function (e) {
 
-alert("✅ Message Sent Successfully!");
+        e.preventDefault();
 
-document.getElementById("contact-form").reset();
+        const submitBtn = this.querySelector("button");
 
-}, function(error){
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "⏳ Sending...";
 
-alert("❌ Failed to Send Message");
+        emailjs.sendForm(
 
-console.log(error);
+            SERVICE_ID,
+            TEMPLATE_ID,
+            this
+
+        ).then(function () {
+
+            alert("✅ Message Sent Successfully!");
+
+            contactForm.reset();
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "📩 Send Message";
+
+        }).catch(function (error) {
+
+            console.log(error);
+
+            alert("❌ Message Send Failed!");
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = "📩 Send Message";
+
+        });
+
+    });
+
+}
+
+// ==========================================
+// IMAGE AUTO FALLBACK
+// ==========================================
+
+document.querySelectorAll("img").forEach(function(img){
+
+    img.onerror = function(){
+
+        this.src = "https://placehold.co/400x300?text=Image";
+
+    };
 
 });
 
+// ==========================================
+// END PART 3
+// ==========================================
+// ==========================================
+// Part 4
+// Extra Features
+// ==========================================
+
+// ==========================
+// LOADING ANIMATION
+// ==========================
+
+window.addEventListener("load", () => {
+    document.body.classList.add("loaded");
 });
-        
-</script>
+
+// ==========================
+// ONLINE / OFFLINE STATUS
+// ==========================
+
+function updateNetworkStatus() {
+
+    if (navigator.onLine) {
+        console.log("✅ Online");
+    } else {
+        alert("📡 इंटरनेट कनेक्शन उपलब्ध नहीं है।");
+    }
+
+}
+
+window.addEventListener("online", updateNetworkStatus);
+window.addEventListener("offline", updateNetworkStatus);
+
+// ==========================
+// CURRENT YEAR
+// ==========================
+
+const footer = document.querySelector("footer");
+
+if (footer) {
+    footer.innerHTML =
+        "© " + new Date().getFullYear() + " Adarsh Raj Shayar";
+}
+
+// ==========================
+// SMOOTH ANIMATION
+// ==========================
+
+const cards = document.querySelectorAll(".card");
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0px)";
+
+        }
+
+    });
+
+});
+
+cards.forEach(card => {
+
+    card.style.opacity = "0";
+    card.style.transform = "translateY(30px)";
+    card.style.transition = "0.6s";
+
+    observer.observe(card);
+
+});
+
+// ==========================================
+// END PART 4
+// ==========================================
+// ==========================================
+// Part 5 (FINAL)
+// Performance + Future Ready
+// ==========================================
+
+// ==========================
+// VISITOR COUNTER (LOCAL)
+// ==========================
+
+let visitors = Number(localStorage.getItem("ars_visitors") || 0);
+
+if (!sessionStorage.getItem("visited")) {
+    visitors++;
+    localStorage.setItem("ars_visitors", visitors);
+    sessionStorage.setItem("visited", "yes");
+}
+
+const visitorBox = document.getElementById("visitorCount");
+
+if (visitorBox) {
+    visitorBox.innerHTML = "👥 Visitors : " + visitors;
+}
+
+// ==========================
+// RANDOM SHAYARI BUTTON
+// ==========================
+
+const randomBtn = document.getElementById("randomShayari");
+
+if (randomBtn) {
+
+    randomBtn.addEventListener("click", function () {
+
+        const cards = document.querySelectorAll(".card");
+
+        const onlyShayari = Array.from(cards).filter(card =>
+            card.querySelector(".copyBtn")
+        );
+
+        if (onlyShayari.length === 0) return;
+
+        const random =
+            onlyShayari[Math.floor(Math.random() * onlyShayari.length)];
+
+        random.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        random.style.boxShadow = "0 0 25px gold";
+
+        setTimeout(() => {
+            random.style.boxShadow = "";
+        }, 2000);
+
+    });
+
+}
+
+// ==========================
+// LAZY IMAGE LOADING
+// ==========================
+
+document.querySelectorAll("img").forEach(img => {
+    img.loading = "lazy";
+});
+
+// ==========================
+// KEYBOARD SHORTCUT
+// Ctrl + K = Search
+// ==========================
+
+document.addEventListener("keydown", function (e) {
+
+    if (e.ctrlKey && e.key.toLowerCase() === "k") {
+
+        e.preventDefault();
+
+        const search = document.getElementById("search");
+
+        if (search) {
+            search.focus();
+        }
+
+    }
+
+});
+
+// ==========================
+// CONSOLE MESSAGE
+// ==========================
+
+console.log(
+"%c🌹 Adarsh Raj Shayar",
+"color:gold;font-size:20px;font-weight:bold;"
+);
+
+console.log("Website Loaded Successfully.");
+
+// ==========================================
+// END OF SCRIPT.JS
+// ==========================================
