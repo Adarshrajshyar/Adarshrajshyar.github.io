@@ -1,567 +1,300 @@
-// ==========================================
-// Adarsh Raj Shayar
-// script.js Part 1
-// ==========================================
+/* ==========================================
+   Adarsh Raj Shayar
+   Main JavaScript
+========================================== */
 
-"use strict";
+document.addEventListener("DOMContentLoaded", () => {
 
-// ==========================
-// SEARCH
-// ==========================
+    /* -------------------------------
+       Welcome Popup
+    -------------------------------- */
 
-const search = document.getElementById("search");
+    const popup = document.getElementById("welcomePopup");
+    const enterBtn = document.getElementById("enterBtn");
 
-if (search) {
-  search.addEventListener("keyup", function () {
-
-    const filter = this.value.toLowerCase();
-
-    document.querySelectorAll(".card").forEach(function (card) {
-
-      if (card.innerText.toLowerCase().includes(filter)) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
-      }
-
-    });
-
-  });
-}
-
-// ==========================
-// DARK MODE
-// ==========================
-
-const darkBtn = document.getElementById("darkModeBtn");
-
-if (localStorage.getItem("darkMode") === "on") {
-
-  document.body.classList.add("dark-mode");
-
-  if (darkBtn) {
-    darkBtn.innerHTML = "☀️ Light Mode";
-  }
-
-}
-
-if (darkBtn) {
-
-  darkBtn.addEventListener("click", function () {
-
-    document.body.classList.toggle("dark-mode");
-
-    if (document.body.classList.contains("dark-mode")) {
-
-      localStorage.setItem("darkMode", "on");
-      darkBtn.innerHTML = "☀️ Light Mode";
-
-    } else {
-
-      localStorage.setItem("darkMode", "off");
-      darkBtn.innerHTML = "🌙 Dark Mode";
-
+    if (popup && enterBtn) {
+        enterBtn.onclick = () => {
+            popup.style.display = "none";
+        };
     }
 
-  });
+    /* -------------------------------
+       Dark Mode
+    -------------------------------- */
 
-}
+    const darkBtn = document.getElementById("darkModeBtn");
 
-// ==========================
-// BACK TO TOP BUTTON
-// ==========================
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", function () {
-
-  if (!topBtn) return;
-
-  if (window.scrollY > 250) {
-
-    topBtn.style.display = "block";
-
-  } else {
-
-    topBtn.style.display = "none";
-
-  }
-
-});
-
-if (topBtn) {
-
-  topBtn.addEventListener("click", function () {
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  });
-
-}
-
-// ==========================
-// COPY BUTTON
-// ==========================
-
-document.querySelectorAll(".copyBtn").forEach(function (btn) {
-
-  btn.addEventListener("click", function () {
-
-    const card = this.closest(".card");
-
-    if (!card) return;
-
-    const text = card.querySelector("p").innerText;
-
-    navigator.clipboard.writeText(text);
-
-    const oldText = this.innerHTML;
-
-    this.innerHTML = "✅ Copied";
-
-    setTimeout(() => {
-
-      this.innerHTML = oldText;
-
-    }, 1500);
-
-  });
-
-});
-
-// ==========================
-// SHARE BUTTON
-// ==========================
-
-document.querySelectorAll(".shareBtn").forEach(function (btn) {
-
-  btn.addEventListener("click", async function () {
-
-    const card = this.closest(".card");
-
-    if (!card) return;
-
-    const text = card.querySelector("p").innerText;
-
-    if (navigator.share) {
-
-      await navigator.share({
-
-        title: "Adarsh Raj Shayar",
-
-        text: text,
-
-        url: location.href
-
-      });
-
-    } else {
-
-      navigator.clipboard.writeText(text);
-
-      alert("Sharing supported नहीं है। Shayari Copy हो गई है।");
-
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
     }
 
-  });
+    if (darkBtn) {
+        darkBtn.onclick = () => {
+
+            document.body.classList.toggle("dark");
+
+            if (document.body.classList.contains("dark")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+
+        };
+    }
+
+    /* -------------------------------
+       Back To Top
+    -------------------------------- */
+
+    const topBtn = document.getElementById("topBtn");
+
+    window.onscroll = () => {
+
+        if (window.scrollY > 300) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
+
+    };
+
+    topBtn.onclick = () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    };
 
 });
+/* ==========================================
+   Shayari Data
+========================================== */
 
-// ==========================================
-// End of Part 1
-// ==========================================
-// ==========================================
-// Part 2
-// Like + Favorite System
-// ==========================================
+const loveShayari = [
 
-// ==========================
-// LIKE SYSTEM
-// ==========================
+{
+author:"Adarsh Raj",
+text:`तेरी मुस्कान मेरी पहचान है,
+तू ही मेरी सबसे बड़ी जान है।`
+},
 
-document.querySelectorAll(".likeBtn").forEach(function(btn,index){
+{
+author:"Adarsh Raj",
+text:`तेरे बिना हर खुशी अधूरी लगती है,
+तेरी याद हर पल ज़रूरी लगती है।`
+},
 
-const counter=btn.parentElement.querySelector(".likeCount");
+{
+author:"Adarsh Raj",
+text:`दिल ने सिर्फ तुझे चुना है,
+ये फैसला हमेशा के लिए सुना है।`
+},
 
-let likes=Number(localStorage.getItem("likes_"+index)||0);
+{
+author:"Adarsh Raj",
+text:`मोहब्बत की हर राह तुझ तक जाती है,
+मेरी हर दुआ तेरा नाम गाती है।`
+},
 
-counter.innerHTML="❤️ Likes: "+likes;
-
-if(localStorage.getItem("liked_"+index)=="yes"){
-
-btn.innerHTML="❤️ Liked";
-
+{
+author:"Adarsh Raj",
+text:`तू साथ रहे तो हर दिन त्योहार है,
+तेरे बिना सब कुछ बेकार है।`
 }
 
-btn.addEventListener("click",function(){
+];
 
-let liked=localStorage.getItem("liked_"+index);
+const sadShayari = [
 
-let count=Number(localStorage.getItem("likes_"+index)||0);
+{
+author:"Adarsh Raj",
+text:`जो अपने थे वही बदल गए,
+हम देखते रहे और लोग निकल गए।`
+},
 
-if(liked=="yes"){
+{
+author:"Adarsh Raj",
+text:`आँसू छुपाकर मुस्कुराना सीख लिया,
+दर्द को दिल में बसाना सीख लिया।`
+},
 
-count--;
+{
+author:"Adarsh Raj",
+text:`कुछ रिश्ते अधूरे ही अच्छे लगते हैं,
+पूरे होकर अक्सर बदल जाते हैं।`
+},
 
-if(count<0) count=0;
+{
+author:"Adarsh Raj",
+text:`दिल टूटने की आवाज़ नहीं होती,
+लेकिन दर्द उम्र भर साथ रहता है।`
+},
 
-localStorage.setItem("liked_"+index,"no");
-
-btn.innerHTML="🤍 Like";
-
-}else{
-
-count++;
-
-localStorage.setItem("liked_"+index,"yes");
-
-btn.innerHTML="❤️ Liked";
-
+{
+author:"Adarsh Raj",
+text:`वक्त ने सब कुछ सिखा दिया,
+अपनों ने अकेला रहना सिखा दिया।`
 }
 
-localStorage.setItem("likes_"+index,count);
+];
 
-counter.innerHTML="❤️ Likes: "+count;
+const attitudeShayari = [
 
-});
+{
+author:"Adarsh Raj",
+text:`हमारी पहचान हमारे काम से होती है।`
+},
 
-});
+{
+author:"Adarsh Raj",
+text:`जो हमें समझ नहीं पाए,
+उन्हें समझाना छोड़ दिया।`
+},
 
-// ==========================
-// FAVORITE SYSTEM
-// ==========================
+{
+author:"Adarsh Raj",
+text:`हम अपनी दुनिया के बादशाह हैं।`
+},
 
-const favoriteList=document.getElementById("favoriteList");
+{
+author:"Adarsh Raj",
+text:`सिर्फ नाम ही काफी है,
+बाकी पहचान वक्त बताएगा।`
+},
 
-function loadFavorites(){
+{
+author:"Adarsh Raj",
+text:`हम वहाँ खड़े होते हैं,
+जहाँ Matter बड़े होते हैं।`
+}
 
-if(!favoriteList) return;
+];
 
-favoriteList.innerHTML="";
+const friendshipShayari = [
 
-document.querySelectorAll(".favBtn").forEach(function(btn,index){
+{
+author:"Adarsh Raj",
+text:`दोस्ती हर रिश्ते से खूबसूरत होती है।`
+},
 
-const card=btn.closest(".card");
+{
+author:"Adarsh Raj",
+text:`सच्चा दोस्त मुश्किल समय में साथ रहता है।`
+},
 
-const title=card.querySelector("h2").innerHTML;
+{
+author:"Adarsh Raj",
+text:`दोस्ती दिल से होती है,
+किस्मत से नहीं।`
+},
 
-const text=card.querySelector("p").innerHTML;
+{
+author:"Adarsh Raj",
+text:`दोस्त वही जो हर खुशी में साथ हो।`
+},
 
-if(localStorage.getItem("fav_"+index)=="yes"){
+{
+author:"Adarsh Raj",
+text:`हज़ार रिश्तों से बढ़कर दोस्ती होती है।`
+}
 
-btn.innerHTML="⭐ Saved";
+];
 
-favoriteList.innerHTML+=`
+const motivationShayari = [
+
+{
+author:"Adarsh Raj",
+text:`मेहनत इतनी करो कि किस्मत भी झुक जाए।`
+},
+
+{
+author:"Adarsh Raj",
+text:`हार मानना कभी विकल्प नहीं होता।`
+},
+
+{
+author:"Adarsh Raj",
+text:`सपने वही पूरे होते हैं,
+जो नींद उड़ाकर देखे जाते हैं।`
+},
+
+{
+author:"Adarsh Raj",
+text:`जो संघर्ष करता है,
+वही इतिहास लिखता है।`
+},
+
+{
+  /* ==========================================
+   Render Shayari Cards
+========================================== */
+
+function createCard(item) {
+
+return `
 
 <div class="card">
 
-<h3>${title}</h3>
+<p class="shayariText">
 
-<p>${text}</p>
+${item.text.replace(/\n/g,"<br>")}
+
+</p>
+
+<p style="text-align:right;font-weight:bold;color:#ff9800;">
+
+✍️ ${item.author}
+
+</p>
+
+<div style="text-align:center;">
+
+<button class="copyBtn">📋 Copy</button>
+
+<button class="shareBtn">📤 Share</button>
+
+<button class="likeBtn">🤍 Like</button>
+
+<button class="favBtn">⭐ Favorite</button>
+
+</div>
+
+<p class="likeCount">❤️ Likes: 0</p>
 
 </div>
 
 `;
 
-}else{
+}
 
-btn.innerHTML="⭐ Favorite";
+function loadSection(id,data){
+
+const box=document.getElementById(id);
+
+if(!box) return;
+
+box.innerHTML=data.map(createCard).join("");
 
 }
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+loadSection("loveContainer",loveShayari);
+
+loadSection("sadContainer",sadShayari);
+
+loadSection("attitudeContainer",attitudeShayari);
+
+loadSection("friendshipContainer",friendshipShayari);
+
+loadSection("motivationContainer",motivationShayari);
 
 });
-
+author:"Adarsh Raj",
+text:`आज की मेहनत,
+कल की सफलता है।`
 }
 
-loadFavorites();
-
-// ==========================
-// FAVORITE BUTTON
-// ==========================
-
-document.querySelectorAll(".favBtn").forEach(function(btn,index){
-
-btn.addEventListener("click",function(){
-
-if(localStorage.getItem("fav_"+index)=="yes"){
-
-localStorage.removeItem("fav_"+index);
-
-}else{
-
-localStorage.setItem("fav_"+index,"yes");
-
-}
-
-loadFavorites();
-
-});
-
-});
-
-// ==========================================
-// END PART 2
-// ==========================================
-// ==========================================
-// Part 3
-// Welcome Popup + EmailJS
-// ==========================================
-
-// ==========================
-// WELCOME POPUP
-// ==========================
-
-const welcomePopup = document.getElementById("welcomePopup");
-
-function closePopup() {
-
-    if (welcomePopup) {
-        welcomePopup.style.display = "none";
-    }
-
-}
-
-// ==========================
-// EMAILJS CONTACT FORM
-// ==========================
-
-const contactForm = document.getElementById("contact-form");
-
-if (contactForm) {
-
-    contactForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const submitBtn = this.querySelector("button");
-
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = "⏳ Sending...";
-
-        emailjs.sendForm(
-
-            SERVICE_ID,
-            TEMPLATE_ID,
-            this
-
-        ).then(function () {
-
-            alert("✅ Message Sent Successfully!");
-
-            contactForm.reset();
-
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = "📩 Send Message";
-
-        }).catch(function (error) {
-
-            console.log(error);
-
-            alert("❌ Message Send Failed!");
-
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = "📩 Send Message";
-
-        });
-
-    });
-
-}
-
-// ==========================================
-// IMAGE AUTO FALLBACK
-// ==========================================
-
-document.querySelectorAll("img").forEach(function(img){
-
-    img.onerror = function(){
-
-        this.src = "https://placehold.co/400x300?text=Image";
-
-    };
-
-});
-
-// ==========================================
-// END PART 3
-// ==========================================
-// ==========================================
-// Part 4
-// Extra Features
-// ==========================================
-
-// ==========================
-// LOADING ANIMATION
-// ==========================
-
-window.addEventListener("load", () => {
-    document.body.classList.add("loaded");
-});
-
-// ==========================
-// ONLINE / OFFLINE STATUS
-// ==========================
-
-function updateNetworkStatus() {
-
-    if (navigator.onLine) {
-        console.log("✅ Online");
-    } else {
-        alert("📡 इंटरनेट कनेक्शन उपलब्ध नहीं है।");
-    }
-
-}
-
-window.addEventListener("online", updateNetworkStatus);
-window.addEventListener("offline", updateNetworkStatus);
-
-// ==========================
-// CURRENT YEAR
-// ==========================
-
-const footer = document.querySelector("footer");
-
-if (footer) {
-    footer.innerHTML =
-        "© " + new Date().getFullYear() + " Adarsh Raj Shayar";
-}
-
-// ==========================
-// SMOOTH ANIMATION
-// ==========================
-
-const cards = document.querySelectorAll(".card");
-
-const observer = new IntersectionObserver((entries) => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0px)";
-
-        }
-
-    });
-
-});
-
-cards.forEach(card => {
-
-    card.style.opacity = "0";
-    card.style.transform = "translateY(30px)";
-    card.style.transition = "0.6s";
-
-    observer.observe(card);
-
-});
-
-// ==========================================
-// END PART 4
-// ==========================================
-// ==========================================
-// Part 5 (FINAL)
-// Performance + Future Ready
-// ==========================================
-
-// ==========================
-// VISITOR COUNTER (LOCAL)
-// ==========================
-
-let visitors = Number(localStorage.getItem("ars_visitors") || 0);
-
-if (!sessionStorage.getItem("visited")) {
-    visitors++;
-    localStorage.setItem("ars_visitors", visitors);
-    sessionStorage.setItem("visited", "yes");
-}
-
-const visitorBox = document.getElementById("visitorCount");
-
-if (visitorBox) {
-    visitorBox.innerHTML = "👥 Visitors : " + visitors;
-}
-
-// ==========================
-// RANDOM SHAYARI BUTTON
-// ==========================
-
-const randomBtn = document.getElementById("randomShayari");
-
-if (randomBtn) {
-
-    randomBtn.addEventListener("click", function () {
-
-        const cards = document.querySelectorAll(".card");
-
-        const onlyShayari = Array.from(cards).filter(card =>
-            card.querySelector(".copyBtn")
-        );
-
-        if (onlyShayari.length === 0) return;
-
-        const random =
-            onlyShayari[Math.floor(Math.random() * onlyShayari.length)];
-
-        random.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-        random.style.boxShadow = "0 0 25px gold";
-
-        setTimeout(() => {
-            random.style.boxShadow = "";
-        }, 2000);
-
-    });
-
-}
-
-// ==========================
-// LAZY IMAGE LOADING
-// ==========================
-
-document.querySelectorAll("img").forEach(img => {
-    img.loading = "lazy";
-});
-
-// ==========================
-// KEYBOARD SHORTCUT
-// Ctrl + K = Search
-// ==========================
-
-document.addEventListener("keydown", function (e) {
-
-    if (e.ctrlKey && e.key.toLowerCase() === "k") {
-
-        e.preventDefault();
-
-        const search = document.getElementById("search");
-
-        if (search) {
-            search.focus();
-        }
-
-    }
-
-});
-
-// ==========================
-// CONSOLE MESSAGE
-// ==========================
-
-console.log(
-"%c🌹 Adarsh Raj Shayar",
-"color:gold;font-size:20px;font-weight:bold;"
-);
-
-console.log("Website Loaded Successfully.");
-
-// ==========================================
-// END OF SCRIPT.JS
-// ==========================================
+];
