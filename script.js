@@ -298,3 +298,308 @@ text:`आज की मेहनत,
 }
 
 ];
+/* ==========================================
+   Copy • Share • Like • Favorite
+========================================== */
+
+let favoriteShayari = JSON.parse(localStorage.getItem("favoriteShayari")) || [];
+
+function updateFavoriteSection() {
+
+    const list = document.getElementById("favoriteList");
+
+    if (!list) return;
+
+    if (favoriteShayari.length === 0) {
+        list.innerHTML = "<p>अभी तक कोई Favorite Shayari नहीं है।</p>";
+        return;
+    }
+
+    list.innerHTML = favoriteShayari.map(item => `
+        <div class="card">
+            <p>${item.replace(/\n/g,"<br>")}</p>
+        </div>
+    `).join("");
+
+    localStorage.setItem("favoriteShayari", JSON.stringify(favoriteShayari));
+}
+
+document.addEventListener("click", function(e){
+
+    /* Copy */
+
+    if(e.target.classList.contains("copyBtn")){
+
+        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+
+        navigator.clipboard.writeText(text);
+
+        alert("✅ Shayari Copied");
+
+    }
+
+    /* Share */
+
+    if(e.target.classList.contains("shareBtn")){
+
+        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+
+        if(navigator.share){
+
+            navigator.share({
+
+                title:"Adarsh Raj Shayar",
+
+                text:text
+
+            });
+
+        }else{
+
+            navigator.clipboard.writeText(text);
+
+            alert("Share supported नहीं है, Shayari Copy कर दी गई है।");
+
+        }
+
+    }
+
+    /* Like */
+
+    if(e.target.classList.contains("likeBtn")){
+
+        let countBox = e.target.closest(".card").querySelector(".likeCount");
+
+        let count = parseInt(countBox.innerText.replace(/\D/g,""));
+
+        count++;
+
+        countBox.innerHTML = "❤️ Likes: " + count;
+
+        e.target.innerHTML = "❤️ Liked";
+
+    }
+
+    /* Favorite */
+
+    if(e.target.classList.contains("favBtn")){
+
+        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+
+        if(!favoriteShayari.includes(text)){
+
+            favoriteShayari.push(text);
+
+            updateFavoriteSection();
+
+            alert("⭐ Favorite में जोड़ दिया गया।");
+
+        }
+
+    }
+
+});
+
+document.addEventListener("DOMContentLoaded", updateFavoriteSection);
+/* ==========================================
+   Live Search
+========================================== */
+
+const searchBox = document.getElementById("search");
+
+if (searchBox) {
+
+    searchBox.addEventListener("keyup", function () {
+
+        const value = this.value.toLowerCase();
+
+        document.querySelectorAll(".card").forEach(card => {
+
+            const text = card.innerText.toLowerCase();
+
+            if (text.includes(value)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+
+        });
+
+    });
+
+}
+
+
+/* ==========================================
+   EmailJS Contact Form
+========================================== */
+
+const contactForm = document.getElementById("contact-form");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        emailjs.sendForm(
+
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            this
+
+        ).then(() => {
+
+            alert("✅ आपका संदेश सफलतापूर्वक भेज दिया गया।");
+
+            contactForm.reset();
+
+        }).catch((err) => {
+
+            console.error(err);
+
+            alert("❌ Message भेजने में समस्या हुई।");
+
+        });
+
+    });
+
+}
+
+
+/* ==========================================
+   Fade Animation
+========================================== */
+
+const observer = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+});
+
+document.querySelectorAll(".card").forEach(card => {
+
+    observer.observe(card);
+
+});
+/* ==========================================
+   Utility Functions
+========================================== */
+
+function showToast(message){
+
+const toast=document.createElement("div");
+
+toast.innerHTML=message;
+
+toast.style.position="fixed";
+toast.style.bottom="25px";
+toast.style.left="50%";
+toast.style.transform="translateX(-50%)";
+toast.style.background="#222";
+toast.style.color="#fff";
+toast.style.padding="12px 20px";
+toast.style.borderRadius="30px";
+toast.style.zIndex="99999";
+toast.style.boxShadow="0 0 15px gold";
+
+document.body.appendChild(toast);
+
+setTimeout(()=>{
+
+toast.remove();
+
+},2500);
+
+}
+
+/* Replace Alert */
+
+window.alert=showToast;
+
+
+/* ==========================================
+   Current Year
+========================================== */
+
+const year=document.getElementById("currentYear");
+
+if(year){
+
+year.innerHTML=new Date().getFullYear();
+
+}
+
+
+/* ==========================================
+   Page Loading
+========================================== */
+
+window.addEventListener("load",()=>{
+
+document.body.classList.add("loaded");
+
+});
+
+
+/* ==========================================
+   Console Welcome
+========================================== */
+
+console.log("================================");
+
+console.log("Adarsh Raj Shayar");
+
+console.log("Developer : Adarsh Raj");
+
+console.log("All Rights Reserved");
+
+console.log("================================");
+/* ==========================================
+   Future Ready Functions
+========================================== */
+
+/*
+
+Future Features
+
+✔ Admin Panel
+
+✔ Certificate Generator
+
+✔ QR Verification
+
+✔ Original Shayari Upload
+
+✔ Author Dashboard
+
+✔ Visitor Counter
+
+✔ Premium Shayari
+
+✔ Categories
+
+✔ Story Section
+
+✔ Poetry Section
+
+✔ Notification System
+
+✔ Online Database
+
+✔ Search Optimization
+
+✔ SEO Improvement
+
+*/
+
+
+console.log("Website Ready ✔");
