@@ -207,27 +207,7 @@ const motivationShayari = [
 {
 author:"Adarsh Raj",
 text:`मेहनत इतनी करो कि किस्मत भी झुक जाए।`
-},
-
-{
-author:"Adarsh Raj",
-text:`हार मानना कभी विकल्प नहीं होता।`
-},
-
-{
-author:"Adarsh Raj",
-text:`सपने वही पूरे होते हैं,
-जो नींद उड़ाकर देखे जाते हैं।`
-},
-
-{
-author:"Adarsh Raj",
-text:`जो संघर्ष करता है,
-वही इतिहास लिखता है।`
-},
-
-{
-  /* ==========================================
+/* ==========================================
    Render Shayari Cards
 ========================================== */
 
@@ -238,18 +218,14 @@ return `
 <div class="card">
 
 <p class="shayariText">
-
 ${item.text.replace(/\n/g,"<br>")}
-
 </p>
 
-<p style="text-align:right;font-weight:bold;color:#ff9800;">
-
+<p style="text-align:right;font-weight:bold;color:#FFD700;">
 ✍️ ${item.author}
-
 </p>
 
-<div style="text-align:center;">
+<div class="btn-group">
 
 <button class="copyBtn">📋 Copy</button>
 
@@ -292,242 +268,306 @@ loadSection("friendshipContainer",friendshipShayari);
 loadSection("motivationContainer",motivationShayari);
 
 });
-author:"Adarsh Raj",
-text:`आज की मेहनत,
-कल की सफलता है।`
-}
-
-];
 /* ==========================================
    Copy • Share • Like • Favorite
 ========================================== */
 
-let favoriteShayari = JSON.parse(localStorage.getItem("favoriteShayari")) || [];
+let favoriteShayari =
+JSON.parse(localStorage.getItem("favoriteShayari")) || [];
 
-function updateFavoriteSection() {
+function updateFavoriteSection(){
 
-    const list = document.getElementById("favoriteList");
+const list=document.getElementById("favoriteList");
 
-    if (!list) return;
+if(!list) return;
 
-    if (favoriteShayari.length === 0) {
-        list.innerHTML = "<p>अभी तक कोई Favorite Shayari नहीं है।</p>";
-        return;
-    }
+if(favoriteShayari.length===0){
 
-    list.innerHTML = favoriteShayari.map(item => `
-        <div class="card">
-            <p>${item.replace(/\n/g,"<br>")}</p>
-        </div>
-    `).join("");
+list.innerHTML="<p>⭐ अभी तक कोई Favorite Shayari नहीं है।</p>";
 
-    localStorage.setItem("favoriteShayari", JSON.stringify(favoriteShayari));
+return;
+
 }
 
-document.addEventListener("click", function(e){
+list.innerHTML=favoriteShayari.map(item=>`
 
-    /* Copy */
+<div class="card">
 
-    if(e.target.classList.contains("copyBtn")){
+<p class="shayariText">
 
-        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+${item.replace(/\n/g,"<br>")}
 
-        navigator.clipboard.writeText(text);
+</p>
 
-        alert("✅ Shayari Copied");
+</div>
 
-    }
+`).join("");
 
-    /* Share */
+localStorage.setItem(
 
-    if(e.target.classList.contains("shareBtn")){
+"favoriteShayari",
 
-        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+JSON.stringify(favoriteShayari)
 
-        if(navigator.share){
+);
 
-            navigator.share({
+}
 
-                title:"Adarsh Raj Shayar",
+document.addEventListener("click",function(e){
 
-                text:text
+/* Copy */
 
-            });
+if(e.target.classList.contains("copyBtn")){
 
-        }else{
+const text=e.target.closest(".card").querySelector(".shayariText").innerText;
 
-            navigator.clipboard.writeText(text);
+navigator.clipboard.writeText(text);
 
-            alert("Share supported नहीं है, Shayari Copy कर दी गई है।");
+showToast("✅ Shayari Copied");
 
-        }
+}
 
-    }
+/* Share */
 
-    /* Like */
+if(e.target.classList.contains("shareBtn")){
 
-    if(e.target.classList.contains("likeBtn")){
+const text=e.target.closest(".card").querySelector(".shayariText").innerText;
 
-        let countBox = e.target.closest(".card").querySelector(".likeCount");
+if(navigator.share){
 
-        let count = parseInt(countBox.innerText.replace(/\D/g,""));
+navigator.share({
 
-        count++;
+title:"Adarsh Raj Shayar",
 
-        countBox.innerHTML = "❤️ Likes: " + count;
-
-        e.target.innerHTML = "❤️ Liked";
-
-    }
-
-    /* Favorite */
-
-    if(e.target.classList.contains("favBtn")){
-
-        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
-
-        if(!favoriteShayari.includes(text)){
-
-            favoriteShayari.push(text);
-
-            updateFavoriteSection();
-
-            alert("⭐ Favorite में जोड़ दिया गया।");
-
-        }
-
-    }
+text:text
 
 });
 
-document.addEventListener("DOMContentLoaded", updateFavoriteSection);
+}else{
+
+navigator.clipboard.writeText(text);
+
+showToast("📋 Shayari Copied");
+
+}
+
+}
+
+/* Like */
+
+if(e.target.classList.contains("likeBtn")){
+
+let countBox=e.target.closest(".card").querySelector(".likeCount");
+
+let count=parseInt(countBox.innerText.replace(/\D/g,""))||0;
+
+count++;
+
+countBox.innerHTML="❤️ Likes: "+count;
+
+e.target.innerHTML="❤️ Liked";
+
+}
+
+/* Favorite */
+
+if(e.target.classList.contains("favBtn")){
+
+const text=e.target.closest(".card").querySelector(".shayariText").innerText;
+
+if(!favoriteShayari.includes(text)){
+
+favoriteShayari.push(text);
+
+updateFavoriteSection();
+
+showToast("⭐ Favorite Added");
+
+}
+
+}
+
+});
+
+document.addEventListener("DOMContentLoaded",updateFavoriteSection);
 /* ==========================================
    Live Search
 ========================================== */
 
-const searchBox = document.getElementById("search");
+document.addEventListener("DOMContentLoaded",()=>{
 
-if (searchBox) {
+const search=document.getElementById("search");
 
-    searchBox.addEventListener("keyup", function () {
+if(search){
 
-        const value = this.value.toLowerCase();
+search.addEventListener("input",function(){
 
-        document.querySelectorAll(".card").forEach(card => {
+const value=this.value.toLowerCase();
 
-            const text = card.innerText.toLowerCase();
+document.querySelectorAll(".card").forEach(card=>{
 
-            if (text.includes(value)) {
-                card.style.display = "";
-            } else {
-                card.style.display = "none";
-            }
+const text=card.innerText.toLowerCase();
 
-        });
+card.style.display=text.includes(value)?"block":"none";
 
-    });
+});
+
+});
+
+}
+
+});
+
+
+/* ==========================================
+   Back To Top
+========================================== */
+
+const topBtn=document.getElementById("topBtn");
+
+window.addEventListener("scroll",()=>{
+
+if(!topBtn) return;
+
+topBtn.style.display=window.scrollY>300?"block":"none";
+
+});
+
+if(topBtn){
+
+topBtn.onclick=()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+};
 
 }
 
 
+/* ==========================================
+   Dark Mode
+========================================== */
+
+const darkBtn=document.getElementById("darkModeBtn");
+
+if(localStorage.getItem("theme")==="dark"){
+
+document.body.classList.add("dark");
+
+}
+
+if(darkBtn){
+
+darkBtn.onclick=()=>{
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+
+"theme",
+
+document.body.classList.contains("dark")
+
+?"dark"
+
+:"light"
+
+);
+
+};
+
+}
 /* ==========================================
    EmailJS Contact Form
 ========================================== */
 
-const contactForm = document.getElementById("contact-form");
+const contactForm=document.getElementById("contact-form");
 
-if (contactForm) {
+if(contactForm){
 
-    contactForm.addEventListener("submit", function (e) {
+contactForm.addEventListener("submit",function(e){
 
-        e.preventDefault();
+e.preventDefault();
 
-        emailjs.sendForm(
+emailjs.sendForm(
 
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            this
+EMAILJS_SERVICE_ID,
 
-        ).then(() => {
+EMAILJS_TEMPLATE_ID,
 
-            alert("✅ आपका संदेश सफलतापूर्वक भेज दिया गया।");
+this
 
-            contactForm.reset();
+).then(()=>{
 
-        }).catch((err) => {
+showToast("✅ Message Sent Successfully");
 
-            console.error(err);
+contactForm.reset();
 
-            alert("❌ Message भेजने में समस्या हुई।");
+}).catch(()=>{
 
-        });
+showToast("❌ Message Sending Failed");
 
-    });
+});
+
+});
 
 }
 
 
 /* ==========================================
-   Fade Animation
-========================================== */
-
-const observer = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("show");
-
-        }
-
-    });
-
-});
-
-document.querySelectorAll(".card").forEach(card => {
-
-    observer.observe(card);
-
-});
-/* ==========================================
-   Utility Functions
+   Toast Message
 ========================================== */
 
 function showToast(message){
 
 const toast=document.createElement("div");
 
-toast.innerHTML=message;
+toast.className="toast";
 
-toast.style.position="fixed";
-toast.style.bottom="25px";
-toast.style.left="50%";
-toast.style.transform="translateX(-50%)";
-toast.style.background="#222";
-toast.style.color="#fff";
-toast.style.padding="12px 20px";
-toast.style.borderRadius="30px";
-toast.style.zIndex="99999";
-toast.style.boxShadow="0 0 15px gold";
+toast.innerHTML=message;
 
 document.body.appendChild(toast);
 
 setTimeout(()=>{
 
+toast.classList.add("show");
+
+},100);
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+setTimeout(()=>{
+
 toast.remove();
+
+},300);
 
 },2500);
 
 }
+/* ==========================================
+   Startup
+========================================== */
 
-/* Replace Alert */
+document.addEventListener("DOMContentLoaded",()=>{
 
-window.alert=showToast;
+console.log("✅ Adarsh Raj Shayar Loaded");
+
+updateFavoriteSection();
+
+});
 
 
 /* ==========================================
-   Current Year
+   Footer Year
 ========================================== */
 
 const year=document.getElementById("currentYear");
@@ -540,66 +580,26 @@ year.innerHTML=new Date().getFullYear();
 
 
 /* ==========================================
-   Page Loading
+   Welcome Popup
 ========================================== */
 
-window.addEventListener("load",()=>{
+const popup=document.getElementById("welcomePopup");
 
-document.body.classList.add("loaded");
+const enterBtn=document.getElementById("enterBtn");
 
-});
+if(enterBtn){
+
+enterBtn.onclick=()=>{
+
+popup.style.display="none";
+
+};
+
+}
 
 
 /* ==========================================
-   Console Welcome
+   Finished
 ========================================== */
 
-console.log("================================");
-
-console.log("Adarsh Raj Shayar");
-
-console.log("Developer : Adarsh Raj");
-
-console.log("All Rights Reserved");
-
-console.log("================================");
-/* ==========================================
-   Future Ready Functions
-========================================== */
-
-/*
-
-Future Features
-
-✔ Admin Panel
-
-✔ Certificate Generator
-
-✔ QR Verification
-
-✔ Original Shayari Upload
-
-✔ Author Dashboard
-
-✔ Visitor Counter
-
-✔ Premium Shayari
-
-✔ Categories
-
-✔ Story Section
-
-✔ Poetry Section
-
-✔ Notification System
-
-✔ Online Database
-
-✔ Search Optimization
-
-✔ SEO Improvement
-
-*/
-
-
-console.log("Website Ready ✔");
+console.log("🚀 Website Ready");
