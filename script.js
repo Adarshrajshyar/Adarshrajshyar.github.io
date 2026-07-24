@@ -1,148 +1,82 @@
 /* ==========================================
    Adarsh Raj Shayar
-   Script Version 2.0
+   Script Version 3.0
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* ==========================
-       Welcome Popup
-    ========================== */
-
+    // Welcome Popup
     const popup = document.getElementById("welcomePopup");
     const enterBtn = document.getElementById("enterBtn");
 
     if (popup && enterBtn) {
-        enterBtn.addEventListener("click", () => {
-            popup.style.opacity = "0";
-
-            setTimeout(() => {
-                popup.style.display = "none";
-            }, 400);
-        });
-    }
-
-    /* ==========================
-       Dark Mode
-    ========================== */
-
-    const darkBtn = document.getElementById("darkModeBtn");
-
-    if (darkBtn) {
-
-        darkBtn.addEventListener("click", () => {
-
-            document.body.classList.toggle("light-mode");
-
-            localStorage.setItem(
-                "theme",
-                document.body.classList.contains("light-mode")
-                    ? "light"
-                    : "dark"
-            );
-
-        });
-
-    }
-
-    if (localStorage.getItem("theme") === "light") {
-        document.body.classList.add("light-mode");
+        enterBtn.onclick = () => {
+            popup.style.display = "none";
+        };
     }
 
 });
-/* ==========================
-   Live Search
-========================== */
+// ==========================
+// Dark Mode
+// ==========================
 
-const searchBox = document.getElementById("search");
+const darkBtn = document.getElementById("darkModeBtn");
 
-if (searchBox) {
+if (darkBtn) {
 
-    searchBox.addEventListener("keyup", function () {
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
 
-        const value = this.value.toLowerCase();
+    darkBtn.onclick = () => {
+
+        document.body.classList.toggle("dark-mode");
+
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+
+    };
+
+}
+// ==========================
+// Live Search
+// ==========================
+
+const search = document.getElementById("search");
+
+if (search) {
+
+    search.onkeyup = function () {
+
+        let value = this.value.toLowerCase();
 
         document.querySelectorAll(".card").forEach(card => {
 
-            const text = card.innerText.toLowerCase();
-
-            card.style.display = text.includes(value) ? "" : "none";
-
-        });
-
-    });
-
-}
-
-/* ==========================
-   Back To Top
-========================== */
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", () => {
-
-    if (!topBtn) return;
-
-    if (window.scrollY > 300) {
-
-        topBtn.style.display = "block";
-
-    } else {
-
-        topBtn.style.display = "none";
-
-    }
-
-});
-
-if (topBtn) {
-
-    topBtn.addEventListener("click", () => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
+            if (card.innerText.toLowerCase().includes(value)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
 
         });
 
-    });
+    };
 
 }
-/* ==========================
-   Copy • Share • Like • Favorite
-========================== */
-
-let favoriteShayari = JSON.parse(localStorage.getItem("favoriteShayari")) || [];
-
-function updateFavoriteSection() {
-
-    const list = document.getElementById("favoriteList");
-    if (!list) return;
-
-    if (favoriteShayari.length === 0) {
-        list.innerHTML = "<p>अभी तक कोई Favorite Shayari नहीं है।</p>";
-        return;
-    }
-
-    list.innerHTML = favoriteShayari.map(item => `
-        <div class="card">
-            <p>${item.replace(/\n/g,"<br>")}</p>
-        </div>
-    `).join("");
-
-    localStorage.setItem("favoriteShayari", JSON.stringify(favoriteShayari));
-}
+// ==========================
+// Copy & Share
+// ==========================
 
 document.addEventListener("click", function(e){
 
-    /* Copy */
-
+    // Copy
     if(e.target.classList.contains("copyBtn")){
 
-        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+        const text = e.target.closest(".card")
+            .querySelector(".shayariText").innerText;
 
         navigator.clipboard.writeText(text);
 
@@ -150,11 +84,11 @@ document.addEventListener("click", function(e){
 
     }
 
-    /* Share */
-
+    // Share
     if(e.target.classList.contains("shareBtn")){
 
-        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+        const text = e.target.closest(".card")
+            .querySelector(".shayariText").innerText;
 
         if(navigator.share){
 
@@ -167,75 +101,124 @@ document.addEventListener("click", function(e){
 
             navigator.clipboard.writeText(text);
 
-            alert("Share supported नहीं है। Shayari Copy कर दी गई है।");
+            alert("Share Supported नहीं है। Shayari Copy कर दी गई।");
 
         }
 
     }
 
-    /* Like */
+});
+// ==========================
+// Like System
+// ==========================
 
-    if(e.target.classList.contains("likeBtn")){
+let likedShayari =
+JSON.parse(localStorage.getItem("likedShayari")) || [];
 
-       const btn = e.target;
+document.addEventListener("click", function(e){
 
-if(btn.classList.contains("liked")){
+    if(!e.target.classList.contains("likeBtn")) return;
 
-    btn.classList.remove("liked");
-    btn.innerHTML = "❤️ Like";
+    const btn = e.target;
 
-}else{
+    const text = btn.closest(".card")
+        .querySelector(".shayariText").innerText;
 
-    btn.classList.add("liked");
-    btn.innerHTML = "💖 Liked";
+    if(likedShayari.includes(text)){
+
+        likedShayari =
+        likedShayari.filter(item => item !== text);
+
+        btn.innerHTML = "❤️ Like";
+
+    }else{
+
+        likedShayari.push(text);
+
+        btn.innerHTML = "💖 Liked";
 
     }
 
-    /* Favorite */
+    localStorage.setItem(
+        "likedShayari",
+        JSON.stringify(likedShayari)
+    );
 
-    if(e.target.classList.contains("favBtn")){
+});
+// ==========================
+// Favourite System
+// ==========================
 
-        const text = e.target.closest(".card").querySelector(".shayariText").innerText;
+let favoriteShayari =
+JSON.parse(localStorage.getItem("favoriteShayari")) || [];
 
-      if(favoriteShayari.includes(text)){
+function updateFavoriteSection(){
 
-    favoriteShayari = favoriteShayari.filter(item => item !== text);
+    const list = document.getElementById("favoriteList");
 
-    e.target.innerHTML = "⭐ Favorite";
+    if(!list) return;
 
-    alert("❌ Favorite से हटा दिया गया।");
+    if(favoriteShayari.length===0){
 
-}else{
+        list.innerHTML="<p>अभी कोई Favorite Shayari नहीं है।</p>";
 
-    favoriteShayari.push(text);
+        return;
 
-    e.target.innerHTML = "🌟 Saved";
+    }
 
-    alert("✅ Favorite में जोड़ दिया गया।");
+    list.innerHTML=favoriteShayari.map(text=>`
+
+<div class="card">
+<p>${text.replace(/\n/g,"<br>")}</p>
+</div>
+
+`).join("");
 
 }
 
-updateFavoriteSection();
+document.addEventListener("click",function(e){
 
+    if(!e.target.classList.contains("favBtn")) return;
+
+    const btn=e.target;
+
+    const text=btn.closest(".card")
+        .querySelector(".shayariText").innerText;
+
+    if(favoriteShayari.includes(text)){
+
+        favoriteShayari=
+        favoriteShayari.filter(item=>item!==text);
+
+        btn.innerHTML="⭐ Favorite";
+
+    }else{
+
+        favoriteShayari.push(text);
+
+        btn.innerHTML="🌟 Saved";
+
+    }
+
+    localStorage.setItem(
+        "favoriteShayari",
+        JSON.stringify(favoriteShayari)
+    );
+
+    updateFavoriteSection();
 
 });
-
-document.addEventListener("DOMContentLoaded", updateFavoriteSection);
-/* ==========================================
-   EmailJS Initialize
-========================================== */
+// ==========================
+// EmailJS Contact Form
+// ==========================
 
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
-/* ==========================================
-   Contact Form
-========================================== */
-
 const contactForm = document.getElementById("contact-form");
 
-if (contactForm) {
+if(contactForm){
 
-    contactForm.addEventListener("submit", function (e) {
+    contactForm.addEventListener("submit",function(e){
 
         e.preventDefault();
 
@@ -243,36 +226,30 @@ if (contactForm) {
             EMAILJS_SERVICE_ID,
             EMAILJS_TEMPLATE_ID,
             this
-        )
+        ).then(()=>{
 
-        .then(() => {
-
-            alert("✅ आपका संदेश सफलतापूर्वक भेज दिया गया।");
+            alert("✅ Message Successfully Sent");
 
             contactForm.reset();
 
-        })
+        }).catch((err)=>{
 
-        .catch((error) => {
+            console.error(err);
 
-            console.error(error);
-
-            alert("❌ Message भेजने में समस्या हुई।");
+            alert("❌ Message Sending Failed");
 
         });
 
     });
 
 }
-
-/* ==========================================
-   Shayari Loader
-========================================== */
+// ==========================
+// Shayari Loader
+// ==========================
 
 function createCard(item){
 
 return `
-
 <div class="card">
 
 <p class="shayariText">
@@ -283,24 +260,14 @@ ${item.text.replace(/\n/g,"<br>")}
 ✍️ ${item.author}
 </p>
 
-<div style="text-align:center;margin-top:15px;">
-
+<div class="actionButtons">
 <button class="copyBtn">📋 Copy</button>
-
 <button class="shareBtn">📤 Share</button>
-
 <button class="likeBtn">❤️ Like</button>
-
 <button class="favBtn">⭐ Favorite</button>
-
 </div>
 
-<p class="likeCount" data-count="0">
-❤️ Likes: 0
-</p>
-
 </div>
-
 `;
 
 }
@@ -318,13 +285,11 @@ box.innerHTML=data.map(createCard).join("");
 document.addEventListener("DOMContentLoaded",()=>{
 
 loadSection("loveContainer",loveShayari);
-
 loadSection("sadContainer",sadShayari);
-
 loadSection("attitudeContainer",attitudeShayari);
-
 loadSection("friendshipContainer",friendshipShayari);
-
 loadSection("motivationContainer",motivationShayari);
 
-});                          
+updateFavoriteSection();
+
+});
