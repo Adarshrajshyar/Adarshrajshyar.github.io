@@ -28,10 +28,18 @@ if (darkBtn) {
         document.body.classList.add("dark-mode");
     }
 
+   darkBtn.innerHTML =
+document.body.classList.contains("dark-mode")
+? "☀️ Light Mode"
+: "🌙 Dark Mode";
+   
     darkBtn.onclick = () => {
 
         document.body.classList.toggle("dark-mode");
-
+       
+const isDark = document.body.classList.contains("dark-mode");
+darkBtn.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+       
         if (document.body.classList.contains("dark-mode")) {
             localStorage.setItem("theme", "dark");
         } else {
