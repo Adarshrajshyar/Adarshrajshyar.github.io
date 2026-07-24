@@ -177,15 +177,17 @@ document.addEventListener("click", function(e){
 
     if(e.target.classList.contains("likeBtn")){
 
-        const countBox = e.target.closest(".card").querySelector(".likeCount");
+       const btn = e.target;
 
-        let count = Number(countBox.dataset.count || 0);
+if(btn.classList.contains("liked")){
 
-        count++;
+    btn.classList.remove("liked");
+    btn.innerHTML = "❤️ Like";
 
-        countBox.dataset.count = count;
+}else{
 
-        countBox.innerHTML = "❤️ Likes: " + count;
+    btn.classList.add("liked");
+    btn.innerHTML = "💖 Liked";
 
     }
 
@@ -195,17 +197,26 @@ document.addEventListener("click", function(e){
 
         const text = e.target.closest(".card").querySelector(".shayariText").innerText;
 
-        if(!favoriteShayari.includes(text)){
+      if(favoriteShayari.includes(text)){
 
-            favoriteShayari.push(text);
+    favoriteShayari = favoriteShayari.filter(item => item !== text);
 
-            updateFavoriteSection();
+    e.target.innerHTML = "⭐ Favorite";
 
-            alert("⭐ Favorite में जोड़ दिया गया।");
+    alert("❌ Favorite से हटा दिया गया।");
 
-        }
+}else{
 
-    }
+    favoriteShayari.push(text);
+
+    e.target.innerHTML = "🌟 Saved";
+
+    alert("✅ Favorite में जोड़ दिया गया।");
+
+}
+
+updateFavoriteSection();
+
 
 });
 
@@ -316,4 +327,4 @@ loadSection("friendshipContainer",friendshipShayari);
 
 loadSection("motivationContainer",motivationShayari);
 
-});
+});                          
