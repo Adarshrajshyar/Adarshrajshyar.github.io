@@ -41,26 +41,31 @@ document.addEventListener("DOMContentLoaded", () => {
         ? "🌙 Dark Mode"
         : "☀️ Light Mode";
 
-        darkBtn.onclick = () => {
+     if (darkBtn) {
 
-            document.body.classList.toggle("light-mode");
+    darkBtn.innerHTML =
+    document.body.classList.contains("light-mode")
+        ? "🌙 Dark Mode"
+        : "☀️ Light Mode";
 
-          const isLight = document.body.classList.contains("light-mode");
+    darkBtn.onclick = () => {
 
-localStorage.setItem(
-    "theme",
-    isLight ? "light" : "dark"
-);
+        document.body.classList.toggle("light-mode");
 
-darkBtn.innerHTML = isLight
-    ? "🌙 Dark Mode"
-    : "☀️ Light Mode";
-           
-        }
-       
-        };
+        const isLight = document.body.classList.contains("light-mode");
 
-    }
+        localStorage.setItem(
+            "theme",
+            isLight ? "light" : "dark"
+        );
+
+        darkBtn.innerHTML = isLight
+            ? "🌙 Dark Mode"
+            : "☀️ Light Mode";
+
+    };
+
+}
 
 });
 // ==========================
