@@ -45,19 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.body.classList.toggle("light-mode");
 
-            const isLight =
-            document.body.classList.contains("light-mode");
+          const isLight = document.body.classList.contains("light-mode");
 
-            darkBtn.innerHTML =
-            isLight
-            ? "🌙 Dark Mode"
-            : "☀️ Light Mode";
+localStorage.setItem(
+    "theme",
+    isLight ? "light" : "dark"
+);
 
-            localStorage.setItem(
-                "theme",
-                isLight ? "light" : "dark"
-            );
-
+darkBtn.innerHTML = isLight
+    ? "🌙 Dark Mode"
+    : "☀️ Light Mode";
+           
+        }
+       
         };
 
     }
