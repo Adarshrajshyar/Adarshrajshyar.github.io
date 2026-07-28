@@ -877,3 +877,89 @@ body.light-mode footer{
 body.light-mode footer p{
     color:#111;
 }
+
+/* ===========================
+   THEME COLORS
+=========================== */
+
+body {
+    background: #111;
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+body.light-mode {
+    background: #ffffff;
+    color: #111111;
+}
+
+/* Headings */
+
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode h4,
+body.light-mode h5,
+body.light-mode h6{
+    color:#111111;
+}
+
+/* Paragraph */
+
+body.light-mode p{
+    color:#222222;
+}
+
+/* Navigation */
+
+body.light-mode nav a{
+    color:#111111;
+}
+
+body.light-mode nav a:hover{
+    color:#d4a000;
+}
+
+/* Shayari Cards */
+
+body.light-mode .card{
+    background:#ffffff;
+    color:#111111;
+    border:1px solid #ddd;
+}
+
+body.light-mode .card p{
+    color:#111111;
+}
+
+body.light-mode .card h3{
+    color:#000000;
+}
+
+/* Founder */
+
+body.light-mode .founder-box{
+    background:#ffffff;
+    color:#111111;
+}
+
+/* Contact */
+
+body.light-mode input,
+body.light-mode textarea{
+    background:#ffffff;
+    color:#111111;
+    border:1px solid #ccc;
+}
+
+body.light-mode input::placeholder,
+body.light-mode textarea::placeholder{
+    color:#666;
+}
+
+/* Footer */
+
+body.light-mode footer{
+    background:#f4f4f4;
+    color:#111111;
+}
