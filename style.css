@@ -32,7 +32,7 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:15px 40px;
+padding:12px 40px;
 
 background:#111;
 
@@ -44,6 +44,7 @@ top:0;
 
 z-index:999;
 
+   margin:0;
 }
 
 .logo-area{
@@ -878,3 +879,77 @@ body.light-mode footer p{
     color:#111;
 }
 
+/* ===========================
+FINAL LIGHT MODE FIX
+=========================== */
+
+body.light-mode{
+    background:#ffffff !important;
+    color:#111 !important;
+}
+
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode p,
+body.light-mode span,
+body.light-mode a,
+body.light-mode label{
+    color:#111 !important;
+}
+
+body.light-mode header,
+body.light-mode nav,
+body.light-mode footer,
+body.light-mode .section,
+body.light-mode .card,
+body.light-mode .founder-box,
+body.light-mode .certificate-box{
+    background:#fff !important;
+    color:#111 !important;
+}
+
+body.light-mode input,
+body.light-mode textarea{
+    background:#fff !important;
+    color:#111 !important;
+}
+
+/* ===========================
+FINAL LIGHT MODE FIX
+=========================== */
+
+body.light-mode{
+    background:#ffffff !important;
+    color:#111111 !important;
+}
+
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode h4,
+body.light-mode h5,
+body.light-mode h6,
+body.light-mode p,
+body.light-mode span,
+body.light-mode a,
+body.light-mode label{
+    color:#111111 !important;
+}
+
+body.light-mode header,
+body.light-mode nav,
+body.light-mode footer,
+body.light-mode .section,
+body.light-mode .card,
+body.light-mode .founder-box,
+body.light-mode .certificate-box{
+    background:#ffffff !important;
+    color:#111111 !important;
+}
+
+body.light-mode input,
+body.light-mode textarea{
+    background:#ffffff !important;
+    color:#111111 !important;
+}
