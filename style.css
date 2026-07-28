@@ -574,6 +574,29 @@ box-shadow:0 0 30px rgba(255,215,0,.35);
 
 }
 
+.welcome-box h1{
+    color:#ffffff;
+    font-weight:700;
+}
+
+.welcome-box h1 span{
+    color:gold;
+}
+
+.welcome-box p{
+    color:#ffd700;
+    font-size:22px;
+    font-weight:600;
+    text-shadow:0 0 8px rgba(255,215,0,.5);
+}
+
+.welcome-box small{
+    color:#ffffff;
+    font-size:18px;
+    text-shadow:0 0 6px rgba(255,255,255,.4);
+}
+
+
 .welcome-logo{
 
 width:120px;
