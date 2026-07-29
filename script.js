@@ -269,10 +269,11 @@ likeCount.innerHTML =
 // Shayari Loader
 // ==========================
 
-function createCard(item) {
+function <button class="favBtn ${isFavourite(id) ? 'active' : ''}" data-id="${id}"> ${isFavourite(id) ? "🌟 Favourite" : "⭐ Favourite"} </button>{
 
-    return `
+const id = btoa(item.text);
 
+return `
 <div class="card">
 
     <p class="shayariText">
@@ -290,8 +291,11 @@ function createCard(item) {
         <button class="shareBtn">📤 Share</button>
 
         <button class="likeBtn">❤️ Like</button>
-
-        <button class="favBtn">⭐ Favorite</button>
+  <button
+class="favBtn ${isFavourite(id) ? 'active' : ''}"
+data-id="${id}">
+${isFavourite(id) ? "🌟 Favourite" : "⭐ Favourite"}
+</button>
         
          <p class="likeCount">❤️ Likes: 0</p>
 
@@ -457,5 +461,40 @@ function showToast(message) {
     setTimeout(() => {
         toast.classList.remove("show");
     }, 2500);
+
+}
+
+/* ===========================
+   PERMANENT FAVOURITE SYSTEM
+=========================== */
+
+let favourites = JSON.parse(localStorage.getItem("ars_favourites")) || [];
+
+// Check Favourite
+function isFavourite(id){
+    return favourites.includes(id);
+}
+
+// Toggle Favourite
+function toggleFavourite(id, btn){
+
+    if(isFavourite(id)){
+        favourites = favourites.filter(x => x !== id);
+
+        btn.innerHTML = "⭐ Favourite";
+        btn.classList.remove("active");
+
+    }else{
+
+        favourites.push(id);
+
+        btn.innerHTML = "🌟 Favourite";
+        btn.classList.add("active");
+    }
+
+    localStorage.setItem(
+        "ars_favourites",
+        JSON.stringify(favourites)
+    );
 
 }
