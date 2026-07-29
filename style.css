@@ -1,669 +1,508 @@
 /* ==========================================
    Adarsh Raj Shayar
-   Version 1.0 Professional
+   Professional CSS v5.0
 ========================================== */
 
+/* RESET */
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
 
-font-family:Poppins,Arial,sans-serif;
+    font-family:Poppins,Arial,sans-serif;
 
-background:#0d0d0d;
+    background:#0d0d0d;
 
-color:white;
+    color:#ffffff;
 
-overflow-x:hidden;
+    transition:.35s;
 
-}
-
-/* ================= HEADER ================= */
-
-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:12px 40px;
-
-background:#111;
-
-border-bottom:2px solid gold;
-
-position:sticky;
-
-top:0;
-
-z-index:999;
-
-   margin:0;
-}
-
-.logo-area{
-
-display:flex;
-
-align-items:center;
-
-gap:15px;
+    overflow-x:hidden;
 
 }
 
-.logo{
+/* LINKS */
 
-width:65px;
+a{
 
-height:65px;
+    text-decoration:none;
 
-border-radius:50%;
-
-border:2px solid gold;
+    color:inherit;
 
 }
 
-header h1{
+/* IMAGES */
 
-color:gold;
+img{
 
-font-size:28px;
+    max-width:100%;
 
-}
-
-header p{
-
-color:#ddd;
-
-font-size:14px;
+    display:block;
 
 }
 
-/* ================= DARK MODE BUTTON ================= */
+/* BUTTON */
 
-#darkModeBtn{
+button{
 
-background:gold;
+    cursor:pointer;
 
-border:none;
-
-padding:10px 16px;
-
-font-size:18px;
-
-cursor:pointer;
-
-border-radius:50px;
-
-font-weight:bold;
+    font-family:inherit;
 
 }
 
-/* ================= NAV ================= */
-
-nav{
-
-display:flex;
-
-justify-content:center;
-
-gap:18px;
-
-flex-wrap:wrap;
-
-padding:18px;
-
-background:#191919;
-
-}
-
-nav a{
-
-color:white;
-
-text-decoration:none;
-
-padding:10px 18px;
-
-border-radius:30px;
-
-transition:.35s;
-
-font-weight:bold;
-
-}
-
-nav a:hover{
-
-background:gold;
-
-color:black;
-
-}
-
-/* ================= HERO ================= */
-
-.hero{
-
-text-align:center;
-
-padding:40px 20px;
-
-}
-
-.banner{
-
-width:100%;
-
-max-width:1100px;
-
-border-radius:20px;
-
-border:3px solid gold;
-
-box-shadow:0 0 25px rgba(255,215,0,.3);
-
-}
-
-.hero h2{
-
-margin-top:20px;
-
-font-size:36px;
-
-color:gold;
-
-}
-
-.hero p{
-
-margin-top:10px;
-
-font-size:18px;
-
-color:#ddd;
-
-}
-/* ================= SEARCH ================= */
-
-.search-section{
-
-padding:35px;
-
-text-align:center;
-
-}
-
-#search{
-
-width:85%;
-
-max-width:700px;
-
-padding:16px;
-
-font-size:18px;
-
-border:2px solid gold;
-
-border-radius:40px;
-
-outline:none;
-
-background:#1b1b1b;
-
-color:white;
-
-box-shadow:0 0 15px rgba(255,215,0,.25);
-
-}
-
-#search::placeholder{
-
-color:#bbb;
-
-}
-
-/* ================= SECTIONS ================= */
+/* CONTAINER */
 
 .section{
 
-padding:60px 8%;
+    padding:70px 8%;
 
 }
 
 .section h2{
 
-text-align:center;
+    text-align:center;
 
-font-size:34px;
+    font-size:34px;
 
-color:gold;
+    color:gold;
 
-margin-bottom:35px;
+    margin-bottom:35px;
+
+}
+/* ==========================================
+   HEADER
+========================================== */
+
+header{
+
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:15px 40px;
+
+    background:#111;
+
+    border-bottom:2px solid gold;
+
+    transition:.35s;
 
 }
 
-/* ================= CARDS ================= */
+.logo-area{
 
-.cards{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-
-gap:30px;
+    display:flex;
+    align-items:center;
+    gap:15px;
 
 }
 
-.card{
+.logo{
 
-background:#1a1a1a;
+    width:65px;
+    height:65px;
 
-border:2px solid rgba(255,215,0,.35);
+    border-radius:50%;
 
-border-radius:18px;
+    border:2px solid gold;
 
-padding:25px;
-
-transition:.35s;
-
-box-shadow:0 0 15px rgba(255,215,0,.08);
+    object-fit:cover;
 
 }
 
-.card:hover{
+header h1{
 
-transform:translateY(-8px);
-
-border-color:gold;
-
-box-shadow:0 0 25px rgba(255,215,0,.35);
+    color:gold;
+    font-size:28px;
 
 }
 
-.card p{
+header p{
 
-line-height:1.8;
-
-font-size:18px;
-
-}
-
-.gold-btn{
-
-background:gold;
-
-color:#000;
-
-font-weight:bold;
-
-padding:12px 24px;
-
-border:none;
-
-border-radius:30px;
-
-cursor:pointer;
-
-transition:.3s;
+    color:#dddddd;
+    font-size:14px;
 
 }
 
-.gold-btn:hover{
+/* ==========================================
+   DARK MODE BUTTON
+========================================== */
 
-transform:scale(1.05);
+#darkModeBtn{
 
-}
-/* ================= FOUNDER ================= */
+    background:gold;
 
-.founder-box{
+    color:#000;
 
-max-width:700px;
+    border:none;
 
-margin:auto;
+    padding:10px 18px;
 
-text-align:center;
+    border-radius:40px;
 
-background:#1a1a1a;
+    font-size:17px;
 
-padding:35px;
+    font-weight:bold;
 
-border-radius:20px;
-
-border:2px solid gold;
-
-box-shadow:0 0 25px rgba(255,215,0,.2);
+    transition:.3s;
 
 }
 
-.founder-photo{
+#darkModeBtn:hover{
 
-width:180px;
-
-height:180px;
-
-object-fit:cover;
-
-border-radius:50%;
-
-border:4px solid gold;
-
-margin-bottom:20px;
+    transform:scale(1.05);
 
 }
 
-.founder-box h3{
+/* ==========================================
+   NAVIGATION
+========================================== */
 
-font-size:30px;
+nav{
 
-color:gold;
+    display:flex;
 
-margin-bottom:10px;
+    justify-content:center;
 
-}
+    flex-wrap:wrap;
 
-.founder-box p{
+    gap:16px;
 
-color:#ddd;
+    padding:16px;
 
-line-height:1.8;
-
-}
-
-/* ================= CONTACT ================= */
-
-#contact-form{
-
-max-width:700px;
-
-margin:auto;
-
-display:flex;
-
-flex-direction:column;
-
-gap:18px;
+    background:#191919;
 
 }
 
-#contact-form input,
+nav a{
 
-#contact-form textarea{
+    color:#fff;
 
-padding:16px;
+    font-weight:600;
 
-border-radius:12px;
+    padding:10px 18px;
 
-border:2px solid gold;
+    border-radius:30px;
 
-background:#111;
-
-color:white;
-
-font-size:17px;
-
-outline:none;
+    transition:.3s;
 
 }
 
-#contact-form textarea{
+nav a:hover{
 
-height:180px;
+    background:gold;
 
-resize:none;
-
-}
-
-/* ================= CERTIFICATE ================= */
-
-.certificate-box{
-
-max-width:750px;
-
-margin:auto;
-
-text-align:center;
-
-padding:40px;
-
-background:#1a1a1a;
-
-border:2px solid gold;
-
-border-radius:20px;
-
-box-shadow:0 0 25px rgba(255,215,0,.2);
+    color:#000;
 
 }
-
-.certificate-box p{
-
-font-size:18px;
-
-margin-bottom:25px;
-
-color:#ddd;
-
-}
-/* ================= FOOTER ================= */
-
-footer{
-
-background:#111;
-
-padding:35px;
-
-text-align:center;
-
-border-top:2px solid gold;
-
-margin-top:60px;
-
-}
-
-footer p{
-
-margin:10px 0;
-
-color:#ddd;
-
-font-size:17px;
-
-}
-
-footer strong{
-
-color:gold;
-
-}
-
-/* ================= BACK TO TOP ================= */
-
-#topBtn{
-
-position:fixed;
-
-right:25px;
-
-bottom:25px;
-
-width:55px;
-
-height:55px;
-
-border:none;
-
-border-radius:50%;
-
-background:gold;
-
-color:#000;
-
-font-size:22px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-display:none;
-
-box-shadow:0 0 20px rgba(255,215,0,.5);
-
-transition:.3s;
-
-z-index:9999;
-
-}
-
-#topBtn:hover{
-
-transform:scale(1.12);
-
-}
-
-/* ================= WELCOME POPUP ================= */
+/* ==========================================
+   WELCOME POPUP
+========================================== */
 
 #welcomePopup{
 
-position:fixed;
+    position:fixed;
+    inset:0;
 
-top:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-left:0;
+    background:rgba(0,0,0,.93);
 
-width:100%;
+    z-index:99999;
 
-height:100%;
-
-background:rgba(0,0,0,.92);
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-z-index:99999;
+    backdrop-filter:blur(6px);
 
 }
 
 .welcome-box{
 
-width:90%;
+    width:90%;
+    max-width:520px;
 
-max-width:520px;
+    background:#181818;
 
-background:#181818;
+    border:3px solid gold;
 
-padding:40px;
+    border-radius:22px;
 
-border:3px solid gold;
+    padding:40px 30px;
 
-border-radius:20px;
+    text-align:center;
 
-text-align:center;
-
-box-shadow:0 0 30px rgba(255,215,0,.35);
+    box-shadow:0 0 35px rgba(255,215,0,.35);
 
 }
-
-.welcome-box h1{
-    color:#ffffff;
-    font-weight:700;
-}
-
-.welcome-box h1 span{
-    color:gold;
-}
-
-.welcome-box p{
-    color:#ffd700;
-    font-size:22px;
-    font-weight:600;
-    text-shadow:0 0 8px rgba(255,215,0,.5);
-}
-
-.welcome-box small{
-    color:#ffffff;
-    font-size:18px;
-    text-shadow:0 0 6px rgba(255,255,255,.4);
-}
-
 
 .welcome-logo{
 
-width:120px;
+    width:110px;
 
-margin-bottom:20px;
+    margin:0 auto 20px;
 
 }
 
 .welcome-box h1{
 
-color:gold;
+    color:#ffffff;
 
-margin-bottom:15px;
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:18px;
 
 }
 
-.welcome-box p{
+.welcome-box h1 span{
 
-color:#ddd;
+    color:gold;
 
-margin-bottom:25px;
+}
+
+.welcome-text{
+
+    color:#ffd700;
+
+    font-size:22px;
+
+    font-weight:600;
+
+    line-height:1.7;
+
+    margin-bottom:12px;
+
+}
+
+.welcome-subtitle{
+
+    display:block;
+
+    color:#ffffff;
+
+    font-size:18px;
+
+    margin-bottom:28px;
+
+    text-shadow:0 0 8px rgba(255,255,255,.35);
 
 }
 
 #welcomePopup button{
 
-background:gold;
+    background:gold;
 
-color:#000;
+    color:#000;
 
-padding:14px 28px;
+    border:none;
 
-border:none;
+    padding:14px 30px;
 
-border-radius:30px;
+    border-radius:40px;
 
-font-size:18px;
+    font-size:18px;
 
-font-weight:bold;
+    font-weight:bold;
 
-cursor:pointer;
+    transition:.3s;
 
 }
-/* ================= BUTTONS ================= */
+
+#welcomePopup button:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* ==========================================
+   HERO
+========================================== */
+
+.hero{
+
+    text-align:center;
+
+    padding:50px 20px;
+
+}
+
+.banner{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    border-radius:20px;
+
+    border:3px solid gold;
+
+    box-shadow:0 0 25px rgba(255,215,0,.25);
+
+}
+
+.hero h2{
+
+    color:gold;
+
+    margin-top:25px;
+
+    font-size:36px;
+
+}
+
+.hero p{
+
+    color:#dddddd;
+
+    margin-top:12px;
+
+    font-size:18px;
+
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.search-section{
+
+    padding:35px;
+
+    text-align:center;
+
+}
+
+#search{
+
+    width:90%;
+
+    max-width:700px;
+
+    padding:16px;
+
+    font-size:18px;
+
+    border:2px solid gold;
+
+    border-radius:40px;
+
+    background:#1b1b1b;
+
+    color:#ffffff;
+
+    outline:none;
+
+}
+/* ==========================================
+   SHAYARI CARDS
+========================================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:28px;
+
+}
+
+.card{
+
+    background:#1a1a1a;
+
+    border:2px solid rgba(255,215,0,.25);
+
+    border-radius:18px;
+
+    padding:25px;
+
+    transition:.35s;
+
+    box-shadow:0 0 15px rgba(255,215,0,.08);
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:gold;
+
+    box-shadow:0 0 25px rgba(255,215,0,.30);
+
+}
+
+.shayariText{
+
+    line-height:1.9;
+
+    font-size:19px;
+
+    margin-bottom:18px;
+
+}
+
+.author{
+
+    text-align:right;
+
+    color:gold;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+}
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.actionButtons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    justify-content:center;
+
+}
 
 .copyBtn,
 .shareBtn,
 .likeBtn,
 .favBtn{
 
-padding:10px 18px;
+    border:none;
 
-margin:6px;
+    padding:10px 18px;
 
-border:none;
+    border-radius:30px;
 
-border-radius:30px;
+    background:gold;
 
-cursor:pointer;
+    color:#000;
 
-font-weight:bold;
+    font-weight:bold;
 
-transition:.3s;
-
-background:gold;
-
-color:#000;
+    transition:.3s;
 
 }
 
@@ -672,307 +511,722 @@ color:#000;
 .likeBtn:hover,
 .favBtn:hover{
 
-transform:translateY(-3px);
+    transform:translateY(-3px);
 
-box-shadow:0 0 15px rgba(255,215,0,.45);
-
-}
-
-/* ================= TOAST ================= */
-
-.toast{
-
-position:fixed;
-
-bottom:30px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:#111;
-
-color:#fff;
-
-padding:14px 22px;
-
-border-radius:30px;
-
-border:2px solid gold;
-
-opacity:0;
-
-transition:.3s;
-
-z-index:999999;
+    box-shadow:0 0 15px rgba(255,215,0,.40);
 
 }
 
-.toast.show{
+/* Active Buttons */
 
-opacity:1;
+.likeBtn.active{
 
-}
+    background:#ff3b3b;
 
-/* ================= SCROLLBAR ================= */
-
-::-webkit-scrollbar{
-
-width:10px;
+    color:#fff;
 
 }
 
-::-webkit-scrollbar-track{
+.favBtn.active{
 
-background:#111;
+    background:#ffcc00;
 
-}
-
-::-webkit-scrollbar-thumb{
-
-background:gold;
-
-border-radius:10px;
+    color:#000;
 
 }
+/* ==========================================
+   FOUNDER
+========================================== */
 
-/* ================= SELECTION ================= */
+.founder-box{
 
-::selection{
+    max-width:750px;
+    margin:auto;
 
-background:gold;
+    text-align:center;
 
-color:black;
+    background:#1a1a1a;
 
-}
-/* ================= MOBILE RESPONSIVE ================= */
+    padding:35px;
 
-@media(max-width:768px){
+    border-radius:20px;
 
-header{
+    border:2px solid gold;
 
-flex-direction:column;
-
-text-align:center;
-
-padding:15px;
-
-}
-
-.logo-area{
-
-flex-direction:column;
-
-}
-
-header h1{
-
-font-size:24px;
-
-}
-
-nav{
-
-gap:10px;
-
-padding:12px;
-
-}
-
-nav a{
-
-font-size:14px;
-
-padding:8px 12px;
-
-}
-
-.hero h2{
-
-font-size:28px;
-
-}
-
-.hero p{
-
-font-size:16px;
-
-}
-
-.banner{
-
-width:100%;
-
-}
-
-#search{
-
-width:95%;
-
-font-size:16px;
-
-}
-
-.cards{
-
-grid-template-columns:1fr;
+    box-shadow:0 0 25px rgba(255,215,0,.20);
 
 }
 
 .founder-photo{
 
-width:150px;
+    width:180px;
+    height:180px;
 
-height:150px;
+    object-fit:cover;
 
-}
+    border-radius:50%;
 
-.welcome-box{
+    border:4px solid gold;
 
-padding:25px;
-
-}
-
-.welcome-logo{
-
-width:90px;
+    margin:0 auto 20px;
 
 }
 
-}
+.founder-box h3{
 
-/* ================= SIMPLE FADE ANIMATION ================= */
+    color:gold;
 
-.card{
+    font-size:30px;
 
-opacity:0;
-
-transform:translateY(20px);
-
-animation:fadeUp .6s ease forwards;
+    margin-bottom:10px;
 
 }
 
-@keyframes fadeUp{
+.founder-box p{
 
-to{
+    color:#dddddd;
 
-opacity:1;
-
-transform:translateY(0);
+    line-height:1.8;
 
 }
 
+/* ==========================================
+   CERTIFICATE
+========================================== */
+
+.certificate-box{
+
+    max-width:750px;
+
+    margin:auto;
+
+    text-align:center;
+
+    background:#1a1a1a;
+
+    padding:40px;
+
+    border:2px solid gold;
+
+    border-radius:20px;
+
 }
-/* ===========================
-   LIGHT MODE
-=========================== */
+
+.gold-btn{
+
+    background:gold;
+
+    color:#000;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:35px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.gold-btn:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* ==========================================
+   CONTACT FORM
+========================================== */
+
+#contact-form{
+
+    max-width:700px;
+
+    margin:auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+#contact-form input,
+#contact-form textarea{
+
+    padding:16px;
+
+    border-radius:12px;
+
+    border:2px solid gold;
+
+    background:#111;
+
+    color:#fff;
+
+    font-size:17px;
+
+    outline:none;
+
+}
+
+#contact-form textarea{
+
+    min-height:180px;
+
+    resize:vertical;
+
+}
+
+/* ==========================================
+   BACK TO TOP
+========================================== */
+
+#topBtn{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:25px;
+
+    width:55px;
+
+    height:55px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:gold;
+
+    color:#000;
+
+    font-size:22px;
+
+    display:none;
+
+    z-index:9999;
+
+    box-shadow:0 0 20px rgba(255,215,0,.45);
+
+}
+
+#topBtn:hover{
+
+    transform:scale(1.10);
+
+}
+
+/* ==========================================
+   TOAST
+========================================== */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:30px;
+
+    transform:translateX(-50%);
+
+    background:#111;
+
+    color:#fff;
+
+    border:2px solid gold;
+
+    padding:14px 24px;
+
+    border-radius:30px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:999999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+}
+/* ==========================================
+   DARK & LIGHT MODE (FINAL)
+========================================== */
+
+body{
+    background:#0d0d0d;
+    color:#ffffff;
+    transition:all .35s ease;
+}
+
+/* LIGHT MODE */
 
 body.light-mode{
-    background:#f5f5f5;
-    color:#111;
+    background:#f7f7f7;
+    color:#111111;
 }
 
-body.light-mode header{ 
+/* Header */
+
+body.light-mode header{
     background:#ffffff;
+    border-bottom:2px solid gold;
 }
+
+body.light-mode header h1{
+    color:#c89b00;
+}
+
+body.light-mode header p{
+    color:#333333;
+}
+
+/* Navigation */
 
 body.light-mode nav{
     background:#ffffff;
 }
 
-body.light-mode .card{
-    background:#ffffff;
-    color:#111;
-    border:1px solid #ddd;
-    box-shadow:0 0 10px rgba(0,0,0,.1);
+body.light-mode nav a{
+    color:#111111;
 }
 
-body.light-mode button{
+body.light-mode nav a:hover{
     background:gold;
     color:#000;
 }
 
+/* Hero */
+
+body.light-mode .hero h2{
+    color:#c89b00;
+}
+
+body.light-mode .hero p{
+    color:#333333;
+}
+
+/* Search */
+
+body.light-mode #search{
+    background:#ffffff;
+    color:#111111;
+    border:2px solid gold;
+}
+
+body.light-mode #search::placeholder{
+    color:#666666;
+}
+
+/* Cards */
+
+body.light-mode .card{
+    background:#ffffff;
+    color:#111111;
+    border:1px solid #dddddd;
+    box-shadow:0 0 12px rgba(0,0,0,.08);
+}
+
+body.light-mode .shayariText{
+    color:#111111;
+}
+
+body.light-mode .author{
+    color:#b8860b;
+}
+
+/* Founder */
+
+body.light-mode .founder-box{
+    background:#ffffff;
+}
+
+body.light-mode .founder-box p{
+    color:#222222;
+}
+
+/* Certificate */
+
+body.light-mode .certificate-box{
+    background:#ffffff;
+}
+
+/* Contact */
+
+body.light-mode #contact-form input,
+body.light-mode #contact-form textarea{
+    background:#ffffff;
+    color:#111111;
+}
+
+/* Footer */
 
 body.light-mode footer{
     background:#ffffff;
-    color:#111;
 }
+
 body.light-mode footer p{
-    color:#111;
+    color:#111111;
 }
 
-/* ===========================
-FINAL LIGHT MODE FIX
-=========================== */
+/* Popup */
 
-body.light-mode{
-    background:#ffffff !important;
-    color:#111 !important;
+body.light-mode .welcome-box{
+    background:#ffffff;
 }
 
-body.light-mode h1,
-body.light-mode h2,
-body.light-mode h3,
-body.light-mode p,
-body.light-mode span,
-body.light-mode a,
-body.light-mode label{
-    color:#111 !important;
+body.light-mode .welcome-box h1{
+    color:#111111;
 }
 
-body.light-mode header,
-body.light-mode nav,
-body.light-mode footer,
-body.light-mode .section,
-body.light-mode .card,
-body.light-mode .founder-box,
-body.light-mode .certificate-box{
-    background:#fff !important;
-    color:#111 !important;
+body.light-mode .welcome-box h1 span{
+    color:gold;
 }
 
-body.light-mode input,
-body.light-mode textarea{
-    background:#fff !important;
-    color:#111 !important;
+body.light-mode .welcome-text{
+    color:#b8860b;
 }
 
-/* ===========================
-FINAL LIGHT MODE FIX
-=========================== */
-
-body.light-mode{
-    background:#ffffff !important;
-    color:#111111 !important;
+body.light-mode .welcome-subtitle{
+    color:#111111;
 }
 
-body.light-mode h1,
-body.light-mode h2,
-body.light-mode h3,
-body.light-mode h4,
-body.light-mode h5,
-body.light-mode h6,
-body.light-mode p,
-body.light-mode span,
-body.light-mode a,
-body.light-mode label{
-    color:#111111 !important;
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media(max-width:768px){
+
+header{
+    flex-direction:column;
+    text-align:center;
+    padding:15px;
 }
 
-body.light-mode header,
-body.light-mode nav,
-body.light-mode footer,
-body.light-mode .section,
-body.light-mode .card,
-body.light-mode .founder-box,
-body.light-mode .certificate-box{
-    background:#ffffff !important;
-    color:#111111 !important;
+.logo-area{
+    flex-direction:column;
 }
 
-body.light-mode input,
-body.light-mode textarea{
-    background:#ffffff !important;
-    color:#111111 !important;
+header h1{
+    font-size:24px;
+}
+
+nav{
+    gap:10px;
+    padding:12px;
+}
+
+nav a{
+    font-size:14px;
+    padding:8px 12px;
+}
+
+.hero h2{
+    font-size:28px;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+.cards{
+    grid-template-columns:1fr;
+}
+
+#search{
+    width:95%;
+}
+
+.founder-photo{
+    width:150px;
+    height:150px;
+}
+
+.welcome-box{
+    padding:25px;
+}
+
+}
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+.card{
+    animation:fadeUp .6s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* ==========================================
+   SMOOTH HOVER EFFECTS
+========================================== */
+
+.card,
+button,
+nav a,
+.logo,
+.banner,
+.founder-photo{
+
+    transition:all .30s ease;
+
+}
+
+.logo:hover{
+
+    transform:rotate(5deg) scale(1.05);
+
+}
+
+.banner:hover{
+
+    transform:scale(1.01);
+
+}
+
+.founder-photo:hover{
+
+    transform:scale(1.08);
+
+}
+
+nav a:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.gold-btn:hover,
+.copyBtn:hover,
+.shareBtn:hover,
+.likeBtn:hover,
+.favBtn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#111;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:gold;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#e6c200;
+
+}
+
+/* ==========================================
+   TEXT SELECTION
+========================================== */
+
+::selection{
+
+    background:gold;
+
+    color:#000;
+
+}
+
+/* ==========================================
+   FOCUS
+========================================== */
+
+button:focus,
+input:focus,
+textarea:focus{
+
+    outline:2px solid gold;
+
+    outline-offset:3px;
+
+}
+
+/* ==========================================
+   LOADING EFFECT
+========================================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    transition:
+    background .35s,
+    color .35s;
+
+}
+/* ==========================================
+   FINAL POLISH
+========================================== */
+
+/* Page Fade */
+
+body{
+    animation:pageFade .5s ease;
+}
+
+@keyframes pageFade{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+/* Section Title */
+
+.section h2{
+
+    position:relative;
+
+    display:inline-block;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    padding-bottom:10px;
+
+}
+
+.section h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:0;
+
+    transform:translateX(-50%);
+
+    width:80px;
+
+    height:3px;
+
+    background:gold;
+
+    border-radius:10px;
+
+}
+
+/* Footer */
+
+footer{
+
+    margin-top:60px;
+
+    background:#111;
+
+    border-top:2px solid gold;
+
+    text-align:center;
+
+    padding:35px;
+
+}
+
+footer strong{
+
+    color:gold;
+
+}
+
+/* Light Mode Footer */
+
+body.light-mode footer{
+
+    background:#f8f8f8;
+
+}
+
+/* Disable Image Drag */
+
+img{
+
+    user-select:none;
+
+    -webkit-user-drag:none;
+
+}
+
+/* Better Button Click */
+
+button:active{
+
+    transform:scale(.96);
+
+}
+
+/* Card Shadow */
+
+.card{
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.15);
+
+}
+
+/* Gold Theme */
+
+:root{
+
+    --gold:#FFD700;
+
+    --dark:#0d0d0d;
+
+    --light:#ffffff;
+
 }
