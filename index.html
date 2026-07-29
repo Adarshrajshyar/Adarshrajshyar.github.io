@@ -8,11 +8,13 @@
 
 <title>Adarsh Raj Shayar | Official</title>
 
-<meta name="description" content="Best Hindi Shayari Collection by Adarsh Raj">
+<meta name="description" content="Official Hindi Shayari Website by Adarsh Raj">
 
-<meta name="keywords" content="Hindi Shayari, Love Shayari, Sad Shayari, Motivation, Adarsh Raj">
+<meta name="keywords" content="Hindi Shayari, Love Shayari, Sad Shayari, Motivation Shayari">
 
 <meta name="author" content="Adarsh Raj">
+
+<meta name="theme-color" content="#d4af37">
 
 <link rel="icon" href="logo.png" type="image/png">
 
@@ -23,27 +25,30 @@
 </head>
 
 <body>
-
-<!-- =========================
-WELCOME SCREEN
+  <!-- =========================
+WELCOME POPUP
 ========================= -->
 
 <div id="welcomePopup">
 
 <div class="welcome-box">
 
-<img src="logo.png" class="welcome-logo">
+<img src="logo.png" alt="Logo" class="welcome-logo">
 
-<h1>🌹 <span>Adarsh Raj</span> Shayar 🌹</h1>
+<h1>
+🌹 <span>Adarsh Raj</span> Shayar 🌹
+</h1>
 
-<p>
-  दिल से निकली हुई खूबसूरत हिंदी शायरियाँ</p>
-/<p>
+<p class="welcome-text">
+दिल से निकली हुई खूबसूरत हिंदी शायरियाँ
+</p>
+
+<small class="welcome-subtitle">
+❤️ सीधे आपके दिल तक पहुँचें ❤️
+</small>
 
 <button id="enterBtn">
-
 🚀 Enter Website
-
 </button>
 
 </div>
@@ -58,7 +63,7 @@ HEADER
 
 <div class="logo-area">
 
-<img src="logo.png" class="logo">
+<img src="logo.png" alt="Logo" class="logo">
 
 <div>
 
@@ -71,13 +76,10 @@ HEADER
 </div>
 
 <button id="darkModeBtn">
-
 🌙
-
 </button>
 
 </header>
-
 <!-- =========================
 NAVIGATION
 ========================= -->
@@ -96,8 +98,8 @@ NAVIGATION
 
 <a href="#motivation">📚 Motivation</a>
 
-  <a href="#favorite">⭐ Favourite</a>
-  
+<a href="#favorite">⭐ Favourite</a>
+
 <a href="#story">📖 Story</a>
 
 <a href="#certificate">🏆 Certificate</a>
@@ -109,23 +111,19 @@ NAVIGATION
 </nav>
 
 <!-- =========================
-HERO BANNER
+HERO SECTION
 ========================= -->
 
 <section class="hero">
 
-<img src="banner.png" class="banner">
+<img src="banner.png" alt="Banner" class="banner">
 
 <h2>
-
 ❤️ Welcome To Official Website ❤️
-
 </h2>
 
 <p>
-
-"जहाँ हर शब्द दिल से निकलता है..."
-
+"जहाँ हर शब्द सीधे दिल तक पहुँचता है।"
 </p>
 
 </section>
@@ -137,14 +135,10 @@ SEARCH
 <section class="search-section">
 
 <input
-
 type="text"
-
 id="search"
-
 placeholder="🔍 Shayari Search..."
-
->
+autocomplete="off">
 
 </section>
 <!-- =========================
@@ -207,7 +201,11 @@ MOTIVATION SHAYARI
 
 </section>
 
-  <section id="favorite" class="section">
+<!-- =========================
+FAVOURITE SHAYARI
+========================= -->
+
+<section id="favorite" class="section">
 
 <h2>⭐ Favourite Shayari</h2>
 
@@ -218,7 +216,6 @@ MOTIVATION SHAYARI
 </div>
 
 </section>
-  
 <!-- =========================
 STORY SECTION
 ========================= -->
@@ -229,13 +226,20 @@ STORY SECTION
 
 <div id="storyContainer" class="cards">
 
+<div class="card">
+
+<h3>📚 जल्द आ रहा है...</h3>
+
 <p>
-जल्द ही यहाँ आपकी Original Stories और Poems प्रकाशित होंगी।
+यहाँ भविष्य में आपकी Original Stories और Poems प्रकाशित होंगी।
 </p>
 
 </div>
 
+</div>
+
 </section>
+
 <!-- =========================
 CERTIFICATE SECTION
 ========================= -->
@@ -247,10 +251,10 @@ CERTIFICATE SECTION
 <div class="certificate-box">
 
 <p>
-यहाँ भविष्य में Certificate Generate किया जा सकेगा।
+यहाँ भविष्य में Professional Certificate Generate किया जा सकेगा।
 </p>
 
-<button class="gold-btn">
+<button class="gold-btn" id="certificateBtn">
 🎖 Generate Certificate
 </button>
 
@@ -268,26 +272,19 @@ FOUNDER SECTION
 
 <div class="founder-box">
 
-<img src="photo.jpg1.jpeg" class="founder-photo">
+<img src="photo.jpg.jpeg" alt="Founder Photo" class="founder-photo">
 
 <h3>Adarsh Raj</h3>
 
-<p>
-
-Founder & Author
-
-</p>
+<p><strong>Founder & Author</strong></p>
 
 <p>
-
 "मेरी कोशिश है कि हर शब्द सीधे दिल तक पहुँचे।"
-
 </p>
 
 </div>
 
 </section>
-
 <!-- =========================
 CONTACT SECTION
 ========================= -->
@@ -315,7 +312,9 @@ name="message"
 placeholder="Write your message..."
 required></textarea>
 
-<button type="submit" class="gold-btn">
+<button
+type="submit"
+class="gold-btn">
 
 📨 Send Message
 
@@ -336,6 +335,12 @@ BACK TO TOP
 </button>
 
 <!-- =========================
+TOAST MESSAGE
+========================= -->
+
+<div id="toast" class="toast"></div>
+
+<!-- =========================
 FOOTER
 ========================= -->
 
@@ -351,19 +356,22 @@ Adarsh Raj Shayar
 <p>
 
 Designed & Developed by
-<strong>Adarsh Raj Shayar</strong>
+<strong>Adarsh Raj</strong>
 
 </p>
 
-  <div id="toast" class="toast"></div>
-  
 </footer>
+<!-- =========================
+JAVASCRIPT FILES
+========================= -->
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script src="config.js"></script>
+
 <script src="shayari.js"></script>
+
 <script src="script.js"></script>
 
 </body>
-
 </html>
