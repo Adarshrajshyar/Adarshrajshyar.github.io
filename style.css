@@ -84,10 +84,12 @@ button{
 
 header{
 
-    position:sticky;
-    top:0;
-    z-index:999;
-
+  position: sticky;
+top: 0;
+z-index: 1000;
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+   
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -1316,4 +1318,24 @@ body.menu-open{
 #overlay.active{
     opacity:1;
     visibility:visible;
+}
+
+/* ==========================================
+   ACTIVE MENU LINK
+========================================== */
+
+nav a.active{
+    background:gold;
+    color:#111 !important;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+nav a{
+    transition:.3s;
+}
+
+nav a:hover{
+    background:rgba(255,215,0,.15);
+    border-radius:8px;
 }
