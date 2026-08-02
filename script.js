@@ -832,6 +832,36 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* ==========================================
+   MOBILE MENU
+========================================== */
+
+const menuBtn = document.getElementById("menuBtn");
+const nav = document.querySelector("nav");
+
+if(menuBtn && nav){
+
+    menuBtn.addEventListener("click",()=>{
+
+        nav.classList.toggle("active");
+
+    });
+
+    document.addEventListener("click",(e)=>{
+
+        if(
+            !nav.contains(e.target) &&
+            !menuBtn.contains(e.target)
+        ){
+
+            nav.classList.remove("active");
+
+        }
+
+    });
+
+}
+
+/* ==========================================
    END OF SCRIPT
 ========================================== */
 
