@@ -1289,3 +1289,9 @@ button:active{
     }
 
 }
+
+/* Prevent body scroll when menu is open */
+
+body.menu-open{
+    overflow:hidden;
+}
