@@ -1230,3 +1230,62 @@ button:active{
     --light:#ffffff;
 
 }
+
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+#menuBtn{
+    display:none;
+    font-size:28px;
+    background:none;
+    border:none;
+    color:inherit;
+    cursor:pointer;
+    margin-right:15px;
+    transition:.3s;
+}
+
+#menuBtn:hover{
+    transform:scale(1.1);
+}
+
+@media(max-width:768px){
+
+    #menuBtn{
+        display:block;
+    }
+
+    nav{
+        position:fixed;
+        top:0;
+        left:-280px;
+        width:260px;
+        height:100vh;
+        background:#111;
+        display:flex;
+        flex-direction:column;
+        padding-top:80px;
+        transition:.35s ease;
+        z-index:9999;
+        overflow-y:auto;
+    }
+
+    nav.active{
+        left:0;
+    }
+
+    nav a{
+        padding:15px 25px;
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    body.light-mode nav{
+        background:#ffffff;
+    }
+
+    body.light-mode nav a{
+        color:#111;
+    }
+
+}
