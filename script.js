@@ -834,7 +834,7 @@ document.addEventListener("DOMContentLoaded", () => {
 fetch("https://api.counterapi.dev/v2/adarsh-rajs-team-4891/first-counter-4891/up", {
   method: "POST",
   headers: {
-    "Authorization": "Bearer YOUR_NEW_TOKEN"
+    "Authorization": "Bearer ut_4goZDpfmDH3fIwaA9EwAjNTK29q09MJHbYDtgbDG"
   }
 })
 .then(res => res.json())
