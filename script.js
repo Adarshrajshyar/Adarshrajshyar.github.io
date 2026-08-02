@@ -831,22 +831,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-fetch("https://api.counterapi.dev/v2/adarsh-rajs-team-4891/first-counter-4891/up", {
-  method: "POST",
-  headers: {
-    "Authorization": "Bearer ut_4goZDpfmDH3fIwaA9EwAjNTK29q09MJHbYDtgbDG"
-  }
-})
-.then(res => res.json())
-.then(data => {
-  const visitor = document.getElementById("visitor-count");
-  if (visitor) {
-    visitor.textContent = data.value;
-  }
-})
-.catch(err => console.log(err));
-
-
 /* ==========================================
    END OF SCRIPT
 ========================================== */
