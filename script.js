@@ -1032,6 +1032,8 @@ localStorage.setItem("customShayari",JSON.stringify(all));
 
 alert("✅ Shayari Published Successfully");
 
+   loadPublishedShayari();
+   
 document.getElementById("pubTitle").value="";
 
 document.getElementById("pubText").value="";
@@ -1095,8 +1097,18 @@ ${item.text.replace(/\n/g,"<br>")}
 }
 
 loadPublishedShayari();
-alert("✅ Shayari Published Successfully");
 
+window.addEventListener("load", () => {
+
+const loader = document.getElementById("loading");
+
+if(loader){
+
+loader.style.display = "none";
+
+}
+
+});
 
 /* ==========================================
    END OF SCRIPT
