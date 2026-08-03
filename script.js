@@ -1100,7 +1100,7 @@ loadPublishedShayari();
 
 window.addEventListener("load", () => {
 
-const loader = document.getElementById("loading");
+const loader = document.getElementById("loader")
 
 if(loader){
 
