@@ -946,6 +946,18 @@ bar.style.width=progress+"%";
 
 });
 
+/* ===== LOADER ===== */
+
+window.addEventListener("load",()=>{
+
+setTimeout(()=>{
+
+document.getElementById("loader").classList.add("loader-hide");
+
+},800);
+
+});
+
 
 /* ==========================================
    END OF SCRIPT
