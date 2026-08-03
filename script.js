@@ -958,6 +958,87 @@ document.getElementById("loader").classList.add("loader-hide");
 
 });
 
+/* ==========================
+ADMIN LOGIN
+========================== */
+
+const ADMIN_PASSWORD = "ARS2026";
+
+document.getElementById("loginBtn").addEventListener("click",()=>{
+
+const pass=document.getElementById("adminPassword").value;
+
+if(pass===ADMIN_PASSWORD){
+
+document.getElementById("adminLogin").style.display="none";
+
+document.getElementById("publisherPanel").style.display="block";
+
+alert("✅ Login Successful");
+
+}else{
+
+alert("❌ Wrong Password");
+
+}
+
+});
+
+/* ==========================================
+PUBLISH SHAYARI
+========================================== */
+
+document.getElementById("publishBtn").addEventListener("click", () => {
+
+const title = document.getElementById("pubTitle").value.trim();
+
+const category = document.getElementById("pubCategory").value;
+
+const text = document.getElementById("pubText").value.trim();
+
+const author = document.getElementById("pubAuthor").value.trim();
+
+const publisher = document.getElementById("pubPublisher").value.trim();
+
+if(title==="" || text===""){
+
+alert("Please fill all required fields.");
+
+return;
+
+}
+
+const shayari = {
+
+title,
+
+category,
+
+text,
+
+author,
+
+publisher,
+
+date:new Date().toLocaleDateString()
+
+};
+
+let all = JSON.parse(localStorage.getItem("customShayari")) || [];
+
+all.unshift(shayari);
+
+localStorage.setItem("customShayari",JSON.stringify(all));
+
+alert("✅ Shayari Published Successfully");
+
+document.getElementById("pubTitle").value="";
+
+document.getElementById("pubText").value="";
+
+document.getElementById("pubAuthor").value="";
+
+});
 
 /* ==========================================
    END OF SCRIPT
