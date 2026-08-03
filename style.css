@@ -102,6 +102,17 @@ backdrop-filter: blur(10px);
 
     transition:.35s;
 
+   background: rgba(15,15,15,.92);
+
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+
+border-bottom:2px solid #FFD700;
+
+box-shadow:0 5px 20px rgba(255,215,0,.15);
+
+transition:.35s;
+   
 }
 
 .logo-area{
@@ -123,13 +134,34 @@ backdrop-filter: blur(10px);
 
     object-fit:cover;
 
+   .logo{
+
+    transition:.35s;
+
+}
+
+.logo:hover{
+
+    transform:rotate(5deg) scale(1.08);
+
+}
+   
 }
 
 header h1{
 
     color:gold;
     font-size:28px;
+header h1{
 
+    color:#FFD700;
+
+    letter-spacing:1px;
+
+    text-shadow:0 0 15px rgba(255,215,0,.35);
+
+}
+   
 }
 
 header p{
