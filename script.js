@@ -925,6 +925,29 @@ async function loadVisitorCount() {
 loadVisitorCount();
 
 /* ==========================================
+   SCROLL PROGRESS
+========================================== */
+
+window.addEventListener("scroll",()=>{
+
+const scrollTop=document.documentElement.scrollTop;
+
+const scrollHeight=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+
+const progress=(scrollTop/scrollHeight)*100;
+
+const bar=document.getElementById("progressBar");
+
+if(bar){
+
+bar.style.width=progress+"%";
+
+}
+
+});
+
+
+/* ==========================================
    END OF SCRIPT
 ========================================== */
 
