@@ -907,6 +907,23 @@ window.addEventListener("scroll",()=>{
 
 });
 
+
+async function loadVisitorCount() {
+    try {
+        const response = await fetch("https://api.counterapi.dev/v2/adarsh-rajs-team-4891/first-counter-4891");
+        const data = await response.json();
+
+        const counter = document.getElementById("visitor-count");
+        if (counter) {
+            counter.textContent = data.value;
+        }
+    } catch (error) {
+        console.error("Visitor Counter Error:", error);
+    }
+}
+
+loadVisitorCount();
+
 /* ==========================================
    END OF SCRIPT
 ========================================== */
