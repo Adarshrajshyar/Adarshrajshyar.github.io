@@ -1,4 +1,5 @@
-/* ==========================================
+console.log("Script Started");
+ ==========================================
    Adarsh Raj Shayar
    Professional Script v6.0
 ========================================== */
@@ -672,6 +673,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
     initContactForm();
 
+   console.log("Loader Code Running");
 });
 /* ==========================================
    SHAYARI LOADER
@@ -1098,17 +1100,7 @@ ${item.text.replace(/\n/g,"<br>")}
 
 loadPublishedShayari();
 
-window.addEventListener("load", () => {
-
-const loader = document.getElementById("loader")
-
-if(loader){
-
-loader.style.display = "none";
-
-}
-
-});
+console.log("Script Finished");
 
 /* ==========================================
    END OF SCRIPT
