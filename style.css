@@ -1392,3 +1392,66 @@ nav a:hover{
     color: #00ff66;
     font-weight: bold;
 }
+
+/* ==========================================
+   PREMIUM BUTTONS
+========================================== */
+
+button,
+.copy-btn,
+.share-btn,
+.like-btn,
+.fav-btn{
+
+    transition:all .35s ease;
+
+    border:none;
+
+    cursor:pointer;
+
+}
+
+button:hover,
+.copy-btn:hover,
+.share-btn:hover,
+.like-btn:hover,
+.fav-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(255,215,0,.35);
+
+}
+
+button:active,
+.copy-btn:active,
+.share-btn:active,
+.like-btn:active,
+.fav-btn:active{
+
+    transform:scale(.96);
+
+}
+.like-btn:hover{
+
+    color:#ff3b5c;
+
+}
+
+.fav-btn:hover{
+
+    color:#FFD700;
+
+}
+
+.share-btn:hover{
+
+    color:#00c853;
+
+}
+
+.copy-btn:hover{
+
+    color:#2196f3;
+
+}
