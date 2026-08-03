@@ -1,9 +1,9 @@
 console.log("Script Started");
- ==========================================
+
+/* ==========================================
    Adarsh Raj Shayar
    Professional Script v6.0
 ========================================== */
-
 "use strict";
 
 /* ==========================================
@@ -838,6 +838,8 @@ document.addEventListener("DOMContentLoaded", () => {
    MOBILE MENU OVERLAY
 ========================================== */
 
+const menuBtn = document.getElementById("menuBtn");
+const nav = document.querySelector("nav");
 const overlay = document.getElementById("overlay");
 
 if (menuBtn && nav && overlay) {
