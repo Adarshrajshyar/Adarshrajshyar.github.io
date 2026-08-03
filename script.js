@@ -1041,6 +1041,64 @@ document.getElementById("pubAuthor").value="";
 });
 
 /* ==========================================
+LOAD PUBLISHED SHAYARI
+========================================== */
+
+function loadPublishedShayari(){
+
+const container=document.getElementById("publishedContainer");
+
+if(!container) return;
+
+container.innerHTML="";
+
+let all=JSON.parse(localStorage.getItem("customShayari")) || [];
+
+all.forEach(item=>{
+
+container.innerHTML += `
+
+<div class="card">
+
+<h3>${item.title}</h3>
+
+<p class="shayariText">
+
+${item.text.replace(/\n/g,"<br>")}
+
+</p>
+
+<p>
+
+✍️ <b>Original Author:</b> ${item.author || "Unknown"}
+
+</p>
+
+<p>
+
+👑 <b>Published By:</b> ${item.publisher}
+
+</p>
+
+<p>
+
+📅 ${item.date}
+
+</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadPublishedShayari();
+alert("✅ Shayari Published Successfully");
+
+
+/* ==========================================
    END OF SCRIPT
 ========================================== */
 
