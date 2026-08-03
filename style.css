@@ -1504,3 +1504,106 @@ button:active,
     font-size:18px;
 
 }
+
+/* ==========================================
+   PREMIUM SHAYARI CARD
+========================================== */
+
+.card{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,215,0,.25);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin:25px auto;
+
+    transition:.35s;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.20);
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#FFD700;
+
+    box-shadow:0 18px 45px rgba(255,215,0,.35);
+
+}
+
+.shayariText{
+
+    font-size:20px;
+
+    line-height:2;
+
+    text-align:center;
+
+}
+
+.author{
+
+    color:#FFD700;
+
+    font-weight:bold;
+
+    text-align:right;
+
+    margin-top:18px;
+
+}
+
+.actionButtons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+
+}
+
+.copyBtn,
+.shareBtn,
+.likeBtn,
+.favBtn{
+
+    background:#FFD700;
+
+    color:#111;
+
+    border:none;
+
+    border-radius:30px;
+
+    padding:10px 18px;
+
+    font-weight:bold;
+
+    transition:.35s;
+
+}
+
+.copyBtn:hover,
+.shareBtn:hover,
+.likeBtn:hover,
+.favBtn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(255,215,0,.40);
+
+}
