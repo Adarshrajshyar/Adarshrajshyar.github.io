@@ -1607,3 +1607,27 @@ button:active,
     box-shadow:0 10px 20px rgba(255,215,0,.40);
 
 }
+
+/* ==========================================
+   SCROLL PROGRESS BAR
+========================================== */
+
+#progressBar{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+height:4px;
+
+width:0%;
+
+background:linear-gradient(90deg,#FFD700,#ff9800);
+
+z-index:99999;
+
+transition:.15s;
+
+}
