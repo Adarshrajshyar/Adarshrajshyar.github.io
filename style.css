@@ -1339,3 +1339,24 @@ nav a:hover{
     background:rgba(255,215,0,.15);
     border-radius:8px;
 }
+
+/* ===== Premium Top Bar ===== */
+
+.top-bar {
+    background: linear-gradient(90deg, #000000, #1a1a1a, #000000);
+    color: #FFD700;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+    border-bottom: 2px solid #FFD700;
+    box-shadow: 0 2px 8px rgba(255,215,0,0.4);
+}
+
+.top-bar marquee {
+    color: #FFD700;
+}
+
+#visitor-count {
+    color: #00ff66;
+    font-weight: bold;
+}
