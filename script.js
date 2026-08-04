@@ -894,3 +894,7 @@ console.log("✅ Website Ready");
 });
 
 console.log("🌹 Adarsh Raj Shayar v8 Loaded Successfully");
+
+function loadAllShayari(){}
+
+function restoreButtons(){}
