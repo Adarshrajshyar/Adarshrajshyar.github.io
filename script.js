@@ -8,24 +8,6 @@
 console.clear();
 console.log("🌹 Adarsh Raj Shayar v8 Loaded");
 
-/* ==========================================
-   FIREBASE
-========================================== */
-
-apiKey: "AIzaSyAgLSlLFWvUkgediowyM960rY4OlYPj-Ps",
-
-authDomain: "adarsh-raj-shayar.firebaseapp.com",
-
-projectId: "adarsh-raj-shayar",
-
-storageBucket: "adarsh-raj-shayar.firebasestorage.app",
-
-messagingSenderId: "784582381813",
-
-appId: "1:784582381813:web:c46160a39065986b9bf5bc"
-
-};
-
 
 /* ==========================================
 GLOBAL VARIABLES
