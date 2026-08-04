@@ -36,11 +36,6 @@ const overlay=document.getElementById("overlay");
 
 const ADMIN_PASSWORD="ARS2026";
 
-let likedShayari=[];
-
-let favouriteShayari=[];
-
-let likeCounter={};
 /* ==========================================
 TOAST
 ========================================== */
