@@ -12,20 +12,6 @@ console.log("🌹 Adarsh Raj Shayar v8 Loaded");
    FIREBASE
 ========================================== */
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc,
-updateDoc
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-const firebaseConfig = {
-
 apiKey: "AIzaSyAgLSlLFWvUkgediowyM960rY4OlYPj-Ps",
 
 authDomain: "adarsh-raj-shayar.firebaseapp.com",
