@@ -750,7 +750,10 @@ ${text.replace(/\n/g,"<br>")}
 
 }
 
-setTimeout(restoreButtons,500);
+setTimeout(() => {
+    restoreButtons();
+}, 500);
+
 /* ==========================================
    ADMIN LOGIN
 ========================================== */
