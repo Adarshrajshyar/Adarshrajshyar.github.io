@@ -898,3 +898,15 @@ console.log("🌹 Adarsh Raj Shayar v8 Loaded Successfully");
 function loadAllShayari(){}
 
 function restoreButtons(){}
+
+window.addEventListener("load", () => {
+
+    const loader = document.getElementById("loader");
+
+    if (loader) {
+
+        loader.style.display = "none";
+
+    }
+
+});
