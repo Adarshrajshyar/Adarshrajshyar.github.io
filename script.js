@@ -420,13 +420,14 @@ showToast("📤 Shayari Copied");
 LIKE + FAVOURITE
 ========================================== */
 
-let likedShayari=
+let likedShayari =
+JSON.parse(localStorage.getItem("likedShayari")) || [];
 
-JSON.parse(localStorage.getItem("likedShayari"))||[];
+let favouriteShayari =
+JSON.parse(localStorage.getItem("favouriteShayari")) || [];
 
-let favouriteShayari=
-
-JSON.parse(localStorage.getItem("favouriteShayari"))||[];
+let likeCounter =
+JSON.parse(localStorage.getItem("likeCounter")) || {};
 
 /* Like */
 
