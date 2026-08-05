@@ -866,23 +866,32 @@ showToast("🗑 Story Deleted");
 /* ==========================================
 INITIALIZE WEBSITE
 ========================================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener("DOMContentLoaded",()=>{
+    initTheme();
+    initPopup();
+    initCurrentYear();
+    initBackToTop();
+    initSearch();
+    initMenu();
 
-initTheme();
-initPopup();
-initCurrentYear();
-initBackToTop();
-initSearch();
-initMenu();
+    if (typeof loadAllShayari === "function") {
+        loadAllShayari();
+    }
 
-loadAllShayari();
-loadPublishedShayari();
-loadStories();     // ← यह नई लाइन जोड़ो
+    if (typeof loadPublishedShayari === "function") {
+        loadPublishedShayari();
+    }
 
-restoreButtons();
+    if (typeof loadStories === "function") {
+        loadStories();
+    }
 
-console.log("✅ Website Ready");
+    if (typeof restoreButtons === "function") {
+        restoreButtons();
+    }
+
+    console.log("✅ Website Ready");
 
 });
 
