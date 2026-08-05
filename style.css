@@ -1768,6 +1768,25 @@ resize:vertical;
 
 #publishBtn{
 
+   #storyPublishBtn{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:10px;
+    background:#FFD700;
+    color:#111;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#storyPublishBtn:hover{
+    background:#ffbf00;
+    transform:scale(1.02);
+}
+   
 width:100%;
 
 padding:15px;
