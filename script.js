@@ -836,6 +836,11 @@ data-id="${index}">
 ✏ Edit
 </button>
 
+<button class="storyShareBtn"
+        data-id="${index}">
+📤 Share
+</button>
+
 </div>
 
 </div>
@@ -909,6 +914,45 @@ if (e.target.classList.contains("storyEditBtn")) {
         behavior:"smooth"
 
     });
+
+}
+
+// ===== Story Share =====
+
+if (e.target.classList.contains("storyShareBtn")) {
+
+    const id = Number(e.target.dataset.id);
+
+    const stories = JSON.parse(localStorage.getItem("stories")) || [];
+
+    const story = stories[id];
+
+    const text =
+`${story.title}
+
+${story.text}
+
+✍ ${story.author}
+
+🌐 https://adarshrajshyar.github.io`;
+
+    if (navigator.share) {
+
+        navigator.share({
+
+            title: story.title,
+
+            text: text
+
+        });
+
+    } else {
+
+        navigator.clipboard.writeText(text);
+
+        showToast("📋 Story Copied");
+
+    }
 
 }
 
