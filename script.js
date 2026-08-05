@@ -894,7 +894,7 @@ if (e.target.classList.contains("storyEditBtn")) {
     document.getElementById("storyTitle").value = story.title;
 
     document.getElementById("storyCategory").value = story.category;
-
+ 
     document.getElementById("storyText").value = story.text;
 
     document.getElementById("storyAuthor").value = story.author;
