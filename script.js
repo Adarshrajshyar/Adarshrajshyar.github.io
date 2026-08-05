@@ -720,20 +720,22 @@ return;
 
 const story={
 
-id:Date.now(),
+id: Date.now(),
 
 title,
+
+category: document.getElementById("storyCategory").value,
 
 text,
 
 author,
 
-publisher:"Adarsh Raj",
+publisher: "Adarsh Raj",
 
-date:new Date().toLocaleDateString()
+date: new Date().toLocaleDateString()
 
 };
-
+   
 let stories=
 
 JSON.parse(localStorage.getItem("stories")) || [];
@@ -801,6 +803,12 @@ container.innerHTML+=`
 
 <h3>${story.title}</h3>
 
+<p class="storyCategory">
+
+📂 ${story.category}
+
+</p>
+
 <p class="shayariText">
 
 ${story.text.replace(/\n/g,"<br>")}
@@ -821,6 +829,11 @@ data-id="${index}">
 
 🗑 Delete
 
+</button>
+
+<button class="storyEditBtn"
+        data-id="${index}">
+✏ Edit
 </button>
 
 </div>
@@ -862,6 +875,42 @@ loadStories();
 showToast("🗑 Story Deleted");
 
 });
+
+// ===== Story Edit =====
+
+if (e.target.classList.contains("storyEditBtn")) {
+
+    const id = Number(e.target.dataset.id);
+
+    let stories = JSON.parse(localStorage.getItem("stories")) || [];
+
+    const story = stories[id];
+
+    document.getElementById("storyTitle").value = story.title;
+
+    document.getElementById("storyCategory").value = story.category;
+
+    document.getElementById("storyText").value = story.text;
+
+    document.getElementById("storyAuthor").value = story.author;
+
+    stories.splice(id,1);
+
+    localStorage.setItem("stories",JSON.stringify(stories));
+
+    loadStories();
+
+    showToast("✏ Story Loaded For Editing");
+
+    window.scrollTo({
+
+        top: document.getElementById("storyTitle").offsetTop-100,
+
+        behavior:"smooth"
+
+    });
+
+}
 
 /* ==========================================
 INITIALIZE WEBSITE
