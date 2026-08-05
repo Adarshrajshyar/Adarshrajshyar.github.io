@@ -870,22 +870,15 @@ INITIALIZE WEBSITE
 document.addEventListener("DOMContentLoaded",()=>{
 
 initTheme();
-
 initPopup();
-
 initCurrentYear();
-
 initBackToTop();
-
 initSearch();
-
 initMenu();
 
 loadAllShayari();
-
 loadPublishedShayari();
-
-loadStories();
+loadStories();     // ← यह नई लाइन जोड़ो
 
 restoreButtons();
 
