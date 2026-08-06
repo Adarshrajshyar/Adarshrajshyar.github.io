@@ -1,178 +1,244 @@
 "use strict";
 
-/* ==========================================
+/* ==========================================================
    Adarsh Raj Shayar
-   Professional Script v10
-========================================== */
+   Professional Script v11
+   Part 1 : Foundation
+========================================================== */
 
 console.clear();
-console.log("🌹 Adarsh Raj Shayar v10 Loaded");
+console.log("🌹 Adarsh Raj Shayar v11 Loading...");
 
-/* ==========================================
-   GLOBAL ELEMENTS
-========================================== */
+/* ==========================================================
+   CONFIG
+========================================================== */
+
+const CONFIG = {
+
+    ADMIN_PASSWORD: "ARS2026",
+
+    STORAGE: {
+
+        THEME: "ars_theme",
+
+        VISITED: "ars_visited",
+
+        LIKES: "ars_likes",
+
+        FAVOURITES: "ars_favourites",
+
+        SHAYARI: "ars_custom_shayari",
+
+        STORIES: "ars_stories",
+
+        DRAFT: "ars_draft"
+
+    }
+
+};
+
+/* ==========================================================
+   DOM CACHE
+========================================================== */
+
+const $ = (selector) => document.querySelector(selector);
+
+const $$ = (selector) => document.querySelectorAll(selector);
 
 const body = document.body;
 
-const toast = document.getElementById("toast");
-const popup = document.getElementById("welcomePopup");
-const enterBtn = document.getElementById("enterBtn");
+const toast = $("#toast");
 
-const darkBtn = document.getElementById("darkModeBtn");
+const popup = $("#welcomePopup");
 
-const searchInput = document.getElementById("search");
+const enterBtn = $("#enterBtn");
 
-const menuBtn = document.getElementById("menuBtn");
-const nav = document.querySelector("nav");
-const overlay = document.getElementById("overlay");
+const darkBtn = $("#darkModeBtn");
 
-const topBtn = document.getElementById("topBtn");
+const searchInput = $("#search");
 
-const progressBar = document.getElementById("progressBar");
+const menuBtn = $("#menuBtn");
 
-const currentYear = document.getElementById("currentYear");
+const nav = $("nav");
 
-const ADMIN_PASSWORD = "ARS2026";
+const overlay = $("#overlay");
 
-/* ==========================================
-   LOCAL STORAGE
-========================================== */
+const topBtn = $("#topBtn");
 
-let likedShayari =
-JSON.parse(localStorage.getItem("likedShayari")) || [];
+const progressBar = $("#progressBar");
 
-let favouriteShayari =
-JSON.parse(localStorage.getItem("favouriteShayari")) || [];
+const currentYear = $("#currentYear");
 
-let customShayari =
-JSON.parse(localStorage.getItem("customShayari")) || [];
+/* ==========================================================
+   STORAGE
+========================================================== */
 
-let stories =
-JSON.parse(localStorage.getItem("stories")) || [];
+const Storage = {
 
-/* ==========================================
-   SAVE DATA
-========================================== */
+    get(key, fallback = null) {
 
-function saveData(){
+        try {
 
-localStorage.setItem(
-"likedShayari",
-JSON.stringify(likedShayari)
-);
+            const value = localStorage.getItem(key);
 
-localStorage.setItem(
-"favouriteShayari",
-JSON.stringify(favouriteShayari)
-);
+            return value ? JSON.parse(value) : fallback;
 
-localStorage.setItem(
-"customShayari",
-JSON.stringify(customShayari)
-);
+        } catch {
 
-localStorage.setItem(
-"stories",
-JSON.stringify(stories)
-);
+            return fallback;
+
+        }
+
+    },
+
+    set(key, value) {
+
+        localStorage.setItem(key, JSON.stringify(value));
+
+    },
+
+    remove(key) {
+
+        localStorage.removeItem(key);
+
+    }
+
+};
+
+/* ==========================================================
+   GLOBAL DATA
+========================================================== */
+
+let likedShayari = Storage.get(CONFIG.STORAGE.LIKES, []);
+
+let favouriteShayari = Storage.get(CONFIG.STORAGE.FAVOURITES, []);
+
+let customShayari = Storage.get(CONFIG.STORAGE.SHAYARI, []);
+
+let stories = Storage.get(CONFIG.STORAGE.STORIES, []);
+
+let isAdmin = sessionStorage.getItem("ARS_ADMIN") === "true";
+
+/* ==========================================================
+   SAVE ALL DATA
+========================================================== */
+
+function saveAllData() {
+
+    Storage.set(CONFIG.STORAGE.LIKES, likedShayari);
+
+    Storage.set(CONFIG.STORAGE.FAVOURITES, favouriteShayari);
+
+    Storage.set(CONFIG.STORAGE.SHAYARI, customShayari);
+
+    Storage.set(CONFIG.STORAGE.STORIES, stories);
 
 }
 
-/* ==========================================
+/* ==========================================================
    TOAST
-========================================== */
+========================================================== */
 
-function showToast(message){
+function showToast(message) {
 
-if(!toast) return;
+    if (!toast) return;
 
-toast.innerHTML = message;
+    toast.textContent = message;
 
-toast.classList.add("show");
+    toast.classList.add("show");
 
-setTimeout(()=>{
+    clearTimeout(showToast.timer);
 
-toast.classList.remove("show");
+    showToast.timer = setTimeout(() => {
 
-},2000);
+        toast.classList.remove("show");
+
+    }, 2200);
 
 }
-/* ==========================================
+
+/* ==========================================================
+   READY
+========================================================== */
+
+console.log("✅ Foundation Loaded");
+/* ==========================================================
+   PART 2 : UI CORE
+========================================================== */
+
+/* =========================
    CURRENT YEAR
-========================================== */
+========================= */
 
-function initCurrentYear() {
+function initCurrentYear(){
 
-    if (currentYear) {
-        currentYear.textContent = new Date().getFullYear();
+    if(currentYear){
+
+        currentYear.textContent=new Date().getFullYear();
+
     }
 
 }
 
-/* ==========================================
+/* =========================
    LOADER
-========================================== */
+========================= */
 
-function initLoader() {
+function initLoader(){
 
-    const loader = document.getElementById("loader");
+    const loader=$("#loader");
 
-    if (!loader) return;
+    if(!loader) return;
 
-    window.addEventListener("load", () => {
+    window.addEventListener("load",()=>{
 
-        setTimeout(() => {
+        setTimeout(()=>{
 
-            loader.style.opacity = "0";
+            loader.classList.add("loader-hide");
 
-            setTimeout(() => {
-
-                loader.style.display = "none";
-
-            }, 500);
-
-        }, 800);
+        },700);
 
     });
 
 }
 
-/* ==========================================
+/* =========================
    WELCOME POPUP
-========================================== */
+========================= */
 
-function initPopup() {
+function initPopup(){
 
-    if (!popup || !enterBtn) return;
+    if(!popup || !enterBtn) return;
 
-    if (localStorage.getItem("visited")) {
+    if(localStorage.getItem(CONFIG.STORAGE.VISITED)){
 
-        popup.style.display = "none";
+        popup.remove();
+
         return;
 
     }
 
-    enterBtn.onclick = function () {
+    enterBtn.onclick=()=>{
 
-        popup.style.display = "none";
+        popup.remove();
 
-        localStorage.setItem("visited", "yes");
+        localStorage.setItem(CONFIG.STORAGE.VISITED,"yes");
 
-        showToast("❤️ Welcome to Adarsh Raj Shayar");
+        showToast("❤️ Welcome");
 
     };
 
 }
 
-/* ==========================================
+/* =========================
    DARK MODE
-========================================== */
+========================= */
 
-function initTheme() {
+function initTheme(){
 
-    const savedTheme = localStorage.getItem("theme");
+    const theme=Storage.get(CONFIG.STORAGE.THEME,"dark");
 
-    if (savedTheme === "light") {
+    if(theme==="light"){
 
         body.classList.add("light-mode");
 
@@ -180,54 +246,55 @@ function initTheme() {
 
     updateThemeIcon();
 
-    if (darkBtn) {
+    if(darkBtn){
 
-        darkBtn.onclick = toggleTheme;
+        darkBtn.onclick=toggleTheme;
 
     }
 
 }
 
-function toggleTheme() {
+function toggleTheme(){
 
     body.classList.toggle("light-mode");
 
-    const theme = body.classList.contains("light-mode")
-        ? "light"
-        : "dark";
+    const mode=
 
-    localStorage.setItem("theme", theme);
+    body.classList.contains("light-mode")
+
+    ?"light"
+
+    :"dark";
+
+    Storage.set(CONFIG.STORAGE.THEME,mode);
 
     updateThemeIcon();
 
-    showToast(
-        theme === "light"
-            ? "☀️ Light Mode Enabled"
-            : "🌙 Dark Mode Enabled"
-    );
+}
+
+function updateThemeIcon(){
+
+    if(!darkBtn) return;
+
+    darkBtn.innerHTML=
+
+    body.classList.contains("light-mode")
+
+    ?"🌙"
+
+    :"☀️";
 
 }
 
-function updateThemeIcon() {
-
-    if (!darkBtn) return;
-
-    darkBtn.innerHTML =
-        body.classList.contains("light-mode")
-            ? "🌙"
-            : "☀️";
-
-}
-
-/* ==========================================
+/* =========================
    MOBILE MENU
-========================================== */
+========================= */
 
-function initMenu() {
+function initMenu(){
 
-    if (!menuBtn || !nav || !overlay) return;
+    if(!menuBtn || !nav || !overlay) return;
 
-    menuBtn.addEventListener("click", () => {
+    menuBtn.onclick=()=>{
 
         nav.classList.toggle("active");
 
@@ -235,13 +302,13 @@ function initMenu() {
 
         body.classList.toggle("menu-open");
 
-    });
+    };
 
-    overlay.addEventListener("click", closeMenu);
+    overlay.onclick=closeMenu;
 
 }
 
-function closeMenu() {
+function closeMenu(){
 
     nav.classList.remove("active");
 
@@ -250,116 +317,100 @@ function closeMenu() {
     body.classList.remove("menu-open");
 
 }
-/* ==========================================
-   SEARCH SYSTEM
-========================================== */
 
-function initSearch() {
-
-    if (!searchInput) return;
-
-    searchInput.addEventListener("keyup", function () {
-
-        const value = this.value.toLowerCase().trim();
-
-        document.querySelectorAll(".card").forEach(card => {
-
-            const text = card.innerText.toLowerCase();
-
-            card.style.display = text.includes(value)
-                ? ""
-                : "none";
-
-        });
-
-    });
-
-}
-
-/* ==========================================
+/* =========================
    BACK TO TOP
-========================================== */
+========================= */
 
-function initBackToTop() {
+function initBackToTop(){
 
-    if (!topBtn) return;
+    if(!topBtn) return;
 
-    window.addEventListener("scroll", () => {
+    window.addEventListener("scroll",()=>{
 
-        topBtn.style.display =
-            window.scrollY > 300
-                ? "block"
-                : "none";
+        topBtn.style.display=
+
+        window.scrollY>300
+
+        ?"block"
+
+        :"none";
 
     });
 
-    topBtn.addEventListener("click", () => {
+    topBtn.onclick=()=>{
 
         window.scrollTo({
 
-            top: 0,
+            top:0,
 
-            behavior: "smooth"
+            behavior:"smooth"
 
         });
 
+    };
+
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+function initProgressBar(){
+
+    if(!progressBar) return;
+
+    window.addEventListener("scroll",()=>{
+
+        const h=
+
+        document.documentElement;
+
+        const percent=
+
+        h.scrollTop/
+
+        (h.scrollHeight-h.clientHeight)
+
+        *100;
+
+        progressBar.style.width=
+
+        percent+"%";
+
     });
 
 }
 
-/* ==========================================
-   SCROLL PROGRESS BAR
-========================================== */
-
-function initProgressBar() {
-
-    if (!progressBar) return;
-
-    window.addEventListener("scroll", () => {
-
-        const total =
-            document.documentElement.scrollHeight -
-            document.documentElement.clientHeight;
-
-        const progress =
-            (document.documentElement.scrollTop / total) * 100;
-
-        progressBar.style.width = progress + "%";
-
-    });
-
-}
-
-/* ==========================================
+/* =========================
    ACTIVE MENU
-========================================== */
+========================= */
 
-function initActiveMenu() {
+function initActiveMenu(){
 
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll("nav a");
+    const sections=$$("section[id]");
 
-    window.addEventListener("scroll", () => {
+    const links=$$("nav a");
 
-        let current = "";
+    window.addEventListener("scroll",()=>{
 
-        sections.forEach(section => {
+        let current="";
 
-            const top = section.offsetTop - 120;
+        sections.forEach(sec=>{
 
-            if (window.scrollY >= top) {
+            if(window.scrollY>=sec.offsetTop-150){
 
-                current = section.id;
+                current=sec.id;
 
             }
 
         });
 
-        navLinks.forEach(link => {
+        links.forEach(link=>{
 
             link.classList.remove("active");
 
-            if (link.getAttribute("href") === "#" + current) {
+            if(link.getAttribute("href")==="#"+current){
 
                 link.classList.add("active");
 
@@ -371,25 +422,27 @@ function initActiveMenu() {
 
 }
 
-/* ==========================================
-   SMOOTH NAVIGATION
-========================================== */
+/* =========================
+   SMOOTH SCROLL
+========================= */
 
-function initSmoothScroll() {
+function initSmoothScroll(){
 
-    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+    $$('nav a[href^="#"]').forEach(link=>{
 
-        link.addEventListener("click", function (e) {
+        link.onclick=function(e){
 
             e.preventDefault();
 
-            const target = document.querySelector(this.getAttribute("href"));
+            const target=
 
-            if (target) {
+            $(this.getAttribute("href"));
+
+            if(target){
 
                 target.scrollIntoView({
 
-                    behavior: "smooth"
+                    behavior:"smooth"
 
                 });
 
@@ -397,226 +450,184 @@ function initSmoothScroll() {
 
             closeMenu();
 
-        });
+        };
 
     });
 
 }
-/* ==========================================
-   COPY SHAYARI
-========================================== */
 
-async function copyText(text){
+console.log("✅ UI Core Loaded");
+/* ==========================================================
+   PART 3A : SHAYARI ENGINE
+========================================================== */
 
-    try{
+/* =========================
+   CREATE SHAYARI CARD
+========================= */
 
-        await navigator.clipboard.writeText(text);
+function createCard(item){
 
-        showToast("📋 Shayari Copied");
+return `
 
-    }catch{
+<div class="card" data-category="${item.category}">
 
-        showToast("❌ Copy Failed");
+<h3>${item.title}</h3>
 
-    }
+<p class="shayariText">
+
+${item.text.replace(/\n/g,"<br>")}
+
+</p>
+
+<p class="author">
+
+✍ ${item.author}
+
+</p>
+
+<div class="actionButtons">
+
+<button class="copyBtn">
+
+📋 Copy
+
+</button>
+
+<button class="shareBtn">
+
+📤 Share
+
+</button>
+
+<button class="likeBtn">
+
+❤️ Like
+
+</button>
+
+<button class="favBtn">
+
+⭐ Favourite
+
+</button>
+
+</div>
+
+</div>
+
+`;
 
 }
 
-/* ==========================================
-   SHARE SHAYARI
-========================================== */
+/* =========================
+   RENDER CATEGORY
+========================= */
 
-async function shareText(text){
+function renderCategory(categoryName,containerId){
 
-    if(navigator.share){
+const container=document.getElementById(containerId);
 
-        try{
+if(!container) return;
 
-            await navigator.share({
+container.innerHTML="";
 
-                title:"Adarsh Raj Shayar",
+const data=[
 
-                text:text,
+...shayariData.filter(
 
-                url:location.href
+item=>item.category===categoryName
 
-            });
+),
 
-        }catch(e){}
+...customShayari.filter(
 
-    }else{
+item=>item.category===categoryName
 
-        copyText(text);
+)
 
-    }
+];
 
-}
+if(data.length===0){
 
-/* ==========================================
-   BUTTON EVENTS
-========================================== */
+container.innerHTML=
 
-document.addEventListener("click",(e)=>{
+`
 
-    const card=e.target.closest(".card");
+<div class="card">
 
-    if(!card) return;
+<h3>No Shayari</h3>
 
-    const textElement=card.querySelector(".shayariText");
+<p>Coming Soon...</p>
 
-    if(!textElement) return;
+</div>
 
-    const text=textElement.innerText;
-
-    /* COPY */
-
-    if(e.target.classList.contains("copyBtn")){
-
-        copyText(text);
-
-    }
-
-    /* SHARE */
-
-    if(e.target.classList.contains("shareBtn")){
-
-        shareText(text);
-
-    }
-
-});
-
-/* ==========================================
-   LIKE SYSTEM
-========================================== */
-
-document.addEventListener("click",(e)=>{
-
-    if(!e.target.classList.contains("likeBtn")) return;
-
-    const btn=e.target;
-
-    btn.classList.toggle("active");
-
-    if(btn.classList.contains("active")){
-
-        btn.innerHTML="💖 Liked";
-
-    }else{
-
-        btn.innerHTML="❤️ Like";
-
-    }
-
-});
-
-/* ==========================================
-   FAVOURITE SYSTEM
-========================================== */
-
-document.addEventListener("click",(e)=>{
-
-    if(!e.target.classList.contains("favBtn")) return;
-
-    const btn=e.target;
-
-    const card=btn.closest(".card");
-
-    const text=card.querySelector(".shayariText").innerText;
-
-    btn.classList.toggle("active");
-
-    if(btn.classList.contains("active")){
-
-        btn.innerHTML="🌟 Saved";
-
-        if(!favouriteShayari.includes(text)){
-
-            favouriteShayari.push(text);
-
-        }
-
-    }else{
-
-        btn.innerHTML="⭐ Favourite";
-
-        favouriteShayari=favouriteShayari.filter(item=>item!==text);
-
-    }
-
-    saveData();
-
-});
-/* ==========================================
-   ADMIN + USER ACTION SYSTEM
-========================================== */
-
-let isAdmin =
-sessionStorage.getItem("ARS_ADMIN")==="true";
-
-/* ==========================================
-   ADMIN LOGIN
-========================================== */
-
-function initAdmin(){
-
-const loginBtn=document.getElementById("loginBtn");
-
-if(!loginBtn) return;
-
-loginBtn.onclick=function(){
-
-const password=
-document.getElementById("adminPassword")
-.value
-.trim();
-
-if(password!==ADMIN_PASSWORD){
-
-showToast("❌ Wrong Password");
+`;
 
 return;
 
 }
 
-isAdmin=true;
+data.forEach(item=>{
 
-sessionStorage.setItem(
-"ARS_ADMIN",
-"true"
+container.innerHTML+=createCard(item);
+
+});
+
+}
+
+/* =========================
+   LOAD ALL SHAYARI
+========================= */
+
+function loadAllShayari(){
+
+renderCategory(
+
+"Love",
+
+"loveContainer"
+
 );
 
-document.getElementById("adminLogin").style.display="none";
+renderCategory(
 
-document.getElementById("publisherPanel").style.display="block";
+"Sad",
 
-showToast("✅ Admin Login Success");
+"sadContainer"
 
-};
+);
+
+renderCategory(
+
+"Attitude",
+
+"attitudeContainer"
+
+);
+
+renderCategory(
+
+"Friendship",
+
+"friendshipContainer"
+
+);
+
+renderCategory(
+
+"Motivation",
+
+"motivationContainer"
+
+);
+
+restoreButtons();
 
 }
 
-/* ==========================================
-   CHECK ADMIN
-========================================== */
-
-function checkAdmin(){
-
-if(!isAdmin){
-
-showToast("🔒 Please Login First");
-
-return false;
-
-}
-
-return true;
-
-}
-
-/* ==========================================
+/* =========================
    COPY
-========================================== */
+========================= */
 
 async function copyText(text){
 
@@ -624,7 +635,7 @@ try{
 
 await navigator.clipboard.writeText(text);
 
-showToast("📋 Shayari Copied");
+showToast("📋 Copied");
 
 }catch{
 
@@ -634,9 +645,9 @@ showToast("❌ Copy Failed");
 
 }
 
-/* ==========================================
+/* =========================
    SHARE
-========================================== */
+========================= */
 
 async function shareText(text){
 
@@ -648,13 +659,13 @@ await navigator.share({
 
 title:"Adarsh Raj Shayar",
 
-text:text,
+text,
 
 url:location.href
 
 });
 
-}catch(e){}
+}catch{}
 
 }else{
 
@@ -664,25 +675,41 @@ copyText(text);
 
 }
 
-/* ==========================================
-   BUTTON EVENTS
-========================================== */
+/* =========================
+   CARD BUTTONS
+========================= */
 
-document.addEventListener("click",function(e){
+document.addEventListener(
 
-const card=e.target.closest(".card");
+"click",
+
+function(e){
+
+const card=
+
+e.target.closest(".card");
 
 if(!card) return;
 
-const shayari=card.querySelector(".shayariText");
+const text=
 
-if(!shayari) return;
+card.querySelector(
 
-const text=shayari.innerText;
+".shayariText"
+
+).innerText;
 
 /* COPY */
 
-if(e.target.classList.contains("copyBtn")){
+if(
+
+e.target.classList.contains(
+
+"copyBtn"
+
+)
+
+){
 
 copyText(text);
 
@@ -690,583 +717,481 @@ copyText(text);
 
 /* SHARE */
 
-if(e.target.classList.contains("shareBtn")){
+if(
+
+e.target.classList.contains(
+
+"shareBtn"
+
+)
+
+){
 
 shareText(text);
 
 }
 
-});
-
-/* ==========================================
-   LIKE SYSTEM
-========================================== */
-
-document.addEventListener("click",function(e){
-
-if(!e.target.classList.contains("likeBtn")) return;
-
-const btn=e.target;
-
-btn.classList.toggle("active");
-
-if(btn.classList.contains("active")){
-
-btn.innerHTML="💖 Liked";
-
-}else{
-
-btn.innerHTML="❤️ Like";
-
 }
-
-});
-
-/* ==========================================
-   FAVOURITE SYSTEM
-========================================== */
-
-document.addEventListener("click",function(e){
-
-if(!e.target.classList.contains("favBtn")) return;
-
-const btn=e.target;
-
-const card=btn.closest(".card");
-
-const text=
-card.querySelector(".shayariText").innerText;
-
-btn.classList.toggle("active");
-
-if(btn.classList.contains("active")){
-
-btn.innerHTML="🌟 Saved";
-
-if(!favouriteShayari.includes(text)){
-
-favouriteShayari.push(text);
-
-}
-
-}else{
-
-btn.innerHTML="⭐ Favourite";
-
-favouriteShayari=favouriteShayari.filter(
-
-item=>item!==text
 
 );
 
-}
+console.log("✅ Shayari Engine Loaded");
+/* ==========================================================
+   PART 3B : LIKE • FAVOURITE • SEARCH
+========================================================== */
 
-saveData();
+/* =========================
+   LIKE SYSTEM
+========================= */
 
-});
-/* ==========================================
-   SHAYARI PUBLISH SYSTEM
-========================================== */
+function toggleLike(text){
 
-function publishShayari(){
+    const index=likedShayari.indexOf(text);
 
-if(!checkAdmin()) return;
+    if(index===-1){
 
-const title=document.getElementById("pubTitle").value.trim();
+        likedShayari.push(text);
 
-const category=document.getElementById("pubCategory").value;
+        showToast("❤️ Liked");
 
-const text=document.getElementById("pubText").value.trim();
+    }else{
 
-const author=document.getElementById("pubAuthor").value.trim();
+        likedShayari.splice(index,1);
 
-const publisher=document.getElementById("pubPublisher").value.trim() || "Adarsh Raj";
+        showToast("💔 Like Removed");
 
-if(title==="" || text===""){
+    }
 
-showToast("⚠ Please Fill Required Fields");
-
-return;
-
-}
-
-const shayari={
-
-id:Date.now(),
-
-title:title,
-
-category:category,
-
-text:text,
-
-author:author || "Unknown",
-
-publisher:publisher,
-
-date:new Date().toLocaleDateString()
-
-};
-
-customShayari.unshift(shayari);
-
-saveData();
-
-loadPublishedShayari();
-
-showToast("✅ Shayari Published Successfully");
-
-document.getElementById("pubTitle").value="";
-
-document.getElementById("pubText").value="";
-
-document.getElementById("pubAuthor").value="";
+    saveAllData();
 
 }
 
-/* ==========================================
-   PUBLISH BUTTON
-========================================== */
+/* =========================
+   FAVOURITE SYSTEM
+========================= */
 
-function initPublishButton(){
+function toggleFavourite(text){
 
-const publishBtn=document.getElementById("publishBtn");
+    const index=favouriteShayari.indexOf(text);
 
-if(!publishBtn) return;
+    if(index===-1){
 
-publishBtn.addEventListener("click",publishShayari);
+        favouriteShayari.push(text);
 
-}
-/* ==========================================
-   STORY PUBLISH SYSTEM
-========================================== */
+        showToast("⭐ Added to Favourite");
 
-function publishStory(){
+    }else{
 
-if(!checkAdmin()) return;
+        favouriteShayari.splice(index,1);
 
-const title=document.getElementById("storyTitle").value.trim();
-const text=document.getElementById("storyText").value.trim();
-const author=document.getElementById("storyAuthor").value.trim();
+        showToast("❌ Removed Favourite");
 
-if(title==="" || text===""){
+    }
 
-showToast("⚠ Please Fill Story Details");
-return;
+    saveAllData();
+
+    loadFavourite();
 
 }
 
-const story={
-
-id:Date.now(),
-
-title,
-
-text,
-
-author:author || "Unknown",
-
-publisher:"Adarsh Raj",
-
-date:new Date().toLocaleDateString()
-
-};
-
-stories.unshift(story);
-
-saveData();
-
-loadStories();
-
-showToast("📖 Story Published Successfully");
-
-document.getElementById("storyTitle").value="";
-document.getElementById("storyText").value="";
-document.getElementById("storyAuthor").value="";
-
-}
-
-/* ==========================================
-   STORY BUTTON
-========================================== */
-
-function initStoryButton(){
-
-const btn=document.getElementById("storyPublishBtn");
-
-if(!btn) return;
-
-btn.addEventListener("click",publishStory);
-
-}
-
-/* ==========================================
-   EDIT / DELETE SHAYARI
-========================================== */
+/* =========================
+   BUTTON EVENTS
+========================= */
 
 document.addEventListener("click",(e)=>{
 
-if(e.target.classList.contains("editShayariBtn")){
+    const card=e.target.closest(".card");
 
-if(!checkAdmin()) return;
+    if(!card) return;
 
-const id=Number(e.target.dataset.id);
+    const text=card.querySelector(".shayariText")?.innerText;
 
-const item=customShayari[id];
+    if(!text) return;
 
-if(!item) return;
+    if(e.target.classList.contains("likeBtn")){
 
-document.getElementById("pubTitle").value=item.title;
-document.getElementById("pubCategory").value=item.category;
-document.getElementById("pubText").value=item.text;
-document.getElementById("pubAuthor").value=item.author;
-document.getElementById("pubPublisher").value=item.publisher;
+        toggleLike(text);
 
-customShayari.splice(id,1);
+        e.target.classList.toggle("active");
 
-saveData();
+        e.target.innerHTML=
 
-loadPublishedShayari();
+        likedShayari.includes(text)
 
-showToast("✏ Edit Mode Enabled");
+        ?"💖 Liked"
 
-}
+        :"❤️ Like";
 
-if(e.target.classList.contains("deleteShayariBtn")){
+    }
 
-if(!checkAdmin()) return;
+    if(e.target.classList.contains("favBtn")){
 
-const id=Number(e.target.dataset.id);
+        toggleFavourite(text);
 
-if(!confirm("Delete this Shayari?")) return;
+        e.target.classList.toggle("active");
 
-customShayari.splice(id,1);
+        e.target.innerHTML=
 
-saveData();
+        favouriteShayari.includes(text)
 
-loadPublishedShayari();
+        ?"🌟 Saved"
 
-showToast("🗑 Shayari Deleted");
+        :"⭐ Favourite";
 
-}
+    }
 
 });
 
-/* ==========================================
-   DELETE STORY
-========================================== */
-
-document.addEventListener("click",(e)=>{
-
-if(!e.target.classList.contains("storyDeleteBtn")) return;
-
-if(!checkAdmin()) return;
-
-const id=Number(e.target.dataset.id);
-
-if(!confirm("Delete this Story?")) return;
-
-stories.splice(id,1);
-
-saveData();
-
-loadStories();
-
-showToast("🗑 Story Deleted");
-
-});
-/* ==========================================
-   LOAD PUBLISHED SHAYARI
-========================================== */
-
-function loadPublishedShayari(){
-
-const container=document.getElementById("publishedContainer");
-
-if(!container) return;
-
-container.innerHTML="";
-
-if(customShayari.length===0){
-
-container.innerHTML=`
-<div class="card">
-<h3>📝 No Shayari Published Yet</h3>
-<p>नई Shayari जल्द प्रकाशित होगी।</p>
-</div>
-`;
-
-return;
-
-}
-
-customShayari.forEach((item,index)=>{
-
-container.innerHTML+=createCard(item)+`
-
-<div class="actionButtons adminButtons">
-
-<button class="editShayariBtn"
-data-id="${index}">
-✏ Edit
-</button>
-
-<button class="deleteShayariBtn"
-data-id="${index}">
-🗑 Delete
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* ==========================================
-   LOAD STORIES
-========================================== */
-
-function loadStories(){
-
-const container=document.getElementById("storyContainer");
-
-if(!container) return;
-
-container.innerHTML="";
-
-if(stories.length===0){
-
-container.innerHTML=`
-<div class="card">
-<h3>📖 No Story Published Yet</h3>
-<p>नई Story जल्द प्रकाशित होगी।</p>
-</div>
-`;
-
-return;
-
-}
-
-stories.forEach((story,index)=>{
-
-container.innerHTML+=`
-
-<div class="card">
-
-<h3>${story.title}</h3>
-
-<p class="shayariText">
-${story.text.replace(/\n/g,"<br>")}
-</p>
-
-<p>✍️ ${story.author}</p>
-
-<p>📅 ${story.date}</p>
-
-<div class="actionButtons">
-
-<button class="storyDeleteBtn"
-data-id="${index}">
-🗑 Delete
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* ==========================================
-   RESTORE USER BUTTONS
-========================================== */
+/* =========================
+   RESTORE BUTTONS
+========================= */
 
 function restoreButtons(){
 
-document.querySelectorAll(".likeBtn").forEach(btn=>{
+    document.querySelectorAll(".card").forEach(card=>{
 
-btn.innerHTML="❤️ Like";
+        const text=
 
-});
+        card.querySelector(".shayariText")?.innerText;
 
-document.querySelectorAll(".favBtn").forEach(btn=>{
+        if(!text) return;
 
-btn.innerHTML="⭐ Favourite";
+        const likeBtn=
 
-});
+        card.querySelector(".likeBtn");
 
-}
+        const favBtn=
 
-/* ==========================================
-   FINAL INITIALIZATION
-========================================== */
+        card.querySelector(".favBtn");
 
-document.addEventListener("DOMContentLoaded",()=>{
+        if(likeBtn){
 
-initLoader();
+            if(likedShayari.includes(text)){
 
-initCurrentYear();
+                likeBtn.classList.add("active");
 
-initPopup();
+                likeBtn.innerHTML="💖 Liked";
 
-initTheme();
+            }
 
-initMenu();
+        }
 
-initSearch();
+        if(favBtn){
 
-initBackToTop();
+            if(favouriteShayari.includes(text)){
 
-initProgressBar();
+                favBtn.classList.add("active");
 
-initActiveMenu();
+                favBtn.innerHTML="🌟 Saved";
 
-initSmoothScroll();
+            }
 
-initAdmin();
+        }
 
-initPublishButton();
-
-initStoryButton();
-
-loadAllShayari();
-
-loadPublishedShayari();
-
-loadStories();
-
-restoreButtons();
-
-initVisitorCounter();
-   
-initContactForm();
-   
-initCertificate();
-   
-loadFavourite();
-   
-console.log("✅ Adarsh Raj Shayar v10 Ready");
-
-});
-
-console.log("🌹 Professional Script Loaded");
-/* ==========================================
-   VISITOR COUNTER
-========================================== */
-
-function initVisitorCounter(){
-
-let count=Number(localStorage.getItem("visitorCount"))||0;
-
-count++;
-
-localStorage.setItem("visitorCount",count);
-
-const visitor=document.getElementById("visitor-count");
-
-if(visitor){
-
-visitor.textContent=count.toLocaleString();
+    });
 
 }
 
-}
+/* =========================
+   SEARCH
+========================= */
 
-/* ==========================================
-   EMAIL JS CONTACT
-========================================== */
+function initSearch(){
 
-function initContactForm(){
+    if(!searchInput) return;
 
-const form=document.getElementById("contact-form");
+    searchInput.addEventListener("input",()=>{
 
-if(!form) return;
+        const keyword=
 
-emailjs.init("YOUR_PUBLIC_KEY");
+        searchInput.value
 
-form.addEventListener("submit",function(e){
+        .toLowerCase()
 
-e.preventDefault();
+        .trim();
 
-emailjs.sendForm(
+        document.querySelectorAll(".card").forEach(card=>{
 
-"YOUR_SERVICE_ID",
+            const text=
 
-"YOUR_TEMPLATE_ID",
+            card.innerText.toLowerCase();
 
-this
+            card.style.display=
 
-).then(()=>{
+            text.includes(keyword)
 
-showToast("📩 Message Sent");
+            ?""
 
-form.reset();
+            :"none";
 
-}).catch(()=>{
+        });
 
-showToast("❌ Failed");
-
-});
-
-});
+    });
 
 }
 
-/* ==========================================
-   CERTIFICATE
-========================================== */
-
-function initCertificate(){
-
-const btn=document.getElementById("certificateBtn");
-
-if(!btn) return;
-
-btn.onclick=function(){
-
-showToast("🏆 Certificate Coming Soon");
-
-};
-
-}
-
-/* ==========================================
-   FAVOURITE LOADER
-========================================== */
+/* =========================
+   LOAD FAVOURITE
+========================= */
 
 function loadFavourite(){
 
-const container=document.getElementById("favoriteList");
+    const container=
 
-if(!container) return;
+    document.getElementById("favoriteList");
 
-container.innerHTML="";
+    if(!container) return;
 
-if(favouriteShayari.length===0){
+    container.innerHTML="";
 
-container.innerHTML="<p>अभी कोई Favourite Shayari नहीं है।</p>";
+    if(favouriteShayari.length===0){
 
-return;
+        container.innerHTML=
 
-}
+        "<p>अभी कोई Favourite Shayari नहीं है।</p>";
 
-favouriteShayari.forEach(text=>{
+        return;
 
-container.innerHTML+=`
+    }
+
+    favouriteShayari.forEach(text=>{
+
+        container.innerHTML+=`
 
 <div class="card">
 
-<p class="shayariText">${text}</p>
+<p class="shayariText">
+
+${text}
+
+</p>
 
 </div>
 
 `;
 
-});
+    });
 
 }
+
+console.log("✅ Like & Favourite Ready");
+/* ==========================================================
+   PART 3C : PREMIUM FEATURES
+========================================================== */
+
+/* =========================
+   RANDOM SHAYARI
+========================= */
+
+function getAllShayari(){
+
+    return [
+
+        ...(typeof shayariData !== "undefined" ? shayariData : []),
+
+        ...customShayari
+
+    ];
+
+}
+
+function getRandomShayari(){
+
+    const list = getAllShayari();
+
+    if(list.length===0) return null;
+
+    return list[Math.floor(Math.random()*list.length)];
+
+}
+
+/* =========================
+   TODAY'S SHAYARI
+========================= */
+
+function getTodayShayari(){
+
+    const list=getAllShayari();
+
+    if(list.length===0) return null;
+
+    const day=new Date().getDate();
+
+    return list[day % list.length];
+
+}
+
+/* =========================
+   STATISTICS
+========================= */
+
+function getStatistics(){
+
+    return{
+
+        totalShayari:getAllShayari().length,
+
+        totalStories:stories.length,
+
+        totalLikes:likedShayari.length,
+
+        totalFavourite:favouriteShayari.length
+
+    };
+
+}
+
+/* =========================
+   UPDATE STATISTICS
+========================= */
+
+function updateStatistics(){
+
+    const stats=getStatistics();
+
+    console.table(stats);
+
+}
+
+/* =========================
+   RANDOM CONSOLE MESSAGE
+========================= */
+
+(function(){
+
+    const random=getRandomShayari();
+
+    if(random){
+
+        console.log("🌹 Today's Random Shayari");
+
+        console.log(random.title);
+
+    }
+
+})();
+
+/* =========================
+   PERFORMANCE
+========================= */
+
+window.addEventListener("pageshow",()=>{
+
+    restoreButtons();
+
+    updateStatistics();
+
+});
+
+/* =========================
+   PRELOAD IMAGES
+========================= */
+
+function preloadImages(){
+
+    ["logo.png","banner.png"]
+
+    .forEach(src=>{
+
+        const img=new Image();
+
+        img.src=src;
+
+    });
+
+}
+
+preloadImages();
+
+console.log("✅ Premium Features Loaded");
+/* ==========================================================
+   PART 4A : ADMIN LOGIN & SECURITY
+========================================================== */
+
+const ADMIN_SESSION_KEY = "ARS_ADMIN_SESSION";
+
+function isLoggedIn() {
+    return sessionStorage.getItem(ADMIN_SESSION_KEY) === "true";
+}
+
+function setAdminLogin(status) {
+    sessionStorage.setItem(ADMIN_SESSION_KEY, status ? "true" : "false");
+    isAdmin = status;
+}
+
+function initAdmin() {
+
+    const loginBox = document.getElementById("adminLogin");
+    const panel = document.getElementById("publisherPanel");
+    const loginBtn = document.getElementById("loginBtn");
+    const passwordInput = document.getElementById("adminPassword");
+
+    if (!loginBtn) return;
+
+    if (isLoggedIn()) {
+
+        if (loginBox) loginBox.style.display = "none";
+        if (panel) panel.style.display = "block";
+
+        isAdmin = true;
+
+    } else {
+
+        if (loginBox) loginBox.style.display = "block";
+        if (panel) panel.style.display = "none";
+
+    }
+
+    loginBtn.onclick = function () {
+
+        const password = passwordInput.value.trim();
+
+        if (password !== CONFIG.ADMIN_PASSWORD) {
+
+            showToast("❌ Wrong Password");
+            passwordInput.focus();
+            return;
+
+        }
+
+        setAdminLogin(true);
+
+        if (loginBox) loginBox.style.display = "none";
+        if (panel) panel.style.display = "block";
+
+        passwordInput.value = "";
+
+        showToast("✅ Admin Login Success");
+
+    };
+
+}
+
+function logoutAdmin() {
+
+    setAdminLogin(false);
+
+    const loginBox = document.getElementById("adminLogin");
+    const panel = document.getElementById("publisherPanel");
+
+    if (loginBox) loginBox.style.display = "block";
+    if (panel) panel.style.display = "none";
+
+    showToast("👋 Logged Out");
+
+}
+
+function checkAdmin() {
+
+    if (!isLoggedIn()) {
+
+        showToast("🔒 Admin Login Required");
+        return false;
+
+    }
+
+    return true;
+
+}
+
+console.log("✅ Admin Security Ready");
