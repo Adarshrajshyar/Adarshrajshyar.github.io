@@ -1195,3 +1195,798 @@ function checkAdmin() {
 }
 
 console.log("✅ Admin Security Ready");
+/* ==========================================================
+   PART 4B : PROFESSIONAL SHAYARI PUBLISHER
+========================================================== */
+
+/* =========================
+   AUTO DRAFT
+========================= */
+
+function loadDraft(){
+
+    document.getElementById("pubTitle").value =
+        localStorage.getItem("draft_title") || "";
+
+    document.getElementById("pubText").value =
+        localStorage.getItem("draft_text") || "";
+
+    document.getElementById("pubAuthor").value =
+        localStorage.getItem("draft_author") || "";
+
+}
+
+function saveDraft(){
+
+    localStorage.setItem(
+        "draft_title",
+        document.getElementById("pubTitle").value
+    );
+
+    localStorage.setItem(
+        "draft_text",
+        document.getElementById("pubText").value
+    );
+
+    localStorage.setItem(
+        "draft_author",
+        document.getElementById("pubAuthor").value
+    );
+
+}
+
+/* =========================
+   PUBLISH SHAYARI
+========================= */
+
+function publishShayari(){
+
+    if(!checkAdmin()) return;
+
+    const title=document.getElementById("pubTitle").value.trim();
+    const category=document.getElementById("pubCategory").value;
+    const text=document.getElementById("pubText").value.trim();
+    const author=document.getElementById("pubAuthor").value.trim();
+    const publisher=document.getElementById("pubPublisher").value.trim() || "Adarsh Raj";
+
+    if(title.length<3){
+
+        showToast("⚠ Title Too Short");
+        return;
+
+    }
+
+    if(text.length<10){
+
+        showToast("⚠ Shayari Too Short");
+        return;
+
+    }
+
+    const item={
+
+        id:Date.now(),
+
+        title,
+
+        category,
+
+        text,
+
+        author:author || "Unknown",
+
+        publisher,
+
+        date:new Date().toLocaleString()
+
+    };
+
+    customShayari.unshift(item);
+
+    saveData();
+
+    loadPublishedShayari();
+
+    loadAllShayari();
+
+    localStorage.removeItem("draft_title");
+    localStorage.removeItem("draft_text");
+    localStorage.removeItem("draft_author");
+
+    document.getElementById("pubTitle").value="";
+    document.getElementById("pubText").value="";
+    document.getElementById("pubAuthor").value="";
+
+    showToast("✅ Shayari Published");
+
+}
+
+/* =========================
+   INIT
+========================= */
+
+function initPublishButton(){
+
+    const btn=document.getElementById("publishBtn");
+
+    if(!btn) return;
+
+    loadDraft();
+
+    ["pubTitle","pubText","pubAuthor"].forEach(id=>{
+
+        const el=document.getElementById(id);
+
+        if(el){
+
+            el.addEventListener("input",saveDraft);
+
+        }
+
+    });
+
+    btn.addEventListener("click",publishShayari);
+
+}
+
+console.log("✅ Publisher Ready");
+/* ==========================================================
+   PART 4C : EDIT • DELETE • LIVE UPDATE
+========================================================== */
+
+/* =========================
+   EDIT SHAYARI
+========================= */
+
+function editShayari(index){
+
+    if(!checkAdmin()) return;
+
+    const item = customShayari[index];
+
+    if(!item) return;
+
+    document.getElementById("pubTitle").value = item.title;
+    document.getElementById("pubCategory").value = item.category;
+    document.getElementById("pubText").value = item.text;
+    document.getElementById("pubAuthor").value = item.author;
+    document.getElementById("pubPublisher").value = item.publisher;
+
+    customShayari.splice(index,1);
+
+    saveAllData();
+
+    loadPublishedShayari();
+    loadAllShayari();
+
+    showToast("✏️ Edit Mode Enabled");
+
+}
+
+/* =========================
+   DELETE SHAYARI
+========================= */
+
+function deleteShayari(index){
+
+    if(!checkAdmin()) return;
+
+    if(!confirm("Delete this Shayari?")) return;
+
+    customShayari.splice(index,1);
+
+    saveAllData();
+
+    loadPublishedShayari();
+    loadAllShayari();
+
+    showToast("🗑️ Shayari Deleted");
+
+}
+
+/* =========================
+   DELETE STORY
+========================= */
+
+function deleteStory(index){
+
+    if(!checkAdmin()) return;
+
+    if(!confirm("Delete this Story?")) return;
+
+    stories.splice(index,1);
+
+    saveAllData();
+
+    loadStories();
+
+    showToast("🗑️ Story Deleted");
+
+}
+
+/* =========================
+   BUTTON EVENTS
+========================= */
+
+document.addEventListener("click",(e)=>{
+
+    if(e.target.classList.contains("editShayariBtn")){
+
+        editShayari(Number(e.target.dataset.id));
+
+    }
+
+    if(e.target.classList.contains("deleteShayariBtn")){
+
+        deleteShayari(Number(e.target.dataset.id));
+
+    }
+
+    if(e.target.classList.contains("storyDeleteBtn")){
+
+        deleteStory(Number(e.target.dataset.id));
+
+    }
+
+});
+
+/* =========================
+   REFRESH
+========================= */
+
+function refreshAll(){
+
+    loadPublishedShayari();
+
+    loadAllShayari();
+
+    loadStories();
+
+    loadFavourite();
+
+    restoreButtons();
+
+    updateStatistics();
+
+}
+
+console.log("✅ Admin Tools Ready");
+<option value="Love">❤️ Love Story</option>
+<option value="Funny">😂 Funny Story</option>
+<option value="Horror">👻 Horror Story</option>
+<option value="Friendship">🤝 Friendship Story</option>
+<option value="Biography">📚 Biography</option>
+<option value="Historical">👑 Historical</option>
+<option value="Emotional">😢 Emotional</option>
+<option value="Real Life">🌍 Real Life</option>
+/* ==========================================================
+   PART 5A : PROFESSIONAL STORY SYSTEM
+========================================================== */
+
+function publishStory(){
+
+    if(!checkAdmin()) return;
+
+    const title=document.getElementById("storyTitle").value.trim();
+
+    const category=document.getElementById("storyCategory").value;
+
+    const text=document.getElementById("storyText").value.trim();
+
+    const author=document.getElementById("storyAuthor").value.trim();
+
+    if(title.length<3){
+
+        showToast("⚠ Story title too short");
+
+        return;
+
+    }
+
+    if(text.length<50){
+
+        showToast("⚠ Story must contain at least 50 characters");
+
+        return;
+
+    }
+
+    stories.unshift({
+
+        id:Date.now(),
+
+        title,
+
+        category,
+
+        text,
+
+        author:author||"Unknown",
+
+        publisher:"Adarsh Raj",
+
+        date:new Date().toLocaleString()
+
+    });
+
+    saveAllData();
+
+    loadStories();
+
+    document.getElementById("storyTitle").value="";
+
+    document.getElementById("storyText").value="";
+
+    document.getElementById("storyAuthor").value="";
+
+    showToast("📖 Story Published Successfully");
+
+}
+/* ==========================================================
+   PART 5B : STORY SEARCH • FILTER • ACTIONS
+========================================================== */
+
+/* =========================
+   LOAD STORIES
+========================= */
+
+function loadStories(filter="All"){
+
+    const container=document.getElementById("storyContainer");
+
+    if(!container) return;
+
+    container.innerHTML="";
+
+    let data=[...stories];
+
+    if(filter!=="All"){
+
+        data=data.filter(item=>item.category===filter);
+
+    }
+
+    if(data.length===0){
+
+        container.innerHTML=`
+        <div class="card">
+            <h3>📖 No Story Found</h3>
+            <p>Coming Soon...</p>
+        </div>
+        `;
+
+        return;
+
+    }
+
+    data.forEach((story,index)=>{
+
+        container.innerHTML+=`
+
+<div class="card">
+
+<h3>${story.title}</h3>
+
+<p><strong>📂 ${story.category}</strong></p>
+
+<p class="shayariText">
+
+${story.text.replace(/\n/g,"<br>")}
+
+</p>
+
+<p class="author">
+
+✍ ${story.author}
+
+</p>
+
+<div class="actionButtons">
+
+<button class="storyCopyBtn">
+
+📋 Copy
+
+</button>
+
+<button class="storyShareBtn">
+
+📤 Share
+
+</button>
+
+<button class="storyDeleteBtn"
+
+data-id="${index}">
+
+🗑 Delete
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+    });
+
+}
+
+/* =========================
+   STORY SEARCH
+========================= */
+
+function initStorySearch(){
+
+    const search=document.getElementById("storySearch");
+
+    if(!search) return;
+
+    search.addEventListener("input",()=>{
+
+        const keyword=
+
+        search.value.toLowerCase();
+
+        document
+
+        .querySelectorAll("#storyContainer .card")
+
+        .forEach(card=>{
+
+            card.style.display=
+
+            card.innerText
+
+            .toLowerCase()
+
+            .includes(keyword)
+
+            ?""
+
+            :"none";
+
+        });
+
+    });
+
+}
+
+/* =========================
+   STORY COPY
+========================= */
+
+document.addEventListener("click",(e)=>{
+
+    if(e.target.classList.contains("storyCopyBtn")){
+
+        const text=
+
+        e.target
+
+        .closest(".card")
+
+        .querySelector(".shayariText")
+
+        .innerText;
+
+        copyText(text);
+
+    }
+
+});
+
+/* =========================
+   STORY SHARE
+========================= */
+
+document.addEventListener("click",(e)=>{
+
+    if(e.target.classList.contains("storyShareBtn")){
+
+        const text=
+
+        e.target
+
+        .closest(".card")
+
+        .querySelector(".shayariText")
+
+        .innerText;
+
+        shareText(text);
+
+    }
+
+});
+
+console.log("✅ Story System Ready");
+/* ==========================================================
+   PART 5C : STORY PREMIUM FEATURES
+========================================================== */
+
+/* =========================
+   STORY COUNTER
+========================= */
+
+function updateStoryCounter(){
+
+    const counter=document.getElementById("storyCount");
+
+    if(counter){
+
+        counter.textContent=stories.length;
+
+    }
+
+}
+
+/* =========================
+   RANDOM STORY
+========================= */
+
+function getRandomStory(){
+
+    if(stories.length===0) return null;
+
+    return stories[Math.floor(Math.random()*stories.length)];
+
+}
+
+/* =========================
+   TODAY STORY
+========================= */
+
+function getTodayStory(){
+
+    if(stories.length===0) return null;
+
+    const day=new Date().getDate();
+
+    return stories[day % stories.length];
+
+}
+
+/* =========================
+   STORY STATISTICS
+========================= */
+
+function updateStoryStatistics(){
+
+    console.log("📖 Total Stories :",stories.length);
+
+}
+
+/* =========================
+   REFRESH STORY
+========================= */
+
+function refreshStories(){
+
+    loadStories();
+
+    updateStoryCounter();
+
+    updateStoryStatistics();
+
+}
+
+/* =========================
+   AUTO REFRESH
+========================= */
+
+window.addEventListener("pageshow",refreshStories);
+
+console.log("✅ Story Premium Ready");
+/* ==========================================================
+   PART 6A : WEBSITE DASHBOARD & STATISTICS
+========================================================== */
+
+/* =========================
+   TOTAL STATISTICS
+========================= */
+
+function updateStatistics(){
+
+    const totalShayari=document.getElementById("totalShayari");
+    const totalStories=document.getElementById("totalStories");
+    const totalFavourite=document.getElementById("totalFavourite");
+
+    if(totalShayari){
+        totalShayari.textContent=customShayari.length;
+    }
+
+    if(totalStories){
+        totalStories.textContent=stories.length;
+    }
+
+    if(totalFavourite){
+        totalFavourite.textContent=favouriteShayari.length;
+    }
+
+}
+
+/* =========================
+   RANDOM SHAYARI
+========================= */
+
+function getRandomShayari(){
+
+    if(customShayari.length===0) return null;
+
+    return customShayari[
+        Math.floor(Math.random()*customShayari.length)
+    ];
+
+}
+
+/* =========================
+   TODAY SHAYARI
+========================= */
+
+function getTodayShayari(){
+
+    if(customShayari.length===0) return null;
+
+    const day=new Date().getDate();
+
+    return customShayari[
+        day % customShayari.length
+    ];
+
+}
+
+/* =========================
+   WEBSITE INFO
+========================= */
+
+function websiteInfo(){
+
+    console.log("🌹 Adarsh Raj Shayar");
+    console.log("📖 Shayari :",customShayari.length);
+    console.log("📚 Stories :",stories.length);
+    console.log("⭐ Favourite :",favouriteShayari.length);
+    console.log("❤️ Likes :",likedShayari.length);
+
+}
+
+/* =========================
+   AUTO UPDATE
+========================= */
+
+window.addEventListener("load",()=>{
+
+    updateStatistics();
+
+    websiteInfo();
+
+});
+
+console.log("✅ Dashboard Ready");
+/* ==========================================================
+   PART 6B : CONTACT • EMAILJS • CERTIFICATE • SECURITY
+========================================================== */
+
+/* =========================
+   EMAILJS INIT
+========================= */
+
+const EMAIL_CONFIG = {
+    PUBLIC_KEY: CONFIG.EMAIL_PUBLIC_KEY,
+    SERVICE_ID: CONFIG.EMAIL_SERVICE_ID,
+    TEMPLATE_ID: CONFIG.EMAIL_TEMPLATE_ID
+};
+
+function initContactForm(){
+
+    const form=document.getElementById("contact-form");
+
+    if(!form) return;
+
+    emailjs.init(EMAIL_CONFIG.PUBLIC_KEY);
+
+    form.addEventListener("submit",function(e){
+
+        e.preventDefault();
+
+        const submitBtn=form.querySelector("button");
+
+        if(submitBtn){
+
+            submitBtn.disabled=true;
+            submitBtn.innerHTML="📤 Sending...";
+
+        }
+
+        emailjs.sendForm(
+
+            EMAIL_CONFIG.SERVICE_ID,
+
+            EMAIL_CONFIG.TEMPLATE_ID,
+
+            form
+
+        ).then(()=>{
+
+            showToast("✅ Message Sent Successfully");
+
+            form.reset();
+
+        }).catch(()=>{
+
+            showToast("❌ Message Failed");
+
+        }).finally(()=>{
+
+            if(submitBtn){
+
+                submitBtn.disabled=false;
+                submitBtn.innerHTML="📩 Send Message";
+
+            }
+
+        });
+
+    });
+
+}
+
+/* =========================
+   CERTIFICATE
+========================= */
+
+function initCertificate(){
+
+    const btn=document.getElementById("certificateBtn");
+
+    if(!btn) return;
+
+    btn.addEventListener("click",()=>{
+
+        window.open("certificate.pdf","_blank");
+
+    });
+
+}
+
+/* =========================
+   SECURITY
+========================= */
+
+document.addEventListener("contextmenu",(e)=>{
+
+    e.preventDefault();
+
+});
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="F12"){
+
+        e.preventDefault();
+
+    }
+
+    if(e.ctrlKey && e.shiftKey){
+
+        e.preventDefault();
+
+    }
+
+});
+
+/* =========================
+   AUTO INIT
+========================= */
+
+window.addEventListener("load",()=>{
+
+    initContactForm();
+
+    initCertificate();
+
+});
+
+console.log("✅ Contact & Security Ready");
+
