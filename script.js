@@ -217,25 +217,28 @@ function initLoader() {
 
 function initPopup() {
 
+    const popup = document.getElementById("welcomePopup");
+    const enterBtn = document.getElementById("enterBtn");
+
     if (!popup || !enterBtn) return;
 
-    if (localStorage.getItem(CONFIG.STORAGE.VISITED)) {
+    if (localStorage.getItem("ars_visited")) {
 
-        popup.remove();
+        popup.style.display = "none";
 
         return;
 
     }
 
-    enterBtn.onclick = () => {
+    enterBtn.addEventListener("click", function () {
 
-        popup.remove();
+        popup.style.display = "none";
 
-        localStorage.setItem(CONFIG.STORAGE.VISITED, "yes");
+        localStorage.setItem("ars_visited", "true");
 
-        showToast("❤️ Welcome to Adarsh Raj Shayar");
+        showToast("🌹 Welcome to Adarsh Raj Shayar");
 
-    };
+    });
 
 }
 
