@@ -2102,6 +2102,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+function loadPublishedShayari() {
+
+    const container = document.getElementById("publishedContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (customShayari.length === 0) {
+        container.innerHTML = "<p>No Shayari Published Yet.</p>";
+        return;
+    }
+
+    customShayari.forEach((item, index) => {
+
+        container.innerHTML += `
+        <div class="card">
+            <h3>${item.title}</h3>
+
+            <p class="shayariText">${item.text.replace(/\n/g,"<br>")}</p>
+
+            <small>✍ ${item.author}</small>
+
+            <br><br>
+
+            <button class="editShayariBtn" data-id="${index}">
+                ✏ Edit
+            </button>
+
+            <button class="deleteShayariBtn" data-id="${index}">
+                🗑 Delete
+            </button>
+        </div>
+        `;
+
+    });
+
+}
+
 /* ==========================================================
    END OF SCRIPT
 ========================================================== */
