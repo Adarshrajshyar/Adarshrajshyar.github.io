@@ -1,5 +1,35 @@
 "use strict";
 
+/* ==========================================
+   CONFIG LOADER
+========================================== */
+
+const CONFIG = {
+    EMAILJS_PUBLIC_KEY,
+    EMAILJS_SERVICE_ID,
+    EMAILJS_TEMPLATE_ID,
+
+    WEBSITE_NAME,
+    WEBSITE_VERSION,
+    WEBSITE_AUTHOR,
+
+    ADMIN_PASSWORD,
+
+    CONTACT_EMAIL,
+
+    GITHUB_URL,
+    WEBSITE_URL,
+
+    ENABLE_DARK_MODE,
+    ENABLE_VISITOR_COUNTER,
+    ENABLE_CONTACT_FORM,
+    ENABLE_CERTIFICATE,
+    ENABLE_STORY,
+    ENABLE_SHAYARI
+};
+
+console.log("⚙ Config Loaded");
+
 /* ==========================================================
    Adarsh Raj Shayar
    Professional Script v11
@@ -15,7 +45,7 @@ console.log("🌹 Adarsh Raj Shayar v11 Loading...");
 
 const CONFIG = {
 
-    ADMIN_PASSWORD: "ARS2026",
+   const ADMIN_PASSWORD = CONFIG.ADMIN_PASSWORD;
 
     STORAGE: {
 
@@ -1899,14 +1929,13 @@ function initContactForm(){
 
         }
 
-        emailjs.sendForm(
+       emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
 
-            EMAIL_CONFIG.SERVICE_ID,
-
-            EMAIL_CONFIG.TEMPLATE_ID,
-
-            form
-
+emailjs.sendForm(
+CONFIG.EMAILJS_SERVICE_ID,
+CONFIG.EMAILJS_TEMPLATE_ID,
+this
+)
         ).then(()=>{
 
             showToast("✅ Message Sent Successfully");
@@ -1990,3 +2019,89 @@ window.addEventListener("load",()=>{
 
 console.log("✅ Contact & Security Ready");
 
+/* ==========================================
+   SAFE ERROR LOGGER
+========================================== */
+
+window.addEventListener("error", function (event) {
+
+    console.error("❌ JS Error:", event.message);
+
+});
+/* ==========================================
+   WEBSITE INFO
+========================================== */
+
+function initWebsiteInfo() {
+
+    document.title =
+        CONFIG.WEBSITE_NAME + " | Official";
+
+    console.log(
+        CONFIG.WEBSITE_NAME +
+        " " +
+        CONFIG.WEBSITE_VERSION +
+        " by " +
+        CONFIG.WEBSITE_AUTHOR
+    );
+
+}
+/* ==========================================
+   SECURITY + PERFORMANCE
+========================================== */
+
+(function () {
+
+    "use strict";
+
+    // Disable Right Click
+    document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    });
+
+    // Disable Drag
+    document.addEventListener("dragstart", function (e) {
+        e.preventDefault();
+    });
+
+    // Disable Image Drag
+    document.querySelectorAll("img").forEach(img => {
+        img.setAttribute("draggable", "false");
+    });
+
+})();
+/* ==========================================
+   LAZY LOAD IMAGES
+========================================== */
+
+function initLazyImages() {
+
+    document.querySelectorAll("img").forEach(img => {
+
+        if (!img.hasAttribute("loading")) {
+
+            img.loading = "lazy";
+
+        }
+
+    });
+
+}
+/* ==========================================
+   SEO AUTO
+========================================== */
+
+function initSEO() {
+
+    document.title = CONFIG.WEBSITE_NAME;
+
+    const meta = document.querySelector("meta[name='description']");
+
+    if (meta) {
+
+        meta.content =
+            "Love Shayari, Sad Shayari, Friendship Shayari, Motivation, Stories, Quotes by Adarsh Raj Shayar.";
+
+    }
+
+}
