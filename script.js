@@ -1507,11 +1507,11 @@ function initStoryButton() {
 
 console.log("✅ Part 5A Loaded");
 /* ==========================================================
-   PART 5B : STORY SEARCH • FILTER • ACTIONS
+PART 5B : STORY SEARCH • FILTER • ACTIONS
 ========================================================== */
 
 /* =========================
-   LOAD STORIES
+LOAD STORIES
 ========================= */
 
 function loadStories(filter = "All") {
@@ -1525,63 +1525,65 @@ function loadStories(filter = "All") {
     let data = [...stories];
 
     if (filter !== "All") {
-
         data = data.filter(item => item.category === filter);
-
     }
 
     if (data.length === 0) {
 
         container.innerHTML = `
-        <div class="card">
-            <h3>📖 No Story Found</h3>
-            <p>Coming Soon...</p>
-        </div>
+            <div class="card">
+                <h3>📖 No Story Found</h3>
+                <p>Coming Soon...</p>
+            </div>
         `;
 
         return;
-
     }
 
     data.forEach((story, index) => {
 
         container.innerHTML += `
+            <div class="card">
 
-<div class="card">
+                <h3>📖 ${story.title}</h3>
 
-<h3>${story.title}</h3>
+                <p class="shayariText">
+                    ${story.text.replace(/\n/g, "<br>")}
+                </p>
 
-<p class="shayariText">
-${story.text.replace(/\n/g,"<br>")}
-</p>
+                <div class="meta">
+                    <span>✍️ ${story.author}</span>
+                    <span>📅 ${story.date || ""}</span>
+                </div>
 
-<p>✍️ ${story.author}</p>
+                <div class="actionButtons">
 
-<p>📅 ${story.date}</p>
+                    <button class="storyCopyBtn">
+                        📋 Copy
+                    </button>
 
-<div class="actionButtons">
+                    <button class="storyShareBtn">
+                        📤 Share
+                    </button>
 
-<button class="storyCopyBtn">📋 Copy</button>
+                    <button
+                        class="storyDeleteBtn"
+                        data-id="${stories.indexOf(story)}"
+                    >
+                        🗑 Delete
+                    </button>
 
-<button class="storyShareBtn">📤 Share</button>
+                </div>
 
-<button class="storyDeleteBtn"
-data-id="${index}">
-🗑 Delete
-</button>
-
-</div>
-
-</div>
-
-`;
+            </div>
+        `;
 
     });
-
 }
 
+
 /* =========================
-   STORY SEARCH
+STORY SEARCH
 ========================= */
 
 function initStorySearch() {
@@ -1592,14 +1594,18 @@ function initStorySearch() {
 
     search.addEventListener("input", () => {
 
-        const keyword = search.value.toLowerCase().trim();
+        const keyword = search.value
+            .toLowerCase()
+            .trim();
 
         document
             .querySelectorAll("#storyContainer .card")
             .forEach(card => {
 
                 card.style.display =
-                    card.innerText.toLowerCase().includes(keyword)
+                    card.innerText
+                        .toLowerCase()
+                        .includes(keyword)
                         ? ""
                         : "none";
 
@@ -1609,35 +1615,47 @@ function initStorySearch() {
 
 }
 
+
 /* =========================
-   STORY COPY
+STORY COPY
 ========================= */
 
-document.addEventListener("click", function(e){
+document.addEventListener("click", function(e) {
 
-    if(!e.target.classList.contains("storyCopyBtn")) return;
+    if (!e.target.classList.contains("storyCopyBtn")) return;
+
+    const card = e.target.closest(".card");
+
+    if (!card) return;
 
     const text =
-        e.target.closest(".card")
-        .querySelector(".shayariText").innerText;
+        card.querySelector(".shayariText")?.innerText;
 
-    copyText(text);
+    if (text) {
+        copyText(text);
+    }
 
 });
 
+
 /* =========================
-   STORY SHARE
+STORY SHARE
 ========================= */
 
-document.addEventListener("click", function(e){
+document.addEventListener("click", function(e) {
 
-    if(!e.target.classList.contains("storyShareBtn")) return;
+    if (!e.target.classList.contains("storyShareBtn")) return;
+
+    const card = e.target.closest(".card");
+
+    if (!card) return;
 
     const text =
-        e.target.closest(".card")
-        .querySelector(".shayariText").innerText;
+        card.querySelector(".shayariText")?.innerText;
 
-    shareText(text);
+    if (text) {
+        shareText(text);
+    }
 
 });
 
