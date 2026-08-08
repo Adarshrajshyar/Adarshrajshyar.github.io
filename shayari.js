@@ -179,6 +179,55 @@ text:`आज की मेहनत,
 
 ];
 
+/* ==========================================================
+   ARS SHAYARI DATABASE CONNECTOR
+   ========================================================== */
+
+const shayariData = [
+
+    ...loveShayari.map(item => ({
+        ...item,
+        title: item.title || "❤️ Love Shayari",
+        category: "Love"
+    })),
+
+    ...(typeof sadShayari !== "undefined"
+        ? sadShayari.map(item => ({
+            ...item,
+            title: item.title || "💔 Sad Shayari",
+            category: "Sad"
+        }))
+        : []),
+
+    ...(typeof attitudeShayari !== "undefined"
+        ? attitudeShayari.map(item => ({
+            ...item,
+            title: item.title || "🔥 Attitude Shayari",
+            category: "Attitude"
+        }))
+        : []),
+
+    ...(typeof friendshipShayari !== "undefined"
+        ? friendshipShayari.map(item => ({
+            ...item,
+            title: item.title || "🤝 Friendship Shayari",
+            category: "Friendship"
+        }))
+        : []),
+
+    ...(typeof motivationShayari !== "undefined"
+        ? motivationShayari.map(item => ({
+            ...item,
+            title: item.title || "💪 Motivation Shayari",
+            category: "Motivation"
+        }))
+        : [])
+
+];
+
+console.log("🌹 Shayari Database Connected");
+console.log("📖 Total Shayari:", shayariData.length);
+
 /* ==========================================
    STORY & POETRY
 ========================================== */
