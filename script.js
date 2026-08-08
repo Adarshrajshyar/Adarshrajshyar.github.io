@@ -1923,22 +1923,6 @@ document.addEventListener("contextmenu", e => e.preventDefault());
 
 document.addEventListener("dragstart", e => e.preventDefault());
 
-document.addEventListener("keydown", function (e) {
-
-    if (e.key === "F12") {
-
-        e.preventDefault();
-
-    }
-
-    if (e.ctrlKey && e.shiftKey) {
-
-        e.preventDefault();
-
-    }
-
-});
-
 /* =========================
    WEBSITE INFO
 ========================= */
