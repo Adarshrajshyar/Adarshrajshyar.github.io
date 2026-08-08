@@ -1726,7 +1726,6 @@ console.log("✅ Part 5C Loaded");
 /* =========================
    UPDATE DASHBOARD
 ========================= */
-
 function updateStatistics() {
 
     const totalShayari =
@@ -1741,9 +1740,14 @@ function updateStatistics() {
     const totalLikes =
         document.getElementById("totalLikes");
 
+    const builtIn =
+        typeof shayariData !== "undefined"
+            ? shayariData.length
+            : 0;
+
     if (totalShayari)
         totalShayari.textContent =
-            customShayari.length;
+            builtIn + customShayari.length;
 
     if (totalStories)
         totalStories.textContent =
@@ -1756,6 +1760,7 @@ function updateStatistics() {
     if (totalLikes)
         totalLikes.textContent =
             likedShayari.length;
+}
 
 }
 
@@ -2060,13 +2065,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (typeof initVisitorCounter === "function")
         initVisitorCounter();
-
-    if (typeof initContactForm === "function")
-        initContactForm();
-
-    if (typeof initCertificate === "function")
-        initCertificate();
-
+   
     if (typeof initStorySearch === "function")
         initStorySearch();
 
