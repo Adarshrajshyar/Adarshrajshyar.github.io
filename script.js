@@ -2357,3 +2357,448 @@ console.log(
     "✅ Part 8 QR System Loaded"
 );
 
+/* ==========================================================
+PART 9 : ADVANCED QR SYSTEM
+========================================================== */
+
+/* =========================
+QR STATE
+========================= */
+
+let lastQRText = window.location.href;
+let qrGenerated = false;
+
+
+/* =========================
+QR MESSAGE
+========================= */
+
+function qrMessage(message) {
+
+    showToast(message);
+
+}
+
+
+/* =========================
+SILENT WEBSITE QR
+========================= */
+
+function generateWebsiteQR() {
+
+    const url = window.location.href;
+
+    generateQRCode(url);
+
+    lastQRText = url;
+    qrGenerated = true;
+
+}
+
+
+/* =========================
+CUSTOM URL QR
+========================= */
+
+function generateCustomQR() {
+
+    const input = prompt(
+        "🔗 Enter URL for QR Code:"
+    );
+
+    if (input === null) {
+
+        return;
+
+    }
+
+    const url = input.trim();
+
+    if (!url) {
+
+        qrMessage(
+            "⚠️ Please enter a URL"
+        );
+
+        return;
+
+    }
+
+    let finalURL = url;
+
+    /*
+    If user enters:
+    example.com
+    automatically convert to:
+    https://example.com
+    */
+
+    if (
+        !url.startsWith("http://") &&
+        !url.startsWith("https://")
+    ) {
+
+        finalURL =
+            "https://" + url;
+
+    }
+
+    generateQRCode(finalURL);
+
+    lastQRText = finalURL;
+
+    qrGenerated = true;
+
+    qrMessage(
+        "🔗 Custom QR Generated"
+    );
+
+}
+
+
+/* =========================
+QR TEST
+========================= */
+
+function testQRCode() {
+
+    const testText =
+        "Adarsh Raj Shayar QR Test";
+
+    generateQRCode(testText);
+
+    lastQRText = testText;
+
+    qrGenerated = true;
+
+    qrMessage(
+        "🧪 QR Test Generated"
+    );
+
+}
+
+
+/* =========================
+DOWNLOAD QR - VALIDATION
+========================= */
+
+function downloadQRCode() {
+
+    const qrBox =
+        document.getElementById("qrCode");
+
+    if (!qrBox) {
+
+        qrMessage(
+            "❌ QR Box Not Found"
+        );
+
+        return;
+
+    }
+
+    if (!qrGenerated) {
+
+        qrMessage(
+            "⚠️ Generate QR First"
+        );
+
+        return;
+
+    }
+
+    const canvas =
+        qrBox.querySelector("canvas");
+
+    const image =
+        qrBox.querySelector("img");
+
+    let url = "";
+
+    if (canvas) {
+
+        try {
+
+            url =
+                canvas.toDataURL(
+                    "image/png"
+                );
+
+        } catch (error) {
+
+            console.error(
+                "QR Download Error:",
+                error
+            );
+
+            qrMessage(
+                "❌ QR Download Failed"
+            );
+
+            return;
+
+        }
+
+    } else if (image) {
+
+        url = image.src;
+
+    }
+
+    if (!url) {
+
+        qrMessage(
+            "⚠️ Generate QR First"
+        );
+
+        return;
+
+    }
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "Adarsh-Raj-Shayar-QR.png";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    qrMessage(
+        "✅ QR Downloaded"
+    );
+
+}
+
+
+/* =========================
+CREATE ADVANCED QR BUTTONS
+========================= */
+
+function initAdvancedQRButtons() {
+
+    const qrBox =
+        document.getElementById("qrCode");
+
+    if (!qrBox) return;
+
+
+    /*
+    Prevent duplicate controls
+    */
+
+    if (
+        document.getElementById(
+            "advancedQRControls"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const wrapper =
+        document.createElement("div");
+
+    wrapper.id =
+        "advancedQRControls";
+
+
+    wrapper.style.marginTop =
+        "12px";
+
+    wrapper.style.display =
+        "flex";
+
+    wrapper.style.flexWrap =
+        "wrap";
+
+    wrapper.style.gap =
+        "8px";
+
+
+    /* CUSTOM QR */
+
+    const customBtn =
+        document.createElement("button");
+
+    customBtn.id =
+        "customQRBtn";
+
+    customBtn.type =
+        "button";
+
+    customBtn.innerHTML =
+        "🔗 Custom URL QR";
+
+    customBtn.onclick =
+        generateCustomQR;
+
+
+    /* TEST QR */
+
+    const testBtn =
+        document.createElement("button");
+
+    testBtn.id =
+        "testQRBtn";
+
+    testBtn.type =
+        "button";
+
+    testBtn.innerHTML =
+        "🧪 Test QR";
+
+    testBtn.onclick =
+        testQRCode;
+
+
+    /* WEBSITE QR */
+
+    const websiteBtn =
+        document.createElement("button");
+
+    websiteBtn.id =
+        "websiteQRBtn";
+
+    websiteBtn.type =
+        "button";
+
+    websiteBtn.innerHTML =
+        "🌐 Website QR";
+
+    websiteBtn.onclick =
+        generateWebsiteQR;
+
+
+    /* TRIGGER QR */
+
+    const triggerBtn =
+        document.createElement("button");
+
+    triggerBtn.id =
+        "triggerQRBtn";
+
+    triggerBtn.type =
+        "button";
+
+    triggerBtn.innerHTML =
+        "⚡ Trigger QR";
+
+    triggerBtn.onclick =
+        () => {
+
+            generateWebsiteQR();
+
+            qrMessage(
+                "⚡ QR Triggered"
+            );
+
+        };
+
+
+    wrapper.appendChild(
+        customBtn
+    );
+
+    wrapper.appendChild(
+        testBtn
+    );
+
+    wrapper.appendChild(
+        websiteBtn
+    );
+
+    wrapper.appendChild(
+        triggerBtn
+    );
+
+
+    qrBox.parentNode.insertBefore(
+        wrapper,
+        qrBox.nextSibling
+    );
+
+}
+
+
+/* =========================
+FIX EXISTING GENERATE BUTTON
+========================= */
+
+function fixExistingQRButtons() {
+
+    const generateBtn =
+        document.getElementById(
+            "generateQRBtn"
+        );
+
+    const downloadBtn =
+        document.getElementById(
+            "downloadQRBtn"
+        );
+
+
+    /*
+    Existing Generate button
+    */
+
+    if (generateBtn) {
+
+        generateBtn.onclick =
+            function () {
+
+                generateWebsiteQR();
+
+                qrMessage(
+                    "📱 Website QR Generated"
+                );
+
+            };
+
+    }
+
+
+    /*
+    Existing Download button
+    */
+
+    if (downloadBtn) {
+
+        downloadBtn.onclick =
+            downloadQRCode;
+
+    }
+
+}
+
+
+/* =========================
+QR AUTO INIT
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initAdvancedQRButtons();
+
+        fixExistingQRButtons();
+
+    }
+);
+
+
+/* =========================
+QR READY
+========================= */
+
+console.log(
+    "✅ Part 9 Advanced QR System Loaded"
+);
