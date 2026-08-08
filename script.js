@@ -2802,3 +2802,251 @@ QR READY
 console.log(
     "✅ Part 9 Advanced QR System Loaded"
 );
+/* ==========================================================
+PART 10 : PROFESSIONAL QR INPUT & VALIDATION
+========================================================== */
+
+/* =========================
+QR URL VALIDATION
+========================= */
+
+function isValidQRURL(value) {
+
+    if (!value) return false;
+
+    try {
+
+        const url =
+            new URL(value);
+
+        return (
+            url.protocol === "http:" ||
+            url.protocol === "https:"
+        );
+
+    } catch {
+
+        return false;
+
+    }
+
+}
+
+
+/* =========================
+CUSTOM URL INPUT
+========================= */
+
+function openProfessionalQRInput() {
+
+    const existing =
+        document.getElementById(
+            "professionalQRBox"
+        );
+
+    if (existing) {
+
+        existing.remove();
+
+        return;
+
+    }
+
+
+    const qrBox =
+        document.getElementById("qrCode");
+
+    if (!qrBox) return;
+
+
+    const box =
+        document.createElement("div");
+
+    box.id =
+        "professionalQRBox";
+
+    box.style.marginTop =
+        "15px";
+
+    box.style.padding =
+        "15px";
+
+    box.style.border =
+        "1px solid #ffd700";
+
+    box.style.borderRadius =
+        "12px";
+
+    box.style.maxWidth =
+        "420px";
+
+
+    box.innerHTML = `
+
+        <input
+            id="professionalQRInput"
+            type="text"
+            placeholder="🔗 Enter website URL..."
+            autocomplete="off"
+            style="
+                width:100%;
+                padding:10px;
+                box-sizing:border-box;
+                border-radius:8px;
+                border:1px solid #ccc;
+                margin-bottom:8px;
+            "
+        >
+
+        <button
+            id="professionalQRGenerate"
+            type="button"
+        >
+            🚀 Generate Custom QR
+        </button>
+
+        <button
+            id="professionalQRClear"
+            type="button"
+        >
+            ❌ Clear
+        </button>
+
+        <p
+            id="professionalQRStatus"
+            style="margin:8px 0 0;"
+        ></p>
+
+    `;
+
+
+    qrBox.parentNode.insertBefore(
+        box,
+        qrBox.nextSibling
+    );
+
+
+    const input =
+        document.getElementById(
+            "professionalQRInput"
+        );
+
+    const generate =
+        document.getElementById(
+            "professionalQRGenerate"
+        );
+
+    const clear =
+        document.getElementById(
+            "professionalQRClear"
+        );
+
+    const status =
+        document.getElementById(
+            "professionalQRStatus"
+        );
+
+
+    generate.onclick = () => {
+
+        let value =
+            input.value.trim();
+
+
+        if (!value) {
+
+            status.textContent =
+                "⚠️ Please enter a URL.";
+
+            input.focus();
+
+            return;
+
+        }
+
+
+        if (
+            !value.startsWith("http://") &&
+            !value.startsWith("https://")
+        ) {
+
+            value =
+                "https://" + value;
+
+        }
+
+
+        if (!isValidQRURL(value)) {
+
+            status.textContent =
+                "❌ Invalid URL.";
+
+            input.focus();
+
+            return;
+
+        }
+
+
+        generateQRCode(value);
+
+        lastQRText = value;
+
+        qrGenerated = true;
+
+
+        status.textContent =
+            "✅ Custom QR Generated";
+
+
+        showToast(
+            "🔗 Custom QR Generated"
+        );
+
+    };
+
+
+    clear.onclick = () => {
+
+        input.value = "";
+
+        status.textContent = "";
+
+        input.focus();
+
+    };
+
+}
+
+
+/* =========================
+REPLACE CUSTOM QR ACTION
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const customBtn =
+            document.getElementById(
+                "customQRBtn"
+            );
+
+        if (customBtn) {
+
+            customBtn.onclick =
+                openProfessionalQRInput;
+
+        }
+
+    }
+);
+
+
+/* =========================
+STEP 10 READY
+========================= */
+
+console.log(
+    "✅ Part 10 QR Validation Loaded"
+);
