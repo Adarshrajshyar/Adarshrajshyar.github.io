@@ -2146,4 +2146,214 @@ function loadPublishedShayari() {
 ========================================================== */
 
 console.log("🎉 Professional Script Loaded Successfully");
+/* ==========================================================
+PART 8 : QR CODE SYSTEM
+========================================================== */
+
+/* =========================
+QR CONFIG
+========================= */
+
+const QR_CONFIG = {
+
+    DEFAULT_TEXT: window.location.href,
+
+    SIZE: 220,
+
+    MARGIN: 2
+
+};
+
+
+/* =========================
+QR GENERATOR
+========================= */
+
+function generateQRCode(text = QR_CONFIG.DEFAULT_TEXT) {
+
+    const qrBox =
+        document.getElementById("qrCode");
+
+    if (!qrBox) return;
+
+    qrBox.innerHTML = "";
+
+    if (typeof QRCode === "undefined") {
+
+        showToast("❌ QR Code Library Not Loaded");
+
+        console.error(
+            "QRCode library is missing."
+        );
+
+        return;
+
+    }
+
+    new QRCode(qrBox, {
+
+        text: text,
+
+        width: QR_CONFIG.SIZE,
+
+        height: QR_CONFIG.SIZE,
+
+        colorDark: "#000000",
+
+        colorLight: "#ffffff",
+
+        correctLevel:
+            QRCode.CorrectLevel.H
+
+    });
+
+}
+
+
+/* =========================
+QR FOR WEBSITE
+========================= */
+
+function generateWebsiteQR() {
+
+    generateQRCode(
+        window.location.href
+    );
+
+    showToast(
+        "📱 Website QR Generated"
+    );
+
+}
+
+
+/* =========================
+DOWNLOAD QR
+========================= */
+
+function downloadQRCode() {
+
+    const qrBox =
+        document.getElementById("qrCode");
+
+    if (!qrBox) return;
+
+    const canvas =
+        qrBox.querySelector("canvas");
+
+    const image =
+        qrBox.querySelector("img");
+
+    let url = "";
+
+    if (canvas) {
+
+        url = canvas.toDataURL(
+            "image/png"
+        );
+
+    } else if (image) {
+
+        url = image.src;
+
+    }
+
+    if (!url) {
+
+        showToast(
+            "⚠ Generate QR First"
+        );
+
+        return;
+
+    }
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "Adarsh-Raj-Shayar-QR.png";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    showToast(
+        "✅ QR Downloaded"
+    );
+
+}
+
+
+/* =========================
+QR BUTTON INIT
+========================= */
+
+function initQRCode() {
+
+    const generateBtn =
+        document.getElementById(
+            "generateQRBtn"
+        );
+
+    const downloadBtn =
+        document.getElementById(
+            "downloadQRBtn"
+        );
+
+    if (generateBtn) {
+
+        generateBtn.addEventListener(
+            "click",
+            generateWebsiteQR
+        );
+
+    }
+
+    if (downloadBtn) {
+
+        downloadBtn.addEventListener(
+            "click",
+            downloadQRCode
+        );
+
+    }
+
+}
+
+
+/* =========================
+AUTO GENERATE
+========================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        generateWebsiteQR();
+
+    }
+);
+
+
+/* =========================
+INIT
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initQRCode();
+
+    }
+);
+
+console.log(
+    "✅ Part 8 QR System Loaded"
+);
 
