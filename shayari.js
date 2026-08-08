@@ -241,3 +241,23 @@ text:"यहाँ भविष्य में आपकी Original Stories �
 }
 
 ];
+/* ==========================================
+   ARS CERTIFICATE DATABASE
+========================================== */
+
+const certificateData = [
+
+    {
+        certificateNo: "ARS-2026-0001",
+        uniqueId: "ARSID-2026-0001",
+        name: "Adarsh Raj",
+        type: "Official Certificate",
+        issueDate: "08 August 2026",
+        status: "Valid"
+    }
+
+];
+
+console.log("🏆 Certificate Database Connected");
+console.log("📜 Total Certificates:", certificateData.length);
+
