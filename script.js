@@ -1762,8 +1762,6 @@ function updateStatistics() {
             likedShayari.length;
 }
 
-}
-
 /* =========================
    RANDOM SHAYARI
 ========================= */
