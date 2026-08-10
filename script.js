@@ -3049,55 +3049,54 @@ STEP 10 READY
 
 console.log(
     "✅ Part 10 QR Validation Loaded"
-);
 /* ==========================================================
-   PART 13 : VISITOR COUNTER
+   PART 13 : VISITOR COUNTER - FIXED
    ========================================================== */
 
 const VISITOR_STORAGE_KEY = "ars_visitor_count";
 
-/* =========================
-   VISITOR COUNTER
-   ========================= */
-
 function initVisitorCounter() {
 
-    const counter =
-        document.getElementById("visitorCount");
+    const counter = document.getElementById("visitorCount");
 
-    if (!counter) return;
+    if (!counter) {
+        console.warn("⚠️ visitorCount element not found");
+        return;
+    }
 
-    let visitors =
-        Number(localStorage.getItem(VISITOR_STORAGE_KEY)) || 0;
+    let visitors = Number(
+        localStorage.getItem(VISITOR_STORAGE_KEY)
+    );
+
+    if (!Number.isFinite(visitors) || visitors < 0) {
+        visitors = 0;
+    }
 
     visitors++;
 
     localStorage.setItem(
         VISITOR_STORAGE_KEY,
-        visitors
+        String(visitors)
     );
 
-    counter.textContent = visitors;
+    counter.textContent = visitors.toLocaleString("en-IN");
 
-    console.log(
-        "👥 Total Visitors :",
-        visitors
-    );
+    console.log("👥 Visitors:", visitors);
 }
 
-/* =========================
-   AUTO INIT
-   ========================= */
+/* Run after page is ready */
+if (document.readyState === "loading") {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+    document.addEventListener(
+        "DOMContentLoaded",
+        initVisitorCounter
+    );
 
-        initVisitorCounter();
+} else {
 
-    }
-);
+    initVisitorCounter();
 
-console.log(
-    "✅ Part 13 Visitor Counter Loaded"
-);
+}
+
+console.log("✅ Part 13 Visitor Counter Fixed");
+
