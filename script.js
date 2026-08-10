@@ -3103,3 +3103,101 @@ if (document.readyState === "loading") {
 
 console.log("✅ Part 13 Visitor Counter Fixed");
 
+/* ==========================================================
+PART 14 : COPY WEBSITE LINK
+========================================================== */
+
+/* =========================
+COPY WEBSITE LINK
+========================= */
+
+function copyWebsiteLink() {
+
+    const websiteURL = window.location.href;
+
+    if (!websiteURL) {
+        showToast("❌ Website link not available");
+        return;
+    }
+
+    navigator.clipboard.writeText(websiteURL)
+        .then(() => {
+
+            showToast("🔗 Website Link Copied");
+
+            console.log(
+                "✅ Website Link Copied:",
+                websiteURL
+            );
+
+        })
+        .catch((error) => {
+
+            console.error(
+                "❌ Copy failed:",
+                error
+            );
+
+            showToast(
+                "❌ Unable to copy link"
+            );
+
+        });
+
+}
+
+
+/* =========================
+COPY BUTTON INIT
+========================= */
+
+function initCopyWebsiteLink() {
+
+    const copyBtn =
+        document.getElementById(
+            "copyWebsiteBtn"
+        );
+
+    if (!copyBtn) {
+
+        console.warn(
+            "⚠️ copyWebsiteBtn not found"
+        );
+
+        return;
+    }
+
+    copyBtn.addEventListener(
+        "click",
+        copyWebsiteLink
+    );
+
+    console.log(
+        "✅ Copy Website Button Ready"
+    );
+
+}
+
+
+/* =========================
+PART 14 INIT
+========================= */
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initCopyWebsiteLink
+    );
+
+} else {
+
+    initCopyWebsiteLink();
+
+}
+
+
+console.log(
+    "✅ Part 14 Copy Website Link Loaded"
+);
+
