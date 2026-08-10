@@ -1936,6 +1936,128 @@ function initCertificate() {
 
 }
 
+/* ==========================================================
+   PART 15 : CERTIFICATE RECORD SYSTEM
+   ========================================================== */
+
+const CERTIFICATE_STORAGE_KEY = "ars_certificates";
+
+
+/* =========================
+   GET CERTIFICATE DATABASE
+   ========================= */
+
+function getCertificates() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                CERTIFICATE_STORAGE_KEY
+            )
+        ) || [];
+
+    } catch {
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================
+   SAVE CERTIFICATE DATABASE
+   ========================= */
+
+function saveCertificates(data) {
+
+    localStorage.setItem(
+        CERTIFICATE_STORAGE_KEY,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================
+   CREATE CERTIFICATE RECORD
+   ========================= */
+
+function createCertificateRecord(name) {
+
+    if (!name || !name.trim()) {
+
+        showToast("⚠️ Enter Certificate Name");
+
+        return null;
+
+    }
+
+    const certificates =
+        getCertificates();
+
+    const certificate = {
+
+        id: createCertificateID(),
+
+        name: name.trim(),
+
+        date: new Date()
+            .toLocaleDateString("en-IN"),
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+    certificates.push(certificate);
+
+    saveCertificates(certificates);
+
+    console.log(
+        "🏆 Certificate Created:",
+        certificate
+    );
+
+    return certificate;
+
+}
+
+
+/* =========================
+   FIND CERTIFICATE
+   ========================= */
+
+function findCertificateByID(id) {
+
+    if (!id) return null;
+
+    const certificates =
+        getCertificates();
+
+    return certificates.find(
+        certificate =>
+            certificate.id.toUpperCase() ===
+            id.trim().toUpperCase()
+    ) || null;
+
+}
+
+
+/* =========================
+   CERTIFICATE DATABASE TEST
+   ========================= */
+
+console.log(
+    "🏆 Certificate Records:",
+    getCertificates().length
+);
+
+console.log(
+    "✅ Part 15 Certificate Record System Loaded"
+);
+
 /* =========================
    BASIC SECURITY
 ========================= */
