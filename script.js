@@ -3048,7 +3048,9 @@ STEP 10 READY
 ========================= */
 
 console.log(
-    "✅ Part 10 QR Validation Loaded"
+"✅ Part 10 QR Validation Loaded"
+);
+
 /* ==========================================================
    PART 13 : VISITOR COUNTER - FIXED
    ========================================================== */
