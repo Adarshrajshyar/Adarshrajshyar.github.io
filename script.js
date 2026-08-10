@@ -3524,3 +3524,117 @@ document.addEventListener(
 console.log(
     "✅ Part 16 Certificate Verification Loaded"
 );
+/* ==========================================================
+   PART 17 : CERTIFICATE GENERATOR
+   ========================================================== */
+
+function initCertificateGenerator() {
+
+    const nameInput =
+        document.getElementById("certificateName");
+
+    const generateBtn =
+        document.getElementById(
+            "generateCertificateBtn"
+        );
+
+    const result =
+        document.getElementById(
+            "generatedCertificateResult"
+        );
+
+    if (!nameInput || !generateBtn || !result) {
+        return;
+    }
+
+    generateBtn.addEventListener("click", () => {
+
+        const name =
+            nameInput.value.trim();
+
+        if (!name) {
+
+            result.innerHTML = `
+                <p>⚠️ Please enter your name.</p>
+            `;
+
+            nameInput.focus();
+
+            return;
+        }
+
+        if (name.length < 2) {
+
+            result.innerHTML = `
+                <p>⚠️ Name is too short.</p>
+            `;
+
+            nameInput.focus();
+
+            return;
+        }
+
+        const certificate =
+            createCertificateRecord(name);
+
+        if (!certificate) return;
+
+        result.innerHTML = `
+            <div class="card">
+
+                <h3>✅ Certificate ID Generated</h3>
+
+                <p>
+                    <strong>👤 Name:</strong>
+                    ${certificate.name}
+                </p>
+
+                <p>
+                    <strong>🆔 Certificate ID:</strong>
+                    <span>${certificate.id}</span>
+                </p>
+
+                <p>
+                    <strong>📅 Date:</strong>
+                    ${certificate.date}
+                </p>
+
+                <p>
+                    अब इस Certificate ID को
+                    verification में इस्तेमाल किया जा सकता है।
+                </p>
+
+            </div>
+        `;
+
+        showToast(
+            "🏆 Certificate ID Generated"
+        );
+
+        console.log(
+            "🏆 New Certificate:",
+            certificate
+        );
+
+    });
+
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initCertificateGenerator();
+
+    }
+);
+
+
+console.log(
+    "✅ Part 17 Certificate Generator Loaded"
+);
