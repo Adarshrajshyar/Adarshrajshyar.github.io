@@ -3052,16 +3052,19 @@ console.log(
 );
 
 /* ==========================================================
-PART 13 : VISITOR COUNTER - DAILY UNIQUE
+PART 13 : VISITOR COUNTER - FINAL DAILY UNIQUE
 ========================================================== */
 
 const VISITOR_STORAGE_KEY = "ars_visitor_count";
 const VISITOR_DATE_KEY = "ars_visitor_last_date";
+const VISITOR_SESSION_KEY = "ars_visitor_counted_today";
+
 
 function initVisitorCounter() {
 
     const counter =
         document.getElementById("visitor-count");
+
 
     if (!counter) {
 
@@ -3072,29 +3075,59 @@ function initVisitorCounter() {
         return;
     }
 
+
     let visitors = Number(
         localStorage.getItem(
             VISITOR_STORAGE_KEY
         )
     );
 
+
     if (!Number.isFinite(visitors) || visitors < 0) {
+
         visitors = 0;
+
     }
 
+
+    /* =========================
+       LOCAL DATE
+    ========================= */
+
+    const now = new Date();
+
     const today =
-        new Date().toISOString().slice(0, 10);
+        now.getFullYear() +
+        "-" +
+        String(
+            now.getMonth() + 1
+        ).padStart(2, "0") +
+        "-" +
+        String(
+            now.getDate()
+        ).padStart(2, "0");
+
 
     const lastVisit =
         localStorage.getItem(
             VISITOR_DATE_KEY
         );
 
-    /*
-     * Count only once per browser per day
-     */
 
-    if (lastVisit !== today) {
+    const sessionCounted =
+        sessionStorage.getItem(
+            VISITOR_SESSION_KEY
+        );
+
+
+    /* =========================
+       COUNT ONCE PER DAY
+    ========================= */
+
+    if (
+        lastVisit !== today &&
+        sessionCounted !== today
+    ) {
 
         visitors++;
 
@@ -3108,10 +3141,21 @@ function initVisitorCounter() {
             today
         );
 
+        sessionStorage.setItem(
+            VISITOR_SESSION_KEY,
+            today
+        );
+
     }
+
+
+    /* =========================
+       DISPLAY
+    ========================= */
 
     counter.textContent =
         visitors.toLocaleString("en-IN");
+
 
     console.log(
         "👥 Visitors:",
@@ -3122,14 +3166,20 @@ function initVisitorCounter() {
 
 
 /* =========================
-RUN AFTER PAGE READY
+   RUN ONLY AFTER PAGE READY
 ========================= */
 
-if (document.readyState === "loading") {
+if (
+    document.readyState ===
+    "loading"
+) {
 
     document.addEventListener(
         "DOMContentLoaded",
-        initVisitorCounter
+        initVisitorCounter,
+        {
+            once: true
+        }
     );
 
 } else {
@@ -3140,9 +3190,8 @@ if (document.readyState === "loading") {
 
 
 console.log(
-    "✅ Part 13 Daily Visitor Counter Loaded"
+    "✅ Part 13 Final Visitor Counter Loaded"
 );
-
 
 /* ==========================================================
 PART 14 : COPY WEBSITE LINK
