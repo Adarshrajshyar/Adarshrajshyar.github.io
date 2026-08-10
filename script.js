@@ -3050,3 +3050,54 @@ STEP 10 READY
 console.log(
     "✅ Part 10 QR Validation Loaded"
 );
+/* ==========================================================
+   PART 13 : VISITOR COUNTER
+   ========================================================== */
+
+const VISITOR_STORAGE_KEY = "ars_visitor_count";
+
+/* =========================
+   VISITOR COUNTER
+   ========================= */
+
+function initVisitorCounter() {
+
+    const counter =
+        document.getElementById("visitorCount");
+
+    if (!counter) return;
+
+    let visitors =
+        Number(localStorage.getItem(VISITOR_STORAGE_KEY)) || 0;
+
+    visitors++;
+
+    localStorage.setItem(
+        VISITOR_STORAGE_KEY,
+        visitors
+    );
+
+    counter.textContent = visitors;
+
+    console.log(
+        "👥 Total Visitors :",
+        visitors
+    );
+}
+
+/* =========================
+   AUTO INIT
+   ========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initVisitorCounter();
+
+    }
+);
+
+console.log(
+    "✅ Part 13 Visitor Counter Loaded"
+);
