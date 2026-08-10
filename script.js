@@ -3230,3 +3230,48 @@ console.log(
     "✅ Part 14 Copy Website Link Loaded"
 );
 
+/* ==========================================================
+   PART 14 : UNIQUE CERTIFICATE ID SYSTEM
+   ========================================================== */
+
+function generateUniqueCertificateID() {
+
+    const prefix = "ARS";
+
+    const year = new Date().getFullYear();
+
+    const randomPart =
+        Math.random()
+            .toString(36)
+            .substring(2, 8)
+            .toUpperCase();
+
+    return `${prefix}-${year}-${randomPart}`;
+}
+
+
+/* Generate a new ID */
+
+function createCertificateID() {
+
+    const id = generateUniqueCertificateID();
+
+    console.log("🆔 Unique Certificate ID:", id);
+
+    return id;
+}
+
+
+/* Check ID format */
+
+function isValidCertificateID(id) {
+
+    if (!id) return false;
+
+    return /^ARS-\d{4}-[A-Z0-9]{6}$/.test(
+        id.trim().toUpperCase()
+    );
+}
+
+
+console.log("✅ Part 14 Unique ID System Loaded");
