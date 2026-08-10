@@ -3050,84 +3050,39 @@ STEP 10 READY
 console.log(
 "✅ Part 10 QR Validation Loaded"
 );
-
 /* ==========================================================
-PART 13 : VISITOR COUNTER - FINAL DAILY UNIQUE
+PART 13 : VISITOR COUNTER - UNIQUE BROWSER
 ========================================================== */
 
 const VISITOR_STORAGE_KEY = "ars_visitor_count";
-const VISITOR_DATE_KEY = "ars_visitor_last_date";
-const VISITOR_SESSION_KEY = "ars_visitor_counted_today";
-
+const VISITOR_SEEN_KEY = "ars_visitor_seen";
 
 function initVisitorCounter() {
 
     const counter =
         document.getElementById("visitor-count");
 
-
     if (!counter) {
-
-        console.warn(
-            "⚠️ visitor-count element not found"
-        );
-
+        console.warn("⚠️ visitor-count element not found");
         return;
     }
 
-
     let visitors = Number(
-        localStorage.getItem(
-            VISITOR_STORAGE_KEY
-        )
+        localStorage.getItem(VISITOR_STORAGE_KEY)
     );
 
-
     if (!Number.isFinite(visitors) || visitors < 0) {
-
         visitors = 0;
-
     }
 
+    /*
+       Same browser/device ko dobara count nahi karega.
+    */
 
-    /* =========================
-       LOCAL DATE
-    ========================= */
+    const alreadyCounted =
+        localStorage.getItem(VISITOR_SEEN_KEY);
 
-    const now = new Date();
-
-    const today =
-        now.getFullYear() +
-        "-" +
-        String(
-            now.getMonth() + 1
-        ).padStart(2, "0") +
-        "-" +
-        String(
-            now.getDate()
-        ).padStart(2, "0");
-
-
-    const lastVisit =
-        localStorage.getItem(
-            VISITOR_DATE_KEY
-        );
-
-
-    const sessionCounted =
-        sessionStorage.getItem(
-            VISITOR_SESSION_KEY
-        );
-
-
-    /* =========================
-       COUNT ONCE PER DAY
-    ========================= */
-
-    if (
-        lastVisit !== today &&
-        sessionCounted !== today
-    ) {
+    if (!alreadyCounted) {
 
         visitors++;
 
@@ -3137,49 +3092,34 @@ function initVisitorCounter() {
         );
 
         localStorage.setItem(
-            VISITOR_DATE_KEY,
-            today
+            VISITOR_SEEN_KEY,
+            "true"
         );
 
-        sessionStorage.setItem(
-            VISITOR_SESSION_KEY,
-            today
+        console.log("👥 New Visitor:", visitors);
+
+    } else {
+
+        console.log(
+            "👤 Returning Visitor - Count Not Increased"
         );
 
     }
 
-
-    /* =========================
-       DISPLAY
-    ========================= */
-
     counter.textContent =
         visitors.toLocaleString("en-IN");
-
-
-    console.log(
-        "👥 Visitors:",
-        visitors
-    );
-
 }
 
 
 /* =========================
-   RUN ONLY AFTER PAGE READY
+RUN AFTER PAGE READY
 ========================= */
 
-if (
-    document.readyState ===
-    "loading"
-) {
+if (document.readyState === "loading") {
 
     document.addEventListener(
         "DOMContentLoaded",
-        initVisitorCounter,
-        {
-            once: true
-        }
+        initVisitorCounter
     );
 
 } else {
@@ -3188,9 +3128,8 @@ if (
 
 }
 
-
 console.log(
-    "✅ Part 13 Final Visitor Counter Loaded"
+    "✅ Part 13 Unique Visitor Counter Loaded"
 );
 
 /* ==========================================================
