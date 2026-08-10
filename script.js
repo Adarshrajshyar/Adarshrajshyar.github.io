@@ -3059,7 +3059,8 @@ const VISITOR_STORAGE_KEY = "ars_visitor_count";
 
 function initVisitorCounter() {
 
-    const counter = document.getElementById("visitorCount");
+    const counter =
+    document.getElementById("visitor-count");
 
     if (!counter) {
         console.warn("⚠️ visitorCount element not found");
