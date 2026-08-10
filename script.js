@@ -3397,3 +3397,130 @@ function isValidCertificateID(id) {
 
 
 console.log("✅ Part 14 Unique ID System Loaded");
+
+/* ==========================================================
+   PART 16 : CERTIFICATE VERIFICATION SYSTEM
+   ========================================================== */
+
+function verifyCertificate() {
+
+    const input =
+        document.getElementById("certificateSearch");
+
+    const result =
+        document.getElementById("certificateResult");
+
+    if (!input || !result) return;
+
+    const id =
+        input.value.trim().toUpperCase();
+
+    /* Empty input */
+
+    if (!id) {
+
+        result.innerHTML = `
+            <div class="card">
+                <h3>⚠️ Certificate ID Required</h3>
+                <p>Please enter Certificate Number or Unique ID.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    /* Find certificate */
+
+    const certificate =
+        findCertificateByID(id);
+
+    /* Certificate NOT found */
+
+    if (!certificate) {
+
+        result.innerHTML = `
+            <div class="card">
+                <h3>❌ Certificate Not Found</h3>
+                <p>
+                    No certificate was found for:
+                    <strong>${id}</strong>
+                </p>
+            </div>
+        `;
+
+        showToast("❌ Certificate Not Found");
+
+        return;
+    }
+
+    /* Certificate FOUND */
+
+    result.innerHTML = `
+        <div class="card">
+            <h3>✅ Certificate Verified</h3>
+
+            <p>
+                <strong>👤 Name:</strong>
+                ${certificate.name}
+            </p>
+
+            <p>
+                <strong>🆔 Certificate ID:</strong>
+                ${certificate.id}
+            </p>
+
+            <p>
+                <strong>📅 Date:</strong>
+                ${certificate.date}
+            </p>
+
+            <p>
+                🏆 This certificate is registered
+                in the Adarsh Raj Shayar certificate database.
+            </p>
+        </div>
+    `;
+
+    showToast("✅ Certificate Verified");
+
+}
+
+
+/* =========================
+   VERIFY BUTTON
+   ========================= */
+
+function initCertificateVerification() {
+
+    const button =
+        document.getElementById(
+            "verifyCertificateBtn"
+        );
+
+    if (!button) return;
+
+    button.addEventListener(
+        "click",
+        verifyCertificate
+    );
+
+}
+
+
+/* =========================
+   ENTER KEY SUPPORT
+   ========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        initCertificateVerification();
+
+    }
+);
+
+
+console.log(
+    "✅ Part 16 Certificate Verification Loaded"
+);
