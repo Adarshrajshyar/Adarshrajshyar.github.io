@@ -3052,42 +3052,79 @@ console.log(
 );
 
 /* ==========================================================
-   PART 13 : VISITOR COUNTER - FIXED
-   ========================================================== */
+PART 13 : VISITOR COUNTER - DAILY UNIQUE
+========================================================== */
 
 const VISITOR_STORAGE_KEY = "ars_visitor_count";
+const VISITOR_DATE_KEY = "ars_visitor_last_date";
 
 function initVisitorCounter() {
 
     const counter =
-    document.getElementById("visitor-count");
+        document.getElementById("visitor-count");
 
     if (!counter) {
-        console.warn("⚠️ visitorCount element not found");
+
+        console.warn(
+            "⚠️ visitor-count element not found"
+        );
+
         return;
     }
 
     let visitors = Number(
-        localStorage.getItem(VISITOR_STORAGE_KEY)
+        localStorage.getItem(
+            VISITOR_STORAGE_KEY
+        )
     );
 
     if (!Number.isFinite(visitors) || visitors < 0) {
         visitors = 0;
     }
 
-    visitors++;
+    const today =
+        new Date().toISOString().slice(0, 10);
 
-    localStorage.setItem(
-        VISITOR_STORAGE_KEY,
-        String(visitors)
+    const lastVisit =
+        localStorage.getItem(
+            VISITOR_DATE_KEY
+        );
+
+    /*
+     * Count only once per browser per day
+     */
+
+    if (lastVisit !== today) {
+
+        visitors++;
+
+        localStorage.setItem(
+            VISITOR_STORAGE_KEY,
+            String(visitors)
+        );
+
+        localStorage.setItem(
+            VISITOR_DATE_KEY,
+            today
+        );
+
+    }
+
+    counter.textContent =
+        visitors.toLocaleString("en-IN");
+
+    console.log(
+        "👥 Visitors:",
+        visitors
     );
 
-    counter.textContent = visitors.toLocaleString("en-IN");
-
-    console.log("👥 Visitors:", visitors);
 }
 
-/* Run after page is ready */
+
+/* =========================
+RUN AFTER PAGE READY
+========================= */
+
 if (document.readyState === "loading") {
 
     document.addEventListener(
@@ -3101,7 +3138,11 @@ if (document.readyState === "loading") {
 
 }
 
-console.log("✅ Part 13 Visitor Counter Fixed");
+
+console.log(
+    "✅ Part 13 Daily Visitor Counter Loaded"
+);
+
 
 /* ==========================================================
 PART 14 : COPY WEBSITE LINK
