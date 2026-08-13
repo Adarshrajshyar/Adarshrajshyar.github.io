@@ -3649,3 +3649,46 @@ console.log(
     "✅ Part 17 Certificate Generator Loaded"
 );
 
+/* ==========================================================
+   CERTIFICATE LANDING → GENERATOR
+========================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const openBtn =
+        document.getElementById(
+            "openCertificateGeneratorBtn"
+        );
+
+    const landing =
+        document.getElementById(
+            "certificateLanding"
+        );
+
+    const generator =
+        document.getElementById(
+            "certificateGeneratorPanel"
+        );
+
+    if (!openBtn || !landing || !generator) {
+        return;
+    }
+
+    openBtn.addEventListener("click", () => {
+
+        landing.style.display = "none";
+
+        generator.style.display = "block";
+
+        generator.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+
+});
+
+console.log(
+    "✅ Certificate Landing System Ready"
+);
