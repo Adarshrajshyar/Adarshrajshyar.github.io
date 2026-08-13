@@ -3574,9 +3574,19 @@ function initCertificateGenerator() {
             return;
         }
 
-        const certificate =
-            createCertificateRecord(name);
+       const certificateID =
+    createCertificateID();
 
+const certificate = {
+
+    name: name,
+
+    id: certificateID,
+
+    date: new Date().toLocaleDateString("en-IN")
+
+};
+       
         if (!certificate) return;
 
         result.innerHTML = `
@@ -3639,193 +3649,3 @@ console.log(
     "✅ Part 17 Certificate Generator Loaded"
 );
 
-/* ==========================================================
-   PART 14 : PROFESSIONAL CERTIFICATE GENERATOR
-========================================================== */
-
-/* =========================
-   CERTIFICATE ID
-========================= */
-
-function createCertificateID() {
-
-    const year = new Date().getFullYear();
-
-    const random =
-        Math.floor(100000 + Math.random() * 900000);
-
-    return `ARS-${year}-${random}`;
-
-}
-
-
-/* =========================
-   GENERATE CERTIFICATE
-========================= */
-
-function generateProfessionalCertificate() {
-
-    const nameInput =
-        document.getElementById("certificateName");
-
-    if (!nameInput) {
-
-        showToast("❌ Name field not found");
-
-        return;
-
-    }
-
-    const name =
-        nameInput.value.trim();
-
-    if (!name) {
-
-        showToast("⚠️ Please enter your name");
-
-        nameInput.focus();
-
-        return;
-
-    }
-
-    const certificateID =
-        createCertificateID();
-
-    const date =
-        new Date().toLocaleDateString("en-IN");
-
-
-    const nameElement =
-        document.getElementById(
-            "certificatePersonName"
-        );
-
-    const idElement =
-        document.getElementById(
-            "certificateDisplayId"
-        );
-
-    const dateElement =
-        document.getElementById(
-            "certificateDisplayDate"
-        );
-
-    const certificate =
-        document.getElementById(
-            "professionalCertificate"
-        );
-
-    const actions =
-        document.getElementById(
-            "certificateActions"
-        );
-
-
-    if (nameElement)
-        nameElement.textContent = name;
-
-    if (idElement)
-        idElement.textContent = certificateID;
-
-    if (dateElement)
-        dateElement.textContent = date;
-
-
-    /* Show certificate */
-
-    if (certificate)
-        certificate.style.display = "block";
-
-    if (actions)
-        actions.style.display = "block";
-
-
-    /* Generate certificate QR */
-
-    const certificateQR =
-        document.getElementById(
-            "certificateQR"
-        );
-
-    if (certificateQR) {
-
-        certificateQR.innerHTML = "";
-
-        if (typeof QRCode !== "undefined") {
-
-            new QRCode(certificateQR, {
-
-                text:
-                    window.location.href +
-                    "?certificate=" +
-                    encodeURIComponent(
-                        certificateID
-                    ),
-
-                width: 100,
-
-                height: 100,
-
-                correctLevel:
-                    QRCode.CorrectLevel.H
-
-            });
-
-        }
-
-    }
-
-
-    /* Save current certificate */
-
-    localStorage.setItem(
-        "ars_last_certificate",
-        JSON.stringify({
-
-            name: name,
-
-            id: certificateID,
-
-            date: date
-
-        })
-    );
-
-
-    showToast(
-        "🏆 Certificate Generated Successfully"
-    );
-
-}
-
-
-/* =========================
-   GENERATE BUTTON
-========================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const btn =
-            document.getElementById(
-                "generateCertificateBtn"
-            );
-
-        if (btn) {
-
-            btn.addEventListener(
-                "click",
-                generateProfessionalCertificate
-            );
-
-        }
-
-    }
-);
-
-
-console.log(
-    "✅ Part 14 Professional Certificate Loaded"
-);
