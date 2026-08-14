@@ -1922,19 +1922,7 @@ function initContactForm() {
    CERTIFICATE
 ========================= */
 
-function initCertificate() {
 
-    const btn = document.getElementById("certificateBtn");
-
-    if (!btn) return;
-
-    btn.addEventListener("click", () => {
-
-        window.open("certificate.pdf", "_blank");
-
-    });
-
-}
 
 /* ==========================================================
    PART 15 : CERTIFICATE RECORD SYSTEM
@@ -2147,8 +2135,6 @@ window.addEventListener("error", function (event) {
 window.addEventListener("load", () => {
 
     initContactForm();
-
-    initCertificate();
 
     initWebsiteInfo();
 
@@ -3397,6 +3383,7 @@ function isValidCertificateID(id) {
 
 
 console.log("✅ Part 14 Unique ID System Loaded");
+
 /* ==========================================================
    PART 17 : FINAL PROFESSIONAL CERTIFICATE GENERATOR
 ========================================================== */
@@ -3407,23 +3394,18 @@ function initCertificateGenerator() {
         document.getElementById("certificateName");
 
     const generateBtn =
-        document.getElementById(
-            "generateCertificateBtn"
-        );
+        document.getElementById("generateCertificateBtn");
 
     const result =
-        document.getElementById(
-            "generatedCertificateResult"
-        );
+        document.getElementById("generatedCertificateResult");
 
     if (!nameInput || !generateBtn || !result) {
         return;
     }
 
-    generateBtn.addEventListener("click", () => {
+    generateBtn.addEventListener("click", function () {
 
-        const name =
-            nameInput.value.trim();
+        const name = nameInput.value.trim();
 
         if (!name) {
 
@@ -3445,9 +3427,8 @@ function initCertificateGenerator() {
             return;
         }
 
-
         /* =========================
-           CREATE & SAVE CERTIFICATE
+           CREATE CERTIFICATE
         ========================= */
 
         const certificate =
@@ -3457,7 +3438,7 @@ function initCertificateGenerator() {
 
 
         /* =========================
-           SHOW CERTIFICATE DATA
+           CERTIFICATE DATA
         ========================= */
 
         const nameElement =
@@ -3487,33 +3468,43 @@ function initCertificateGenerator() {
 
 
         if (nameElement) {
+
             nameElement.textContent =
                 certificate.name;
+
         }
 
         if (idElement) {
+
             idElement.textContent =
                 certificate.id;
+
         }
 
         if (dateElement) {
+
             dateElement.textContent =
                 certificate.date;
+
         }
 
 
         /* =========================
-           SHOW PROFESSIONAL CERTIFICATE
+           SHOW CERTIFICATE
         ========================= */
 
         if (certificateBox) {
+
             certificateBox.style.display =
                 "block";
+
         }
 
         if (actions) {
+
             actions.style.display =
                 "flex";
+
         }
 
 
@@ -3566,12 +3557,16 @@ function initCertificateGenerator() {
 
 
         /* =========================
-           RESULT MESSAGE
+           RESULT
         ========================= */
 
         result.innerHTML = `
+
             <div class="card">
-                <h3>✅ Certificate Generated</h3>
+
+                <h3>
+                    ✅ Certificate Generated
+                </h3>
 
                 <p>
                     <strong>👤 Name:</strong>
@@ -3587,7 +3582,9 @@ function initCertificateGenerator() {
                     <strong>📅 Date:</strong>
                     ${certificate.date}
                 </p>
+
             </div>
+
         `;
 
 
@@ -3596,28 +3593,30 @@ function initCertificateGenerator() {
         );
 
 
+        /* =========================
+           SCROLL TO CERTIFICATE
+        ========================= */
+
         if (certificateBox) {
 
             certificateBox.scrollIntoView({
+
                 behavior: "smooth",
+
                 block: "start"
+
             });
 
         }
-
-        console.log(
-            "🏆 Professional Certificate:",
-            certificate
-        );
 
     });
 
 }
 
 
-/* =========================
+/* ==========================================================
    CERTIFICATE LANDING
-========================= */
+========================================================== */
 
 function initCertificateLanding() {
 
@@ -3640,17 +3639,18 @@ function initCertificateLanding() {
         return;
     }
 
-    openBtn.addEventListener("click", () => {
+    openBtn.addEventListener("click", function () {
 
-        landing.style.display =
-            "none";
+        landing.style.display = "none";
 
-        generator.style.display =
-            "block";
+        generator.style.display = "block";
 
         generator.scrollIntoView({
+
             behavior: "smooth",
+
             block: "start"
+
         });
 
     });
@@ -3658,67 +3658,117 @@ function initCertificateLanding() {
 }
 
 
-/* =========================
-   INITIALIZE
-========================= */
+/* ==========================================================
+   CERTIFICATE PRINT
+========================================================== */
+
+function printCertificate() {
+
+    const certificate =
+        document.getElementById(
+            "professionalCertificate"
+        );
+
+    if (!certificate) {
+
+        showToast(
+            "⚠️ Generate Certificate First"
+        );
+
+        return;
+
+    }
+
+    window.print();
+
+}
+
+
+/* ==========================================================
+   CERTIFICATE DOWNLOAD
+========================================================== */
+
+function downloadCertificate() {
+
+    const certificate =
+        document.getElementById(
+            "professionalCertificate"
+        );
+
+    if (!certificate) {
+
+        showToast(
+            "⚠️ Generate Certificate First"
+        );
+
+        return;
+
+    }
+
+    showToast(
+        "🖨️ Use Print → Save as PDF to download Certificate"
+    );
+
+    window.print();
+
+}
+
+
+/* ==========================================================
+   CERTIFICATE ACTION BUTTONS
+========================================================== */
+
+function initCertificateActions() {
+
+    const downloadBtn =
+        document.getElementById(
+            "downloadCertificateBtn"
+        );
+
+    const printBtn =
+        document.getElementById(
+            "printCertificateBtn"
+        );
+
+    if (downloadBtn) {
+
+        downloadBtn.addEventListener(
+            "click",
+            downloadCertificate
+        );
+
+    }
+
+    if (printBtn) {
+
+        printBtn.addEventListener(
+            "click",
+            printCertificate
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   INITIALIZE CERTIFICATE SYSTEM
+========================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    () => {
+    function () {
 
         initCertificateGenerator();
 
         initCertificateLanding();
 
+        initCertificateActions();
+
     }
 );
 
 
 console.log(
-    "✅ Part 17 Final Certificate System Loaded"
-);
-
-
-/* ==========================================================
-   CERTIFICATE LANDING → GENERATOR
-========================================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const openBtn =
-        document.getElementById(
-            "openCertificateGeneratorBtn"
-        );
-
-    const landing =
-        document.getElementById(
-            "certificateLanding"
-        );
-
-    const generator =
-        document.getElementById(
-            "certificateGeneratorPanel"
-        );
-
-    if (!openBtn || !landing || !generator) {
-        return;
-    }
-
-    openBtn.addEventListener("click", () => {
-
-        landing.style.display = "none";
-
-        generator.style.display = "block";
-
-        generator.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
-    });
-
-});
-
-console.log(
-    "✅ Certificate Landing System Ready"
+    "✅ Part 17 Professional Certificate System Loaded"
 );
