@@ -3397,136 +3397,9 @@ function isValidCertificateID(id) {
 
 
 console.log("✅ Part 14 Unique ID System Loaded");
-
 /* ==========================================================
-   PART 16 : CERTIFICATE VERIFICATION SYSTEM
-   ========================================================== */
-
-function verifyCertificate() {
-
-    const input =
-        document.getElementById("certificateSearch");
-
-    const result =
-        document.getElementById("certificateResult");
-
-    if (!input || !result) return;
-
-    const id =
-        input.value.trim().toUpperCase();
-
-    /* Empty input */
-
-    if (!id) {
-
-        result.innerHTML = `
-            <div class="card">
-                <h3>⚠️ Certificate ID Required</h3>
-                <p>Please enter Certificate Number or Unique ID.</p>
-            </div>
-        `;
-
-        return;
-    }
-
-    /* Find certificate */
-
-    const certificate =
-        findCertificateByID(id);
-
-    /* Certificate NOT found */
-
-    if (!certificate) {
-
-        result.innerHTML = `
-            <div class="card">
-                <h3>❌ Certificate Not Found</h3>
-                <p>
-                    No certificate was found for:
-                    <strong>${id}</strong>
-                </p>
-            </div>
-        `;
-
-        showToast("❌ Certificate Not Found");
-
-        return;
-    }
-
-    /* Certificate FOUND */
-
-    result.innerHTML = `
-        <div class="card">
-            <h3>✅ Certificate Verified</h3>
-
-            <p>
-                <strong>👤 Name:</strong>
-                ${certificate.name}
-            </p>
-
-            <p>
-                <strong>🆔 Certificate ID:</strong>
-                ${certificate.id}
-            </p>
-
-            <p>
-                <strong>📅 Date:</strong>
-                ${certificate.date}
-            </p>
-
-            <p>
-                🏆 This certificate is registered
-                in the Adarsh Raj Shayar certificate database.
-            </p>
-        </div>
-    `;
-
-    showToast("✅ Certificate Verified");
-
-}
-
-
-/* =========================
-   VERIFY BUTTON
-   ========================= */
-
-function initCertificateVerification() {
-
-    const button =
-        document.getElementById(
-            "verifyCertificateBtn"
-        );
-
-    if (!button) return;
-
-    button.addEventListener(
-        "click",
-        verifyCertificate
-    );
-
-}
-
-
-/* =========================
-   ENTER KEY SUPPORT
-   ========================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        initCertificateVerification();
-
-    }
-);
-
-
-console.log(
-    "✅ Part 16 Certificate Verification Loaded"
-);
-/* ==========================================================
-   PART 17 : CERTIFICATE GENERATOR
-   ========================================================== */
+   PART 17 : FINAL PROFESSIONAL CERTIFICATE GENERATOR
+========================================================== */
 
 function initCertificateGenerator() {
 
@@ -3554,9 +3427,8 @@ function initCertificateGenerator() {
 
         if (!name) {
 
-            result.innerHTML = `
-                <p>⚠️ Please enter your name.</p>
-            `;
+            result.innerHTML =
+                "<p>⚠️ Please enter your full name.</p>";
 
             nameInput.focus();
 
@@ -3565,34 +3437,141 @@ function initCertificateGenerator() {
 
         if (name.length < 2) {
 
-            result.innerHTML = `
-                <p>⚠️ Name is too short.</p>
-            `;
+            result.innerHTML =
+                "<p>⚠️ Name is too short.</p>";
 
             nameInput.focus();
 
             return;
         }
 
-       const certificateID =
-    createCertificateID();
 
-const certificate = {
+        /* =========================
+           CREATE & SAVE CERTIFICATE
+        ========================= */
 
-    name: name,
+        const certificate =
+            createCertificateRecord(name);
 
-    id: certificateID,
-
-    date: new Date().toLocaleDateString("en-IN")
-
-};
-       
         if (!certificate) return;
+
+
+        /* =========================
+           SHOW CERTIFICATE DATA
+        ========================= */
+
+        const nameElement =
+            document.getElementById(
+                "certificatePersonName"
+            );
+
+        const idElement =
+            document.getElementById(
+                "certificateDisplayId"
+            );
+
+        const dateElement =
+            document.getElementById(
+                "certificateDisplayDate"
+            );
+
+        const certificateBox =
+            document.getElementById(
+                "professionalCertificate"
+            );
+
+        const actions =
+            document.getElementById(
+                "certificateActions"
+            );
+
+
+        if (nameElement) {
+            nameElement.textContent =
+                certificate.name;
+        }
+
+        if (idElement) {
+            idElement.textContent =
+                certificate.id;
+        }
+
+        if (dateElement) {
+            dateElement.textContent =
+                certificate.date;
+        }
+
+
+        /* =========================
+           SHOW PROFESSIONAL CERTIFICATE
+        ========================= */
+
+        if (certificateBox) {
+            certificateBox.style.display =
+                "block";
+        }
+
+        if (actions) {
+            actions.style.display =
+                "flex";
+        }
+
+
+        /* =========================
+           CERTIFICATE QR
+        ========================= */
+
+        const qrBox =
+            document.getElementById(
+                "certificateQR"
+            );
+
+        if (qrBox) {
+
+            qrBox.innerHTML = "";
+
+            if (
+                typeof QRCode !== "undefined"
+            ) {
+
+                const verifyURL =
+                    window.location.href +
+                    "?certificate=" +
+                    encodeURIComponent(
+                        certificate.id
+                    );
+
+                new QRCode(qrBox, {
+
+                    text: verifyURL,
+
+                    width: 100,
+
+                    height: 100,
+
+                    correctLevel:
+                        QRCode.CorrectLevel.H
+
+                });
+
+            } else {
+
+                console.warn(
+                    "⚠️ QRCode library not loaded"
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           RESULT MESSAGE
+        ========================= */
 
         result.innerHTML = `
             <div class="card">
-
-                <h3>✅ Certificate ID Generated</h3>
+                <h3>✅ Certificate Generated</h3>
 
                 <p>
                     <strong>👤 Name:</strong>
@@ -3601,30 +3580,78 @@ const certificate = {
 
                 <p>
                     <strong>🆔 Certificate ID:</strong>
-                    <span>${certificate.id}</span>
+                    ${certificate.id}
                 </p>
 
                 <p>
                     <strong>📅 Date:</strong>
                     ${certificate.date}
                 </p>
-
-                <p>
-                    अब इस Certificate ID को
-                    verification में इस्तेमाल किया जा सकता है।
-                </p>
-
             </div>
         `;
 
+
         showToast(
-            "🏆 Certificate ID Generated"
+            "🏆 Professional Certificate Generated"
         );
 
+
+        if (certificateBox) {
+
+            certificateBox.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
         console.log(
-            "🏆 New Certificate:",
+            "🏆 Professional Certificate:",
             certificate
         );
+
+    });
+
+}
+
+
+/* =========================
+   CERTIFICATE LANDING
+========================= */
+
+function initCertificateLanding() {
+
+    const openBtn =
+        document.getElementById(
+            "openCertificateGeneratorBtn"
+        );
+
+    const landing =
+        document.getElementById(
+            "certificateLanding"
+        );
+
+    const generator =
+        document.getElementById(
+            "certificateGeneratorPanel"
+        );
+
+    if (!openBtn || !landing || !generator) {
+        return;
+    }
+
+    openBtn.addEventListener("click", () => {
+
+        landing.style.display =
+            "none";
+
+        generator.style.display =
+            "block";
+
+        generator.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
 
     });
 
@@ -3641,13 +3668,16 @@ document.addEventListener(
 
         initCertificateGenerator();
 
+        initCertificateLanding();
+
     }
 );
 
 
 console.log(
-    "✅ Part 17 Certificate Generator Loaded"
+    "✅ Part 17 Final Certificate System Loaded"
 );
+
 
 /* ==========================================================
    CERTIFICATE LANDING → GENERATOR
