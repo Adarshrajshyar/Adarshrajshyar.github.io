@@ -731,7 +731,158 @@ placeholder="Original Author">
 </div>
   
 </section>
+<!-- =====================================================
+     ADARSH RAJ SHAYAR
+     PART 16 — ADMIN PANEL
+===================================================== -->
 
+<section id="adminPanel" class="section" style="display:none;">
+
+    <div class="publisher-box">
+
+        <h2>🔐 Admin Panel</h2>
+
+        <p style="text-align:center; color:#ccc; margin-bottom:25px;">
+            Welcome to Adarsh Raj Shayar Admin Panel
+        </p>
+
+
+        <!-- =========================
+             SHAYARI PUBLISHER
+        ========================== -->
+
+        <h3 style="color:#ffd700; margin-top:20px;">
+            ✍️ Publish Shayari
+        </h3>
+
+        <input
+            type="text"
+            id="publisherTitle"
+            placeholder="Shayari Title"
+        >
+
+        <select id="publisherCategory">
+
+            <option value="Love">
+                ❤️ Love
+            </option>
+
+            <option value="Sad">
+                💔 Sad
+            </option>
+
+            <option value="Attitude">
+                🔥 Attitude
+            </option>
+
+            <option value="Friendship">
+                🤝 Friendship
+            </option>
+
+            <option value="Motivation">
+                💪 Motivation
+            </option>
+
+        </select>
+
+        <textarea
+            id="publisherText"
+            placeholder="अपनी Shayari यहाँ लिखें..."
+        ></textarea>
+
+        <input
+            type="text"
+            id="publisherAuthor"
+            placeholder="Author Name"
+            value="Adarsh Raj"
+        >
+
+        <button
+            id="publishBtn"
+            type="button"
+        >
+            📢 Publish Shayari
+        </button>
+
+
+        <!-- =========================
+             STORY PUBLISHER
+        ========================== -->
+
+        <h3
+            style="
+                color:#ffd700;
+                margin-top:40px;
+            "
+        >
+            📖 Publish Story / Poem
+        </h3>
+
+        <input
+            type="text"
+            id="storyTitle"
+            placeholder="Story / Poem Title"
+        >
+
+        <select id="storyType">
+
+            <option value="Story">
+                📖 Story
+            </option>
+
+            <option value="Poem">
+                ✍️ Poem
+            </option>
+
+        </select>
+
+        <textarea
+            id="storyText"
+            placeholder="Story या Poem यहाँ लिखें..."
+        ></textarea>
+
+        <input
+            type="text"
+            id="storyAuthor"
+            placeholder="Author Name"
+            value="Adarsh Raj"
+        >
+
+        <button
+            id="storyPublishBtn"
+            type="button"
+        >
+            📚 Publish Story / Poem
+        </button>
+
+
+        <!-- =========================
+             LOGOUT
+        ========================== -->
+
+        <div
+            style="
+                text-align:center;
+                margin-top:40px;
+                padding-top:25px;
+                border-top:1px solid rgba(255,215,0,.25);
+            "
+        >
+
+            <button
+                id="logoutBtn"
+                type="button"
+                class="gold-btn"
+            >
+                🚪 Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+  
   <!-- =========================
 PUBLISHED SHAYARI
 ========================= -->
