@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Certificate Generator | Adarsh Raj Shayar</title>
+
+<meta name="description"
+      content="Generate and verify professional certificates by Adarsh Raj Shayar.">
+
+<link rel="icon"
+      href="logo.png"
+      type="image/png">
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+
+    font-family:Arial, sans-serif;
+
+    background:
+    linear-gradient(135deg,#080808,#191919);
+
+    color:#fff;
+
+    min-height:100vh;
+
+    padding:25px 15px;
+
+}
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:auto;
+
+}
+
+.top{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+.logo{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    border:3px solid #ffd700;
+
+    object-fit:cover;
+
+    margin:auto auto 15px;
+
+}
+
+h1{
+
+    color:#ffd700;
+
+    font-size:32px;
+
+    margin-bottom:8px;
+
+}
+
+.subtitle{
+
+    color:#ddd;
+
+    line-height:1.7;
+
+}
+
+.card{
+
+    max-width:650px;
+
+    margin:25px auto;
+
+    padding:30px;
+
+    background:rgba(255,255,255,.07);
+
+    border:1px solid rgba(255,215,0,.35);
+
+    border-radius:22px;
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.35);
+
+}
+
+.card h2{
+
+    text-align:center;
+
+    color:#ffd700;
+
+    margin-bottom:25px;
+
+}
+
+label{
+
+    display:block;
+
+    margin:15px 0 7px;
+
+    font-weight:bold;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    border:1px solid #777;
+
+    background:#111;
+
+    color:#fff;
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+input:focus{
+
+    border-color:#ffd700;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:18px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:
+    linear-gradient(90deg,#ffd700,#ffb300);
+
+    color:#111;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.secondary{
+
+    background:#222;
+
+    color:#ffd700;
+
+    border:1px solid #ffd700;
+
+}
+
+.status{
+
+    text-align:center;
+
+    margin-top:15px;
+
+    min-height:24px;
+
+    font-weight:bold;
+
+}
+
+
+/* =========================
+CERTIFICATE
+========================= */
+
+#certificateResult{
+
+    display:none;
+
+    margin:35px auto;
+
+}
+
+.certificate{
+
+    position:relative;
+
+    background:#fff;
+
+    color:#111;
+
+    padding:50px;
+
+    border:12px double #d4af37;
+
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.5);
+
+    text-align:center;
+
+    min-height:650px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+.certificate-logo{
+
+    width:95px;
+
+    height:95px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    margin:0 auto 15px;
+
+}
+
+.certificate h2{
+
+    font-size:42px;
+
+    color:#b8860b;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
+
+}
+
+.certificate h3{
+
+    font-size:25px;
+
+    margin:18px 0;
+
+}
+
+.certificate-name{
+
+    font-size:38px;
+
+    font-weight:bold;
+
+    color:#111;
+
+    margin:15px 0;
+
+    border-bottom:2px solid #d4af37;
+
+    display:inline-block;
+
+    padding:0 25px 8px;
+
+}
+
+.certificate-text{
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    max-width:750px;
+
+    margin:10px auto;
+
+}
+
+.certificate-info{
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    font-size:14px;
+
+}
+
+.signature{
+
+    margin-top:35px;
+
+}
+
+.signature-name{
+
+    font-family:cursive;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+}
+
+.signature-line{
+
+    width:180px;
+
+    border-top:1px solid #111;
+
+    margin:5px auto;
+
+}
+
+.certificate-id{
+
+    color:#555;
+
+    font-size:13px;
+
+    margin-top:20px;
+
+    word-break:break-all;
+
+}
+
+
+/* =========================
+VERIFICATION
+========================= */
+
+.verify-result{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    display:none;
+
+    line-height:1.8;
+
+}
+
+.verify-success{
+
+    display:block;
+
+    background:#e8f8ed;
+
+    color:#14532d;
+
+    border:1px solid #22c55e;
+
+}
+
+.verify-error{
+
+    display:block;
+
+    background:#fff0f0;
+
+    color:#991b1b;
+
+    border:1px solid #ef4444;
+
+}
+
+
+/* =========================
+BACK BUTTON
+========================= */
+
+.back{
+
+    display:block;
+
+    width:max-content;
+
+    margin:0 auto 25px;
+
+    padding:10px 18px;
+
+    color:#ffd700;
+
+    border:1px solid #ffd700;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+}
+
+.back:hover{
+
+    background:#ffd700;
+
+    color:#111;
+
+}
+
+
+/* =========================
+PRINT
+========================= */
+
+@media print{
+
+    body{
+
+        background:#fff;
+
+        padding:0;
+
+    }
+
+    .no-print{
+
+        display:none !important;
+
+    }
+
+    #certificateResult{
+
+        display:block !important;
+
+        margin:0;
+
+    }
+
+    .certificate{
+
+        box-shadow:none;
+
+        min-height:100vh;
+
+        border-width:10px;
+
+    }
+
+}
+
+@media(max-width:650px){
+
+    body{
+
+        padding:15px 10px;
+
+    }
+
+    h1{
+
+        font-size:26px;
+
+    }
+
+    .card{
+
+        padding:20px;
+
+    }
+
+    .certificate{
+
+        padding:25px 15px;
+
+        min-height:550px;
+
+    }
+
+    .certificate h2{
+
+        font-size:30px;
+
+    }
+
+    .certificate-name{
+
+        font-size:28px;
+
+        padding:0 10px 6px;
+
+    }
+
+    .certificate-text{
+
+        font-size:15px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="top no-print">
+
+<img src="logo.png"
+     class="logo"
+     alt="Adarsh Raj Shayar Logo">
+
+<h1>🏆 Certificate General</h1>
+
+<p class="subtitle">
+
+अपने लिए Professional Certificate बनाइए<br>
+
+Adarsh Raj Shayar Official Website
+
+</p>
+
+</div>
+
+
+<a href="index.html"
+   class="back no-print">
+
+← वापस मुख्य वेबसाइट पर जाएँ
+
+</a>
+
+
+<!-- =========================
+GENERATOR
+========================= -->
+
+<div class="card no-print">
+
+<h2>📜 Certificate Generator</h2>
+
+
+<label for="userName">
+
+👤 अपना नाम
+
+</label>
+
+<input
+    type="text"
+    id="userName"
+    placeholder="अपना पूरा नाम लिखें"
+    autocomplete="name"
+>
+
+
+<label for="userPassword">
+
+🔐 Password
+
+</label>
+
+<input
+    type="password"
+    id="userPassword"
+    placeholder="एक password बनाइए"
+    autocomplete="new-password"
+>
+
+
+<label for="certificatePurpose">
+
+📚 Certificate Type
+
+</label>
+
+<input
+    type="text"
+    id="certificatePurpose"
+    value="Professional Certificate"
+>
+
+
+<button
+    id="generateCertificateBtn"
+    type="button">
+
+🏆 Certificate Generate करें
+
+</button>
+
+
+<p
+    id="generatorStatus"
+    class="status">
+</p>
+
+</div>
+
+
+<!-- =========================
+CERTIFICATE RESULT
+========================= -->
+
+<div id="certificateResult">
+
+<div class="certificate">
+
+
+<img src="logo.png"
+     class="certificate-logo"
+     alt="Adarsh Raj Shayar Logo">
+
+
+<h2>
+
+CERTIFICATE
+
+</h2>
+
+
+<h3>
+
+OF ACHIEVEMENT
+
+</h3>
+
+
+<p>
+
+यह प्रमाणित किया जाता है कि
+
+</p>
+
+
+<div
+    id="certificateName"
+    class="certificate-name">
+
+</div>
+
+
+<p class="certificate-text">
+
+ने <strong>Adarsh Raj Shayar</strong>
+की ओर से यह
+<strong>Professional Certificate</strong>
+प्राप्त किया है।
+
+</p>
+
+
+<div class="certificate-info">
+
+<div>
+
+<strong>Certificate ID</strong><br>
+
+<span id="certificateId"></span>
+
+</div>
+
+
+<div>
+
+<strong>Issue Date</strong><br>
+
+<span id="certificateDate"></span>
+
+</div>
+
+</div>
+
+
+<div class="signature">
+
+<div class="signature-name">
+
+Adarsh Raj
+
+</div>
+
+<div class="signature-line"></div>
+
+<strong>Founder & Author</strong>
+
+</div>
+
+
+<p class="certificate-id">
+
+Verify this certificate at:<br>
+
+adarshrajshyar.github.io/certificate.html
+
+</p>
+
+
+</div>
+
+
+<div class="no-print">
+
+<button
+    id="printCertificateBtn"
+    type="button">
+
+🖨️ Print / Save as PDF
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+VERIFICATION
+========================= -->
+
+<div class="card no-print">
+
+<h2>🔎 Certificate Verification</h2>
+
+<p class="subtitle">
+
+Certificate ID डालकर certificate की details verify करें।
+
+</p>
+
+
+<label for="verifyId">
+
+🆔 Certificate ID
+
+</label>
+
+<input
+    type="text"
+    id="verifyId"
+    placeholder="जैसे ARS-CERT-XXXXXXXX"
+    autocomplete="off"
+>
+
+
+<button
+    id="verifyCertificateBtn"
+    type="button">
+
+✅ Verify Certificate
+
+</button>
+
+
+<div
+    id="verifyResult"
+    class="verify-result">
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* =========================
+STORAGE
+========================= */
+
+const CERTIFICATE_STORAGE =
+    "ars_certificates_v1";
+
+
+/* =========================
+ELEMENTS
+========================= */
+
+const nameInput =
+    document.getElementById("userName");
+
+const passwordInput =
+    document.getElementById("userPassword");
+
+const purposeInput =
+    document.getElementById("certificatePurpose");
+
+const generateBtn =
+    document.getElementById(
+        "generateCertificateBtn"
+    );
+
+const printBtn =
+    document.getElementById(
+        "printCertificateBtn"
+    );
+
+const verifyBtn =
+    document.getElementById(
+        "verifyCertificateBtn"
+    );
+
+
+/* =========================
+STORAGE HELPERS
+========================= */
+
+function getCertificates(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                CERTIFICATE_STORAGE
+            )
+        ) || [];
+
+    }catch{
+
+        return [];
+
+    }
+
+}
+
+
+function saveCertificates(data){
+
+    localStorage.setItem(
+        CERTIFICATE_STORAGE,
+        JSON.stringify(data)
+    );
+
+}
+
+
+/* =========================
+UNIQUE ID
+========================= */
+
+function createCertificateId(){
+
+    const random =
+        Math.random()
+        .toString(36)
+        .substring(2,10)
+        .toUpperCase();
+
+    const time =
+        Date.now()
+        .toString(36)
+        .toUpperCase();
+
+    return "ARS-CERT-" + time + "-" + random;
+
+}
+
+
+/* =========================
+GENERATE
+========================= */
+
+generateBtn.addEventListener(
+"click",
+function(){
+
+    const name =
+        nameInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+    const purpose =
+        purposeInput.value.trim()
+        || "Professional Certificate";
+
+
+    if(name.length < 2){
+
+        alert(
+            "कृपया अपना पूरा नाम लिखें।"
+        );
+
+        nameInput.focus();
+
+        return;
+
+    }
+
+
+    if(password.length < 4){
+
+        alert(
+            "Password कम से कम 4 characters का रखें।"
+        );
+
+        passwordInput.focus();
+
+        return;
+
+    }
+
+
+    const certificates =
+        getCertificates();
+
+
+    const certificate = {
+
+        id:createCertificateId(),
+
+        name:name,
+
+        purpose:purpose,
+
+        date:new Date()
+        .toLocaleDateString(
+            "en-IN",
+            {
+                day:"2-digit",
+                month:"long",
+                year:"numeric"
+            }
+        ),
+
+        passwordHint:
+            "Protected",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    certificates.push(certificate);
+
+    saveCertificates(certificates);
+
+
+    document.getElementById(
+        "certificateName"
+    ).textContent =
+        certificate.name;
+
+
+    document.getElementById(
+        "certificateId"
+    ).textContent =
+        certificate.id;
+
+
+    document.getElementById(
+        "certificateDate"
+    ).textContent =
+        certificate.date;
+
+
+    document.getElementById(
+        "certificateResult"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "generatorStatus"
+    ).textContent =
+        "✅ Certificate Successfully Generated";
+
+
+    document.getElementById(
+        "certificateResult"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
+
+});
+
+
+/* =========================
+PRINT
+========================= */
+
+printBtn.addEventListener(
+"click",
+function(){
+
+    window.print();
+
+});
+
+
+/* =========================
+VERIFY
+========================= */
+
+verifyBtn.addEventListener(
+"click",
+function(){
+
+    const id =
+        document.getElementById(
+            "verifyId"
+        ).value
+        .trim()
+        .toUpperCase();
+
+
+    const result =
+        document.getElementById(
+            "verifyResult"
+        );
+
+
+    if(!id){
+
+        result.className =
+            "verify-result verify-error";
+
+        result.innerHTML =
+            "⚠️ कृपया Certificate ID डालें।";
+
+        return;
+
+    }
+
+
+    const certificates =
+        getCertificates();
+
+
+    const certificate =
+        certificates.find(
+            item =>
+            item.id.toUpperCase() === id
+        );
+
+
+    if(!certificate){
+
+        result.className =
+            "verify-result verify-error";
+
+        result.innerHTML =
+
+            "<strong>❌ Certificate Not Found</strong><br>" +
+
+            "यह Certificate ID इस browser में उपलब्ध नहीं है।";
+
+        return;
+
+    }
+
+
+    result.className =
+        "verify-result verify-success";
+
+
+    result.innerHTML =
+
+        "<strong>✅ Certificate Verified</strong><br><br>" +
+
+        "<strong>Name:</strong> " +
+        escapeHTML(certificate.name) +
+        "<br>" +
+
+        "<strong>Certificate Type:</strong> " +
+        escapeHTML(certificate.purpose) +
+        "<br>" +
+
+        "<strong>Certificate ID:</strong> " +
+        escapeHTML(certificate.id) +
+        "<br>" +
+
+        "<strong>Issue Date:</strong> " +
+        escapeHTML(certificate.date);
+
+});
+
+
+/* =========================
+SAFE TEXT
+========================= */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
