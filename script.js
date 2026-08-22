@@ -2083,11 +2083,6 @@ const ARS_CONFIG = {
    2. DOM SHORTCUTS
 ========================================================== */
 
-const $ = (selector) =>
-    document.querySelector(selector);
-
-const $$ = (selector) =>
-    document.querySelectorAll(selector);
 
 
 /* ==========================================================
