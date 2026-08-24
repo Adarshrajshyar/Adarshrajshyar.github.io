@@ -3198,53 +3198,50 @@ button:disabled {
     cursor: pointer;
 }
 /* ==========================================================
-   DARK / LIGHT MODE — FINAL OVERRIDE
+   DARK MODE — PROFESSIONAL THEME
 ========================================================== */
 
-/* ---------- LIGHT MODE ---------- */
+:root {
+    --bg-main: #fffaf0;
+    --bg-card: #ffffff;
+    --bg-header: #fffaf0;
+    --text-main: #222222;
+    --text-secondary: #666666;
+    --border-color: #eadfca;
+    --gold: #d4af37;
+    --shadow-color: rgba(0, 0, 0, 0.12);
+}
 
-:root,
-:root[data-theme="light"] {
+html[data-theme="dark"] {
+
+    --bg-main: #101114;
+    --bg-card: #181a1f;
+    --bg-header: #14161b;
+    --text-main: #ffffff;
+    --text-secondary: #d0d0d0;
+    --border-color: #34363d;
+    --gold: #e5bd45;
+    --shadow-color: rgba(0, 0, 0, 0.45);
+
+}
+
+html[data-theme="light"] {
 
     --bg-main: #fffaf0;
     --bg-card: #ffffff;
     --bg-header: #fffaf0;
-    --bg-nav: #ffffff;
-
     --text-main: #222222;
     --text-secondary: #666666;
-
     --border-color: #eadfca;
+    --gold: #d4af37;
+    --shadow-color: rgba(0, 0, 0, 0.12);
 
-    --shadow-color: rgba(0, 0, 0, 0.10);
-
-    --accent-color: #c49a00;
 }
 
 
-/* ---------- DARK MODE ---------- */
+/* BODY */
 
-:root[data-theme="dark"] {
-
-    --bg-main: #0b0b0b;
-    --bg-card: #171717;
-    --bg-header: #111111;
-    --bg-nav: #121212;
-
-    --text-main: #ffffff;
-    --text-secondary: #dddddd;
-
-    --border-color: #333333;
-
-    --shadow-color: rgba(0, 0, 0, 0.55);
-
-    --accent-color: #ffd54a;
-}
-
-
-/* ---------- BODY ---------- */
-
-body {
+html[data-theme="dark"] body {
 
     background:
         var(--bg-main) !important;
@@ -3252,24 +3249,48 @@ body {
     color:
         var(--text-main) !important;
 
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
+}
+
+
+/* HEADINGS */
+
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+
+    color:
+        #ffffff !important;
 
 }
 
 
-/* ---------- HEADER ---------- */
+/* NORMAL TEXT */
 
-header,
-.site-header,
-.main-header {
+html[data-theme="dark"] p,
+html[data-theme="dark"] span,
+html[data-theme="dark"] li,
+html[data-theme="dark"] label {
+
+    color:
+        var(--text-secondary);
+
+}
+
+
+/* HEADER */
+
+html[data-theme="dark"] header,
+html[data-theme="dark"] .header,
+html[data-theme="dark"] .site-header {
 
     background:
         var(--bg-header) !important;
 
     color:
-        var(--text-main) !important;
+        #ffffff !important;
 
     border-color:
         var(--border-color) !important;
@@ -3277,18 +3298,14 @@ header,
 }
 
 
-/* ---------- NAVIGATION ---------- */
+/* NAVIGATION */
 
-nav,
-.navbar,
-.navigation,
-.mobile-menu {
+html[data-theme="dark"] nav,
+html[data-theme="dark"] .navbar,
+html[data-theme="dark"] .nav {
 
     background:
-        var(--bg-nav) !important;
-
-    color:
-        var(--text-main) !important;
+        #15171c !important;
 
     border-color:
         var(--border-color) !important;
@@ -3296,92 +3313,83 @@ nav,
 }
 
 
-/* ---------- NAV LINKS ---------- */
-
-nav a,
-.navbar a,
-.navigation a {
+html[data-theme="dark"] nav a,
+html[data-theme="dark"] .navbar a,
+html[data-theme="dark"] .nav a {
 
     color:
-        var(--text-main) !important;
+        #ffffff !important;
 
 }
 
 
-/* ---------- CARDS ---------- */
+/* CARDS */
 
-.card,
-.shayari-card,
-.story-card {
+html[data-theme="dark"] .card {
 
     background:
         var(--bg-card) !important;
 
     color:
-        var(--text-main) !important;
+        #ffffff !important;
 
     border-color:
         var(--border-color) !important;
 
     box-shadow:
-        0 8px 25px
-        var(--shadow-color) !important;
+        0 10px 30px var(--shadow-color);
 
 }
 
 
-/* ---------- HEADINGS ---------- */
+/* INPUTS */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-
-    color:
-        var(--text-main) !important;
-
-}
-
-
-/* ---------- PARAGRAPHS ---------- */
-
-p,
-span,
-label,
-.meta {
-
-    color:
-        var(--text-main) !important;
-
-}
-
-
-/* ---------- SECONDARY TEXT ---------- */
-
-.subtitle,
-.description,
-.text-muted,
-small {
-
-    color:
-        var(--text-secondary) !important;
-
-}
-
-
-/* ---------- INPUTS ---------- */
-
-input,
-textarea,
-select {
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
 
     background:
-        var(--bg-card) !important;
+        #202329 !important;
 
     color:
-        var(--text-main) !important;
+        #ffffff !important;
+
+    border-color:
+        #444850 !important;
+
+}
+
+
+/* INPUT PLACEHOLDER */
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+
+    color:
+        #aeb2ba !important;
+
+}
+
+
+/* BUTTONS */
+
+html[data-theme="dark"] button {
+
+    color:
+        #ffffff;
+
+}
+
+
+/* FOOTER */
+
+html[data-theme="dark"] footer {
+
+    background:
+        #111318 !important;
+
+    color:
+        #ffffff !important;
 
     border-color:
         var(--border-color) !important;
@@ -3389,158 +3397,98 @@ select {
 }
 
 
-/* ---------- PLACEHOLDER ---------- */
+/* SECTIONS */
 
-input::placeholder,
-textarea::placeholder {
+html[data-theme="dark"] section {
 
     color:
-        var(--text-secondary) !important;
+        #ffffff;
 
 }
 
 
-/* ---------- BUTTONS ---------- */
+/* STORY READER */
 
-button {
+html[data-theme="dark"] #storyReader {
+
+    background:
+        rgba(0, 0, 0, 0.88) !important;
+
+}
+
+
+html[data-theme="dark"] .story-reader-box {
+
+    background:
+        #181a1f !important;
+
+    color:
+        #ffffff !important;
+
+    border-color:
+        #3b3e46 !important;
+
+}
+
+
+/* WELCOME POPUP */
+
+html[data-theme="dark"] #welcomePopup {
+
+    background:
+        rgba(0, 0, 0, 0.82) !important;
+
+}
+
+
+html[data-theme="dark"] .welcome-popup,
+html[data-theme="dark"] .popup-box,
+html[data-theme="dark"] .welcome-box {
+
+    background:
+        #181a1f !important;
+
+    color:
+        #ffffff !important;
+
+}
+
+
+/* ADMIN */
+
+html[data-theme="dark"] #adminPanel,
+html[data-theme="dark"] #adminLogin,
+html[data-theme="dark"] #publisherPanel {
+
+    background:
+        #181a1f !important;
+
+    color:
+        #ffffff !important;
+
+    border-color:
+        #34363d !important;
+
+}
+
+
+/* THEME BUTTON */
+
+#themeToggle,
+#themeBtn {
+
+    cursor: pointer;
 
     transition:
-        all 0.25s ease;
+        transform 0.25s ease,
+        background 0.25s ease;
 
 }
 
+#themeToggle:hover,
+#themeBtn:hover {
 
-/* ---------- SEARCH ---------- */
-
-#search {
-
-    background:
-        var(--bg-card) !important;
-
-    color:
-        var(--text-main) !important;
-
-    border-color:
-        var(--border-color) !important;
-
-}
-
-
-/* ---------- FAVOURITE ---------- */
-
-#favoriteList {
-
-    color:
-        var(--text-main) !important;
-
-}
-
-
-/* ---------- STORY READER ---------- */
-
-#storyReader {
-
-    background:
-        rgba(0, 0, 0, 0.80) !important;
-
-}
-
-
-.story-reader-box {
-
-    background:
-        var(--bg-card) !important;
-
-    color:
-        var(--text-main) !important;
-
-}
-
-
-/* ---------- ADMIN PANEL ---------- */
-
-#adminPanel,
-#adminLogin,
-#publisherPanel {
-
-    background:
-        var(--bg-card) !important;
-
-    color:
-        var(--text-main) !important;
-
-    border-color:
-        var(--border-color) !important;
-
-}
-
-
-/* ---------- MODALS / POPUPS ---------- */
-
-.modal,
-.popup,
-.popup-content,
-.welcome-box {
-
-    color:
-        #222 !important;
-
-}
-
-
-/*
-   Welcome Popup deliberately stays light
-   so the branding remains clean.
-*/
-
-
-/* ---------- FOOTER ---------- */
-
-footer {
-
-    background:
-        var(--bg-header) !important;
-
-    color:
-        var(--text-main) !important;
-
-    border-color:
-        var(--border-color) !important;
-
-}
-
-
-/* ---------- DARK MODE THEME BUTTON ---------- */
-
-:root[data-theme="dark"] #themeToggle,
-:root[data-theme="dark"] #themeBtn,
-:root[data-theme="dark"] .themeToggle {
-
-    background:
-        #222 !important;
-
-    color:
-        #ffffff !important;
-
-    border-color:
-        #555 !important;
-
-}
-
-
-/* ---------- LIGHT MODE THEME BUTTON ---------- */
-
-:root[data-theme="light"] #themeToggle,
-:root[data-theme="light"] #themeBtn,
-:root[data-theme="light"] .themeToggle {
-
-    background:
-        #ffffff !important;
-
-    color:
-        #222222 !important;
-
-    border-color:
-        #dddddd !important;
+    transform:
+        scale(1.08);
 
 }
