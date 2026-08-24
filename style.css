@@ -3179,3 +3179,21 @@ button:disabled {
     }
 
 }
+/* ==========================================================
+   WELCOME POPUP — FINAL SAFETY
+========================================================== */
+
+#welcomePopup[hidden] {
+    display: none !important;
+}
+
+#welcomePopup {
+    z-index: 99999;
+}
+
+#welcomePopup button {
+    position: relative;
+    z-index: 100000;
+    pointer-events: auto;
+    cursor: pointer;
+}
