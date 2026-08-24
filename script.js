@@ -496,7 +496,53 @@ function initLoader() {
 
 
 /* ==========================================================
-   11. WELCOME POPUP
+   11. WELCOME POPUP — FINAL
+========================================================== */
+
+function closeWelcomePopup() {
+
+    const popup =
+        document.getElementById(
+            "welcomePopup"
+        );
+
+    if (!popup) return;
+
+    popup.classList.remove(
+        "show"
+    );
+
+    popup.style.display =
+        "none";
+
+    popup.hidden =
+        true;
+
+    document.body.classList.remove(
+        "popup-open"
+    );
+
+    try {
+
+        localStorage.setItem(
+            "ars_visited",
+            "true"
+        );
+
+    } catch (error) {
+
+        console.warn(
+            "Welcome popup storage error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   INITIALIZE WELCOME POPUP
 ========================================================== */
 
 function initWelcomePopup() {
@@ -506,76 +552,174 @@ function initWelcomePopup() {
             "welcomePopup"
         );
 
-    if (!popup) return;
+    if (!popup) {
+
+        console.warn(
+            "⚠️ Welcome Popup not found."
+        );
+
+        return;
+
+    }
+
+
+    /* ------------------------------------------------------
+       ENTER WEBSITE BUTTON
+    ------------------------------------------------------ */
+
+    const enterButton =
+        popup.querySelector(
+            "#enterBtn, #enterWebsiteBtn, .enterWebsiteBtn"
+        );
+
+
+    /* ------------------------------------------------------
+       CLOSE BUTTONS
+    ------------------------------------------------------ */
 
     const closeButtons =
         popup.querySelectorAll(
-            ".closePopup, #closeWelcomePopup, [data-close-popup]"
+            ".closePopup, #closeWelcomePopup, #closeWelcomeBtn, [data-close-popup]"
         );
 
-    const closePopup =
-        () => {
 
-            popup.classList.remove(
-                "show"
-            );
+    /* ------------------------------------------------------
+       ENTER BUTTON CLICK
+    ------------------------------------------------------ */
 
-            popup.style.display =
-                "none";
+    if (enterButton) {
 
-            document.body.classList.remove(
-                "popup-open"
-            );
+        enterButton.addEventListener(
+            "click",
+            function (event) {
 
-        };
+                event.preventDefault();
+                event.stopPropagation();
+
+                console.log(
+                    "🚀 Enter Website clicked"
+                );
+
+                closeWelcomePopup();
+
+            }
+        );
+
+    } else {
+
+        console.warn(
+            "⚠️ Enter Website button not found."
+        );
+
+    }
+
+
+    /* ------------------------------------------------------
+       CLOSE BUTTON CLICK
+    ------------------------------------------------------ */
 
     closeButtons.forEach(
         button => {
 
             button.addEventListener(
                 "click",
-                closePopup
+                function (event) {
+
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    closeWelcomePopup();
+
+                }
             );
 
         }
     );
 
+
+    /* ------------------------------------------------------
+       CLICK OUTSIDE POPUP
+    ------------------------------------------------------ */
+
     popup.addEventListener(
         "click",
-        event => {
+        function (event) {
 
             if (
                 event.target ===
                 popup
             ) {
 
-                closePopup();
+                closeWelcomePopup();
 
             }
 
         }
     );
 
-    setTimeout(
-        () => {
 
-            popup.style.display =
-                "flex";
+    /* ------------------------------------------------------
+       SHOW POPUP
+    ------------------------------------------------------ */
 
-            popup.classList.add(
-                "show"
-            );
+    let visited =
+        false;
 
-            document.body.classList.add(
-                "popup-open"
-            );
+    try {
 
-        },
-        1000
+        visited =
+            localStorage.getItem(
+                "ars_visited"
+            ) === "true";
+
+    } catch (error) {
+
+        visited =
+            false;
+
+    }
+
+
+    if (visited) {
+
+        popup.style.display =
+            "none";
+
+        popup.hidden =
+            true;
+
+        popup.classList.remove(
+            "show"
+        );
+
+        document.body.classList.remove(
+            "popup-open"
+        );
+
+        return;
+
+    }
+
+
+    /* ------------------------------------------------------
+       FIRST VISIT
+    ------------------------------------------------------ */
+
+    popup.hidden =
+        false;
+
+    popup.style.display =
+        "flex";
+
+    popup.classList.add(
+        "show"
+    );
+
+    document.body.classList.add(
+        "popup-open"
     );
 
 }
-
 
 /* ==========================================================
    12. THEME SYSTEM
