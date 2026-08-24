@@ -722,150 +722,113 @@ function initWelcomePopup() {
 }
 
 /* ==========================================================
-   12. THEME SYSTEM
+   THEME SYSTEM — FINAL
 ========================================================== */
-
-function getSavedTheme() {
-
-    const saved =
-        localStorage.getItem(
-            ARS_CONFIG.STORAGE.THEME
-        );
-
-    if (
-        saved === "dark" ||
-        saved === "light"
-    ) {
-
-        return saved;
-
-    }
-
-    return "light";
-
-}
-
-
-function applyTheme(theme) {
-
-    const safeTheme =
-        theme === "dark"
-            ? "dark"
-            : "light";
-
-    document.documentElement.setAttribute(
-        "data-theme",
-        safeTheme
-    );
-
-    document.body.classList.toggle(
-        "dark-mode",
-        safeTheme === "dark"
-    );
-
-    localStorage.setItem(
-        ARS_CONFIG.STORAGE.THEME,
-        safeTheme
-    );
-
-    updateThemeButtons(
-        safeTheme
-    );
-
-}
-
-
-function updateThemeButtons(theme) {
-
-    const buttons =
-        document.querySelectorAll(
-            "#themeToggle, .themeToggle, [data-theme-toggle]"
-        );
-
-    buttons.forEach(
-        button => {
-
-            if (
-                theme === "dark"
-            ) {
-
-                button.innerHTML =
-                    "☀️";
-
-                button.setAttribute(
-                    "aria-label",
-                    "Switch to light mode"
-                );
-
-                button.setAttribute(
-                    "title",
-                    "Light Mode"
-                );
-
-            } else {
-
-                button.innerHTML =
-                    "🌙";
-
-                button.setAttribute(
-                    "aria-label",
-                    "Switch to dark mode"
-                );
-
-                button.setAttribute(
-                    "title",
-                    "Dark Mode"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-function toggleTheme() {
-
-    const current =
-        document.documentElement.getAttribute(
-            "data-theme"
-        ) ||
-        getSavedTheme();
-
-    applyTheme(
-        current === "dark"
-            ? "light"
-            : "dark"
-    );
-
-}
-
 
 function initTheme() {
 
-    applyTheme(
-        getSavedTheme()
-    );
-
-    const buttons =
+    const themeButtons =
         document.querySelectorAll(
-            "#themeToggle, .themeToggle, [data-theme-toggle]"
+            "#themeToggle, #themeBtn, .themeToggle, [data-theme-toggle]"
         );
 
-    buttons.forEach(
+    const savedTheme =
+        localStorage.getItem(
+            "ars_theme"
+        );
+
+    function applyTheme(theme) {
+
+        const isDark =
+            theme === "dark";
+
+        document.documentElement.setAttribute(
+            "data-theme",
+            isDark ? "dark" : "light"
+        );
+
+        document.body.classList.toggle(
+            "dark-mode",
+            isDark
+        );
+
+        document.body.classList.toggle(
+            "light-mode",
+            !isDark
+        );
+
+        themeButtons.forEach(
+            button => {
+
+                button.setAttribute(
+                    "aria-label",
+                    isDark
+                        ? "Switch to Light Mode"
+                        : "Switch to Dark Mode"
+                );
+
+                button.setAttribute(
+                    "title",
+                    isDark
+                        ? "Light Mode"
+                        : "Dark Mode"
+                );
+
+                button.textContent =
+                    isDark
+                        ? "☀️"
+                        : "🌙";
+
+            }
+        );
+
+        localStorage.setItem(
+            "ars_theme",
+            isDark
+                ? "dark"
+                : "light"
+        );
+
+    }
+
+
+    /* Default = Light */
+    let theme =
+        savedTheme === "dark"
+            ? "dark"
+            : "light";
+
+    applyTheme(theme);
+
+
+    themeButtons.forEach(
         button => {
 
             button.addEventListener(
                 "click",
-                toggleTheme
+                event => {
+
+                    event.preventDefault();
+
+                    const current =
+                        document.documentElement
+                            .getAttribute(
+                                "data-theme"
+                            );
+
+                    applyTheme(
+                        current === "dark"
+                            ? "light"
+                            : "dark"
+                    );
+
+                }
             );
 
         }
     );
 
 }
-
 
 /* ==========================================================
    13. MOBILE MENU
