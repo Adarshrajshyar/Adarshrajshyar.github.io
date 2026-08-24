@@ -1779,3 +1779,1140 @@ function preloadImages() {
 console.log(
     "✅ Adarsh Raj Shayar — Script Part 1 Loaded"
 );
+/* ==========================================================
+   42. LEGACY SHAYARI PUBLISHER
+========================================================== */
+
+function publishLegacyShayari() {
+
+    if (!checkAdmin()) return;
+
+    const title =
+        document.getElementById("pubTitle");
+
+    const category =
+        document.getElementById("pubCategory");
+
+    const text =
+        document.getElementById("pubText");
+
+    const author =
+        document.getElementById("pubAuthor");
+
+    if (
+        !title ||
+        !category ||
+        !text
+    ) {
+
+        showToast(
+            "❌ Shayari Form Not Found"
+        );
+
+        return;
+
+    }
+
+    const item = {
+
+        id: Date.now(),
+
+        title:
+            title.value.trim(),
+
+        category:
+            category.value,
+
+        text:
+            text.value.trim(),
+
+        author:
+            author?.value.trim() ||
+            "Adarsh Raj",
+
+        publisher:
+            "Adarsh Raj",
+
+        date:
+            new Date().toLocaleString(
+                "en-IN"
+            )
+
+    };
+
+    if (
+        item.title.length < 3
+    ) {
+
+        showToast(
+            "⚠️ Title Too Short"
+        );
+
+        return;
+
+    }
+
+    if (
+        item.text.length < 10
+    ) {
+
+        showToast(
+            "⚠️ Shayari Too Short"
+        );
+
+        return;
+
+    }
+
+    customShayari.unshift(
+        item
+    );
+
+    saveAllData();
+
+    loadAllShayari();
+
+    loadPublishedShayari();
+
+    updateStatistics();
+
+    title.value = "";
+    text.value = "";
+
+    if (author) {
+        author.value = "";
+    }
+
+    showToast(
+        "✅ Shayari Published Successfully"
+    );
+
+}
+
+
+/* ==========================================================
+   43. GLOBAL CARD BUTTON EVENTS
+========================================================== */
+
+function initCardActions() {
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const card =
+                event.target.closest(
+                    ".shayari-card"
+                );
+
+            if (!card) return;
+
+            const text =
+                card.querySelector(
+                    ".shayariText"
+                )?.innerText;
+
+            if (!text) return;
+
+
+            if (
+                event.target.closest(
+                    ".copyBtn"
+                )
+            ) {
+
+                copyText(text);
+
+            }
+
+
+            if (
+                event.target.closest(
+                    ".shareBtn"
+                )
+            ) {
+
+                shareText(text);
+
+            }
+
+
+            if (
+                event.target.closest(
+                    ".likeBtn"
+                )
+            ) {
+
+                toggleLike(text);
+
+                const btn =
+                    event.target.closest(
+                        ".likeBtn"
+                    );
+
+                btn.classList.toggle(
+                    "active",
+                    likedShayari.includes(
+                        text
+                    )
+                );
+
+                btn.innerHTML =
+                    likedShayari.includes(
+                        text
+                    )
+                        ? "💖 Liked"
+                        : "❤️ Like";
+
+            }
+
+
+            if (
+                event.target.closest(
+                    ".favBtn"
+                )
+            ) {
+
+                toggleFavourite(text);
+
+                const btn =
+                    event.target.closest(
+                        ".favBtn"
+                    );
+
+                btn.classList.toggle(
+                    "active",
+                    favouriteShayari.includes(
+                        text
+                    )
+                );
+
+                btn.innerHTML =
+                    favouriteShayari.includes(
+                        text
+                    )
+                        ? "🌟 Saved"
+                        : "⭐ Favourite";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   44. EDIT / DELETE EVENTS
+========================================================== */
+
+function initAdminContentEvents() {
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const editBtn =
+                event.target.closest(
+                    ".editShayariBtn"
+                );
+
+            if (editBtn) {
+
+                editShayari(
+                    Number(
+                        editBtn.dataset.id
+                    )
+                );
+
+                return;
+
+            }
+
+
+            const deleteBtn =
+                event.target.closest(
+                    ".deleteShayariBtn"
+                );
+
+            if (deleteBtn) {
+
+                deleteShayari(
+                    Number(
+                        deleteBtn.dataset.id
+                    )
+                );
+
+                return;
+
+            }
+
+
+            const logoutBtn =
+                event.target.closest(
+                    "#logoutBtn"
+                );
+
+            if (logoutBtn) {
+
+                logoutAdmin();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   45. STATISTICS
+========================================================== */
+
+function updateStatistics() {
+
+    const totalShayari =
+        document.getElementById(
+            "totalShayari"
+        );
+
+    const totalStories =
+        document.getElementById(
+            "totalStories"
+        );
+
+    const totalFavourite =
+        document.getElementById(
+            "totalFavourite"
+        );
+
+    const totalLikes =
+        document.getElementById(
+            "totalLikes"
+        );
+
+    const total =
+        getAllShayari().length;
+
+    if (totalShayari) {
+
+        totalShayari.textContent =
+            total;
+
+    }
+
+    if (totalStories) {
+
+        totalStories.textContent =
+            stories.length;
+
+    }
+
+    if (totalFavourite) {
+
+        totalFavourite.textContent =
+            favouriteShayari.length;
+
+    }
+
+    if (totalLikes) {
+
+        totalLikes.textContent =
+            likedShayari.length;
+
+    }
+
+}
+
+
+/* ==========================================================
+   46. RANDOM SHAYARI
+========================================================== */
+
+function getRandomShayari() {
+
+    const list =
+        getAllShayari();
+
+    if (!list.length) {
+        return null;
+    }
+
+    return list[
+        Math.floor(
+            Math.random() *
+            list.length
+        )
+    ];
+
+}
+
+
+/* ==========================================================
+   47. RANDOM STORY
+========================================================== */
+
+function getRandomStory() {
+
+    if (!stories.length) {
+        return null;
+    }
+
+    return stories[
+        Math.floor(
+            Math.random() *
+            stories.length
+        )
+    ];
+
+}
+
+
+/* ==========================================================
+   48. CONTACT FORM
+========================================================== */
+
+function initContactForm() {
+
+    const form =
+        document.getElementById(
+            "contact-form"
+        );
+
+    if (!form) return;
+
+    const publicKey =
+        window.EMAILJS_PUBLIC_KEY ||
+        window.emailjsPublicKey ||
+        "";
+
+    const serviceId =
+        window.EMAILJS_SERVICE_ID ||
+        window.emailjsServiceId ||
+        "";
+
+    const templateId =
+        window.EMAILJS_TEMPLATE_ID ||
+        window.emailjsTemplateId ||
+        "";
+
+    let finalPublicKey =
+        publicKey;
+
+    let finalServiceId =
+        serviceId;
+
+    let finalTemplateId =
+        templateId;
+
+    try {
+
+        if (
+            window.CONFIG &&
+            typeof window.CONFIG ===
+            "object"
+        ) {
+
+            finalPublicKey =
+                finalPublicKey ||
+                window.CONFIG.EMAILJS_PUBLIC_KEY ||
+                "";
+
+            finalServiceId =
+                finalServiceId ||
+                window.CONFIG.EMAILJS_SERVICE_ID ||
+                "";
+
+            finalTemplateId =
+                finalTemplateId ||
+                window.CONFIG.EMAILJS_TEMPLATE_ID ||
+                "";
+
+        }
+
+    } catch {
+
+        /* ignore */
+
+    }
+
+
+    if (
+        typeof emailjs ===
+        "undefined"
+    ) {
+
+        console.error(
+            "EmailJS library not loaded."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !finalPublicKey ||
+        !finalServiceId ||
+        !finalTemplateId
+    ) {
+
+        console.error(
+            "EmailJS configuration missing."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        emailjs.init({
+            publicKey:
+                finalPublicKey
+        });
+
+    } catch {
+
+        try {
+
+            emailjs.init(
+                finalPublicKey
+            );
+
+        } catch {
+
+            console.error(
+                "EmailJS initialization failed."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    if (
+        form.dataset.emailReady ===
+        "true"
+    ) return;
+
+    form.dataset.emailReady =
+        "true";
+
+
+    form.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+            const button =
+                form.querySelector(
+                    "button[type='submit']"
+                );
+
+            if (button) {
+
+                button.disabled =
+                    true;
+
+                button.innerHTML =
+                    "📤 Sending...";
+
+            }
+
+
+            emailjs.sendForm(
+                finalServiceId,
+                finalTemplateId,
+                form
+            )
+            .then(() => {
+
+                showToast(
+                    "✅ Message Sent Successfully"
+                );
+
+                form.reset();
+
+            })
+            .catch(error => {
+
+                console.error(
+                    "EmailJS Error:",
+                    error
+                );
+
+                showToast(
+                    "❌ Message Send Failed"
+                );
+
+            })
+            .finally(() => {
+
+                if (button) {
+
+                    button.disabled =
+                        false;
+
+                    button.innerHTML =
+                        "📨 Send Message";
+
+                }
+
+            });
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   49. QR CODE
+========================================================== */
+
+function generateWebsiteQR() {
+
+    const qrBox =
+        document.getElementById(
+            "qrCode"
+        );
+
+    if (!qrBox) return;
+
+    if (
+        typeof QRCode ===
+        "undefined"
+    ) {
+
+        showToast(
+            "❌ QR Code Library Not Loaded"
+        );
+
+        return;
+
+    }
+
+    qrBox.innerHTML = "";
+
+    new QRCode(
+        qrBox,
+        {
+
+            text:
+                window.location.href,
+
+            width: 220,
+
+            height: 220,
+
+            colorDark:
+                "#000000",
+
+            colorLight:
+                "#ffffff",
+
+            correctLevel:
+                QRCode.CorrectLevel.H
+
+        }
+    );
+
+}
+
+
+function downloadQRCode() {
+
+    const qrBox =
+        document.getElementById(
+            "qrCode"
+        );
+
+    if (!qrBox) return;
+
+    const canvas =
+        qrBox.querySelector(
+            "canvas"
+        );
+
+    const image =
+        qrBox.querySelector(
+            "img"
+        );
+
+    let url = "";
+
+    if (canvas) {
+
+        try {
+
+            url =
+                canvas.toDataURL(
+                    "image/png"
+                );
+
+        } catch {
+
+            showToast(
+                "❌ QR Download Failed"
+            );
+
+            return;
+
+        }
+
+    } else if (image) {
+
+        url =
+            image.src;
+
+    }
+
+    if (!url) {
+
+        showToast(
+            "⚠️ Generate QR First"
+        );
+
+        return;
+
+    }
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+    link.href =
+        url;
+
+    link.download =
+        "Adarsh-Raj-Shayar-QR.png";
+
+    document.body.appendChild(
+        link
+    );
+
+    link.click();
+
+    link.remove();
+
+    showToast(
+        "✅ QR Downloaded"
+    );
+
+}
+
+
+function initQR() {
+
+    const generate =
+        document.getElementById(
+            "generateQRBtn"
+        );
+
+    const download =
+        document.getElementById(
+            "downloadQRBtn"
+        );
+
+    if (generate) {
+
+        generate.addEventListener(
+            "click",
+            generateWebsiteQR
+        );
+
+    }
+
+    if (download) {
+
+        download.addEventListener(
+            "click",
+            downloadQRCode
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   50. COPY WEBSITE LINK
+========================================================== */
+
+function initCopyWebsiteLink() {
+
+    const button =
+        document.getElementById(
+            "copyWebsiteBtn"
+        );
+
+    if (!button) return;
+
+    button.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    window.location.href
+                );
+
+                showToast(
+                    "🔗 Website Link Copied"
+                );
+
+            } catch {
+
+                showToast(
+                    "❌ Unable to Copy Link"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   51. VISITOR COUNTER
+========================================================== */
+
+function initVisitorCounter() {
+
+    const counter =
+        document.getElementById(
+            "visitor-count"
+        );
+
+    if (!counter) return;
+
+    const COUNT_KEY =
+        "ars_visitor_count";
+
+    const SEEN_KEY =
+        "ars_visitor_seen";
+
+    let count =
+        Number(
+            localStorage.getItem(
+                COUNT_KEY
+            )
+        );
+
+    if (
+        !Number.isFinite(count) ||
+        count < 0
+    ) {
+
+        count = 0;
+
+    }
+
+    if (
+        !localStorage.getItem(
+            SEEN_KEY
+        )
+    ) {
+
+        count++;
+
+        localStorage.setItem(
+            COUNT_KEY,
+            String(count)
+        );
+
+        localStorage.setItem(
+            SEEN_KEY,
+            "true"
+        );
+
+    }
+
+    counter.textContent =
+        count.toLocaleString(
+            "en-IN"
+        );
+
+}
+
+
+/* ==========================================================
+   52. SEO
+========================================================== */
+
+function initSEO() {
+
+    document.title =
+        "Adarsh Raj Shayar | Official";
+
+    const description =
+        document.querySelector(
+            "meta[name='description']"
+        );
+
+    if (description) {
+
+        description.content =
+            "Official Hindi Shayari Website by Adarsh Raj";
+
+    }
+
+}
+
+
+/* ==========================================================
+   53. IMAGE SETTINGS
+========================================================== */
+
+function initImages() {
+
+    document
+        .querySelectorAll("img")
+        .forEach(img => {
+
+            img.draggable =
+                false;
+
+        });
+
+}
+
+
+/* ==========================================================
+   54. BASIC WEBSITE PROTECTION
+========================================================== */
+
+function initBasicProtection() {
+
+    document.addEventListener(
+        "dragstart",
+        event => {
+
+            if (
+                event.target.tagName ===
+                "IMG"
+            ) {
+
+                event.preventDefault();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   55. KEYBOARD ESC
+========================================================== */
+
+function initEscapeKey() {
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeMobileMenu();
+
+                closeStoryReader();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   56. ERROR LOGGER
+========================================================== */
+
+window.addEventListener(
+    "error",
+    event => {
+
+        console.error(
+            "❌ Website JS Error:",
+            event.message
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   57. MAIN INITIALIZATION
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        console.log(
+            "🌹 Adarsh Raj Shayar Starting..."
+        );
+
+        /* CORE */
+
+        initLoader();
+
+        initCurrentYear();
+
+        initWelcomePopup();
+
+        initTheme();
+
+        initMobileMenu();
+
+        initSmoothNavigation();
+
+        initSearch();
+
+        initProgressBar();
+
+        initBackToTop();
+
+        initActiveNavigation();
+
+
+        /* CONTENT */
+
+        loadAllShayari();
+
+        loadPublishedShayari();
+
+        loadStories();
+
+        loadFavourite();
+
+
+        /* ADMIN */
+
+        initAdmin();
+
+        initShayariPublishButtons();
+
+        initStoryPublishButton();
+
+        initStoryEvents();
+
+        initAdminContentEvents();
+
+
+        /* ACTIONS */
+
+        initCardActions();
+
+
+        /* CONTACT */
+
+        initContactForm();
+
+
+        /* QR */
+
+        initQR();
+
+
+        /* OTHER */
+
+        initCopyWebsiteLink();
+
+        initVisitorCounter();
+
+        initSEO();
+
+        initImages();
+
+        initBasicProtection();
+
+        initEscapeKey();
+
+        createStoryReader();
+
+        updateStatistics();
+
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "🌹 Adarsh Raj Shayar"
+        );
+
+        console.log(
+            "🚀 Version:",
+            ARS_CONFIG.VERSION
+        );
+
+        console.log(
+            "👨‍💻 Author:",
+            ARS_CONFIG.AUTHOR
+        );
+
+        console.log(
+            "📖 Stories:",
+            stories.length
+        );
+
+        console.log(
+            "📚 Shayari:",
+            getAllShayari().length
+        );
+
+        console.log(
+            "================================"
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   58. PAGE SHOW
+========================================================== */
+
+window.addEventListener(
+    "pageshow",
+    () => {
+
+        loadAllShayari();
+
+        loadPublishedShayari();
+
+        loadStories();
+
+        loadFavourite();
+
+        restoreShayariButtons();
+
+        updateStatistics();
+
+    }
+);
+
+
+/* ==========================================================
+   END
+========================================================== */
+
+console.log(
+    "✅ Clean Professional script.js Loaded"
+);
