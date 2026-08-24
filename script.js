@@ -722,20 +722,21 @@ function initWelcomePopup() {
 }
 
 /* ==========================================================
-   THEME SYSTEM — FINAL
+   DARK / LIGHT MODE
+   CLEAN PROFESSIONAL THEME SYSTEM
 ========================================================== */
 
 function initTheme() {
 
-    const themeButtons =
-        document.querySelectorAll(
-            "#themeToggle, #themeBtn, .themeToggle, [data-theme-toggle]"
+    const themeButton =
+        document.getElementById("themeToggle") ||
+        document.getElementById("themeBtn") ||
+        document.querySelector(
+            "[data-theme-toggle], .themeToggle, .theme-btn"
         );
 
-    const savedTheme =
-        localStorage.getItem(
-            "ars_theme"
-        );
+    const STORAGE_KEY =
+        "ars_theme";
 
     function applyTheme(theme) {
 
@@ -744,7 +745,7 @@ function initTheme() {
 
         document.documentElement.setAttribute(
             "data-theme",
-            isDark ? "dark" : "light"
+            theme
         );
 
         document.body.classList.toggle(
@@ -757,76 +758,74 @@ function initTheme() {
             !isDark
         );
 
-        themeButtons.forEach(
-            button => {
-
-                button.setAttribute(
-                    "aria-label",
-                    isDark
-                        ? "Switch to Light Mode"
-                        : "Switch to Dark Mode"
-                );
-
-                button.setAttribute(
-                    "title",
-                    isDark
-                        ? "Light Mode"
-                        : "Dark Mode"
-                );
-
-                button.textContent =
-                    isDark
-                        ? "☀️"
-                        : "🌙";
-
-            }
-        );
-
         localStorage.setItem(
-            "ars_theme",
-            isDark
-                ? "dark"
-                : "light"
+            STORAGE_KEY,
+            theme
         );
+
+        if (themeButton) {
+
+            themeButton.setAttribute(
+                "aria-label",
+                isDark
+                    ? "Switch to Light Mode"
+                    : "Switch to Dark Mode"
+            );
+
+            themeButton.setAttribute(
+                "title",
+                isDark
+                    ? "Light Mode"
+                    : "Dark Mode"
+            );
+
+            themeButton.innerHTML =
+                isDark
+                    ? "☀️"
+                    : "🌙";
+
+        }
 
     }
 
+    const savedTheme =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
-    /* Default = Light */
-    let theme =
+    const initialTheme =
         savedTheme === "dark"
             ? "dark"
             : "light";
 
-    applyTheme(theme);
-
-
-    themeButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
-
-                    const current =
-                        document.documentElement
-                            .getAttribute(
-                                "data-theme"
-                            );
-
-                    applyTheme(
-                        current === "dark"
-                            ? "light"
-                            : "dark"
-                    );
-
-                }
-            );
-
-        }
+    applyTheme(
+        initialTheme
     );
+
+    if (themeButton) {
+
+        themeButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                const current =
+                    document.documentElement
+                        .getAttribute(
+                            "data-theme"
+                        );
+
+                applyTheme(
+                    current === "dark"
+                        ? "light"
+                        : "dark"
+                );
+
+            }
+        );
+
+    }
 
 }
 
