@@ -1,1172 +1,575 @@
+```html
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-<title>Certificate Generator | Adarsh Raj Shayar</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<!-- QRCode Library - Primary -->
-<script
-src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
-</script>
+  <title>Certificate | Adarsh Raj Shayar</title>
 
-<!-- QRCode Library - Fallback -->
-<script>
-window.addEventListener("load", function(){
+  <meta
+    name="description"
+    content="ARS Official Certificate Generation and Verification System"
+  >
 
-    if(typeof QRCode === "undefined"){
+  <link rel="stylesheet" href="style.css">
 
-        const fallback = document.createElement("script");
-
-        fallback.src =
-        "https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js";
-
-        document.head.appendChild(fallback);
-
-    }
-
-});
-</script>
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,"Noto Sans Devanagari",sans-serif;
-    background:#080808;
-    color:white;
-}
-
-.container{
-    width:92%;
-    max-width:900px;
-    margin:30px auto;
-}
-
-.header{
-    text-align:center;
-    padding:25px 10px;
-}
-
-.logo{
-    width:115px;
-    height:115px;
-    object-fit:contain;
-    border-radius:50%;
-}
-
-h1{
-    color:#ffd000;
-    font-size:42px;
-    margin:15px 0 8px;
-}
-
-.subtitle{
-    font-size:20px;
-    color:#ddd;
-    margin:6px 0;
-}
-
-.back{
-    display:inline-block;
-    margin:20px 0;
-    padding:12px 22px;
-    border:1px solid #ffd000;
-    border-radius:30px;
-    color:#ffd000;
-    text-decoration:none;
-}
-
-.card{
-    background:#1d1d1d;
-    border:1px solid #806700;
-    border-radius:25px;
-    padding:35px;
-    margin:25px 0;
-    box-shadow:0 0 25px rgba(255,208,0,.08);
-}
-
-.card h2{
-    text-align:center;
-    color:#ffd000;
-    margin-top:0;
-    font-size:30px;
-}
-
-label{
-    display:block;
-    font-size:18px;
-    font-weight:bold;
-    margin:20px 0 8px;
-}
-
-input,
-select{
-    width:100%;
-    padding:16px;
-    background:#0d0d0d;
-    color:white;
-    border:1px solid #666;
-    border-radius:14px;
-    font-size:17px;
-}
-
-input:focus,
-select:focus{
-    outline:none;
-    border-color:#ffd000;
-}
-
-button{
-    width:100%;
-    padding:16px;
-    margin-top:25px;
-    border:0;
-    border-radius:14px;
-    background:#ffd000;
-    color:#111;
-    font-size:19px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:.9;
-}
-
-.secondary{
-    background:#333;
-    color:white;
-}
-
-.hidden{
-    display:none;
-}
-
-/* =========================
-   CERTIFICATE
-========================= */
-
-.certificate{
-    background:#fff;
-    color:#111;
-    padding:45px;
-    border:12px double #d6a900;
-    min-height:560px;
-    position:relative;
-    text-align:center;
-}
-
-.certificate-logo{
-    width:100px;
-    height:100px;
-    object-fit:contain;
-}
-
-.certificate h2{
-    color:#9a7200;
-    font-size:38px;
-    margin:15px 0;
-}
-
-.cert-name{
-    font-size:35px;
-    font-weight:bold;
-    margin:25px 0 10px;
-    color:#111;
-}
-
-.cert-text{
-    font-size:18px;
-    line-height:1.7;
-}
-
-.cert-id{
-    font-weight:bold;
-    color:#9a7200;
-    margin-top:20px;
-}
-
-.cert-bottom{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    margin-top:45px;
-}
-
-.signature{
-    font-family:cursive;
-    font-size:28px;
-    font-style:italic;
-    border-bottom:1px solid #333;
-    padding:0 25px 5px;
-}
-
-.qr{
-    min-width:110px;
-    min-height:110px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.qr-title{
-    font-size:12px;
-    margin-top:5px;
-}
-
-.qr-error{
-    color:#b00020;
-    font-size:13px;
-    font-weight:bold;
-}
-
-.verify-result{
-    padding:18px;
-    margin-top:20px;
-    border-radius:12px;
-    display:none;
-    font-size:17px;
-    line-height:1.7;
-}
-
-.success{
-    display:block;
-    background:#dff7df;
-    color:#126b12;
-    border:1px solid #42a942;
-}
-
-.error{
-    display:block;
-    background:#ffe1e1;
-    color:#9b1717;
-    border:1px solid #e05050;
-}
-
-.info-box{
-    background:#111;
-    border:1px solid #555;
-    padding:15px;
-    border-radius:12px;
-    margin-top:15px;
-    line-height:1.7;
-}
-
-.status-box{
-    margin-top:15px;
-    padding:12px;
-    border-radius:10px;
-    text-align:center;
-    font-weight:bold;
-}
-
-.status-online{
-    background:#123d18;
-    color:#8cff96;
-    border:1px solid #278632;
-}
-
-.status-offline{
-    background:#3d1212;
-    color:#ff9999;
-    border:1px solid #9b3030;
-}
-
-@media(max-width:600px){
-
-    h1{
-        font-size:31px;
-    }
-
-    .card{
-        padding:20px;
-    }
-
-    .certificate{
-        padding:25px 15px;
-    }
-
-    .certificate h2{
-        font-size:28px;
-    }
-
-    .cert-name{
-        font-size:27px;
-    }
-
-    .cert-bottom{
-        flex-direction:column;
-        align-items:center;
-        gap:30px;
-    }
-}
-
-@media print{
-
-    body{
-        background:white;
-    }
-
-    .no-print{
-        display:none !important;
-    }
-
-    .certificate{
-        display:block !important;
-        border:12px double #d6a900;
-        width:100%;
-        min-height:650px;
-    }
-
-    .container{
-        width:100%;
-        max-width:none;
-        margin:0;
-    }
-}
-
-</style>
+  <!-- QR Code Library -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    defer>
+  </script>
 </head>
 
 <body>
 
-<div class="container">
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
 
-<!-- =========================
-     HEADER
-========================= -->
+  <header class="site-header">
 
-<div class="header no-print">
+    <div class="container header-inner">
 
-<img
-src="logo.png"
-class="logo"
-alt="ARS Logo"
->
+      <a
+        href="index.html"
+        class="brand"
+      >
+        <span class="brand-logo">ARS</span>
 
-<h1>🏆 Certificate General</h1>
+        <span class="brand-text">
+          <strong>Adarsh Raj Shayar</strong>
+          <small>Official Website</small>
+        </span>
+      </a>
 
-<div class="subtitle">
-अपने लिए Professional / Business Certificate बनाइए
-</div>
 
-<div class="subtitle">
-Adarsh Raj Shayar Official Website
-</div>
+      <nav class="main-nav">
 
-<a
-href="index.html"
-class="back"
->
-← वापस मुख्य वेबसाइट पर जाएँ
-</a>
+        <a href="index.html">
+          Home
+        </a>
 
-</div>
+        <a href="index.html#shayari">
+          Shayari
+        </a>
 
+        <a href="index.html#stories">
+          Stories
+        </a>
 
-<!-- =========================
-     GENERATOR
-========================= -->
+        <a
+          href="certificate.html"
+          class="active"
+        >
+          Certificate
+        </a>
 
-<div class="card no-print">
+        <a href="verify.html">
+          Verify
+        </a>
 
-<h2>📜 Certificate Generator</h2>
+      </nav>
 
-<label>👤 अपना नाम</label>
 
-<input
-type="text"
-id="userName"
-placeholder="अपना पूरा नाम लिखें"
-autocomplete="name"
->
+      <button
+        class="theme-toggle"
+        data-theme-toggle
+        type="button"
+        aria-label="Toggle theme"
+      >
+        🌙
+      </button>
 
+    </div>
 
-<label>🔐 Password</label>
+  </header>
 
-<input
-type="password"
-id="password"
-placeholder="एक password बनाएँ"
-autocomplete="new-password"
->
 
+  <!-- =====================================================
+       PAGE HERO
+  ====================================================== -->
 
-<label>📜 Certificate Type</label>
+  <main>
 
-<select
-id="certificateType"
-onchange="businessFields()"
->
+    <section class="page-hero">
 
-<option value="Professional Certificate">
-Professional Certificate
-</option>
+      <div class="container">
 
-<option value="Business Certificate">
-Business Certificate
-</option>
+        <span class="category-badge">
+          🏆 ARS Certificate System
+        </span>
 
-<option value="Achievement Certificate">
-Achievement Certificate
-</option>
+        <h1>
+          Certificate Generation
+        </h1>
 
-<option value="Participation Certificate">
-Participation Certificate
-</option>
+        <p>
+          Adarsh Raj Shayar के Official Certificate System
+          से अपना certificate generate करें।
+        </p>
 
-</select>
+      </div>
 
+    </section>
 
-<div
-id="businessArea"
-class="hidden"
->
 
-<label>🏢 Business Name</label>
+    <!-- ===================================================
+         CERTIFICATE GENERATOR
+    ==================================================== -->
 
-<input
-type="text"
-id="businessName"
-placeholder="अपने Business का नाम लिखें"
->
+    <section
+      class="page-section"
+      id="certificate-generator"
+      data-section="certificate-generator"
+    >
 
+      <div class="container">
 
-<label>👨‍💼 Owner / Founder Name</label>
+        <div class="section-heading">
 
-<input
-type="text"
-id="ownerName"
-placeholder="Owner / Founder का नाम"
->
+          <span>
+            🏆 Generate Certificate
+          </span>
 
-</div>
+          <h2>
+            Certificate बनाएं
+          </h2>
 
+          <p>
+            नीचे आवश्यक जानकारी भरकर certificate generate करें।
+          </p>
 
-<button onclick="generateCertificate()">
-🏆 Certificate Generate करें
-</button>
+        </div>
 
 
-<div
-id="generatorMessage"
-class="info-box hidden"
-></div>
+        <div class="certificate-layout">
 
-</div>
+          <!-- FORM -->
 
+          <div class="form-card">
 
-<!-- =========================
-     GENERATED CERTIFICATE
-========================= -->
+            <form
+              id="certificateForm"
+              data-certificate-form
+            >
 
-<div
-id="certificateArea"
-class="card hidden"
->
+              <div class="form-group">
 
-<div class="certificate">
+                <label for="certificateName">
+                  Certificate Holder Name *
+                </label>
 
-<img
-src="logo.png"
-class="certificate-logo"
-alt="Adarsh Raj Shayar Logo"
->
+                <input
+                  type="text"
+                  id="certificateName"
+                  name="name"
+                  placeholder="पूरा नाम दर्ज करें"
+                  maxlength="150"
+                  required
+                >
 
-<h2>🏆 CERTIFICATE</h2>
+              </div>
 
-<div class="cert-text">
-यह प्रमाणित किया जाता है कि
-</div>
 
-<div
-id="displayName"
-class="cert-name"
->
-</div>
+              <div class="form-group">
 
-<div
-id="displayType"
-class="cert-text"
->
-</div>
+                <label for="certificateType">
+                  Certificate Type *
+                </label>
 
-<div
-id="businessDetails"
-class="cert-text"
->
-</div>
+                <select
+                  id="certificateType"
+                  name="type"
+                  required
+                >
 
-<div class="cert-text">
+                  <option value="">
+                    Certificate Type चुनें
+                  </option>
 
-इस certificate को
-<b>
-Adarsh Raj Shayar Official Website
-</b>
-की ओर से जारी किया गया है।
+                  <option value="Professional">
+                    Professional
+                  </option>
 
-</div>
+                  <option value="Business">
+                    Business
+                  </option>
 
-<div
-id="displayDate"
-class="cert-text"
->
-</div>
+                  <option value="Achievement">
+                    Achievement
+                  </option>
 
-<div
-id="displayId"
-class="cert-id"
->
-</div>
+                  <option value="Participation">
+                    Participation
+                  </option>
 
+                </select>
 
-<div class="cert-bottom">
+              </div>
 
-<div>
 
-<div class="signature">
-Adarsh Raj
-</div>
+              <!-- BUSINESS DETAILS -->
 
-<div>
-Authorized Signature
-</div>
+              <div
+                id="businessFields"
+                class="business-fields"
+                hidden
+              >
 
-</div>
+                <div class="form-group">
 
+                  <label for="businessName">
+                    Business Name
+                  </label>
 
-<div>
+                  <input
+                    type="text"
+                    id="businessName"
+                    name="businessName"
+                    placeholder="Business का नाम"
+                    maxlength="200"
+                  >
 
-<div
-id="qrcode"
-class="qr"
->
-</div>
+                </div>
 
-<div class="qr-title">
-Scan to verify
-</div>
 
-</div>
+                <div class="form-group">
 
-</div>
+                  <label for="ownerName">
+                    Owner / Founder Name
+                  </label>
 
-</div>
+                  <input
+                    type="text"
+                    id="ownerName"
+                    name="ownerName"
+                    placeholder="Owner / Founder का नाम"
+                    maxlength="150"
+                  >
 
+                </div>
 
-<button
-class="no-print"
-onclick="window.print()"
->
-🖨️ Print / Save as PDF
-</button>
+              </div>
 
-</div>
 
+              <button
+                type="submit"
+                class="primary-btn"
+              >
+                🏆 Generate Certificate
+              </button>
 
-<!-- =========================
-     VERIFICATION
-========================= -->
+            </form>
 
-<div id="verify" class="card no-print">
+          </div>
 
-<h2>🔎 Certificate Verification</h2>
 
-<p>
-Certificate ID डालकर certificate की details verify करें।
-</p>
+          <!-- INFORMATION -->
 
-<label>🆔 Certificate ID</label>
+          <div class="info-card">
 
-<input
-type="text"
-id="verifyId"
-placeholder="जैसे ARS-CERT-XXXXXXXX"
->
+            <h3>
+              📜 Certificate Types
+            </h3>
 
-<button onclick="verifyCertificate()">
-✅ Verify Certificate
-</button>
+            <ul>
 
-<div
-id="verifyResult"
-class="verify-result"
->
-</div>
+              <li>
+                <strong>Professional</strong>
+                — Professional contribution
+              </li>
 
-</div>
+              <li>
+                <strong>Business</strong>
+                — Business recognition
+              </li>
 
-</div>
+              <li>
+                <strong>Achievement</strong>
+                — Achievement recognition
+              </li>
 
+              <li>
+                <strong>Participation</strong>
+                — Participation certificate
+              </li>
 
-<script>
+            </ul>
 
-/* =========================================
-   BUSINESS FIELDS
-========================================= */
 
-function businessFields(){
+            <div class="notice-box">
 
-    const type =
-        document.getElementById(
+              <strong>Important</strong>
+
+              <p>
+                Certificate generate होने के बाद उसका
+                Certificate Number और Unique ID सुरक्षित रखें।
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             GENERATED CERTIFICATE
+        ================================================== -->
+
+        <div
+          id="generatedCertificate"
+          data-generated-certificate
+          class="generated-certificate"
+        >
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         VERIFICATION
+    ==================================================== -->
+
+    <section
+      class="page-section verification-section"
+      id="certificate-verification"
+    >
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span>
+            🔎 Certificate Verification
+          </span>
+
+          <h2>
+            Certificate Verify करें
+          </h2>
+
+          <p>
+            Certificate Number या Unique Certificate ID
+            डालकर certificate की स्थिति जांचें।
+          </p>
+
+        </div>
+
+
+        <div class="verification-card">
+
+          <form
+            id="verificationForm"
+            data-verification-form
+          >
+
+            <div class="form-group">
+
+              <label for="certificateVerifyInput">
+                Certificate Number / Unique ID
+              </label>
+
+              <input
+                type="text"
+                id="certificateVerifyInput"
+                placeholder="ARS-CERT-2026-0001 या ARSID-XXXXXXXX"
+                autocomplete="off"
+                required
+              >
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="primary-btn"
+            >
+              🔎 Verify Certificate
+            </button>
+
+          </form>
+
+
+          <div
+            id="verificationResult"
+            data-verification-result
+            class="verification-result-container"
+          >
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <div class="footer-content">
+
+        <div>
+
+          <h3>
+            Adarsh Raj Shayar
+          </h3>
+
+          <p>
+            Official Hindi Shayari & Creative Website
+          </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+          <a href="index.html">
+            Home
+          </a>
+
+          <a href="certificate.html">
+            Certificate
+          </a>
+
+          <a href="verify.html">
+            Verify
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        ©
+        <span data-current-year>
+          2026
+        </span>
+
+        Adarsh Raj Shayar.
+        All Rights Reserved.
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =====================================================
+       TOAST
+  ====================================================== -->
+
+  <div
+    id="arsToast"
+    class="ars-toast"
+    aria-live="polite"
+  ></div>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script src="config.js"></script>
+  <script src="shayari.js"></script>
+  <script src="story.js"></script>
+  <script src="certificate.js"></script>
+  <script src="script.js"></script>
+
+
+  <!-- =====================================================
+       BUSINESS TYPE HANDLER
+  ====================================================== -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        const type =
+          document.getElementById(
             "certificateType"
-        ).value;
+          );
 
-    const area =
-        document.getElementById(
-            "businessArea"
-        );
+        const businessFields =
+          document.getElementById(
+            "businessFields"
+          );
 
-    if(type === "Business Certificate"){
-
-        area.classList.remove("hidden");
-
-    }else{
-
-        area.classList.add("hidden");
-
-    }
-}
-
-
-/* =========================================
-   CREATE UNIQUE CERTIFICATE ID
-========================================= */
-
-function createCertificateID(){
-
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-
-    let random = "";
-
-    for(let i = 0; i < 8; i++){
-
-        random += chars.charAt(
-            Math.floor(
-                Math.random() * chars.length
-            )
-        );
-
-    }
-
-    return "ARS-CERT-" + random;
-}
-
-
-/* =========================================
-   GENERATE CERTIFICATE
-========================================= */
-
-function generateCertificate(){
-
-    const name =
-        document.getElementById(
-            "userName"
-        ).value.trim();
-
-    const password =
-        document.getElementById(
-            "password"
-        ).value;
-
-    const type =
-        document.getElementById(
-            "certificateType"
-        ).value;
-
-    const businessName =
-        document.getElementById(
-            "businessName"
-        ).value.trim();
-
-    const ownerName =
-        document.getElementById(
-            "ownerName"
-        ).value.trim();
-
-
-    if(!name){
-
-        alert(
-            "कृपया अपना नाम लिखें।"
-        );
-
-        return;
-    }
-
-
-    if(!password){
-
-        alert(
-            "कृपया password बनाएँ।"
-        );
-
-        return;
-    }
-
-
-    if(type === "Business Certificate"){
-
-        if(!businessName){
-
-            alert(
-                "कृपया Business Name लिखें।"
-            );
-
-            return;
+        if (!type || !businessFields) {
+          return;
         }
 
-        if(!ownerName){
 
-            alert(
-                "कृपया Owner / Founder Name लिखें।"
+        function updateBusinessFields() {
+
+          const isBusiness =
+            type.value === "Business";
+
+          businessFields.hidden =
+            !isBusiness;
+
+
+          const businessName =
+            document.getElementById(
+              "businessName"
             );
 
-            return;
-        }
-
-    }
-
-
-    const id =
-        createCertificateID();
-
-
-    const date =
-        new Date().toLocaleDateString(
-            "en-IN",
-            {
-                day:"2-digit",
-                month:"long",
-                year:"numeric"
-            }
-        );
-
-
-    const certificateData = {
-
-        id:id,
-
-        name:name,
-
-        /*
-        Password अभी browser localStorage
-        में save हो रहा है।
-        यह public database नहीं है।
-        */
-
-        password:password,
-
-        type:type,
-
-        businessName:businessName,
-
-        ownerName:ownerName,
-
-        date:date
-
-    };
-
-
-    localStorage.setItem(
-        "ARS_" + id,
-        JSON.stringify(
-            certificateData
-        )
-    );
-
-
-    document.getElementById(
-        "displayName"
-    ).textContent = name;
-
-
-    document.getElementById(
-        "displayType"
-    ).innerHTML =
-        "Certificate Type: <b>" +
-        type +
-        "</b>";
-
-
-    if(type === "Business Certificate"){
-
-        document.getElementById(
-            "businessDetails"
-        ).innerHTML =
-
-            "🏢 Business: <b>" +
-            escapeHTML(businessName) +
-            "</b><br>" +
-
-            "👨‍💼 Owner / Founder: <b>" +
-            escapeHTML(ownerName) +
-            "</b>";
-
-    }else{
-
-        document.getElementById(
-            "businessDetails"
-        ).innerHTML = "";
-
-    }
-
-
-    document.getElementById(
-        "displayDate"
-    ).innerHTML =
-        "📅 Issue Date: <b>" +
-        date +
-        "</b>";
-
-
-    document.getElementById(
-        "displayId"
-    ).textContent =
-        "Certificate ID: " + id;
-
-
-    document.getElementById(
-        "certificateArea"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    /* =====================================
-       QR CODE
-    ===================================== */
-
-    const qrBox =
-        document.getElementById(
-            "qrcode"
-        );
-
-    qrBox.innerHTML = "";
-
-
-    const verifyURL =
-        window.location.origin +
-        window.location.pathname +
-        "?verify=" +
-        encodeURIComponent(id);
-
-
-    if(typeof QRCode === "undefined"){
-
-        qrBox.innerHTML =
-            '<div class="qr-error">' +
-            '⚠️ QR Library load नहीं हुई।' +
-            '<br>Internet connection check करें।' +
-            '</div>';
-
-    }else{
-
-        try{
-
-            new QRCode(
-                qrBox,
-                {
-                    text:verifyURL,
-                    width:100,
-                    height:100,
-                    correctLevel:
-                        QRCode.CorrectLevel.M
-                }
+          const ownerName =
+            document.getElementById(
+              "ownerName"
             );
 
-        }catch(error){
 
-            console.error(
-                "QR Error:",
-                error
-            );
+          if (businessName) {
 
-            qrBox.innerHTML =
-                '<div class="qr-error">' +
-                '⚠️ QR Code generate नहीं हो पाया।' +
-                '</div>';
+            businessName.required =
+              isBusiness;
+
+          }
+
+
+          if (ownerName) {
+
+            ownerName.required =
+              isBusiness;
+
+          }
 
         }
 
-    }
+
+        type.addEventListener(
+          "change",
+          updateBusinessFields
+        );
 
 
-    document.getElementById(
-        "generatorMessage"
-    ).classList.remove(
-        "hidden"
+        updateBusinessFields();
+
+      }
     );
 
-
-    document.getElementById(
-        "generatorMessage"
-    ).innerHTML =
-
-        "✅ <b>Certificate सफलतापूर्वक बन गया!</b>" +
-
-        "<br><br>" +
-
-        "🆔 आपका Certificate ID: " +
-
-        "<b>" +
-        id +
-        "</b>" +
-
-        "<br><br>" +
-
-        "⚠️ इस Certificate ID को सुरक्षित रखें। " +
-        "Verification के लिए इसकी जरूरत होगी।";
-
-
-    document.getElementById(
-        "certificateArea"
-    ).scrollIntoView({
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================
-   HTML SAFETY
-========================================= */
-
-function escapeHTML(text){
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-    div.textContent = text;
-
-    return div.innerHTML;
-}
-
-
-/* =========================================
-   VERIFY CERTIFICATE
-========================================= */
-
-function verifyCertificate(){
-
-    const id =
-        document.getElementById(
-            "verifyId"
-        )
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    const result =
-        document.getElementById(
-            "verifyResult"
-        );
-
-
-    if(!id){
-
-        result.className =
-            "verify-result error";
-
-        result.innerHTML =
-            "⚠️ कृपया Certificate ID डालें।";
-
-        return;
-    }
-
-
-    const saved =
-        localStorage.getItem(
-            "ARS_" + id
-        );
-
-
-    if(!saved){
-
-        result.className =
-            "verify-result error";
-
-        result.innerHTML =
-
-            "❌ <b>Certificate नहीं मिला।</b>" +
-
-            "<br><br>" +
-
-            "कृपया Certificate ID दोबारा check करें।";
-
-        return;
-    }
-
-
-    let data;
-
-    try{
-
-        data =
-            JSON.parse(saved);
-
-    }catch(error){
-
-        result.className =
-            "verify-result error";
-
-        result.innerHTML =
-            "❌ Certificate data पढ़ने में समस्या हुई।";
-
-        return;
-    }
-
-
-    let business = "";
-
-
-    if(
-        data.type ===
-        "Business Certificate"
-    ){
-
-        business =
-
-            "<br>🏢 Business: <b>" +
-
-            escapeHTML(
-                data.businessName
-            ) +
-
-            "</b>" +
-
-            "<br>👨‍💼 Owner / Founder: <b>" +
-
-            escapeHTML(
-                data.ownerName
-            ) +
-
-            "</b>";
-
-    }
-
-
-    result.className =
-        "verify-result success";
-
-
-    result.innerHTML =
-
-        "✅ <b>Certificate Verified</b>" +
-
-        "<br><br>" +
-
-        "👤 Name: <b>" +
-
-        escapeHTML(
-            data.name
-        ) +
-
-        "</b>" +
-
-        "<br>" +
-
-        "📜 Type: <b>" +
-
-        escapeHTML(
-            data.type
-        ) +
-
-        "</b>" +
-
-        business +
-
-        "<br>🆔 Certificate ID: <b>" +
-
-        escapeHTML(
-            data.id
-        ) +
-
-        "</b>" +
-
-        "<br>📅 Issue Date: <b>" +
-
-        escapeHTML(
-            data.date
-        ) +
-
-        "</b>" +
-
-        "<br><br>" +
-
-        "🟢 Status: <b>Verified</b>";
-
-}
-
-
-/* =========================================
-   QR VERIFICATION
-========================================= */
-
-function checkQRVerification(){
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-    const id =
-        params.get("verify");
-
-
-    if(id){
-
-        document.getElementById(
-            "verifyId"
-        ).value = id;
-
-
-        setTimeout(
-            function(){
-
-                verifyCertificate();
-
-                document.getElementById(
-                    "verifyResult"
-                ).scrollIntoView({
-                    behavior:"smooth"
-                });
-
-            },
-            500
-        );
-
-    }
-
-}
-
-
-/* =========================================
-   PAGE LOAD
-========================================= */
-
-window.addEventListener(
-    "load",
-    function(){
-
-        businessFields();
-
-        checkQRVerification();
-
-    }
-);
-
-</script>
+  </script>
 
 </body>
 </html>
+```
