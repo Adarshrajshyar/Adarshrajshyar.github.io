@@ -1,384 +1,326 @@
+# script.js — ARS Official Website
+
+```javascript
 /* =========================================================
    ADARSH RAJ SHAYAR
-   OFFICIAL WEBSITE
-   MAIN JAVASCRIPT
+   ARS OFFICIAL WEBSITE
+   MAIN WEBSITE SCRIPT
+   Version 3.0
    ========================================================= */
 
 "use strict";
 
 /* =========================================================
-   1. GLOBAL CONFIGURATION
+   GLOBAL STATE
    ========================================================= */
 
-const WEBSITE_URL =
-  "https://adarshrajshyar.github.io/";
+const ARS_APP = {
 
-const STORAGE_KEYS = {
-  favorites: "ARS_FAVOURITES",
-  likes: "ARS_LIKES",
-  shayari: "ARS_SHAYARI_DATA",
-  stories: "ARS_STORY_DATA",
-  visitor: "ARS_VISITOR_COUNT",
-  adminSession: "ARS_ADMIN_SESSION",
-  darkMode: "ARS_DARK_MODE",
-  joining: "ARS_JOINING_DATA"
+  initialized: false,
+
+  currentSection: "home",
+
+  currentShayariCategory: "All",
+
+  currentStoryCategory: "All",
+
+  searchQuery: "",
+
+  favourites: [],
+
+  likes: {},
+
+  views: {},
+
+  theme:
+    localStorage.getItem("ARS_THEME") ||
+    (window.ARS_CONFIG?.ui?.defaultTheme || "light")
+
 };
 
 
 /* =========================================================
-   2. DEFAULT DATA
+   DOM HELPER
    ========================================================= */
 
-const defaultShayari = [
-  {
-    id: "ARS-S-001",
-    title: "खूबसूरत एहसास",
-    category: "Love",
-    text: "कुछ एहसास शब्दों के मोहताज नहीं होते,\nबस दिल में उतर जाते हैं।",
-    author: "Adarsh Raj",
-    publisher: "Adarsh Raj",
-    likes: 0,
-    date: new Date().toISOString()
-  },
+function $(selector, parent = document) {
+  return parent.querySelector(selector);
+}
 
-  {
-    id: "ARS-S-002",
-    title: "खामोशी",
-    category: "Sad",
-    text: "कभी-कभी खामोशी भी बहुत कुछ कह जाती है,\nबस सुनने वाला दिल चाहिए।",
-    author: "Adarsh Raj",
-    publisher: "Adarsh Raj",
-    likes: 0,
-    date: new Date().toISOString()
-  },
-
-  {
-    id: "ARS-S-003",
-    title: "अपना अंदाज़",
-    category: "Attitude",
-    text: "हम अपनी पहचान खुद बनाते हैं,\nकिसी के नाम से नहीं।",
-    author: "Adarsh Raj",
-    publisher: "Adarsh Raj",
-    likes: 0,
-    date: new Date().toISOString()
-  },
-
-  {
-    id: "ARS-S-004",
-    title: "सच्ची दोस्ती",
-    category: "Friendship",
-    text: "सच्चा दोस्त वही है,\nजो वक्त बदलने पर भी साथ नहीं बदलता।",
-    author: "Adarsh Raj",
-    publisher: "Adarsh Raj",
-    likes: 0,
-    date: new Date().toISOString()
-  },
-
-  {
-    id: "ARS-S-005",
-    title: "हौसला",
-    category: "Motivation",
-    text: "रास्ते मुश्किल जरूर हैं,\nलेकिन मंज़िल नामुमकिन नहीं।",
-    author: "Adarsh Raj",
-    publisher: "Adarsh Raj",
-    likes: 0,
-    date: new Date().toISOString()
-  }
-];
-
-
-/*
-   IMPORTANT:
-   Love Story intentionally removed.
-
-   Story categories:
-   Motivation
-   Friendship
-   Horror
-   Funny
-   Biography
-   Reallife
-   Moral
-   Mystery
-   Poem
-*/
-
-const defaultStories = [
-  {
-    id: "ARS-ST-001",
-    title: "हौसले की उड़ान",
-    category: "Motivation",
-    text: "मुश्किल रास्ते अक्सर हमें मजबूत बनाते हैं।\nजो व्यक्ति लगातार प्रयास करता है, वह एक दिन अपनी मंज़िल जरूर पाता है।",
-    author: "Adarsh Raj",
-    views: 0,
-    date: new Date().toISOString()
-  },
-
-  {
-    id: "ARS-ST-002",
-    title: "एक सच्चा दोस्त",
-    category: "Friendship",
-    text: "सच्ची दोस्ती वक्त की परीक्षा में और मजबूत होती है।",
-    author: "Adarsh Raj",
-    views: 0,
-    date: new Date().toISOString()
-  },
-
-  {
-    id: "ARS-ST-003",
-    title: "रात का रहस्य",
-    category: "Mystery",
-    text: "उस रात पुराने घर से आती आवाज़ ने सबको सोचने पर मजबूर कर दिया।",
-    author: "Adarsh Raj",
-    views: 0,
-    date: new Date().toISOString()
-  },
-
-  {
-    id: "ARS-ST-004",
-    title: "एक छोटी कविता",
-    category: "Poem",
-    text: "चलते रहो तुम,\nरुकना नहीं,\nसपनों से कभी,\nझुकना नहीं।",
-    author: "Adarsh Raj",
-    views: 0,
-    date: new Date().toISOString()
-  }
-];
-
-
-/* =========================================================
-   3. STATE
-   ========================================================= */
-
-let shayariData = [];
-let storyData = [];
-
-let favourites = [];
-let likedShayari = [];
-
-let editingShayariId = null;
-let editingStoryId = null;
-
-let currentQR = null;
-
-
-/* =========================================================
-   4. DOM HELPER
-   ========================================================= */
-
-function $(id) {
-  return document.getElementById(id);
+function $$(selector, parent = document) {
+  return [...parent.querySelectorAll(selector)];
 }
 
 
 /* =========================================================
-   5. SAFE STORAGE
-   ========================================================= */
-
-function getStorage(key, fallback) {
-
-  try {
-
-    const value = localStorage.getItem(key);
-
-    if (!value) {
-      return fallback;
-    }
-
-    return JSON.parse(value);
-
-  } catch (error) {
-
-    console.warn("Storage read error:", error);
-
-    return fallback;
-  }
-}
-
-
-function setStorage(key, value) {
-
-  try {
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(value)
-    );
-
-  } catch (error) {
-
-    console.warn("Storage save error:", error);
-  }
-}
-
-
-/* =========================================================
-   6. INITIAL DATA
-   ========================================================= */
-
-function initializeData() {
-
-  const savedShayari =
-    getStorage(
-      STORAGE_KEYS.shayari,
-      null
-    );
-
-  const savedStories =
-    getStorage(
-      STORAGE_KEYS.stories,
-      null
-    );
-
-  shayariData =
-    Array.isArray(savedShayari)
-      ? savedShayari
-      : [...defaultShayari];
-
-  storyData =
-    Array.isArray(savedStories)
-      ? savedStories
-      : [...defaultStories];
-
-  favourites =
-    getStorage(
-      STORAGE_KEYS.favorites,
-      []
-    );
-
-  likedShayari =
-    getStorage(
-      STORAGE_KEYS.likes,
-      []
-    );
-}
-
-
-/* =========================================================
-   7. SAVE DATA
-   ========================================================= */
-
-function saveShayari() {
-
-  setStorage(
-    STORAGE_KEYS.shayari,
-    shayariData
-  );
-}
-
-
-function saveStories() {
-
-  setStorage(
-    STORAGE_KEYS.stories,
-    storyData
-  );
-}
-
-
-function saveFavourites() {
-
-  setStorage(
-    STORAGE_KEYS.favorites,
-    favourites
-  );
-}
-
-
-function saveLikes() {
-
-  setStorage(
-    STORAGE_KEYS.likes,
-    likedShayari
-  );
-}
-
-
-/* =========================================================
-   8. ESCAPE HTML
+   SAFE TEXT
    ========================================================= */
 
 function escapeHTML(value) {
 
-  if (value === null || value === undefined) {
-    return "";
-  }
-
-  return String(value)
+  return String(value ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+
 }
 
 
 /* =========================================================
-   9. FORMAT TEXT
+   TOAST SYSTEM
    ========================================================= */
 
-function formatText(text) {
+function showToast(message, type = "success") {
 
-  return escapeHTML(text)
-    .replace(/\n/g, "<br>");
-}
+  let toast = document.getElementById("arsToast");
 
+  if (!toast) {
 
-/* =========================================================
-   10. TOAST
-   ========================================================= */
+    toast = document.createElement("div");
 
-function showToast(message) {
+    toast.id = "arsToast";
 
-  const toast = $("toast");
+    toast.className = "ars-toast";
 
-  if (!toast) return;
+    document.body.appendChild(toast);
+
+  }
+
+  toast.className =
+    `ars-toast ars-toast-${type}`;
 
   toast.textContent = message;
 
   toast.classList.add("show");
 
-  clearTimeout(
-    showToast.timer
-  );
+  clearTimeout(toast._timer);
 
-  showToast.timer =
-    setTimeout(() => {
+  toast._timer = setTimeout(() => {
 
-      toast.classList.remove("show");
+    toast.classList.remove("show");
 
-    }, 3000);
+  }, 3000);
+
 }
 
 
 /* =========================================================
-   11. SHAYARI CARD
+   THEME
+   ========================================================= */
+
+function applyTheme(theme = ARS_APP.theme) {
+
+  ARS_APP.theme = theme;
+
+  document.documentElement.setAttribute(
+    "data-theme",
+    theme
+  );
+
+  localStorage.setItem(
+    "ARS_THEME",
+    theme
+  );
+
+  const buttons =
+    $$("[data-theme-toggle]");
+
+  buttons.forEach(button => {
+
+    button.textContent =
+      theme === "dark"
+        ? "☀️"
+        : "🌙";
+
+  });
+
+}
+
+
+function toggleTheme() {
+
+  applyTheme(
+    ARS_APP.theme === "dark"
+      ? "light"
+      : "dark"
+  );
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function showSection(sectionId) {
+
+  const sections =
+    $$("main section, .page-section, [data-section]");
+
+  sections.forEach(section => {
+
+    const id =
+      section.dataset.section ||
+      section.id;
+
+    if (id === sectionId) {
+
+      section.classList.add("active");
+
+      section.removeAttribute("hidden");
+
+    } else {
+
+      section.classList.remove("active");
+
+    }
+
+  });
+
+  ARS_APP.currentSection =
+    sectionId;
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  closeMobileMenu();
+
+}
+
+
+function setupNavigation() {
+
+  $$("[data-section-link]").forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      event.preventDefault();
+
+      const target =
+        link.dataset.sectionLink;
+
+      if (target) {
+
+        showSection(target);
+
+      }
+
+    });
+
+  });
+
+
+  $$("a[href^='#']").forEach(link => {
+
+    link.addEventListener("click", event => {
+
+      const id =
+        link.getAttribute("href")
+          .substring(1);
+
+      if (!id) return;
+
+      const target =
+        document.getElementById(id);
+
+      if (target) {
+
+        event.preventDefault();
+
+        showSection(id);
+
+      }
+
+    });
+
+  });
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+function toggleMobileMenu() {
+
+  const nav =
+    $(".main-nav, .navbar-menu, #mainNav");
+
+  if (!nav) return;
+
+  nav.classList.toggle("open");
+
+}
+
+
+function closeMobileMenu() {
+
+  const nav =
+    $(".main-nav, .navbar-menu, #mainNav");
+
+  if (!nav) return;
+
+  nav.classList.remove("open");
+
+}
+
+
+/* =========================================================
+   SHAYARI DATABASE
+   ========================================================= */
+
+function getShayariData() {
+
+  if (
+    window.ARS_SHAYARI &&
+    Array.isArray(window.ARS_SHAYARI.data)
+  ) {
+
+    return window.ARS_SHAYARI.data;
+
+  }
+
+  return [];
+
+}
+
+
+/* =========================================================
+   SHAYARI CARD
    ========================================================= */
 
 function createShayariCard(item) {
 
-  const isFavourite =
-    favourites.includes(item.id);
+  const liked =
+    ARS_APP.likes[item.id] > 0;
 
-  const isLiked =
-    likedShayari.includes(item.id);
+  const favourite =
+    ARS_APP.favourites.includes(item.id);
 
   return `
     <article
       class="shayari-card"
       data-id="${escapeHTML(item.id)}"
-      data-category="${escapeHTML(item.category)}"
     >
 
-      <div class="card-top">
+      <div class="shayari-card-top">
 
         <span class="category-badge">
           ${escapeHTML(item.category)}
         </span>
 
-        <span class="card-id">
-          ${escapeHTML(item.id)}
-        </span>
+        <button
+          class="icon-btn favourite-btn ${favourite ? "active" : ""}"
+          data-favourite="${escapeHTML(item.id)}"
+          title="Favourite"
+        >
+          ${favourite ? "❤️" : "🤍"}
+        </button>
 
       </div>
 
@@ -386,471 +328,159 @@ function createShayariCard(item) {
         ${escapeHTML(item.title)}
       </h3>
 
-      <div class="shayari-text">
-        ${formatText(item.text)}
-      </div>
+      <p class="shayari-text">
+        ${escapeHTML(item.text).replace(/\n/g, "<br>")}
+      </p>
 
-      <div class="card-author">
+      <div class="shayari-card-bottom">
 
-        ✍️
-        ${escapeHTML(item.author || "Adarsh Raj")}
-
-      </div>
-
-      <div class="card-actions">
+        <span>
+          ✍️ ${escapeHTML(item.author)}
+        </span>
 
         <button
-          type="button"
-          class="card-btn favourite-btn ${isFavourite ? "active" : ""}"
-          data-action="favorite"
-          data-id="${escapeHTML(item.id)}"
+          class="like-btn ${liked ? "liked" : ""}"
+          data-like="${escapeHTML(item.id)}"
         >
-          ${isFavourite ? "⭐ Saved" : "☆ Favourite"}
-        </button>
-
-        <button
-          type="button"
-          class="card-btn like-btn ${isLiked ? "active" : ""}"
-          data-action="like"
-          data-id="${escapeHTML(item.id)}"
-        >
-          ${isLiked ? "❤️ Liked" : "🤍 Like"}
-          <span>${Number(item.likes || 0)}</span>
-        </button>
-
-        <button
-          type="button"
-          class="card-btn share-btn"
-          data-action="share"
-          data-id="${escapeHTML(item.id)}"
-        >
-          🔗 Share
+          ${liked ? "❤️" : "🤍"} Like
         </button>
 
       </div>
 
     </article>
   `;
+
 }
 
 
 /* =========================================================
-   12. RENDER SHAYARI
+   RENDER SHAYARI
    ========================================================= */
 
-function renderShayari() {
-
-  const categories = [
-    "Love",
-    "Sad",
-    "Attitude",
-    "Friendship",
-    "Motivation"
-  ];
-
-  categories.forEach(category => {
-
-    const container =
-      $(
-        category.toLowerCase() +
-        "Container"
-      );
-
-    if (!container) return;
-
-    const filtered =
-      shayariData.filter(
-        item =>
-          item.category === category
-      );
-
-    if (!filtered.length) {
-
-      container.innerHTML = `
-        <div class="empty-state">
-          अभी कोई Shayari उपलब्ध नहीं है।
-        </div>
-      `;
-
-      return;
-    }
-
-    container.innerHTML =
-      filtered
-        .map(createShayariCard)
-        .join("");
-  });
-
-  renderFavourites();
-  renderLatestPublished();
-  updateAdminStats();
-}
-
-
-/* =========================================================
-   13. FAVOURITE SYSTEM
-   ========================================================= */
-
-function toggleFavourite(id) {
-
-  const index =
-    favourites.indexOf(id);
-
-  if (index === -1) {
-
-    favourites.push(id);
-
-    showToast(
-      "⭐ Shayari Favourite में जोड़ दी गई।"
-    );
-
-  } else {
-
-    favourites.splice(index, 1);
-
-    showToast(
-      "Shayari Favourite से हटाई गई।"
-    );
-  }
-
-  saveFavourites();
-
-  renderShayari();
-  renderFavourites();
-}
-
-
-/* =========================================================
-   14. RENDER FAVOURITES
-   ========================================================= */
-
-function renderFavourites() {
+function renderShayari(
+  data = getShayariData()
+) {
 
   const container =
-    $("favoriteList");
+    $("#shayariContainer") ||
+    $("[data-shayari-container]");
 
   if (!container) return;
 
-  const favouriteItems =
-    shayariData.filter(
-      item =>
-        favourites.includes(item.id)
-    );
-
-  const count =
-    $("favoriteCount");
-
-  const adminCount =
-    $("totalFavourite");
-
-  if (count) {
-    count.textContent =
-      favouriteItems.length;
-  }
-
-  if (adminCount) {
-    adminCount.textContent =
-      favouriteItems.length;
-  }
-
-  const totalLikes =
-    favouriteItems.reduce(
-      (sum, item) =>
-        sum + Number(item.likes || 0),
-      0
-    );
-
-  const likesElement =
-    $("favoriteLikes");
-
-  if (likesElement) {
-    likesElement.textContent =
-      totalLikes;
-  }
-
-  if (!favouriteItems.length) {
+  if (!data.length) {
 
     container.innerHTML = `
       <div class="empty-state">
-        ⭐ अभी Favourite Shayari नहीं है।
+        <h3>कोई शायरी नहीं मिली</h3>
+        <p>कृपया दूसरी category या search करें।</p>
       </div>
     `;
 
     return;
+
   }
 
   container.innerHTML =
-    favouriteItems
-      .map(createShayariCard)
-      .join("");
+    data.map(createShayariCard).join("");
+
 }
 
 
 /* =========================================================
-   15. LIKE SYSTEM
+   SHAYARI CATEGORY FILTER
    ========================================================= */
 
-function toggleLike(id) {
+function filterShayari(category) {
 
-  const item =
-    shayariData.find(
-      shayari =>
-        shayari.id === id
-    );
+  ARS_APP.currentShayariCategory =
+    category || "All";
 
-  if (!item) return;
+  let data =
+    getShayariData();
 
-  const index =
-    likedShayari.indexOf(id);
+  if (
+    category &&
+    category !== "All"
+  ) {
 
-  if (index === -1) {
-
-    item.likes =
-      Number(item.likes || 0) + 1;
-
-    likedShayari.push(id);
-
-    showToast(
-      "❤️ Like किया गया।"
-    );
-
-  } else {
-
-    item.likes =
-      Math.max(
-        0,
-        Number(item.likes || 0) - 1
+    data =
+      data.filter(item =>
+        String(item.category)
+          .toLowerCase() ===
+        String(category)
+          .toLowerCase()
       );
 
-    likedShayari.splice(index, 1);
-
-    showToast(
-      "Like हटाया गया।"
-    );
   }
 
-  saveLikes();
-  saveShayari();
+  renderShayari(data);
 
-  renderShayari();
 }
 
 
 /* =========================================================
-   16. SHARE SYSTEM
-   ========================================================= */
-
-async function shareShayari(id) {
-
-  const item =
-    shayariData.find(
-      shayari =>
-        shayari.id === id
-    );
-
-  if (!item) return;
-
-  const text =
-    `${item.title}\n\n${item.text}\n\n— ${item.author}`;
-
-  try {
-
-    if (
-      navigator.share
-    ) {
-
-      await navigator.share({
-        title: item.title,
-        text: text,
-        url: WEBSITE_URL
-      });
-
-    } else {
-
-      await navigator.clipboard.writeText(
-        text + "\n" + WEBSITE_URL
-      );
-
-      showToast(
-        "🔗 Shayari copy हो गई।"
-      );
-    }
-
-  } catch (error) {
-
-    console.log(
-      "Share cancelled/error:",
-      error
-    );
-  }
-}
-
-
-/* =========================================================
-   17. CARD EVENT HANDLER
-   ========================================================= */
-
-document.addEventListener(
-  "click",
-  event => {
-
-    const button =
-      event.target.closest(
-        "[data-action]"
-      );
-
-    if (!button) return;
-
-    const action =
-      button.dataset.action;
-
-    const id =
-      button.dataset.id;
-
-    if (action === "favorite") {
-
-      toggleFavourite(id);
-
-    }
-
-    if (action === "like") {
-
-      toggleLike(id);
-
-    }
-
-    if (action === "share") {
-
-      shareShayari(id);
-    }
-  }
-);
-
-
-/* =========================================================
-   18. SEARCH SHAYARI
+   SHAYARI SEARCH
    ========================================================= */
 
 function searchShayari(query) {
 
-  const value =
-    query
-      .trim()
-      .toLowerCase();
+  ARS_APP.searchQuery =
+    String(query || "").trim();
 
-  const info =
-    $("searchResultInfo");
+  const data =
+    getShayariData();
 
-  const containers = [
-    "loveContainer",
-    "sadContainer",
-    "attitudeContainer",
-    "friendshipContainer",
-    "motivationContainer"
-  ];
+  if (!ARS_APP.searchQuery) {
 
-  if (!value) {
-
-    renderShayari();
-
-    if (info) {
-      info.textContent = "";
-    }
+    filterShayari(
+      ARS_APP.currentShayariCategory
+    );
 
     return;
+
   }
 
-  let total = 0;
+  const q =
+    ARS_APP.searchQuery.toLowerCase();
 
-  containers.forEach(
-    containerId => {
+  const results =
+    data.filter(item => {
 
-      const container =
-        $(containerId);
+      const text =
+        `${item.title} ${item.text} ${item.author} ${item.category}`
+          .toLowerCase();
 
-      if (!container) return;
+      return text.includes(q);
 
-      const results =
-        shayariData.filter(
-          item => {
+    });
 
-            const searchable =
-              [
-                item.title,
-                item.text,
-                item.author,
-                item.category
-              ]
-                .join(" ")
-                .toLowerCase();
+  renderShayari(results);
 
-            return searchable.includes(
-              value
-            );
-          }
-        );
-
-      total += results.length;
-
-      container.innerHTML =
-        results.length
-          ? results
-              .map(createShayariCard)
-              .join("")
-          : "";
-    }
-  );
-
-  if (info) {
-
-    info.textContent =
-      `${total} Shayari मिली।`;
-  }
 }
 
 
 /* =========================================================
-   19. SEARCH EVENTS
+   STORY DATABASE
    ========================================================= */
 
-function setupSearch() {
+function getStoryData() {
 
-  const search =
-    $("search");
+  if (
+    window.ARS_STORIES &&
+    Array.isArray(window.ARS_STORIES.data)
+  ) {
 
-  const clear =
-    $("clearSearchBtn");
+    return window.ARS_STORIES.data;
 
-  if (search) {
-
-    search.addEventListener(
-      "input",
-      () =>
-        searchShayari(
-          search.value
-        )
-    );
   }
 
-  if (clear) {
+  return [];
 
-    clear.addEventListener(
-      "click",
-      () => {
-
-        if (search) {
-          search.value = "";
-        }
-
-        searchShayari("");
-      }
-    );
-  }
 }
 
 
 /* =========================================================
-   20. STORY CARD
+   STORY CARD
    ========================================================= */
 
 function createStoryCard(item) {
@@ -858,17 +488,17 @@ function createStoryCard(item) {
   return `
     <article
       class="story-card"
-      data-id="${escapeHTML(item.id)}"
+      data-story-id="${escapeHTML(item.id)}"
     >
 
-      <div class="card-top">
+      <div class="story-card-top">
 
         <span class="category-badge">
           ${escapeHTML(item.category)}
         </span>
 
-        <span>
-          👁️ ${Number(item.views || 0)}
+        <span class="story-type">
+          ${escapeHTML(item.type)}
         </span>
 
       </div>
@@ -877,1661 +507,1128 @@ function createStoryCard(item) {
         ${escapeHTML(item.title)}
       </h3>
 
-      <div class="story-text">
-        ${formatText(item.text)}
-      </div>
+      <p class="story-preview">
+        ${escapeHTML(item.text)
+          .replace(/\n/g, "<br>")}
+      </p>
 
-      <div class="card-author">
+      <div class="story-card-bottom">
 
-        ✍️
-        ${escapeHTML(item.author || "Adarsh Raj")}
-
-      </div>
-
-      <div class="card-actions">
+        <span>
+          ✍️ ${escapeHTML(item.author)}
+        </span>
 
         <button
-          type="button"
-          class="card-btn story-share-btn"
-          data-story-share="${escapeHTML(item.id)}"
+          class="read-story-btn"
+          data-read-story="${escapeHTML(item.id)}"
         >
-          🔗 Share
+          पढ़ें →
         </button>
 
       </div>
 
     </article>
   `;
+
 }
 
 
 /* =========================================================
-   21. RENDER STORIES
+   RENDER STORIES
    ========================================================= */
 
-function renderStories() {
+function renderStories(
+  data = getStoryData()
+) {
 
   const container =
-    $("storyContainer");
+    $("#storyContainer") ||
+    $("[data-story-container]");
 
   if (!container) return;
 
-  const searchInput =
-    $("storySearch");
-
-  const filter =
-    $("storyFilter");
-
-  const query =
-    searchInput
-      ? searchInput.value
-          .trim()
-          .toLowerCase()
-      : "";
-
-  const category =
-    filter
-      ? filter.value
-      : "All";
-
-  let results =
-    [...storyData];
-
-  if (category !== "All") {
-
-    results =
-      results.filter(
-        item =>
-          item.category === category
-      );
-  }
-
-  if (query) {
-
-    results =
-      results.filter(
-        item => {
-
-          const searchable =
-            [
-              item.title,
-              item.text,
-              item.author,
-              item.category
-            ]
-              .join(" ")
-              .toLowerCase();
-
-          return searchable.includes(
-            query
-          );
-        }
-      );
-  }
-
-  if (!results.length) {
+  if (!data.length) {
 
     container.innerHTML = `
       <div class="empty-state">
-        📖 कोई Story / Poetry नहीं मिली।
+        <h3>कोई कहानी नहीं मिली</h3>
+        <p>दूसरी category चुनकर देखें।</p>
       </div>
     `;
 
-  } else {
-
-    container.innerHTML =
-      results
-        .map(createStoryCard)
-        .join("");
-  }
-
-  updateStoryStats();
-
-  const info =
-    $("storyResultInfo");
-
-  if (info) {
-
-    info.textContent =
-      `${results.length} रचना मिली।`;
-  }
-}
-
-
-/* =========================================================
-   22. STORY STATS
-   ========================================================= */
-
-function updateStoryStats() {
-
-  const storyCount =
-    $("storyCount");
-
-  const poemCount =
-    $("poemCount");
-
-  const storyViews =
-    $("storyViews");
-
-  if (storyCount) {
-
-    storyCount.textContent =
-      storyData.length;
-  }
-
-  if (poemCount) {
-
-    poemCount.textContent =
-      storyData.filter(
-        item =>
-          item.category === "Poem"
-      ).length;
-  }
-
-  if (storyViews) {
-
-    storyViews.textContent =
-      storyData.reduce(
-        (sum, item) =>
-          sum + Number(item.views || 0),
-        0
-      );
-  }
-}
-
-
-/* =========================================================
-   23. STORY SEARCH/FILTER
-   ========================================================= */
-
-function setupStorySearch() {
-
-  const search =
-    $("storySearch");
-
-  const filter =
-    $("storyFilter");
-
-  if (search) {
-
-    search.addEventListener(
-      "input",
-      renderStories
-    );
-  }
-
-  if (filter) {
-
-    filter.addEventListener(
-      "change",
-      renderStories
-    );
-  }
-}
-
-
-/* =========================================================
-   24. STORY SHARE
-   ========================================================= */
-
-document.addEventListener(
-  "click",
-  async event => {
-
-    const button =
-      event.target.closest(
-        "[data-story-share]"
-      );
-
-    if (!button) return;
-
-    const id =
-      button.dataset.storyShare;
-
-    const item =
-      storyData.find(
-        story =>
-          story.id === id
-      );
-
-    if (!item) return;
-
-    const text =
-      `${item.title}\n\n${item.text}\n\n— ${item.author}`;
-
-    try {
-
-      if (navigator.share) {
-
-        await navigator.share({
-          title: item.title,
-          text: text,
-          url: WEBSITE_URL
-        });
-
-      } else {
-
-        await navigator.clipboard.writeText(
-          text + "\n" + WEBSITE_URL
-        );
-
-        showToast(
-          "🔗 Story copy हो गई।"
-        );
-      }
-
-    } catch (error) {
-
-      console.log(error);
-    }
-  }
-);
-
-
-/* =========================================================
-   25. ADMIN LOGIN
-   ========================================================= */
-
-/*
-   IMPORTANT SECURITY NOTE:
-
-   यह frontend-only demo/admin system है।
-
-   Real secure admin:
-   Firebase / Supabase / backend authentication
-   में बाद में करना होगा।
-*/
-
-function getAdminPassword() {
-
-  if (
-    typeof CONFIG !== "undefined" &&
-    CONFIG.ADMIN_PASSWORD
-  ) {
-
-    return CONFIG.ADMIN_PASSWORD;
-  }
-
-  return "CHANGE_THIS_PASSWORD";
-}
-
-
-function isAdminLoggedIn() {
-
-  return (
-    localStorage.getItem(
-      STORAGE_KEYS.adminSession
-    ) === "true"
-  );
-}
-
-
-function updateAdminUI() {
-
-  const login =
-    $("adminLogin");
-
-  const panel =
-    $("publisherPanel");
-
-  if (!login || !panel) return;
-
-  if (isAdminLoggedIn()) {
-
-    login.hidden = true;
-    panel.hidden = false;
-
-  } else {
-
-    login.hidden = false;
-    panel.hidden = true;
-  }
-
-  updateAdminStats();
-  renderAdminHistory();
-}
-
-
-function adminLogin() {
-
-  const passwordInput =
-    $("adminPassword");
-
-  const status =
-    $("adminStatus");
-
-  if (!passwordInput) return;
-
-  const password =
-    passwordInput.value;
-
-  if (
-    password ===
-    getAdminPassword()
-  ) {
-
-    localStorage.setItem(
-      STORAGE_KEYS.adminSession,
-      "true"
-    );
-
-    passwordInput.value = "";
-
-    if (status) {
-      status.textContent =
-        "✅ Login successful.";
-    }
-
-    showToast(
-      "🔓 Admin Login Successful"
-    );
-
-    updateAdminUI();
-
-  } else {
-
-    if (status) {
-      status.textContent =
-        "❌ गलत Admin Password.";
-    }
-
-    showToast(
-      "❌ Password गलत है।"
-    );
-  }
-}
-
-
-function adminLogout() {
-
-  localStorage.removeItem(
-    STORAGE_KEYS.adminSession
-  );
-
-  updateAdminUI();
-
-  showToast(
-    "🚪 Admin Logout हो गया।"
-  );
-}
-
-
-/* =========================================================
-   26. ADMIN STATS
-   ========================================================= */
-
-function updateAdminStats() {
-
-  const shayari =
-    $("totalShayari");
-
-  const stories =
-    $("totalStories");
-
-  const favourite =
-    $("totalFavourite");
-
-  const likes =
-    $("totalLikes");
-
-  if (shayari) {
-    shayari.textContent =
-      shayariData.length;
-  }
-
-  if (stories) {
-    stories.textContent =
-      storyData.length;
-  }
-
-  if (favourite) {
-    favourite.textContent =
-      favourites.length;
-  }
-
-  if (likes) {
-
-    likes.textContent =
-      shayariData.reduce(
-        (sum, item) =>
-          sum + Number(item.likes || 0),
-        0
-      );
-  }
-}
-
-
-/* =========================================================
-   27. GENERATE ID
-   ========================================================= */
-
-function generateId(prefix) {
-
-  const time =
-    Date.now().toString(36);
-
-  const random =
-    Math.random()
-      .toString(36)
-      .substring(2, 7)
-      .toUpperCase();
-
-  return `${prefix}-${time}-${random}`;
-}
-
-
-/* =========================================================
-   28. PUBLISH SHAYARI
-   ========================================================= */
-
-function publishShayari() {
-
-  if (!isAdminLoggedIn()) {
-
-    showToast(
-      "🔒 पहले Admin Login करें।"
-    );
-
     return;
-  }
 
-  const title =
-    $("pubTitle")?.value.trim();
-
-  const category =
-    $("pubCategory")?.value;
-
-  const text =
-    $("pubText")?.value.trim();
-
-  const author =
-    $("pubAuthor")?.value.trim()
-    || "Adarsh Raj";
-
-  const publisher =
-    $("pubPublisher")?.value.trim()
-    || "Adarsh Raj";
-
-  const status =
-    $("shayariPublishStatus");
-
-  if (!title || !text) {
-
-    if (status) {
-      status.textContent =
-        "⚠️ Title और Shayari जरूरी है।";
-    }
-
-    return;
-  }
-
-  if (editingShayariId) {
-
-    const item =
-      shayariData.find(
-        shayari =>
-          shayari.id ===
-          editingShayariId
-      );
-
-    if (item) {
-
-      item.title = title;
-      item.category = category;
-      item.text = text;
-      item.author = author;
-      item.publisher = publisher;
-    }
-
-    showToast(
-      "✅ Shayari updated."
-    );
-
-  } else {
-
-    const newItem = {
-
-      id: generateId("ARS-S"),
-
-      title,
-      category,
-      text,
-      author,
-      publisher,
-
-      likes: 0,
-
-      date:
-        new Date().toISOString()
-    };
-
-    shayariData.unshift(
-      newItem
-    );
-
-    showToast(
-      "🚀 Shayari Published!"
-    );
-  }
-
-  saveShayari();
-
-  clearShayariForm();
-
-  renderShayari();
-  renderAdminHistory();
-}
-
-
-/* =========================================================
-   29. CLEAR SHAYARI FORM
-   ========================================================= */
-
-function clearShayariForm() {
-
-  if ($("pubTitle"))
-    $("pubTitle").value = "";
-
-  if ($("pubText"))
-    $("pubText").value = "";
-
-  if ($("pubAuthor"))
-    $("pubAuthor").value =
-      "Adarsh Raj";
-
-  if ($("pubPublisher"))
-    $("pubPublisher").value =
-      "Adarsh Raj";
-
-  editingShayariId = null;
-
-  const cancel =
-    $("cancelShayariEdit");
-
-  if (cancel)
-    cancel.hidden = true;
-
-  const button =
-    $("publishBtn");
-
-  if (button)
-    button.textContent =
-      "🚀 Publish Shayari";
-}
-
-
-/* =========================================================
-   30. EDIT SHAYARI
-   ========================================================= */
-
-function editShayari(id) {
-
-  const item =
-    shayariData.find(
-      shayari =>
-        shayari.id === id
-    );
-
-  if (!item) return;
-
-  if ($("pubTitle"))
-    $("pubTitle").value =
-      item.title;
-
-  if ($("pubCategory"))
-    $("pubCategory").value =
-      item.category;
-
-  if ($("pubText"))
-    $("pubText").value =
-      item.text;
-
-  if ($("pubAuthor"))
-    $("pubAuthor").value =
-      item.author;
-
-  if ($("pubPublisher"))
-    $("pubPublisher").value =
-      item.publisher || "Adarsh Raj";
-
-  editingShayariId = id;
-
-  const cancel =
-    $("cancelShayariEdit");
-
-  if (cancel)
-    cancel.hidden = false;
-
-  const button =
-    $("publishBtn");
-
-  if (button)
-    button.textContent =
-      "💾 Update Shayari";
-
-  $("pubTitle")?.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
-
-
-/* =========================================================
-   31. DELETE SHAYARI
-   ========================================================= */
-
-function deleteShayari(id) {
-
-  if (!isAdminLoggedIn()) return;
-
-  const item =
-    shayariData.find(
-      shayari =>
-        shayari.id === id
-    );
-
-  if (!item) return;
-
-  const confirmed =
-    confirm(
-      `क्या "${item.title}" को delete करना है?`
-    );
-
-  if (!confirmed) return;
-
-  shayariData =
-    shayariData.filter(
-      shayari =>
-        shayari.id !== id
-    );
-
-  favourites =
-    favourites.filter(
-      fav =>
-        fav !== id
-    );
-
-  likedShayari =
-    likedShayari.filter(
-      like =>
-        like !== id
-    );
-
-  saveShayari();
-  saveFavourites();
-  saveLikes();
-
-  renderShayari();
-  renderAdminHistory();
-
-  showToast(
-    "🗑️ Shayari deleted."
-  );
-}
-
-
-/* =========================================================
-   32. PUBLISH STORY
-   ========================================================= */
-
-function publishStory() {
-
-  if (!isAdminLoggedIn()) {
-
-    showToast(
-      "🔒 पहले Admin Login करें।"
-    );
-
-    return;
-  }
-
-  const title =
-    $("storyTitle")?.value.trim();
-
-  const category =
-    $("storyCategory")?.value;
-
-  const text =
-    $("storyText")?.value.trim();
-
-  const author =
-    $("storyAuthor")?.value.trim()
-    || "Adarsh Raj";
-
-  const status =
-    $("storyPublishStatus");
-
-  if (!title || !text) {
-
-    if (status) {
-
-      status.textContent =
-        "⚠️ Title और Story/Poem जरूरी है।";
-    }
-
-    return;
-  }
-
-  /*
-     Love Story intentionally not allowed.
-  */
-
-  if (category === "Love") {
-
-    showToast(
-      "❌ Love Story category उपलब्ध नहीं है।"
-    );
-
-    return;
-  }
-
-  if (editingStoryId) {
-
-    const item =
-      storyData.find(
-        story =>
-          story.id ===
-          editingStoryId
-      );
-
-    if (item) {
-
-      item.title = title;
-      item.category = category;
-      item.text = text;
-      item.author = author;
-    }
-
-    showToast(
-      "✅ Story/Poem updated."
-    );
-
-  } else {
-
-    const newItem = {
-
-      id: generateId("ARS-ST"),
-
-      title,
-      category,
-      text,
-      author,
-
-      views: 0,
-
-      date:
-        new Date().toISOString()
-    };
-
-    storyData.unshift(
-      newItem
-    );
-
-    showToast(
-      "📚 Story/Poem Published!"
-    );
-  }
-
-  saveStories();
-
-  clearStoryForm();
-
-  renderStories();
-  renderAdminHistory();
-}
-
-
-/* =========================================================
-   33. CLEAR STORY FORM
-   ========================================================= */
-
-function clearStoryForm() {
-
-  if ($("storyTitle"))
-    $("storyTitle").value = "";
-
-  if ($("storyText"))
-    $("storyText").value = "";
-
-  if ($("storyAuthor"))
-    $("storyAuthor").value =
-      "Adarsh Raj";
-
-  editingStoryId = null;
-
-  const cancel =
-    $("cancelStoryEdit");
-
-  if (cancel)
-    cancel.hidden = true;
-
-  const button =
-    $("storyPublishBtn");
-
-  if (button)
-    button.textContent =
-      "📚 Publish Story / Poem";
-}
-
-
-/* =========================================================
-   34. EDIT STORY
-   ========================================================= */
-
-function editStory(id) {
-
-  const item =
-    storyData.find(
-      story =>
-        story.id === id
-    );
-
-  if (!item) return;
-
-  if ($("storyTitle"))
-    $("storyTitle").value =
-      item.title;
-
-  if ($("storyCategory"))
-    $("storyCategory").value =
-      item.category;
-
-  if ($("storyText"))
-    $("storyText").value =
-      item.text;
-
-  if ($("storyAuthor"))
-    $("storyAuthor").value =
-      item.author;
-
-  editingStoryId = id;
-
-  const cancel =
-    $("cancelStoryEdit");
-
-  if (cancel)
-    cancel.hidden = false;
-
-  const button =
-    $("storyPublishBtn");
-
-  if (button)
-    button.textContent =
-      "💾 Update Story / Poem";
-
-  $("storyTitle")?.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
-
-
-/* =========================================================
-   35. DELETE STORY
-   ========================================================= */
-
-function deleteStory(id) {
-
-  if (!isAdminLoggedIn()) return;
-
-  const item =
-    storyData.find(
-      story =>
-        story.id === id
-    );
-
-  if (!item) return;
-
-  const confirmed =
-    confirm(
-      `क्या "${item.title}" को delete करना है?`
-    );
-
-  if (!confirmed) return;
-
-  storyData =
-    storyData.filter(
-      story =>
-        story.id !== id
-    );
-
-  saveStories();
-
-  renderStories();
-  renderAdminHistory();
-
-  showToast(
-    "🗑️ Story/Poem deleted."
-  );
-}
-
-
-/* =========================================================
-   36. ADMIN HISTORY
-   ========================================================= */
-
-function renderAdminHistory() {
-
-  const shayariContainer =
-    $("adminShayariList");
-
-  const storyContainer =
-    $("adminStoryList");
-
-  if (shayariContainer) {
-
-    if (!shayariData.length) {
-
-      shayariContainer.innerHTML =
-        `<p class="muted">
-          कोई Shayari नहीं।
-        </p>`;
-
-    } else {
-
-      shayariContainer.innerHTML =
-        shayariData
-          .map(
-            item => `
-              <div class="admin-history-item">
-
-                <div>
-                  <strong>
-                    ${escapeHTML(item.title)}
-                  </strong>
-
-                  <small>
-                    ${escapeHTML(item.category)}
-                    •
-                    ${escapeHTML(item.id)}
-                  </small>
-                </div>
-
-                <div class="admin-item-actions">
-
-                  <button
-                    type="button"
-                    class="secondary-btn"
-                    onclick="editShayari('${escapeHTML(item.id)}')"
-                  >
-                    ✏️ Edit
-                  </button>
-
-                  <button
-                    type="button"
-                    class="secondary-btn"
-                    onclick="deleteShayari('${escapeHTML(item.id)}')"
-                  >
-                    🗑️ Delete
-                  </button>
-
-                </div>
-
-              </div>
-            `
-          )
-          .join("");
-    }
-  }
-
-  if (storyContainer) {
-
-    if (!storyData.length) {
-
-      storyContainer.innerHTML =
-        `<p class="muted">
-          कोई Story / Poem नहीं।
-        </p>`;
-
-    } else {
-
-      storyContainer.innerHTML =
-        storyData
-          .map(
-            item => `
-              <div class="admin-history-item">
-
-                <div>
-
-                  <strong>
-                    ${escapeHTML(item.title)}
-                  </strong>
-
-                  <small>
-                    ${escapeHTML(item.category)}
-                    •
-                    ${escapeHTML(item.id)}
-                  </small>
-
-                </div>
-
-                <div class="admin-item-actions">
-
-                  <button
-                    type="button"
-                    class="secondary-btn"
-                    onclick="editStory('${escapeHTML(item.id)}')"
-                  >
-                    ✏️ Edit
-                  </button>
-
-                  <button
-                    type="button"
-                    class="secondary-btn"
-                    onclick="deleteStory('${escapeHTML(item.id)}')"
-                  >
-                    🗑️ Delete
-                  </button>
-
-                </div>
-
-              </div>
-            `
-          )
-          .join("");
-    }
-  }
-}
-
-
-/* =========================================================
-   37. LATEST PUBLISHED
-   ========================================================= */
-
-function renderLatestPublished() {
-
-  const container =
-    $("publishedContainer");
-
-  if (!container) return;
-
-  const latest =
-    [...shayariData]
-      .sort(
-        (a, b) =>
-          new Date(b.date) -
-          new Date(a.date)
-      )
-      .slice(0, 6);
-
-  if (!latest.length) {
-
-    container.innerHTML =
-      `<div class="empty-state">
-        अभी कोई नई Shayari नहीं है।
-      </div>`;
-
-    return;
   }
 
   container.innerHTML =
-    latest
-      .map(createShayariCard)
-      .join("");
+    data.map(createStoryCard).join("");
+
 }
 
 
 /* =========================================================
-   38. CONTACT FORM - EMAILJS
+   STORY CATEGORY FILTER
    ========================================================= */
 
-function setupContactForm() {
+function filterStories(category) {
 
-  const form =
-    $("contact-form");
+  ARS_APP.currentStoryCategory =
+    category || "All";
 
-  if (!form) return;
-
-  form.addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-      const button =
-        $("contactSubmitBtn");
-
-      const status =
-        $("contactStatus");
-
-      if (
-        typeof emailjs ===
-        "undefined"
-      ) {
-
-        if (status) {
-
-          status.textContent =
-            "❌ Email service load नहीं हुई।";
-        }
-
-        return;
-      }
-
-      if (
-        typeof CONFIG ===
-          "undefined" ||
-        !CONFIG.EMAILJS_PUBLIC_KEY ||
-        !CONFIG.EMAILJS_SERVICE_ID ||
-        !CONFIG.EMAILJS_TEMPLATE_ID
-      ) {
-
-        if (status) {
-
-          status.textContent =
-            "⚠️ EmailJS configuration missing है।";
-        }
-
-        return;
-      }
-
-      try {
-
-        if (button) {
-
-          button.disabled = true;
-          button.textContent =
-            "📨 Sending...";
-        }
-
-        emailjs.init({
-          publicKey:
-            CONFIG.EMAILJS_PUBLIC_KEY
-        });
-
-        await emailjs.sendForm(
-          CONFIG.EMAILJS_SERVICE_ID,
-          CONFIG.EMAILJS_TEMPLATE_ID,
-          form
-        );
-
-        if (status) {
-
-          status.textContent =
-            "✅ Message successfully sent.";
-        }
-
-        form.reset();
-
-        showToast(
-          "📩 Message भेज दिया गया।"
-        );
-
-      } catch (error) {
-
-        console.error(
-          "EmailJS error:",
-          error
-        );
-
-        if (status) {
-
-          status.textContent =
-            "❌ Message send नहीं हुआ।";
-        }
-
-        showToast(
-          "❌ Message send failed."
-        );
-
-      } finally {
-
-        if (button) {
-
-          button.disabled = false;
-          button.textContent =
-            "📨 Send Message";
-        }
-      }
-    }
-  );
-}
-
-
-/* =========================================================
-   39. QR CODE
-   ========================================================= */
-
-function generateQR(url = WEBSITE_URL) {
-
-  const box =
-    $("qrCode");
-
-  if (!box) return;
+  let data =
+    getStoryData();
 
   if (
-    typeof QRCode ===
-    "undefined"
+    category &&
+    category !== "All"
   ) {
 
-    showToast(
-      "❌ QR Code library load नहीं हुई।"
-    );
-
-    return;
-  }
-
-  box.innerHTML = "";
-
-  currentQR =
-    new QRCode(
-      box,
-      {
-        text: url,
-        width: 220,
-        height: 220,
-        correctLevel:
-          QRCode.CorrectLevel.H
-      }
-    );
-
-  showToast(
-    "📱 QR Code generated."
-  );
-}
-
-
-/* =========================================================
-   40. DOWNLOAD QR
-   ========================================================= */
-
-function downloadQR() {
-
-  const box =
-    $("qrCode");
-
-  if (!box) return;
-
-  const canvas =
-    box.querySelector(
-      "canvas"
-    );
-
-  const image =
-    box.querySelector(
-      "img"
-    );
-
-  let source = null;
-
-  if (canvas) {
-
-    source =
-      canvas.toDataURL(
-        "image/png"
+    data =
+      data.filter(item =>
+        String(item.category)
+          .toLowerCase() ===
+        String(category)
+          .toLowerCase()
       );
 
-  } else if (image) {
-
-    source =
-      image.src;
   }
 
-  if (!source) {
+  renderStories(data);
 
-    showToast(
-      "पहले QR Generate करें।"
-    );
-
-    return;
-  }
-
-  const link =
-    document.createElement(
-      "a"
-    );
-
-  link.href = source;
-
-  link.download =
-    "ARS-Website-QR.png";
-
-  document.body.appendChild(
-    link
-  );
-
-  link.click();
-
-  link.remove();
-
-  showToast(
-    "📥 QR Code download शुरू हो गया।"
-  );
 }
 
 
 /* =========================================================
-   41. COPY WEBSITE
+   STORY MODAL
    ========================================================= */
 
-async function copyWebsite() {
+function openStory(id) {
+
+  const story =
+    window.ARS_STORIES?.getById
+      ? window.ARS_STORIES.getById(id)
+      : getStoryData().find(
+          item => item.id === id
+        );
+
+  if (!story) {
+
+    showToast(
+      "कहानी नहीं मिली।",
+      "error"
+    );
+
+    return;
+
+  }
+
+  let modal =
+    document.getElementById("storyModal");
+
+  if (!modal) {
+
+    modal =
+      document.createElement("div");
+
+    modal.id =
+      "storyModal";
+
+    modal.className =
+      "ars-modal";
+
+    document.body.appendChild(modal);
+
+  }
+
+  modal.innerHTML = `
+    <div class="ars-modal-overlay"
+         data-close-story-modal></div>
+
+    <div class="ars-modal-content">
+
+      <button
+        class="modal-close"
+        data-close-story-modal
+      >
+        ×
+      </button>
+
+      <span class="category-badge">
+        ${escapeHTML(story.category)}
+      </span>
+
+      <h2>
+        ${escapeHTML(story.title)}
+      </h2>
+
+      <p class="story-full-text">
+        ${escapeHTML(story.text)
+          .replace(/\n/g, "<br>")}
+      </p>
+
+      <div class="story-author">
+        ✍️ ${escapeHTML(story.author)}
+      </div>
+
+    </div>
+  `;
+
+  modal.classList.add("show");
+
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+   ========================================================= */
+
+function closeStoryModal() {
+
+  const modal =
+    document.getElementById("storyModal");
+
+  if (!modal) return;
+
+  modal.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   FAVOURITES
+   ========================================================= */
+
+function loadFavourites() {
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        window.ARS_CONFIG?.storage?.favourites ||
+        "ARS_FAVOURITES"
+      );
+
+    const data =
+      saved ? JSON.parse(saved) : [];
+
+    ARS_APP.favourites =
+      Array.isArray(data)
+        ? data
+        : [];
+
+  } catch {
+
+    ARS_APP.favourites = [];
+
+  }
+
+}
+
+
+function saveFavourites() {
+
+  localStorage.setItem(
+    window.ARS_CONFIG?.storage?.favourites ||
+    "ARS_FAVOURITES",
+    JSON.stringify(
+      ARS_APP.favourites
+    )
+  );
+
+}
+
+
+function toggleFavourite(id) {
+
+  const index =
+    ARS_APP.favourites.indexOf(id);
+
+  if (index === -1) {
+
+    ARS_APP.favourites.push(id);
+
+    showToast(
+      "❤️ Favourite में जोड़ दिया गया।"
+    );
+
+  } else {
+
+    ARS_APP.favourites.splice(
+      index,
+      1
+    );
+
+    showToast(
+      "Favourite से हटा दिया गया।"
+    );
+
+  }
+
+  saveFavourites();
+
+  renderShayari(
+    getFilteredCurrentShayari()
+  );
+
+}
+
+
+function getFilteredCurrentShayari() {
+
+  let data =
+    getShayariData();
+
+  const category =
+    ARS_APP.currentShayariCategory;
+
+  if (
+    category &&
+    category !== "All"
+  ) {
+
+    data =
+      data.filter(item =>
+        String(item.category)
+          .toLowerCase() ===
+        category.toLowerCase()
+      );
+
+  }
+
+  if (ARS_APP.searchQuery) {
+
+    const q =
+      ARS_APP.searchQuery.toLowerCase();
+
+    data =
+      data.filter(item =>
+        `${item.title} ${item.text} ${item.author} ${item.category}`
+          .toLowerCase()
+          .includes(q)
+      );
+
+  }
+
+  return data;
+
+}
+
+
+/* =========================================================
+   LIKES
+   ========================================================= */
+
+function loadLikes() {
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        window.ARS_CONFIG?.storage?.likes ||
+        "ARS_LIKES"
+      );
+
+    ARS_APP.likes =
+      saved ? JSON.parse(saved) : {};
+
+  } catch {
+
+    ARS_APP.likes = {};
+
+  }
+
+}
+
+
+function saveLikes() {
+
+  localStorage.setItem(
+    window.ARS_CONFIG?.storage?.likes ||
+    "ARS_LIKES",
+    JSON.stringify(
+      ARS_APP.likes
+    )
+  );
+
+}
+
+
+function toggleLike(id) {
+
+  ARS_APP.likes[id] =
+    ARS_APP.likes[id]
+      ? 0
+      : 1;
+
+  saveLikes();
+
+  renderShayari(
+    getFilteredCurrentShayari()
+  );
+
+}
+
+
+/* =========================================================
+   COPY SHAYARI
+   ========================================================= */
+
+async function copyShayari(id) {
+
+  const item =
+    getShayariData().find(
+      shayari => shayari.id === id
+    );
+
+  if (!item) return;
 
   try {
 
     await navigator.clipboard.writeText(
-      WEBSITE_URL
+      item.text
     );
 
     showToast(
-      "🔗 Website link copied."
+      "📋 शायरी कॉपी हो गई।"
     );
 
   } catch {
 
     showToast(
-      "❌ Link copy नहीं हुआ।"
+      "कॉपी नहीं हो सकी।",
+      "error"
     );
+
   }
+
 }
 
 
 /* =========================================================
-   42. CUSTOM QR
+   SHARE CONTENT
    ========================================================= */
 
-function setupCustomQR() {
+async function shareContent({
+  title = "Adarsh Raj Shayar",
+  text = "",
+  url = window.location.href
+} = {}) {
 
-  const button =
-    $("customQRBtn");
+  if (
+    navigator.share
+  ) {
 
-  const box =
-    $("customQRBox");
+    try {
 
-  const generate =
-    $("customQRGenerate");
+      await navigator.share({
+        title,
+        text,
+        url
+      });
 
-  const clear =
-    $("customQRClear");
+    } catch {
 
-  const input =
-    $("customQRInput");
+      /* User cancelled share */
 
-  const status =
-    $("customQRStatus");
-
-  if (button && box) {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        box.hidden =
-          !box.hidden;
-      }
-    );
-  }
-
-  if (generate) {
-
-    generate.addEventListener(
-      "click",
-      () => {
-
-        const url =
-          input?.value.trim();
-
-        if (!url) {
-
-          if (status)
-            status.textContent =
-              "⚠️ URL डालें।";
-
-          return;
-        }
-
-        try {
-
-          new URL(url);
-
-        } catch {
-
-          if (status)
-            status.textContent =
-              "❌ Valid URL डालें।";
-
-          return;
-        }
-
-        generateQR(url);
-
-        if (status)
-          status.textContent =
-            "✅ Custom QR generated.";
-      }
-    );
-  }
-
-  if (clear) {
-
-    clear.addEventListener(
-      "click",
-      () => {
-
-        if (input)
-          input.value = "";
-
-        if (status)
-          status.textContent = "";
-
-        generateQR(
-          WEBSITE_URL
-        );
-      }
-    );
-  }
-}
-
-
-/* =========================================================
-   43. DARK MODE
-   ========================================================= */
-
-function setupDarkMode() {
-
-  const button =
-    $("darkModeBtn");
-
-  if (!button) return;
-
-  const saved =
-    localStorage.getItem(
-      STORAGE_KEYS.darkMode
-    );
-
-  if (saved === "true") {
-
-    document.body.classList.add(
-      "dark-mode"
-    );
-
-    button.textContent =
-      "🌙";
-  }
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      const dark =
-        document.body.classList.toggle(
-          "dark-mode"
-        );
-
-      localStorage.setItem(
-        STORAGE_KEYS.darkMode,
-        dark
-      );
-
-      button.textContent =
-        dark
-          ? "🌙"
-          : "☀️";
     }
-  );
-}
 
-
-/* =========================================================
-   44. WELCOME POPUP
-   ========================================================= */
-
-function setupWelcomePopup() {
-
-  const popup =
-    $("welcomePopup");
-
-  const close =
-    $("closeWelcomeBtn");
-
-  const enter =
-    $("enterBtn");
-
-  if (!popup) return;
-
-  const alreadyEntered =
-    sessionStorage.getItem(
-      "ARS_WELCOME_SHOWN"
-    );
-
-  if (!alreadyEntered) {
-
-    popup.classList.add(
-      "show"
-    );
-  }
-
-  function closePopup() {
-
-    popup.classList.remove(
-      "show"
-    );
-
-    sessionStorage.setItem(
-      "ARS_WELCOME_SHOWN",
-      "true"
-    );
-  }
-
-  close?.addEventListener(
-    "click",
-    closePopup
-  );
-
-  enter?.addEventListener(
-    "click",
-    closePopup
-  );
-
-  popup.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target ===
-        popup
-      ) {
-
-        closePopup();
-      }
-    }
-  );
-}
-
-
-/* =========================================================
-   45. MOBILE MENU
-   ========================================================= */
-
-function setupMenu() {
-
-  const button =
-    $("menuBtn");
-
-  const nav =
-    $("mainNav");
-
-  const overlay =
-    $("overlay");
-
-  if (!button || !nav)
     return;
 
-  function openMenu() {
-
-    nav.classList.add(
-      "open"
-    );
-
-    overlay?.classList.add(
-      "show"
-    );
   }
 
-  function closeMenu() {
+  try {
 
-    nav.classList.remove(
-      "open"
+    await navigator.clipboard.writeText(
+      `${text}\n${url}`
     );
 
-    overlay?.classList.remove(
-      "show"
+    showToast(
+      "🔗 Link कॉपी हो गया।"
     );
+
+  } catch {
+
+    showToast(
+      "Share नहीं हो सका।",
+      "error"
+    );
+
   }
 
-  button.addEventListener(
-    "click",
-    () => {
-
-      if (
-        nav.classList.contains(
-          "open"
-        )
-      ) {
-
-        closeMenu();
-
-      } else {
-
-        openMenu();
-      }
-    }
-  );
-
-  overlay?.addEventListener(
-    "click",
-    closeMenu
-  );
-
-  nav
-    .querySelectorAll("a")
-    .forEach(
-      link => {
-
-        link.addEventListener(
-          "click",
-          closeMenu
-        );
-      }
-    );
 }
 
 
 /* =========================================================
-   46. PROGRESS BAR
+   CERTIFICATE SYSTEM
+   ========================================================= */
+
+function createCertificateFromForm(form) {
+
+  if (
+    !window.ARS_CERTIFICATES
+  ) {
+
+    showToast(
+      "Certificate system load नहीं हुआ।",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const formData =
+    new FormData(form);
+
+  const data = {
+
+    name:
+      formData.get("name") ||
+      $("#certificateName")?.value ||
+      "",
+
+    type:
+      formData.get("type") ||
+      $("#certificateType")?.value ||
+      "",
+
+    businessName:
+      formData.get("businessName") || "",
+
+    ownerName:
+      formData.get("ownerName") || ""
+
+  };
+
+  try {
+
+    const certificate =
+      window.ARS_CERTIFICATES.create(
+        data
+      );
+
+    displayGeneratedCertificate(
+      certificate
+    );
+
+    showToast(
+      "🏆 Certificate successfully generated!"
+    );
+
+  } catch (error) {
+
+    showToast(
+      error.message ||
+      "Certificate generate नहीं हुआ।",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DISPLAY CERTIFICATE
+   ========================================================= */
+
+function displayGeneratedCertificate(
+  certificate
+) {
+
+  const container =
+    $("#generatedCertificate") ||
+    $("[data-generated-certificate]");
+
+  if (!container) return;
+
+  container.innerHTML = `
+
+    <div class="certificate-preview">
+
+      <div class="certificate-header">
+        <span>🏆</span>
+        <h2>Adarsh Raj Shayar</h2>
+      </div>
+
+      <p class="certificate-label">
+        CERTIFICATE OF ${escapeHTML(
+          certificate.type
+        ).toUpperCase()}
+      </p>
+
+      <p>This certificate is proudly presented to</p>
+
+      <h1>
+        ${escapeHTML(certificate.name)}
+      </h1>
+
+      <p>
+        In recognition of achievement and contribution.
+      </p>
+
+      <div class="certificate-details">
+
+        <span>
+          Certificate No:
+          <strong>
+            ${escapeHTML(
+              certificate.certificateNo
+            )}
+          </strong>
+        </span>
+
+        <span>
+          Issue Date:
+          <strong>
+            ${escapeHTML(
+              certificate.issueDate
+            )}
+          </strong>
+        </span>
+
+      </div>
+
+      <div class="certificate-footer">
+
+        <span>
+          Adarsh Raj<br>
+          Founder & Author
+        </span>
+
+        <span>
+          Status:<br>
+          <strong>
+            ${escapeHTML(
+              certificate.status
+            )}
+          </strong>
+        </span>
+
+      </div>
+
+      <button
+        class="primary-btn"
+        onclick="window.print()"
+      >
+        🖨️ Print Certificate
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   CERTIFICATE VERIFICATION
+   ========================================================= */
+
+function verifyCertificate(value) {
+
+  if (
+    !window.ARS_CERTIFICATES
+  ) {
+
+    showToast(
+      "Certificate system उपलब्ध नहीं है।",
+      "error"
+    );
+
+    return;
+
+  }
+
+  const result =
+    window.ARS_CERTIFICATES.verify(
+      value
+    );
+
+  const container =
+    $("#verificationResult") ||
+    $("[data-verification-result]");
+
+  if (!container) return;
+
+  if (!result.certificate) {
+
+    container.innerHTML = `
+      <div class="verification-result invalid">
+        ❌ Certificate Not Found
+      </div>
+    `;
+
+    return;
+
+  }
+
+  const certificate =
+    result.certificate;
+
+  container.innerHTML = `
+
+    <div class="verification-result ${
+      result.verified
+        ? "valid"
+        : "invalid"
+    }">
+
+      <h3>
+        ${
+          result.verified
+            ? "✅ Certificate Verified"
+            : "❌ Certificate Invalid"
+        }
+      </h3>
+
+      <p>
+        Certificate No:
+        <strong>
+          ${escapeHTML(
+            certificate.certificateNo
+          )}
+        </strong>
+      </p>
+
+      <p>
+        Name:
+        <strong>
+          ${escapeHTML(
+            certificate.name
+          )}
+        </strong>
+      </p>
+
+      <p>
+        Type:
+        <strong>
+          ${escapeHTML(
+            certificate.type
+          )}
+        </strong>
+      </p>
+
+      <p>
+        Status:
+        <strong>
+          ${escapeHTML(
+            certificate.status
+          )}
+        </strong>
+      </p>
+
+      <p>
+        Issue Date:
+        <strong>
+          ${escapeHTML(
+            certificate.issueDate
+          )}
+        </strong>
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   CERTIFICATE FORM SETUP
+   ========================================================= */
+
+function setupCertificateSystem() {
+
+  const form =
+    $("#certificateForm") ||
+    $("[data-certificate-form]");
+
+  if (form) {
+
+    form.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+        createCertificateFromForm(
+          form
+        );
+
+      }
+    );
+
+  }
+
+
+  const verifyForm =
+    $("#verificationForm") ||
+    $("[data-verification-form]");
+
+  if (verifyForm) {
+
+    verifyForm.addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+        const input =
+          verifyForm.querySelector(
+            "input"
+          );
+
+        verifyCertificate(
+          input?.value || ""
+        );
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ADMIN SESSION
+   ========================================================= */
+
+function isAdminLoggedIn() {
+
+  const key =
+    window.ARS_CONFIG?.admin?.sessionKey ||
+    "ARS_ADMIN_SESSION";
+
+  const session =
+    localStorage.getItem(key);
+
+  if (!session) return false;
+
+  try {
+
+    const data =
+      JSON.parse(session);
+
+    if (
+      Date.now() >
+      Number(data.expiresAt)
+    ) {
+
+      localStorage.removeItem(key);
+
+      return false;
+
+    }
+
+    return data.loggedIn === true;
+
+  } catch {
+
+    return false;
+
+  }
+
+}
+
+
+function adminLogin(password) {
+
+  const correctPassword =
+    window.ARS_CONFIG?.admin?.demoPassword;
+
+  if (
+    !correctPassword ||
+    correctPassword ===
+      "CHANGE_THIS_PASSWORD"
+  ) {
+
+    showToast(
+      "पहले config.js में admin password सेट करें।",
+      "error"
+    );
+
+    return false;
+
+  }
+
+  if (
+    password !== correctPassword
+  ) {
+
+    showToast(
+      "❌ गलत password।",
+      "error"
+    );
+
+    return false;
+
+  }
+
+  const key =
+    window.ARS_CONFIG.admin.sessionKey;
+
+  const duration =
+    window.ARS_CONFIG.admin.sessionDuration;
+
+  localStorage.setItem(
+    key,
+    JSON.stringify({
+      loggedIn: true,
+      expiresAt:
+        Date.now() + duration
+    })
+  );
+
+  showToast(
+    "✅ Admin login successful."
+  );
+
+  return true;
+
+}
+
+
+function adminLogout() {
+
+  const key =
+    window.ARS_CONFIG?.admin?.sessionKey ||
+    "ARS_ADMIN_SESSION";
+
+  localStorage.removeItem(key);
+
+  showToast(
+    "Admin logout हो गया।"
+  );
+
+}
+
+
+/* =========================================================
+   JOINING APPLICATION
+   ========================================================= */
+
+function submitJoiningApplication(form) {
+
+  const storageKey =
+    window.ARS_CONFIG?.storage
+      ?.joiningApplications ||
+    "ARS_JOINING_APPLICATIONS";
+
+  const formData =
+    new FormData(form);
+
+  const application = {
+
+    id:
+      `${window.ARS_CONFIG?.joining?.applicationPrefix || "ARS-JOIN-"}${Date.now()}`,
+
+    name:
+      String(
+        formData.get("name") || ""
+      ).trim(),
+
+    email:
+      String(
+        formData.get("email") || ""
+      ).trim(),
+
+    mobile:
+      String(
+        formData.get("mobile") || ""
+      ).trim(),
+
+    role:
+      String(
+        formData.get("role") || ""
+      ).trim(),
+
+    message:
+      String(
+        formData.get("message") || ""
+      ).trim(),
+
+    status:
+      "Pending",
+
+    submittedAt:
+      new Date().toISOString()
+
+  };
+
+
+  if (!application.name) {
+
+    showToast(
+      "नाम दर्ज करें।",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  let applications = [];
+
+  try {
+
+    applications =
+      JSON.parse(
+        localStorage.getItem(
+          storageKey
+        ) || "[]"
+      );
+
+  } catch {
+
+    applications = [];
+
+  }
+
+
+  applications.push(
+    application
+  );
+
+  localStorage.setItem(
+    storageKey,
+    JSON.stringify(applications)
+  );
+
+
+  showToast(
+    "🤝 Joining Application भेज दी गई।"
+  );
+
+  form.reset();
+
+}
+
+
+/* =========================================================
+   VISITOR COUNTER
+   ========================================================= */
+
+function updateVisitorCount() {
+
+  const key =
+    window.ARS_CONFIG?.storage
+      ?.visitorCount ||
+    "ARS_VISITOR_COUNT";
+
+  let count =
+    Number(
+      localStorage.getItem(key) || 0
+    );
+
+  count++;
+
+  localStorage.setItem(
+    key,
+    String(count)
+  );
+
+  $$("[data-visitor-count]")
+    .forEach(element => {
+
+      element.textContent =
+        count.toLocaleString("en-IN");
+
+    });
+
+}
+
+
+/* =========================================================
+   CURRENT YEAR
+   ========================================================= */
+
+function setCurrentYear() {
+
+  const year =
+    new Date().getFullYear();
+
+  $$("[data-current-year]")
+    .forEach(element => {
+
+      element.textContent =
+        year;
+
+    });
+
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+function renderStats() {
+
+  if (window.ARS_SHAYARI?.stats) {
+
+    const stats =
+      window.ARS_SHAYARI.stats;
+
+    $$("[data-shayari-total]")
+      .forEach(el =>
+        el.textContent = stats.total
+      );
+
+  }
+
+
+  if (window.ARS_STORIES?.stats) {
+
+    const stats =
+      window.ARS_STORIES.stats;
+
+    $$("[data-story-total]")
+      .forEach(el =>
+        el.textContent = stats.total
+      );
+
+    $$("[data-poem-total]")
+      .forEach(el =>
+        el.textContent = stats.poems
+      );
+
+  }
+
+
+  if (window.ARS_CERTIFICATES) {
+
+    const stats =
+      window.ARS_CERTIFICATES.stats();
+
+    $$("[data-certificate-total]")
+      .forEach(el =>
+        el.textContent = stats.total
+      );
+
+  }
+
+}
+
+
+/* =========================================================
+   PROGRESS BAR
    ========================================================= */
 
 function setupProgressBar() {
 
-  const bar =
-    $("progressBar");
+  const progress =
+    $("#progressBar");
 
-  if (!bar) return;
+  if (!progress) return;
 
   window.addEventListener(
     "scroll",
     () => {
 
-      const top =
+      const scrollTop =
         window.scrollY;
 
       const height =
@@ -2539,26 +1636,29 @@ function setupProgressBar() {
           .scrollHeight -
         window.innerHeight;
 
-      const progress =
+      const percentage =
         height > 0
-          ? (top / height) * 100
+          ? (scrollTop / height) * 100
           : 0;
 
-      bar.style.width =
-        `${progress}%`;
+      progress.style.width =
+        `${percentage}%`;
+
     }
   );
+
 }
 
 
 /* =========================================================
-   47. BACK TO TOP
+   BACK TO TOP
    ========================================================= */
 
 function setupBackToTop() {
 
   const button =
-    $("topBtn");
+    $("#backToTop") ||
+    $("[data-back-to-top]");
 
   if (!button) return;
 
@@ -2568,8 +1668,9 @@ function setupBackToTop() {
 
       button.classList.toggle(
         "show",
-        window.scrollY > 500
+        window.scrollY > 400
       );
+
     }
   );
 
@@ -2581,152 +1682,298 @@ function setupBackToTop() {
         top: 0,
         behavior: "smooth"
       });
+
     }
   );
+
 }
 
 
 /* =========================================================
-   48. VISITOR COUNT
+   EVENT DELEGATION
    ========================================================= */
 
-function setupVisitorCounter() {
+function setupGlobalEvents() {
 
-  let count =
-    Number(
-      localStorage.getItem(
-        STORAGE_KEYS.visitor
-      )
-    );
+  document.addEventListener(
+    "click",
+    event => {
 
-  if (!count) {
-    count = 0;
-  }
+      const favourite =
+        event.target.closest(
+          "[data-favourite]"
+        );
 
-  count++;
+      if (favourite) {
 
-  localStorage.setItem(
-    STORAGE_KEYS.visitor,
-    count
-  );
+        toggleFavourite(
+          favourite.dataset.favourite
+        );
 
-  const element =
-    $("visitor-count");
+        return;
 
-  if (element) {
-
-    element.textContent =
-      count.toLocaleString(
-        "en-IN"
-      );
-  }
-}
+      }
 
 
-/*
-   NOTE:
-   यह local visitor counter है।
-   सभी visitors का real global count नहीं है।
-*/
+      const like =
+        event.target.closest(
+          "[data-like]"
+        );
+
+      if (like) {
+
+        toggleLike(
+          like.dataset.like
+        );
+
+        return;
+
+      }
 
 
-/* =========================================================
-   49. CURRENT YEAR
-   ========================================================= */
+      const story =
+        event.target.closest(
+          "[data-read-story]"
+        );
 
-function setCurrentYear() {
+      if (story) {
 
-  const element =
-    $("currentYear");
+        openStory(
+          story.dataset.readStory
+        );
 
-  if (element) {
+        return;
 
-    element.textContent =
-      new Date().getFullYear();
-  }
-}
+      }
 
 
-/* =========================================================
-   50. LOADER
-   ========================================================= */
+      if (
+        event.target.closest(
+          "[data-close-story-modal]"
+        )
+      ) {
 
-function setupLoader() {
+        closeStoryModal();
 
-  const loader =
-    $("loader");
+        return;
 
-  if (!loader) return;
+      }
 
-  window.addEventListener(
-    "load",
-    () => {
 
-      setTimeout(
-        () => {
+      const copy =
+        event.target.closest(
+          "[data-copy-shayari]"
+        );
 
-          loader.classList.add(
-            "hidden"
+      if (copy) {
+
+        copyShayari(
+          copy.dataset.copyShayari
+        );
+
+        return;
+
+      }
+
+
+      const share =
+        event.target.closest(
+          "[data-share-shayari]"
+        );
+
+      if (share) {
+
+        const item =
+          getShayariData().find(
+            x =>
+              x.id ===
+              share.dataset.shareShayari
           );
 
-        },
-        500
-      );
+        if (item) {
+
+          shareContent({
+            title:
+              item.title,
+
+            text:
+              item.text
+          });
+
+        }
+
+        return;
+
+      }
+
+
+      if (
+        event.target.closest(
+          "[data-theme-toggle]"
+        )
+      ) {
+
+        toggleTheme();
+
+        return;
+
+      }
+
+
+      if (
+        event.target.closest(
+          "[data-mobile-menu]"
+        )
+      ) {
+
+        toggleMobileMenu();
+
+      }
+
     }
   );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeStoryModal();
+
+        closeMobileMenu();
+
+      }
+
+    }
+  );
+
 }
 
 
 /* =========================================================
-   51. ARS JOINING SYSTEM
+   SEARCH EVENTS
    ========================================================= */
 
-/*
-   ARS JOINING को अभी structure में रखा गया है।
+function setupSearch() {
 
-   Joining data:
-   - Name
-   - Email
-   - Phone
-   - City
-   - Interest
-   - Date
-   - Unique Joining ID
-
-   IMPORTANT:
-   Real public membership database के लिए backend
-   जरूरी होगा।
-*/
-
-function generateJoiningId() {
-
-  return generateId(
-    "ARS-JOIN"
-  );
-}
-
-
-function saveJoiningMember(member) {
-
-  const members =
-    getStorage(
-      STORAGE_KEYS.joining,
-      []
+  const inputs =
+    $$(
+      "#shayariSearch, [data-shayari-search]"
     );
 
-  members.push(member);
+  inputs.forEach(input => {
 
-  setStorage(
-    STORAGE_KEYS.joining,
-    members
-  );
+    input.addEventListener(
+      "input",
+      event => {
+
+        searchShayari(
+          event.target.value
+        );
+
+      }
+    );
+
+  });
+
+
+  const storyInputs =
+    $$(
+      "#storySearch, [data-story-search]"
+    );
+
+  storyInputs.forEach(input => {
+
+    input.addEventListener(
+      "input",
+      event => {
+
+        const query =
+          event.target.value
+            .trim()
+            .toLowerCase();
+
+        let data =
+          getStoryData();
+
+        if (query) {
+
+          data =
+            data.filter(item =>
+              `${item.title} ${item.text} ${item.author} ${item.category}`
+                .toLowerCase()
+                .includes(query)
+            );
+
+        }
+
+        renderStories(data);
+
+      }
+    );
+
+  });
+
 }
 
 
-function setupJoiningSystem() {
+/* =========================================================
+   CATEGORY BUTTONS
+   ========================================================= */
+
+function setupCategoryButtons() {
+
+  $$("[data-shayari-category]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          filterShayari(
+            button.dataset
+              .shayariCategory
+          );
+
+        }
+      );
+
+    });
+
+
+  $$("[data-story-category]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          filterStories(
+            button.dataset
+              .storyCategory
+          );
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   JOINING FORM SETUP
+   ========================================================= */
+
+function setupJoiningForm() {
 
   const form =
-    $("joiningForm");
+    $("#joiningForm") ||
+    $("[data-joining-form]");
 
   if (!form) return;
 
@@ -2736,277 +1983,250 @@ function setupJoiningSystem() {
 
       event.preventDefault();
 
-      const formData =
-        new FormData(form);
-
-      const name =
-        formData.get("name")
-          ?.toString()
-          .trim();
-
-      const email =
-        formData.get("email")
-          ?.toString()
-          .trim();
-
-      const phone =
-        formData.get("phone")
-          ?.toString()
-          .trim();
-
-      const city =
-        formData.get("city")
-          ?.toString()
-          .trim();
-
-      const interest =
-        formData.get("interest")
-          ?.toString()
-          .trim();
-
-      if (
-        !name ||
-        !email
-      ) {
-
-        showToast(
-          "⚠️ Name और Email जरूरी है।"
-        );
-
-        return;
-      }
-
-      const member = {
-
-        joiningId:
-          generateJoiningId(),
-
-        name,
-        email,
-        phone,
-        city,
-        interest,
-
-        date:
-          new Date().toISOString()
-      };
-
-      saveJoiningMember(
-        member
+      submitJoiningApplication(
+        form
       );
 
-      form.reset();
-
-      showToast(
-        `🎉 ARS Joining Successful — ${member.joiningId}`
-      );
-
-      /*
-         आगे इसी Joining ID से:
-         - Joining Certificate
-         - QR
-         - Verification
-         - Member Profile
-
-         जोड़े जा सकते हैं।
-      */
     }
   );
+
 }
 
 
 /* =========================================================
-   52. ADMIN EVENT SETUP
+   ADMIN FORM
    ========================================================= */
 
-function setupAdminEvents() {
+function setupAdminLogin() {
 
-  $("loginBtn")?.addEventListener(
-    "click",
-    adminLogin
+  const form =
+    $("#adminLoginForm") ||
+    $("[data-admin-login]");
+
+  if (!form) return;
+
+  form.addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+      const input =
+        form.querySelector(
+          'input[type="password"]'
+        );
+
+      if (
+        adminLogin(
+          input?.value || ""
+        )
+      ) {
+
+        form.reset();
+
+      }
+
+    }
   );
 
-  $("adminPassword")?.addEventListener(
-    "keydown",
+}
+
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+function hideLoader() {
+
+  const loader =
+    $("#loader") ||
+    $(".page-loader");
+
+  if (!loader) return;
+
+  loader.classList.add(
+    "hidden"
+  );
+
+  setTimeout(() => {
+
+    loader.style.display =
+      "none";
+
+  }, 500);
+
+}
+
+
+/* =========================================================
+   WELCOME POPUP
+   ========================================================= */
+
+function setupWelcomePopup() {
+
+  if (
+    !window.ARS_CONFIG?.ui
+      ?.enableWelcomePopup
+  ) return;
+
+  const popup =
+    $("#welcomePopup");
+
+  if (!popup) return;
+
+  const seen =
+    sessionStorage.getItem(
+      "ARS_WELCOME_SHOWN"
+    );
+
+  if (seen) return;
+
+  popup.classList.add(
+    "show"
+  );
+
+  sessionStorage.setItem(
+    "ARS_WELCOME_SHOWN",
+    "true"
+  );
+
+
+  popup.addEventListener(
+    "click",
     event => {
 
       if (
-        event.key === "Enter"
+        event.target.closest(
+          "[data-close-welcome]"
+        )
       ) {
 
-        adminLogin();
+        popup.classList.remove(
+          "show"
+        );
+
       }
+
     }
   );
 
-  $("logoutBtn")?.addEventListener(
-    "click",
-    adminLogout
-  );
-
-  $("publishBtn")?.addEventListener(
-    "click",
-    publishShayari
-  );
-
-  $("storyPublishBtn")?.addEventListener(
-    "click",
-    publishStory
-  );
-
-  $("cancelShayariEdit")?.addEventListener(
-    "click",
-    clearShayariForm
-  );
-
-  $("cancelStoryEdit")?.addEventListener(
-    "click",
-    clearStoryForm
-  );
 }
 
 
 /* =========================================================
-   53. QR EVENTS
+   SEO / WEBSITE TITLE
    ========================================================= */
 
-function setupQREvents() {
+function setupWebsiteInfo() {
 
-  $("generateQRBtn")?.addEventListener(
-    "click",
-    () =>
-      generateQR(
-        WEBSITE_URL
-      )
-  );
+  const config =
+    window.ARS_CONFIG?.website;
 
-  $("downloadQRBtn")?.addEventListener(
-    "click",
-    downloadQR
-  );
+  if (!config) return;
 
-  $("copyWebsiteBtn")?.addEventListener(
-    "click",
-    copyWebsite
-  );
+  document.title =
+    config.name;
+
+  $$("[data-website-name]")
+    .forEach(el => {
+
+      el.textContent =
+        config.name;
+
+    });
+
+  $$("[data-founder-name]")
+    .forEach(el => {
+
+      el.textContent =
+        config.author;
+
+    });
+
+  $$("[data-tagline]")
+    .forEach(el => {
+
+      el.textContent =
+        config.tagline;
+
+    });
+
 }
 
 
 /* =========================================================
-   54. SMOOTH NAVIGATION
+   INITIAL DATA RENDER
    ========================================================= */
 
-function setupSmoothNavigation() {
-
-  document
-    .querySelectorAll(
-      'a[href^="#"]'
-    )
-    .forEach(
-      link => {
-
-        link.addEventListener(
-          "click",
-          event => {
-
-            const targetId =
-              link
-                .getAttribute("href")
-                ?.substring(1);
-
-            if (!targetId) return;
-
-            const target =
-              $(targetId);
-
-            if (!target) return;
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-
-            history.replaceState(
-              null,
-              "",
-              `#${targetId}`
-            );
-          }
-        );
-      }
-    );
-}
-
-
-/* =========================================================
-   55. INITIALIZE WEBSITE
-   ========================================================= */
-
-function initializeWebsite() {
-
-  initializeData();
+function renderInitialData() {
 
   renderShayari();
 
   renderStories();
 
-  renderLatestPublished();
+  renderStats();
 
-  updateAdminUI();
+}
+
+
+/* =========================================================
+   MAIN INITIALIZATION
+   ========================================================= */
+
+function initializeARSWebsite() {
+
+  if (ARS_APP.initialized) return;
+
+  ARS_APP.initialized =
+    true;
+
+
+  loadFavourites();
+
+  loadLikes();
+
+  applyTheme();
+
+  setupWebsiteInfo();
+
+  setupNavigation();
+
+  setupGlobalEvents();
 
   setupSearch();
 
-  setupStorySearch();
+  setupCategoryButtons();
 
-  setupContactForm();
+  setupCertificateSystem();
 
-  setupQREvents();
+  setupJoiningForm();
 
-  setupCustomQR();
-
-  setupDarkMode();
-
-  setupWelcomePopup();
-
-  setupMenu();
+  setupAdminLogin();
 
   setupProgressBar();
 
   setupBackToTop();
 
-  setupVisitorCounter();
+  renderInitialData();
+
+  updateVisitorCount();
 
   setCurrentYear();
 
-  setupLoader();
+  setupWelcomePopup();
 
-  setupJoiningSystem();
+  hideLoader();
 
-  setupAdminEvents();
 
-  setupSmoothNavigation();
-
-  /*
-     Generate default QR automatically.
-  */
-
-  setTimeout(
-    () => {
-
-      generateQR(
-        WEBSITE_URL
-      );
-
-    },
-    800
+  console.log(
+    "🌹 ARS Official Website initialized successfully."
   );
+
 }
 
 
 /* =========================================================
-   56. START
+   DOM READY
    ========================================================= */
 
 if (
@@ -3016,27 +2236,61 @@ if (
 
   document.addEventListener(
     "DOMContentLoaded",
-    initializeWebsite
+    initializeARSWebsite
   );
 
 } else {
 
-  initializeWebsite();
+  initializeARSWebsite();
+
 }
 
 
 /* =========================================================
-   57. GLOBAL ADMIN FUNCTIONS
+   GLOBAL ARS APP API
    ========================================================= */
 
-window.editShayari =
-  editShayari;
+window.ARS_APP = {
 
-window.deleteShayari =
-  deleteShayari;
+  state:
+    ARS_APP,
 
-window.editStory =
-  editStory;
+  showSection,
 
-window.deleteStory =
-  deleteStory;
+  toggleTheme,
+
+  filterShayari,
+
+  searchShayari,
+
+  filterStories,
+
+  openStory,
+
+  closeStoryModal,
+
+  toggleFavourite,
+
+  toggleLike,
+
+  copyShayari,
+
+  shareContent,
+
+  verifyCertificate,
+
+  adminLogin,
+
+  adminLogout,
+
+  isAdminLoggedIn,
+
+  showToast
+
+};
+
+
+/* =========================================================
+   END
+   ========================================================= */
+```
