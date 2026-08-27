@@ -1,12 +1,12 @@
-```html
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
 
   <!-- =====================================================
-       BASIC SETTINGS
-  ====================================================== -->
+       ARS OFFICIAL WEBSITE
+       INDEX.HTML
+       Version 3.0
+       ===================================================== -->
 
   <meta charset="UTF-8">
 
@@ -21,12 +21,12 @@
 
   <meta
     name="description"
-    content="Adarsh Raj Shayar की Official Website — Hindi Shayari, Stories, Poetry, ARS Joining, Certificates और Creative Content."
+    content="Adarsh Raj Shayar की Official Hindi Website — Original Hindi Shayari, Stories, Poetry, Certificate और Creative Content."
   >
 
   <meta
     name="keywords"
-    content="Adarsh Raj Shayar, Hindi Shayari, Love Shayari, Sad Shayari, Attitude Shayari, Friendship Shayari, Motivation Shayari, Hindi Stories, Poetry, ARS Joining, ARS Certificate"
+    content="Adarsh Raj Shayar, Hindi Shayari, Love Shayari, Sad Shayari, Attitude Shayari, Friendship Shayari, Motivation Shayari, Hindi Stories, Poetry, Certificate"
   >
 
   <meta
@@ -44,10 +44,14 @@
     content="#d4af37"
   >
 
+  <link
+    rel="canonical"
+    href="https://adarshrajshyar.github.io/"
+  >
 
   <!-- =====================================================
-       WEBSITE ICON
-  ====================================================== -->
+       FAVICON
+       ===================================================== -->
 
   <link
     rel="icon"
@@ -55,10 +59,9 @@
     type="image/png"
   >
 
-
   <!-- =====================================================
        OPEN GRAPH
-  ====================================================== -->
+       ===================================================== -->
 
   <meta
     property="og:title"
@@ -67,7 +70,7 @@
 
   <meta
     property="og:description"
-    content="दिल से निकली हुई हिंदी शायरियाँ, Stories, Poetry, ARS Joining और Certificates."
+    content="दिल से निकली हुई खूबसूरत हिंदी शायरियाँ, Stories, Poetry और Creative Content."
   >
 
   <meta
@@ -85,10 +88,9 @@
     content="https://adarshrajshyar.github.io/logo.png"
   >
 
-
   <!-- =====================================================
        TWITTER CARD
-  ====================================================== -->
+       ===================================================== -->
 
   <meta
     name="twitter:card"
@@ -110,34 +112,32 @@
     content="https://adarshrajshyar.github.io/logo.png"
   >
 
-
-  <!-- =====================================================
-       EMAILJS
-  ====================================================== -->
-
-  <script
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-  </script>
-
-
   <!-- =====================================================
        MAIN CSS
-  ====================================================== -->
+       ===================================================== -->
 
   <link
     rel="stylesheet"
     href="style.css"
   >
 
+  <!-- =====================================================
+       EMAILJS
+       Contact / Joining Application
+       ===================================================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+
 </head>
 
 
 <body>
 
-
   <!-- =====================================================
        PAGE PROGRESS BAR
-  ====================================================== -->
+       ===================================================== -->
 
   <div
     id="progressBar"
@@ -147,36 +147,53 @@
 
   <!-- =====================================================
        WEBSITE LOADER
-  ====================================================== -->
+       ===================================================== -->
 
   <div
     id="loader"
-    aria-label="Loading website"
+    class="loader"
+    aria-label="Website loading"
   >
 
-    <div class="loader-circle"></div>
+    <div class="loader-content">
 
-    <h2>
-      🌹 Adarsh Raj Shayar 🌹
-    </h2>
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+        class="loader-logo"
+      >
 
-    <p>
-      Loading...
-    </p>
+      <div class="loader-spinner"></div>
+
+      <h2>
+        🌹 Adarsh Raj Shayar
+      </h2>
+
+      <p>
+        Official Website
+      </p>
+
+    </div>
 
   </div>
 
 
   <!-- =====================================================
        WELCOME POPUP
-  ====================================================== -->
+       ===================================================== -->
 
   <div
     id="welcomePopup"
     class="popup-overlay"
+    aria-hidden="true"
   >
 
-    <div class="welcome-box">
+    <div
+      class="welcome-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcomeTitle"
+    >
 
       <button
         id="closeWelcomeBtn"
@@ -187,31 +204,27 @@
         ×
       </button>
 
-
       <img
         src="logo.png"
-        class="welcome-logo"
         alt="Adarsh Raj Shayar Logo"
+        class="welcome-logo"
       >
 
+      <span class="eyebrow">
+        ✨ OFFICIAL WEBSITE ✨
+      </span>
 
-      <h1>
-        🌹
-        <span>Adarsh Raj</span>
-        Shayar
-        🌹
+      <h1 id="welcomeTitle">
+        🌹 Adarsh Raj Shayar 🌹
       </h1>
-
 
       <p class="welcome-text">
         दिल से निकली हुई खूबसूरत हिंदी शायरियाँ
       </p>
 
-
-      <small class="welcome-subtitle">
-        ❤️ सीधे आपके दिल तक पहुँचें ❤️
-      </small>
-
+      <p class="welcome-subtitle">
+        Stories • Poetry • Certificates • Creative Content
+      </p>
 
       <button
         id="enterBtn"
@@ -227,19 +240,19 @@
 
 
   <!-- =====================================================
-       TOP TICKER
-  ====================================================== -->
+       TOP INFORMATION BAR
+       ===================================================== -->
 
   <div class="top-bar">
 
     <div class="top-bar-track">
 
       <span>
-        🌹 Welcome to Adarsh Raj Shayar Official Website 🌹
+        🌹 Welcome to Adarsh Raj Shayar Official Website
       </span>
 
       <span>
-        📖 Daily New Hindi Shayari
+        📖 Original Hindi Shayari
       </span>
 
       <span>
@@ -263,6 +276,10 @@
       </span>
 
       <span>
+        📚 Stories & Poetry
+      </span>
+
+      <span>
         👥 Visitors:
         <strong id="visitor-count">0</strong>
       </span>
@@ -274,147 +291,214 @@
 
   <!-- =====================================================
        HEADER
-  ====================================================== -->
+       ===================================================== -->
 
   <header class="site-header">
 
+    <div class="header-inner">
 
-    <!-- MOBILE MENU -->
+      <!-- MOBILE MENU -->
 
-    <button
-      id="menuBtn"
-      class="icon-btn menu-btn"
-      type="button"
-      aria-label="Open navigation menu"
-      aria-expanded="false"
-    >
-      ☰
-    </button>
+      <button
+        id="menuBtn"
+        class="icon-btn menu-btn"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
 
 
-    <!-- LOGO -->
+      <!-- LOGO -->
 
-    <a
-      href="#home"
-      class="logo-area"
-      aria-label="Adarsh Raj Shayar Home"
-    >
-
-      <img
-        src="logo.png"
-        class="logo"
-        loading="eager"
-        decoding="async"
-        alt="Adarsh Raj Shayar Logo"
+      <a
+        href="#home"
+        class="logo-area"
+        aria-label="Adarsh Raj Shayar Home"
       >
 
+        <img
+          src="logo.png"
+          class="logo"
+          loading="eager"
+          decoding="async"
+          alt="Adarsh Raj Shayar Logo"
+        >
 
-      <div>
+        <div class="logo-text">
 
-        <h1>
-          Adarsh Raj Shayar
-        </h1>
+          <h1>
+            Adarsh Raj Shayar
+          </h1>
 
-        <p>
-          Official Hindi Shayari Website
-        </p>
+          <p>
+            Official Hindi Shayari Website
+          </p>
+
+        </div>
+
+      </a>
+
+
+      <!-- HEADER ACTIONS -->
+
+      <div class="header-actions">
+
+        <button
+          id="searchToggleBtn"
+          class="icon-btn"
+          type="button"
+          aria-label="Open search"
+        >
+          🔎
+        </button>
+
+        <button
+          id="darkModeBtn"
+          class="icon-btn"
+          type="button"
+          aria-label="Toggle dark mode"
+        >
+          🌙
+        </button>
 
       </div>
 
-    </a>
-
-
-    <!-- THEME BUTTON -->
-
-    <button
-      id="darkModeBtn"
-      class="icon-btn"
-      type="button"
-      aria-label="Toggle dark and light mode"
-    >
-      ☀️
-    </button>
+    </div>
 
   </header>
 
 
   <!-- =====================================================
        MAIN NAVIGATION
-  ====================================================== -->
+       ===================================================== -->
 
   <nav
     id="mainNav"
+    class="main-nav"
     aria-label="Main navigation"
   >
 
-    <a href="#home">
-      🏠 Home
-    </a>
+    <div class="nav-inner">
 
-    <a href="#love">
-      ❤️ Love
-    </a>
+      <a
+        href="#home"
+        class="nav-link"
+      >
+        🏠 Home
+      </a>
 
-    <a href="#sad">
-      💔 Sad
-    </a>
+      <a
+        href="#love"
+        class="nav-link"
+      >
+        ❤️ Love
+      </a>
 
-    <a href="#attitude">
-      🔥 Attitude
-    </a>
+      <a
+        href="#sad"
+        class="nav-link"
+      >
+        💔 Sad
+      </a>
 
-    <a href="#friendship">
-      🤝 Friendship
-    </a>
+      <a
+        href="#attitude"
+        class="nav-link"
+      >
+        🔥 Attitude
+      </a>
 
-    <a href="#motivation">
-      💪 Motivation
-    </a>
+      <a
+        href="#friendship"
+        class="nav-link"
+      >
+        🤝 Friendship
+      </a>
 
-    <a href="#favorite">
-      ⭐ Favourite
-    </a>
+      <a
+        href="#motivation"
+        class="nav-link"
+      >
+        💪 Motivation
+      </a>
 
-    <a href="#story">
-      📖 Story & Poetry
-    </a>
+      <a
+        href="#favorite"
+        class="nav-link"
+      >
+        ⭐ Favourite
+      </a>
 
-    <a href="#joining">
-      🤝 ARS Joining
-    </a>
+      <a
+        href="#story"
+        class="nav-link"
+      >
+        📚 Story & Poetry
+      </a>
 
-    <a href="#certificate">
-      🏆 Certificate
-    </a>
+      <a
+        href="#published"
+        class="nav-link"
+      >
+        🆕 Latest
+      </a>
 
-    <a href="#about">
-      👤 Founder
-    </a>
+      <a
+        href="#certificate"
+        class="nav-link"
+      >
+        🏆 Certificate
+      </a>
 
-    <a href="#contact">
-      📩 Contact
-    </a>
+      <a
+        href="#joining"
+        class="nav-link"
+      >
+        🤝 Join ARS
+      </a>
+
+      <a
+        href="#about"
+        class="nav-link"
+      >
+        👤 Founder
+      </a>
+
+      <a
+        href="#contact"
+        class="nav-link"
+      >
+        📩 Contact
+      </a>
+
+    </div>
 
   </nav>
 
 
   <!-- =====================================================
-       MOBILE MENU OVERLAY
-  ====================================================== -->
+       MOBILE OVERLAY
+       ===================================================== -->
 
-  <div id="overlay"></div>
+  <div
+    id="overlay"
+    class="overlay"
+    aria-hidden="true"
+  ></div>
 
 
   <!-- =====================================================
        MAIN CONTENT
-  ====================================================== -->
+       ===================================================== -->
 
   <main>
 
 
     <!-- ===================================================
          HERO
-    ==================================================== -->
+         =================================================== -->
 
     <section
       id="home"
@@ -432,27 +516,37 @@
 
       <div class="hero-overlay"></div>
 
-
       <div class="hero-content">
 
         <span class="eyebrow">
-          ✨ OFFICIAL WEBSITE ✨
+          ✨ ARS OFFICIAL WEBSITE ✨
         </span>
 
         <h2>
-          ❤️ Welcome To Official Website ❤️
+          ❤️ Welcome To Adarsh Raj Shayar ❤️
         </h2>
 
         <p>
-          “जहाँ हर शब्द सीधे दिल तक पहुँचता है।”
+          जहाँ हर शब्द सीधे दिल तक पहुँचता है।
         </p>
 
-        <a
-          href="#love"
-          class="gold-btn hero-btn"
-        >
-          📖 Shayari पढ़ें
-        </a>
+        <div class="hero-buttons">
+
+          <a
+            href="#love"
+            class="gold-btn"
+          >
+            📖 Shayari पढ़ें
+          </a>
+
+          <a
+            href="#story"
+            class="outline-btn"
+          >
+            📚 Stories पढ़ें
+          </a>
+
+        </div>
 
       </div>
 
@@ -461,29 +555,34 @@
 
     <!-- ===================================================
          SEARCH
-    ==================================================== -->
+         =================================================== -->
 
     <section
+      id="searchSection"
       class="search-section section-wide"
-      aria-label="Shayari Search"
+      aria-label="Search"
     >
 
       <div class="search-wrap">
 
         <div class="search-title">
 
-          <span>
+          <span class="search-icon">
             🔎
           </span>
 
           <div>
 
+            <span class="eyebrow">
+              ARS SEARCH
+            </span>
+
             <h2>
-              Shayari Search
+              Shayari & Story Search
             </h2>
 
             <p>
-              Title, Shayari, Author या Category से खोजें
+              Title, Shayari, Story, Author या Category से खोजें
             </p>
 
           </div>
@@ -496,8 +595,9 @@
           <input
             type="search"
             id="search"
-            placeholder="🔍 Shayari Search..."
+            placeholder="🔍 कुछ खोजें..."
             autocomplete="off"
+            aria-label="Search Shayari and Stories"
           >
 
           <button
@@ -523,12 +623,16 @@
 
 
     <!-- ===================================================
-         LOVE SHAYARI
-    ==================================================== -->
+         SHAYARI SECTION COMPONENTS
+         =================================================== -->
+
+
+    <!-- LOVE -->
 
     <section
       id="love"
-      class="section"
+      class="section content-section"
+      data-category="Love"
     >
 
       <div class="section-heading">
@@ -539,18 +643,21 @@
 
         <div>
 
+          <span class="eyebrow">
+            ARS SHAYARI
+          </span>
+
           <h2>
             Love Shayari
           </h2>
 
           <p>
-            प्यार और एहसास से भरी शायरियाँ
+            खूबसूरत एहसासों से भरी Love Shayari
           </p>
 
         </div>
 
       </div>
-
 
       <div
         id="loveContainer"
@@ -560,13 +667,12 @@
     </section>
 
 
-    <!-- ===================================================
-         SAD SHAYARI
-    ==================================================== -->
+    <!-- SAD -->
 
     <section
       id="sad"
-      class="section"
+      class="section content-section"
+      data-category="Sad"
     >
 
       <div class="section-heading">
@@ -577,18 +683,21 @@
 
         <div>
 
+          <span class="eyebrow">
+            ARS SHAYARI
+          </span>
+
           <h2>
             Sad Shayari
           </h2>
 
           <p>
-            दिल की खामोशी और जज़्बात
+            दिल के एहसासों को शब्द देने वाली Shayari
           </p>
 
         </div>
 
       </div>
-
 
       <div
         id="sadContainer"
@@ -598,13 +707,12 @@
     </section>
 
 
-    <!-- ===================================================
-         ATTITUDE SHAYARI
-    ==================================================== -->
+    <!-- ATTITUDE -->
 
     <section
       id="attitude"
-      class="section"
+      class="section content-section"
+      data-category="Attitude"
     >
 
       <div class="section-heading">
@@ -615,18 +723,21 @@
 
         <div>
 
+          <span class="eyebrow">
+            ARS SHAYARI
+          </span>
+
           <h2>
             Attitude Shayari
           </h2>
 
           <p>
-            अपना अंदाज़, अपनी पहचान
+            दमदार सोच और अपनी पहचान वाली Shayari
           </p>
 
         </div>
 
       </div>
-
 
       <div
         id="attitudeContainer"
@@ -636,13 +747,12 @@
     </section>
 
 
-    <!-- ===================================================
-         FRIENDSHIP SHAYARI
-    ==================================================== -->
+    <!-- FRIENDSHIP -->
 
     <section
       id="friendship"
-      class="section"
+      class="section content-section"
+      data-category="Friendship"
     >
 
       <div class="section-heading">
@@ -653,18 +763,21 @@
 
         <div>
 
+          <span class="eyebrow">
+            ARS SHAYARI
+          </span>
+
           <h2>
             Friendship Shayari
           </h2>
 
           <p>
-            दोस्ती के नाम कुछ खास अल्फ़ाज़
+            सच्ची दोस्ती के खूबसूरत एहसास
           </p>
 
         </div>
 
       </div>
-
 
       <div
         id="friendshipContainer"
@@ -674,13 +787,12 @@
     </section>
 
 
-    <!-- ===================================================
-         MOTIVATION SHAYARI
-    ==================================================== -->
+    <!-- MOTIVATION -->
 
     <section
       id="motivation"
-      class="section"
+      class="section content-section"
+      data-category="Motivation"
     >
 
       <div class="section-heading">
@@ -691,18 +803,21 @@
 
         <div>
 
+          <span class="eyebrow">
+            ARS SHAYARI
+          </span>
+
           <h2>
             Motivation Shayari
           </h2>
 
           <p>
-            हौसला, मेहनत और जीत
+            मेहनत, संघर्ष और सफलता की प्रेरणा
           </p>
 
         </div>
 
       </div>
-
 
       <div
         id="motivationContainer"
@@ -714,11 +829,11 @@
 
     <!-- ===================================================
          FAVOURITE
-    ==================================================== -->
+         =================================================== -->
 
     <section
       id="favorite"
-      class="section"
+      class="section content-section"
     >
 
       <div class="section-heading">
@@ -729,87 +844,76 @@
 
         <div>
 
+          <span class="eyebrow">
+            YOUR COLLECTION
+          </span>
+
           <h2>
             Favourite Shayari
           </h2>
 
           <p>
-            आपकी पसंद की शायरियाँ एक जगह
+            आपकी पसंद की Shayari यहाँ दिखाई देंगी
           </p>
 
         </div>
 
       </div>
 
-
-      <div class="story-stats">
-
-        <div>
-
-          <strong id="favoriteCount">
-            0
-          </strong>
-
-          <span>
-            ⭐ Favourite
-          </span>
-
-        </div>
-
-
-        <div>
-
-          <strong id="favoriteLikes">
-            0
-          </strong>
-
-          <span>
-            ❤️ Total Likes
-          </span>
-
-        </div>
-
-      </div>
-
-
       <div
-        id="favoriteList"
+        id="favoriteContainer"
         class="cards"
       ></div>
+
+      <div
+        id="favoriteEmpty"
+        class="empty-state"
+      >
+
+        <div class="empty-icon">
+          ⭐
+        </div>
+
+        <h3>
+          अभी कोई Favourite नहीं है
+        </h3>
+
+        <p>
+          किसी Shayari पर ⭐ दबाकर उसे Favourite में जोड़ें।
+        </p>
+
+      </div>
 
     </section>
 
 
     <!-- ===================================================
-         STORY & POETRY
-         
-         NOTE:
-         LOVE CATEGORY INTENTIONALLY REMOVED
-    ==================================================== -->
+         STORIES & POETRY
+         =================================================== -->
 
     <section
       id="story"
-      class="section story-section"
+      class="section content-section story-section"
     >
 
       <div class="section-heading">
 
         <span class="section-icon">
-          📖
+          📚
         </span>
 
         <div>
 
           <span class="eyebrow">
-            ORIGINAL WRITINGS
+            ARS STORIES & POETRY
           </span>
 
           <h2>
-            Story & Poetry
+            Stories & Poetry
           </h2>
 
           <p>
-            Original Stories, Poems और लिखी हुई रचनाओं का संग्रह
+            Original Stories, Poems और Creative Writing
           </p>
 
         </div>
@@ -817,123 +921,63 @@
       </div>
 
 
-      <!-- STORY STATISTICS -->
+      <!-- STORY FILTER -->
 
-      <div class="story-stats">
+      <div class="story-controls">
 
-        <div>
+        <label
+          for="storyCategory"
+          class="sr-only"
+        >
+          Story Category
+        </label>
 
-          <strong id="storyCount">
-            0
-          </strong>
+        <select
+          id="storyCategory"
+          class="category-select"
+        >
 
-          <span>
-            📚 Stories
-          </span>
+          <option value="All">
+            📚 All
+          </option>
 
-        </div>
+          <option value="Motivation">
+            💪 Motivation
+          </option>
 
+          <option value="Friendship">
+            🤝 Friendship
+          </option>
 
-        <div>
+          <option value="Horror">
+            👻 Horror
+          </option>
 
-          <strong id="poemCount">
-            0
-          </strong>
+          <option value="Funny">
+            😂 Funny
+          </option>
 
-          <span>
-            ✍️ Poems
-          </span>
+          <option value="Biography">
+            👤 Biography
+          </option>
 
-        </div>
+          <option value="Reallife">
+            🌍 Real Life
+          </option>
 
+          <option value="Moral">
+            🎭 Moral
+          </option>
 
-        <div>
+          <option value="Mystery">
+            🕵️ Mystery
+          </option>
 
-          <strong id="storyViews">
-            0
-          </strong>
+          <option value="Poem">
+            ✍️ Poetry
+          </option>
 
-          <span>
-            👁️ Views
-          </span>
-
-        </div>
-
-      </div>
-
-
-      <!-- STORY SEARCH -->
-
-      <div class="story-tools">
-
-        <div class="story-search-box">
-
-          <span class="search-icon">
-            🔎
-          </span>
-
-          <input
-            type="search"
-            id="storySearch"
-            placeholder="Story / Poem Search..."
-            autocomplete="off"
-          >
-
-        </div>
-
-
-        <!-- STORY FILTER -->
-
-        <div class="story-filter-box">
-
-          <select
-            id="storyFilter"
-            aria-label="Story category filter"
-          >
-
-            <option value="All">
-              📚 All
-            </option>
-
-            <option value="Motivation">
-              💪 Motivation
-            </option>
-
-            <option value="Friendship">
-              🤝 Friendship
-            </option>
-
-            <option value="Horror">
-              👻 Horror
-            </option>
-
-            <option value="Funny">
-              😂 Funny
-            </option>
-
-            <option value="Biography">
-              👤 Biography
-            </option>
-
-            <option value="Reallife">
-              🌍 Real Life
-            </option>
-
-            <option value="Moral">
-              🎭 Moral
-            </option>
-
-            <option value="Mystery">
-              🕵️ Mystery
-            </option>
-
-            <option value="Poem">
-              ✍️ Poem
-            </option>
-
-          </select>
-
-        </div>
+        </select>
 
       </div>
 
@@ -954,8 +998,216 @@
 
 
     <!-- ===================================================
+         LATEST PUBLISHED
+         =================================================== -->
+
+    <section
+      id="published"
+      class="section content-section"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-icon">
+          🆕
+        </span>
+
+        <div>
+
+          <span class="eyebrow">
+            ARS LATEST
+          </span>
+
+          <h2>
+            Latest Published
+          </h2>
+
+          <p>
+            Admin द्वारा publish की गई नई रचनाएँ
+          </p>
+
+        </div>
+
+      </div>
+
+      <div
+        id="publishedContainer"
+        class="cards"
+      ></div>
+
+    </section>
+
+
+    <!-- ===================================================
+         QR CODE
+         =================================================== -->
+
+    <section
+      id="qr"
+      class="section qr-section"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-icon">
+          📱
+        </span>
+
+        <div>
+
+          <span class="eyebrow">
+            SHARE ARS
+          </span>
+
+          <h2>
+            Website QR Code
+          </h2>
+
+          <p>
+            ARS Official Website को आसानी से Share करें
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="qr-card">
+
+        <div
+          id="qrcode"
+          class="qr-box"
+          aria-label="Website QR Code"
+        ></div>
+
+        <div class="qr-content">
+
+          <h3>
+            🌹 Adarsh Raj Shayar
+          </h3>
+
+          <p>
+            इस QR Code को Scan करके Official Website खोलें।
+          </p>
+
+          <div class="qr-actions">
+
+            <button
+              id="generateQRBtn"
+              class="gold-btn"
+              type="button"
+            >
+              🔄 Generate QR
+            </button>
+
+            <button
+              id="downloadQRBtn"
+              class="outline-btn"
+              type="button"
+            >
+              ⬇️ Download QR
+            </button>
+
+            <button
+              id="copyWebsiteBtn"
+              class="secondary-btn"
+              type="button"
+            >
+              🔗 Copy Website Link
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         CERTIFICATE
+         =================================================== -->
+
+    <section
+      id="certificate"
+      class="section certificate-section"
+    >
+
+      <div class="section-heading">
+
+        <span class="section-icon">
+          🏆
+        </span>
+
+        <div>
+
+          <span class="eyebrow">
+            ARS OFFICIAL SYSTEM
+          </span>
+
+          <h2>
+            Certificate
+          </h2>
+
+          <p>
+            ARS Certificate Generate और Verify करें
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="certificate-card">
+
+        <div class="certificate-card-icon">
+          🏆
+        </div>
+
+        <div class="certificate-card-content">
+
+          <span class="eyebrow">
+            ARS CERTIFICATE SYSTEM
+          </span>
+
+          <h2>
+            Official Certificate
+          </h2>
+
+          <p>
+            Professional, Business, Achievement और
+            Participation Certificate generate करें।
+          </p>
+
+          <div class="certificate-buttons">
+
+            <a
+              href="certificate.html"
+              class="gold-btn"
+            >
+              📜 Generate Certificate
+            </a>
+
+            <a
+              href="verify.html"
+              class="outline-btn"
+            >
+              🔎 Verify Certificate
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
          ARS JOINING
-    ==================================================== -->
+         =================================================== -->
 
     <section
       id="joining"
@@ -979,7 +1231,7 @@
           </h2>
 
           <p>
-            Adarsh Raj Shayar के साथ जुड़ने के लिए Joining Form भरें
+            Adarsh Raj Shayar के साथ जुड़ें
           </p>
 
         </div>
@@ -989,25 +1241,24 @@
 
       <div class="joining-card">
 
-
         <div class="joining-intro">
 
           <div class="joining-icon">
-            🌹
+            🤝
           </div>
 
-          <h3>
-            Join Adarsh Raj Shayar
-          </h3>
+          <h2>
+            ARS Team का हिस्सा बनें
+          </h2>
 
           <p>
-            ARS Community से जुड़ें और अपने creative journey का हिस्सा बनें।
+            Writer, Author, Poet, Content Creator,
+            Volunteer या Team Member के रूप में
+            Joining Application भेज सकते हैं।
           </p>
 
         </div>
 
-
-        <!-- JOINING FORM -->
 
         <form
           id="joiningForm"
@@ -1015,310 +1266,141 @@
           novalidate
         >
 
-
           <div class="form-grid">
 
+            <div class="form-group">
 
-            <label>
-
-              <span>
-                Full Name
-              </span>
+              <label for="joiningName">
+                👤 Name
+              </label>
 
               <input
                 type="text"
                 id="joiningName"
                 name="name"
-                placeholder="Enter your full name"
+                placeholder="अपना नाम लिखें"
                 autocomplete="name"
                 required
               >
 
-            </label>
+            </div>
 
 
-            <label>
+            <div class="form-group">
 
-              <span>
-                Email
-              </span>
+              <label for="joiningEmail">
+                📧 Email
+              </label>
 
               <input
                 type="email"
                 id="joiningEmail"
                 name="email"
-                placeholder="Enter your email"
+                placeholder="अपना email लिखें"
                 autocomplete="email"
                 required
               >
 
-            </label>
+            </div>
 
 
-          </div>
+            <div class="form-group">
 
-
-          <div class="form-grid">
-
-
-            <label>
-
-              <span>
-                Mobile Number
-              </span>
+              <label for="joiningMobile">
+                📱 Mobile
+              </label>
 
               <input
                 type="tel"
                 id="joiningMobile"
                 name="mobile"
-                placeholder="Enter mobile number"
+                placeholder="Mobile number"
                 autocomplete="tel"
-                inputmode="numeric"
               >
 
-            </label>
+            </div>
 
 
-            <label>
+            <div class="form-group">
 
-              <span>
-                Joining Type
-              </span>
+              <label for="joiningRole">
+                🎯 Role
+              </label>
 
               <select
-                id="joiningType"
-                name="joiningType"
+                id="joiningRole"
+                name="role"
                 required
               >
 
                 <option value="">
-                  Select Joining Type
-                </option>
-
-                <option value="Member">
-                  🤝 ARS Member
+                  Select Role
                 </option>
 
                 <option value="Writer">
                   ✍️ Writer
                 </option>
 
+                <option value="Author">
+                  📚 Author
+                </option>
+
                 <option value="Poet">
                   📝 Poet
                 </option>
 
-                <option value="Creator">
-                  🎨 Creator
+                <option value="Content Creator">
+                  🎨 Content Creator
                 </option>
 
                 <option value="Volunteer">
-                  🙌 Volunteer
+                  🙋 Volunteer
+                </option>
+
+                <option value="Team Member">
+                  👥 Team Member
                 </option>
 
               </select>
 
-            </label>
-
+            </div>
 
           </div>
 
 
-          <label>
+          <div class="form-group">
 
-            <span>
-              Message / Introduction
-            </span>
+            <label for="joiningMessage">
+              💬 Message
+            </label>
 
             <textarea
               id="joiningMessage"
               name="message"
-              rows="6"
-              placeholder="अपने बारे में या ARS से जुड़ने का कारण लिखें..."
+              rows="5"
+              placeholder="अपने बारे में या Joining के बारे में लिखें..."
+              required
             ></textarea>
 
-          </label>
-
-
-          <!-- CONSENT -->
-
-          <label class="consent-label">
-
-            <input
-              type="checkbox"
-              id="joiningConsent"
-              name="consent"
-              required
-            >
-
-            <span>
-              मैं ARS Joining Form में दी गई जानकारी को submit करने के लिए सहमत हूँ।
-            </span>
-
-          </label>
-
-
-          <div class="form-actions">
-
-            <button
-              id="joiningSubmitBtn"
-              type="submit"
-              class="gold-btn"
-            >
-              🤝 Join ARS
-            </button>
-
-
-            <button
-              id="joiningResetBtn"
-              type="reset"
-              class="secondary-btn"
-            >
-              🔄 Reset
-            </button>
-
-
-            <span
-              id="joiningStatus"
-              class="form-status"
-              aria-live="polite"
-            ></span>
-
           </div>
 
 
-        </form>
-
-
-        <!-- JOINING RESULT -->
-
-        <div
-          id="joiningResult"
-          class="joining-result"
-          hidden
-        >
-
-          <div class="success-icon">
-            ✅
-          </div>
-
-          <h3>
-            ARS Joining Request Submitted
-          </h3>
-
-          <p>
-            आपका joining request successfully submit हो गया है।
-          </p>
-
-          <p>
-            Joining ID:
-            <strong id="joiningId">
-              ARS-JOIN-000000
-            </strong>
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         CERTIFICATE
-    ==================================================== -->
-
-    <section
-      id="certificate"
-      class="section certificate-section"
-    >
-
-      <div class="section-heading">
-
-        <span class="section-icon">
-          🏆
-        </span>
-
-        <div>
-
-          <span class="eyebrow">
-            ARS OFFICIAL
-          </span>
-
-          <h2>
-            Certificate
-          </h2>
-
-          <p>
-            ARS की ओर से Certificate Generate और Verify करें
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="certificate-card">
-
-        <div class="certificate-icon">
-          🏆
-        </div>
-
-
-        <span class="eyebrow">
-          ARS CERTIFICATE SYSTEM
-        </span>
-
-
-        <h2>
-          Official Certificate
-        </h2>
-
-
-        <p>
-          अपनी उपलब्धि, participation या अन्य योग्यताओं के लिए
-          ARS Certificate Generate करें।
-        </p>
-
-
-        <div class="certificate-features">
-
-          <span>
-            📜 Certificate Generate
-          </span>
-
-          <span>
-            🔐 Unique Certificate ID
-          </span>
-
-          <span>
-            📱 QR Verification
-          </span>
-
-          <span>
-            ✅ Certificate Verify
-          </span>
-
-        </div>
-
-
-        <div class="certificate-actions">
-
-          <a
-            href="certificate.html"
+          <button
+            type="submit"
+            id="joiningSubmitBtn"
             class="gold-btn"
           >
-            📜 Generate Certificate
-          </a>
+            🚀 Submit Joining Application
+          </button>
 
 
-          <a
-            href="verify.html"
-            class="secondary-btn"
-          >
-            🔎 Verify Certificate
-          </a>
+          <p
+            id="joiningMessageBox"
+            class="form-message"
+            aria-live="polite"
+          ></p>
 
-        </div>
+        </form>
 
       </div>
 
@@ -1327,7 +1409,7 @@
 
     <!-- ===================================================
          FOUNDER
-    ==================================================== -->
+         =================================================== -->
 
     <section
       id="about"
@@ -1343,11 +1425,11 @@
         <div>
 
           <span class="eyebrow">
-            ABOUT THE CREATOR
+            ABOUT ARS
           </span>
 
           <h2>
-            Founder
+            Founder & Author
           </h2>
 
           <p>
@@ -1361,15 +1443,13 @@
 
       <div class="founder-box">
 
-
         <div class="founder-photo-wrap">
 
           <img
-            src="photo.jpg1.jpeg"
+            src="photo.jpg"
+            alt="Adarsh Raj"
             class="founder-photo"
             loading="lazy"
-            decoding="async"
-            alt="Founder Adarsh Raj"
           >
 
         </div>
@@ -1381,40 +1461,42 @@
             FOUNDER & AUTHOR
           </span>
 
-
-          <h3>
+          <h2>
             Adarsh Raj
-          </h3>
-
+          </h2>
 
           <p class="founder-role">
-            Founder • Writer • Author
+            Founder • Author • Creator
           </p>
 
-
-          <p class="founder-description">
-            “मेरी कोशिश है कि हर शब्द सीधे दिल तक पहुँचे
-            और हर रचना किसी के दिल में अपनी जगह बनाए।”
+          <p>
+            Adarsh Raj Shayar एक creative platform है,
+            जहाँ Hindi Shayari, Stories, Poetry और
+            creative content को एक साथ प्रस्तुत किया जाता है।
           </p>
 
+          <p>
+            इस platform का उद्देश्य शब्दों और भावनाओं
+            को एक सुंदर digital experience के रूप में
+            लोगों तक पहुँचाना है।
+          </p>
 
-          <div class="founder-tags">
+          <div class="founder-actions">
 
-            <span>
-              ✍️ Writer
-            </span>
+            <a
+              href="#contact"
+              class="gold-btn"
+            >
+              📩 Contact
+            </a>
 
-            <span>
-              🌹 Shayari
-            </span>
-
-            <span>
-              📖 Story & Poetry
-            </span>
-
-            <span>
-              💡 Creative Writing
-            </span>
+            <button
+              id="copyWebsiteBtnFounder"
+              class="outline-btn"
+              type="button"
+            >
+              🔗 Website Share करें
+            </button>
 
           </div>
 
@@ -1427,7 +1509,7 @@
 
     <!-- ===================================================
          CONTACT
-    ==================================================== -->
+         =================================================== -->
 
     <section
       id="contact"
@@ -1451,7 +1533,7 @@
           </h2>
 
           <p>
-            कोई सुझाव, feedback या message भेजें
+            ARS से संपर्क करें
           </p>
 
         </div>
@@ -1459,119 +1541,188 @@
       </div>
 
 
-      <div class="contact-form-wrap">
+      <div class="contact-grid">
+
+
+        <!-- CONTACT INFO -->
+
+        <div class="contact-info-card">
+
+          <span class="eyebrow">
+            ARS OFFICIAL
+          </span>
+
+          <h2>
+            हमसे संपर्क करें
+          </h2>
+
+          <p>
+            किसी सुझाव, सहयोग, feedback या अन्य
+            जानकारी के लिए message भेजें।
+          </p>
+
+
+          <div class="contact-info-list">
+
+            <div class="contact-info-item">
+
+              <span>
+                🌹
+              </span>
+
+              <div>
+
+                <strong>
+                  Website
+                </strong>
+
+                <p>
+                  Adarsh Raj Shayar Official
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="contact-info-item">
+
+              <span>
+                ✍️
+              </span>
+
+              <div>
+
+                <strong>
+                  Founder
+                </strong>
+
+                <p>
+                  Adarsh Raj
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="contact-info-item">
+
+              <span>
+                📚
+              </span>
+
+              <div>
+
+                <strong>
+                  Content
+                </strong>
+
+                <p>
+                  Shayari • Stories • Poetry
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONTACT FORM -->
 
         <form
-          id="contact-form"
+          id="contactForm"
           class="contact-form"
           novalidate
         >
 
+          <div class="form-group">
 
-          <div class="form-grid">
-
-
-            <label>
-
-              <span>
-                Your Name
-              </span>
-
-              <input
-                type="text"
-                name="name"
-                id="contactName"
-                placeholder="Enter your name"
-                autocomplete="name"
-                required
-              >
-
+            <label for="contactName">
+              👤 Name
             </label>
 
-
-            <label>
-
-              <span>
-                Your Email
-              </span>
-
-              <input
-                type="email"
-                name="email"
-                id="contactEmail"
-                placeholder="Enter your email"
-                autocomplete="email"
-                required
-              >
-
-            </label>
-
+            <input
+              type="text"
+              id="contactName"
+              name="name"
+              placeholder="आपका नाम"
+              autocomplete="name"
+              required
+            >
 
           </div>
 
 
-          <label>
+          <div class="form-group">
 
-            <span>
-              Subject
-            </span>
+            <label for="contactEmail">
+              📧 Email
+            </label>
+
+            <input
+              type="email"
+              id="contactEmail"
+              name="email"
+              placeholder="आपका Email"
+              autocomplete="email"
+              required
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="contactSubject">
+              📝 Subject
+            </label>
 
             <input
               type="text"
-              name="subject"
               id="contactSubject"
+              name="subject"
               placeholder="Message Subject"
               required
             >
 
-          </label>
+          </div>
 
 
-          <label>
+          <div class="form-group">
 
-            <span>
-              Message
-            </span>
+            <label for="contactMessage">
+              💬 Message
+            </label>
 
             <textarea
-              name="message"
               id="contactMessage"
-              placeholder="Write your message..."
-              rows="7"
+              name="message"
+              rows="6"
+              placeholder="अपना message लिखें..."
               required
             ></textarea>
 
-          </label>
-
-
-          <div class="form-actions">
-
-            <button
-              id="contactSubmitBtn"
-              type="submit"
-              class="gold-btn"
-            >
-              📨 Send Message
-            </button>
-
-
-            <button
-              id="contactResetBtn"
-              type="reset"
-              class="secondary-btn"
-            >
-              🔄 Reset
-            </button>
-
-
-            <span
-              id="contactStatus"
-              class="form-status"
-              aria-live="polite"
-            ></span>
-
           </div>
 
+
+          <button
+            type="submit"
+            id="contactSubmitBtn"
+            class="gold-btn"
+          >
+            📩 Send Message
+          </button>
+
+
+          <p
+            id="contactMessageBox"
+            class="form-message"
+            aria-live="polite"
+          ></p>
 
         </form>
 
@@ -1581,145 +1732,8 @@
 
 
     <!-- ===================================================
-         QR CODE
-    ==================================================== -->
-
-    <section
-      id="qr-section"
-      class="section qr-section"
-    >
-
-      <div class="section-heading">
-
-        <span class="section-icon">
-          📱
-        </span>
-
-        <div>
-
-          <span class="eyebrow">
-            QUICK ACCESS
-          </span>
-
-          <h2>
-            Scan & Visit
-          </h2>
-
-          <p>
-            QR Code scan करके website खोलें
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div class="qr-card">
-
-
-        <div
-          id="qrCode"
-          class="qr-code-box"
-          aria-label="Website QR Code"
-        ></div>
-
-
-        <p class="muted">
-          अपने मोबाइल से QR Code scan करके
-          Adarsh Raj Shayar की website खोलें।
-        </p>
-
-
-        <div class="qrButtons">
-
-
-          <button
-            id="generateQRBtn"
-            class="gold-btn"
-            type="button"
-          >
-            🔄 Generate QR
-          </button>
-
-
-          <button
-            id="downloadQRBtn"
-            class="secondary-btn"
-            type="button"
-          >
-            📥 Download QR
-          </button>
-
-
-          <button
-            id="copyWebsiteBtn"
-            class="secondary-btn"
-            type="button"
-          >
-            🔗 Copy Website Link
-          </button>
-
-
-          <button
-            id="customQRBtn"
-            class="secondary-btn"
-            type="button"
-          >
-            🔗 Custom URL QR
-          </button>
-
-        </div>
-
-
-        <div
-          id="customQRBox"
-          class="custom-qr-box"
-          hidden
-        >
-
-
-          <input
-            id="customQRInput"
-            type="url"
-            placeholder="https://example.com"
-            autocomplete="url"
-          >
-
-
-          <button
-            id="customQRGenerate"
-            class="gold-btn"
-            type="button"
-          >
-            🚀 Generate Custom QR
-          </button>
-
-
-          <button
-            id="customQRClear"
-            class="secondary-btn"
-            type="button"
-          >
-            ❌ Clear
-          </button>
-
-
-          <p
-            id="customQRStatus"
-            class="form-status"
-            aria-live="polite"
-          ></p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         ADMIN PUBLISHER
-    ==================================================== -->
+         ADMIN PANEL
+         =================================================== -->
 
     <section
       id="admin"
@@ -1729,21 +1743,21 @@
       <div class="section-heading">
 
         <span class="section-icon">
-          🔐
+          ⚙️
         </span>
 
         <div>
 
           <span class="eyebrow">
-            PRIVATE CONTROL PANEL
+            ARS MANAGEMENT
           </span>
 
           <h2>
-            Admin Publisher
+            Admin Panel
           </h2>
 
           <p>
-            केवल website owner के लिए publishing panel
+            Website content manage करने के लिए Admin Area
           </p>
 
         </div>
@@ -1751,561 +1765,420 @@
       </div>
 
 
-      <div class="admin-card">
+      <!-- LOGIN -->
+
+      <div
+        id="adminLoginBox"
+        class="admin-card"
+      >
+
+        <h3>
+          🔐 Admin Login
+        </h3>
+
+        <p>
+          Admin panel access करने के लिए password डालें।
+        </p>
+
+        <div class="admin-login-row">
+
+          <input
+            type="password"
+            id="adminPassword"
+            placeholder="Admin Password"
+            autocomplete="current-password"
+          >
+
+          <button
+            id="adminLoginBtn"
+            class="gold-btn"
+            type="button"
+          >
+            🔓 Login
+          </button>
+
+        </div>
+
+        <p
+          id="adminLoginMessage"
+          class="form-message"
+          aria-live="polite"
+        ></p>
+
+      </div>
 
 
-        <!-- ADMIN LOGIN -->
+      <!-- ADMIN DASHBOARD -->
 
-        <div id="adminLogin">
+      <div
+        id="adminDashboard"
+        class="admin-dashboard hidden"
+      >
 
-          <div class="admin-lock-icon">
-            🔒
+        <div class="admin-dashboard-header">
+
+          <div>
+
+            <span class="eyebrow">
+              ARS ADMIN
+            </span>
+
+            <h2>
+              Dashboard
+            </h2>
+
+          </div>
+
+          <button
+            id="adminLogoutBtn"
+            class="danger-btn"
+            type="button"
+          >
+            🚪 Logout
+          </button>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="admin-stats">
+
+          <div class="admin-stat">
+
+            <span>
+              📖
+            </span>
+
+            <strong id="adminTotalShayari">
+              0
+            </strong>
+
+            <small>
+              Shayari
+            </small>
+
           </div>
 
 
-          <span class="eyebrow">
-            ADMIN ACCESS
-          </span>
+          <div class="admin-stat">
+
+            <span>
+              📚
+            </span>
+
+            <strong id="adminTotalStories">
+              0
+            </strong>
+
+            <small>
+              Stories
+            </small>
+
+          </div>
 
 
-          <h3>
-            Admin Login
-          </h3>
+          <div class="admin-stat">
+
+            <span>
+              🏆
+            </span>
+
+            <strong id="adminTotalCertificates">
+              0
+            </strong>
+
+            <small>
+              Certificates
+            </small>
+
+          </div>
 
 
-          <p class="muted">
-            Shayari और Story publish, edit और delete करने के लिए login करें।
-          </p>
+          <div class="admin-stat">
+
+            <span>
+              🤝
+            </span>
+
+            <strong id="adminTotalJoining">
+              0
+            </strong>
+
+            <small>
+              Joining
+            </small>
+
+          </div>
+
+        </div>
 
 
-          <div class="admin-login-row">
+        <!-- ADMIN CONTENT -->
 
-            <input
-              type="password"
-              id="adminPassword"
-              placeholder="Enter Admin Password"
-              autocomplete="current-password"
-            >
+        <div class="admin-content-grid">
+
+
+          <!-- ADD SHAYARI -->
+
+          <div class="admin-card">
+
+            <h3>
+              ✍️ Publish Shayari
+            </h3>
+
+            <div class="form-group">
+
+              <label for="adminShayariTitle">
+                Title
+              </label>
+
+              <input
+                type="text"
+                id="adminShayariTitle"
+                placeholder="Shayari Title"
+              >
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="adminShayariCategory">
+                Category
+              </label>
+
+              <select
+                id="adminShayariCategory"
+              >
+
+                <option value="Love">
+                  ❤️ Love
+                </option>
+
+                <option value="Sad">
+                  💔 Sad
+                </option>
+
+                <option value="Attitude">
+                  🔥 Attitude
+                </option>
+
+                <option value="Friendship">
+                  🤝 Friendship
+                </option>
+
+                <option value="Motivation">
+                  💪 Motivation
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="adminShayariText">
+                Shayari
+              </label>
+
+              <textarea
+                id="adminShayariText"
+                rows="6"
+                placeholder="अपनी Shayari लिखें..."
+              ></textarea>
+
+            </div>
 
 
             <button
-              id="loginBtn"
+              id="publishShayariBtn"
               class="gold-btn"
               type="button"
             >
-              🔓 Login
+              🚀 Publish Shayari
             </button>
 
           </div>
 
 
-          <p
-            id="adminStatus"
-            class="form-status"
-            aria-live="polite"
-          ></p>
+          <!-- ADD STORY -->
 
-        </div>
+          <div class="admin-card">
+
+            <h3>
+              📚 Publish Story / Poetry
+            </h3>
+
+            <div class="form-group">
+
+              <label for="adminStoryTitle">
+                Title
+              </label>
+
+              <input
+                type="text"
+                id="adminStoryTitle"
+                placeholder="Story / Poem Title"
+              >
+
+            </div>
 
 
-        <!-- ADMIN PANEL -->
+            <div class="form-group">
 
-        <div
-          id="publisherPanel"
-          hidden
-        >
+              <label for="adminStoryCategory">
+                Category
+              </label>
+
+              <select
+                id="adminStoryCategory"
+              >
+
+                <option value="Motivation">
+                  💪 Motivation
+                </option>
+
+                <option value="Friendship">
+                  🤝 Friendship
+                </option>
+
+                <option value="Horror">
+                  👻 Horror
+                </option>
+
+                <option value="Funny">
+                  😂 Funny
+                </option>
+
+                <option value="Biography">
+                  👤 Biography
+                </option>
+
+                <option value="Reallife">
+                  🌍 Real Life
+                </option>
+
+                <option value="Moral">
+                  🎭 Moral
+                </option>
+
+                <option value="Mystery">
+                  🕵️ Mystery
+                </option>
+
+                <option value="Poem">
+                  ✍️ Poetry
+                </option>
+
+              </select>
+
+            </div>
 
 
-          <!-- PANEL HEADER -->
+            <div class="form-group">
 
-          <div class="admin-panel-header">
+              <label for="adminStoryText">
+                Story / Poetry
+              </label>
 
-            <div>
-
-              <span class="eyebrow">
-                CONTROL PANEL
-              </span>
-
-              <h3>
-                🌹 Welcome, Adarsh Raj
-              </h3>
+              <textarea
+                id="adminStoryText"
+                rows="6"
+                placeholder="अपनी Story या Poetry लिखें..."
+              ></textarea>
 
             </div>
 
 
             <button
-              id="logoutBtn"
-              class="secondary-btn"
+              id="publishStoryBtn"
+              class="gold-btn"
               type="button"
             >
-              🚪 Logout
+              🚀 Publish Story
             </button>
 
           </div>
 
-
-          <!-- ADMIN STATISTICS -->
-
-          <div class="stats-grid">
+        </div>
 
 
-            <div class="stat-card">
+        <!-- ADMIN HISTORY -->
 
-              <strong id="totalShayari">
-                0
-              </strong>
+        <div class="admin-history">
 
-              <span>
-                📖 Shayari
-              </span>
+          <h3>
+            📊 Content History
+          </h3>
 
-            </div>
+          <div class="history-grid">
 
+            <div>
 
-            <div class="stat-card">
+              <h4>
+                📖 Shayari History
+              </h4>
 
-              <strong id="totalStories">
-                0
-              </strong>
-
-              <span>
-                📚 Stories
-              </span>
+              <div
+                id="adminShayariList"
+                class="admin-list"
+              ></div>
 
             </div>
 
 
-            <div class="stat-card">
-
-              <strong id="totalFavourite">
-                0
-              </strong>
-
-              <span>
-                ⭐ Favourite
-              </span>
-
-            </div>
-
-
-            <div class="stat-card">
-
-              <strong id="totalLikes">
-                0
-              </strong>
-
-              <span>
-                ❤️ Likes
-              </span>
-
-            </div>
-
-
-          </div>
-
-
-          <!-- PUBLISHER GRID -->
-
-          <div class="publisher-grid">
-
-
-            <!-- SHAYARI MANAGER -->
-
-            <div class="publisher-block">
-
-              <span class="eyebrow">
-                SHAYARI MANAGER
-              </span>
-
-
-              <h3>
-                ✍️ Publish Shayari
-              </h3>
-
-
-              <label>
-
-                <span>
-                  Title
-                </span>
-
-                <input
-                  type="text"
-                  id="pubTitle"
-                  placeholder="Shayari Title"
-                >
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Category
-                </span>
-
-                <select id="pubCategory">
-
-                  <option value="Love">
-                    ❤️ Love
-                  </option>
-
-                  <option value="Sad">
-                    💔 Sad
-                  </option>
-
-                  <option value="Attitude">
-                    🔥 Attitude
-                  </option>
-
-                  <option value="Friendship">
-                    🤝 Friendship
-                  </option>
-
-                  <option value="Motivation">
-                    💪 Motivation
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Shayari
-                </span>
-
-                <textarea
-                  id="pubText"
-                  placeholder="अपनी Shayari यहाँ लिखें..."
-                  rows="8"
-                ></textarea>
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Original Author
-                </span>
-
-                <input
-                  type="text"
-                  id="pubAuthor"
-                  placeholder="Original Author"
-                  value="Adarsh Raj"
-                >
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Published By
-                </span>
-
-                <input
-                  type="text"
-                  id="pubPublisher"
-                  placeholder="Published By"
-                  value="Adarsh Raj"
-                >
-
-              </label>
-
-
-              <div class="publisher-actions">
-
-                <button
-                  id="publishBtn"
-                  class="gold-btn"
-                  type="button"
-                >
-                  🚀 Publish Shayari
-                </button>
-
-
-                <button
-                  id="cancelShayariEdit"
-                  class="secondary-btn"
-                  type="button"
-                  hidden
-                >
-                  ✕ Cancel Edit
-                </button>
-
-              </div>
-
-
-              <p
-                id="shayariPublishStatus"
-                class="form-status"
-                aria-live="polite"
-              ></p>
-
-            </div>
-
-
-            <!-- STORY MANAGER -->
-
-            <div class="publisher-block">
-
-              <span class="eyebrow">
-                STORY MANAGER
-              </span>
-
-
-              <h3>
-                📖 Publish Story / Poem
-              </h3>
-
-
-              <label>
-
-                <span>
-                  Title
-                </span>
-
-                <input
-                  type="text"
-                  id="storyTitle"
-                  placeholder="Story / Poem Title"
-                >
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Category
-                </span>
-
-                <select id="storyCategory">
-
-                  <!-- LOVE INTENTIONALLY NOT INCLUDED -->
-
-                  <option value="Motivation">
-                    💪 Motivation Story
-                  </option>
-
-                  <option value="Friendship">
-                    🤝 Friendship Story
-                  </option>
-
-                  <option value="Horror">
-                    👻 Horror Story
-                  </option>
-
-                  <option value="Funny">
-                    😂 Funny Story
-                  </option>
-
-                  <option value="Biography">
-                    👤 Biography
-                  </option>
-
-                  <option value="Reallife">
-                    🌍 Real Life Story
-                  </option>
-
-                  <option value="Moral">
-                    🎭 Moral Story
-                  </option>
-
-                  <option value="Mystery">
-                    🕵️ Mystery Story
-                  </option>
-
-                  <option value="Poem">
-                    ✍️ Poem
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Story / Poem
-                </span>
-
-                <textarea
-                  id="storyText"
-                  placeholder="Story या Poem यहाँ लिखें..."
-                  rows="10"
-                ></textarea>
-
-              </label>
-
-
-              <label>
-
-                <span>
-                  Original Author
-                </span>
-
-                <input
-                  type="text"
-                  id="storyAuthor"
-                  placeholder="Original Author"
-                  value="Adarsh Raj"
-                >
-
-              </label>
-
-
-              <div class="publisher-actions">
-
-                <button
-                  id="storyPublishBtn"
-                  class="gold-btn"
-                  type="button"
-                >
-                  📚 Publish Story / Poem
-                </button>
-
-
-                <button
-                  id="cancelStoryEdit"
-                  class="secondary-btn"
-                  type="button"
-                  hidden
-                >
-                  ✕ Cancel Edit
-                </button>
-
-              </div>
-
-
-              <p
-                id="storyPublishStatus"
-                class="form-status"
-                aria-live="polite"
-              ></p>
+            <div>
+
+              <h4>
+                📚 Story / Poetry History
+              </h4>
+
+              <div
+                id="adminStoryList"
+                class="admin-list"
+              ></div>
 
             </div>
 
           </div>
 
-
-          <!-- PUBLICATION HISTORY -->
-
-          <div class="admin-history">
-
-            <div class="section-heading compact">
-
-              <span class="section-icon">
-                📜
-              </span>
-
-              <div>
-
-                <span class="eyebrow">
-                  ADMIN HISTORY
-                </span>
-
-                <h2>
-                  Publication History
-                </h2>
-
-                <p>
-                  Published Shayari और Stories को check,
-                  edit और delete करें।
-                </p>
-
-              </div>
-
-            </div>
+        </div>
 
 
-            <div class="history-grid">
+        <!-- CERTIFICATE ADMIN -->
+
+        <div class="admin-card">
+
+          <h3>
+            🏆 Certificate Management
+          </h3>
+
+          <div
+            id="adminCertificateList"
+            class="admin-list"
+          ></div>
+
+        </div>
 
 
-              <div class="history-column">
+        <!-- JOINING APPLICATIONS -->
 
-                <h4>
-                  📖 Shayari History
-                </h4>
+        <div class="admin-card">
 
-                <div
-                  id="adminShayariList"
-                  class="admin-list"
-                ></div>
+          <h3>
+            🤝 Joining Applications
+          </h3>
 
-              </div>
-
-
-              <div class="history-column">
-
-                <h4>
-                  📚 Story / Poem History
-                </h4>
-
-                <div
-                  id="adminStoryList"
-                  class="admin-list"
-                ></div>
-
-              </div>
-
-
-            </div>
-
-          </div>
-
+          <div
+            id="adminJoiningList"
+            class="admin-list"
+          ></div>
 
         </div>
 
       </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         LATEST PUBLISHED
-    ==================================================== -->
-
-    <section
-      id="published"
-      class="section published-section"
-    >
-
-      <div class="section-heading">
-
-        <span class="section-icon">
-          🆕
-        </span>
-
-        <div>
-
-          <span class="eyebrow">
-            LATEST CREATIONS
-          </span>
-
-          <h2>
-            Latest Published Shayari
-          </h2>
-
-          <p>
-            Admin द्वारा publish की गई नई रचनाएँ
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <div
-        id="publishedContainer"
-        class="cards"
-      ></div>
 
     </section>
 
@@ -2313,8 +2186,77 @@
 
 
   <!-- =====================================================
+       STORY READER MODAL
+       ===================================================== -->
+
+  <div
+    id="storyReader"
+    class="modal-overlay hidden"
+    aria-hidden="true"
+  >
+
+    <div
+      class="story-reader"
+      role="dialog"
+      aria-modal="true"
+    >
+
+      <button
+        id="closeStoryReaderBtn"
+        class="modal-close"
+        type="button"
+        aria-label="Close story"
+      >
+        ×
+      </button>
+
+      <span
+        id="readerCategory"
+        class="eyebrow"
+      ></span>
+
+      <h2
+        id="readerTitle"
+      ></h2>
+
+      <p
+        id="readerAuthor"
+        class="reader-author"
+      ></p>
+
+      <div
+        id="readerText"
+        class="reader-text"
+      ></div>
+
+      <div class="reader-actions">
+
+        <button
+          id="readerCopyBtn"
+          class="secondary-btn"
+          type="button"
+        >
+          📋 Copy
+        </button>
+
+        <button
+          id="readerShareBtn"
+          class="secondary-btn"
+          type="button"
+        >
+          📤 Share
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
        BACK TO TOP
-  ====================================================== -->
+       ===================================================== -->
 
   <button
     id="topBtn"
@@ -2328,7 +2270,7 @@
 
   <!-- =====================================================
        TOAST
-  ====================================================== -->
+       ===================================================== -->
 
   <div
     id="toast"
@@ -2340,7 +2282,7 @@
 
   <!-- =====================================================
        FOOTER
-  ====================================================== -->
+       ===================================================== -->
 
   <footer>
 
@@ -2349,13 +2291,53 @@
 
       <div class="footer-brand">
 
-        <strong>
-          🌹 Adarsh Raj Shayar
-        </strong>
+        <img
+          src="logo.png"
+          alt="ARS Logo"
+          class="footer-logo"
+          loading="lazy"
+        >
 
-        <p>
-          दिल से निकली हुई हर रचना आपके लिए।
-        </p>
+        <div>
+
+          <strong>
+            🌹 Adarsh Raj Shayar
+          </strong>
+
+          <p>
+            दिल से निकली हुई हर रचना आपके लिए।
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <a href="#home">
+          Home
+        </a>
+
+        <a href="#love">
+          Love
+        </a>
+
+        <a href="#story">
+          Stories
+        </a>
+
+        <a href="#certificate">
+          Certificate
+        </a>
+
+        <a href="#joining">
+          Join ARS
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
 
       </div>
 
@@ -2375,6 +2357,10 @@
           </strong>
         </p>
 
+        <p class="footer-version">
+          ARS Official Website • Version 3.0
+        </p>
+
       </div>
 
     </div>
@@ -2384,27 +2370,40 @@
 
   <!-- =====================================================
        JAVASCRIPT FILES
-  ====================================================== -->
+       IMPORTANT ORDER
+       ===================================================== -->
 
-  <!-- Website Configuration -->
+  <!-- 1. Central Configuration -->
+
   <script src="config.js"></script>
 
 
-  <!-- Shayari Data -->
+  <!-- 2. Shayari Database -->
+
   <script src="shayari.js"></script>
 
 
-  <!-- QR Code Library -->
+  <!-- 3. Story / Poetry Database -->
+
+  <script src="story.js"></script>
+
+
+  <!-- 4. Certificate System -->
+
+  <script src="certificate.js"></script>
+
+
+  <!-- 5. QR Code Library -->
+
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
   </script>
 
 
-  <!-- Main Website JavaScript -->
+  <!-- 6. Main Website Logic -->
+
   <script src="script.js"></script>
 
 
 </body>
-
 </html>
-```
