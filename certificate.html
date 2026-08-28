@@ -1,574 +1,161 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-  <title>Certificate | Adarsh Raj Shayar</title>
+    <title>ARS Certificate Generator</title>
 
-  <meta
-    name="description"
-    content="ARS Official Certificate Generation and Verification System"
-  >
+    <link rel="icon" href="logo.png">
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="style.css">
 
-  <!-- QR Code Library -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-    defer>
-  </script>
 </head>
 
 <body>
 
-  <!-- =====================================================
-       HEADER
-  ====================================================== -->
+<header class="site-header">
 
-  <header class="site-header">
+    <div class="header-inner">
 
-    <div class="container header-inner">
+        <a href="index.html"
+           class="brand">
 
-      <a
-        href="index.html"
-        class="brand"
-      >
-        <span class="brand-logo">ARS</span>
+            <img src="logo.png"
+                 alt="ARS">
 
-        <span class="brand-text">
-          <strong>Adarsh Raj Shayar</strong>
-          <small>Official Website</small>
-        </span>
-      </a>
+            <div>
+                <strong>ARS</strong>
+                <span>Certificate</span>
+            </div>
 
-
-      <nav class="main-nav">
-
-        <a href="index.html">
-          Home
         </a>
 
-        <a href="index.html#shayari">
-          Shayari
+        <a href="index.html"
+           class="btn btn-outline">
+            ← Home
         </a>
-
-        <a href="index.html#stories">
-          Stories
-        </a>
-
-        <a
-          href="certificate.html"
-          class="active"
-        >
-          Certificate
-        </a>
-
-        <a href="verify.html">
-          Verify
-        </a>
-
-      </nav>
-
-
-      <button
-        class="theme-toggle"
-        data-theme-toggle
-        type="button"
-        aria-label="Toggle theme"
-      >
-        🌙
-      </button>
 
     </div>
 
-  </header>
+</header>
 
 
-  <!-- =====================================================
-       PAGE HERO
-  ====================================================== -->
+<main>
 
-  <main>
+<section class="section">
 
-    <section class="page-hero">
+    <div class="section-heading">
 
-      <div class="container">
-
-        <span class="category-badge">
-          🏆 ARS Certificate System
+        <span class="eyebrow">
+            🏆 ARS Certificate
         </span>
 
-        <h1>
-          Certificate Generation
-        </h1>
+        <h1>Generate Certificate</h1>
 
         <p>
-          Adarsh Raj Shayar के Official Certificate System
-          से अपना certificate generate करें।
+            नीचे अपनी जानकारी भरें।
         </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         CERTIFICATE GENERATOR
-    ==================================================== -->
-
-    <section
-      class="page-section"
-      id="certificate-generator"
-      data-section="certificate-generator"
-    >
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <span>
-            🏆 Generate Certificate
-          </span>
-
-          <h2>
-            Certificate बनाएं
-          </h2>
-
-          <p>
-            नीचे आवश्यक जानकारी भरकर certificate generate करें।
-          </p>
-
-        </div>
-
-
-        <div class="certificate-layout">
-
-          <!-- FORM -->
-
-          <div class="form-card">
-
-            <form
-              id="certificateForm"
-              data-certificate-form
-            >
-
-              <div class="form-group">
-
-                <label for="certificateName">
-                  Certificate Holder Name *
-                </label>
-
-                <input
-                  type="text"
-                  id="certificateName"
-                  name="name"
-                  placeholder="पूरा नाम दर्ज करें"
-                  maxlength="150"
-                  required
-                >
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="certificateType">
-                  Certificate Type *
-                </label>
-
-                <select
-                  id="certificateType"
-                  name="type"
-                  required
-                >
-
-                  <option value="">
-                    Certificate Type चुनें
-                  </option>
-
-                  <option value="Professional">
-                    Professional
-                  </option>
-
-                  <option value="Business">
-                    Business
-                  </option>
-
-                  <option value="Achievement">
-                    Achievement
-                  </option>
-
-                  <option value="Participation">
-                    Participation
-                  </option>
-
-                </select>
-
-              </div>
-
-
-              <!-- BUSINESS DETAILS -->
-
-              <div
-                id="businessFields"
-                class="business-fields"
-                hidden
-              >
-
-                <div class="form-group">
-
-                  <label for="businessName">
-                    Business Name
-                  </label>
-
-                  <input
-                    type="text"
-                    id="businessName"
-                    name="businessName"
-                    placeholder="Business का नाम"
-                    maxlength="200"
-                  >
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label for="ownerName">
-                    Owner / Founder Name
-                  </label>
-
-                  <input
-                    type="text"
-                    id="ownerName"
-                    name="ownerName"
-                    placeholder="Owner / Founder का नाम"
-                    maxlength="150"
-                  >
-
-                </div>
-
-              </div>
-
-
-              <button
-                type="submit"
-                class="primary-btn"
-              >
-                🏆 Generate Certificate
-              </button>
-
-            </form>
-
-          </div>
-
-
-          <!-- INFORMATION -->
-
-          <div class="info-card">
-
-            <h3>
-              📜 Certificate Types
-            </h3>
-
-            <ul>
-
-              <li>
-                <strong>Professional</strong>
-                — Professional contribution
-              </li>
-
-              <li>
-                <strong>Business</strong>
-                — Business recognition
-              </li>
-
-              <li>
-                <strong>Achievement</strong>
-                — Achievement recognition
-              </li>
-
-              <li>
-                <strong>Participation</strong>
-                — Participation certificate
-              </li>
-
-            </ul>
-
-
-            <div class="notice-box">
-
-              <strong>Important</strong>
-
-              <p>
-                Certificate generate होने के बाद उसका
-                Certificate Number और Unique ID सुरक्षित रखें।
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- =================================================
-             GENERATED CERTIFICATE
-        ================================================== -->
-
-        <div
-          id="generatedCertificate"
-          data-generated-certificate
-          class="generated-certificate"
-        >
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         VERIFICATION
-    ==================================================== -->
-
-    <section
-      class="page-section verification-section"
-      id="certificate-verification"
-    >
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <span>
-            🔎 Certificate Verification
-          </span>
-
-          <h2>
-            Certificate Verify करें
-          </h2>
-
-          <p>
-            Certificate Number या Unique Certificate ID
-            डालकर certificate की स्थिति जांचें।
-          </p>
-
-        </div>
-
-
-        <div class="verification-card">
-
-          <form
-            id="verificationForm"
-            data-verification-form
-          >
-
-            <div class="form-group">
-
-              <label for="certificateVerifyInput">
-                Certificate Number / Unique ID
-              </label>
-
-              <input
-                type="text"
-                id="certificateVerifyInput"
-                placeholder="ARS-CERT-2026-0001 या ARSID-XXXXXXXX"
-                autocomplete="off"
-                required
-              >
-
-            </div>
-
-
-            <button
-              type="submit"
-              class="primary-btn"
-            >
-              🔎 Verify Certificate
-            </button>
-
-          </form>
-
-
-          <div
-            id="verificationResult"
-            data-verification-result
-            class="verification-result-container"
-          >
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =====================================================
-       FOOTER
-  ====================================================== -->
-
-  <footer class="site-footer">
-
-    <div class="container">
-
-      <div class="footer-content">
-
-        <div>
-
-          <h3>
-            Adarsh Raj Shayar
-          </h3>
-
-          <p>
-            Official Hindi Shayari & Creative Website
-          </p>
-
-        </div>
-
-
-        <div class="footer-links">
-
-          <a href="index.html">
-            Home
-          </a>
-
-          <a href="certificate.html">
-            Certificate
-          </a>
-
-          <a href="verify.html">
-            Verify
-          </a>
-
-        </div>
-
-      </div>
-
-
-      <div class="footer-bottom">
-
-        ©
-        <span data-current-year>
-          2026
-        </span>
-
-        Adarsh Raj Shayar.
-        All Rights Reserved.
-
-      </div>
 
     </div>
 
-  </footer>
+
+    <form id="certificateForm"
+          class="contact-form"
+          style="max-width:700px;margin:auto;">
+
+        <label>
+            Name
+            <input
+                id="certificateName"
+                type="text"
+                placeholder="Full Name"
+                required>
+        </label>
 
 
-  <!-- =====================================================
-       TOAST
-  ====================================================== -->
+        <label>
+            Certificate Type
 
-  <div
-    id="arsToast"
-    class="ars-toast"
-    aria-live="polite"
-  ></div>
+            <select
+                id="certificateType"
+                required>
 
+                <option value="">
+                    Select Certificate
+                </option>
 
-  <!-- =====================================================
-       JAVASCRIPT
-  ====================================================== -->
+                <option value="Professional">
+                    Professional
+                </option>
 
-  <script src="config.js"></script>
-  <script src="shayari.js"></script>
-  <script src="story.js"></script>
-  <script src="certificate.js"></script>
-  <script src="script.js"></script>
+                <option value="Business">
+                    Business
+                </option>
 
+                <option value="Achievement">
+                    Achievement
+                </option>
 
-  <!-- =====================================================
-       BUSINESS TYPE HANDLER
-  ====================================================== -->
+                <option value="Participation">
+                    Participation
+                </option>
 
-  <script>
+            </select>
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
-
-        const type =
-          document.getElementById(
-            "certificateType"
-          );
-
-        const businessFields =
-          document.getElementById(
-            "businessFields"
-          );
-
-        if (!type || !businessFields) {
-          return;
-        }
+        </label>
 
 
-        function updateBusinessFields() {
+        <div id="businessFields"
+             style="display:none;">
 
-          const isBusiness =
-            type.value === "Business";
+            <label>
+                Business Name
 
-          businessFields.hidden =
-            !isBusiness;
-
-
-          const businessName =
-            document.getElementById(
-              "businessName"
-            );
-
-          const ownerName =
-            document.getElementById(
-              "ownerName"
-            );
+                <input
+                    id="businessName"
+                    type="text"
+                    placeholder="Business Name">
+            </label>
 
 
-          if (businessName) {
+            <label>
+                Owner / Founder Name
 
-            businessName.required =
-              isBusiness;
+                <input
+                    id="ownerName"
+                    type="text"
+                    placeholder="Owner / Founder Name">
+            </label>
 
-          }
-
-
-          if (ownerName) {
-
-            ownerName.required =
-              isBusiness;
-
-          }
-
-        }
+        </div>
 
 
-        type.addEventListener(
-          "change",
-          updateBusinessFields
-        );
+        <button
+            type="submit"
+            class="btn btn-primary">
+
+            Generate Certificate →
+
+        </button>
+
+    </form>
 
 
-        updateBusinessFields();
+    <div id="certificateResult"
+         style="max-width:700px;margin:25px auto;">
+    </div>
 
-      }
-    );
+</section>
 
-  </script>
+</main>
+
+
+<script src="config.js"></script>
+<script src="certificate.js"></script>
 
 </body>
 </html>
-```
