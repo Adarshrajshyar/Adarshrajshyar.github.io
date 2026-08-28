@@ -1,4 +1,3 @@
-```javascript
 /* =========================================================
    ADARSH RAJ SHAYAR
    ARS OFFICIAL SHAYARI DATABASE
@@ -294,10 +293,8 @@ const shayariStats = {
 
 
 /* =========================================================
-   🔎 HELPER FUNCTIONS
+   🔎 FIND SHAYARI BY ID
    ========================================================= */
-
-/* Find Shayari by ID */
 
 function getShayariById(id) {
 
@@ -308,7 +305,9 @@ function getShayariById(id) {
 }
 
 
-/* Get Shayari by Category */
+/* =========================================================
+   📂 GET SHAYARI BY CATEGORY
+   ========================================================= */
 
 function getShayariByCategory(category) {
 
@@ -318,14 +317,16 @@ function getShayariByCategory(category) {
 
   return shayariData.filter(
     item =>
-      item.category.toLowerCase() ===
-      category.toLowerCase()
+      String(item.category).toLowerCase() ===
+      String(category).toLowerCase()
   );
 
 }
 
 
-/* Search Shayari */
+/* =========================================================
+   🔍 SEARCH SHAYARI
+   ========================================================= */
 
 function searchShayari(query) {
 
@@ -368,7 +369,7 @@ function searchShayari(query) {
 
 
 /* =========================================================
-   🌐 GLOBAL ACCESS
+   🌐 GLOBAL ARS SHAYARI API
    ========================================================= */
 
 window.ARS_SHAYARI = {
@@ -424,4 +425,3 @@ console.log(
   "| 💪 Motivation:",
   shayariStats.motivation
 );
-```
