@@ -1,13 +1,7 @@
-```javascript
 /* =========================================================
    ADARSH RAJ SHAYAR
    ARS OFFICIAL STORY & POETRY DATABASE
    Version 2.0
-   =========================================================
-   
-   IMPORTANT:
-   ❤️ Love Story category intentionally removed.
-   Love Shayari remains available in shayari.js.
    ========================================================= */
 
 
@@ -313,8 +307,8 @@ function getStoriesByCategory(category) {
 
   return storyData.filter(
     item =>
-      item.category.toLowerCase() ===
-      category.toLowerCase()
+      String(item.category).toLowerCase() ===
+      String(category).toLowerCase()
   );
 
 }
@@ -448,4 +442,3 @@ console.log(
   "✍️ Poems:",
   storyStats.poems
 );
-```
