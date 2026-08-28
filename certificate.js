@@ -1,452 +1,252 @@
 /* =========================================================
-   ADARSH RAJ SHAYAR
-   ARS OFFICIAL CERTIFICATE SYSTEM
-   Version 2.0
+   ARS CERTIFICATE SYSTEM
    ========================================================= */
 
-
-/* =========================================================
-   ⚙️ CERTIFICATE CONFIGURATION
-   ========================================================= */
-
-const ARS_CERTIFICATE_CONFIG = {
-
-  prefix: "ARS-CERT",
-
-  idPrefix: "ARSID",
-
-  storageKey: "ARS_CERTIFICATES",
-
-  currentYear: new Date().getFullYear(),
-
-  validStatuses: [
-    "Valid",
-    "Revoked",
-    "Expired"
-  ],
-
-  certificateTypes: [
-    "Professional",
-    "Business",
-    "Achievement",
-    "Participation"
-  ]
-
-};
+"use strict";
 
 
-/* =========================================================
-   🗃️ CERTIFICATE DATABASE
-   ========================================================= */
-
-let certificateData = [];
+window.ARS_CERTIFICATES = [];
 
 
-/* =========================================================
-   💾 LOAD CERTIFICATES
-   ========================================================= */
+function getCertificates() {
 
-function loadCertificates() {
+    try {
 
-  try {
+        return JSON.parse(
+            localStorage.getItem(
+                ARS_CONFIG.storage.certificates
+            )
+        ) || [];
 
-    const savedData = localStorage.getItem(
-      ARS_CERTIFICATE_CONFIG.storageKey
-    );
+    } catch {
 
-    if (!savedData) {
-      certificateData = [];
-      return certificateData;
+        return [];
+
     }
-
-    const parsedData = JSON.parse(savedData);
-
-    if (!Array.isArray(parsedData)) {
-      certificateData = [];
-      return certificateData;
-    }
-
-    certificateData = parsedData;
-
-    return certificateData;
-
-  } catch (error) {
-
-    console.error(
-      "❌ Certificate data load failed:",
-      error
-    );
-
-    certificateData = [];
-
-    return certificateData;
-
-  }
 
 }
 
 
-/* =========================================================
-   💾 SAVE CERTIFICATES
-   ========================================================= */
-
-function saveCertificates() {
-
-  try {
+function saveCertificates(data) {
 
     localStorage.setItem(
-      ARS_CERTIFICATE_CONFIG.storageKey,
-      JSON.stringify(certificateData)
+        ARS_CONFIG.storage.certificates,
+        JSON.stringify(data)
     );
 
-    return true;
+}
 
-  } catch (error) {
 
-    console.error(
-      "❌ Certificate data save failed:",
-      error
-    );
+function generateCertificateId() {
 
-    return false;
+    const time =
+        Date.now()
+            .toString(36)
+            .toUpperCase();
 
-  }
+    const random =
+        Math.random()
+            .toString(36)
+            .substring(2, 7)
+            .toUpperCase();
+
+    return `ARS-CERT-${time}-${random}`;
 
 }
 
 
-/* =========================================================
-   🔢 GENERATE CERTIFICATE NUMBER
-   ========================================================= */
+function createCertificate(data) {
 
-function generateCertificateNumber() {
+    const certificates =
+        getCertificates();
 
-  const year = new Date().getFullYear();
+    const certificate = {
 
-  const number = String(
-    certificateData.length + 1
-  ).padStart(4, "0");
+        id: generateCertificateId(),
 
-  return (
-    ARS_CERTIFICATE_CONFIG.prefix +
-    "-" +
-    year +
-    "-" +
-    number
-  );
+        name: data.name,
 
-}
+        type: data.type,
 
+        businessName:
+            data.businessName || "",
 
-/* =========================================================
-   🔐 GENERATE UNIQUE CERTIFICATE ID
-   ========================================================= */
+        ownerName:
+            data.ownerName || "",
 
-function generateUniqueCertificateId() {
+        approved: false,
 
-  let id;
-
-  do {
-
-    const randomPart = Math.random()
-      .toString(36)
-      .substring(2, 10)
-      .toUpperCase();
-
-    id =
-      ARS_CERTIFICATE_CONFIG.idPrefix +
-      "-" +
-      randomPart;
-
-  } while (
-    certificateData.some(
-      certificate =>
-        certificate.uniqueId === id
-    )
-  );
-
-  return id;
-
-}
-
-
-/* =========================================================
-   📅 FORMAT DATE
-   ========================================================= */
-
-function formatCertificateDate(
-  date = new Date()
-) {
-
-  return new Intl.DateTimeFormat(
-    "en-IN",
-    {
-      day: "2-digit",
-      month: "long",
-      year: "numeric"
-    }
-  ).format(date);
-
-}
-
-
-/* =========================================================
-   🏆 CREATE CERTIFICATE
-   ========================================================= */
-
-function createCertificate(data = {}) {
-
-  const name =
-    String(data.name || "").trim();
-
-  const type =
-    String(data.type || "").trim();
-
-  if (!name) {
-
-    throw new Error(
-      "Certificate holder name is required."
-    );
-
-  }
-
-  if (
-    !ARS_CERTIFICATE_CONFIG
-      .certificateTypes
-      .includes(type)
-  ) {
-
-    throw new Error(
-      "Invalid certificate type."
-    );
-
-  }
-
-  const certificate = {
-
-    certificateNo:
-      generateCertificateNumber(),
-
-    uniqueId:
-      generateUniqueCertificateId(),
-
-    name: name,
-
-    type: type,
-
-    issueDate:
-      formatCertificateDate(),
-
-    status: "Valid",
-
-    createdAt:
-      new Date().toISOString()
-
-  };
-
-
-  certificateData.push(certificate);
-
-  saveCertificates();
-
-  return certificate;
-
-}
-
-
-/* =========================================================
-   🔎 FIND CERTIFICATE
-   ========================================================= */
-
-function findCertificate(value) {
-
-  const searchValue =
-    String(value || "")
-      .trim()
-      .toLowerCase();
-
-  if (!searchValue) {
-    return null;
-  }
-
-  return certificateData.find(
-    certificate =>
-
-      String(certificate.certificateNo)
-        .toLowerCase() === searchValue
-
-      ||
-
-      String(certificate.uniqueId)
-        .toLowerCase() === searchValue
-
-  ) || null;
-
-}
-
-
-/* =========================================================
-   ✅ VERIFY CERTIFICATE
-   ========================================================= */
-
-function verifyCertificate(value) {
-
-  const certificate =
-    findCertificate(value);
-
-  if (!certificate) {
-
-    return {
-
-      verified: false,
-
-      status: "Not Found",
-
-      certificate: null
+        createdAt:
+            new Date().toISOString()
 
     };
 
-  }
 
-  return {
+    certificates.push(certificate);
 
-    verified:
-      certificate.status === "Valid",
+    saveCertificates(certificates);
 
-    status:
-      certificate.status,
-
-    certificate:
-      certificate
-
-  };
+    return certificate;
 
 }
 
 
-/* =========================================================
-   🔄 UPDATE CERTIFICATE STATUS
-   ========================================================= */
+function findCertificate(id) {
 
-function updateCertificateStatus(
-  uniqueId,
-  newStatus
-) {
+    const certificates =
+        getCertificates();
 
-  if (
-    !ARS_CERTIFICATE_CONFIG
-      .validStatuses
-      .includes(newStatus)
-  ) {
-
-    return false;
-
-  }
-
-  const certificate =
-    certificateData.find(
-      item =>
-        item.uniqueId === uniqueId
+    return certificates.find(
+        certificate =>
+            certificate.id.toUpperCase() ===
+            String(id).trim().toUpperCase()
     );
 
-  if (!certificate) {
-
-    return false;
-
-  }
-
-  certificate.status = newStatus;
-
-  certificate.updatedAt =
-    new Date().toISOString();
-
-  saveCertificates();
-
-  return true;
-
 }
 
 
-/* =========================================================
-   📊 CERTIFICATE STATISTICS
-   ========================================================= */
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-function getCertificateStats() {
+        const form =
+            document.getElementById(
+                "certificateForm"
+            );
 
-  return {
-
-    total:
-      certificateData.length,
-
-    valid:
-      certificateData.filter(
-        item =>
-          item.status === "Valid"
-      ).length,
-
-    revoked:
-      certificateData.filter(
-        item =>
-          item.status === "Revoked"
-      ).length,
-
-    expired:
-      certificateData.filter(
-        item =>
-          item.status === "Expired"
-      ).length
-
-  };
-
-}
+        if (!form) return;
 
 
-/* =========================================================
-   🌐 GLOBAL ARS CERTIFICATE API
-   ========================================================= */
+        const type =
+            document.getElementById(
+                "certificateType"
+            );
 
-window.ARS_CERTIFICATES = {
+        const businessFields =
+            document.getElementById(
+                "businessFields"
+            );
 
-  config:
-    ARS_CERTIFICATE_CONFIG,
 
-  getAll:
-    () => [...certificateData],
+        if (type && businessFields) {
 
-  create:
-    createCertificate,
+            type.addEventListener(
+                "change",
+                () => {
 
-  find:
-    findCertificate,
+                    businessFields.style.display =
+                        type.value === "Business"
+                            ? "grid"
+                            : "none";
 
-  verify:
-    verifyCertificate,
+                }
+            );
 
-  updateStatus:
-    updateCertificateStatus,
+        }
 
-  stats:
-    getCertificateStats
+
+        form.addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                const name =
+                    document.getElementById(
+                        "certificateName"
+                    )?.value.trim();
+
+
+                const certificateType =
+                    type?.value;
+
+
+                if (!name || !certificateType) {
+
+                    alert(
+                        "कृपया Name और Certificate Type भरें।"
+                    );
+
+                    return;
+
+                }
+
+
+                const certificate =
+                    createCertificate({
+
+                        name,
+
+                        type:
+                            certificateType,
+
+                        businessName:
+                            document.getElementById(
+                                "businessName"
+                            )?.value.trim(),
+
+                        ownerName:
+                            document.getElementById(
+                                "ownerName"
+                            )?.value.trim()
+
+                    });
+
+
+                const result =
+                    document.getElementById(
+                        "certificateResult"
+                    );
+
+
+                if (result) {
+
+                    result.innerHTML = `
+
+                        <div class="content-card">
+
+                            <h3>
+                                Certificate Application Created
+                            </h3>
+
+                            <p>
+                                आपका Certificate ID:
+                            </p>
+
+                            <strong>
+                                ${certificate.id}
+                            </strong>
+
+                            <p>
+                                Approval के बाद certificate
+                                उपलब्ध होगा।
+                            </p>
+
+                        </div>
+
+                    `;
+
+                }
+
+            }
+        );
+
+
+        console.log(
+            "🏆 ARS Certificate System Loaded"
+        );
+
+    }
+);
+
+
+window.ARS_CERTIFICATE_API = {
+
+    create: createCertificate,
+
+    find: findCertificate,
+
+    getAll: getCertificates
 
 };
-
-
-/* =========================================================
-   🚀 INITIALIZE
-   ========================================================= */
-
-loadCertificates();
-
-
-/* =========================================================
-   ✅ STATUS
-   ========================================================= */
-
-console.log(
-  "🏆 ARS Certificate System Loaded"
-);
-
-console.log(
-  "📜 Certificates:",
-  certificateData.length
-);
