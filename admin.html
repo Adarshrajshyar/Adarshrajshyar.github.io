@@ -3,445 +3,629 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>ARS Admin Panel</title>
-
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .panel-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .panel-card {
+      background: var(--card-bg, #fff);
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .panel-card h2 {
+      margin-top: 0;
+    }
+
+    .panel-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel-form input,
+    .panel-form textarea,
+    .panel-form select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-sizing: border-box;
+      font: inherit;
+    }
+
+    .panel-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .panel-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .panel-btn.primary {
+      background: #111827;
+      color: #fff;
+    }
+
+    .panel-btn.danger {
+      background: #dc2626;
+      color: #fff;
+    }
+
+    .panel-btn.success {
+      background: #15803d;
+      color: #fff;
+    }
+
+    .admin-login {
+      max-width: 430px;
+      margin: 80px auto;
+    }
+
+    .admin-dashboard {
+      display: none;
+    }
+
+    .admin-item {
+      padding: 15px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-top: 12px;
+    }
+
+    .admin-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .status.approved {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status.rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="inner-header">
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="index.html" class="logo">🌹 ARS</a>
 
-  <a href="index.html" class="mini-brand">
-    <img src="logo.png" alt="ARS Logo">
-    <span>ARS Admin</span>
-  </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+      </div>
+    </nav>
+  </header>
 
-  <a href="index.html" class="back-btn">
-    ← Website
-  </a>
+  <main class="panel-page">
 
-</header>
+    <!-- LOGIN -->
+    <section id="adminLogin" class="panel-card admin-login">
 
-<main class="admin-container">
+      <h1>🔐 ARS Admin Panel</h1>
+      <p>Authorized access only.</p>
 
-  <!-- LOGIN -->
-
-  <section id="adminLogin" class="admin-login">
-
-    <div class="admin-logo">
-      <img src="logo.png" alt="ARS Logo">
-    </div>
-
-    <h1>ARS Admin Panel</h1>
-
-    <p>Authorized access only</p>
-
-    <form id="adminLoginForm">
-
-      <div class="form-group">
-        <label>Admin Password</label>
+      <form id="adminLoginForm" class="panel-form">
 
         <input
           type="password"
           id="adminPassword"
-          placeholder="Enter password"
+          placeholder="Enter admin password"
           required
         >
-      </div>
 
-      <button class="primary-btn" type="submit">
-        Login
-      </button>
-
-    </form>
-
-    <div id="adminLoginMessage" class="page-message"></div>
-
-  </section>
-
-
-  <!-- DASHBOARD -->
-
-  <section id="adminDashboard" class="admin-dashboard hidden">
-
-    <div class="admin-top">
-
-      <div>
-        <span class="admin-small-title">ARS OFFICIAL</span>
-        <h1>Admin Dashboard</h1>
-      </div>
-
-      <button id="adminLogout" class="logout-btn">
-        Logout
-      </button>
-
-    </div>
-
-
-    <!-- STATS -->
-
-    <div class="admin-stats">
-
-      <div class="admin-stat-card">
-        <span>📜</span>
-        <strong id="certificateCount">0</strong>
-        <small>Certificates</small>
-      </div>
-
-      <div class="admin-stat-card">
-        <span>🤝</span>
-        <strong id="joiningCount">0</strong>
-        <small>Joining Applications</small>
-      </div>
-
-      <div class="admin-stat-card">
-        <span>⏳</span>
-        <strong id="pendingCount">0</strong>
-        <small>Pending</small>
-      </div>
-
-    </div>
-
-
-    <!-- JOINING -->
-
-    <section class="admin-section">
-
-      <div class="admin-section-title">
-        <h2>🤝 ARS Joining Applications</h2>
-
-        <button onclick="loadAdminData()" class="small-btn">
-          Refresh
+        <button
+          type="submit"
+          class="panel-btn primary"
+        >
+          Login
         </button>
+
+      </form>
+
+      <p id="adminLoginMessage"></p>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section id="adminDashboard" class="admin-dashboard">
+
+      <div class="panel-card">
+
+        <h1>🌹 ARS Admin Dashboard</h1>
+
+        <p>
+          Manage joining requests, certificates,
+          Shayari and Stories.
+        </p>
+
+        <button
+          id="adminLogout"
+          class="panel-btn danger"
+        >
+          Logout
+        </button>
+
       </div>
 
-      <div id="joiningApplications" class="admin-list"></div>
 
-    </section>
+      <!-- JOINING REQUESTS -->
+      <div class="panel-card">
 
+        <h2>🤝 Joining Requests</h2>
 
-    <!-- CERTIFICATES -->
+        <div id="joiningRequestsList">
+          Loading...
+        </div>
 
-    <section class="admin-section">
-
-      <div class="admin-section-title">
-        <h2>🏆 Certificates</h2>
       </div>
 
-      <div id="certificateList" class="admin-list"></div>
+
+      <!-- PUBLISH SHAYARI -->
+      <div class="panel-card">
+
+        <h2>🌹 Publish Shayari</h2>
+
+        <form id="shayariPublishForm" class="panel-form">
+
+          <input
+            id="publishShayariText"
+            placeholder="Write Shayari"
+            required
+          >
+
+          <select id="publishShayariCategory">
+
+            <option value="love">❤️ Love</option>
+            <option value="sad">💔 Sad</option>
+            <option value="attitude">🔥 Attitude</option>
+            <option value="friendship">🤝 Friendship</option>
+            <option value="motivation">💪 Motivation</option>
+
+          </select>
+
+          <input
+            id="publishShayariAuthor"
+            placeholder="Author"
+            value="Adarsh Raj"
+          >
+
+          <button
+            class="panel-btn primary"
+            type="submit"
+          >
+            Publish Shayari
+          </button>
+
+        </form>
+
+      </div>
+
+
+      <!-- PUBLISH STORY -->
+      <div class="panel-card">
+
+        <h2>📖 Publish Story / Poem</h2>
+
+        <form id="storyPublishForm" class="panel-form">
+
+          <input
+            id="publishStoryTitle"
+            placeholder="Title"
+            required
+          >
+
+          <textarea
+            id="publishStoryContent"
+            placeholder="Write Story or Poem"
+            required
+          ></textarea>
+
+          <select id="publishStoryCategory">
+
+            <option value="motivation">💪 Motivation</option>
+            <option value="life">🌱 Life</option>
+            <option value="friendship">🤝 Friendship</option>
+            <option value="education">📚 Education</option>
+            <option value="dream">✨ Dream</option>
+            <option value="inspiration">🌟 Inspiration</option>
+
+          </select>
+
+          <select id="publishStoryType">
+
+            <option value="story">📖 Story</option>
+            <option value="poem">✍️ Poem</option>
+
+          </select>
+
+          <input
+            id="publishStoryAuthor"
+            placeholder="Author"
+            value="Adarsh Raj"
+          >
+
+          <button
+            class="panel-btn primary"
+            type="submit"
+          >
+            Publish
+          </button>
+
+        </form>
+
+      </div>
+
+
+      <!-- CONTACT MESSAGES -->
+      <div class="panel-card">
+
+        <h2>📩 Contact Messages</h2>
+
+        <div id="contactMessagesList">
+          Loading...
+        </div>
+
+      </div>
 
     </section>
 
-
-    <!-- ADMIN NOTE -->
-
-    <section class="admin-note">
-
-      <h3>⚠️ Important</h3>
-
-      <p>
-        This is a front-end admin panel. Data stored using
-        browser localStorage is available only on this browser/device.
-        For real online administration and multi-device access,
-        a secure backend/database will be required.
-      </p>
-
-    </section>
-
-  </section>
-
-</main>
-
-<footer class="simple-footer">
-  <p>© 2026 ARS Official Website | Admin Panel</p>
-</footer>
+  </main>
 
 
-<script src="config.js"></script>
-<script src="certificate.js"></script>
-<script src="script.js"></script>
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="shayari.js"></script>
+  <script src="story.js"></script>
 
-<script>
+  <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+    const ADMIN_PASSWORD =
+      (window.ARS_CONFIG &&
+       window.ARS_CONFIG.ADMIN_PASSWORD)
+      || "ARS_ADMIN_2026";
 
-  const loginForm =
-    document.getElementById("adminLoginForm");
+    const login =
+      document.getElementById("adminLogin");
 
-  const loginBox =
-    document.getElementById("adminLogin");
+    const dashboard =
+      document.getElementById("adminDashboard");
 
-  const dashboard =
-    document.getElementById("adminDashboard");
+    function showDashboard() {
 
-  const message =
-    document.getElementById("adminLoginMessage");
+      login.style.display = "none";
+      dashboard.style.display = "block";
 
-  /*
-    IMPORTANT:
-    Change this password before publishing.
-  */
+      loadJoiningRequests();
+      loadContactMessages();
+    }
 
-  const ADMIN_PASSWORD = "ARS_ADMIN_2026";
+    document
+      .getElementById("adminLoginForm")
+      .addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        const password =
+          document.getElementById(
+            "adminPassword"
+          ).value;
+
+        if (password === ADMIN_PASSWORD) {
+
+          sessionStorage.setItem(
+            "ARS_ADMIN_AUTH",
+            "true"
+          );
+
+          showDashboard();
+
+        } else {
+
+          document.getElementById(
+            "adminLoginMessage"
+          ).textContent =
+            "❌ Incorrect password.";
+
+        }
+
+      });
 
 
-  loginForm.addEventListener("submit", function (e) {
+    document
+      .getElementById("adminLogout")
+      .addEventListener("click", function() {
 
-    e.preventDefault();
+        sessionStorage.removeItem(
+          "ARS_ADMIN_AUTH"
+        );
 
-    const password =
-      document.getElementById("adminPassword").value;
+        location.reload();
 
-    if (password === ADMIN_PASSWORD) {
+      });
 
-      sessionStorage.setItem("ARS_ADMIN_LOGIN", "true");
 
-      loginBox.classList.add("hidden");
-      dashboard.classList.remove("hidden");
+    function loadJoiningRequests() {
 
-      loadAdminData();
+      const box =
+        document.getElementById(
+          "joiningRequestsList"
+        );
 
-    } else {
+      const requests =
+        window.ARS_STORAGE.getJoiningRequests();
 
-      message.className = "page-message error";
-      message.textContent = "❌ Incorrect admin password.";
+      if (!requests.length) {
+
+        box.innerHTML =
+          "<p>No joining requests.</p>";
+
+        return;
+      }
+
+      box.innerHTML =
+        requests.map(function(item) {
+
+          return `
+            <div class="admin-item">
+
+              <strong>
+                ${escapeHTML(item.name || "Unknown")}
+              </strong>
+
+              <p>
+                Email:
+                ${escapeHTML(item.email || "-")}
+              </p>
+
+              <span class="status ${escapeHTML(
+                item.status || "pending"
+              )}">
+                ${escapeHTML(
+                  item.status || "pending"
+                )}
+              </span>
+
+              <div class="admin-actions">
+
+                <button
+                  class="panel-btn success"
+                  onclick="updateRequest(
+                    '${escapeHTML(item.id)}',
+                    'approved'
+                  )"
+                >
+                  Approve
+                </button>
+
+                <button
+                  class="panel-btn danger"
+                  onclick="updateRequest(
+                    '${escapeHTML(item.id)}',
+                    'rejected'
+                  )"
+                >
+                  Reject
+                </button>
+
+              </div>
+
+            </div>
+          `;
+
+        }).join("");
 
     }
 
-  });
 
+    function updateRequest(id, status) {
 
-  document.getElementById("adminLogout")
-    .addEventListener("click", function () {
+      window.ARS_STORAGE.updateJoiningRequest(
+        id,
+        { status: status }
+      );
 
-      sessionStorage.removeItem("ARS_ADMIN_LOGIN");
+      loadJoiningRequests();
 
-      dashboard.classList.add("hidden");
-      loginBox.classList.remove("hidden");
+    }
 
-      document.getElementById("adminPassword").value = "";
 
-    });
+    document
+      .getElementById("shayariPublishForm")
+      .addEventListener("submit", function(e) {
 
+        e.preventDefault();
 
-  if (
-    sessionStorage.getItem("ARS_ADMIN_LOGIN") === "true"
-  ) {
+        if (
+          !window.ARS_SHAYARI ||
+          !window.ARS_SHAYARI.publish
+        ) return;
 
-    loginBox.classList.add("hidden");
-    dashboard.classList.remove("hidden");
+        window.ARS_SHAYARI.publish({
 
-    loadAdminData();
+          text:
+            document.getElementById(
+              "publishShayariText"
+            ).value,
 
-  }
+          category:
+            document.getElementById(
+              "publishShayariCategory"
+            ).value,
 
-});
+          author:
+            document.getElementById(
+              "publishShayariAuthor"
+            ).value
 
+        });
 
-function loadAdminData() {
+        alert("🌹 Shayari published successfully!");
 
-  const applications =
-    JSON.parse(
-      localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]"
-    );
+        this.reset();
 
-  const certificates =
-    JSON.parse(
-      localStorage.getItem("ARS_CERTIFICATES") || "[]"
-    );
+      });
 
 
-  const pending =
-    applications.filter(
-      item => item.status === "pending"
-    );
+    document
+      .getElementById("storyPublishForm")
+      .addEventListener("submit", function(e) {
 
+        e.preventDefault();
 
-  document.getElementById("joiningCount")
-    .textContent = applications.length;
+        if (
+          !window.ARS_STORY ||
+          !window.ARS_STORY.publish
+        ) return;
 
-  document.getElementById("certificateCount")
-    .textContent = certificates.length;
+        window.ARS_STORY.publish({
 
-  document.getElementById("pendingCount")
-    .textContent = pending.length;
+          title:
+            document.getElementById(
+              "publishStoryTitle"
+            ).value,
 
+          content:
+            document.getElementById(
+              "publishStoryContent"
+            ).value,
 
-  const joiningBox =
-    document.getElementById("joiningApplications");
+          category:
+            document.getElementById(
+              "publishStoryCategory"
+            ).value,
 
-  if (!applications.length) {
+          type:
+            document.getElementById(
+              "publishStoryType"
+            ).value,
 
-    joiningBox.innerHTML =
-      `<div class="empty-admin">No joining applications found.</div>`;
+          author:
+            document.getElementById(
+              "publishStoryAuthor"
+            ).value
 
-  } else {
+        });
 
-    joiningBox.innerHTML =
-      applications.map(function (app) {
+        alert("📖 Content published successfully!");
 
-        return `
+        this.reset();
 
-        <div class="admin-item">
+      });
 
-          <div class="admin-item-info">
 
-            <h3>${escapeAdmin(app.name)}</h3>
+    function loadContactMessages() {
 
-            <p>
-              <strong>ID:</strong>
-              ${escapeAdmin(app.id)}
-            </p>
+      const box =
+        document.getElementById(
+          "contactMessagesList"
+        );
 
-            <p>
-              ${escapeAdmin(app.email)}
-            </p>
+      const messages =
+        window.ARS_STORAGE.getContactMessages();
 
-            <p>
-              Status:
-              <strong>${escapeAdmin(app.status)}</strong>
-            </p>
+      if (!messages.length) {
 
-          </div>
+        box.innerHTML =
+          "<p>No contact messages.</p>";
 
-          <div class="admin-actions">
+        return;
+      }
 
-            <button
-              class="approve-btn"
-              onclick="approveJoining('${app.id}')">
-              Approve
-            </button>
+      box.innerHTML =
+        messages
+          .slice()
+          .reverse()
+          .map(function(message) {
 
-            <button
-              class="reject-btn"
-              onclick="rejectJoining('${app.id}')">
-              Reject
-            </button>
+            return `
+              <div class="admin-item">
 
-          </div>
+                <strong>
+                  ${escapeHTML(message.name)}
+                </strong>
 
-        </div>
+                <p>
+                  ${escapeHTML(message.email)}
+                </p>
 
-        `;
+                <p>
+                  <strong>
+                    ${escapeHTML(message.subject)}
+                  </strong>
+                </p>
 
-      }).join("");
+                <p>
+                  ${escapeHTML(message.message)}
+                </p>
 
-  }
+              </div>
+            `;
 
+          })
+          .join("");
 
-  const certificateBox =
-    document.getElementById("certificateList");
+    }
 
-  if (!certificates.length) {
 
-    certificateBox.innerHTML =
-      `<div class="empty-admin">No certificates found.</div>`;
+    function escapeHTML(value) {
 
-  } else {
+      const div =
+        document.createElement("div");
 
-    certificateBox.innerHTML =
-      certificates.map(function (cert) {
+      div.textContent =
+        value == null ? "" : value;
 
-        return `
+      return div.innerHTML;
 
-        <div class="admin-item">
+    }
 
-          <div class="admin-item-info">
 
-            <h3>${escapeAdmin(cert.name)}</h3>
+    if (
+      sessionStorage.getItem(
+        "ARS_ADMIN_AUTH"
+      ) === "true"
+    ) {
+      showDashboard();
+    }
 
-            <p>
-              Certificate ID:
-              <strong>${escapeAdmin(cert.id)}</strong>
-            </p>
-
-            <p>
-              Type:
-              ${escapeAdmin(cert.type || "Certificate")}
-            </p>
-
-            <p>
-              Status:
-              ${escapeAdmin(cert.status || "approved")}
-            </p>
-
-          </div>
-
-        </div>
-
-        `;
-
-      }).join("");
-
-  }
-
-}
-
-
-function approveJoining(id) {
-
-  const applications =
-    JSON.parse(
-      localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]"
-    );
-
-  const index =
-    applications.findIndex(item => item.id === id);
-
-  if (index === -1) return;
-
-  applications[index].status = "approved";
-  applications[index].approvedAt =
-    new Date().toISOString();
-
-  localStorage.setItem(
-    "ARS_JOINING_APPLICATIONS",
-    JSON.stringify(applications)
-  );
-
-  loadAdminData();
-
-}
-
-
-function rejectJoining(id) {
-
-  const applications =
-    JSON.parse(
-      localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]"
-    );
-
-  const index =
-    applications.findIndex(item => item.id === id);
-
-  if (index === -1) return;
-
-  applications[index].status = "rejected";
-
-  localStorage.setItem(
-    "ARS_JOINING_APPLICATIONS",
-    JSON.stringify(applications)
-  );
-
-  loadAdminData();
-
-}
-
-
-function escapeAdmin(value) {
-
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
-</script>
+  </script>
 
 </body>
 </html>
