@@ -68,7 +68,45 @@ function initLoader() {
   });
 
 }
+/* =========================================================
+   🚀 ARS LOADER - FIXED
+   ========================================================= */
 
+(function () {
+
+  function hideARSLoader() {
+
+    const loader = document.getElementById("loader");
+
+    if (!loader) {
+      return;
+    }
+
+    loader.classList.add("hidden");
+
+    setTimeout(function () {
+      loader.style.display = "none";
+    }, 500);
+  }
+
+
+  /* Page completely loaded */
+  window.addEventListener("load", function () {
+
+    setTimeout(function () {
+      hideARSLoader();
+    }, 500);
+
+  });
+
+
+  /* Safety fallback
+     Loader किसी भी हालत में हमेशा के लिए नहीं रहेगा */
+  setTimeout(function () {
+    hideARSLoader();
+  }, 4000);
+
+})();
 
 /* =========================================================
    HEADER
