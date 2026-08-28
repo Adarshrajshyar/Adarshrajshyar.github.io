@@ -1,19 +1,46 @@
 /* =========================================================
-   ADARSH RAJ SHAYAR
    ARS OFFICIAL WEBSITE
-   script.js — FINAL CORE VERSION
+   script.js
+   Main Website Controller
    ========================================================= */
 
 "use strict";
 
-
 /* =========================================================
-   GLOBAL ARS OBJECT
+   ARS GLOBAL CONFIG
    ========================================================= */
 
-window.ARS = window.ARS || {};
+const ARS_CONFIG = {
+    siteName: "ARS Official Website",
+    founder: "Adarsh Raj",
+    version: "3.0.0",
 
-const CONFIG = window.ARS_CONFIG || {};
+    storage: {
+        theme: "ARS_THEME",
+        likes: "ARS_LIKES",
+        favorites: "ARS_FAVORITES",
+        search: "ARS_SEARCH"
+    },
+
+    paths: {
+        certificate: "certificate.html",
+        joining: "joining.html",
+        admin: "admin.html"
+    }
+};
+
+
+/* =========================================================
+   SAFE DOM HELPERS
+   ========================================================= */
+
+const $ = (selector, parent = document) => {
+    return parent.querySelector(selector);
+};
+
+const $$ = (selector, parent = document) => {
+    return [...parent.querySelectorAll(selector)];
+};
 
 
 /* =========================================================
@@ -22,110 +49,165 @@ const CONFIG = window.ARS_CONFIG || {};
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  initLoader();
-  initHeader();
-  initMobileMenu();
-  initTheme();
-  initProgressBar();
-  initBackToTop();
-  initWelcomePopup();
-  initCounters();
-  initScrollReveal();
-  initNavigation();
-  initSearch();
-  initContentSections();
-  initCertificateLinks();
-  initJoiningLinks();
-  initContactForm();
+    initializeTheme();
+    initializeHeader();
+    initializeMobileMenu();
+    initializeSmoothNavigation();
+    initializeBackToTop();
+    initializeSearch();
+    initializeLikesAndFavorites();
+    initializeQuickActions();
+    initializeContactForm();
+    initializeModalSystem();
+    initializeScrollSpy();
+    initializeExternalLinks();
 
-  console.log("🌹 ARS Official Website Loaded");
+    updateWebsiteStats();
+
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    console.log("🌹 ARS OFFICIAL WEBSITE");
+    console.log("👤 Founder:", ARS_CONFIG.founder);
+    console.log("⚙️ Version:", ARS_CONFIG.version);
+    console.log("🔎 Search System: READY");
+    console.log("❤️ Like System: READY");
+    console.log("⭐ Favorite System: READY");
+    console.log("🌓 Theme System: READY");
+    console.log("📱 Mobile Navigation: READY");
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
 });
 
 
 /* =========================================================
-   LOADER
+   PAGE LOADER
    ========================================================= */
 
-function initLoader() {
+function hidePageLoader() {
 
-  const loader = document.getElementById("loader");
-
-  if (!loader) return;
-
-  window.addEventListener("load", () => {
-
-    setTimeout(() => {
-
-      loader.classList.add("hidden");
-
-      setTimeout(() => {
-        loader.style.display = "none";
-      }, 500);
-
-    }, 500);
-
-  });
-
-}
-/* =========================================================
-   🚀 ARS PAGE LOADER - FIXED
-========================================================= */
-
-(function () {
-
-  function hidePageLoader() {
-
-    const loader = document.getElementById("pageLoader");
+    const loader = $("#pageLoader");
 
     if (!loader) return;
 
-    loader.classList.add("hide");
+    setTimeout(() => {
 
-    setTimeout(function () {
-      loader.style.display = "none";
-    }, 600);
-  }
+        loader.classList.add("loader-hidden");
 
+        document.body.classList.remove("no-scroll");
 
-  /* Normal loading */
-  window.addEventListener("load", function () {
+        setTimeout(() => {
+            loader.style.display = "none";
+        }, 500);
 
-    setTimeout(function () {
-      hidePageLoader();
-    }, 700);
-
-  });
+    }, 500);
+}
 
 
-  /* Safety fallback
-     Loader 5 seconds से ज्यादा नहीं रहेगा */
-  setTimeout(function () {
-    hidePageLoader();
-  }, 5000);
+/*
+ * window load is used instead of a short timer so that
+ * images and page resources get a chance to load.
+ */
 
-})();
+window.addEventListener("load", hidePageLoader);
+
+
+/* =========================================================
+   THEME SYSTEM
+   ========================================================= */
+
+function initializeTheme() {
+
+    const savedTheme =
+        localStorage.getItem(ARS_CONFIG.storage.theme);
+
+    if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark-mode");
+    }
+
+    updateThemeButton();
+
+    const themeButton =
+        $("#themeToggle");
+
+    if (!themeButton) return;
+
+    themeButton.addEventListener("click", toggleTheme);
+}
+
+
+function toggleTheme() {
+
+    const html = document.documentElement;
+
+    html.classList.toggle("dark-mode");
+
+    const isDark =
+        html.classList.contains("dark-mode");
+
+    localStorage.setItem(
+        ARS_CONFIG.storage.theme,
+        isDark ? "dark" : "light"
+    );
+
+    updateThemeButton();
+
+    showToast(
+        isDark
+            ? "🌙 Dark Mode ON"
+            : "☀️ Light Mode ON"
+    );
+}
+
+
+function updateThemeButton() {
+
+    const button = $("#themeToggle");
+
+    if (!button) return;
+
+    const isDark =
+        document.documentElement.classList
+            .contains("dark-mode");
+
+    button.innerHTML =
+        isDark ? "☀️" : "🌙";
+
+    button.setAttribute(
+        "aria-label",
+        isDark
+            ? "Switch to light mode"
+            : "Switch to dark mode"
+    );
+}
+
 
 /* =========================================================
    HEADER
    ========================================================= */
 
-function initHeader() {
+function initializeHeader() {
 
-  const header = document.querySelector("header");
+    const header =
+        $(".site-header");
 
-  if (!header) return;
+    if (!header) return;
 
-  window.addEventListener("scroll", () => {
+    function updateHeader() {
 
-    if (window.scrollY > 50) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
+        if (window.scrollY > 20) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+
     }
 
-  });
+    updateHeader();
 
+    window.addEventListener(
+        "scroll",
+        updateHeader,
+        { passive: true }
+    );
 }
 
 
@@ -133,190 +215,95 @@ function initHeader() {
    MOBILE MENU
    ========================================================= */
 
-function initMobileMenu() {
+function initializeMobileMenu() {
 
-  const menuButton =
-    document.querySelector(
-      "#menuToggle, .menu-toggle, .hamburger"
-    );
+    const menuButton =
+        $("#menuToggle");
 
-  const nav =
-    document.querySelector(
-      "#mainNav, .main-nav, nav"
-    );
+    const closeButton =
+        $("#mobileMenuClose");
 
-  if (!menuButton || !nav) return;
+    const menu =
+        $("#mobileSideMenu");
 
-  menuButton.addEventListener("click", () => {
+    const overlay =
+        $("#mobileMenuOverlay");
 
-    nav.classList.toggle("active");
-    menuButton.classList.toggle("active");
-
-  });
-
-  nav.querySelectorAll("a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-      nav.classList.remove("active");
-      menuButton.classList.remove("active");
-
-    });
-
-  });
-
-}
+    if (!menuButton || !menu) return;
 
 
-/* =========================================================
-   THEME
-   ========================================================= */
+    function openMenu() {
 
-function initTheme() {
+        menu.classList.add("active");
 
-  const button =
-    document.getElementById("themeToggle");
+        if (overlay) {
+            overlay.classList.add("active");
+        }
 
-  if (!button) return;
+        document.body.classList.add("no-scroll");
 
-  const savedTheme =
-    localStorage.getItem("ARS_THEME");
-
-  if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-  }
-
-  button.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark-mode");
-
-    const dark =
-      document.body.classList.contains("dark-mode");
-
-    localStorage.setItem(
-      "ARS_THEME",
-      dark ? "dark" : "light"
-    );
-
-    button.innerHTML =
-      dark ? "☀️" : "🌙";
-
-  });
-
-}
-
-
-/* =========================================================
-   PROGRESS BAR
-   ========================================================= */
-
-function initProgressBar() {
-
-  let bar =
-    document.getElementById("progressBar");
-
-  if (!bar) return;
-
-  window.addEventListener("scroll", () => {
-
-    const scrollTop =
-      window.scrollY;
-
-    const height =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-
-    const percentage =
-      height > 0
-        ? (scrollTop / height) * 100
-        : 0;
-
-    bar.style.width =
-      percentage + "%";
-
-  });
-
-}
-
-
-/* =========================================================
-   BACK TO TOP
-   ========================================================= */
-
-function initBackToTop() {
-
-  const button =
-    document.getElementById("backToTop");
-
-  if (!button) return;
-
-  window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 400) {
-      button.classList.add("show");
-    } else {
-      button.classList.remove("show");
     }
 
-  });
 
-  button.addEventListener("click", () => {
+    function closeMenu() {
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+        menu.classList.remove("active");
 
-  });
+        if (overlay) {
+            overlay.classList.remove("active");
+        }
 
-}
+        document.body.classList.remove("no-scroll");
+
+    }
 
 
-/* =========================================================
-   WELCOME POPUP
-   ========================================================= */
-
-function initWelcomePopup() {
-
-  const popup =
-    document.getElementById("welcomePopup");
-
-  if (!popup) return;
-
-  const close =
-    popup.querySelector(
-      ".popup-close, #closePopup"
+    menuButton.addEventListener(
+        "click",
+        openMenu
     );
 
-  const seen =
-    sessionStorage.getItem(
-      "ARS_WELCOME_SHOWN"
+
+    if (closeButton) {
+        closeButton.addEventListener(
+            "click",
+            closeMenu
+        );
+    }
+
+
+    if (overlay) {
+        overlay.addEventListener(
+            "click",
+            closeMenu
+        );
+    }
+
+
+    $$(".mobile-nav-link", menu)
+        .forEach(link => {
+
+            link.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        });
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                menu.classList.contains("active")
+            ) {
+                closeMenu();
+            }
+
+        }
     );
-
-  if (!seen) {
-
-    setTimeout(() => {
-
-      popup.classList.add("show");
-
-    }, 1000);
-
-  }
-
-  if (close) {
-
-    close.addEventListener("click", () => {
-
-      popup.classList.remove("show");
-
-      sessionStorage.setItem(
-        "ARS_WELCOME_SHOWN",
-        "true"
-      );
-
-    });
-
-  }
 
 }
 
@@ -325,789 +312,693 @@ function initWelcomePopup() {
    SMOOTH NAVIGATION
    ========================================================= */
 
-function initNavigation() {
+function initializeSmoothNavigation() {
 
-  document.querySelectorAll(
-    'a[href^="#"]'
-  ).forEach(link => {
+    $$('a[href^="#"]')
+        .forEach(link => {
 
-    link.addEventListener("click", function (event) {
+            link.addEventListener(
+                "click",
+                event => {
 
-      const targetId =
-        this.getAttribute("href");
+                    const targetId =
+                        link.getAttribute("href");
 
-      if (
-        !targetId ||
-        targetId === "#"
-      ) return;
+                    if (
+                        !targetId ||
+                        targetId === "#"
+                    ) {
+                        return;
+                    }
 
-      const target =
-        document.querySelector(targetId);
+                    const target =
+                        document.querySelector(targetId);
 
-      if (!target) return;
+                    if (!target) return;
 
-      event.preventDefault();
+                    event.preventDefault();
 
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
 
-    });
+                    history.replaceState(
+                        null,
+                        "",
+                        targetId
+                    );
 
-  });
-
-}
-
-
-/* =========================================================
-   COUNTERS
-   ========================================================= */
-
-function initCounters() {
-
-  const counters =
-    document.querySelectorAll(
-      "[data-counter]"
-    );
-
-  if (!counters.length) return;
-
-  const observer =
-    new IntersectionObserver(
-      entries => {
-
-        entries.forEach(entry => {
-
-          if (!entry.isIntersecting) return;
-
-          const element =
-            entry.target;
-
-          const target =
-            Number(
-              element.dataset.counter
-            ) || 0;
-
-          animateCounter(
-            element,
-            target
-          );
-
-          observer.unobserve(element);
+                }
+            );
 
         });
 
-      },
-      { threshold: 0.5 }
-    );
-
-  counters.forEach(counter => {
-    observer.observe(counter);
-  });
-
-}
-
-
-function animateCounter(element, target) {
-
-  let current = 0;
-
-  const duration = 1200;
-  const start = performance.now();
-
-  function update(time) {
-
-    const progress =
-      Math.min(
-        (time - start) / duration,
-        1
-      );
-
-    current =
-      Math.floor(
-        progress * target
-      );
-
-    element.textContent =
-      current.toLocaleString("en-IN");
-
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    }
-
-  }
-
-  requestAnimationFrame(update);
-
 }
 
 
 /* =========================================================
-   SCROLL REVEAL
+   BACK TO TOP
    ========================================================= */
 
-function initScrollReveal() {
+function initializeBackToTop() {
 
-  const elements =
-    document.querySelectorAll(
-      ".reveal, .animate-on-scroll"
-    );
+    const button =
+        $("#backToTop");
 
-  if (!elements.length) return;
+    if (!button) return;
 
-  const observer =
-    new IntersectionObserver(
-      entries => {
+    function checkScroll() {
 
-        entries.forEach(entry => {
+        if (window.scrollY > 500) {
 
-          if (entry.isIntersecting) {
+            button.classList.add("show");
 
-            entry.target.classList.add(
-              "visible"
-            );
+        } else {
 
-            observer.unobserve(
-              entry.target
-            );
-
-          }
-
-        });
-
-      },
-      {
-        threshold: 0.12
-      }
-    );
-
-  elements.forEach(element => {
-    observer.observe(element);
-  });
-
-}
-
-
-/* =========================================================
-   SEARCH SYSTEM
-   ========================================================= */
-
-function initSearch() {
-
-  const input =
-    document.getElementById("searchInput");
-
-  const button =
-    document.getElementById("searchButton");
-
-  if (!input) return;
-
-  function performSearch() {
-
-    const query =
-      input.value.trim();
-
-    if (!query) {
-
-      showToast(
-        "कृपया कुछ खोजें।",
-        "warning"
-      );
-
-      return;
-
-    }
-
-    let results = [];
-
-    if (
-      window.ARS_SHAYARI &&
-      typeof window.ARS_SHAYARI.search ===
-        "function"
-    ) {
-
-      results.push(
-        ...window.ARS_SHAYARI.search(query)
-      );
-
-    }
-
-    if (
-      window.ARS_STORIES &&
-      typeof window.ARS_STORIES.search ===
-        "function"
-    ) {
-
-      results.push(
-        ...window.ARS_STORIES.search(query)
-      );
-
-    }
-
-    renderSearchResults(
-      results,
-      query
-    );
-
-  }
-
-  if (button) {
-    button.addEventListener(
-      "click",
-      performSearch
-    );
-  }
-
-  input.addEventListener(
-    "keydown",
-    event => {
-
-      if (event.key === "Enter") {
-        performSearch();
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SEARCH RESULTS
-   ========================================================= */
-
-function renderSearchResults(
-  results,
-  query
-) {
-
-  const container =
-    document.getElementById(
-      "searchResults"
-    );
-
-  if (!container) {
-
-    showToast(
-      `${results.length} परिणाम मिले।`,
-      "success"
-    );
-
-    return;
-
-  }
-
-  container.innerHTML = "";
-
-  if (!results.length) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">🔎</div>
-        <h3>कोई परिणाम नहीं मिला</h3>
-        <p>"${escapeHTML(query)}" के लिए
-        कोई सामग्री नहीं मिली।</p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-  results.forEach(item => {
-
-    const card =
-      document.createElement("article");
-
-    card.className =
-      "content-card search-result-card";
-
-    card.innerHTML = `
-      <span class="content-category">
-        ${escapeHTML(
-          item.category || "Content"
-        )}
-      </span>
-
-      <h3>
-        ${escapeHTML(
-          item.title || "Untitled"
-        )}
-      </h3>
-
-      <p>
-        ${escapeHTML(
-          item.text || ""
-        ).replace(/\n/g, "<br>")}
-      </p>
-
-      <small>
-        ✍️ ${escapeHTML(
-          item.author || "Adarsh Raj"
-        )}
-      </small>
-    `;
-
-    container.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================================
-   CONTENT SECTIONS
-   ========================================================= */
-
-function initContentSections() {
-
-  renderShayariCategories();
-  renderStoryCategories();
-  renderHomeContent();
-
-}
-
-
-/* =========================================================
-   SHAYARI CATEGORY RENDER
-   ========================================================= */
-
-function renderShayariCategories() {
-
-  const container =
-    document.getElementById(
-      "shayariContainer"
-    );
-
-  if (!container) return;
-
-  if (
-    !window.ARS_SHAYARI ||
-    !Array.isArray(
-      window.ARS_SHAYARI.data
-    )
-  ) {
-
-    container.innerHTML =
-      emptyContent("Shayari");
-
-    return;
-
-  }
-
-  renderCards(
-    container,
-    window.ARS_SHAYARI.data
-  );
-
-}
-
-
-/* =========================================================
-   STORY CATEGORY RENDER
-   ========================================================= */
-
-function renderStoryCategories() {
-
-  const container =
-    document.getElementById(
-      "storyContainer"
-    );
-
-  if (!container) return;
-
-  if (
-    !window.ARS_STORIES ||
-    !Array.isArray(
-      window.ARS_STORIES.data
-    )
-  ) {
-
-    container.innerHTML =
-      emptyContent("Stories");
-
-    return;
-
-  }
-
-  renderCards(
-    container,
-    window.ARS_STORIES.data
-  );
-
-}
-
-
-/* =========================================================
-   HOME CONTENT
-   ========================================================= */
-
-function renderHomeContent() {
-
-  const container =
-    document.getElementById(
-      "featuredContent"
-    );
-
-  if (!container) return;
-
-  let content = [];
-
-  if (
-    window.ARS_SHAYARI &&
-    Array.isArray(
-      window.ARS_SHAYARI.data
-    )
-  ) {
-
-    content.push(
-      ...window.ARS_SHAYARI.data.slice(0, 3)
-    );
-
-  }
-
-  if (
-    window.ARS_STORIES &&
-    Array.isArray(
-      window.ARS_STORIES.data
-    )
-  ) {
-
-    content.push(
-      ...window.ARS_STORIES.data.slice(0, 3)
-    );
-
-  }
-
-  renderCards(
-    container,
-    content
-  );
-
-}
-
-
-/* =========================================================
-   GENERIC CARD RENDER
-   ========================================================= */
-
-function renderCards(
-  container,
-  items
-) {
-
-  container.innerHTML = "";
-
-  if (!items.length) {
-
-    container.innerHTML =
-      emptyContent();
-
-    return;
-
-  }
-
-  items.forEach(item => {
-
-    const card =
-      document.createElement("article");
-
-    card.className =
-      "content-card";
-
-    card.innerHTML = `
-
-      <div class="card-top">
-
-        <span class="content-category">
-          ${escapeHTML(
-            item.category || "Content"
-          )}
-        </span>
-
-      </div>
-
-      <h3>
-        ${escapeHTML(
-          item.title || "Untitled"
-        )}
-      </h3>
-
-      <p>
-        ${escapeHTML(
-          item.text || ""
-        ).replace(/\n/g, "<br>")}
-      </p>
-
-      <div class="card-footer">
-
-        <span>
-          ✍️ ${escapeHTML(
-            item.author || "Adarsh Raj"
-          )}
-        </span>
-
-        <button
-          type="button"
-          class="copy-content"
-          data-copy="${escapeAttribute(
-            item.text || ""
-          )}"
-        >
-          📋 Copy
-        </button>
-
-      </div>
-
-    `;
-
-    container.appendChild(card);
-
-  });
-
-  initCopyButtons();
-
-}
-
-
-/* =========================================================
-   COPY CONTENT
-   ========================================================= */
-
-function initCopyButtons() {
-
-  document
-    .querySelectorAll(".copy-content")
-    .forEach(button => {
-
-      if (button.dataset.ready === "true") {
-        return;
-      }
-
-      button.dataset.ready = "true";
-
-      button.addEventListener(
-        "click",
-        async () => {
-
-          const text =
-            button.dataset.copy || "";
-
-          try {
-
-            await navigator.clipboard.writeText(
-              text
-            );
-
-            showToast(
-              "सामग्री कॉपी हो गई।",
-              "success"
-            );
-
-          } catch {
-
-            showToast(
-              "कॉपी नहीं हो सकी।",
-              "error"
-            );
-
-          }
+            button.classList.remove("show");
 
         }
-      );
+
+    }
+
+    checkScroll();
+
+    window.addEventListener(
+        "scroll",
+        checkScroll,
+        { passive: true }
+    );
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   GLOBAL SEARCH
+   ========================================================= */
+
+function initializeSearch() {
+
+    const input =
+        $("#globalSearch");
+
+    const clearButton =
+        $("#clearSearch");
+
+    const results =
+        $("#globalSearchResults");
+
+    const info =
+        $("#searchResultsInfo");
+
+    if (!input) return;
+
+
+    input.addEventListener(
+        "input",
+        () => {
+
+            const query =
+                input.value.trim().toLowerCase();
+
+            localStorage.setItem(
+                ARS_CONFIG.storage.search,
+                input.value
+            );
+
+            if (clearButton) {
+
+                clearButton.style.display =
+                    query ? "block" : "none";
+
+            }
+
+            if (!query) {
+
+                clearSearchResults();
+
+                return;
+            }
+
+            performSearch(
+                query,
+                results,
+                info
+            );
+
+        }
+    );
+
+
+    if (clearButton) {
+
+        clearButton.addEventListener(
+            "click",
+            () => {
+
+                input.value = "";
+
+                localStorage.removeItem(
+                    ARS_CONFIG.storage.search
+                );
+
+                clearSearchResults();
+
+                input.focus();
+
+            }
+        );
+
+    }
+
+}
+
+
+function performSearch(
+    query,
+    resultsContainer,
+    infoContainer
+) {
+
+    if (!resultsContainer) return;
+
+
+    /*
+     * Search all visible cards.
+     */
+
+    const cards = $$(
+        ".shayari-card, " +
+        ".story-card, " +
+        ".poetry-card, " +
+        ".content-card, " +
+        "[data-searchable]"
+    );
+
+
+    const matches = cards.filter(card => {
+
+        const text =
+            card.textContent
+                .toLowerCase();
+
+        const dataSearch =
+            (
+                card.dataset.searchable ||
+                ""
+            ).toLowerCase();
+
+        return (
+            text.includes(query) ||
+            dataSearch.includes(query)
+        );
+
+    });
+
+
+    /*
+     * Search important website sections too.
+     */
+
+    const sectionMatches = [];
+
+    $$("section[id]").forEach(section => {
+
+        const text =
+            section.textContent
+                .toLowerCase();
+
+        if (text.includes(query)) {
+
+            sectionMatches.push(section);
+
+        }
+
+    });
+
+
+    resultsContainer.innerHTML = "";
+
+
+    if (
+        matches.length === 0 &&
+        sectionMatches.length === 0
+    ) {
+
+        resultsContainer.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>कोई परिणाम नहीं मिला</h3>
+                <p>
+                    दूसरे शब्द से दोबारा खोजने का प्रयास करें।
+                </p>
+            </div>
+        `;
+
+        if (infoContainer) {
+
+            infoContainer.textContent =
+                `"${query}" के लिए 0 परिणाम मिले।`;
+
+        }
+
+        return;
+
+    }
+
+
+    matches.slice(0, 12)
+        .forEach(card => {
+
+            const clone =
+                card.cloneNode(true);
+
+            clone.style.display = "";
+
+            resultsContainer.appendChild(
+                clone
+            );
+
+        });
+
+
+    /*
+     * If cards are not present, show matching sections.
+     */
+
+    if (
+        matches.length === 0 &&
+        sectionMatches.length > 0
+    ) {
+
+        sectionMatches
+            .slice(0, 8)
+            .forEach(section => {
+
+                const title =
+                    section.querySelector(
+                        "h1,h2,h3"
+                    );
+
+                const result =
+                    document.createElement("div");
+
+                result.className =
+                    "content-card";
+
+                result.innerHTML = `
+                    <span class="card-category">
+                        SECTION
+                    </span>
+
+                    <h3>
+                        ${
+                            title
+                                ? title.textContent
+                                : section.id
+                        }
+                    </h3>
+
+                    <p>
+                        इस सेक्शन में आपकी खोज से
+                        संबंधित सामग्री उपलब्ध है।
+                    </p>
+
+                    <div class="card-actions">
+                        <button
+                            class="btn btn-primary"
+                            type="button"
+                            data-scroll-target="#${section.id}">
+                            Open Section →
+                        </button>
+                    </div>
+                `;
+
+                resultsContainer.appendChild(
+                    result
+                );
+
+            });
+
+    }
+
+
+    if (infoContainer) {
+
+        infoContainer.textContent =
+            `${matches.length} परिणाम मिले।`;
+
+    }
+
+
+    bindDynamicSearchButtons(
+        resultsContainer
+    );
+
+}
+
+
+function bindDynamicSearchButtons(container) {
+
+    $$(
+        "[data-scroll-target]",
+        container
+    ).forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const selector =
+                    button.dataset.scrollTarget;
+
+                const target =
+                    document.querySelector(selector);
+
+                if (!target) return;
+
+                target.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+        );
 
     });
 
 }
 
 
-/* =========================================================
-   CERTIFICATE LINKS
-   ========================================================= */
+function clearSearchResults() {
 
-function initCertificateLinks() {
+    const results =
+        $("#globalSearchResults");
 
-  document.querySelectorAll(
-    "[data-certificate-link]"
-  ).forEach(button => {
+    const info =
+        $("#searchResultsInfo");
 
-    button.addEventListener(
-      "click",
-      () => {
+    if (results) {
+        results.innerHTML = "";
+    }
 
-        const page =
-          button.dataset.certificateLink ||
-          "certificate.html";
-
-        window.location.href = page;
-
-      }
-    );
-
-  });
+    if (info) {
+        info.textContent = "";
+    }
 
 }
 
 
 /* =========================================================
-   JOIN ARS LINKS
+   LIKE + FAVORITE SYSTEM
    ========================================================= */
 
-function initJoiningLinks() {
+function initializeLikesAndFavorites() {
 
-  document.querySelectorAll(
-    "[data-joining-link]"
-  ).forEach(button => {
+    const likes =
+        getStorageObject(
+            ARS_CONFIG.storage.likes
+        );
 
-    button.addEventListener(
-      "click",
-      () => {
-
-        const page =
-          button.dataset.joiningLink ||
-          "joining.html";
-
-        window.location.href = page;
-
-      }
-    );
-
-  });
-
-}
+    const favorites =
+        getStorageObject(
+            ARS_CONFIG.storage.favorites
+        );
 
 
-/* =========================================================
-   JOINING APPLICATION STORAGE
-   ========================================================= */
+    /*
+     * Existing buttons can use:
+     *
+     * data-like-id="..."
+     * data-favorite-id="..."
+     */
 
-function saveJoiningApplication(
-  application
-) {
+    $$("[data-like-id]")
+        .forEach(button => {
 
-  const key =
-    "ARS_JOINING_APPLICATIONS";
+            const id =
+                button.dataset.likeId;
 
-  let applications = [];
+            updateLikeButton(
+                button,
+                Boolean(likes[id])
+            );
 
-  try {
+            button.addEventListener(
+                "click",
+                () => {
 
-    applications =
-      JSON.parse(
-        localStorage.getItem(key)
-      ) || [];
+                    const current =
+                        getStorageObject(
+                            ARS_CONFIG.storage.likes
+                        );
 
-  } catch {
+                    current[id] =
+                        !current[id];
 
-    applications = [];
+                    saveStorageObject(
+                        ARS_CONFIG.storage.likes,
+                        current
+                    );
 
-  }
+                    updateLikeButton(
+                        button,
+                        Boolean(current[id])
+                    );
 
-  const id =
-    "ARS-JOIN-" +
-    Date.now().toString(36).toUpperCase();
+                    showToast(
+                        current[id]
+                            ? "❤️ Liked"
+                            : "💔 Like हटाया गया"
+                    );
 
-  const record = {
-
-    id,
-
-    name:
-      String(
-        application.name || ""
-      ).trim(),
-
-    email:
-      String(
-        application.email || ""
-      ).trim(),
-
-    mobile:
-      String(
-        application.mobile || ""
-      ).trim(),
-
-    role:
-      String(
-        application.role || ""
-      ).trim(),
-
-    message:
-      String(
-        application.message || ""
-      ).trim(),
-
-    status:
-      "Pending",
-
-    createdAt:
-      new Date().toISOString()
-
-  };
-
-  applications.push(record);
-
-  localStorage.setItem(
-    key,
-    JSON.stringify(applications)
-  );
-
-  return record;
-
-}
-
-
-/* =========================================================
-   JOINING FORM
-   ========================================================= */
-
-function initJoiningForm() {
-
-  const form =
-    document.getElementById(
-      "joiningForm"
-    );
-
-  if (!form) return;
-
-  form.addEventListener(
-    "submit",
-    event => {
-
-      event.preventDefault();
-
-      const formData =
-        new FormData(form);
-
-      const application =
-        saveJoiningApplication({
-
-          name:
-            formData.get("name"),
-
-          email:
-            formData.get("email"),
-
-          mobile:
-            formData.get("mobile"),
-
-          role:
-            formData.get("role"),
-
-          message:
-            formData.get("message")
+                }
+            );
 
         });
 
-      showToast(
-        `Application submitted: ${application.id}`,
-        "success"
-      );
 
-      form.reset();
+    $$("[data-favorite-id]")
+        .forEach(button => {
+
+            const id =
+                button.dataset.favoriteId;
+
+            updateFavoriteButton(
+                button,
+                Boolean(favorites[id])
+            );
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const current =
+                        getStorageObject(
+                            ARS_CONFIG.storage.favorites
+                        );
+
+                    current[id] =
+                        !current[id];
+
+                    saveStorageObject(
+                        ARS_CONFIG.storage.favorites,
+                        current
+                    );
+
+                    updateFavoriteButton(
+                        button,
+                        Boolean(current[id])
+                    );
+
+                    showToast(
+                        current[id]
+                            ? "⭐ Favorite में सेव"
+                            : "☆ Favorite से हटाया गया"
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+function updateLikeButton(
+    button,
+    liked
+) {
+
+    button.classList.toggle(
+        "liked",
+        liked
+    );
+
+    button.setAttribute(
+        "aria-pressed",
+        String(liked)
+    );
+
+    const count =
+        Number(button.dataset.likeCount || 0);
+
+    button.innerHTML =
+        liked
+            ? `❤️ ${count || ""}`
+            : `🤍 ${count || ""}`;
+
+}
+
+
+function updateFavoriteButton(
+    button,
+    favorited
+) {
+
+    button.classList.toggle(
+        "favorited",
+        favorited
+    );
+
+    button.setAttribute(
+        "aria-pressed",
+        String(favorited)
+    );
+
+    button.innerHTML =
+        favorited
+            ? "⭐ Saved"
+            : "☆ Favorite";
+
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+function initializeQuickActions() {
+
+    $$("[data-action]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const action =
+                        button.dataset.action;
+
+                    handleAction(action);
+
+                }
+            );
+
+        });
+
+}
+
+
+function handleAction(action) {
+
+    switch (action) {
+
+        case "certificate":
+            goToPage(
+                ARS_CONFIG.paths.certificate
+            );
+            break;
+
+
+        case "joining":
+            goToPage(
+                ARS_CONFIG.paths.joining
+            );
+            break;
+
+
+        case "admin":
+            goToPage(
+                ARS_CONFIG.paths.admin
+            );
+            break;
+
+
+        case "about":
+            scrollToId("about");
+            break;
+
+
+        case "contact":
+            scrollToId("contact");
+            break;
+
+
+        case "shayari":
+            scrollToId("shayari");
+            break;
+
+
+        case "story":
+            scrollToId("stories");
+            break;
+
+
+        default:
+            console.warn(
+                "Unknown ARS action:",
+                action
+            );
 
     }
-  );
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
+
+function goToPage(path) {
+
+    if (!path) return;
+
+    window.location.href = path;
+
+}
+
+
+function scrollToId(id) {
+
+    const target =
+        document.getElementById(id);
+
+    if (!target) {
+
+        console.warn(
+            `ARS: Section #${id} not found.`
+        );
+
+        return;
+    }
+
+    target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 
 }
 
@@ -1116,644 +1007,1084 @@ function initJoiningForm() {
    CONTACT FORM
    ========================================================= */
 
-function initContactForm() {
+function initializeContactForm() {
 
-  const form =
-    document.getElementById(
-      "contactForm"
-    );
+    const form =
+        $("#contactForm");
 
-  if (!form) return;
+    if (!form) return;
 
-  form.addEventListener(
-    "submit",
-    event => {
 
-      event.preventDefault();
+    form.addEventListener(
+        "submit",
+        event => {
 
-      const name =
-        form.querySelector(
-          '[name="name"]'
-        )?.value.trim();
+            event.preventDefault();
 
-      const email =
-        form.querySelector(
-          '[name="email"]'
-        )?.value.trim();
+            const name =
+                form.querySelector(
+                    '[name="name"]'
+                );
 
-      const message =
-        form.querySelector(
-          '[name="message"]'
-        )?.value.trim();
+            const email =
+                form.querySelector(
+                    '[name="email"]'
+                );
 
-      if (!name || !email || !message) {
+            const message =
+                form.querySelector(
+                    '[name="message"]'
+                );
 
-        showToast(
-          "कृपया सभी आवश्यक जानकारी भरें।",
-          "warning"
-        );
 
-        return;
+            if (
+                name &&
+                !name.value.trim()
+            ) {
 
-      }
+                showToast(
+                    "कृपया अपना नाम भरें।"
+                );
 
-      /*
-       * EmailJS configured होने पर
-       * यहाँ EmailJS भेजा जा सकता है।
-       */
+                name.focus();
 
-      if (
-        typeof emailjs !== "undefined" &&
-        CONFIG.email &&
-        CONFIG.email.enabled &&
-        !String(
-          CONFIG.email.publicKey || ""
-        ).startsWith("YOUR_")
-      ) {
-
-        try {
-
-          emailjs.send(
-            CONFIG.email.serviceId,
-            CONFIG.email.templateId,
-            {
-              name,
-              email,
-              message
+                return;
             }
-          ).then(() => {
+
+
+            if (
+                email &&
+                email.value.trim() &&
+                !isValidEmail(email.value)
+            ) {
+
+                showToast(
+                    "कृपया सही Email डालें।"
+                );
+
+                email.focus();
+
+                return;
+            }
+
+
+            if (
+                message &&
+                !message.value.trim()
+            ) {
+
+                showToast(
+                    "कृपया अपना संदेश लिखें।"
+                );
+
+                message.focus();
+
+                return;
+            }
+
+
+            /*
+             * No fake backend submission.
+             * If a real form service is connected,
+             * its action will handle submission.
+             */
+
+            if (
+                form.getAttribute("action") &&
+                form.getAttribute("action") !== "#"
+            ) {
+
+                form.submit();
+
+                return;
+            }
+
 
             showToast(
-              "आपका संदेश भेज दिया गया।",
-              "success"
+                "✅ आपका संदेश तैयार है।"
             );
 
             form.reset();
 
-          }).catch(() => {
+        }
+    );
 
-            showToast(
-              "संदेश भेजने में समस्या हुई।",
-              "error"
+}
+
+
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        .test(email);
+
+}
+
+
+/* =========================================================
+   MODAL SYSTEM
+   ========================================================= */
+
+function initializeModalSystem() {
+
+    $$("[data-modal-open]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const id =
+                        button.dataset.modalOpen;
+
+                    openModal(id);
+
+                }
             );
 
-          });
+        });
 
-          return;
+
+    $$("[data-modal-close]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const id =
+                        button.dataset.modalClose;
+
+                    closeModal(id);
+
+                }
+            );
+
+        });
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const modal =
+                event.target.closest(
+                    ".content-modal"
+                );
+
+            if (!modal) return;
+
+            if (
+                event.target.classList
+                    .contains("modal-overlay")
+            ) {
+
+                modal.classList.remove("active");
+
+                document.body.classList
+                    .remove("no-scroll");
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (event.key !== "Escape") {
+                return;
+            }
+
+            $$(".content-modal.active")
+                .forEach(modal => {
+
+                    modal.classList.remove(
+                        "active"
+                    );
+
+                });
+
+            document.body.classList
+                .remove("no-scroll");
+
+        }
+    );
+
+}
+
+
+function openModal(id) {
+
+    if (!id) return;
+
+    const modal =
+        document.getElementById(id);
+
+    if (!modal) return;
+
+    modal.classList.add("active");
+
+    document.body.classList.add(
+        "no-scroll"
+    );
+
+}
+
+
+function closeModal(id) {
+
+    if (!id) return;
+
+    const modal =
+        document.getElementById(id);
+
+    if (!modal) return;
+
+    modal.classList.remove("active");
+
+    document.body.classList.remove(
+        "no-scroll"
+    );
+
+}
+
+
+/* =========================================================
+   SCROLL SPY
+   ========================================================= */
+
+function initializeScrollSpy() {
+
+    const navLinks =
+        $$(
+            ".nav-link[href^='#'], " +
+            ".mobile-nav-link[href^='#']"
+        );
+
+    if (!navLinks.length) return;
+
+
+    const sections =
+        $$("section[id]");
+
+    if (!sections.length) return;
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    const id =
+                        entry.target.id;
+
+                    navLinks.forEach(link => {
+
+                        const href =
+                            link.getAttribute(
+                                "href"
+                            );
+
+                        link.classList.toggle(
+                            "active",
+                            href === `#${id}`
+                        );
+
+                    });
+
+                });
+
+            },
+            {
+                rootMargin:
+                    "-35% 0px -55% 0px"
+            }
+        );
+
+
+    sections.forEach(section => {
+
+        observer.observe(section);
+
+    });
+
+}
+
+
+/* =========================================================
+   EXTERNAL LINKS
+   ========================================================= */
+
+function initializeExternalLinks() {
+
+    $$("a[href]")
+        .forEach(link => {
+
+            const href =
+                link.getAttribute("href");
+
+            if (!href) return;
+
+            if (
+                href.startsWith("http://") ||
+                href.startsWith("https://")
+            ) {
+
+                link.setAttribute(
+                    "target",
+                    "_blank"
+                );
+
+                link.setAttribute(
+                    "rel",
+                    "noopener noreferrer"
+                );
+
+            }
+
+        });
+
+}
+
+
+/* =========================================================
+   WEBSITE STATISTICS
+   ========================================================= */
+
+function updateWebsiteStats() {
+
+    const shayariCount =
+        document.querySelectorAll(
+            ".shayari-card"
+        ).length;
+
+    const storyCount =
+        document.querySelectorAll(
+            ".story-card"
+        ).length;
+
+    const certificateCount =
+        document.querySelectorAll(
+            ".certificate-card"
+        ).length;
+
+
+    updateStat(
+        "[data-stat='shayari']",
+        shayariCount
+    );
+
+    updateStat(
+        "[data-stat='stories']",
+        storyCount
+    );
+
+    updateStat(
+        "[data-stat='certificates']",
+        certificateCount
+    );
+
+}
+
+
+function updateStat(
+    selector,
+    value
+) {
+
+    const element =
+        $(selector);
+
+    if (!element) return;
+
+    /*
+     * Do not replace a manually configured
+     * statistic with zero.
+     */
+
+    if (value > 0) {
+        element.textContent = value;
+    }
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE HELPERS
+   ========================================================= */
+
+function getStorageObject(key) {
+
+    try {
+
+        const value =
+            localStorage.getItem(key);
+
+        if (!value) return {};
+
+        const parsed =
+            JSON.parse(value);
+
+        if (
+            typeof parsed !== "object" ||
+            parsed === null ||
+            Array.isArray(parsed)
+        ) {
+            return {};
+        }
+
+        return parsed;
+
+    } catch (error) {
+
+        console.warn(
+            `ARS Storage Error [${key}]`,
+            error
+        );
+
+        return {};
+
+    }
+
+}
+
+
+function saveStorageObject(
+    key,
+    object
+) {
+
+    try {
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(object)
+        );
+
+    } catch (error) {
+
+        console.warn(
+            `ARS Storage Save Error [${key}]`,
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST NOTIFICATION
+   ========================================================= */
+
+function showToast(message) {
+
+    let toast =
+        $("#arsToast");
+
+
+    if (!toast) {
+
+        toast =
+            document.createElement("div");
+
+        toast.id = "arsToast";
+
+        toast.className =
+            "ars-toast";
+
+        document.body.appendChild(toast);
+
+    }
+
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    clearTimeout(
+        window.arsToastTimer
+    );
+
+
+    window.arsToastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2500
+        );
+
+}
+
+
+/* =========================================================
+   COPY TO CLIPBOARD
+   ========================================================= */
+
+async function copyText(text) {
+
+    if (!text) return false;
+
+    try {
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+        showToast(
+            "📋 Copied!"
+        );
+
+        return true;
+
+    } catch (error) {
+
+        /*
+         * Fallback for older browsers.
+         */
+
+        const textarea =
+            document.createElement(
+                "textarea"
+            );
+
+        textarea.value = text;
+
+        textarea.style.position =
+            "fixed";
+
+        textarea.style.opacity = "0";
+
+        document.body.appendChild(
+            textarea
+        );
+
+        textarea.select();
+
+        try {
+
+            document.execCommand("copy");
+
+            showToast(
+                "📋 Copied!"
+            );
+
+            textarea.remove();
+
+            return true;
 
         } catch {
 
-          // fallback below
+            textarea.remove();
+
+            showToast(
+                "Copy नहीं हो पाया।"
+            );
+
+            return false;
 
         }
 
-      }
-
-      showToast(
-        "संदेश तैयार है। EmailJS configuration जोड़ने के बाद यह सीधे भेजा जा सकता है।",
-        "info"
-      );
-
-      form.reset();
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   FAVOURITE SYSTEM
-   ========================================================= */
-
-function getFavourites() {
-
-  try {
-
-    return JSON.parse(
-      localStorage.getItem(
-        "ARS_FAVOURITES"
-      )
-    ) || [];
-
-  } catch {
-
-    return [];
-
-  }
-
-}
-
-
-function toggleFavourite(id) {
-
-  if (!id) return false;
-
-  let favourites =
-    getFavourites();
-
-  if (favourites.includes(id)) {
-
-    favourites =
-      favourites.filter(
-        item => item !== id
-      );
-
-    localStorage.setItem(
-      "ARS_FAVOURITES",
-      JSON.stringify(favourites)
-    );
-
-    return false;
-
-  }
-
-  favourites.push(id);
-
-  localStorage.setItem(
-    "ARS_FAVOURITES",
-    JSON.stringify(favourites)
-  );
-
-  return true;
-
-}
-
-
-/* =========================================================
-   LIKE SYSTEM
-   ========================================================= */
-
-function toggleLike(id) {
-
-  if (!id) return false;
-
-  let likes = {};
-
-  try {
-
-    likes =
-      JSON.parse(
-        localStorage.getItem(
-          "ARS_LIKES"
-        )
-      ) || {};
-
-  } catch {
-
-    likes = {};
-
-  }
-
-  likes[id] =
-    !Boolean(likes[id]);
-
-  localStorage.setItem(
-    "ARS_LIKES",
-    JSON.stringify(likes)
-  );
-
-  return likes[id];
-
-}
-
-
-/* =========================================================
-   VIEW COUNTER
-   ========================================================= */
-
-function addView(id) {
-
-  if (!id) return 0;
-
-  let views = {};
-
-  try {
-
-    views =
-      JSON.parse(
-        localStorage.getItem(
-          "ARS_VIEWS"
-        )
-      ) || {};
-
-  } catch {
-
-    views = {};
-
-  }
-
-  views[id] =
-    Number(views[id] || 0) + 1;
-
-  localStorage.setItem(
-    "ARS_VIEWS",
-    JSON.stringify(views)
-  );
-
-  return views[id];
-
-}
-
-
-/* =========================================================
-   CERTIFICATE QUICK VERIFY
-   ========================================================= */
-
-function quickVerifyCertificate(value) {
-
-  if (
-    !window.ARS_CERTIFICATES ||
-    typeof window.ARS_CERTIFICATES.verify !==
-      "function"
-  ) {
-
-    showToast(
-      "Certificate system उपलब्ध नहीं है।",
-      "error"
-    );
-
-    return null;
-
-  }
-
-  const result =
-    window.ARS_CERTIFICATES.verify(
-      value
-    );
-
-  const resultBox =
-    document.getElementById(
-      "certificateVerifyResult"
-    );
-
-  if (resultBox) {
-
-    if (result.verified) {
-
-      resultBox.innerHTML = `
-        <div class="verify-success">
-          <strong>✅ Certificate Verified</strong>
-          <p>
-            Certificate No:
-            ${escapeHTML(
-              result.certificate.certificateNo
-            )}
-          </p>
-          <p>
-            Name:
-            ${escapeHTML(
-              result.certificate.name
-            )}
-          </p>
-          <p>
-            Type:
-            ${escapeHTML(
-              result.certificate.type
-            )}
-          </p>
-          <p>
-            Status:
-            ${escapeHTML(
-              result.status
-            )}
-          </p>
-        </div>
-      `;
-
-    } else {
-
-      resultBox.innerHTML = `
-        <div class="verify-error">
-          <strong>❌ Certificate Not Verified</strong>
-          <p>
-            ${
-              result.status === "Not Found"
-                ? "Certificate नहीं मिला।"
-                : "यह Certificate अभी Valid नहीं है।"
-            }
-          </p>
-        </div>
-      `;
-
     }
 
-  }
-
-  return result;
-
 }
 
 
 /* =========================================================
-   CERTIFICATE VERIFY FORM
+   SHARE SYSTEM
    ========================================================= */
 
-function initCertificateVerifyForm() {
-
-  const form =
-    document.getElementById(
-      "certificateVerifyForm"
-    );
-
-  if (!form) return;
-
-  form.addEventListener(
-    "submit",
-    event => {
-
-      event.preventDefault();
-
-      const input =
-        form.querySelector(
-          '[name="certificate"]'
-        );
-
-      quickVerifyCertificate(
-        input?.value || ""
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   CERTIFICATE JOINING CHECK
-   ========================================================= */
-
-function checkJoiningCertificate(
-  joiningId
+async function shareARS(
+    title = "ARS Official Website",
+    text = "ARS Official Website"
 ) {
 
-  if (!joiningId) {
+    const url =
+        window.location.href;
 
-    return {
-      approved: false,
-      certificate: null
-    };
 
-  }
+    if (
+        navigator.share
+    ) {
 
-  if (
-    !window.ARS_CERTIFICATES ||
-    typeof window.ARS_CERTIFICATES.getAll !==
-      "function"
-  ) {
+        try {
 
-    return {
-      approved: false,
-      certificate: null
-    };
+            await navigator.share({
+                title,
+                text,
+                url
+            });
 
-  }
+            return;
 
-  const certificates =
-    window.ARS_CERTIFICATES.getAll();
+        } catch (error) {
 
-  const certificate =
-    certificates.find(
-      item =>
-        item.joiningId === joiningId &&
-        item.status === "Valid"
-    );
+            if (
+                error.name ===
+                "AbortError"
+            ) {
+                return;
+            }
 
-  return {
+        }
 
-    approved:
-      Boolean(certificate),
+    }
 
-    certificate:
-      certificate || null
 
-  };
+    await copyText(url);
 
 }
 
 
 /* =========================================================
-   INIT CERTIFICATE VERIFY
+   DYNAMIC LIKE/FAVORITE SUPPORT
+   ========================================================= */
+
+function createReactionButtons(id) {
+
+    const likes =
+        getStorageObject(
+            ARS_CONFIG.storage.likes
+        );
+
+    const favorites =
+        getStorageObject(
+            ARS_CONFIG.storage.favorites
+        );
+
+
+    const liked =
+        Boolean(likes[id]);
+
+    const favorited =
+        Boolean(favorites[id]);
+
+
+    return `
+        <div class="card-actions">
+
+            <button
+                type="button"
+                class="like-btn ${
+                    liked ? "liked" : ""
+                }"
+                data-like-id="${escapeHTML(id)}"
+                aria-pressed="${liked}">
+
+                ${
+                    liked
+                        ? "❤️"
+                        : "🤍"
+                }
+                Like
+            </button>
+
+
+            <button
+                type="button"
+                class="favorite-btn ${
+                    favorited ? "favorited" : ""
+                }"
+                data-favorite-id="${escapeHTML(id)}"
+                aria-pressed="${favorited}">
+
+                ${
+                    favorited
+                        ? "⭐ Saved"
+                        : "☆ Favorite"
+                }
+
+            </button>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================================================
+   EVENT DELEGATION FOR DYNAMIC CARDS
    ========================================================= */
 
 document.addEventListener(
-  "DOMContentLoaded",
-  () => {
+    "click",
+    event => {
 
-    initCertificateVerifyForm();
-    initJoiningForm();
+        const likeButton =
+            event.target.closest(
+                "[data-like-id]"
+            );
 
-  }
+        if (
+            likeButton &&
+            !likeButton.dataset.arsBound
+        ) {
+
+            likeButton.dataset.arsBound =
+                "true";
+
+            const id =
+                likeButton.dataset.likeId;
+
+            const likes =
+                getStorageObject(
+                    ARS_CONFIG.storage.likes
+                );
+
+            likes[id] =
+                !likes[id];
+
+            saveStorageObject(
+                ARS_CONFIG.storage.likes,
+                likes
+            );
+
+            updateLikeButton(
+                likeButton,
+                likes[id]
+            );
+
+            showToast(
+                likes[id]
+                    ? "❤️ Liked"
+                    : "💔 Like हटाया गया"
+            );
+
+            return;
+        }
+
+
+        const favoriteButton =
+            event.target.closest(
+                "[data-favorite-id]"
+            );
+
+        if (
+            favoriteButton &&
+            !favoriteButton.dataset.arsBound
+        ) {
+
+            favoriteButton.dataset.arsBound =
+                "true";
+
+            const id =
+                favoriteButton.dataset.favoriteId;
+
+            const favorites =
+                getStorageObject(
+                    ARS_CONFIG.storage.favorites
+                );
+
+            favorites[id] =
+                !favorites[id];
+
+            saveStorageObject(
+                ARS_CONFIG.storage.favorites,
+                favorites
+            );
+
+            updateFavoriteButton(
+                favoriteButton,
+                favorites[id]
+            );
+
+            showToast(
+                favorites[id]
+                    ? "⭐ Favorite में सेव"
+                    : "☆ Favorite से हटाया गया"
+            );
+
+        }
+
+    }
 );
 
 
 /* =========================================================
-   TOAST SYSTEM
+   CATEGORY FILTER SUPPORT
    ========================================================= */
 
-function showToast(
-  message,
-  type = "info"
-) {
+document.addEventListener(
+    "click",
+    event => {
 
-  let container =
-    document.getElementById(
-      "toastContainer"
+        const tab =
+            event.target.closest(
+                ".category-tab"
+            );
+
+        if (!tab) return;
+
+        const category =
+            (
+                tab.dataset.category ||
+                tab.textContent ||
+                ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        const container =
+            tab.closest(
+                "section, .section-container"
+            );
+
+
+        if (!container) return;
+
+
+        const cards =
+            $$(
+                ".shayari-card, " +
+                ".story-card, " +
+                ".poetry-card, " +
+                ".content-card",
+                container
+            );
+
+
+        /*
+         * "all" shows everything.
+         */
+
+        $$(".category-tab", container)
+            .forEach(item => {
+
+                item.classList.toggle(
+                    "active",
+                    item === tab
+                );
+
+            });
+
+
+        if (
+            category === "all" ||
+            category === "सभी"
+        ) {
+
+            cards.forEach(card => {
+
+                card.style.display = "";
+
+            });
+
+            return;
+        }
+
+
+        cards.forEach(card => {
+
+            const cardCategory =
+                (
+                    card.dataset.category ||
+                    card.querySelector(
+                        ".card-category"
+                    )?.textContent ||
+                    ""
+                )
+                .trim()
+                .toLowerCase();
+
+
+            const searchable =
+                card.textContent
+                    .toLowerCase();
+
+
+            const match =
+                cardCategory.includes(category) ||
+                searchable.includes(category);
+
+
+            card.style.display =
+                match ? "" : "none";
+
+        });
+
+    }
+);
+
+
+/* =========================================================
+   IMAGE ERROR HANDLING
+   ========================================================= */
+
+document.addEventListener(
+    "error",
+    event => {
+
+        const image =
+            event.target;
+
+        if (
+            image &&
+            image.tagName === "IMG"
+        ) {
+
+            image.classList.add(
+                "image-load-error"
+            );
+
+            /*
+             * Do not replace user assets automatically.
+             */
+
+            console.warn(
+                "ARS image could not load:",
+                image.src
+            );
+
+        }
+
+    },
+    true
+);
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+   ========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        /*
+         * "/" focuses global search.
+         */
+
+        if (
+            event.key === "/" &&
+            !isTypingField(event.target)
+        ) {
+
+            event.preventDefault();
+
+            const search =
+                $("#globalSearch");
+
+            if (search) {
+                search.focus();
+            }
+
+        }
+
+
+        /*
+         * Escape clears search.
+         */
+
+        if (
+            event.key === "Escape" &&
+            document.activeElement?.id ===
+            "globalSearch"
+        ) {
+
+            const search =
+                $("#globalSearch");
+
+            if (search) {
+
+                search.value = "";
+
+                clearSearchResults();
+
+                search.blur();
+
+            }
+
+        }
+
+    }
+);
+
+
+function isTypingField(element) {
+
+    if (!element) return false;
+
+    const tag =
+        element.tagName;
+
+    return (
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        tag === "SELECT" ||
+        element.isContentEditable
     );
-
-  if (!container) {
-
-    container =
-      document.createElement("div");
-
-    container.id =
-      "toastContainer";
-
-    container.className =
-      "toast-container";
-
-    document.body.appendChild(
-      container
-    );
-
-  }
-
-  const toast =
-    document.createElement("div");
-
-  toast.className =
-    `toast toast-${type}`;
-
-  toast.textContent =
-    message;
-
-  container.appendChild(
-    toast
-  );
-
-  requestAnimationFrame(() => {
-    toast.classList.add("show");
-  });
-
-  setTimeout(() => {
-
-    toast.classList.remove(
-      "show"
-    );
-
-    setTimeout(() => {
-      toast.remove();
-    }, 300);
-
-  }, 3500);
 
 }
 
 
 /* =========================================================
-   EMPTY CONTENT
-   ========================================================= */
-
-function emptyContent(
-  name = "Content"
-) {
-
-  return `
-    <div class="empty-state">
-      <div class="empty-icon">📭</div>
-      <h3>अभी कोई ${escapeHTML(name)} उपलब्ध नहीं है</h3>
-      <p>जल्द ही नई सामग्री जोड़ी जाएगी।</p>
-    </div>
-  `;
-
-}
-
-
-/* =========================================================
-   HTML SECURITY
+   HTML ESCAPE
    ========================================================= */
 
 function escapeHTML(value) {
 
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-
-}
-
-
-function escapeAttribute(value) {
-
-  return escapeHTML(value)
-    .replace(/\n/g, "&#10;")
-    .replace(/\r/g, "&#13;");
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 
 }
 
 
 /* =========================================================
-   GLOBAL ARS API
+   PUBLIC ARS API
+   Other files can safely use these functions.
    ========================================================= */
 
 window.ARS = {
 
-  config:
-    CONFIG,
+    config: ARS_CONFIG,
 
-  toast:
-    showToast,
+    toast: showToast,
 
-  favourites: {
+    search: performSearch,
 
-    get:
-      getFavourites,
+    openModal,
 
-    toggle:
-      toggleFavourite
+    closeModal,
 
-  },
+    goToPage,
 
-  likes: {
+    scrollToId,
 
-    toggle:
-      toggleLike
+    copyText,
 
-  },
+    share: shareARS,
 
-  views: {
+    getStorage: getStorageObject,
 
-    add:
-      addView
+    saveStorage: saveStorageObject,
 
-  },
-
-  certificate: {
-
-    verify:
-      quickVerifyCertificate,
-
-    checkJoining:
-      checkJoiningCertificate
-
-  },
-
-  joining: {
-
-    save:
-      saveJoiningApplication
-
-  },
-
-  search: {
-
-    run:
-      renderSearchResults
-
-  }
+    escapeHTML
 
 };
 
 
 /* =========================================================
-   CONSOLE STATUS
+   FINAL LOAD MESSAGE
    ========================================================= */
 
 console.log(
-  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-);
-
-console.log(
-  "🌹 ARS OFFICIAL WEBSITE"
-);
-
-console.log(
-  "👤 Founder: Adarsh Raj"
-);
-
-console.log(
-  "📚 Shayari System:",
-  window.ARS_SHAYARI
-    ? "CONNECTED"
-    : "NOT FOUND"
-);
-
-console.log(
-  "📖 Story System:",
-  window.ARS_STORIES
-    ? "CONNECTED"
-    : "NOT FOUND"
-);
-
-console.log(
-  "🏆 Certificate System:",
-  window.ARS_CERTIFICATES
-    ? "CONNECTED"
-    : "NOT FOUND"
-);
-
-console.log(
-  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    "🌹 ARS Official Website Loaded"
 );
