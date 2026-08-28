@@ -1,427 +1,302 @@
 /* =========================================================
-   ADARSH RAJ SHAYAR
-   ARS OFFICIAL SHAYARI DATABASE
-   Version 2.0
+   ARS SHAYARI DATABASE
    ========================================================= */
 
+"use strict";
 
-/* =========================================================
-   ❤️ LOVE SHAYARI
-   ========================================================= */
+window.ARS_SHAYARI = [
 
-const loveShayari = [
+    {
+        id: "love-01",
+        category: "love",
+        title: "मोहब्बत",
+        text: "मोहब्बत शब्दों की मोहताज नहीं होती, दिल से निकले तो हर बात खास होती।"
+    },
 
-  {
-    id: "LOVE-001",
-    title: "खूबसूरत एहसास",
-    author: "Adarsh Raj",
-    text: `तेरी मुस्कान मेरी सबसे बड़ी खुशी है।`
-  },
+    {
+        id: "love-02",
+        category: "love",
+        title: "याद",
+        text: "तेरी यादों का भी अपना अंदाज़ है, दूर होकर भी तू मेरे पास है।"
+    },
 
-  {
-    id: "LOVE-002",
-    title: "तेरा साथ",
-    author: "Adarsh Raj",
-    text: `तू साथ हो तो हर मौसम खूबसूरत लगता है।`
-  },
+    {
+        id: "love-03",
+        category: "love",
+        title: "दिल",
+        text: "दिल ने जिसे अपना माना, उसके बिना हर पल अधूरा जाना।"
+    },
 
-  {
-    id: "LOVE-003",
-    title: "दिल की धड़कन",
-    author: "Adarsh Raj",
-    text: `दिल की हर धड़कन सिर्फ तुम्हारा नाम लेती है।`
-  },
+    {
+        id: "love-04",
+        category: "love",
+        title: "ख्वाब",
+        text: "ख्वाबों में भी वही चेहरा नजर आता है, दिल उसे ही अपना कह जाता है।"
+    },
 
-  {
-    id: "LOVE-004",
-    title: "इश्क़",
-    author: "Adarsh Raj",
-    text: `इश्क़ वो नहीं जो दिखाया जाए,
-इश्क़ वो है जो निभाया जाए।`
-  },
+    {
+        id: "love-05",
+        category: "love",
+        title: "इश्क",
+        text: "इश्क अगर सच्चा हो तो दूरी भी हार जाती है, याद किसी की हो तो रात भी गुजर जाती है।"
+    },
 
-  {
-    id: "LOVE-005",
-    title: "मेरी कहानी",
-    author: "Adarsh Raj",
-    text: `तुम मेरी कहानी का सबसे खूबसूरत हिस्सा हो।`
-  }
+
+    {
+        id: "sad-01",
+        category: "sad",
+        title: "खामोशी",
+        text: "कुछ दर्द ऐसे होते हैं जिन्हें शब्द नहीं, सिर्फ खामोशी समझती है।"
+    },
+
+    {
+        id: "sad-02",
+        category: "sad",
+        title: "यादें",
+        text: "यादें कभी खत्म नहीं होतीं, बस इंसान उन्हें छुपाना सीख जाता है।"
+    },
+
+    {
+        id: "sad-03",
+        category: "sad",
+        title: "अकेलापन",
+        text: "भीड़ में भी अकेला हूँ, क्योंकि जिसे ढूंढता हूँ वो साथ नहीं।"
+    },
+
+    {
+        id: "sad-04",
+        category: "sad",
+        title: "दर्द",
+        text: "दर्द अपना हो तो सहना आसान लगता है, किसी अपने का हो तो दिल रोता है।"
+    },
+
+    {
+        id: "sad-05",
+        category: "sad",
+        title: "वक्त",
+        text: "वक्त बदलता है, लोग बदलते हैं, मगर कुछ यादें हमेशा साथ रहती हैं।"
+    },
+
+
+    {
+        id: "attitude-01",
+        category: "attitude",
+        title: "पहचान",
+        text: "नाम छोटा हो सकता है, पहचान नहीं।"
+    },
+
+    {
+        id: "attitude-02",
+        category: "attitude",
+        title: "हौसला",
+        text: "रास्ते मुश्किल हों तो क्या, हौसला मजबूत होना चाहिए।"
+    },
+
+    {
+        id: "attitude-03",
+        category: "attitude",
+        title: "अंदाज़",
+        text: "हमारा अंदाज़ ही हमारी पहचान है।"
+    },
+
+    {
+        id: "attitude-04",
+        category: "attitude",
+        title: "जवाब",
+        text: "हर बात का जवाब शब्दों से नहीं, काम से दिया जाता है।"
+    },
+
+    {
+        id: "attitude-05",
+        category: "attitude",
+        title: "खुद पर भरोसा",
+        text: "दुनिया क्या कहती है छोड़ो, खुद पर भरोसा रखो।"
+    },
+
+
+    {
+        id: "friendship-01",
+        category: "friendship",
+        title: "दोस्ती",
+        text: "सच्ची दोस्ती वक्त नहीं देखती, बस साथ निभाना जानती है।"
+    },
+
+    {
+        id: "friendship-02",
+        category: "friendship",
+        title: "यार",
+        text: "यार वही जो मुश्किल वक्त में साथ खड़ा रहे।"
+    },
+
+    {
+        id: "friendship-03",
+        category: "friendship",
+        title: "साथ",
+        text: "अच्छे दोस्तों का साथ जिंदगी की खूबसूरत सौगात है।"
+    },
+
+    {
+        id: "friendship-04",
+        category: "friendship",
+        title: "यादें",
+        text: "दोस्तों के साथ बिताया वक्त हमेशा यादगार रहता है।"
+    },
+
+    {
+        id: "friendship-05",
+        category: "friendship",
+        title: "भरोसा",
+        text: "दोस्ती की सबसे बड़ी ताकत भरोसा है।"
+    },
+
+
+    {
+        id: "motivation-01",
+        category: "motivation",
+        title: "सपना",
+        text: "सपना वही जो आपको हर सुबह मेहनत करने के लिए प्रेरित करे।"
+    },
+
+    {
+        id: "motivation-02",
+        category: "motivation",
+        title: "मेहनत",
+        text: "मेहनत कभी बेकार नहीं जाती, वक्त जरूर लगता है।"
+    },
+
+    {
+        id: "motivation-03",
+        category: "motivation",
+        title: "जीत",
+        text: "हार से मत डरिए, हार के बाद ही जीत की असली कीमत समझ आती है।"
+    },
+
+    {
+        id: "motivation-04",
+        category: "motivation",
+        title: "लक्ष्य",
+        text: "लक्ष्य बड़ा हो तो कदम भी मजबूत होने चाहिए।"
+    },
+
+    {
+        id: "motivation-05",
+        category: "motivation",
+        title: "सफलता",
+        text: "सफलता इंतजार करने से नहीं, लगातार प्रयास करने से मिलती है।"
+    }
 
 ];
 
 
-/* =========================================================
-   💔 SAD SHAYARI
-   ========================================================= */
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-const sadShayari = [
+        const container =
+            document.getElementById(
+                "shayariContainer"
+            );
 
-  {
-    id: "SAD-001",
-    title: "टूटा हुआ दिल",
-    author: "Adarsh Raj",
-    text: `टूटे हुए दिल की आवाज़ कोई नहीं सुनता।`
-  },
+        if (!container) return;
 
-  {
-    id: "SAD-002",
-    title: "अधूरे रिश्ते",
-    author: "Adarsh Raj",
-    text: `कुछ रिश्ते अधूरे होकर भी हमेशा याद रहते हैं।`
-  },
+        renderShayari("all");
 
-  {
-    id: "SAD-003",
-    title: "आँसू",
-    author: "Adarsh Raj",
-    text: `आँसू वही बहते हैं,
-जहाँ सच्चा प्यार होता है।`
-  },
+        document.querySelectorAll(
+            "[data-category]"
+        ).forEach(button => {
 
-  {
-    id: "SAD-004",
-    title: "किस्मत",
-    author: "Adarsh Raj",
-    text: `किस्मत ने मिलाया भी,
-और दूर भी कर दिया।`
-  },
+            button.addEventListener(
+                "click",
+                () => {
 
-  {
-    id: "SAD-005",
-    title: "दर्द",
-    author: "Adarsh Raj",
-    text: `जो अपने थे,
-वही सबसे ज्यादा दर्द दे गए।`
-  }
+                    document.querySelectorAll(
+                        "[data-category]"
+                    ).forEach(btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                    );
 
-];
+                    button.classList.add(
+                        "active"
+                    );
 
+                    renderShayari(
+                        button.dataset.category
+                    );
 
-/* =========================================================
-   🔥 ATTITUDE SHAYARI
-   ========================================================= */
+                }
+            );
 
-const attitudeShayari = [
+        });
 
-  {
-    id: "ATTITUDE-001",
-    title: "अपनी पहचान",
-    author: "Adarsh Raj",
-    text: `हम अपनी पहचान खुद बनाते हैं।`
-  },
+        console.log(
+            "🌹 ARS Shayari Database Loaded"
+        );
 
-  {
-    id: "ATTITUDE-002",
-    title: "सफलता",
-    author: "Adarsh Raj",
-    text: `जो हमें रोकना चाहते हैं,
-वही हमारी सफलता देखेंगे।`
-  },
+        console.log(
+            "📖 Total Shayari:",
+            ARS_SHAYARI.length
+        );
 
-  {
-    id: "ATTITUDE-003",
-    title: "हमारी सोच",
-    author: "Adarsh Raj",
-    text: `हमारी सोच ही हमारी ताकत है।`
-  },
-
-  {
-    id: "ATTITUDE-004",
-    title: "शेर",
-    author: "Adarsh Raj",
-    text: `शेर अपना शिकार खुद करता है।`
-  },
-
-  {
-    id: "ATTITUDE-005",
-    title: "नाम नहीं काम",
-    author: "Adarsh Raj",
-    text: `नाम नहीं,
-काम बड़ा होना चाहिए।`
-  }
-
-];
+    }
+);
 
 
-/* =========================================================
-   🤝 FRIENDSHIP SHAYARI
-   ========================================================= */
+function renderShayari(category) {
 
-const friendshipShayari = [
+    const container =
+        document.getElementById(
+            "shayariContainer"
+        );
 
-  {
-    id: "FRIENDSHIP-001",
-    title: "सच्चा दोस्त",
-    author: "Adarsh Raj",
-    text: `सच्चा दोस्त जिंदगी की सबसे बड़ी दौलत है।`
-  },
+    if (!container) return;
 
-  {
-    id: "FRIENDSHIP-002",
-    title: "दिल की दोस्ती",
-    author: "Adarsh Raj",
-    text: `दोस्ती दिल से होती है,
-मतलब से नहीं।`
-  },
-
-  {
-    id: "FRIENDSHIP-003",
-    title: "मुश्किल समय",
-    author: "Adarsh Raj",
-    text: `दोस्त वही,
-जो मुश्किल समय में साथ दे।`
-  },
-
-  {
-    id: "FRIENDSHIP-004",
-    title: "खूबसूरत रिश्ता",
-    author: "Adarsh Raj",
-    text: `दोस्ती हर रिश्ते से खूबसूरत होती है।`
-  },
-
-  {
-    id: "FRIENDSHIP-005",
-    title: "खास दोस्त",
-    author: "Adarsh Raj",
-    text: `जहाँ सच्चे दोस्त हों,
-वहाँ हर दिन खास होता है।`
-  }
-
-];
+    const data =
+        category === "all"
+            ? ARS_SHAYARI
+            : ARS_SHAYARI.filter(
+                item =>
+                    item.category === category
+            );
 
 
-/* =========================================================
-   💪 MOTIVATION SHAYARI
-   ========================================================= */
+    container.innerHTML =
+        data.map(item => `
 
-const motivationShayari = [
+            <article
+                class="content-card shayari-card"
+                data-category="${item.category}"
+                data-searchable="${item.title} ${item.text}">
 
-  {
-    id: "MOTIVATION-001",
-    title: "मेहनत",
-    author: "Adarsh Raj",
-    text: `मेहनत इतनी करो कि किस्मत भी झुक जाए।`
-  },
+                <span class="card-category">
+                    ${item.category}
+                </span>
 
-  {
-    id: "MOTIVATION-002",
-    title: "हार मत मानो",
-    author: "Adarsh Raj",
-    text: `हार मानना कभी विकल्प नहीं होता।`
-  },
+                <h3>${item.title}</h3>
 
-  {
-    id: "MOTIVATION-003",
-    title: "सपने",
-    author: "Adarsh Raj",
-    text: `सपने वही पूरे होते हैं,
-जो नींद उड़ाकर देखे जाते हैं।`
-  },
+                <p>${item.text}</p>
 
-  {
-    id: "MOTIVATION-004",
-    title: "संघर्ष",
-    author: "Adarsh Raj",
-    text: `जो संघर्ष करता है,
-वही इतिहास लिखता है।`
-  },
+                <div class="card-actions">
 
-  {
-    id: "MOTIVATION-005",
-    title: "आज की मेहनत",
-    author: "Adarsh Raj",
-    text: `आज की मेहनत,
-कल की सफलता है।`
-  }
+                    <button
+                        type="button"
+                        class="like-btn"
+                        data-like-id="${item.id}">
+                        🤍 Like
+                    </button>
 
-];
+                    <button
+                        type="button"
+                        class="favorite-btn"
+                        data-favorite-id="${item.id}">
+                        ☆ Favorite
+                    </button>
 
+                </div>
 
-/* =========================================================
-   🌹 MASTER SHAYARI DATABASE
-   ========================================================= */
+            </article>
 
-const shayariData = [
-
-  ...loveShayari.map(item => ({
-    ...item,
-    category: "Love"
-  })),
-
-  ...sadShayari.map(item => ({
-    ...item,
-    category: "Sad"
-  })),
-
-  ...attitudeShayari.map(item => ({
-    ...item,
-    category: "Attitude"
-  })),
-
-  ...friendshipShayari.map(item => ({
-    ...item,
-    category: "Friendship"
-  })),
-
-  ...motivationShayari.map(item => ({
-    ...item,
-    category: "Motivation"
-  }))
-
-];
-
-
-/* =========================================================
-   📊 SHAYARI STATISTICS
-   ========================================================= */
-
-const shayariStats = {
-
-  total: shayariData.length,
-
-  love: loveShayari.length,
-
-  sad: sadShayari.length,
-
-  attitude: attitudeShayari.length,
-
-  friendship: friendshipShayari.length,
-
-  motivation: motivationShayari.length
-
-};
-
-
-/* =========================================================
-   🔎 FIND SHAYARI BY ID
-   ========================================================= */
-
-function getShayariById(id) {
-
-  return shayariData.find(
-    item => item.id === id
-  ) || null;
+        `).join("");
 
 }
-
-
-/* =========================================================
-   📂 GET SHAYARI BY CATEGORY
-   ========================================================= */
-
-function getShayariByCategory(category) {
-
-  if (!category || category === "All") {
-    return [...shayariData];
-  }
-
-  return shayariData.filter(
-    item =>
-      String(item.category).toLowerCase() ===
-      String(category).toLowerCase()
-  );
-
-}
-
-
-/* =========================================================
-   🔍 SEARCH SHAYARI
-   ========================================================= */
-
-function searchShayari(query) {
-
-  const searchText =
-    String(query || "")
-      .trim()
-      .toLowerCase();
-
-  if (!searchText) {
-    return [...shayariData];
-  }
-
-  return shayariData.filter(item =>
-
-    String(item.title)
-      .toLowerCase()
-      .includes(searchText)
-
-    ||
-
-    String(item.text)
-      .toLowerCase()
-      .includes(searchText)
-
-    ||
-
-    String(item.author)
-      .toLowerCase()
-      .includes(searchText)
-
-    ||
-
-    String(item.category)
-      .toLowerCase()
-      .includes(searchText)
-
-  );
-
-}
-
-
-/* =========================================================
-   🌐 GLOBAL ARS SHAYARI API
-   ========================================================= */
-
-window.ARS_SHAYARI = {
-
-  data: shayariData,
-
-  stats: shayariStats,
-
-  love: loveShayari,
-
-  sad: sadShayari,
-
-  attitude: attitudeShayari,
-
-  friendship: friendshipShayari,
-
-  motivation: motivationShayari,
-
-  getById: getShayariById,
-
-  getByCategory: getShayariByCategory,
-
-  search: searchShayari
-
-};
-
-
-/* =========================================================
-   ✅ DATABASE STATUS
-   ========================================================= */
-
-console.log(
-  "🌹 ARS Shayari Database Loaded"
-);
-
-console.log(
-  "📖 Total Shayari:",
-  shayariStats.total
-);
-
-console.log(
-  "❤️ Love:",
-  shayariStats.love,
-  "| 💔 Sad:",
-  shayariStats.sad,
-  "| 🔥 Attitude:",
-  shayariStats.attitude
-);
-
-console.log(
-  "🤝 Friendship:",
-  shayariStats.friendship,
-  "| 💪 Motivation:",
-  shayariStats.motivation
-);
