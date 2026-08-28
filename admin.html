@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Admin Panel</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="inner-header">
+
+  <a href="index.html" class="mini-brand">
+    <img src="logo.png" alt="ARS Logo">
+    <span>ARS Admin</span>
+  </a>
+
+  <a href="index.html" class="back-btn">
+    ← Website
+  </a>
+
+</header>
+
+<main class="admin-container">
+
+  <!-- LOGIN -->
+
+  <section id="adminLogin" class="admin-login">
+
+    <div class="admin-logo">
+      <img src="logo.png" alt="ARS Logo">
+    </div>
+
+    <h1>ARS Admin Panel</h1>
+
+    <p>Authorized access only</p>
+
+    <form id="adminLoginForm">
+
+      <div class="form-group">
+        <label>Admin Password</label>
+
+        <input
+          type="password"
+          id="adminPassword"
+          placeholder="Enter password"
+          required
+        >
+      </div>
+
+      <button class="primary-btn" type="submit">
+        Login
+      </button>
+
+    </form>
+
+    <div id="adminLoginMessage" class="page-message"></div>
+
+  </section>
+
+
+  <!-- DASHBOARD -->
+
+  <section id="adminDashboard" class="admin-dashboard hidden">
+
+    <div class="admin-top">
+
+      <div>
+        <span class="admin-small-title">ARS OFFICIAL</span>
+        <h1>Admin Dashboard</h1>
+      </div>
+
+      <button id="adminLogout" class="logout-btn">
+        Logout
+      </button>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="admin-stats">
+
+      <div class="admin-stat-card">
+        <span>📜</span>
+        <strong id="certificateCount">0</strong>
+        <small>Certificates</small>
+      </div>
+
+      <div class="admin-stat-card">
+        <span>🤝</span>
+        <strong id="joiningCount">0</strong>
+        <small>Joining Applications</small>
+      </div>
+
+      <div class="admin-stat-card">
+        <span>⏳</span>
+        <strong id="pendingCount">0</strong>
+        <small>Pending</small>
+      </div>
+
+    </div>
+
+
+    <!-- JOINING -->
+
+    <section class="admin-section">
+
+      <div class="admin-section-title">
+        <h2>🤝 ARS Joining Applications</h2>
+
+        <button onclick="loadAdminData()" class="small-btn">
+          Refresh
+        </button>
+      </div>
+
+      <div id="joiningApplications" class="admin-list"></div>
+
+    </section>
+
+
+    <!-- CERTIFICATES -->
+
+    <section class="admin-section">
+
+      <div class="admin-section-title">
+        <h2>🏆 Certificates</h2>
+      </div>
+
+      <div id="certificateList" class="admin-list"></div>
+
+    </section>
+
+
+    <!-- ADMIN NOTE -->
+
+    <section class="admin-note">
+
+      <h3>⚠️ Important</h3>
+
+      <p>
+        This is a front-end admin panel. Data stored using
+        browser localStorage is available only on this browser/device.
+        For real online administration and multi-device access,
+        a secure backend/database will be required.
+      </p>
+
+    </section>
+
+  </section>
+
+</main>
+
+<footer class="simple-footer">
+  <p>© 2026 ARS Official Website | Admin Panel</p>
+</footer>
+
+
+<script src="config.js"></script>
+<script src="certificate.js"></script>
+<script src="script.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const loginForm =
+    document.getElementById("adminLoginForm");
+
+  const loginBox =
+    document.getElementById("adminLogin");
+
+  const dashboard =
+    document.getElementById("adminDashboard");
+
+  const message =
+    document.getElementById("adminLoginMessage");
+
+  /*
+    IMPORTANT:
+    Change this password before publishing.
+  */
+
+  const ADMIN_PASSWORD = "ARS_ADMIN_2026";
+
+
+  loginForm.addEventListener("submit", function (e) {
+
+    e.preventDefault();
+
+    const password =
+      document.getElementById("adminPassword").value;
+
+    if (password === ADMIN_PASSWORD) {
+
+      sessionStorage.setItem("ARS_ADMIN_LOGIN", "true");
+
+      loginBox.classList.add("hidden");
+      dashboard.classList.remove("hidden");
+
+      loadAdminData();
+
+    } else {
+
+      message.className = "page-message error";
+      message.textContent = "❌ Incorrect admin password.";
+
+    }
+
+  });
+
+
+  document.getElementById("adminLogout")
+    .addEventListener("click", function () {
+
+      sessionStorage.removeItem("ARS_ADMIN_LOGIN");
+
+      dashboard.classList.add("hidden");
+      loginBox.classList.remove("hidden");
+
+      document.getElementById("adminPassword").value = "";
+
+    });
+
+
+  if (
+    sessionStorage.getItem("ARS_ADMIN_LOGIN") === "true"
+  ) {
+
+    loginBox.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+
+    loadAdminData();
+
+  }
+
+});
+
+
+function loadAdminData() {
+
+  const applications =
+    JSON.parse(
+      localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]"
+    );
+
+  const certificates =
+    JSON.parse(
+      localStorage.getItem("ARS_CERTIFICATES") || "[]"
+    );
+
+
+  const pending =
+    applications.filter(
+      item => item.status === "pending"
+    );
+
+
+  document.getElementById("joiningCount")
+    .textContent = applications.length;
+
+  document.getElementById("certificateCount")
+    .textContent = certificates.length;
+
+  document.getElementById("pendingCount")
+    .textContent = pending.length;
+
+
+  const joiningBox =
+    document.getElementById("joiningApplications");
+
+  if (!applications.length) {
+
+    joiningBox.innerHTML =
+      `<div class="empty-admin">No joining applications found.</div>`;
+
+  } else {
+
+    joiningBox.innerHTML =
+      applications.map(function (app) {
+
+        return `
+
+        <div class="admin-item">
+
+          <div class="admin-item-info">
+
+            <h3>${escapeAdmin(app.name)}</h3>
+
+            <p>
+              <strong>ID:</strong>
+              ${escapeAdmin(app.id)}
+            </p>
+
+            <p>
+              ${escapeAdmin(app.email)}
+            </p>
+
+            <p>
+              Status:
+              <strong>${escapeAdmin(app.status)}</strong>
+            </p>
+
+          </div>
+
+          <div class="admin-actions">
+
+            <button
+              class="approve-btn"
+              onclick="approveJoining('${app.id}')">
+              Approve
+            </button>
+
+            <button
+              class="reject-btn"
+              onclick="rejectJoining('${app.id}')">
+              Reject
+            </button>
+
+          </div>
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  }
+
+
+  const certificateBox =
+    document.getElementById("certificateList");
+
+  if (!certificates.length) {
+
+    certificateBox.innerHTML =
+      `<div class="empty-admin">No certificates found.</div>`;
+
+  } else {
+
+    certificateBox.innerHTML =
+      certificates.map(function (cert) {
+
+        return `
+
+        <div class="admin-item">
+
+          <div class="admin-item-info">
+
+            <h3>${escapeAdmin(cert.name)}</h3>
+
+            <p>
+              Certificate ID:
+              <strong>${escapeAdmin(cert.id)}</strong>
+            </p>
+
+            <p>
+              Type:
+              ${escapeAdmin(cert.type || "Certificate")}
+            </p>
+
+            <p>
+              Status:
+              ${escapeAdmin(cert.status || "approved")}
+            </p>
+
+          </div>
+
+        </div>
+
+        `;
+
+      }).join("");
+
+  }
+
+}
+
+
+function approveJoining(id) {
+
+  const applications =
+    JSON.parse(
+      localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]"
+    );
+
+  const index =
+    applications.findIndex(item => item.id === id);
+
+  if (index === -1) return;
+
+  applications[index].status = "approved";
+  applications[index].approvedAt =
+    new Date().toISOString();
+
+  localStorage.setItem(
+    "ARS_JOINING_APPLICATIONS",
+    JSON.stringify(applications)
+  );
+
+  loadAdminData();
+
+}
+
+
+function rejectJoining(id) {
+
+  const applications =
+    JSON.parse(
+      localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]"
+    );
+
+  const index =
+    applications.findIndex(item => item.id === id);
+
+  if (index === -1) return;
+
+  applications[index].status = "rejected";
+
+  localStorage.setItem(
+    "ARS_JOINING_APPLICATIONS",
+    JSON.stringify(applications)
+  );
+
+  loadAdminData();
+
+}
+
+
+function escapeAdmin(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
