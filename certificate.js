@@ -1,4 +1,3 @@
-```javascript
 /* =========================================================
    ADARSH RAJ SHAYAR
    ARS OFFICIAL CERTIFICATE SYSTEM
@@ -51,28 +50,20 @@ function loadCertificates() {
 
   try {
 
-    const savedData =
-      localStorage.getItem(
-        ARS_CERTIFICATE_CONFIG.storageKey
-      );
+    const savedData = localStorage.getItem(
+      ARS_CERTIFICATE_CONFIG.storageKey
+    );
 
     if (!savedData) {
-
       certificateData = [];
-
       return certificateData;
-
     }
 
-    const parsedData =
-      JSON.parse(savedData);
+    const parsedData = JSON.parse(savedData);
 
     if (!Array.isArray(parsedData)) {
-
       certificateData = [];
-
       return certificateData;
-
     }
 
     certificateData = parsedData;
@@ -130,14 +121,19 @@ function saveCertificates() {
 
 function generateCertificateNumber() {
 
-  const year =
-    new Date().getFullYear();
+  const year = new Date().getFullYear();
 
-  const number =
-    String(certificateData.length + 1)
-      .padStart(4, "0");
+  const number = String(
+    certificateData.length + 1
+  ).padStart(4, "0");
 
-  return `${ARS_CERTIFICATE_CONFIG.prefix}-${year}-${number}`;
+  return (
+    ARS_CERTIFICATE_CONFIG.prefix +
+    "-" +
+    year +
+    "-" +
+    number
+  );
 
 }
 
@@ -152,14 +148,15 @@ function generateUniqueCertificateId() {
 
   do {
 
-    const randomPart =
-      Math.random()
-        .toString(36)
-        .substring(2, 10)
-        .toUpperCase();
+    const randomPart = Math.random()
+      .toString(36)
+      .substring(2, 10)
+      .toUpperCase();
 
     id =
-      `${ARS_CERTIFICATE_CONFIG.idPrefix}-${randomPart}`;
+      ARS_CERTIFICATE_CONFIG.idPrefix +
+      "-" +
+      randomPart;
 
   } while (
     certificateData.some(
@@ -177,7 +174,9 @@ function generateUniqueCertificateId() {
    📅 FORMAT DATE
    ========================================================= */
 
-function formatCertificateDate(date = new Date()) {
+function formatCertificateDate(
+  date = new Date()
+) {
 
   return new Intl.DateTimeFormat(
     "en-IN",
@@ -212,7 +211,8 @@ function createCertificate(data = {}) {
   }
 
   if (
-    !ARS_CERTIFICATE_CONFIG.certificateTypes
+    !ARS_CERTIFICATE_CONFIG
+      .certificateTypes
       .includes(type)
   ) {
 
@@ -230,15 +230,14 @@ function createCertificate(data = {}) {
     uniqueId:
       generateUniqueCertificateId(),
 
-    name,
+    name: name,
 
-    type,
+    type: type,
 
     issueDate:
       formatCertificateDate(),
 
-    status:
-      "Valid",
+    status: "Valid",
 
     createdAt:
       new Date().toISOString()
@@ -309,7 +308,6 @@ function verifyCertificate(value) {
 
   }
 
-
   return {
 
     verified:
@@ -318,7 +316,8 @@ function verifyCertificate(value) {
     status:
       certificate.status,
 
-    certificate
+    certificate:
+      certificate
 
   };
 
@@ -335,7 +334,8 @@ function updateCertificateStatus(
 ) {
 
   if (
-    !ARS_CERTIFICATE_CONFIG.validStatuses
+    !ARS_CERTIFICATE_CONFIG
+      .validStatuses
       .includes(newStatus)
   ) {
 
@@ -343,13 +343,11 @@ function updateCertificateStatus(
 
   }
 
-
   const certificate =
     certificateData.find(
       item =>
         item.uniqueId === uniqueId
     );
-
 
   if (!certificate) {
 
@@ -357,14 +355,10 @@ function updateCertificateStatus(
 
   }
 
-
-  certificate.status =
-    newStatus;
-
+  certificate.status = newStatus;
 
   certificate.updatedAt =
     new Date().toISOString();
-
 
   saveCertificates();
 
@@ -444,6 +438,10 @@ window.ARS_CERTIFICATES = {
 loadCertificates();
 
 
+/* =========================================================
+   ✅ STATUS
+   ========================================================= */
+
 console.log(
   "🏆 ARS Certificate System Loaded"
 );
@@ -452,4 +450,3 @@ console.log(
   "📜 Certificates:",
   certificateData.length
 );
-```
