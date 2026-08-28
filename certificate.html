@@ -1,161 +1,417 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+  <title>ARS Certificate Generator</title>
 
-    <title>ARS Certificate Generator</title>
+  <link rel="stylesheet" href="style.css">
 
-    <link rel="icon" href="logo.png">
+  <style>
+    .certificate-page {
+      max-width: 950px;
+      margin: 40px auto;
+      padding: 20px;
+    }
 
-    <link rel="stylesheet"
-          href="style.css">
+    .certificate-form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
 
+    .certificate-form input,
+    .certificate-form select {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0 15px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .certificate-btn {
+      border: 0;
+      padding: 13px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      background: #111827;
+      color: #fff;
+    }
+
+    #certificateResult {
+      margin-top: 30px;
+    }
+
+    .ars-certificate {
+      background: #fff;
+      border: 10px double #222;
+      padding: 45px;
+      text-align: center;
+      min-height: 480px;
+      box-sizing: border-box;
+    }
+
+    .ars-certificate img {
+      width: 90px;
+      max-width: 100%;
+    }
+
+    .ars-certificate h1 {
+      font-size: 38px;
+      margin: 20px 0 10px;
+    }
+
+    .ars-certificate .cert-name {
+      font-size: 30px;
+      font-weight: 800;
+      margin: 25px 0;
+    }
+
+    .cert-meta {
+      margin: 12px 0;
+    }
+
+    @media print {
+
+      body * {
+        visibility: hidden;
+      }
+
+      #certificateResult,
+      #certificateResult * {
+        visibility: visible;
+      }
+
+      #certificateResult {
+        position: absolute;
+        inset: 0;
+        margin: 0;
+      }
+
+      .ars-certificate {
+        min-height: 100vh;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header class="site-header">
 
-    <div class="header-inner">
+  <nav class="navbar">
 
-        <a href="index.html"
-           class="brand">
+    <a href="index.html" class="logo">
+      🌹 ARS
+    </a>
 
-            <img src="logo.png"
-                 alt="ARS">
-
-            <div>
-                <strong>ARS</strong>
-                <span>Certificate</span>
-            </div>
-
-        </a>
-
-        <a href="index.html"
-           class="btn btn-outline">
-            ← Home
-        </a>
-
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
     </div>
+
+  </nav>
 
 </header>
 
 
-<main>
+<main class="certificate-page">
 
-<section class="section">
+  <section class="certificate-form">
 
-    <div class="section-heading">
+    <h1>🏆 ARS Certificate Generator</h1>
 
-        <span class="eyebrow">
-            🏆 ARS Certificate
-        </span>
+    <p>
+      Enter your details to generate your certificate.
+    </p>
 
-        <h1>Generate Certificate</h1>
+    <form id="certificateForm">
 
-        <p>
-            नीचे अपनी जानकारी भरें।
-        </p>
+      <label>Full Name</label>
 
-    </div>
-
-
-    <form id="certificateForm"
-          class="contact-form"
-          style="max-width:700px;margin:auto;">
-
-        <label>
-            Name
-            <input
-                id="certificateName"
-                type="text"
-                placeholder="Full Name"
-                required>
-        </label>
+      <input
+        id="certName"
+        required
+        placeholder="Enter your name"
+      >
 
 
-        <label>
-            Certificate Type
+      <label>Certificate Type</label>
 
-            <select
-                id="certificateType"
-                required>
+      <select id="certType">
 
-                <option value="">
-                    Select Certificate
-                </option>
+        <option value="Professional">
+          Professional Certificate
+        </option>
 
-                <option value="Professional">
-                    Professional
-                </option>
+        <option value="Business">
+          Business Certificate
+        </option>
 
-                <option value="Business">
-                    Business
-                </option>
+        <option value="Achievement">
+          Achievement Certificate
+        </option>
 
-                <option value="Achievement">
-                    Achievement
-                </option>
+        <option value="Participation">
+          Participation Certificate
+        </option>
 
-                <option value="Participation">
-                    Participation
-                </option>
-
-            </select>
-
-        </label>
+      </select>
 
 
-        <div id="businessFields"
-             style="display:none;">
+      <div id="businessFields" style="display:none;">
 
-            <label>
-                Business Name
+        <label>Business Name</label>
 
-                <input
-                    id="businessName"
-                    type="text"
-                    placeholder="Business Name">
-            </label>
+        <input
+          id="businessName"
+          placeholder="Business name"
+        >
 
+        <label>Owner / Founder Name</label>
 
-            <label>
-                Owner / Founder Name
+        <input
+          id="businessOwner"
+          placeholder="Owner / Founder"
+        >
 
-                <input
-                    id="ownerName"
-                    type="text"
-                    placeholder="Owner / Founder Name">
-            </label>
-
-        </div>
+      </div>
 
 
-        <button
-            type="submit"
-            class="btn btn-primary">
-
-            Generate Certificate →
-
-        </button>
+      <button
+        class="certificate-btn"
+        type="submit"
+      >
+        Generate Certificate
+      </button>
 
     </form>
 
+  </section>
 
-    <div id="certificateResult"
-         style="max-width:700px;margin:25px auto;">
-    </div>
 
-</section>
+  <section id="certificateResult"></section>
 
 </main>
 
 
 <script src="config.js"></script>
+<script src="storage.js"></script>
 <script src="certificate.js"></script>
+
+<script>
+
+  const type =
+    document.getElementById("certType");
+
+  const businessFields =
+    document.getElementById(
+      "businessFields"
+    );
+
+  type.addEventListener(
+    "change",
+    function() {
+
+      businessFields.style.display =
+        this.value === "Business"
+          ? "block"
+          : "none";
+
+    }
+  );
+
+
+  document
+    .getElementById("certificateForm")
+    .addEventListener(
+      "submit",
+      function(e) {
+
+        e.preventDefault();
+
+        const name =
+          document.getElementById(
+            "certName"
+          ).value.trim();
+
+        const certType =
+          document.getElementById(
+            "certType"
+          ).value;
+
+        const businessName =
+          document.getElementById(
+            "businessName"
+          ).value.trim();
+
+        const businessOwner =
+          document.getElementById(
+            "businessOwner"
+          ).value.trim();
+
+
+        const id =
+          "ARS-CERT-" +
+          Date.now()
+            .toString(36)
+            .toUpperCase();
+
+
+        const certificate = {
+
+          id: id,
+
+          name: name,
+
+          type: certType,
+
+          businessName:
+            businessName,
+
+          businessOwner:
+            businessOwner,
+
+          issuedAt:
+            new Date().toISOString(),
+
+          status:
+            "approved"
+
+        };
+
+
+        if (
+          window.ARS_STORAGE &&
+          window.ARS_STORAGE.saveCertificate
+        ) {
+
+          window.ARS_STORAGE.saveCertificate(
+            certificate
+          );
+
+        }
+
+
+        document.getElementById(
+          "certificateResult"
+        ).innerHTML = `
+
+          <div class="ars-certificate">
+
+            <img
+              src="logo.png"
+              alt="ARS Logo"
+            >
+
+            <h1>
+              CERTIFICATE
+            </h1>
+
+            <p>
+              This certificate is proudly presented to
+            </p>
+
+            <div class="cert-name">
+              ${escapeHTML(name)}
+            </div>
+
+            <p>
+              Certificate Type:
+              <strong>
+                ${escapeHTML(certType)}
+              </strong>
+            </p>
+
+            ${
+              certType === "Business"
+                ? `
+                  <p class="cert-meta">
+                    Business:
+                    <strong>
+                      ${escapeHTML(
+                        businessName
+                      )}
+                    </strong>
+                  </p>
+
+                  <p class="cert-meta">
+                    Owner / Founder:
+                    <strong>
+                      ${escapeHTML(
+                        businessOwner
+                      )}
+                    </strong>
+                  </p>
+                `
+                : ""
+            }
+
+            <p>
+              Certificate ID:
+              <strong>
+                ${escapeHTML(id)}
+              </strong>
+            </p>
+
+            <p>
+              Issued by
+              <strong>
+                Adarsh Raj
+              </strong>
+            </p>
+
+            <br>
+
+            <button
+              class="certificate-btn"
+              onclick="window.print()"
+            >
+              🖨️ Print / Save PDF
+            </button>
+
+            <button
+              class="certificate-btn"
+              onclick="location.href='verify.html?id=${encodeURIComponent(id)}'"
+            >
+              🔎 Verify Certificate
+            </button>
+
+          </div>
+
+        `;
+
+        document
+          .getElementById(
+            "certificateResult"
+          )
+          .scrollIntoView({
+            behavior: "smooth"
+          });
+
+      }
+    );
+
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      value == null ? "" : value;
+
+    return div.innerHTML;
+
+  }
+
+</script>
 
 </body>
 </html>
