@@ -1,135 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join ARS | ARS Official</title>
-  <link rel="stylesheet" href="style.css">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Join ARS</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <style>
+
+    .joining-page {
+      max-width: 700px;
+      margin: 45px auto;
+      padding: 20px;
+    }
+
+    .joining-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow:
+        0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .joining-card input,
+    .joining-card textarea {
+      width: 100%;
+      padding: 13px;
+      margin: 7px 0 15px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    .joining-card textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .join-btn {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #111827;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .join-result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      display: none;
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-<header class="inner-header">
-  <a href="index.html" class="mini-brand">
-    <img src="logo.png" alt="ARS Logo">
-    <span>ARS</span>
-  </a>
+<header class="site-header">
 
-  <a href="index.html" class="back-btn">← Home</a>
+  <nav class="navbar">
+
+    <a href="index.html" class="logo">
+      🌹 ARS
+    </a>
+
+    <div class="nav-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+    </div>
+
+  </nav>
+
 </header>
 
-<main class="page-container">
 
-  <section class="page-hero">
-    <img src="logo.png" alt="ARS Logo" class="page-logo">
-    <h1>Join ARS</h1>
-    <p>Become a part of the ARS community.</p>
-  </section>
+<main class="joining-page">
 
-  <section class="form-card">
+  <section class="joining-card">
 
-    <h2>ARS Joining Application</h2>
-    <p class="form-info">
-      Fill in your details carefully and submit your application.
+    <h1>
+      🤝 Join ARS
+    </h1>
+
+    <p>
+      Submit your joining request.
+      Your request will be reviewed by ARS.
     </p>
+
 
     <form id="joiningForm">
 
-      <div class="form-group">
-        <label for="joiningName">Full Name</label>
-        <input type="text" id="joiningName" required>
-      </div>
+      <label>
+        Full Name
+      </label>
 
-      <div class="form-group">
-        <label for="joiningEmail">Email</label>
-        <input type="email" id="joiningEmail" required>
-      </div>
+      <input
+        id="joinName"
+        required
+        placeholder="Enter your full name"
+      >
 
-      <div class="form-group">
-        <label for="joiningPhone">Mobile Number</label>
-        <input type="tel" id="joiningPhone" required>
-      </div>
 
-      <div class="form-group">
-        <label for="joiningPurpose">Why do you want to join ARS?</label>
-        <textarea id="joiningPurpose" rows="5" required></textarea>
-      </div>
+      <label>
+        Email
+      </label>
 
-      <button type="submit" class="primary-btn">
-        Submit Joining Application
+      <input
+        id="joinEmail"
+        type="email"
+        required
+        placeholder="Enter your email"
+      >
+
+
+      <label>
+        Why do you want to join ARS?
+      </label>
+
+      <textarea
+        id="joinReason"
+        placeholder="Write your message"
+      ></textarea>
+
+
+      <button
+        type="submit"
+        class="join-btn"
+      >
+        Submit Joining Request
       </button>
 
     </form>
 
-    <div id="joiningMessage" class="page-message"></div>
 
-  </section>
-
-  <section class="joining-certificate-card">
-
-    <div>
-      <span class="card-icon">🏆</span>
-      <h2>Joining Certificate</h2>
-      <p>
-        If your ARS joining application has been approved,
-        you can access your Joining Certificate here.
-      </p>
-    </div>
-
-    <a href="verify.html?type=joining" class="secondary-btn">
-      Check Certificate
-    </a>
+    <div
+      id="joinResult"
+      class="join-result"
+    ></div>
 
   </section>
 
 </main>
 
-<footer class="simple-footer">
-  <p>© 2026 ARS Official Website | Adarsh Raj</p>
-</footer>
 
 <script src="config.js"></script>
-<script src="script.js"></script>
+<script src="storage.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-  const form = document.getElementById("joiningForm");
-  const message = document.getElementById("joiningMessage");
+  document
+    .getElementById("joiningForm")
+    .addEventListener(
+      "submit",
+      function(e) {
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const application = {
-      id: "ARS-JOIN-" + Date.now(),
-      name: document.getElementById("joiningName").value.trim(),
-      email: document.getElementById("joiningEmail").value.trim(),
-      phone: document.getElementById("joiningPhone").value.trim(),
-      purpose: document.getElementById("joiningPurpose").value.trim(),
-      status: "pending",
-      submittedAt: new Date().toISOString()
-    };
+        const name =
+          document.getElementById(
+            "joinName"
+          ).value.trim();
 
-    const applications =
-      JSON.parse(localStorage.getItem("ARS_JOINING_APPLICATIONS") || "[]");
+        const email =
+          document.getElementById(
+            "joinEmail"
+          ).value.trim();
 
-    applications.push(application);
+        const reason =
+          document.getElementById(
+            "joinReason"
+          ).value.trim();
 
-    localStorage.setItem(
-      "ARS_JOINING_APPLICATIONS",
-      JSON.stringify(applications)
+
+        const request = {
+
+          id:
+            "ARS-JOIN-" +
+            Date.now()
+              .toString(36)
+              .toUpperCase(),
+
+          name: name,
+
+          email: email,
+
+          reason: reason,
+
+          status:
+            "pending",
+
+          createdAt:
+            new Date().toISOString()
+
+        };
+
+
+        window.ARS_STORAGE
+          .saveJoiningRequest(
+            request
+          );
+
+
+        const result =
+          document.getElementById(
+            "joinResult"
+          );
+
+        result.style.display =
+          "block";
+
+        result.innerHTML = `
+
+          <strong>
+            ✅ Request Submitted
+          </strong>
+
+          <p>
+            Your request has been sent
+            for ARS approval.
+          </p>
+
+          <p>
+            Request ID:
+            <strong>
+              ${escapeHTML(request.id)}
+            </strong>
+          </p>
+
+          <a
+            href="verify.html?id=${encodeURIComponent(
+              request.id
+            )}"
+          >
+            Check Request Status
+          </a>
+
+        `;
+
+
+        this.reset();
+
+      }
     );
 
-    message.className = "page-message success";
-    message.innerHTML =
-      "✅ Application submitted successfully.<br>" +
-      "Your Application ID: <strong>" + application.id + "</strong><br>" +
-      "Your application is currently waiting for approval.";
 
-    form.reset();
-  });
+  function escapeHTML(value) {
 
-});
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      value == null ? "" : value;
+
+    return div.innerHTML;
+
+  }
+
 </script>
 
 </body>
