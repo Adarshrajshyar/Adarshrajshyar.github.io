@@ -69,42 +69,40 @@ function initLoader() {
 
 }
 /* =========================================================
-   🚀 ARS LOADER - FIXED
-   ========================================================= */
+   🚀 ARS PAGE LOADER - FIXED
+========================================================= */
 
 (function () {
 
-  function hideARSLoader() {
+  function hidePageLoader() {
 
-    const loader = document.getElementById("loader");
+    const loader = document.getElementById("pageLoader");
 
-    if (!loader) {
-      return;
-    }
+    if (!loader) return;
 
-    loader.classList.add("hidden");
+    loader.classList.add("hide");
 
     setTimeout(function () {
       loader.style.display = "none";
-    }, 500);
+    }, 600);
   }
 
 
-  /* Page completely loaded */
+  /* Normal loading */
   window.addEventListener("load", function () {
 
     setTimeout(function () {
-      hideARSLoader();
-    }, 500);
+      hidePageLoader();
+    }, 700);
 
   });
 
 
   /* Safety fallback
-     Loader किसी भी हालत में हमेशा के लिए नहीं रहेगा */
+     Loader 5 seconds से ज्यादा नहीं रहेगा */
   setTimeout(function () {
-    hideARSLoader();
-  }, 4000);
+    hidePageLoader();
+  }, 5000);
 
 })();
 
