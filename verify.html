@@ -1,172 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify Certificate | ARS Official</title>
-  <link rel="stylesheet" href="style.css">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ARS Certificate Verification</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <style>
+
+    .verify-page {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    .verify-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow:
+        0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .verify-card input {
+      width: 100%;
+      padding: 13px;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    .verify-btn {
+      width: 100%;
+      padding: 13px;
+      border: 0;
+      border-radius: 10px;
+      background: #111827;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .verify-result {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 14px;
+      background: #f8fafc;
+    }
+
+    .verified {
+      color: #15803d;
+    }
+
+    .not-verified {
+      color: #b91c1c;
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-<header class="inner-header">
+<header class="site-header">
 
-  <a href="index.html" class="mini-brand">
-    <img src="logo.png" alt="ARS Logo">
-    <span>ARS</span>
-  </a>
+  <nav class="navbar">
 
-  <a href="index.html" class="back-btn">← Home</a>
+    <a href="index.html" class="logo">
+      🌹 ARS
+    </a>
+
+    <div class="nav-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+    </div>
+
+  </nav>
 
 </header>
 
-<main class="page-container">
 
-  <section class="page-hero">
-    <img src="logo.png" alt="ARS Logo" class="page-logo">
+<main class="verify-page">
 
-    <h1>Certificate Verification</h1>
+  <section class="verify-card">
+
+    <h1>
+      🔎 Verify ARS Certificate
+    </h1>
 
     <p>
-      Verify an ARS certificate using its unique Certificate ID.
+      Enter your Certificate ID or Joining Request ID.
     </p>
-  </section>
 
-  <section class="form-card">
-
-    <h2>🔎 Verify Certificate</h2>
 
     <form id="verifyForm">
 
-      <div class="form-group">
-        <label for="certificateId">Certificate ID</label>
+      <input
+        id="verifyId"
+        placeholder="Example: ARS-CERT-XXXX"
+        required
+      >
 
-        <input
-          type="text"
-          id="certificateId"
-          placeholder="Example: ARS-CERT-123456"
-          required
-        >
-      </div>
-
-      <button type="submit" class="primary-btn">
-        Verify Certificate
+      <button
+        class="verify-btn"
+        type="submit"
+      >
+        Verify
       </button>
 
     </form>
 
-    <div id="verifyResult" class="verify-result"></div>
+
+    <div
+      id="verifyResult"
+      class="verify-result"
+    ></div>
 
   </section>
 
 </main>
 
-<footer class="simple-footer">
-  <p>© 2026 ARS Official Website | Adarsh Raj</p>
-</footer>
 
 <script src="config.js"></script>
-<script src="certificate.js"></script>
-<script src="script.js"></script>
+<script src="storage.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-  const form = document.getElementById("verifyForm");
-  const result = document.getElementById("verifyResult");
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
 
-  const params = new URLSearchParams(window.location.search);
-  const urlId = params.get("id");
+  const urlId =
+    params.get("id");
 
   if (urlId) {
-    document.getElementById("certificateId").value = urlId;
+
+    document.getElementById(
+      "verifyId"
+    ).value = urlId;
+
+    verify(urlId);
+
   }
 
-  form.addEventListener("submit", function (e) {
 
-    e.preventDefault();
+  document
+    .getElementById("verifyForm")
+    .addEventListener(
+      "submit",
+      function(e) {
 
-    const id =
-      document.getElementById("certificateId").value.trim();
+        e.preventDefault();
 
-    if (!id) return;
+        verify(
+          document
+            .getElementById(
+              "verifyId"
+            )
+            .value
+            .trim()
+        );
 
-    const certificates =
-      JSON.parse(localStorage.getItem("ARS_CERTIFICATES") || "[]");
+      }
+    );
 
-    const certificate = certificates.find(function (item) {
-      return String(item.id).toLowerCase() === id.toLowerCase();
-    });
 
-    if (!certificate) {
+  function verify(id) {
 
-      result.className = "verify-result invalid";
+    const result =
+      document.getElementById(
+        "verifyResult"
+      );
 
-      result.innerHTML = `
-        <div class="result-icon">❌</div>
-        <h3>Certificate Not Found</h3>
-        <p>
-          This certificate could not be found in the ARS records.
-        </p>
-      `;
+    if (!id) {
 
-      return;
-    }
-
-    if (certificate.status && certificate.status !== "approved") {
-
-      result.className = "verify-result pending";
-
-      result.innerHTML = `
-        <div class="result-icon">⏳</div>
-        <h3>Certificate Not Approved</h3>
-        <p>
-          Your certificate has not been approved yet.
-        </p>
-      `;
+      result.innerHTML =
+        "<p class='not-verified'>❌ Please enter an ID.</p>";
 
       return;
     }
 
-    result.className = "verify-result valid";
 
-    result.innerHTML = `
-      <div class="result-icon">✅</div>
+    const certificate =
+      window.ARS_STORAGE
+        .findCertificate(id);
 
-      <h3>Certificate Verified</h3>
 
-      <div class="certificate-details">
+    if (certificate) {
 
-        <p>
-          <strong>Certificate ID:</strong>
-          ${certificate.id || "-"}
-        </p>
+      result.innerHTML = `
+
+        <h2 class="verified">
+          ✅ Certificate Verified
+        </h2>
 
         <p>
           <strong>Name:</strong>
-          ${certificate.name || "-"}
+          ${escapeHTML(
+            certificate.name
+          )}
         </p>
 
         <p>
           <strong>Certificate Type:</strong>
-          ${certificate.type || "ARS Certificate"}
+          ${escapeHTML(
+            certificate.type
+          )}
+        </p>
+
+        <p>
+          <strong>Certificate ID:</strong>
+          ${escapeHTML(
+            certificate.id
+          )}
+        </p>
+
+        <p>
+          <strong>Issued By:</strong>
+          Adarsh Raj
+        </p>
+
+      `;
+
+      return;
+    }
+
+
+    const requests =
+      window.ARS_STORAGE
+        .getJoiningRequests();
+
+    const request =
+      requests.find(
+        item =>
+          String(item.id).toLowerCase() ===
+          String(id).toLowerCase()
+      );
+
+
+    if (request) {
+
+      const status =
+        request.status ||
+        "pending";
+
+      result.innerHTML = `
+
+        <h2>
+          🤝 ARS Joining Request
+        </h2>
+
+        <p>
+          <strong>Name:</strong>
+          ${escapeHTML(
+            request.name
+          )}
+        </p>
+
+        <p>
+          <strong>Request ID:</strong>
+          ${escapeHTML(
+            request.id
+          )}
         </p>
 
         <p>
           <strong>Status:</strong>
-          Approved
+          ${escapeHTML(
+            status
+          )}
         </p>
 
-      </div>
+        ${
+          status === "approved"
+            ? `
+              <p class="verified">
+                ✅ Your joining request has been approved.
+              </p>
+            `
+            : status === "rejected"
+              ? `
+                <p class="not-verified">
+                  ❌ Your joining request was rejected.
+                </p>
+              `
+              : `
+                <p>
+                  ⏳ Your joining request is waiting
+                  for admin approval.
+                </p>
+              `
+        }
 
-      <p class="verified-text">
-        This certificate is verified by ARS Official Website.
+      `;
+
+      return;
+    }
+
+
+    result.innerHTML = `
+
+      <h2 class="not-verified">
+        ❌ Not Found
+      </h2>
+
+      <p>
+        No ARS certificate or joining request
+        was found with this ID.
       </p>
+
     `;
 
-  });
+  }
 
-});
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      value == null ? "" : value;
+
+    return div.innerHTML;
+
+  }
+
 </script>
 
 </body>
