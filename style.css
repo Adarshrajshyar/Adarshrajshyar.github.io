@@ -1565,3 +1565,18 @@ img {
     bottom: 15px;
   }
 }
+/* =========================================================
+   🚀 ARS LOADER FIX
+   ========================================================= */
+
+#loader {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
