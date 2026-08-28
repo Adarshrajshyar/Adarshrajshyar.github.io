@@ -1,616 +1,1130 @@
-/* =========================================================
-   ARS MAIN SCRIPT
-   ========================================================= */
+/* =====================================================
+   ARS OFFICIAL WEBSITE
+   MASTER SCRIPT
+===================================================== */
 
-"use strict";
+(function () {
 
-document.addEventListener("DOMContentLoaded", () => {
+  "use strict";
 
-    initTheme();
-    initHeader();
+
+  /* =====================================================
+     ARS CONFIG
+     IMPORTANT:
+     Do NOT declare ARS_CONFIG again in this file if
+     config.js already contains it.
+  ===================================================== */
+
+  const CONFIG = window.ARS_CONFIG || {
+    name: "ARS Official Website",
+    founder: "Adarsh Raj",
+    emailjs: {
+      serviceId: "service_3h6mmz4",
+      templateId: "template_2kzi4j8",
+      publicKey: "kEJqwQlbZ03jFbMFC"
+    }
+  };
+
+
+  /* =====================================================
+     DOM READY
+  ===================================================== */
+
+  document.addEventListener("DOMContentLoaded", function () {
+
+    initLoader();
+
     initMobileMenu();
-    initNavigation();
-    initBackTop();
+
+    initBackToTop();
+
+    initSmoothNavigation();
+
     initSearch();
-    initReactions();
-    initContact();
-    initYear();
 
-    console.log("🌹 ARS Official Website Loaded");
+    initShayariCategories();
 
-});
+    initStoryCategories();
+
+    initContactForm();
+
+    initLikeFavourite();
+
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    console.log("🌹 ARS OFFICIAL WEBSITE");
+    console.log("👤 Founder: Adarsh Raj");
+    console.log("📚 Shayari System:",
+      window.ARS_SHAYARI_DATA ? "CONNECTED" : "CHECK FILE");
+    console.log("📖 Story System:",
+      window.ARS_STORY_DATA ? "CONNECTED" : "CHECK FILE");
+    console.log("🏆 Certificate System:",
+      window.ARS_CERTIFICATE_SYSTEM ? "CONNECTED" : "CHECK FILE");
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
+  });
 
 
-/* ================= LOADER ================= */
+  /* =====================================================
+     LOADER
+  ===================================================== */
 
-window.addEventListener("load", () => {
+  function initLoader() {
 
     const loader = document.getElementById("pageLoader");
 
     if (!loader) return;
 
-    loader.classList.add("loader-hidden");
+    const hideLoader = function () {
 
-    setTimeout(() => {
-        loader.style.display = "none";
-    }, 600);
+      loader.classList.add("hide");
 
-});
+      setTimeout(function () {
 
-
-/* ================= THEME ================= */
-
-function initTheme() {
-
-    const button =
-        document.getElementById("themeToggle");
-
-    const saved =
-        localStorage.getItem(
-            ARS_CONFIG.storage.theme
-        );
-
-    if (saved === "dark") {
-        document.documentElement
-            .classList.add("dark-mode");
-    }
-
-    updateThemeIcon();
-
-    if (!button) return;
-
-    button.addEventListener("click", () => {
-
-        document.documentElement
-            .classList.toggle("dark-mode");
-
-        const dark =
-            document.documentElement
-                .classList.contains("dark-mode");
-
-        localStorage.setItem(
-            ARS_CONFIG.storage.theme,
-            dark ? "dark" : "light"
-        );
-
-        updateThemeIcon();
-
-    });
-
-}
-
-
-function updateThemeIcon() {
-
-    const button =
-        document.getElementById("themeToggle");
-
-    if (!button) return;
-
-    button.textContent =
-        document.documentElement
-            .classList.contains("dark-mode")
-            ? "☀️"
-            : "🌙";
-
-}
-
-
-/* ================= HEADER ================= */
-
-function initHeader() {
-
-    const header =
-        document.querySelector(".site-header");
-
-    if (!header) return;
-
-    window.addEventListener("scroll", () => {
-
-        header.classList.toggle(
-            "scrolled",
-            window.scrollY > 20
-        );
-
-    }, { passive: true });
-
-}
-
-
-/* ================= MOBILE MENU ================= */
-
-function initMobileMenu() {
-
-    const menu =
-        document.getElementById("mobileSideMenu");
-
-    const overlay =
-        document.getElementById("mobileMenuOverlay");
-
-    const open =
-        document.getElementById("menuToggle");
-
-    const close =
-        document.getElementById("mobileMenuClose");
-
-    if (!menu || !open) return;
-
-
-    function openMenu() {
-
-        menu.classList.add("active");
-
-        if (overlay)
-            overlay.classList.add("active");
-
-        document.body.classList.add("no-scroll");
-
-    }
-
-
-    function closeMenu() {
-
-        menu.classList.remove("active");
-
-        if (overlay)
-            overlay.classList.remove("active");
-
-        document.body.classList.remove("no-scroll");
-
-    }
-
-
-    open.addEventListener(
-        "click",
-        openMenu
-    );
-
-    if (close)
-        close.addEventListener(
-            "click",
-            closeMenu
-        );
-
-    if (overlay)
-        overlay.addEventListener(
-            "click",
-            closeMenu
-        );
-
-    document.querySelectorAll(
-        ".mobile-nav-link"
-    ).forEach(link => {
-
-        link.addEventListener(
-            "click",
-            closeMenu
-        );
-
-    });
-
-}
-
-
-/* ================= NAVIGATION ================= */
-
-function initNavigation() {
-
-    document.querySelectorAll(
-        'a[href^="#"]'
-    ).forEach(link => {
-
-        link.addEventListener(
-            "click",
-            event => {
-
-                const id =
-                    link.getAttribute("href");
-
-                if (!id || id === "#")
-                    return;
-
-                const target =
-                    document.querySelector(id);
-
-                if (!target)
-                    return;
-
-                event.preventDefault();
-
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-        );
-
-    });
-
-}
-
-
-/* ================= BACK TOP ================= */
-
-function initBackTop() {
-
-    const button =
-        document.getElementById("backToTop");
-
-    if (!button) return;
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            button.classList.toggle(
-                "show",
-                window.scrollY > 500
-            );
-
-        },
-        { passive: true }
-    );
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
+        if (loader.parentNode) {
+          loader.style.display = "none";
         }
-    );
 
-}
+      }, 500);
+
+    };
 
 
-/* ================= SEARCH ================= */
+    window.addEventListener("load", hideLoader);
 
-function initSearch() {
 
-    const input =
-        document.getElementById("globalSearch");
+    /* Safety fallback.
+       External files should never keep the website
+       loading forever.
+    */
 
-    const clear =
-        document.getElementById("clearSearch");
+    setTimeout(hideLoader, 3000);
 
-    const results =
-        document.getElementById(
-            "globalSearchResults"
-        );
+  }
 
-    const info =
-        document.getElementById(
-            "searchResultsInfo"
-        );
 
-    if (!input || !results)
+  /* =====================================================
+     MOBILE MENU
+  ===================================================== */
+
+  function initMobileMenu() {
+
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("mainNav");
+
+    if (!menuBtn || !nav) return;
+
+
+    menuBtn.addEventListener("click", function () {
+
+      nav.classList.toggle("open");
+
+      const opened = nav.classList.contains("open");
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        opened ? "true" : "false"
+      );
+
+    });
+
+
+    nav.querySelectorAll("a").forEach(function (link) {
+
+      link.addEventListener("click", function () {
+        nav.classList.remove("open");
+      });
+
+    });
+
+  }
+
+
+  /* =====================================================
+     BACK TO TOP
+  ===================================================== */
+
+  function initBackToTop() {
+
+    const button = document.getElementById("backToTop");
+
+    if (!button) return;
+
+
+    window.addEventListener("scroll", function () {
+
+      if (window.scrollY > 500) {
+        button.classList.add("show");
+      } else {
+        button.classList.remove("show");
+      }
+
+    });
+
+
+    button.addEventListener("click", function () {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+
+  }
+
+
+  /* =====================================================
+     SMOOTH NAVIGATION
+  ===================================================== */
+
+  function initSmoothNavigation() {
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+      link.addEventListener("click", function (event) {
+
+        const targetId = link.getAttribute("href");
+
+        if (!targetId || targetId === "#") return;
+
+        const target = document.querySelector(targetId);
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+
+      });
+
+    });
+
+  }
+
+
+  /* =====================================================
+     SEARCH
+  ===================================================== */
+
+  function initSearch() {
+
+    const input = document.getElementById("globalSearch");
+    const button = document.getElementById("searchBtn");
+    const results = document.getElementById("searchResults");
+
+    if (!input || !results) return;
+
+
+    function performSearch() {
+
+      const query = input.value.trim().toLowerCase();
+
+      results.innerHTML = "";
+
+
+      if (!query) {
         return;
+      }
 
 
-    input.addEventListener(
-        "input",
-        () => {
-
-            const query =
-                input.value
-                    .trim()
-                    .toLowerCase();
-
-            clear.style.display =
-                query ? "block" : "none";
-
-            results.innerHTML = "";
-
-            if (!query) {
-
-                info.textContent = "";
-
-                return;
-
-            }
+      const items = getAllSearchItems();
 
 
-            const searchable =
-                document.querySelectorAll(
-                    ".content-card, .feature-card"
-                );
+      const matches = items.filter(function (item) {
 
-            let count = 0;
+        return [
 
+          item.title,
+          item.text,
+          item.category,
+          item.author,
+          item.type
 
-            searchable.forEach(card => {
+        ].some(function (value) {
 
-                const text =
-                    card.textContent
-                        .toLowerCase();
+          return String(value || "")
+            .toLowerCase()
+            .includes(query);
 
-                if (!text.includes(query))
-                    return;
+        });
 
-
-                const copy =
-                    card.cloneNode(true);
-
-                results.appendChild(copy);
-
-                count++;
-
-            });
+      });
 
 
-            info.textContent =
-                `${count} परिणाम मिले।`;
+      if (!matches.length) {
+
+        results.innerHTML = `
+          <div class="empty-state">
+            <div>🔎</div>
+            <h3>No Result Found</h3>
+            <p>Try another keyword.</p>
+          </div>
+        `;
+
+        return;
+      }
 
 
-            if (!count) {
+      matches.forEach(function (item) {
 
-                results.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">🔍</div>
-                        <h3>कोई परिणाम नहीं मिला</h3>
-                        <p>दूसरा keyword try करें।</p>
-                    </div>
-                `;
+        results.appendChild(
+          createContentCard(item)
+        );
 
-            }
-
-        }
-    );
-
-
-    clear.addEventListener(
-        "click",
-        () => {
-
-            input.value = "";
-            results.innerHTML = "";
-            info.textContent = "";
-            clear.style.display = "none";
-            input.focus();
-
-        }
-    );
-
-}
-
-
-/* ================= LIKE / FAVORITE ================= */
-
-function initReactions() {
-
-    document.addEventListener(
-        "click",
-        event => {
-
-            const like =
-                event.target.closest(
-                    "[data-like-id]"
-                );
-
-            if (like) {
-
-                toggleReaction(
-                    "likes",
-                    like.dataset.likeId,
-                    like
-                );
-
-                return;
-
-            }
-
-
-            const favorite =
-                event.target.closest(
-                    "[data-favorite-id]"
-                );
-
-            if (favorite) {
-
-                toggleReaction(
-                    "favorites",
-                    favorite.dataset.favoriteId,
-                    favorite
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-function toggleReaction(
-    type,
-    id,
-    button
-) {
-
-    const key =
-        type === "likes"
-            ? ARS_CONFIG.storage.likes
-            : ARS_CONFIG.storage.favorites;
-
-
-    let data = {};
-
-    try {
-
-        data =
-            JSON.parse(
-                localStorage.getItem(key)
-            ) || {};
-
-    } catch {
-
-        data = {};
+      });
 
     }
 
 
-    data[id] = !data[id];
-
-    localStorage.setItem(
-        key,
-        JSON.stringify(data)
-    );
+    if (button) {
+      button.addEventListener("click", performSearch);
+    }
 
 
-    if (type === "likes") {
+    input.addEventListener("keydown", function (event) {
 
-        button.classList.toggle(
-            "liked",
-            data[id]
+      if (event.key === "Enter") {
+        event.preventDefault();
+        performSearch();
+      }
+
+    });
+
+
+    input.addEventListener("input", function () {
+
+      if (!input.value.trim()) {
+        results.innerHTML = "";
+      }
+
+    });
+
+  }
+
+
+  function getAllSearchItems() {
+
+    const all = [];
+
+
+    /* Shayari */
+
+    const shayariData =
+      window.ARS_SHAYARI_DATA ||
+      window.shayariData ||
+      window.shayaris ||
+      [];
+
+
+    if (Array.isArray(shayariData)) {
+
+      shayariData.forEach(function (item) {
+
+        all.push(normalizeItem(
+          item,
+          "Shayari"
+        ));
+
+      });
+
+    }
+
+
+    /* Stories */
+
+    const storyData =
+      window.ARS_STORY_DATA ||
+      window.storyData ||
+      window.stories ||
+      [];
+
+
+    if (Array.isArray(storyData)) {
+
+      storyData.forEach(function (item) {
+
+        all.push(normalizeItem(
+          item,
+          item.type || "Story"
+        ));
+
+      });
+
+    }
+
+
+    return all;
+
+  }
+
+
+  function normalizeItem(item, defaultType) {
+
+    return {
+
+      id:
+        item.id ||
+        item._id ||
+        createSafeId(
+          item.title ||
+          item.text ||
+          Math.random()
+        ),
+
+      title:
+        item.title ||
+        item.heading ||
+        defaultType,
+
+      text:
+        item.text ||
+        item.content ||
+        item.shayari ||
+        item.description ||
+        "",
+
+      category:
+        item.category ||
+        item.type ||
+        "General",
+
+      author:
+        item.author ||
+        "Adarsh Raj",
+
+      type:
+        item.type ||
+        defaultType
+
+    };
+
+  }
+
+
+  function createSafeId(value) {
+
+    return String(value)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .slice(0, 60);
+
+  }
+
+
+  /* =====================================================
+     CONTENT CARD
+  ===================================================== */
+
+  function createContentCard(item) {
+
+    const card = document.createElement("article");
+
+    card.className = "content-card";
+
+    const id = item.id;
+
+
+    card.innerHTML = `
+
+      <div class="content-card-top">
+
+        <span class="content-type">
+          ${escapeHTML(item.type)}
+        </span>
+
+        <span class="content-category">
+          ${escapeHTML(item.category)}
+        </span>
+
+      </div>
+
+      <h3>
+        ${escapeHTML(item.title)}
+      </h3>
+
+      <p class="content-text">
+        ${escapeHTML(item.text)}
+      </p>
+
+      <div class="content-author">
+        ✍️ ${escapeHTML(item.author)}
+      </div>
+
+      <div class="content-actions">
+
+        <button
+          type="button"
+          class="like-btn"
+          data-like-id="${escapeHTML(id)}"
+        >
+          👍 <span class="like-label">Like</span>
+          <span class="like-count">
+            ${getLikeCount(id)}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="favorite-btn"
+          data-favorite-id="${escapeHTML(id)}"
+        >
+          ⭐ <span class="favorite-label">
+            ${isFavorite(id) ? "Saved" : "Favourite"}
+          </span>
+        </button>
+
+      </div>
+
+    `;
+
+
+    return card;
+
+  }
+
+
+  /* =====================================================
+     SHAYARI CATEGORY
+  ===================================================== */
+
+  function initShayariCategories() {
+
+    const container =
+      document.getElementById("shayariCategories");
+
+    const output =
+      document.getElementById("shayariContainer");
+
+    if (!container || !output) return;
+
+
+    container.addEventListener("click", function (event) {
+
+      const button =
+        event.target.closest("button[data-category]");
+
+      if (!button) return;
+
+
+      container
+        .querySelectorAll("button")
+        .forEach(function (btn) {
+          btn.classList.remove("active");
+        });
+
+
+      button.classList.add("active");
+
+
+      renderShayari(
+        button.dataset.category,
+        output
+      );
+
+    });
+
+
+    renderShayari("all", output);
+
+  }
+
+
+  function renderShayari(category, output) {
+
+    output.innerHTML = "";
+
+
+    const data =
+      window.ARS_SHAYARI_DATA ||
+      window.shayariData ||
+      window.shayaris ||
+      [];
+
+
+    if (!Array.isArray(data) || !data.length) {
+
+      output.innerHTML = `
+        <div class="empty-state">
+          <div>🌹</div>
+          <h3>Shayari Coming Soon</h3>
+          <p>No Shayari available.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    const filtered = data.filter(function (item) {
+
+      if (category === "all") return true;
+
+      return String(
+        item.category ||
+        item.type ||
+        ""
+      ).toLowerCase() === category.toLowerCase();
+
+    });
+
+
+    if (!filtered.length) {
+
+      output.innerHTML = `
+        <div class="empty-state">
+          <div>🌹</div>
+          <h3>No Shayari Found</h3>
+          <p>This category is currently empty.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    filtered.forEach(function (item) {
+
+      output.appendChild(
+        createContentCard(
+          normalizeItem(item, "Shayari")
+        )
+      );
+
+    });
+
+  }
+
+
+  /* =====================================================
+     STORY CATEGORY
+  ===================================================== */
+
+  function initStoryCategories() {
+
+    const container =
+      document.getElementById("storyCategories");
+
+    const output =
+      document.getElementById("storyContainer");
+
+    if (!container || !output) return;
+
+
+    container.addEventListener("click", function (event) {
+
+      const button =
+        event.target.closest("button[data-category]");
+
+      if (!button) return;
+
+
+      container
+        .querySelectorAll("button")
+        .forEach(function (btn) {
+          btn.classList.remove("active");
+        });
+
+
+      button.classList.add("active");
+
+
+      renderStories(
+        button.dataset.category,
+        output
+      );
+
+    });
+
+
+    renderStories("all", output);
+
+  }
+
+
+  function renderStories(category, output) {
+
+    output.innerHTML = "";
+
+
+    const data =
+      window.ARS_STORY_DATA ||
+      window.storyData ||
+      window.stories ||
+      [];
+
+
+    if (!Array.isArray(data) || !data.length) {
+
+      output.innerHTML = `
+        <div class="empty-state">
+          <div>📖</div>
+          <h3>Stories Coming Soon</h3>
+          <p>No stories available.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    const filtered = data.filter(function (item) {
+
+      if (category === "all") return true;
+
+      const value = String(
+        item.category ||
+        item.type ||
+        ""
+      ).toLowerCase();
+
+      return value === category.toLowerCase();
+
+    });
+
+
+    if (!filtered.length) {
+
+      output.innerHTML = `
+        <div class="empty-state">
+          <div>📖</div>
+          <h3>No Content Found</h3>
+          <p>This category is currently empty.</p>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    filtered.forEach(function (item) {
+
+      output.appendChild(
+        createContentCard(
+          normalizeItem(
+            item,
+            item.type || "Story"
+          )
+        )
+      );
+
+    });
+
+  }
+
+
+  /* =====================================================
+     LIKE / FAVOURITE
+  ===================================================== */
+
+  function initLikeFavourite() {
+
+    document.addEventListener("click", function (event) {
+
+      const likeButton =
+        event.target.closest("[data-like-id]");
+
+      const favoriteButton =
+        event.target.closest("[data-favorite-id]");
+
+
+      if (likeButton) {
+
+        const id =
+          likeButton.dataset.likeId;
+
+        toggleLike(id, likeButton);
+
+      }
+
+
+      if (favoriteButton) {
+
+        const id =
+          favoriteButton.dataset.favoriteId;
+
+        toggleFavorite(
+          id,
+          favoriteButton
         );
 
-        button.textContent =
-            data[id]
-                ? "❤️ Liked"
-                : "🤍 Like";
+      }
+
+    });
+
+  }
+
+
+  function getLikeCount(id) {
+
+    const key = "ARS_LIKE_COUNT_" + id;
+
+    return Number(
+      localStorage.getItem(key) || 0
+    );
+
+  }
+
+
+  function toggleLike(id, button) {
+
+    const likedKey = "ARS_LIKED_" + id;
+    const countKey = "ARS_LIKE_COUNT_" + id;
+
+    const liked =
+      localStorage.getItem(likedKey) === "true";
+
+
+    let count =
+      Number(localStorage.getItem(countKey) || 0);
+
+
+    if (liked) {
+
+      localStorage.setItem(
+        likedKey,
+        "false"
+      );
+
+      count = Math.max(0, count - 1);
 
     } else {
 
-        button.classList.toggle(
-            "favorited",
-            data[id]
-        );
+      localStorage.setItem(
+        likedKey,
+        "true"
+      );
 
-        button.textContent =
-            data[id]
-                ? "⭐ Saved"
-                : "☆ Favorite";
+      count++;
 
     }
 
-    showToast(
-        data[id]
-            ? "Saved successfully"
-            : "Removed"
+
+    localStorage.setItem(
+      countKey,
+      String(count)
     );
 
-}
+
+    updateLikeButton(
+      button,
+      !liked,
+      count
+    );
+
+  }
 
 
-/* ================= CONTACT ================= */
+  function updateLikeButton(button, liked, count) {
 
-function initContact() {
+    if (!button) return;
+
+
+    const label =
+      button.querySelector(".like-label");
+
+    const counter =
+      button.querySelector(".like-count");
+
+
+    if (label) {
+      label.textContent =
+        liked ? "Unlike" : "Like";
+    }
+
+
+    if (counter) {
+      counter.textContent = count;
+    }
+
+
+    button.classList.toggle(
+      "active",
+      liked
+    );
+
+  }
+
+
+  function isFavorite(id) {
+
+    return localStorage.getItem(
+      "ARS_FAV_" + id
+    ) === "true";
+
+  }
+
+
+  function toggleFavorite(id, button) {
+
+    const key = "ARS_FAV_" + id;
+
+    const saved =
+      localStorage.getItem(key) === "true";
+
+
+    localStorage.setItem(
+      key,
+      saved ? "false" : "true"
+    );
+
+
+    const label =
+      button.querySelector(".favorite-label");
+
+
+    if (label) {
+
+      label.textContent =
+        saved ? "Favourite" : "Saved";
+
+    }
+
+
+    button.classList.toggle(
+      "active",
+      !saved
+    );
+
+  }
+
+
+  /* =====================================================
+     CONTACT — EMAILJS
+  ===================================================== */
+
+  function initContactForm() {
 
     const form =
-        document.getElementById(
-            "contactForm"
-        );
+      document.getElementById("contactForm");
+
+    const status =
+      document.getElementById("contactStatus");
+
+    const submit =
+      document.getElementById("contactSubmit");
+
 
     if (!form) return;
 
-    form.addEventListener(
-        "submit",
-        event => {
 
-            event.preventDefault();
+    /* Initialize EmailJS */
 
-            const name =
-                form.elements.name.value.trim();
+    if (
+      window.emailjs &&
+      CONFIG.emailjs &&
+      CONFIG.emailjs.publicKey
+    ) {
 
-            const message =
-                form.elements.message.value.trim();
+      try {
 
-            if (!name || !message) {
+        emailjs.init({
+          publicKey: CONFIG.emailjs.publicKey
+        });
 
-                showToast(
-                    "कृपया सभी जरूरी जानकारी भरें।"
-                );
+      } catch (error) {
 
-                return;
-
-            }
-
-            showToast(
-                "✅ Message तैयार है।"
-            );
-
-            form.reset();
-
-        }
-    );
-
-}
-
-
-/* ================= YEAR ================= */
-
-function initYear() {
-
-    const year =
-        document.getElementById(
-            "currentYear"
+        console.error(
+          "EmailJS initialization error:",
+          error
         );
 
-    if (year) {
-
-        year.textContent =
-            new Date().getFullYear();
+      }
 
     }
 
-}
+
+    form.addEventListener("submit", async function (event) {
+
+      event.preventDefault();
 
 
-/* ================= TOAST ================= */
+      if (!window.emailjs) {
 
-function showToast(message) {
-
-    const toast =
-        document.getElementById(
-            "arsToast"
+        showContactStatus(
+          "Email service is not loaded. Please try again.",
+          "error"
         );
 
-    if (!toast) return;
+        return;
 
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(
-        window.arsToastTimer
-    );
-
-    window.arsToastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 2300);
-
-}
+      }
 
 
-/* ================= GLOBAL API ================= */
+      const serviceId =
+        CONFIG.emailjs.serviceId;
 
-window.ARS = {
+      const templateId =
+        CONFIG.emailjs.templateId;
 
-    toast: showToast,
 
-    scrollTo: id => {
+      if (!serviceId || !templateId) {
 
-        const target =
-            document.getElementById(id);
+        showContactStatus(
+          "Contact service is not configured.",
+          "error"
+        );
 
-        if (target) {
+        return;
 
-            target.scrollIntoView({
-                behavior: "smooth"
-            });
+      }
+
+
+      const name =
+        document.getElementById("contactName")?.value.trim();
+
+      const email =
+        document.getElementById("contactEmail")?.value.trim();
+
+      const message =
+        document.getElementById("contactMessage")?.value.trim();
+
+
+      if (!name || !email || !message) {
+
+        showContactStatus(
+          "Please fill all fields.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      if (submit) {
+
+        submit.disabled = true;
+        submit.textContent = "Sending...";
+
+      }
+
+
+      try {
+
+        await emailjs.sendForm(
+          serviceId,
+          templateId,
+          form
+        );
+
+
+        showContactStatus(
+          "✅ Message sent successfully!",
+          "success"
+        );
+
+
+        form.reset();
+
+
+      } catch (error) {
+
+        console.error(
+          "EmailJS send error:",
+          error
+        );
+
+
+        showContactStatus(
+          "❌ Message could not be sent. Please try again.",
+          "error"
+        );
+
+
+      } finally {
+
+        if (submit) {
+
+          submit.disabled = false;
+          submit.textContent = "Send Message";
 
         }
 
+      }
+
+    });
+
+  }
+
+
+  function showContactStatus(message, type) {
+
+    const status =
+      document.getElementById("contactStatus");
+
+    if (!status) return;
+
+
+    status.textContent = message;
+
+    status.className =
+      "contact-status " + type;
+
+
+    setTimeout(function () {
+
+      status.className = "contact-status";
+
+    }, 6000);
+
+  }
+
+
+  /* =====================================================
+     HTML ESCAPE
+  ===================================================== */
+
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* =====================================================
+     GLOBAL HELPERS
+  ===================================================== */
+
+  window.ARSWebsite = {
+
+    search: function (query) {
+
+      const input =
+        document.getElementById("globalSearch");
+
+      if (!input) return;
+
+      input.value = query;
+
+      input.dispatchEvent(
+        new Event("input")
+      );
+
+      const button =
+        document.getElementById("searchBtn");
+
+      if (button) button.click();
+
+    },
+
+    top: function () {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
     }
 
-};
+  };
+
+
+})();
