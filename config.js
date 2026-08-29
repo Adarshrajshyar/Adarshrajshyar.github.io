@@ -1,77 +1,61 @@
 /* =========================================================
-   ARS OFFICIAL WEBSITE — CONFIGURATION
-   Version: 5.0.0
+   ARS OFFICIAL CONFIGURATION
    ========================================================= */
 
-(function (window) {
-  "use strict";
+window.ARS_CONFIG = Object.freeze({
 
-  window.ARS_CONFIG = Object.freeze({
+  VERSION: "5.0.0",
 
-    VERSION: "5.0.0",
+  SITE_NAME: "Adarsh Raj Shayar",
 
-    SITE_NAME: "Adarsh Raj Shayar",
-    SHORT_NAME: "ARS",
-    FOUNDER: "Adarsh Raj",
+  FOUNDER: "Adarsh Raj",
 
-    INSTAGRAM_URL:
-      "https://www.instagram.com/adarshrajshyar/",
+  WEBSITE_URL:
+    "https://adarshrajshyar.github.io/",
 
-    ASSETS: {
-      LOGO: "logo.png",
-      BANNER: "banner.png",
-      PROFILE: "photo.jpg1.jpeg",
-      SIGNATURE: "signature.jpeg",
-      WEBSITE_IMAGE: "website.jpeg"
-    },
+  INSTAGRAM_URL:
+    "https://www.instagram.com/adarshrajshyar/",
 
-    EMAILJS: {
-      SERVICE_ID: "service_3h6mmz4",
-      TEMPLATE_ID: "template_2kzi4j8",
-      PUBLIC_KEY: "kEJqwQlbZ03jFbMFC"
-    },
+  /* -----------------------------------------
+     EMAILJS
+     ----------------------------------------- */
+  EMAILJS: Object.freeze({
+    SERVICE_ID: "service_3h6mmz4",
+    TEMPLATE_ID: "template_2kzi4j8",
+    PUBLIC_KEY: "kEJqwQlbZ03jFbMFC"
+  }),
 
-    /* Change these before public deployment */
-    ADMIN_PASSWORD: "CHANGE_THIS_ADMIN_PASSWORD",
-    PUBLISHER_PASSWORD: "CHANGE_THIS_PUBLISHER_PASSWORD",
+  /* -----------------------------------------
+     PANEL PASSWORDS
+     
+     NOTE:
+     Static frontend passwords are NOT secure
+     for a real production admin system.
+     These are only for the current frontend
+     version.
+     ----------------------------------------- */
 
-    CERTIFICATE: {
-      PREFIX: "ARS-CERT-",
-      JOINING_PREFIX: "ARS-MEMBER-",
-      ORGANIZATION: "ARS Official",
-      FOUNDER_TITLE: "Founder, ARS",
-      WEBSITE: "Adarsh Raj Shayar"
-    },
+  ADMIN_PASSWORD: "ARS2026",
 
-    CATEGORIES: [
-      "love",
-      "sad",
-      "attitude",
-      "friendship",
-      "motivation",
-      "life",
-      "education",
-      "inspiration",
-      "general"
-    ],
+  PUBLISHER_PASSWORD: "Adarsh2026",
 
-    FEATURES: {
-      LIKE: true,
-      FAVORITE: true,
-      SEARCH: true,
-      CONTACT: true,
-      CERTIFICATE: true,
-      JOINING: true,
-      VERIFICATION: true,
-      PUBLISHER: true,
-      ADMIN: true
-    }
+  /* -----------------------------------------
+     CERTIFICATE
+     ----------------------------------------- */
+  CERTIFICATE: Object.freeze({
+    PREFIX: "ARS-CERT",
+    JOINING_PREFIX: "ARS-MEMBER",
+    VERIFY_PAGE: "verify.html"
+  }),
 
-  });
+  /* -----------------------------------------
+     STORAGE VERSION
+     ----------------------------------------- */
+  STORAGE_VERSION: "5.0"
 
-  console.log(
-    "🌹 ARS Official Configuration Loaded",
-    window.ARS_CONFIG.VERSION
-  );
+});
 
-})(window);
+console.log(
+  "🌹 ARS Configuration Loaded:",
+  window.ARS_CONFIG.VERSION
+);
