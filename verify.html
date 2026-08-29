@@ -1,358 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <title>Verify ARS Certificate</title>
 
-  <title>ARS Certificate Verification</title>
+  <link rel="stylesheet" href="style.css">
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
-
-  <style>
-
-    .verify-page {
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 20px;
-    }
-
-    .verify-card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 18px;
-      box-shadow:
-        0 8px 30px rgba(0,0,0,.08);
-    }
-
-    .verify-card input {
-      width: 100%;
-      padding: 13px;
-      box-sizing: border-box;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      margin: 10px 0;
-    }
-
-    .verify-btn {
-      width: 100%;
-      padding: 13px;
-      border: 0;
-      border-radius: 10px;
-      background: #111827;
-      color: #fff;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .verify-result {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 14px;
-      background: #f8fafc;
-    }
-
-    .verified {
-      color: #15803d;
-    }
-
-    .not-verified {
-      color: #b91c1c;
-    }
-
-  </style>
-
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
 </head>
 
 <body>
 
 <header class="site-header">
-
   <nav class="navbar">
 
-    <a href="index.html" class="logo">
-      🌹 ARS
+    <a class="logo" href="index.html">
+      🌹 ARS Official
     </a>
 
     <div class="nav-links">
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="joining.html">
-        Join ARS
-      </a>
-
-      <a href="certificate.html">
-        Certificate
-      </a>
-
-      <a href="verify.html">
-        Verify
-      </a>
-
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
     </div>
 
   </nav>
-
 </header>
 
+<main class="section">
 
-<main class="verify-page">
+  <div class="form-card">
 
-  <section class="verify-card">
-
-    <h1>
-      🔎 Verify ARS Certificate
-    </h1>
+    <h1>🔎 Verify ARS</h1>
 
     <p>
-      Enter your Certificate ID or Joining Request ID.
+      Verify an ARS certificate or joining request using its ID.
     </p>
-
 
     <form id="verifyForm">
 
       <input
         id="verifyId"
-        placeholder="Example: ARS-CERT-XXXX"
+        type="text"
         required
+        placeholder="Enter Certificate / Joining ID"
+        autocomplete="off"
       >
 
-      <button
-        class="verify-btn"
-        type="submit"
-      >
+      <button class="btn" type="submit">
         Verify
       </button>
 
     </form>
 
+    <div id="verifyResult"></div>
 
-    <div
-      id="verifyResult"
-      class="verify-result"
-    ></div>
-
-  </section>
+  </div>
 
 </main>
 
-
-<script src="config.js"></script>
-<script src="storage.js"></script>
-
 <script>
+document.addEventListener("DOMContentLoaded", function () {
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+  const form = document.getElementById("verifyForm");
+  const input = document.getElementById("verifyId");
+  const result = document.getElementById("verifyResult");
 
   const urlId =
-    params.get("id");
+    new URLSearchParams(window.location.search).get("id");
 
   if (urlId) {
-
-    document.getElementById(
-      "verifyId"
-    ).value = urlId;
-
-    verify(urlId);
-
+    input.value = urlId;
+    verifyRecord(urlId);
   }
 
+  form.addEventListener("submit", function (event) {
 
-  document
-    .getElementById("verifyForm")
-    .addEventListener(
-      "submit",
-      function(e) {
+    event.preventDefault();
 
-        e.preventDefault();
+    verifyRecord(input.value.trim());
 
-        verify(
-          document
-            .getElementById(
-              "verifyId"
-            )
-            .value
-            .trim()
-        );
+  });
 
-      }
-    );
-
-
-  function verify(id) {
-
-    const result =
-      document.getElementById(
-        "verifyResult"
-      );
+  function verifyRecord(id) {
 
     if (!id) {
-
       result.innerHTML =
-        "<p class='not-verified'>❌ Please enter an ID.</p>";
-
+        '<p class="status rejected">Please enter an ID.</p>';
       return;
     }
 
-
     const certificate =
-      window.ARS_STORAGE
-        .findCertificate(id);
-
+      ARS_STORAGE.findCertificate(id);
 
     if (certificate) {
 
       result.innerHTML = `
+        <div class="panel-card">
 
-        <h2 class="verified">
-          ✅ Certificate Verified
-        </h2>
+          <h2 class="status approved">
+            ✅ Certificate Verified
+          </h2>
 
-        <p>
-          <strong>Name:</strong>
-          ${escapeHTML(
-            certificate.name
-          )}
-        </p>
+          <p>
+            <b>Name:</b>
+            ${escapeHtml(certificate.name)}
+          </p>
 
-        <p>
-          <strong>Certificate Type:</strong>
-          ${escapeHTML(
-            certificate.type
-          )}
-        </p>
+          <p>
+            <b>Certificate Type:</b>
+            ${escapeHtml(certificate.type)}
+          </p>
 
-        <p>
-          <strong>Certificate ID:</strong>
-          ${escapeHTML(
-            certificate.id
-          )}
-        </p>
+          <p>
+            <b>Certificate ID:</b>
+            ${escapeHtml(certificate.id)}
+          </p>
 
-        <p>
-          <strong>Issued By:</strong>
-          Adarsh Raj
-        </p>
+          <p>
+            <b>Status:</b>
+            <span class="status approved">
+              Approved / Valid
+            </span>
+          </p>
 
+          <p>
+            <b>Issued By:</b>
+            Adarsh Raj — Founder, ARS
+          </p>
+
+          <p>
+            <b>Issued Date:</b>
+            ${new Date(certificate.issuedAt).toLocaleDateString()}
+          </p>
+
+        </div>
       `;
 
       return;
     }
 
-
-    const requests =
-      window.ARS_STORAGE
-        .getJoiningRequests();
-
-    const request =
-      requests.find(
+    const joiningRequest =
+      ARS_STORAGE.joins().find(
         item =>
           String(item.id).toLowerCase() ===
           String(id).toLowerCase()
       );
 
-
-    if (request) {
-
-      const status =
-        request.status ||
-        "pending";
+    if (joiningRequest) {
 
       result.innerHTML = `
+        <div class="panel-card">
 
-        <h2>
-          🤝 ARS Joining Request
-        </h2>
+          <h2>🤝 ARS Joining Request</h2>
 
-        <p>
-          <strong>Name:</strong>
-          ${escapeHTML(
-            request.name
-          )}
-        </p>
+          <p>
+            <b>Name:</b>
+            ${escapeHtml(joiningRequest.name)}
+          </p>
 
-        <p>
-          <strong>Request ID:</strong>
-          ${escapeHTML(
-            request.id
-          )}
-        </p>
+          <p>
+            <b>Joining ID:</b>
+            ${escapeHtml(joiningRequest.id)}
+          </p>
 
-        <p>
-          <strong>Status:</strong>
-          ${escapeHTML(
-            status
-          )}
-        </p>
+          <p>
+            <b>Status:</b>
+            <span class="status ${joiningRequest.status}">
+              ${escapeHtml(joiningRequest.status)}
+            </span>
+          </p>
 
-        ${
-          status === "approved"
-            ? `
-              <p class="verified">
-                ✅ Your joining request has been approved.
-              </p>
-            `
-            : status === "rejected"
+          ${
+            joiningRequest.status === "approved"
               ? `
-                <p class="not-verified">
-                  ❌ Your joining request was rejected.
+                <p class="status approved">
+                  ✅ Your ARS joining request is approved.
                 </p>
+
+                <a
+                  class="btn"
+                  href="joining-certificate.html?id=${encodeURIComponent(joiningRequest.id)}"
+                >
+                  View Joining Certificate
+                </a>
               `
               : `
                 <p>
-                  ⏳ Your joining request is waiting
-                  for admin approval.
+                  Your certificate will become available
+                  after ARS approval.
                 </p>
               `
-        }
+          }
 
+        </div>
       `;
 
       return;
     }
 
-
     result.innerHTML = `
-
-      <h2 class="not-verified">
-        ❌ Not Found
-      </h2>
-
-      <p>
-        No ARS certificate or joining request
-        was found with this ID.
-      </p>
-
+      <div class="panel-card">
+        <h2 class="status rejected">
+          ❌ Record Not Found
+        </h2>
+        <p>
+          No ARS certificate or joining record was found
+          with this ID.
+        </p>
+      </div>
     `;
-
   }
 
+  function escapeHtml(value) {
 
-  function escapeHTML(value) {
+    const div = document.createElement("div");
 
-    const div =
-      document.createElement("div");
-
-    div.textContent =
-      value == null ? "" : value;
+    div.textContent = value ?? "";
 
     return div.innerHTML;
-
   }
 
+});
 </script>
 
 </body>
