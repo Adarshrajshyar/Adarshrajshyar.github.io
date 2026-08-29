@@ -1,1 +1,315 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Join ARS — Adarsh Raj Shayar</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <nav class="navbar">
+
+    <a href="index.html" class="logo">
+      🌹 ARS Official
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#shayari">Shayari</a>
+      <a href="index.html#stories">Stories</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="index.html#favorites">Favorites</a>
+    </div>
+
+  </nav>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+  <h1>🤝 Join ARS</h1>
+
+  <p>
+    <b>ARS परिवार का हिस्सा बनें</b><br>
+    Become a part of the ARS community.
+  </p>
+
+</section>
+
+
+<section class="section">
+
+  <div class="form-card">
+
+    <div style="text-align:center">
+
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+        style="width:90px;height:90px;object-fit:contain"
+        onerror="this.style.display='none'"
+      >
+
+      <h2>ARS Membership Application</h2>
+
+      <p>
+        अपनी सही जानकारी भरकर joining request भेजें।
+      </p>
+
+    </div>
+
+
+    <form id="joinForm">
+
+      <label for="fullName">
+        पूरा नाम / Full Name
+      </label>
+
+      <input
+        id="fullName"
+        name="name"
+        type="text"
+        required
+        maxlength="80"
+        placeholder="अपना पूरा नाम लिखें"
+      >
+
+
+      <label for="email">
+        ई-मेल / Email
+      </label>
+
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        maxlength="120"
+        placeholder="example@email.com"
+      >
+
+
+      <label for="category">
+        आपकी रुचि / Interest
+      </label>
+
+      <select id="category" name="interest" required>
+
+        <option value="">
+          Select Interest
+        </option>
+
+        <option value="Shayari">
+          🌹 Shayari
+        </option>
+
+        <option value="Story">
+          📖 Story
+        </option>
+
+        <option value="Poetry">
+          ✍️ Poetry
+        </option>
+
+        <option value="Creativity">
+          🎨 Creativity
+        </option>
+
+        <option value="Community">
+          🤝 ARS Community
+        </option>
+
+      </select>
+
+
+      <label for="reason">
+        आप ARS से क्यों जुड़ना चाहते हैं?
+      </label>
+
+      <textarea
+        id="reason"
+        name="reason"
+        maxlength="500"
+        placeholder="अपने बारे में या ARS से जुड़ने की वजह लिखें..."
+      ></textarea>
+
+
+      <label style="display:flex;gap:10px;align-items:flex-start">
+
+        <input
+          id="agree"
+          type="checkbox"
+          required
+          style="width:auto;margin-top:5px"
+        >
+
+        <span>
+          मैं दी गई जानकारी को सही मानता/मानती हूँ और
+          ARS के नियमों का पालन करने के लिए सहमत हूँ।
+        </span>
+
+      </label>
+
+
+      <button
+        type="submit"
+        class="btn"
+        style="width:100%;margin-top:15px"
+      >
+        🚀 Submit Joining Request
+      </button>
+
+    </form>
+
+
+    <div id="joinResult"></div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+"use strict";
+
+const joinForm =
+  document.getElementById("joinForm");
+
+const joinResult =
+  document.getElementById("joinResult");
+
+
+function escapeHTML(value) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    value ?? "";
+
+  return div.innerHTML;
+}
+
+
+joinForm.addEventListener(
+  "submit",
+  function(event) {
+
+    event.preventDefault();
+
+    const formData =
+      new FormData(joinForm);
+
+    const data =
+      Object.fromEntries(formData.entries());
+
+
+    const request =
+      ARS_STORAGE.saveJoin({
+
+        name:
+          data.name.trim(),
+
+        email:
+          data.email.trim(),
+
+        interest:
+          data.interest,
+
+        reason:
+          data.reason.trim(),
+
+        status:
+          "pending"
+
+      });
+
+
+    joinResult.innerHTML = `
+
+      <div
+        class="panel-card"
+        style="margin-top:25px;text-align:center"
+      >
+
+        <h2>✅ Application Submitted</h2>
+
+        <p>
+          आपकी ARS Joining Request सफलतापूर्वक भेज दी गई है।
+        </p>
+
+        <p>
+          <b>आपका Request ID:</b>
+        </p>
+
+        <p
+          style="
+            font-size:20px;
+            font-weight:800;
+            word-break:break-all
+          "
+        >
+          ${escapeHTML(request.id)}
+        </p>
+
+        <p>
+          इस ID को सुरक्षित रखें।
+          Approval के बाद इसी ID से आपका
+          ARS Joining Certificate प्राप्त किया जा सकेगा।
+        </p>
+
+        <div class="card-actions"
+             style="justify-content:center;flex-wrap:wrap">
+
+          <a
+            class="btn"
+            href="verify.html?id=${encodeURIComponent(request.id)}"
+          >
+            🔎 Check Status
+          </a>
+
+          <a
+            class="btn"
+            href="index.html"
+          >
+            🏠 Back to Home
+          </a>
+
+        </div>
+
+      </div>
+    `;
+
+
+    joinForm.reset();
+
+    joinResult.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  }
+);
+
+</script>
+
+</body>
+</html>
