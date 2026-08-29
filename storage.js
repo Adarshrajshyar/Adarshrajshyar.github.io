@@ -1,46 +1,57 @@
 /* =========================================================
-   ARS OFFICIAL WEBSITE — STORAGE SYSTEM
-   Local data management
+   ARS STORAGE SYSTEM
    ========================================================= */
-
 (function (window) {
   "use strict";
 
-  const KEYS = {
+  const KEYS = Object.freeze({
 
     SHAYARI: "ARS_SHAYARI_DATA",
+
     STORIES: "ARS_STORY_DATA",
 
     LIKES: "ARS_LIKES",
+
     FAVORITES: "ARS_FAVORITES",
 
     CERTIFICATES: "ARS_CERTIFICATES",
+
     JOIN_REQUESTS: "ARS_JOIN_REQUESTS",
 
     CONTACT_MESSAGES: "ARS_CONTACT_MESSAGES"
 
-  };
+  });
 
+  /* -----------------------------------------
+     Safe JSON Read
+     ----------------------------------------- */
   function read(key, fallback = []) {
-
     try {
+      const value = localStorage.getItem(key);
 
-      const data = localStorage.getItem(key);
+      if (value === null) {
+        return fallback;
+      }
 
-      if (!data) return fallback;
+      const parsed = JSON.parse(value);
 
-      return JSON.parse(data);
+      return parsed ?? fallback;
 
     } catch (error) {
 
-      console.error("ARS Storage Read Error:", error);
+      console.error(
+        "ARS Storage Read Error:",
+        key,
+        error
+      );
 
       return fallback;
-
     }
-
   }
 
+  /* -----------------------------------------
+     Safe JSON Write
+     ----------------------------------------- */
   function write(key, value) {
 
     try {
@@ -54,75 +65,69 @@
 
     } catch (error) {
 
-      console.error("ARS Storage Write Error:", error);
+      console.error(
+        "ARS Storage Write Error:",
+        key,
+        error
+      );
 
       return null;
-
     }
-
   }
 
-  function generateId(prefix = "ARS") {
+  /* -----------------------------------------
+     Unique ID Generator
+     ----------------------------------------- */
+  function newId(prefix = "ARS") {
 
-    return (
-      prefix +
-      "-" +
-      Date.now().toString(36).toUpperCase() +
-      "-" +
+    const time =
+      Date.now()
+        .toString(36)
+        .toUpperCase();
+
+    const random =
       Math.random()
         .toString(36)
-        .substring(2, 7)
-        .toUpperCase()
-    );
+        .substring(2, 8)
+        .toUpperCase();
 
+    return `${prefix}-${time}-${random}`;
   }
 
-  /* =========================
+  /* =======================================================
      SHAYARI
-     ========================= */
+     ======================================================= */
 
   function getShayari() {
-
     return read(KEYS.SHAYARI, []);
-
   }
 
   function saveShayari(data) {
-
     return write(KEYS.SHAYARI, data);
-
   }
 
-  /* =========================
+  /* =======================================================
      STORIES
-     ========================= */
+     ======================================================= */
 
   function getStories() {
-
     return read(KEYS.STORIES, []);
-
   }
 
   function saveStories(data) {
-
     return write(KEYS.STORIES, data);
-
   }
 
-  /* =========================
+  /* =======================================================
      LIKES
-     ========================= */
+     ======================================================= */
 
   function getLikes() {
-
     return read(KEYS.LIKES, []);
-
   }
 
   function hasLiked(id) {
-
     return getLikes().includes(String(id));
-
   }
 
   function toggleLike(id) {
@@ -148,23 +153,18 @@
     write(KEYS.LIKES, likes);
 
     return false;
-
   }
 
-  /* =========================
+  /* =======================================================
      FAVORITES
-     ========================= */
+     ======================================================= */
 
   function getFavorites() {
-
     return read(KEYS.FAVORITES, []);
-
   }
 
   function isFavorite(id) {
-
     return getFavorites().includes(String(id));
-
   }
 
   function toggleFavorite(id) {
@@ -190,198 +190,204 @@
     write(KEYS.FAVORITES, favorites);
 
     return false;
-
   }
 
-  /* =========================
+  /* =======================================================
      CERTIFICATES
-     ========================= */
+     ======================================================= */
 
-  function getCertificates() {
-
+  function certificates() {
     return read(KEYS.CERTIFICATES, []);
-
   }
 
   function saveCertificate(certificate) {
 
-    const certificates = getCertificates();
+    const all = certificates();
 
-    const index = certificates.findIndex(
-      item => item.id === certificate.id
+    const index = all.findIndex(
+      item =>
+        String(item.id) ===
+        String(certificate.id)
     );
 
     if (index === -1) {
 
-      certificates.push(certificate);
+      all.push(certificate);
 
     } else {
 
-      certificates[index] = certificate;
+      all[index] = certificate;
 
     }
 
-    write(KEYS.CERTIFICATES, certificates);
+    write(KEYS.CERTIFICATES, all);
 
     return certificate;
-
   }
 
   function findCertificate(id) {
 
-    if (!id) return null;
-
-    return getCertificates().find(
+    return certificates().find(
       certificate =>
         String(certificate.id).toLowerCase() ===
-        String(id).trim().toLowerCase()
+        String(id).toLowerCase()
     ) || null;
-
   }
 
-  /* =========================
-     JOIN REQUESTS
-     ========================= */
+  /* =======================================================
+     JOINING REQUESTS
+     ======================================================= */
 
-  function getJoinRequests() {
-
+  function joins() {
     return read(KEYS.JOIN_REQUESTS, []);
-
   }
 
-  function saveJoinRequest(request) {
+  function saveJoin(data) {
 
-    const data = {
-
-      ...request,
+    const request = {
+      ...data,
 
       id:
-        request.id ||
-        generateId("ARS-JOIN"),
+        data.id ||
+        newId("ARS-JOIN"),
 
       status: "pending",
 
       createdAt:
-        request.createdAt ||
+        data.createdAt ||
         new Date().toISOString(),
 
       updatedAt:
         new Date().toISOString()
-
     };
 
-    const requests = getJoinRequests();
+    const all = joins();
 
-    requests.push(data);
+    all.push(request);
 
-    write(KEYS.JOIN_REQUESTS, requests);
+    write(KEYS.JOIN_REQUESTS, all);
 
-    return data;
-
+    return request;
   }
 
-  function updateJoinRequest(id, updates) {
+  function updateJoin(id, changes) {
 
-    const requests = getJoinRequests();
+    const all = joins();
 
-    const index = requests.findIndex(
-      request => request.id === id
+    const index = all.findIndex(
+      item =>
+        String(item.id) ===
+        String(id)
     );
 
-    if (index === -1) return null;
+    if (index === -1) {
+      return null;
+    }
 
-    requests[index] = {
-
-      ...requests[index],
-
-      ...updates,
-
+    all[index] = {
+      ...all[index],
+      ...changes,
       updatedAt:
         new Date().toISOString()
-
     };
 
-    write(KEYS.JOIN_REQUESTS, requests);
+    write(KEYS.JOIN_REQUESTS, all);
 
-    return requests[index];
-
+    return all[index];
   }
 
-  function findJoinRequest(id) {
+  function findJoin(id) {
 
-    if (!id) return null;
-
-    return getJoinRequests().find(
-      request =>
-        String(request.id).toLowerCase() ===
-        String(id).trim().toLowerCase()
+    return joins().find(
+      item =>
+        String(item.id).toLowerCase() ===
+        String(id).toLowerCase()
     ) || null;
-
   }
 
-  /* =========================
+  /* =======================================================
      CONTACT MESSAGES
-     ========================= */
+     ======================================================= */
 
-  function getMessages() {
-
+  function messages() {
     return read(KEYS.CONTACT_MESSAGES, []);
-
   }
 
-  function saveMessage(message) {
+  function saveMessage(data) {
 
-    const data = {
+    const message = {
+      ...data,
 
-      ...message,
-
-      id: generateId("ARS-MSG"),
+      id: newId("ARS-MSG"),
 
       createdAt:
         new Date().toISOString(),
 
       read: false
-
     };
 
-    const messages = getMessages();
+    const all = messages();
 
-    messages.push(data);
+    all.push(message);
 
-    write(KEYS.CONTACT_MESSAGES, messages);
+    write(
+      KEYS.CONTACT_MESSAGES,
+      all
+    );
 
-    return data;
-
+    return message;
   }
 
   function markMessageRead(id) {
 
-    const messages = getMessages();
+    const all = messages();
 
-    const index = messages.findIndex(
-      message => message.id === id
+    const index = all.findIndex(
+      item =>
+        String(item.id) ===
+        String(id)
     );
 
-    if (index === -1) return null;
+    if (index === -1) {
+      return null;
+    }
 
-    messages[index].read = true;
+    all[index].read = true;
 
-    write(KEYS.CONTACT_MESSAGES, messages);
+    write(
+      KEYS.CONTACT_MESSAGES,
+      all
+    );
 
-    return messages[index];
-
+    return all[index];
   }
 
-  /* =========================
+  /* =======================================================
+     CLEAR STORAGE — ADMIN DEVELOPMENT USE
+     ======================================================= */
+
+  function clearAll() {
+
+    Object.values(KEYS).forEach(
+      key => localStorage.removeItem(key)
+    );
+
+    console.warn(
+      "⚠️ ARS local storage cleared."
+    );
+  }
+
+  /* =======================================================
      PUBLIC API
-     ========================= */
+     ======================================================= */
 
   window.ARS_STORAGE = {
 
+    KEYS,
+
     read,
     write,
-
-    generateId,
+    newId,
 
     getShayari,
     saveShayari,
@@ -389,26 +395,28 @@
     getStories,
     saveStories,
 
-    getLikes,
+    likes: getLikes,
     hasLiked,
     toggleLike,
 
-    getFavorites,
+    favorites: getFavorites,
     isFavorite,
     toggleFavorite,
 
-    getCertificates,
+    certificates,
     saveCertificate,
     findCertificate,
 
-    getJoinRequests,
-    saveJoinRequest,
-    updateJoinRequest,
-    findJoinRequest,
+    joins,
+    saveJoin,
+    updateJoin,
+    findJoin,
 
-    getMessages,
+    messages,
     saveMessage,
-    markMessageRead
+    markMessageRead,
+
+    clearAll
 
   };
 
