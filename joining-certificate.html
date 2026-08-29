@@ -1,138 +1,301 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
   <title>ARS Joining Certificate</title>
+
   <link rel="stylesheet" href="style.css">
+
   <script src="config.js"></script>
   <script src="storage.js"></script>
   <script src="certificate.js"></script>
 </head>
+
 <body>
 
 <header class="site-header">
+
   <nav class="navbar">
-    <a class="logo" href="index.html">🌹 ARS Official</a>
+
+    <a class="logo" href="index.html">
+      🌹 ARS Official
+    </a>
+
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="joining.html">Join ARS</a>
       <a href="certificate.html">Certificate</a>
       <a href="verify.html">Verify</a>
     </div>
+
   </nav>
+
 </header>
 
+
 <main class="section">
+
   <div class="form-card">
-    <h1>🏅 ARS Joining Certificate</h1>
-    <p>Enter your approved ARS Joining Request ID.</p>
 
-    <input
-      id="requestId"
-      type="text"
-      placeholder="Enter Joining ID"
-      autocomplete="off"
-    >
+    <div class="join-header">
 
-    <button class="btn" id="checkApproval">
-      Check Approval
-    </button>
+      <div class="join-icon">🏅</div>
 
-    <div id="joiningResult"></div>
+      <h1>ARS Joining Certificate</h1>
+
+      <p>
+        Enter your ARS Joining Request ID to check
+        approval and access your membership certificate.
+      </p>
+
+    </div>
+
+
+    <form id="certificateCheckForm">
+
+      <label for="rid">
+        Joining Request ID
+      </label>
+
+      <input
+        id="rid"
+        type="text"
+        required
+        placeholder="Example: ARS-JOIN-XXXX"
+      >
+
+      <button
+        class="btn"
+        type="submit"
+      >
+        🔎 Check Approval
+      </button>
+
+    </form>
+
   </div>
+
+
+  <div id="out"></div>
+
 </main>
 
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
 
-  const requestId = document.getElementById("requestId");
-  const checkApproval = document.getElementById("checkApproval");
-  const joiningResult = document.getElementById("joiningResult");
+  "use strict";
 
-  const urlId = new URLSearchParams(window.location.search).get("id");
+  const form =
+    document.getElementById("certificateCheckForm");
 
-  if (urlId) {
-    requestId.value = urlId;
+  const input =
+    document.getElementById("rid");
+
+  const output =
+    document.getElementById("out");
+
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const queryId =
+    params.get("id");
+
+
+  if (queryId) {
+    input.value = queryId;
   }
 
-  checkApproval.addEventListener("click", function () {
 
-    const id = requestId.value.trim();
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const id =
+      input.value.trim();
 
     if (!id) {
-      joiningResult.innerHTML =
-        '<p class="status rejected">Please enter your Joining ID.</p>';
+      showError("Please enter your Joining Request ID.");
       return;
     }
 
-    const requests = ARS_STORAGE.joins();
 
-    const request = requests.find(
-      item => String(item.id).toLowerCase() === id.toLowerCase()
-    );
+    const requests =
+      ARS_STORAGE.joins();
+
+    const request =
+      requests.find(
+        item =>
+          String(item.id).toLowerCase() ===
+          id.toLowerCase()
+      );
+
 
     if (!request) {
-      joiningResult.innerHTML =
-        '<p class="status rejected">❌ Joining request not found.</p>';
+
+      showError(
+        "Joining Request not found. Please check your ID."
+      );
+
       return;
     }
+
 
     if (request.status !== "approved") {
 
-      joiningResult.innerHTML = `
-        <div class="panel-card">
-          <h3>ARS Joining Status</h3>
+      const statusText =
+        request.status === "rejected"
+          ? "Rejected"
+          : "Pending Approval";
+
+
+      output.innerHTML = `
+        <div class="form-card">
+
+          <h2>🤝 ARS Joining Status</h2>
+
           <p>
             <b>Name:</b>
-            ${escapeHtml(request.name)}
+            ${escapeHTML(request.name)}
           </p>
+
+          <p>
+            <b>Request ID:</b>
+            ${escapeHTML(request.id)}
+          </p>
+
           <p>
             <b>Status:</b>
-            <span class="status ${request.status}">
-              ${escapeHtml(request.status)}
+            <span class="status ${
+              request.status === "rejected"
+                ? "rejected"
+                : "pending"
+            }">
+              ${statusText}
             </span>
           </p>
-          <p>
-            Your joining certificate will appear here after approval.
-          </p>
+
+          ${
+            request.status === "pending"
+              ? `
+                <p>
+                  ⏳ Your certificate will become available
+                  after ARS approval.
+                </p>
+              `
+              : `
+                <p>
+                  ❌ This joining request was not approved.
+                </p>
+              `
+          }
+
         </div>
       `;
 
       return;
     }
 
+
+    /*
+      Approved request:
+      Generate the Membership Certificate.
+    */
+
     const certificateId =
       "ARS-MEMBER-" +
-      request.id.replace(/^ARS-JOIN-/i, "");
+      String(request.id)
+        .replace(/^ARS-JOIN-/i, "")
+        .replace(/[^A-Z0-9-]/gi, "");
+
 
     let certificate =
       ARS_STORAGE.findCertificate(certificateId);
 
+
     if (!certificate) {
 
-      certificate = ARS_CERTIFICATE.create({
-        id: certificateId,
-        name: request.name,
-        type: "Membership",
-        status: "approved"
-      });
+      certificate =
+        ARS_CERTIFICATE.create({
+
+          id: certificateId,
+
+          name: request.name,
+
+          type: "Membership",
+
+          status: "approved",
+
+          issuedAt:
+            request.updatedAt ||
+            new Date().toISOString()
+
+        });
 
     }
 
+
+    output.innerHTML = `
+      <div class="panel-card approved-banner">
+
+        <h2>🎉 Congratulations!</h2>
+
+        <p>
+          Your ARS joining request has been approved.
+          Your membership certificate is ready.
+        </p>
+
+      </div>
+
+      <div id="certificateResult"></div>
+    `;
+
+
+    const certificateResult =
+      document.getElementById("certificateResult");
+
+
     ARS_CERTIFICATE.render(
       certificate,
-      joiningResult
+      certificateResult
     );
+
   });
 
-  function escapeHtml(value) {
-    const div = document.createElement("div");
-    div.textContent = value ?? "";
+
+  function showError(message) {
+
+    output.innerHTML = `
+      <div class="form-card">
+
+        <p class="status rejected">
+          ❌ ${escapeHTML(message)}
+        </p>
+
+      </div>
+    `;
+  }
+
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      value ?? "";
+
     return div.innerHTML;
   }
 
-});
+})();
 </script>
 
 </body>
