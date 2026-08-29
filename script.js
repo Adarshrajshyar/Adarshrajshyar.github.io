@@ -1,1130 +1,878 @@
-/* =====================================================
-   ARS OFFICIAL WEBSITE
-   MASTER SCRIPT
-===================================================== */
+/* =========================================================
+   ARS OFFICIAL — MAIN APPLICATION
+   Version 5.0
+========================================================= */
 
-(function () {
+(function (window, document) {
 
   "use strict";
 
+  /* -------------------------------------------------------
+     SAFETY
+  ------------------------------------------------------- */
 
-  /* =====================================================
-     ARS CONFIG
-     IMPORTANT:
-     Do NOT declare ARS_CONFIG again in this file if
-     config.js already contains it.
-  ===================================================== */
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-  const CONFIG = window.ARS_CONFIG || {
-    name: "ARS Official Website",
-    founder: "Adarsh Raj",
-    emailjs: {
-      serviceId: "service_3h6mmz4",
-      templateId: "template_2kzi4j8",
-      publicKey: "kEJqwQlbZ03jFbMFC"
-    }
-  };
+  const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
+  /* -------------------------------------------------------
+     HTML ESCAPE
+  ------------------------------------------------------- */
 
-  /* =====================================================
-     DOM READY
-  ===================================================== */
+  function escapeHTML(value) {
 
-  document.addEventListener("DOMContentLoaded", function () {
+    const div = document.createElement("div");
 
-    initLoader();
+    div.textContent = value ?? "";
 
-    initMobileMenu();
+    return div.innerHTML;
+  }
 
-    initBackToTop();
+  /* -------------------------------------------------------
+     TOAST
+  ------------------------------------------------------- */
 
-    initSmoothNavigation();
+  function showToast(message, type = "success") {
 
-    initSearch();
+    const toast = $("#arsToast");
 
-    initShayariCategories();
+    if (!toast) return;
 
-    initStoryCategories();
+    toast.textContent = message;
 
-    initContactForm();
+    toast.className = "ars-toast show " + type;
 
-    initLikeFavourite();
+    clearTimeout(window.__arsToastTimer);
 
-    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    console.log("🌹 ARS OFFICIAL WEBSITE");
-    console.log("👤 Founder: Adarsh Raj");
-    console.log("📚 Shayari System:",
-      window.ARS_SHAYARI_DATA ? "CONNECTED" : "CHECK FILE");
-    console.log("📖 Story System:",
-      window.ARS_STORY_DATA ? "CONNECTED" : "CHECK FILE");
-    console.log("🏆 Certificate System:",
-      window.ARS_CERTIFICATE_SYSTEM ? "CONNECTED" : "CHECK FILE");
-    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    window.__arsToastTimer = setTimeout(() => {
 
-  });
+      toast.classList.remove("show");
 
+    }, 2600);
+  }
 
-  /* =====================================================
+  /* -------------------------------------------------------
      LOADER
-  ===================================================== */
+  ------------------------------------------------------- */
 
-  function initLoader() {
+  function hideLoader() {
 
-    const loader = document.getElementById("pageLoader");
+    const loader = $("#pageLoader");
 
     if (!loader) return;
 
-    const hideLoader = function () {
+    setTimeout(() => {
 
       loader.classList.add("hide");
 
-      setTimeout(function () {
-
-        if (loader.parentNode) {
-          loader.style.display = "none";
-        }
-
-      }, 500);
-
-    };
-
-
-    window.addEventListener("load", hideLoader);
-
-
-    /* Safety fallback.
-       External files should never keep the website
-       loading forever.
-    */
-
-    setTimeout(hideLoader, 3000);
+    }, 350);
 
   }
 
-
-  /* =====================================================
+  /* -------------------------------------------------------
      MOBILE MENU
-  ===================================================== */
+  ------------------------------------------------------- */
 
-  function initMobileMenu() {
+  function initMenu() {
 
-    const menuBtn = document.getElementById("menuBtn");
-    const nav = document.getElementById("mainNav");
+    const toggle = $("#menuToggle");
+    const nav = $("#navLinks");
 
-    if (!menuBtn || !nav) return;
+    if (!toggle || !nav) return;
 
-
-    menuBtn.addEventListener("click", function () {
+    toggle.addEventListener("click", () => {
 
       nav.classList.toggle("open");
 
-      const opened = nav.classList.contains("open");
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        opened ? "true" : "false"
-      );
+      toggle.textContent =
+        nav.classList.contains("open") ? "✕" : "☰";
 
     });
 
+    $$("#navLinks a").forEach(link => {
 
-    nav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", () => {
 
-      link.addEventListener("click", function () {
         nav.classList.remove("open");
+
+        toggle.textContent = "☰";
+
       });
 
     });
 
   }
 
+  /* -------------------------------------------------------
+     SHAYARI
+  ------------------------------------------------------- */
 
-  /* =====================================================
-     BACK TO TOP
-  ===================================================== */
+  function getShayari() {
 
-  function initBackToTop() {
+    if (
+      window.ARS_SHAYARI &&
+      typeof window.ARS_SHAYARI.all === "function"
+    ) {
+      return window.ARS_SHAYARI.all();
+    }
 
-    const button = document.getElementById("backToTop");
+    if (
+      window.ARS_STORAGE &&
+      typeof window.ARS_STORAGE.getShayari === "function"
+    ) {
+      return window.ARS_STORAGE.getShayari();
+    }
 
-    if (!button) return;
+    return [];
 
+  }
 
-    window.addEventListener("scroll", function () {
+  function renderShayari(list = getShayari()) {
 
-      if (window.scrollY > 500) {
-        button.classList.add("show");
-      } else {
-        button.classList.remove("show");
+    const grid = $("#shayariGrid");
+    const empty = $("#shayariEmpty");
+
+    if (!grid) return;
+
+    if (!Array.isArray(list) || list.length === 0) {
+
+      grid.innerHTML = "";
+
+      if (empty) empty.classList.remove("hidden");
+
+      return;
+
+    }
+
+    if (empty) empty.classList.add("hidden");
+
+    grid.innerHTML = list.map((item, index) => {
+
+      const id = item.id || `shayari-${index}`;
+
+      const liked =
+        window.ARS_STORAGE?.hasLiked?.(id) || false;
+
+      const favorite =
+        window.ARS_STORAGE?.isFavorite?.(id) || false;
+
+      const text = escapeHTML(item.text || "")
+        .replace(/\n/g, "<br>");
+
+      return `
+
+        <article class="content-card shayari-card">
+
+          <div class="card-top">
+
+            <span class="content-tag">
+              ${escapeHTML(item.category || "General")}
+            </span>
+
+            <span class="card-number">
+              #${index + 1}
+            </span>
+
+          </div>
+
+          <div class="quote-mark">“</div>
+
+          <p class="shayari-text">
+            ${text}
+          </p>
+
+          <div class="card-author">
+            — ${escapeHTML(item.author || "Adarsh Raj")}
+          </div>
+
+          <div class="card-actions">
+
+            <button
+              type="button"
+              class="action-btn ${liked ? "active" : ""}"
+              data-like="${escapeHTML(id)}"
+            >
+              ${liked ? "❤️ Liked" : "🤍 Like"}
+            </button>
+
+            <button
+              type="button"
+              class="action-btn ${favorite ? "active" : ""}"
+              data-fav="${escapeHTML(id)}"
+            >
+              ${favorite ? "⭐ Saved" : "☆ Favorite"}
+            </button>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+  }
+
+  /* -------------------------------------------------------
+     STORIES
+  ------------------------------------------------------- */
+
+  function getStories() {
+
+    if (
+      window.ARS_STORY &&
+      typeof window.ARS_STORY.all === "function"
+    ) {
+      return window.ARS_STORY.all();
+    }
+
+    if (
+      window.ARS_STORAGE &&
+      typeof window.ARS_STORAGE.getStories === "function"
+    ) {
+      return window.ARS_STORAGE.getStories();
+    }
+
+    return [];
+
+  }
+
+  function renderStories(list = getStories()) {
+
+    const grid = $("#storyGrid");
+    const empty = $("#storyEmpty");
+
+    if (!grid) return;
+
+    if (!Array.isArray(list) || list.length === 0) {
+
+      grid.innerHTML = "";
+
+      if (empty) empty.classList.remove("hidden");
+
+      return;
+
+    }
+
+    if (empty) empty.classList.add("hidden");
+
+    grid.innerHTML = list.map((item, index) => {
+
+      const id = item.id || `story-${index}`;
+
+      const liked =
+        window.ARS_STORAGE?.hasLiked?.(id) || false;
+
+      const favorite =
+        window.ARS_STORAGE?.isFavorite?.(id) || false;
+
+      return `
+
+        <article class="content-card story-card">
+
+          <div class="card-top">
+
+            <span class="content-tag">
+              ${escapeHTML(item.category || "General")}
+            </span>
+
+            <span class="type-tag">
+              ${escapeHTML(item.type || "Story")}
+            </span>
+
+          </div>
+
+          <h3>
+            ${escapeHTML(item.title || "Untitled")}
+          </h3>
+
+          <p>
+            ${escapeHTML(item.content || "")
+              .replace(/\n/g, "<br>")}
+          </p>
+
+          <div class="card-author">
+            — ${escapeHTML(item.author || "Adarsh Raj")}
+          </div>
+
+          <div class="card-actions">
+
+            <button
+              type="button"
+              class="action-btn ${liked ? "active" : ""}"
+              data-like="${escapeHTML(id)}"
+            >
+              ${liked ? "❤️ Liked" : "🤍 Like"}
+            </button>
+
+            <button
+              type="button"
+              class="action-btn ${favorite ? "active" : ""}"
+              data-fav="${escapeHTML(id)}"
+            >
+              ${favorite ? "⭐ Saved" : "☆ Favorite"}
+            </button>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+  }
+
+  /* -------------------------------------------------------
+     SEARCH + CATEGORY
+  ------------------------------------------------------- */
+
+  function applyFilters() {
+
+    const search =
+      ($("#siteSearch")?.value || "")
+        .trim()
+        .toLowerCase();
+
+    const category =
+      $("#categoryFilter")?.value || "all";
+
+    const shayari = getShayari();
+
+    const stories = getStories();
+
+    const filteredShayari = shayari.filter(item => {
+
+      const searchable = [
+
+        item.text,
+        item.author,
+        item.category
+
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const categoryMatch =
+        category === "all" ||
+        String(item.category || "").toLowerCase() === category;
+
+      const searchMatch =
+        !search ||
+        searchable.includes(search);
+
+      return categoryMatch && searchMatch;
+
+    });
+
+    const filteredStories = stories.filter(item => {
+
+      const searchable = [
+
+        item.title,
+        item.content,
+        item.author,
+        item.category,
+        item.type
+
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      const categoryMatch =
+        category === "all" ||
+        String(item.category || "").toLowerCase() === category;
+
+      const searchMatch =
+        !search ||
+        searchable.includes(search);
+
+      return categoryMatch && searchMatch;
+
+    });
+
+    renderShayari(filteredShayari);
+
+    renderStories(filteredStories);
+
+  }
+
+  /* -------------------------------------------------------
+     LIKE / FAVORITE
+  ------------------------------------------------------- */
+
+  function initActions() {
+
+    document.addEventListener("click", event => {
+
+      const likeButton =
+        event.target.closest("[data-like]");
+
+      const favoriteButton =
+        event.target.closest("[data-fav]");
+
+      if (likeButton) {
+
+        const id = likeButton.dataset.like;
+
+        if (
+          window.ARS_STORAGE &&
+          typeof window.ARS_STORAGE.toggleLike === "function"
+        ) {
+
+          const liked =
+            window.ARS_STORAGE.toggleLike(id);
+
+          showToast(
+            liked
+              ? "❤️ Added to Likes"
+              : "💔 Like removed"
+          );
+
+          applyFilters();
+
+        }
+
+      }
+
+      if (favoriteButton) {
+
+        const id = favoriteButton.dataset.fav;
+
+        if (
+          window.ARS_STORAGE &&
+          typeof window.ARS_STORAGE.toggleFavorite === "function"
+        ) {
+
+          const saved =
+            window.ARS_STORAGE.toggleFavorite(id);
+
+          showToast(
+            saved
+              ? "⭐ Added to Favorites"
+              : "☆ Removed from Favorites"
+          );
+
+          applyFilters();
+
+        }
+
       }
 
     });
 
+  }
 
-    button.addEventListener("click", function () {
+  /* -------------------------------------------------------
+     CONTACT FORM
+  ------------------------------------------------------- */
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+  async function handleContactForm(event) {
 
-    });
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    const data = Object.fromEntries(
+      new FormData(form).entries()
+    );
+
+    if (!data.name || !data.email || !data.message) {
+
+      showToast(
+        "Please fill all required fields.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    const submitButton =
+      form.querySelector('button[type="submit"]');
+
+    const oldText =
+      submitButton?.textContent || "Send Message";
+
+    if (submitButton) {
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+
+    }
+
+    /*
+      Always save locally first.
+      This prevents losing the message if EmailJS
+      temporarily fails.
+    */
+
+    try {
+
+      if (
+        window.ARS_STORAGE &&
+        typeof window.ARS_STORAGE.saveMessage === "function"
+      ) {
+
+        window.ARS_STORAGE.saveMessage({
+
+          name: data.name,
+          email: data.email,
+          subject: data.subject || "",
+          message: data.message
+
+        });
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "ARS local message storage error:",
+        error
+      );
+
+    }
+
+    /* ---------------------------------------------------
+       EMAILJS
+    --------------------------------------------------- */
+
+    try {
+
+      const emailConfig =
+        window.ARS_CONFIG?.EMAILJS;
+
+      if (
+        window.emailjs &&
+        emailConfig &&
+        emailConfig.SERVICE_ID &&
+        emailConfig.TEMPLATE_ID &&
+        emailConfig.PUBLIC_KEY
+      ) {
+
+        if (typeof emailjs.init === "function") {
+
+          /*
+            EmailJS v4 initialization.
+            Re-initializing is harmless if already initialized.
+          */
+
+          emailjs.init({
+            publicKey: emailConfig.PUBLIC_KEY
+          });
+
+        }
+
+        await emailjs.send(
+
+          emailConfig.SERVICE_ID,
+          emailConfig.TEMPLATE_ID,
+
+          {
+
+            name: data.name,
+            from_name: data.name,
+
+            email: data.email,
+            reply_to: data.email,
+
+            subject: data.subject || "ARS Contact Message",
+
+            message: data.message,
+
+            website:
+              window.location.origin,
+
+            source:
+              "ARS Official Website"
+
+          }
+
+        );
+
+        showToast(
+          "📩 Message sent successfully!"
+        );
+
+      } else {
+
+        showToast(
+          "📩 Message saved successfully."
+        );
+
+      }
+
+      form.reset();
+
+    } catch (error) {
+
+      console.error(
+        "ARS EmailJS Error:",
+        error
+      );
+
+      /*
+        Message has already been saved locally.
+      */
+
+      showToast(
+        "📩 Message saved. Email delivery needs checking.",
+        "warning"
+      );
+
+    } finally {
+
+      if (submitButton) {
+
+        submitButton.disabled = false;
+        submitButton.textContent = oldText;
+
+      }
+
+    }
 
   }
 
+  /* -------------------------------------------------------
+     BACK TO TOP
+  ------------------------------------------------------- */
 
-  /* =====================================================
-     SMOOTH NAVIGATION
-  ===================================================== */
+  function initBackTop() {
 
-  function initSmoothNavigation() {
+    const button = $("#backTop");
 
-    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    if (!button) return;
 
-      link.addEventListener("click", function (event) {
+    window.addEventListener(
+      "scroll",
+      () => {
 
-        const targetId = link.getAttribute("href");
+        if (window.scrollY > 450) {
 
-        if (!targetId || targetId === "#") return;
+          button.classList.add("show");
 
-        const target = document.querySelector(targetId);
+        } else {
+
+          button.classList.remove("show");
+
+        }
+
+      },
+      { passive: true }
+    );
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        window.scrollTo({
+
+          top: 0,
+
+          behavior: "smooth"
+
+        });
+
+      }
+    );
+
+  }
+
+  /* -------------------------------------------------------
+     SMOOTH INTERNAL LINKS
+  ------------------------------------------------------- */
+
+  function initSmoothLinks() {
+
+    $$('a[href^="#"]').forEach(link => {
+
+      link.addEventListener("click", event => {
+
+        const id =
+          link.getAttribute("href");
+
+        if (!id || id === "#") return;
+
+        const target =
+          document.querySelector(id);
 
         if (!target) return;
 
         event.preventDefault();
 
         target.scrollIntoView({
+
           behavior: "smooth",
           block: "start"
-        });
-
-      });
-
-    });
-
-  }
-
-
-  /* =====================================================
-     SEARCH
-  ===================================================== */
-
-  function initSearch() {
-
-    const input = document.getElementById("globalSearch");
-    const button = document.getElementById("searchBtn");
-    const results = document.getElementById("searchResults");
-
-    if (!input || !results) return;
-
-
-    function performSearch() {
-
-      const query = input.value.trim().toLowerCase();
-
-      results.innerHTML = "";
-
-
-      if (!query) {
-        return;
-      }
-
-
-      const items = getAllSearchItems();
-
-
-      const matches = items.filter(function (item) {
-
-        return [
-
-          item.title,
-          item.text,
-          item.category,
-          item.author,
-          item.type
-
-        ].some(function (value) {
-
-          return String(value || "")
-            .toLowerCase()
-            .includes(query);
 
         });
 
       });
 
-
-      if (!matches.length) {
-
-        results.innerHTML = `
-          <div class="empty-state">
-            <div>🔎</div>
-            <h3>No Result Found</h3>
-            <p>Try another keyword.</p>
-          </div>
-        `;
-
-        return;
-      }
-
-
-      matches.forEach(function (item) {
-
-        results.appendChild(
-          createContentCard(item)
-        );
-
-      });
-
-    }
-
-
-    if (button) {
-      button.addEventListener("click", performSearch);
-    }
-
-
-    input.addEventListener("keydown", function (event) {
-
-      if (event.key === "Enter") {
-        event.preventDefault();
-        performSearch();
-      }
-
-    });
-
-
-    input.addEventListener("input", function () {
-
-      if (!input.value.trim()) {
-        results.innerHTML = "";
-      }
-
     });
 
   }
 
+  /* -------------------------------------------------------
+     YEAR
+  ------------------------------------------------------- */
 
-  function getAllSearchItems() {
+  function setYear() {
 
-    const all = [];
+    const year = $("#currentYear");
 
+    if (year) {
 
-    /* Shayari */
-
-    const shayariData =
-      window.ARS_SHAYARI_DATA ||
-      window.shayariData ||
-      window.shayaris ||
-      [];
-
-
-    if (Array.isArray(shayariData)) {
-
-      shayariData.forEach(function (item) {
-
-        all.push(normalizeItem(
-          item,
-          "Shayari"
-        ));
-
-      });
+      year.textContent =
+        new Date().getFullYear();
 
     }
 
-
-    /* Stories */
-
-    const storyData =
-      window.ARS_STORY_DATA ||
-      window.storyData ||
-      window.stories ||
-      [];
-
-
-    if (Array.isArray(storyData)) {
-
-      storyData.forEach(function (item) {
-
-        all.push(normalizeItem(
-          item,
-          item.type || "Story"
-        ));
-
-      });
-
-    }
-
-
-    return all;
-
   }
 
+  /* -------------------------------------------------------
+     EMAILJS INITIALIZATION
+  ------------------------------------------------------- */
 
-  function normalizeItem(item, defaultType) {
+  function initEmailJS() {
 
-    return {
-
-      id:
-        item.id ||
-        item._id ||
-        createSafeId(
-          item.title ||
-          item.text ||
-          Math.random()
-        ),
-
-      title:
-        item.title ||
-        item.heading ||
-        defaultType,
-
-      text:
-        item.text ||
-        item.content ||
-        item.shayari ||
-        item.description ||
-        "",
-
-      category:
-        item.category ||
-        item.type ||
-        "General",
-
-      author:
-        item.author ||
-        "Adarsh Raj",
-
-      type:
-        item.type ||
-        defaultType
-
-    };
-
-  }
-
-
-  function createSafeId(value) {
-
-    return String(value)
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .slice(0, 60);
-
-  }
-
-
-  /* =====================================================
-     CONTENT CARD
-  ===================================================== */
-
-  function createContentCard(item) {
-
-    const card = document.createElement("article");
-
-    card.className = "content-card";
-
-    const id = item.id;
-
-
-    card.innerHTML = `
-
-      <div class="content-card-top">
-
-        <span class="content-type">
-          ${escapeHTML(item.type)}
-        </span>
-
-        <span class="content-category">
-          ${escapeHTML(item.category)}
-        </span>
-
-      </div>
-
-      <h3>
-        ${escapeHTML(item.title)}
-      </h3>
-
-      <p class="content-text">
-        ${escapeHTML(item.text)}
-      </p>
-
-      <div class="content-author">
-        ✍️ ${escapeHTML(item.author)}
-      </div>
-
-      <div class="content-actions">
-
-        <button
-          type="button"
-          class="like-btn"
-          data-like-id="${escapeHTML(id)}"
-        >
-          👍 <span class="like-label">Like</span>
-          <span class="like-count">
-            ${getLikeCount(id)}
-          </span>
-        </button>
-
-        <button
-          type="button"
-          class="favorite-btn"
-          data-favorite-id="${escapeHTML(id)}"
-        >
-          ⭐ <span class="favorite-label">
-            ${isFavorite(id) ? "Saved" : "Favourite"}
-          </span>
-        </button>
-
-      </div>
-
-    `;
-
-
-    return card;
-
-  }
-
-
-  /* =====================================================
-     SHAYARI CATEGORY
-  ===================================================== */
-
-  function initShayariCategories() {
-
-    const container =
-      document.getElementById("shayariCategories");
-
-    const output =
-      document.getElementById("shayariContainer");
-
-    if (!container || !output) return;
-
-
-    container.addEventListener("click", function (event) {
-
-      const button =
-        event.target.closest("button[data-category]");
-
-      if (!button) return;
-
-
-      container
-        .querySelectorAll("button")
-        .forEach(function (btn) {
-          btn.classList.remove("active");
-        });
-
-
-      button.classList.add("active");
-
-
-      renderShayari(
-        button.dataset.category,
-        output
-      );
-
-    });
-
-
-    renderShayari("all", output);
-
-  }
-
-
-  function renderShayari(category, output) {
-
-    output.innerHTML = "";
-
-
-    const data =
-      window.ARS_SHAYARI_DATA ||
-      window.shayariData ||
-      window.shayaris ||
-      [];
-
-
-    if (!Array.isArray(data) || !data.length) {
-
-      output.innerHTML = `
-        <div class="empty-state">
-          <div>🌹</div>
-          <h3>Shayari Coming Soon</h3>
-          <p>No Shayari available.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-
-    const filtered = data.filter(function (item) {
-
-      if (category === "all") return true;
-
-      return String(
-        item.category ||
-        item.type ||
-        ""
-      ).toLowerCase() === category.toLowerCase();
-
-    });
-
-
-    if (!filtered.length) {
-
-      output.innerHTML = `
-        <div class="empty-state">
-          <div>🌹</div>
-          <h3>No Shayari Found</h3>
-          <p>This category is currently empty.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-
-    filtered.forEach(function (item) {
-
-      output.appendChild(
-        createContentCard(
-          normalizeItem(item, "Shayari")
-        )
-      );
-
-    });
-
-  }
-
-
-  /* =====================================================
-     STORY CATEGORY
-  ===================================================== */
-
-  function initStoryCategories() {
-
-    const container =
-      document.getElementById("storyCategories");
-
-    const output =
-      document.getElementById("storyContainer");
-
-    if (!container || !output) return;
-
-
-    container.addEventListener("click", function (event) {
-
-      const button =
-        event.target.closest("button[data-category]");
-
-      if (!button) return;
-
-
-      container
-        .querySelectorAll("button")
-        .forEach(function (btn) {
-          btn.classList.remove("active");
-        });
-
-
-      button.classList.add("active");
-
-
-      renderStories(
-        button.dataset.category,
-        output
-      );
-
-    });
-
-
-    renderStories("all", output);
-
-  }
-
-
-  function renderStories(category, output) {
-
-    output.innerHTML = "";
-
-
-    const data =
-      window.ARS_STORY_DATA ||
-      window.storyData ||
-      window.stories ||
-      [];
-
-
-    if (!Array.isArray(data) || !data.length) {
-
-      output.innerHTML = `
-        <div class="empty-state">
-          <div>📖</div>
-          <h3>Stories Coming Soon</h3>
-          <p>No stories available.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-
-    const filtered = data.filter(function (item) {
-
-      if (category === "all") return true;
-
-      const value = String(
-        item.category ||
-        item.type ||
-        ""
-      ).toLowerCase();
-
-      return value === category.toLowerCase();
-
-    });
-
-
-    if (!filtered.length) {
-
-      output.innerHTML = `
-        <div class="empty-state">
-          <div>📖</div>
-          <h3>No Content Found</h3>
-          <p>This category is currently empty.</p>
-        </div>
-      `;
-
-      return;
-    }
-
-
-    filtered.forEach(function (item) {
-
-      output.appendChild(
-        createContentCard(
-          normalizeItem(
-            item,
-            item.type || "Story"
-          )
-        )
-      );
-
-    });
-
-  }
-
-
-  /* =====================================================
-     LIKE / FAVOURITE
-  ===================================================== */
-
-  function initLikeFavourite() {
-
-    document.addEventListener("click", function (event) {
-
-      const likeButton =
-        event.target.closest("[data-like-id]");
-
-      const favoriteButton =
-        event.target.closest("[data-favorite-id]");
-
-
-      if (likeButton) {
-
-        const id =
-          likeButton.dataset.likeId;
-
-        toggleLike(id, likeButton);
-
-      }
-
-
-      if (favoriteButton) {
-
-        const id =
-          favoriteButton.dataset.favoriteId;
-
-        toggleFavorite(
-          id,
-          favoriteButton
-        );
-
-      }
-
-    });
-
-  }
-
-
-  function getLikeCount(id) {
-
-    const key = "ARS_LIKE_COUNT_" + id;
-
-    return Number(
-      localStorage.getItem(key) || 0
-    );
-
-  }
-
-
-  function toggleLike(id, button) {
-
-    const likedKey = "ARS_LIKED_" + id;
-    const countKey = "ARS_LIKE_COUNT_" + id;
-
-    const liked =
-      localStorage.getItem(likedKey) === "true";
-
-
-    let count =
-      Number(localStorage.getItem(countKey) || 0);
-
-
-    if (liked) {
-
-      localStorage.setItem(
-        likedKey,
-        "false"
-      );
-
-      count = Math.max(0, count - 1);
-
-    } else {
-
-      localStorage.setItem(
-        likedKey,
-        "true"
-      );
-
-      count++;
-
-    }
-
-
-    localStorage.setItem(
-      countKey,
-      String(count)
-    );
-
-
-    updateLikeButton(
-      button,
-      !liked,
-      count
-    );
-
-  }
-
-
-  function updateLikeButton(button, liked, count) {
-
-    if (!button) return;
-
-
-    const label =
-      button.querySelector(".like-label");
-
-    const counter =
-      button.querySelector(".like-count");
-
-
-    if (label) {
-      label.textContent =
-        liked ? "Unlike" : "Like";
-    }
-
-
-    if (counter) {
-      counter.textContent = count;
-    }
-
-
-    button.classList.toggle(
-      "active",
-      liked
-    );
-
-  }
-
-
-  function isFavorite(id) {
-
-    return localStorage.getItem(
-      "ARS_FAV_" + id
-    ) === "true";
-
-  }
-
-
-  function toggleFavorite(id, button) {
-
-    const key = "ARS_FAV_" + id;
-
-    const saved =
-      localStorage.getItem(key) === "true";
-
-
-    localStorage.setItem(
-      key,
-      saved ? "false" : "true"
-    );
-
-
-    const label =
-      button.querySelector(".favorite-label");
-
-
-    if (label) {
-
-      label.textContent =
-        saved ? "Favourite" : "Saved";
-
-    }
-
-
-    button.classList.toggle(
-      "active",
-      !saved
-    );
-
-  }
-
-
-  /* =====================================================
-     CONTACT — EMAILJS
-  ===================================================== */
-
-  function initContactForm() {
-
-    const form =
-      document.getElementById("contactForm");
-
-    const status =
-      document.getElementById("contactStatus");
-
-    const submit =
-      document.getElementById("contactSubmit");
-
-
-    if (!form) return;
-
-
-    /* Initialize EmailJS */
+    const config =
+      window.ARS_CONFIG?.EMAILJS;
 
     if (
-      window.emailjs &&
-      CONFIG.emailjs &&
-      CONFIG.emailjs.publicKey
+      !window.emailjs ||
+      !config ||
+      !config.PUBLIC_KEY
     ) {
-
-      try {
-
-        emailjs.init({
-          publicKey: CONFIG.emailjs.publicKey
-        });
-
-      } catch (error) {
-
-        console.error(
-          "EmailJS initialization error:",
-          error
-        );
-
-      }
-
+      return;
     }
 
+    try {
 
-    form.addEventListener("submit", async function (event) {
+      emailjs.init({
 
-      event.preventDefault();
+        publicKey: config.PUBLIC_KEY
 
-
-      if (!window.emailjs) {
-
-        showContactStatus(
-          "Email service is not loaded. Please try again.",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      const serviceId =
-        CONFIG.emailjs.serviceId;
-
-      const templateId =
-        CONFIG.emailjs.templateId;
-
-
-      if (!serviceId || !templateId) {
-
-        showContactStatus(
-          "Contact service is not configured.",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      const name =
-        document.getElementById("contactName")?.value.trim();
-
-      const email =
-        document.getElementById("contactEmail")?.value.trim();
-
-      const message =
-        document.getElementById("contactMessage")?.value.trim();
-
-
-      if (!name || !email || !message) {
-
-        showContactStatus(
-          "Please fill all fields.",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      if (submit) {
-
-        submit.disabled = true;
-        submit.textContent = "Sending...";
-
-      }
-
-
-      try {
-
-        await emailjs.sendForm(
-          serviceId,
-          templateId,
-          form
-        );
-
-
-        showContactStatus(
-          "✅ Message sent successfully!",
-          "success"
-        );
-
-
-        form.reset();
-
-
-      } catch (error) {
-
-        console.error(
-          "EmailJS send error:",
-          error
-        );
-
-
-        showContactStatus(
-          "❌ Message could not be sent. Please try again.",
-          "error"
-        );
-
-
-      } finally {
-
-        if (submit) {
-
-          submit.disabled = false;
-          submit.textContent = "Send Message";
-
-        }
-
-      }
-
-    });
-
-  }
-
-
-  function showContactStatus(message, type) {
-
-    const status =
-      document.getElementById("contactStatus");
-
-    if (!status) return;
-
-
-    status.textContent = message;
-
-    status.className =
-      "contact-status " + type;
-
-
-    setTimeout(function () {
-
-      status.className = "contact-status";
-
-    }, 6000);
-
-  }
-
-
-  /* =====================================================
-     HTML ESCAPE
-  ===================================================== */
-
-  function escapeHTML(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-
-  /* =====================================================
-     GLOBAL HELPERS
-  ===================================================== */
-
-  window.ARSWebsite = {
-
-    search: function (query) {
-
-      const input =
-        document.getElementById("globalSearch");
-
-      if (!input) return;
-
-      input.value = query;
-
-      input.dispatchEvent(
-        new Event("input")
-      );
-
-      const button =
-        document.getElementById("searchBtn");
-
-      if (button) button.click();
-
-    },
-
-    top: function () {
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
       });
 
+      console.log(
+        "📩 ARS EmailJS initialized"
+      );
+
+    } catch (error) {
+
+      console.error(
+        "EmailJS initialization failed:",
+        error
+      );
+
     }
+
+  }
+
+  /* -------------------------------------------------------
+     APP INIT
+  ------------------------------------------------------- */
+
+  function init() {
+
+    console.log(
+      "🌹 ARS Official Website Initializing..."
+    );
+
+    initMenu();
+
+    initActions();
+
+    initBackTop();
+
+    initSmoothLinks();
+
+    initEmailJS();
+
+    setYear();
+
+    renderShayari();
+
+    renderStories();
+
+    const search =
+      $("#siteSearch");
+
+    const category =
+      $("#categoryFilter");
+
+    if (search) {
+
+      search.addEventListener(
+        "input",
+        applyFilters
+      );
+
+    }
+
+    if (category) {
+
+      category.addEventListener(
+        "change",
+        applyFilters
+      );
+
+    }
+
+    const contactForm =
+      $("#contactForm");
+
+    if (contactForm) {
+
+      contactForm.addEventListener(
+        "submit",
+        handleContactForm
+      );
+
+    }
+
+    hideLoader();
+
+    console.log(
+      "✅ ARS Official Website Ready"
+    );
+
+  }
+
+  /* -------------------------------------------------------
+     PUBLIC API
+  ------------------------------------------------------- */
+
+  window.ARS_APP = {
+
+    renderShayari,
+    renderStories,
+    applyFilters,
+    showToast
 
   };
 
+  /* -------------------------------------------------------
+     START
+  ------------------------------------------------------- */
 
-})();
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+
+  } else {
+
+    init();
+
+  }
+
+})(window, document);
