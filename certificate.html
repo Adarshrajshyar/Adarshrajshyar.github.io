@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Certificate Generator | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="certificate.js"></script>
+
+  <!-- QR Library -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    defer>
+  </script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a class="logo" href="index.html">
+      🌹 ARS Official
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="founder.html">Founder</a>
+    </div>
+
+  </nav>
+</header>
+
+
+<main class="section certificate-page">
+
+  <div class="form-card certificate-form-card">
+
+    <div class="certificate-heading">
+      <span class="tag">ARS OFFICIAL</span>
+
+      <h1>🏆 प्रमाण-पत्र बनाएँ</h1>
+
+      <p>
+        अपना नाम और प्रमाण-पत्र का प्रकार चुनें।
+        प्रमाण-पत्र बनने के बाद उसका ID और QR Verification भी उपलब्ध होगा।
+      </p>
+    </div>
+
+
+    <form id="certForm">
+
+      <label for="certName">
+        पूरा नाम / Full Name
+      </label>
+
+      <input
+        id="certName"
+        name="name"
+        type="text"
+        placeholder="अपना पूरा नाम लिखें"
+        autocomplete="name"
+        required
+      >
+
+
+      <label for="certType">
+        प्रमाण-पत्र का प्रकार
+      </label>
+
+      <select id="certType" name="type" required>
+
+        <option value="Achievement">
+          उपलब्धि प्रमाण-पत्र / Achievement
+        </option>
+
+        <option value="Professional">
+          प्रोफेशनल प्रमाण-पत्र / Professional
+        </option>
+
+        <option value="Participation">
+          सहभागिता प्रमाण-पत्र / Participation
+        </option>
+
+        <option value="Business">
+          व्यवसाय प्रमाण-पत्र / Business
+        </option>
+
+      </select>
+
+
+      <div id="businessFields" hidden>
+
+        <label for="businessName">
+          व्यवसाय का नाम
+        </label>
+
+        <input
+          id="businessName"
+          type="text"
+          placeholder="Business Name"
+        >
+
+
+        <label for="businessOwner">
+          Founder / Owner का नाम
+        </label>
+
+        <input
+          id="businessOwner"
+          type="text"
+          placeholder="Founder / Owner Name"
+        >
+
+      </div>
+
+
+      <button
+        class="btn"
+        type="submit"
+        id="generateCertificateBtn"
+      >
+        🏆 प्रमाण-पत्र बनाएँ
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div id="certificateResult"></div>
+
+</main>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const form = document.getElementById("certForm");
+  const type = document.getElementById("certType");
+
+  const businessFields =
+    document.getElementById("businessFields");
+
+  const name =
+    document.getElementById("certName");
+
+  const businessName =
+    document.getElementById("businessName");
+
+  const businessOwner =
+    document.getElementById("businessOwner");
+
+  const result =
+    document.getElementById("certificateResult");
+
+
+  function updateBusinessFields() {
+
+    const isBusiness = type.value === "Business";
+
+    businessFields.hidden = !isBusiness;
+
+    businessName.required = isBusiness;
+    businessOwner.required = isBusiness;
+  }
+
+
+  type.addEventListener(
+    "change",
+    updateBusinessFields
+  );
+
+  updateBusinessFields();
+
+
+  form.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+      const certificate = ARS_CERTIFICATE.create({
+
+        name: name.value.trim(),
+
+        type: type.value,
+
+        businessName:
+          businessName.value.trim(),
+
+        businessOwner:
+          businessOwner.value.trim(),
+
+        status: "approved"
+
+      });
+
+
+      ARS_CERTIFICATE.render(
+        certificate,
+        result
+      );
+
+      result.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    }
+  );
+
+});
+
+</script>
+
+</body>
+</html>
