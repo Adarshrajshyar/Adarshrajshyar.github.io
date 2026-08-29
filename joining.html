@@ -1,102 +1,198 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
+
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width,initial-scale=1"
   >
 
   <title>Join ARS — Adarsh Raj Shayar</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
   <script src="config.js"></script>
   <script src="storage.js"></script>
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <nav class="navbar">
 
-    <a class="logo" href="index.html">
+    <a
+      class="logo"
+      href="index.html"
+    >
       🌹 ARS Official
     </a>
 
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="verify.html">Verify</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="publisher.html">
+        Publisher
+      </a>
+
     </div>
 
   </nav>
+
 </header>
 
 
 <main class="section">
 
-  <div class="form-card join-card">
+  <div class="form-card">
 
-    <div class="join-header">
+    <div style="text-align:center">
 
-      <div class="join-icon">🤝</div>
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+        style="
+          width:90px;
+          height:90px;
+          object-fit:contain;
+        "
+        onerror="this.style.display='none'"
+      >
 
-      <h1>Join ARS</h1>
+      <h1>
+        🤝 Join ARS
+      </h1>
 
       <p>
-        Become a part of the ARS community and
-        begin your creative journey.
+        Become a part of the ARS community.
       </p>
 
     </div>
 
 
-    <form id="joinForm" class="ars-form">
+    <form id="joinForm">
 
-      <label for="jname">
+      <label for="joinName">
         Full Name
       </label>
 
       <input
-        id="jname"
+        id="joinName"
         name="name"
         type="text"
         required
+        minlength="2"
         maxlength="80"
-        autocomplete="name"
         placeholder="Enter your full name"
+        autocomplete="name"
       >
 
 
-      <label for="jemail">
+      <label for="joinEmail">
         Email Address
       </label>
 
       <input
-        id="jemail"
+        id="joinEmail"
         name="email"
         type="email"
         required
+        placeholder="Enter your email"
         autocomplete="email"
-        placeholder="Enter your email address"
       >
 
 
-      <label for="jreason">
+      <label for="joinReason">
         Why do you want to join ARS?
       </label>
 
       <textarea
-        id="jreason"
+        id="joinReason"
         name="reason"
         maxlength="500"
-        placeholder="Tell us something about yourself..."
+        placeholder="Tell us briefly..."
       ></textarea>
 
 
+      <label for="joinCategory">
+        Your Interest
+      </label>
+
+      <select
+        id="joinCategory"
+        name="category"
+      >
+
+        <option value="Shayari">
+          Shayari
+        </option>
+
+        <option value="Writing">
+          Writing
+        </option>
+
+        <option value="Stories">
+          Stories
+        </option>
+
+        <option value="Creativity">
+          Creativity
+        </option>
+
+        <option value="Other">
+          Other
+        </option>
+
+      </select>
+
+
+      <label
+        style="
+          display:flex;
+          gap:10px;
+          align-items:flex-start;
+          margin:10px 0 18px;
+        "
+      >
+
+        <input
+          id="joinAgree"
+          type="checkbox"
+          required
+          style="
+            width:auto;
+            margin-top:5px;
+          "
+        >
+
+        <span>
+          I confirm that the information provided
+          by me is correct.
+        </span>
+
+      </label>
+
+
       <button
-        class="btn join-submit"
+        class="btn"
         type="submit"
       >
         🚀 Submit Joining Request
@@ -105,38 +201,7 @@
     </form>
 
 
-    <div id="result" class="join-result"></div>
-
-  </div>
-
-
-  <div class="panel-card join-info">
-
-    <h2>📌 How ARS Joining Works</h2>
-
-    <div class="join-steps">
-
-      <div>
-        <b>1️⃣ Submit</b>
-        <span>Fill in your details and submit your request.</span>
-      </div>
-
-      <div>
-        <b>2️⃣ Review</b>
-        <span>ARS reviews the joining request.</span>
-      </div>
-
-      <div>
-        <b>3️⃣ Approval</b>
-        <span>After approval, your membership certificate becomes available.</span>
-      </div>
-
-      <div>
-        <b>4️⃣ Certificate</b>
-        <span>Use your request ID to check your membership certificate.</span>
-      </div>
-
-    </div>
+    <div id="joinResult"></div>
 
   </div>
 
@@ -144,115 +209,171 @@
 
 
 <script>
-(function () {
-  "use strict";
 
-  const form = document.getElementById("joinForm");
-  const result = document.getElementById("result");
+"use strict";
 
-  form.addEventListener("submit", function (event) {
+
+const joinForm =
+  document.getElementById(
+    "joinForm"
+  );
+
+const joinResult =
+  document.getElementById(
+    "joinResult"
+  );
+
+
+joinForm.addEventListener(
+  "submit",
+  function (event) {
+
     event.preventDefault();
 
+
     const name =
-      document.getElementById("jname").value.trim();
+      document.getElementById(
+        "joinName"
+      ).value.trim();
+
 
     const email =
-      document.getElementById("jemail").value.trim();
+      document.getElementById(
+        "joinEmail"
+      ).value.trim();
+
 
     const reason =
-      document.getElementById("jreason").value.trim();
+      document.getElementById(
+        "joinReason"
+      ).value.trim();
 
 
-    if (!name || !email) {
-      result.innerHTML = `
-        <div class="panel-card">
-          <p class="status rejected">
-            ❌ Please enter your name and email.
-          </p>
-        </div>
+    const category =
+      document.getElementById(
+        "joinCategory"
+      ).value;
+
+
+    if (
+      name.length < 2 ||
+      email.length < 5
+    ) {
+
+      joinResult.innerHTML = `
+        <p class="status rejected">
+          Please enter valid details.
+        </p>
       `;
+
       return;
+
     }
 
 
     try {
 
-      const request = ARS_STORAGE.saveJoin({
-        name,
-        email,
-        reason
-      });
+      const request =
+        ARS_STORAGE.saveJoin({
+
+          name: name,
+
+          email: email,
+
+          reason: reason,
+
+          category: category
+
+        });
 
 
-      result.innerHTML = `
-        <div class="panel-card join-success">
+      joinResult.innerHTML = `
 
-          <h2>✅ Request Submitted!</h2>
+        <div class="panel-card">
+
+          <h2 class="status approved">
+            ✅ Request Submitted
+          </h2>
 
           <p>
             Thank you,
-            <b>${escapeHTML(name)}</b>.
+            <strong>
+              ${escapeHTML(name)}
+            </strong>.
           </p>
 
           <p>
-            Your ARS joining request has been submitted
-            successfully.
+            Your request has been submitted
+            for ARS approval.
           </p>
 
-          <div class="request-id-box">
-            <span>Your Request ID</span>
-            <strong>${escapeHTML(request.id)}</strong>
-          </div>
-
-          <p class="status pending">
-            ⏳ Status: Pending Approval
+          <p>
+            <strong>
+              Your Request ID:
+            </strong>
           </p>
 
-          <div class="join-result-actions">
+          <p>
+            <code>
+              ${escapeHTML(request.id)}
+            </code>
+          </p>
+
+          <p>
+            Save this ID. You can use it to
+            check your approval status.
+          </p>
+
+          <div class="card-actions">
 
             <a
               class="btn"
-              href="verify.html?id=${encodeURIComponent(request.id)}"
+              href="verify.html?id=${encodeURIComponent(
+                request.id
+              )}"
             >
               🔎 Check Status
-            </a>
-
-            <a
-              class="btn"
-              href="joining-certificate.html?id=${encodeURIComponent(request.id)}"
-            >
-              🏅 Joining Certificate
             </a>
 
           </div>
 
         </div>
+
       `;
 
-      form.reset();
+
+      joinForm.reset();
+
 
     } catch (error) {
 
       console.error(error);
 
-      result.innerHTML = `
-        <div class="panel-card">
-          <p class="status rejected">
-            ❌ Something went wrong. Please try again.
-          </p>
-        </div>
+      joinResult.innerHTML = `
+        <p class="status rejected">
+          ❌ Something went wrong.
+          Please try again.
+        </p>
       `;
+
     }
-  });
 
-
-  function escapeHTML(value) {
-    const div = document.createElement("div");
-    div.textContent = value || "";
-    return div.innerHTML;
   }
+);
 
-})();
+
+function escapeHTML(value) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    value ?? "";
+
+  return div.innerHTML;
+
+}
+
 </script>
 
 </body>
