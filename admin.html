@@ -1,87 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>ARS Admin Panel</title>
 
   <link rel="stylesheet" href="style.css">
 
   <script src="config.js"></script>
   <script src="storage.js"></script>
-
 </head>
 
 <body>
 
 <header class="site-header">
-
   <nav class="navbar">
-
-    <a class="logo" href="index.html">
-      🌹 ARS Admin
-    </a>
+    <a class="logo" href="index.html">🌹 ARS Admin</a>
 
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="publisher.html">Publisher</a>
       <a href="joining.html">Join ARS</a>
+      <a href="verify.html">Verify</a>
     </div>
-
   </nav>
-
 </header>
 
 <main class="section">
 
   <!-- LOGIN -->
-
-  <div id="adminLogin" class="form-card">
+  <section id="adminLogin" class="form-card">
 
     <h1>🔐 Admin Login</h1>
 
     <p>
-      Authorized ARS administration only.
+      Login to manage ARS joining requests and contact messages.
     </p>
 
     <input
       id="adminPassword"
       type="password"
-      placeholder="Admin Password"
+      placeholder="Enter Admin Password"
+      autocomplete="current-password"
     >
 
     <button
       class="btn"
       id="adminLoginBtn"
+      type="button"
     >
       Login
     </button>
 
     <p id="adminLoginMessage"></p>
 
-  </div>
+  </section>
 
 
   <!-- DASHBOARD -->
-
-  <div id="adminDashboard" style="display:none;">
+  <section id="adminDashboard" style="display:none">
 
     <div class="panel-card">
 
       <h1>🌹 ARS Admin Dashboard</h1>
 
       <p>
-        Manage joining requests and contact messages.
+        Manage joining approvals and contact messages.
       </p>
 
       <button
         class="btn"
-        id="adminLogout"
+        id="adminLogoutBtn"
+        type="button"
       >
         Logout
       </button>
@@ -90,8 +80,7 @@
 
 
     <!-- JOINING REQUESTS -->
-
-    <section class="panel-card">
+    <div class="panel-card">
 
       <h2>🤝 Joining Requests</h2>
 
@@ -99,12 +88,11 @@
         Loading...
       </div>
 
-    </section>
+    </div>
 
 
     <!-- CONTACT MESSAGES -->
-
-    <section class="panel-card">
+    <div class="panel-card">
 
       <h2>📩 Contact Messages</h2>
 
@@ -112,162 +100,151 @@
         Loading...
       </div>
 
-    </section>
+    </div>
 
-
-    <!-- CERTIFICATES -->
-
-    <section class="panel-card">
-
-      <h2>🏆 Generated Certificates</h2>
-
-      <div id="certificateList">
-        Loading...
-      </div>
-
-    </section>
-
-  </div>
+  </section>
 
 </main>
 
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+"use strict";
 
-  const SESSION_KEY = "ARS_ADMIN_LOGGED_IN";
+const ADMIN_SESSION = "ARS_ADMIN_LOGGED_IN";
 
-  const loginBox =
-    document.getElementById("adminLogin");
+const loginBox =
+  document.getElementById("adminLogin");
 
-  const dashboard =
-    document.getElementById("adminDashboard");
+const dashboard =
+  document.getElementById("adminDashboard");
 
-  const password =
-    document.getElementById("adminPassword");
+const passwordInput =
+  document.getElementById("adminPassword");
 
-  const loginButton =
-    document.getElementById("adminLoginBtn");
+const loginButton =
+  document.getElementById("adminLoginBtn");
 
-  const loginMessage =
-    document.getElementById("adminLoginMessage");
+const logoutButton =
+  document.getElementById("adminLogoutBtn");
 
-  const logoutButton =
-    document.getElementById("adminLogout");
+const loginMessage =
+  document.getElementById("adminLoginMessage");
 
+const joiningBox =
+  document.getElementById("joiningRequests");
 
-  loginButton.addEventListener("click", function () {
-
-    if (
-      password.value ===
-      ARS_CONFIG.ADMIN_PASSWORD
-    ) {
-
-      sessionStorage.setItem(
-        SESSION_KEY,
-        "true"
-      );
-
-      showDashboard();
-
-    } else {
-
-      loginMessage.innerHTML =
-        '<span class="status rejected">❌ Incorrect password.</span>';
-
-    }
-
-  });
+const messagesBox =
+  document.getElementById("contactMessages");
 
 
-  logoutButton.addEventListener("click", function () {
+function escapeHTML(value) {
 
-    sessionStorage.removeItem(
-      SESSION_KEY
-    );
+  const div =
+    document.createElement("div");
 
-    location.reload();
+  div.textContent =
+    value ?? "";
 
-  });
+  return div.innerHTML;
+}
 
 
-  function showDashboard() {
+function showDashboard() {
 
-    loginBox.style.display = "none";
+  loginBox.style.display = "none";
 
-    dashboard.style.display = "block";
+  dashboard.style.display = "block";
 
-    loadAllData();
+  loadJoiningRequests();
 
+  loadContactMessages();
+
+}
+
+
+function showLogin() {
+
+  loginBox.style.display = "block";
+
+  dashboard.style.display = "none";
+
+}
+
+
+function loadJoiningRequests() {
+
+  const requests =
+    ARS_STORAGE.joins();
+
+  if (!requests.length) {
+
+    joiningBox.innerHTML =
+      "<p>No joining requests yet.</p>";
+
+    return;
   }
 
 
-  function loadAllData() {
+  joiningBox.innerHTML =
+    requests
+      .slice()
+      .reverse()
+      .map(request => {
 
-    loadJoiningRequests();
+        const status =
+          String(
+            request.status || "pending"
+          ).toLowerCase();
 
-    loadMessages();
-
-    loadCertificates();
-
-  }
-
-
-  function loadJoiningRequests() {
-
-    const box =
-      document.getElementById("joiningRequests");
-
-    const requests =
-      ARS_STORAGE.joins();
-
-    if (!requests.length) {
-
-      box.innerHTML =
-        "<p>No joining requests found.</p>";
-
-      return;
-
-    }
-
-    box.innerHTML =
-      requests.map(function (request) {
 
         return `
-          <div class="content-card">
+
+          <article class="content-card">
+
+            <span class="tag">
+              ${escapeHTML(status)}
+            </span>
 
             <h3>
-              ${escapeHtml(request.name)}
+              ${escapeHTML(request.name)}
             </h3>
 
             <p>
-              <b>Email:</b>
-              ${escapeHtml(request.email)}
+              <strong>Email:</strong>
+              ${escapeHTML(request.email)}
+            </p>
+
+            ${
+              request.reason
+                ? `
+                  <p>
+                    <strong>Reason:</strong><br>
+                    ${escapeHTML(request.reason)}
+                  </p>
+                `
+                : ""
+            }
+
+            <p>
+              <strong>Request ID:</strong>
+              ${escapeHTML(request.id)}
             </p>
 
             <p>
-              <b>Request ID:</b>
-              ${escapeHtml(request.id)}
-            </p>
-
-            <p>
-              <b>Status:</b>
-              <span class="status ${request.status}">
-                ${escapeHtml(request.status)}
+              <strong>Status:</strong>
+              <span class="status ${escapeHTML(status)}">
+                ${escapeHTML(status)}
               </span>
-            </p>
-
-            <p>
-              ${escapeHtml(request.reason || "")}
             </p>
 
             <div class="card-actions">
 
               <button
                 class="btn"
+                type="button"
                 onclick="updateJoining(
-                  '${escapeAttribute(request.id)}',
+                  '${encodeURIComponent(request.id)}',
                   'approved'
                 )"
               >
@@ -276,187 +253,238 @@ document.addEventListener("DOMContentLoaded", function () {
 
               <button
                 class="btn"
+                type="button"
                 onclick="updateJoining(
-                  '${escapeAttribute(request.id)}',
+                  '${encodeURIComponent(request.id)}',
                   'rejected'
                 )"
               >
                 ❌ Reject
               </button>
 
+              ${
+                status === "approved"
+                  ? `
+                    <a
+                      class="btn"
+                      href="joining-certificate.html?id=${encodeURIComponent(
+                        request.id
+                      )}"
+                    >
+                      🏅 Certificate
+                    </a>
+                  `
+                  : ""
+              }
+
             </div>
 
-          </div>
+          </article>
+
         `;
 
-      }).join("");
+      })
+      .join("");
+
+}
+
+
+function updateJoining(encodedId, status) {
+
+  const id =
+    decodeURIComponent(encodedId);
+
+  const result =
+    ARS_STORAGE.updateJoin(
+      id,
+      {
+        status: status
+      }
+    );
+
+
+  if (!result) {
+
+    alert("Joining request not found.");
+
+    return;
 
   }
 
 
-  window.updateJoining =
-    function (id, status) {
+  loadJoiningRequests();
 
-      ARS_STORAGE.updateJoin(
-        id,
-        { status: status }
+}
+
+
+function loadContactMessages() {
+
+  const messages =
+    ARS_STORAGE
+      .messages()
+      .slice()
+      .reverse();
+
+
+  if (!messages.length) {
+
+    contactMessages.innerHTML =
+      "<p>No contact messages yet.</p>";
+
+    return;
+
+  }
+
+
+  contactMessages.innerHTML =
+    messages
+      .map(message => {
+
+        return `
+
+          <article class="content-card">
+
+            <span class="tag">
+              ${message.read ? "Read" : "New"}
+            </span>
+
+            <h3>
+              ${escapeHTML(message.subject || "Contact Message")}
+            </h3>
+
+            <p>
+              <strong>Name:</strong>
+              ${escapeHTML(message.name)}
+            </p>
+
+            <p>
+              <strong>Email:</strong>
+              ${escapeHTML(message.email)}
+            </p>
+
+            <p>
+              <strong>Message:</strong><br>
+              ${escapeHTML(message.message)}
+            </p>
+
+            <p>
+              <small>
+                ${message.createdAt
+                  ? new Date(
+                      message.createdAt
+                    ).toLocaleString("en-IN")
+                  : ""
+                }
+              </small>
+            </p>
+
+            ${
+              !message.read
+                ? `
+                  <button
+                    class="btn"
+                    type="button"
+                    onclick="markRead(
+                      '${encodeURIComponent(message.id)}'
+                    )"
+                  >
+                    ✓ Mark as Read
+                  </button>
+                `
+                : ""
+            }
+
+          </article>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+function markRead(encodedId) {
+
+  const id =
+    decodeURIComponent(encodedId);
+
+  ARS_STORAGE.markMessageRead(id);
+
+  loadContactMessages();
+
+}
+
+
+loginButton.addEventListener(
+  "click",
+  function () {
+
+    const password =
+      passwordInput.value;
+
+    if (
+      password ===
+      ARS_CONFIG.ADMIN_PASSWORD
+    ) {
+
+      sessionStorage.setItem(
+        ADMIN_SESSION,
+        "true"
       );
 
-      loadAllData();
+      loginMessage.textContent = "";
 
-    };
+      showDashboard();
 
+    } else {
 
-  function loadMessages() {
-
-    const box =
-      document.getElementById("contactMessages");
-
-    const messages =
-      ARS_STORAGE.messages()
-        .slice()
-        .reverse();
-
-    if (!messages.length) {
-
-      box.innerHTML =
-        "<p>No contact messages found.</p>";
-
-      return;
+      loginMessage.textContent =
+        "❌ Incorrect admin password.";
 
     }
 
-    box.innerHTML =
-      messages.map(function (message) {
-
-        return `
-          <div class="content-card">
-
-            <h3>
-              ${escapeHtml(message.subject || "Contact Message")}
-            </h3>
-
-            <p>
-              <b>Name:</b>
-              ${escapeHtml(message.name)}
-            </p>
-
-            <p>
-              <b>Email:</b>
-              ${escapeHtml(message.email)}
-            </p>
-
-            <p>
-              ${escapeHtml(message.message)}
-            </p>
-
-            <small>
-              ${message.createdAt
-                ? new Date(message.createdAt).toLocaleString()
-                : ""}
-            </small>
-
-          </div>
-        `;
-
-      }).join("");
-
   }
+);
 
 
-  function loadCertificates() {
+passwordInput.addEventListener(
+  "keydown",
+  function (event) {
 
-    const box =
-      document.getElementById("certificateList");
-
-    const certificates =
-      ARS_STORAGE.certificates()
-        .slice()
-        .reverse();
-
-    if (!certificates.length) {
-
-      box.innerHTML =
-        "<p>No certificates generated yet.</p>";
-
-      return;
-
+    if (event.key === "Enter") {
+      loginButton.click();
     }
 
-    box.innerHTML =
-      certificates.map(function (certificate) {
+  }
+);
 
-        return `
-          <div class="content-card">
 
-            <h3>
-              ${escapeHtml(certificate.name)}
-            </h3>
+logoutButton.addEventListener(
+  "click",
+  function () {
 
-            <p>
-              <b>Type:</b>
-              ${escapeHtml(certificate.type)}
-            </p>
+    sessionStorage.removeItem(
+      ADMIN_SESSION
+    );
 
-            <p>
-              <b>ID:</b>
-              ${escapeHtml(certificate.id)}
-            </p>
+    passwordInput.value = "";
 
-            <p>
-              <b>Status:</b>
-              <span class="status approved">
-                ${escapeHtml(certificate.status)}
-              </span>
-            </p>
-
-            <a
-              class="btn"
-              href="verify.html?id=${encodeURIComponent(certificate.id)}"
-            >
-              🔎 Verify
-            </a>
-
-          </div>
-        `;
-
-      }).join("");
+    showLogin();
 
   }
+);
 
 
-  function escapeHtml(value) {
+if (
+  sessionStorage.getItem(
+    ADMIN_SESSION
+  ) === "true"
+) {
 
-    const div =
-      document.createElement("div");
+  showDashboard();
 
-    div.textContent =
-      value ?? "";
-
-    return div.innerHTML;
-
-  }
-
-
-  function escapeAttribute(value) {
-
-    return String(value)
-      .replace(/\\/g, "\\\\")
-      .replace(/'/g, "\\'");
-
-  }
-
-
-  if (
-    sessionStorage.getItem(SESSION_KEY)
-    === "true"
-  ) {
-
-    showDashboard();
-
-  }
-
-});
+}
 
 </script>
 
