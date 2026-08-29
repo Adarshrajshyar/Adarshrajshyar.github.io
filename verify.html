@@ -1,1 +1,368 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
 
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Verify Certificate | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <nav class="navbar">
+
+    <a class="logo" href="index.html">
+      🌹 ARS Official
+    </a>
+
+    <div class="nav-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="founder.html">
+        Founder
+      </a>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+<main class="section">
+
+  <div class="form-card">
+
+    <span class="tag">
+      ARS VERIFICATION
+    </span>
+
+    <h1>
+      🔎 प्रमाण-पत्र सत्यापन
+    </h1>
+
+    <p>
+      Certificate ID डालकर प्रमाण-पत्र की जानकारी जाँचें।
+    </p>
+
+
+    <form id="verifyForm">
+
+      <label for="verifyId">
+        Certificate / Joining ID
+      </label>
+
+      <input
+        id="verifyId"
+        type="text"
+        placeholder="जैसे ARS-CERT-XXXX"
+        autocomplete="off"
+        required
+      >
+
+      <button
+        class="btn"
+        type="submit"
+      >
+        🔎 Verify करें
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div
+    id="verifyResult"
+    style="margin-top:25px"
+  ></div>
+
+</main>
+
+
+<script>
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    const form =
+      document.getElementById("verifyForm");
+
+    const input =
+      document.getElementById("verifyId");
+
+    const result =
+      document.getElementById("verifyResult");
+
+
+    /* QR से आने वाला ID */
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const qrId =
+      params.get("id");
+
+
+    if (qrId) {
+      input.value = qrId;
+    }
+
+
+    function escapeHTML(value) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent =
+        value == null ? "" : value;
+
+      return div.innerHTML;
+    }
+
+
+    form.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+        const id =
+          input.value.trim();
+
+
+        if (!id) {
+
+          result.innerHTML = `
+            <div class="panel-card">
+              <h2 class="status rejected">
+                ❌ ID दर्ज करें
+              </h2>
+            </div>
+          `;
+
+          return;
+        }
+
+
+        /* Certificate check */
+
+        const certificate =
+          ARS_STORAGE.findCertificate(id);
+
+
+        if (certificate) {
+
+          const date =
+            certificate.issuedAt
+              ? new Date(
+                  certificate.issuedAt
+                ).toLocaleDateString("hi-IN")
+              : "—";
+
+
+          result.innerHTML = `
+
+            <div class="panel-card">
+
+              <div class="tag">
+                VERIFIED
+              </div>
+
+              <h2 class="status approved">
+                ✅ प्रमाण-पत्र सत्यापित है
+              </h2>
+
+              <p>
+                यह प्रमाण-पत्र ARS Official
+                रिकॉर्ड में उपलब्ध है।
+              </p>
+
+              <hr>
+
+              <p>
+                <b>नाम:</b>
+                ${escapeHTML(certificate.name)}
+              </p>
+
+              <p>
+                <b>प्रकार:</b>
+                ${escapeHTML(certificate.type)}
+              </p>
+
+              <p>
+                <b>Certificate ID:</b>
+                ${escapeHTML(certificate.id)}
+              </p>
+
+              <p>
+                <b>जारी दिनांक:</b>
+                ${date}
+              </p>
+
+              <p>
+                <b>जारीकर्ता:</b>
+                Adarsh Raj — Founder, ARS Official
+              </p>
+
+              <p class="status approved">
+                ✔ Status: Verified
+              </p>
+
+            </div>
+          `;
+
+          return;
+        }
+
+
+        /* Joining request check */
+
+        const joins =
+          ARS_STORAGE.joins();
+
+        const request =
+          joins.find(function (item) {
+
+            return String(item.id)
+              .toLowerCase() ===
+              id.toLowerCase();
+
+          });
+
+
+        if (request) {
+
+          const status =
+            request.status || "pending";
+
+
+          const statusText = {
+
+            pending:
+              "⏳ आपकी Joining Request अभी Pending है।",
+
+            approved:
+              "✅ आपकी Joining Request Approved है।",
+
+            rejected:
+              "❌ आपकी Joining Request Reject की गई है।"
+
+          };
+
+
+          result.innerHTML = `
+
+            <div class="panel-card">
+
+              <div class="tag">
+                JOIN ARS
+              </div>
+
+              <h2>
+                🤝 Joining Request
+              </h2>
+
+              <p>
+                <b>नाम:</b>
+                ${escapeHTML(request.name)}
+              </p>
+
+              <p>
+                <b>Request ID:</b>
+                ${escapeHTML(request.id)}
+              </p>
+
+              <p>
+                <b>Status:</b>
+                <span class="status ${escapeHTML(status)}">
+                  ${escapeHTML(status)}
+                </span>
+              </p>
+
+              <p>
+                ${
+                  statusText[status] ||
+                  "Request status उपलब्ध है।"
+                }
+              </p>
+
+            </div>
+
+          `;
+
+          return;
+        }
+
+
+        /* Nothing found */
+
+        result.innerHTML = `
+
+          <div class="panel-card">
+
+            <h2 class="status rejected">
+              ❌ रिकॉर्ड नहीं मिला
+            </h2>
+
+            <p>
+              यह Certificate ID या Joining ID
+              ARS रिकॉर्ड में उपलब्ध नहीं है।
+            </p>
+
+            <p>
+              कृपया ID दोबारा जाँचकर दर्ज करें।
+            </p>
+
+          </div>
+
+        `;
+
+      });
+
+    /* QR URL से आने पर automatic verification */
+
+    if (qrId) {
+
+      form.dispatchEvent(
+        new Event("submit", {
+          bubbles: true,
+          cancelable: true
+        })
+      );
+
+    }
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
