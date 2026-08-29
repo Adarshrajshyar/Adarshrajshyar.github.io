@@ -4,19 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Certificate Generator | ARS Official</title>
+  <title>ARS Certificate Generator | प्रमाणपत्र</title>
 
   <link rel="stylesheet" href="style.css">
 
   <script src="config.js"></script>
   <script src="storage.js"></script>
-  <script src="certificate.js"></script>
 
-  <!-- QR Library -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-    defer>
-  </script>
+  <!-- QR Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <script src="certificate.js" defer></script>
 </head>
 
 <body>
@@ -25,13 +23,16 @@
   <nav class="navbar">
 
     <a class="logo" href="index.html">
-      🌹 ARS Official
+      <img src="logo.png" alt="ARS Logo">
+      <span>ARS Official</span>
     </a>
 
     <div class="nav-links">
       <a href="index.html">Home</a>
+      <a href="index.html#shayari">Shayari</a>
+      <a href="index.html#stories">Stories</a>
       <a href="joining.html">Join ARS</a>
-      <a href="certificate.html">Certificate</a>
+      <a class="active" href="certificate.html">Certificate</a>
       <a href="verify.html">Verify</a>
       <a href="founder.html">Founder</a>
     </div>
@@ -40,184 +41,241 @@
 </header>
 
 
-<main class="section certificate-page">
+<main class="certificate-page">
 
-  <div class="form-card certificate-form-card">
+  <section class="page-heading">
+    <span class="eyebrow">ARS OFFICIAL</span>
 
-    <div class="certificate-heading">
-      <span class="tag">ARS OFFICIAL</span>
+    <h1>
+      🏆 Certificate Generator
+    </h1>
 
-      <h1>🏆 प्रमाण-पत्र बनाएँ</h1>
+    <p>
+      प्रमाणपत्र बनाइए और QR Code द्वारा उसकी सत्यता जाँचिए।
+      <br>
+      Create your ARS certificate with a unique verification ID.
+    </p>
+  </section>
 
-      <p>
-        अपना नाम और प्रमाण-पत्र का प्रकार चुनें।
-        प्रमाण-पत्र बनने के बाद उसका ID और QR Verification भी उपलब्ध होगा।
-      </p>
+
+  <!-- FORM -->
+
+  <section class="certificate-form-card">
+
+    <div class="form-heading">
+      <h2>📜 Certificate Details</h2>
+      <p>नीचे सभी जानकारी सही-सही भरें।</p>
     </div>
 
+    <form id="certificateForm" autocomplete="off">
 
-    <form id="certForm">
+      <div class="form-group">
 
-      <label for="certName">
-        पूरा नाम / Full Name
-      </label>
-
-      <input
-        id="certName"
-        name="name"
-        type="text"
-        placeholder="अपना पूरा नाम लिखें"
-        autocomplete="name"
-        required
-      >
-
-
-      <label for="certType">
-        प्रमाण-पत्र का प्रकार
-      </label>
-
-      <select id="certType" name="type" required>
-
-        <option value="Achievement">
-          उपलब्धि प्रमाण-पत्र / Achievement
-        </option>
-
-        <option value="Professional">
-          प्रोफेशनल प्रमाण-पत्र / Professional
-        </option>
-
-        <option value="Participation">
-          सहभागिता प्रमाण-पत्र / Participation
-        </option>
-
-        <option value="Business">
-          व्यवसाय प्रमाण-पत्र / Business
-        </option>
-
-      </select>
-
-
-      <div id="businessFields" hidden>
-
-        <label for="businessName">
-          व्यवसाय का नाम
+        <label for="certificateName">
+          नाम / Full Name *
         </label>
 
         <input
-          id="businessName"
           type="text"
-          placeholder="Business Name"
-        >
-
-
-        <label for="businessOwner">
-          Founder / Owner का नाम
-        </label>
-
-        <input
-          id="businessOwner"
-          type="text"
-          placeholder="Founder / Owner Name"
+          id="certificateName"
+          name="name"
+          placeholder="पूरा नाम लिखें"
+          required
+          maxlength="80"
         >
 
       </div>
 
 
+      <div class="form-group">
+
+        <label for="certificateType">
+          प्रमाणपत्र का प्रकार / Certificate Type *
+        </label>
+
+        <select id="certificateType" name="type" required>
+
+          <option value="">
+            -- Select Certificate Type --
+          </option>
+
+          <option value="Achievement">
+            Achievement / उपलब्धि
+          </option>
+
+          <option value="Participation">
+            Participation / सहभागिता
+          </option>
+
+          <option value="Professional">
+            Professional / प्रोफेशनल
+          </option>
+
+          <option value="Business">
+            Business / व्यवसाय
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div id="businessFields" class="business-fields">
+
+        <div class="form-group">
+
+          <label for="businessName">
+            Business Name / व्यवसाय का नाम
+          </label>
+
+          <input
+            type="text"
+            id="businessName"
+            placeholder="Business Name"
+            maxlength="100"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="businessOwner">
+            Owner / Founder Name
+          </label>
+
+          <input
+            type="text"
+            id="businessOwner"
+            placeholder="Owner / Founder Name"
+            maxlength="80"
+          >
+
+        </div>
+
+      </div>
+
+
       <button
-        class="btn"
         type="submit"
-        id="generateCertificateBtn"
+        class="btn certificate-generate-btn"
       >
-        🏆 प्रमाण-पत्र बनाएँ
+        🏆 Generate Certificate
       </button>
 
     </form>
 
-  </div>
+  </section>
 
 
-  <div id="certificateResult"></div>
+  <!-- RESULT -->
+
+  <section
+    id="certificateResult"
+    class="certificate-result"
+    aria-live="polite"
+  ></section>
 
 </main>
+
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <img src="logo.png" alt="ARS Logo">
+
+    <div>
+      <strong>Adarsh Raj Shayar</strong>
+
+      <p>
+        ARS Official — Creativity • Shayari • Stories • Community
+      </p>
+    </div>
+
+  </div>
+
+</footer>
 
 
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  const form = document.getElementById("certForm");
-  const type = document.getElementById("certType");
-
-  const businessFields =
-    document.getElementById("businessFields");
-
-  const name =
-    document.getElementById("certName");
-
-  const businessName =
-    document.getElementById("businessName");
-
-  const businessOwner =
-    document.getElementById("businessOwner");
-
-  const result =
-    document.getElementById("certificateResult");
-
+  const form = document.getElementById("certificateForm");
+  const type = document.getElementById("certificateType");
+  const businessFields = document.getElementById("businessFields");
 
   function updateBusinessFields() {
 
     const isBusiness = type.value === "Business";
 
-    businessFields.hidden = !isBusiness;
+    businessFields.classList.toggle("show", isBusiness);
 
-    businessName.required = isBusiness;
-    businessOwner.required = isBusiness;
+    document.getElementById("businessName").required = isBusiness;
+    document.getElementById("businessOwner").required = isBusiness;
   }
 
-
-  type.addEventListener(
-    "change",
-    updateBusinessFields
-  );
+  type.addEventListener("change", updateBusinessFields);
 
   updateBusinessFields();
 
 
-  form.addEventListener(
-    "submit",
-    function (event) {
+  form.addEventListener("submit", function (event) {
 
-      event.preventDefault();
+    event.preventDefault();
 
-      const certificate = ARS_CERTIFICATE.create({
+    const name =
+      document.getElementById("certificateName").value.trim();
 
-        name: name.value.trim(),
+    const certificateType =
+      document.getElementById("certificateType").value;
 
-        type: type.value,
+    const businessName =
+      document.getElementById("businessName").value.trim();
 
-        businessName:
-          businessName.value.trim(),
-
-        businessOwner:
-          businessOwner.value.trim(),
-
-        status: "approved"
-
-      });
+    const businessOwner =
+      document.getElementById("businessOwner").value.trim();
 
 
-      ARS_CERTIFICATE.render(
-        certificate,
-        result
-      );
+    if (!name || !certificateType) {
 
-      result.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      alert("कृपया सभी जरूरी जानकारी भरें।");
+      return;
 
     }
-  );
+
+
+    if (
+      certificateType === "Business" &&
+      (!businessName || !businessOwner)
+    ) {
+
+      alert("Business Certificate के लिए Business Name और Owner/Founder Name भरें।");
+      return;
+
+    }
+
+
+    const certificate = ARS_CERTIFICATE.create({
+
+      name: name,
+
+      type: certificateType,
+
+      businessName: businessName,
+
+      businessOwner: businessOwner
+
+    });
+
+
+    ARS_CERTIFICATE.render(
+      certificate,
+      document.getElementById("certificateResult")
+    );
+
+  });
 
 });
 
