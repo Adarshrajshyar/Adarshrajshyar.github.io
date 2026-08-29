@@ -1,177 +1,128 @@
 /* =========================================================
    ARS OFFICIAL WEBSITE — STORAGE SYSTEM
-   Version: 3.0.0
+   Local data management
    ========================================================= */
 
 (function (window) {
   "use strict";
 
   const KEYS = {
-    shayari: "ARS_SHAYARI_DATA",
-    stories: "ARS_STORY_DATA",
-    likes: "ARS_LIKED_ITEMS",
-    favorites: "ARS_FAVORITE_ITEMS",
-    certificates: "ARS_CERTIFICATES",
-    joiningRequests: "ARS_JOINING_REQUESTS",
-    contactMessages: "ARS_CONTACT_MESSAGES",
-    settings: "ARS_USER_SETTINGS"
+
+    SHAYARI: "ARS_SHAYARI_DATA",
+    STORIES: "ARS_STORY_DATA",
+
+    LIKES: "ARS_LIKES",
+    FAVORITES: "ARS_FAVORITES",
+
+    CERTIFICATES: "ARS_CERTIFICATES",
+    JOIN_REQUESTS: "ARS_JOIN_REQUESTS",
+
+    CONTACT_MESSAGES: "ARS_CONTACT_MESSAGES"
+
   };
 
-  /* ---------------------------------------------------------
-     SAFE READ
-     --------------------------------------------------------- */
+  function read(key, fallback = []) {
 
-  function read(key, fallback) {
     try {
-      const value = localStorage.getItem(key);
 
-      if (!value) return fallback;
+      const data = localStorage.getItem(key);
 
-      const parsed = JSON.parse(value);
+      if (!data) return fallback;
 
-      return parsed == null ? fallback : parsed;
+      return JSON.parse(data);
 
     } catch (error) {
-      console.warn(
-        "ARS Storage Read Error:",
-        key,
-        error
-      );
+
+      console.error("ARS Storage Read Error:", error);
 
       return fallback;
+
     }
+
   }
 
-  /* ---------------------------------------------------------
-     SAFE WRITE
-     --------------------------------------------------------- */
-
   function write(key, value) {
+
     try {
+
       localStorage.setItem(
         key,
         JSON.stringify(value)
       );
 
-      return true;
+      return value;
 
     } catch (error) {
-      console.warn(
-        "ARS Storage Write Error:",
-        key,
-        error
-      );
 
-      return false;
+      console.error("ARS Storage Write Error:", error);
+
+      return null;
+
     }
+
   }
 
-  /* ---------------------------------------------------------
-     REMOVE
-     --------------------------------------------------------- */
+  function generateId(prefix = "ARS") {
 
-  function remove(key) {
-    try {
-      localStorage.removeItem(key);
-      return true;
-    } catch (error) {
-      return false;
-    }
+    return (
+      prefix +
+      "-" +
+      Date.now().toString(36).toUpperCase() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 7)
+        .toUpperCase()
+    );
+
   }
 
-  /* ---------------------------------------------------------
+  /* =========================
      SHAYARI
-     --------------------------------------------------------- */
+     ========================= */
 
   function getShayari() {
-    return read(KEYS.shayari, []);
+
+    return read(KEYS.SHAYARI, []);
+
   }
 
-  function addShayari(item) {
+  function saveShayari(data) {
 
-    const list = getShayari();
+    return write(KEYS.SHAYARI, data);
 
-    const index = list.findIndex(
-      x => String(x.id) === String(item.id)
-    );
-
-    if (index >= 0) {
-      list[index] = item;
-    } else {
-      list.push(item);
-    }
-
-    write(KEYS.shayari, list);
-
-    return item;
   }
 
-  function deleteShayari(id) {
-
-    const list = getShayari().filter(
-      item =>
-        String(item.id) !== String(id)
-    );
-
-    return write(
-      KEYS.shayari,
-      list
-    );
-  }
-
-  /* ---------------------------------------------------------
+  /* =========================
      STORIES
-     --------------------------------------------------------- */
+     ========================= */
 
   function getStories() {
-    return read(KEYS.stories, []);
+
+    return read(KEYS.STORIES, []);
+
   }
 
-  function addStory(item) {
+  function saveStories(data) {
 
-    const list = getStories();
+    return write(KEYS.STORIES, data);
 
-    const index = list.findIndex(
-      x => String(x.id) === String(item.id)
-    );
-
-    if (index >= 0) {
-      list[index] = item;
-    } else {
-      list.push(item);
-    }
-
-    write(KEYS.stories, list);
-
-    return item;
   }
 
-  function deleteStory(id) {
-
-    const list = getStories().filter(
-      item =>
-        String(item.id) !== String(id)
-    );
-
-    return write(
-      KEYS.stories,
-      list
-    );
-  }
-
-  /* ---------------------------------------------------------
-     LIKE SYSTEM
-     --------------------------------------------------------- */
+  /* =========================
+     LIKES
+     ========================= */
 
   function getLikes() {
-    return read(KEYS.likes, []);
+
+    return read(KEYS.LIKES, []);
+
   }
 
   function hasLiked(id) {
 
-    return getLikes().includes(
-      String(id)
-    );
+    return getLikes().includes(String(id));
+
   }
 
   function toggleLike(id) {
@@ -180,404 +131,263 @@
 
     const likes = getLikes();
 
-    const index =
-      likes.indexOf(id);
+    const index = likes.indexOf(id);
 
-    if (index >= 0) {
-      likes.splice(index, 1);
-    } else {
+    if (index === -1) {
+
       likes.push(id);
+
+      write(KEYS.LIKES, likes);
+
+      return true;
+
     }
 
-    write(KEYS.likes, likes);
+    likes.splice(index, 1);
 
-    return !(
-      index >= 0
-    );
+    write(KEYS.LIKES, likes);
+
+    return false;
+
   }
 
-  /* ---------------------------------------------------------
-     FAVORITE SYSTEM
-     --------------------------------------------------------- */
+  /* =========================
+     FAVORITES
+     ========================= */
 
   function getFavorites() {
-    return read(KEYS.favorites, []);
+
+    return read(KEYS.FAVORITES, []);
+
   }
 
   function isFavorite(id) {
 
-    return getFavorites().includes(
-      String(id)
-    );
+    return getFavorites().includes(String(id));
+
   }
 
   function toggleFavorite(id) {
 
     id = String(id);
 
-    const favorites =
-      getFavorites();
+    const favorites = getFavorites();
 
-    const index =
-      favorites.indexOf(id);
+    const index = favorites.indexOf(id);
 
-    if (index >= 0) {
-      favorites.splice(index, 1);
-    } else {
+    if (index === -1) {
+
       favorites.push(id);
+
+      write(KEYS.FAVORITES, favorites);
+
+      return true;
+
     }
 
-    write(
-      KEYS.favorites,
-      favorites
-    );
+    favorites.splice(index, 1);
 
-    return !(
-      index >= 0
-    );
+    write(KEYS.FAVORITES, favorites);
+
+    return false;
+
   }
 
-  /* ---------------------------------------------------------
+  /* =========================
      CERTIFICATES
-     --------------------------------------------------------- */
+     ========================= */
 
   function getCertificates() {
-    return read(
-      KEYS.certificates,
-      []
-    );
+
+    return read(KEYS.CERTIFICATES, []);
+
   }
 
   function saveCertificate(certificate) {
 
-    const list =
-      getCertificates();
+    const certificates = getCertificates();
 
-    const index =
-      list.findIndex(
-        item =>
-          String(item.id) ===
-          String(certificate.id)
-      );
-
-    if (index >= 0) {
-      list[index] =
-        certificate;
-    } else {
-      list.push(
-        certificate
-      );
-    }
-
-    write(
-      KEYS.certificates,
-      list
+    const index = certificates.findIndex(
+      item => item.id === certificate.id
     );
 
+    if (index === -1) {
+
+      certificates.push(certificate);
+
+    } else {
+
+      certificates[index] = certificate;
+
+    }
+
+    write(KEYS.CERTIFICATES, certificates);
+
     return certificate;
+
   }
 
   function findCertificate(id) {
 
-    return (
-      getCertificates().find(
-        item =>
-          String(item.id) ===
-          String(id)
-      ) || null
-    );
+    if (!id) return null;
+
+    return getCertificates().find(
+      certificate =>
+        String(certificate.id).toLowerCase() ===
+        String(id).trim().toLowerCase()
+    ) || null;
+
   }
 
-  /* ---------------------------------------------------------
-     JOINING REQUESTS
-     --------------------------------------------------------- */
+  /* =========================
+     JOIN REQUESTS
+     ========================= */
 
-  function getJoiningRequests() {
+  function getJoinRequests() {
 
-    return read(
-      KEYS.joiningRequests,
-      []
-    );
+    return read(KEYS.JOIN_REQUESTS, []);
+
   }
 
-  function saveJoiningRequest(request) {
+  function saveJoinRequest(request) {
 
-    const list =
-      getJoiningRequests();
+    const data = {
 
-    if (!request.id) {
-      request.id =
-        "ARS-JOIN-" +
-        Date.now().toString(36);
-    }
+      ...request,
 
-    if (!request.status) {
-      request.status =
-        "pending";
-    }
+      id:
+        request.id ||
+        generateId("ARS-JOIN"),
 
-    request.updatedAt =
-      new Date().toISOString();
+      status: "pending",
 
-    list.push(request);
+      createdAt:
+        request.createdAt ||
+        new Date().toISOString(),
 
-    write(
-      KEYS.joiningRequests,
-      list
-    );
-
-    return request;
-  }
-
-  function updateJoiningRequest(
-    id,
-    updates
-  ) {
-
-    const list =
-      getJoiningRequests();
-
-    const index =
-      list.findIndex(
-        item =>
-          String(item.id) ===
-          String(id)
-      );
-
-    if (index === -1) {
-      return null;
-    }
-
-    list[index] = {
-      ...list[index],
-      ...updates,
       updatedAt:
         new Date().toISOString()
+
     };
 
-    write(
-      KEYS.joiningRequests,
-      list
-    );
+    const requests = getJoinRequests();
 
-    return list[index];
+    requests.push(data);
+
+    write(KEYS.JOIN_REQUESTS, requests);
+
+    return data;
+
   }
 
-  /* ---------------------------------------------------------
+  function updateJoinRequest(id, updates) {
+
+    const requests = getJoinRequests();
+
+    const index = requests.findIndex(
+      request => request.id === id
+    );
+
+    if (index === -1) return null;
+
+    requests[index] = {
+
+      ...requests[index],
+
+      ...updates,
+
+      updatedAt:
+        new Date().toISOString()
+
+    };
+
+    write(KEYS.JOIN_REQUESTS, requests);
+
+    return requests[index];
+
+  }
+
+  function findJoinRequest(id) {
+
+    if (!id) return null;
+
+    return getJoinRequests().find(
+      request =>
+        String(request.id).toLowerCase() ===
+        String(id).trim().toLowerCase()
+    ) || null;
+
+  }
+
+  /* =========================
      CONTACT MESSAGES
-     --------------------------------------------------------- */
+     ========================= */
 
-  function getContactMessages() {
+  function getMessages() {
 
-    return read(
-      KEYS.contactMessages,
-      []
-    );
+    return read(KEYS.CONTACT_MESSAGES, []);
+
   }
 
-  function saveContactMessage(message) {
+  function saveMessage(message) {
 
-    const list =
-      getContactMessages();
+    const data = {
 
-    const item = {
-      id:
-        message.id ||
-        "ARS-MSG-" +
-          Date.now().toString(36),
+      ...message,
 
-      name:
-        message.name || "",
-
-      email:
-        message.email || "",
-
-      subject:
-        message.subject || "",
-
-      message:
-        message.message || "",
+      id: generateId("ARS-MSG"),
 
       createdAt:
         new Date().toISOString(),
 
-      status:
-        "new"
+      read: false
+
     };
 
-    list.push(item);
+    const messages = getMessages();
 
-    write(
-      KEYS.contactMessages,
-      list
+    messages.push(data);
+
+    write(KEYS.CONTACT_MESSAGES, messages);
+
+    return data;
+
+  }
+
+  function markMessageRead(id) {
+
+    const messages = getMessages();
+
+    const index = messages.findIndex(
+      message => message.id === id
     );
 
-    return item;
+    if (index === -1) return null;
+
+    messages[index].read = true;
+
+    write(KEYS.CONTACT_MESSAGES, messages);
+
+    return messages[index];
+
   }
 
-  /* ---------------------------------------------------------
-     USER SETTINGS
-     --------------------------------------------------------- */
-
-  function getSettings() {
-
-    return read(
-      KEYS.settings,
-      {}
-    );
-  }
-
-  function saveSettings(settings) {
-
-    const current =
-      getSettings();
-
-    return write(
-      KEYS.settings,
-      {
-        ...current,
-        ...settings
-      }
-    );
-  }
-
-  /* ---------------------------------------------------------
-     CLEAR USER INTERACTIONS
-     --------------------------------------------------------- */
-
-  function clearLikes() {
-    return remove(
-      KEYS.likes
-    );
-  }
-
-  function clearFavorites() {
-    return remove(
-      KEYS.favorites
-    );
-  }
-
-  /* ---------------------------------------------------------
-     EXPORT DATA
-     --------------------------------------------------------- */
-
-  function exportData() {
-
-    return {
-      shayari:
-        getShayari(),
-
-      stories:
-        getStories(),
-
-      likes:
-        getLikes(),
-
-      favorites:
-        getFavorites(),
-
-      certificates:
-        getCertificates(),
-
-      joiningRequests:
-        getJoiningRequests(),
-
-      contactMessages:
-        getContactMessages(),
-
-      settings:
-        getSettings()
-    };
-  }
-
-  /* ---------------------------------------------------------
-     IMPORT DATA
-     --------------------------------------------------------- */
-
-  function importData(data) {
-
-    if (!data || typeof data !== "object") {
-      return false;
-    }
-
-    if (Array.isArray(data.shayari)) {
-      write(
-        KEYS.shayari,
-        data.shayari
-      );
-    }
-
-    if (Array.isArray(data.stories)) {
-      write(
-        KEYS.stories,
-        data.stories
-      );
-    }
-
-    if (Array.isArray(data.likes)) {
-      write(
-        KEYS.likes,
-        data.likes
-      );
-    }
-
-    if (Array.isArray(data.favorites)) {
-      write(
-        KEYS.favorites,
-        data.favorites
-      );
-    }
-
-    if (Array.isArray(data.certificates)) {
-      write(
-        KEYS.certificates,
-        data.certificates
-      );
-    }
-
-    if (Array.isArray(data.joiningRequests)) {
-      write(
-        KEYS.joiningRequests,
-        data.joiningRequests
-      );
-    }
-
-    if (Array.isArray(data.contactMessages)) {
-      write(
-        KEYS.contactMessages,
-        data.contactMessages
-      );
-    }
-
-    if (data.settings) {
-      write(
-        KEYS.settings,
-        data.settings
-      );
-    }
-
-    return true;
-  }
-
-  /* ---------------------------------------------------------
+  /* =========================
      PUBLIC API
-     --------------------------------------------------------- */
+     ========================= */
 
   window.ARS_STORAGE = {
 
-    keys: KEYS,
-
     read,
     write,
-    remove,
+
+    generateId,
 
     getShayari,
-    addShayari,
-    deleteShayari,
+    saveShayari,
 
     getStories,
-    addStory,
-    deleteStory,
+    saveStories,
 
     getLikes,
     hasLiked,
@@ -591,21 +401,15 @@
     saveCertificate,
     findCertificate,
 
-    getJoiningRequests,
-    saveJoiningRequest,
-    updateJoiningRequest,
+    getJoinRequests,
+    saveJoinRequest,
+    updateJoinRequest,
+    findJoinRequest,
 
-    getContactMessages,
-    saveContactMessage,
+    getMessages,
+    saveMessage,
+    markMessageRead
 
-    getSettings,
-    saveSettings,
-
-    clearLikes,
-    clearFavorites,
-
-    exportData,
-    importData
   };
 
   console.log(
