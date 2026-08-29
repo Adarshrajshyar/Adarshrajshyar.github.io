@@ -1,731 +1,432 @@
 /* =========================================================
-   ARS OFFICIAL WEBSITE — CERTIFICATE SYSTEM
-   Version: 3.0.0
+   ARS OFFICIAL — CERTIFICATE ENGINE
    ========================================================= */
 
 (function (window) {
   "use strict";
 
-  var CONFIG = window.ARS_CONFIG || {};
-  var STORAGE = window.ARS_STORAGE || null;
-
-  var CERT_PREFIX =
-    (CONFIG.certificate &&
-      CONFIG.certificate.normal &&
-      CONFIG.certificate.normal.prefix) ||
-    "ARS-CERT-";
-
-  var JOIN_PREFIX =
-    (CONFIG.certificate &&
-      CONFIG.certificate.joining &&
-      CONFIG.certificate.joining.prefix) ||
-    "ARS-JOIN-";
-
-  /* ---------------------------------------------------------
-     HELPERS
-     --------------------------------------------------------- */
-
-  function makeID(prefix) {
-    return (
-      prefix +
-      Date.now().toString(36).toUpperCase() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .substring(2, 7)
-        .toUpperCase()
-    );
-  }
-
   function escapeHTML(value) {
-    var div = document.createElement("div");
-    div.textContent = value == null ? "" : String(value);
+    const div = document.createElement("div");
+    div.textContent = value == null ? "" : value;
     return div.innerHTML;
   }
 
-  function getValue(id) {
-    var element = document.getElementById(id);
-    return element ? element.value.trim() : "";
-  }
-
-  function notify(message, type) {
-    if (typeof window.ARS_SHOW_POPUP === "function") {
-      window.ARS_SHOW_POPUP(message, type || "info");
-      return;
-    }
-
-    alert(message);
-  }
-
-  /* =========================================================
-     NORMAL CERTIFICATE
-     User can generate it directly.
-     ========================================================= */
-
-  function generateCertificate(data) {
-    data = data || {};
-
-    var name =
-      data.name ||
-      getValue("certificateName") ||
-      getValue("certName") ||
-      getValue("name");
-
-    var type =
-      data.type ||
-      getValue("certificateType") ||
-      "Achievement";
-
-    var purpose =
-      data.purpose ||
-      getValue("certificatePurpose") ||
-      "Achievement";
-
-    if (!name) {
-      notify("कृपया अपना नाम दर्ज करें।", "warning");
-      return null;
-    }
-
-    var certificate = {
-      id: makeID(CERT_PREFIX),
-
-      name: name,
-
-      certificateType: type,
-
-      purpose: purpose,
-
-      type: "normal",
-
-      status: "valid",
-
-      approved: true,
-
-      createdAt: new Date().toISOString(),
-
-      author:
-        data.author ||
-        "Adarsh Raj"
-    };
-
-    if (
-      STORAGE &&
-      typeof STORAGE.addCertificate === "function"
-    ) {
-      STORAGE.addCertificate(certificate);
-    }
-
-    renderCertificate(certificate);
-
-    return certificate;
-  }
-
-  /* =========================================================
-     RENDER NORMAL CERTIFICATE
-     ========================================================= */
-
-  function renderCertificate(certificate) {
-    if (!certificate) return;
-
-    var container =
-      document.getElementById("certificateResult") ||
-      document.getElementById("certificatePreview") ||
-      document.getElementById("generatedCertificate");
-
-    if (!container) {
-      console.warn(
-        "⚠️ Certificate result container not found."
-      );
-      return;
-    }
-
-    var verifyURL =
-      window.location.origin +
-      window.location.pathname.replace(
-        /[^/]*$/,
-        ""
-      ) +
-      "verify.html?id=" +
-      encodeURIComponent(certificate.id);
-
-    container.innerHTML = `
-      <div class="ars-certificate-card">
-
-        <div class="ars-certificate-header">
-
-          <img
-            src="${
-              escapeHTML(
-                (CONFIG.certificate &&
-                  CONFIG.certificate.logo) ||
-                "logo.png"
-              )
-            }"
-            alt="ARS Logo"
-            class="ars-certificate-logo"
-          >
-
-          <div>
-            <h2>ARS OFFICIAL</h2>
-            <p>Certificate of ${escapeHTML(
-              certificate.certificateType
-            )}</p>
-          </div>
-
-        </div>
-
-        <div class="ars-certificate-body">
-
-          <p>This certificate is proudly presented to</p>
-
-          <h1>${escapeHTML(
-            certificate.name
-          )}</h1>
-
-          <p>
-            for ${
-              escapeHTML(
-                certificate.purpose
-              )
-            }.
-          </p>
-
-          <p class="ars-certificate-id">
-            Certificate ID:
-            <strong>${escapeHTML(
-              certificate.id
-            )}</strong>
-          </p>
-
-        </div>
-
-        <div class="ars-certificate-footer">
-
-          <div>
-            <strong>Adarsh Raj</strong>
-            <br>
-            Author
-          </div>
-
-          <div>
-            <strong>ARS</strong>
-            <br>
-            Official
-          </div>
-
-        </div>
-
-        <div class="ars-certificate-actions">
-
-          <button
-            type="button"
-            onclick="window.ARS_CERTIFICATE.print()"
-          >
-            🖨️ Print Certificate
-          </button>
-
-          <button
-            type="button"
-            onclick="window.ARS_CERTIFICATE.verify('${escapeHTML(
-              certificate.id
-            )}')"
-          >
-            🔎 Verify Certificate
-          </button>
-
-        </div>
-
-      </div>
-    `;
-
-    container.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  /* =========================================================
-     FIND CERTIFICATE
-     ========================================================= */
-
-  function findCertificate(id) {
-    if (!id || !STORAGE) return null;
-
-    if (
-      typeof STORAGE.findCertificate ===
-      "function"
-    ) {
-      return STORAGE.findCertificate(id);
-    }
-
-    return null;
-  }
-
-  /* =========================================================
-     VERIFY
-     ========================================================= */
-
-  function verify(id) {
-    if (!id) {
-      notify(
-        "Certificate ID नहीं मिला।",
-        "warning"
-      );
-      return null;
-    }
-
-    var certificate =
-      findCertificate(id);
-
-    if (!certificate) {
-      notify(
-        "Certificate नहीं मिला।",
-        "error"
-      );
-      return null;
-    }
-
-    var result =
-      document.getElementById(
-        "verificationResult"
-      );
-
-    if (result) {
-      result.innerHTML = `
-        <div class="ars-verification-success">
-
-          <h2>✅ Certificate Verified</h2>
-
-          <p>
-            <strong>Name:</strong>
-            ${escapeHTML(
-              certificate.name
-            )}
-          </p>
-
-          <p>
-            <strong>Certificate ID:</strong>
-            ${escapeHTML(
-              certificate.id
-            )}
-          </p>
-
-          <p>
-            <strong>Type:</strong>
-            ${escapeHTML(
-              certificate.certificateType ||
-              "Certificate"
-            )}
-          </p>
-
-          <p>
-            <strong>Status:</strong>
-            Valid
-          </p>
-
-        </div>
-      `;
-    }
-
-    return certificate;
-  }
-
-  /* =========================================================
-     JOINING CERTIFICATE REQUEST
-     Approval is REQUIRED.
-     ========================================================= */
-
-  function submitJoiningRequest(data) {
-    data = data || {};
-
-    var name =
-      data.name ||
-      getValue("joiningName") ||
-      getValue("joinName");
-
-    var email =
-      data.email ||
-      getValue("joiningEmail") ||
-      getValue("joinEmail");
-
-    var reason =
-      data.reason ||
-      getValue("joiningReason") ||
-      getValue("joinReason");
-
-    if (!name) {
-      notify(
-        "कृपया अपना नाम दर्ज करें।",
-        "warning"
-      );
-      return null;
-    }
-
-    var request = {
-      id: makeID(JOIN_PREFIX),
-
-      name: name,
-
-      email: email,
-
-      reason: reason,
-
-      type: "joining",
-
-      status: "pending",
-
-      approved: false,
-
-      createdAt:
-        new Date().toISOString()
-    };
-
-    if (
-      STORAGE &&
-      typeof STORAGE.addJoiningRequest ===
-      "function"
-    ) {
-      STORAGE.addJoiningRequest(request);
-    }
-
-    notify(
-      "Joining request successfully submitted. Approval के बाद certificate दिखाई देगा।",
-      "success"
-    );
-
-    return request;
-  }
-
-  /* =========================================================
-     CHECK JOINING CERTIFICATE
-     ========================================================= */
-
-  function getJoiningCertificate(id) {
-    if (!id || !STORAGE) return null;
-
-    if (
-      typeof STORAGE.findJoiningRequest ===
-      "function"
-    ) {
-      var request =
-        STORAGE.findJoiningRequest(id);
-
-      if (!request) return null;
-
-      /*
-       * VERY IMPORTANT:
-       * Certificate cannot be shown until approved.
-       */
-      if (
-        request.approved !== true ||
-        request.status !== "approved"
-      ) {
-        return null;
+  function formatDate(date) {
+    return new Date(date).toLocaleDateString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
       }
-
-      return request;
-    }
-
-    return null;
-  }
-
-  /* =========================================================
-     APPROVE JOINING REQUEST
-     Publisher/Admin panel can call this.
-     ========================================================= */
-
-  function approveJoining(id) {
-    if (!id || !STORAGE) return null;
-
-    if (
-      typeof STORAGE.approveJoiningRequest !==
-      "function"
-    ) {
-      return null;
-    }
-
-    var request =
-      STORAGE.approveJoiningRequest(id);
-
-    if (!request) {
-      notify(
-        "Joining request नहीं मिली।",
-        "error"
-      );
-      return null;
-    }
-
-    notify(
-      "Joining request approved successfully.",
-      "success"
     );
-
-    return request;
   }
 
-  /* =========================================================
-     SHOW APPROVED JOINING CERTIFICATE
-     ========================================================= */
+  function createCertificate(data) {
 
-  function showJoiningCertificate(id) {
-    var request =
-      getJoiningCertificate(id);
-
-    if (!request) {
-      notify(
-        "यह Joining Certificate अभी approved नहीं है।",
-        "warning"
+    if (!data || !data.name) {
+      throw new Error(
+        "Certificate name is required."
       );
-      return null;
     }
 
-    var certificate = {
-      id: request.id,
+    const certificate = {
 
-      name: request.name,
+      id:
+        data.id ||
+        window.ARS_STORAGE.generateId(
+          window.ARS_CONFIG.CERTIFICATE.PREFIX
+        ),
 
-      certificateType:
-        "ARS Joining Certificate",
+      name:
+        String(data.name).trim(),
 
-      purpose:
-        "Joining ARS",
+      type:
+        data.type || "Achievement",
 
-      type: "joining",
+      businessName:
+        data.businessName || "",
 
-      status: "valid",
+      businessOwner:
+        data.businessOwner || "",
 
-      approved: true,
+      message:
+        data.message || "",
 
-      createdAt:
-        request.approvedAt ||
-        request.createdAt,
+      status:
+        data.status || "approved",
 
-      author: "Adarsh Raj"
+      issuedAt:
+        data.issuedAt ||
+        new Date().toISOString(),
+
+      issuer:
+        window.ARS_CONFIG.FOUNDER,
+
+      organization:
+        window.ARS_CONFIG.SITE_NAME
+
     };
 
-    renderJoiningCertificate(
+    window.ARS_STORAGE.saveCertificate(
       certificate
     );
 
     return certificate;
   }
 
-  /* =========================================================
-     RENDER JOINING CERTIFICATE
-     ========================================================= */
+  function certificateMessage(certificate) {
 
-  function renderJoiningCertificate(
-    certificate
-  ) {
-    var container =
-      document.getElementById(
-        "joiningCertificateResult"
-      ) ||
-      document.getElementById(
-        "certificateResult"
-      );
+    if (
+      certificate.type === "Membership" ||
+      certificate.type === "Joining"
+    ) {
 
-    if (!container) {
-      console.warn(
-        "⚠️ Joining certificate container not found."
-      );
-      return;
+      return `
+        Congratulations, ${escapeHTML(
+          certificate.name
+        )}!<br><br>
+
+        We are delighted to welcome you as a
+        <strong>Member of ARS</strong>.
+
+        May your journey with ARS be filled with
+        creativity, learning, confidence and
+        meaningful achievements.
+      `;
+
     }
 
-    container.innerHTML = `
-      <div class="ars-certificate-card joining-certificate">
+    if (certificate.type === "Achievement") {
 
-        <div class="ars-certificate-header">
+      return `
+        This certificate is proudly presented to
+        <strong>${escapeHTML(
+          certificate.name
+        )}</strong>
+        in recognition of dedication,
+        creativity and achievement.
+      `;
 
-          <img
-            src="${
-              escapeHTML(
-                (CONFIG.certificate &&
-                  CONFIG.certificate.logo) ||
-                "logo.png"
-              )
-            }"
-            alt="ARS Logo"
-            class="ars-certificate-logo"
-          >
+    }
 
-          <div>
-            <h2>ARS OFFICIAL</h2>
-            <p>Joining Certificate</p>
+    if (certificate.type === "Participation") {
+
+      return `
+        This certificate is proudly presented to
+        <strong>${escapeHTML(
+          certificate.name
+        )}</strong>
+        for valuable participation and sincere
+        contribution.
+      `;
+
+    }
+
+    if (certificate.type === "Professional") {
+
+      return `
+        This certificate recognizes
+        <strong>${escapeHTML(
+          certificate.name
+        )}</strong>
+        for professional effort, dedication and
+        contribution.
+      `;
+
+    }
+
+    if (certificate.type === "Business") {
+
+      return `
+        This certificate is proudly presented to
+        <strong>${escapeHTML(
+          certificate.name
+        )}</strong>
+        in recognition of entrepreneurial effort
+        and business contribution.
+      `;
+
+    }
+
+    return `
+      This certificate is proudly presented to
+      <strong>${escapeHTML(
+        certificate.name
+      )}</strong>
+      in recognition of valuable contribution.
+    `;
+  }
+
+  function verificationURL(id) {
+
+    const base =
+      window.location.href
+        .split("/")
+        .slice(0, -1)
+        .join("/");
+
+    return (
+      base +
+      "/verify.html?id=" +
+      encodeURIComponent(id)
+    );
+  }
+
+  function render(certificate, target) {
+
+    if (!target) {
+      throw new Error(
+        "Certificate target element not found."
+      );
+    }
+
+    const qrURL =
+      "https://api.qrserver.com/v1/create-qr-code/?" +
+      "size=180x180&data=" +
+      encodeURIComponent(
+        verificationURL(certificate.id)
+      );
+
+    const websiteName =
+      window.ARS_CONFIG.SITE_NAME;
+
+    const logo =
+      window.ARS_CONFIG.ASSETS.LOGO;
+
+    const signature =
+      window.ARS_CONFIG.ASSETS.SIGNATURE;
+
+    const websiteImage =
+      window.ARS_CONFIG.ASSETS.WEBSITE_IMAGE;
+
+    const businessBlock =
+      certificate.type === "Business"
+        ? `
+          <div class="certificate-business">
+            <p>
+              <strong>Business Name:</strong>
+              ${escapeHTML(
+                certificate.businessName
+              )}
+            </p>
+
+            <p>
+              <strong>Owner / Founder:</strong>
+              ${escapeHTML(
+                certificate.businessOwner
+              )}
+            </p>
+          </div>
+        `
+        : "";
+
+    target.innerHTML = `
+
+      <div class="certificate-wrapper">
+
+        <div
+          class="certificate-sheet"
+          id="arsCertificatePrint"
+        >
+
+          <!-- TOP BRANDING -->
+
+          <div class="certificate-header">
+
+            <img
+              src="${logo}"
+              class="certificate-logo left"
+              alt="ARS Logo"
+            >
+
+            <div class="certificate-brand">
+
+              <img
+                src="${websiteImage}"
+                class="certificate-website-image"
+                alt="ARS"
+              >
+
+              <div class="certificate-brand-name">
+                ${escapeHTML(websiteName)}
+              </div>
+
+              <div class="certificate-subtitle">
+                OFFICIAL CERTIFICATE
+              </div>
+
+            </div>
+
+            <img
+              src="${logo}"
+              class="certificate-logo right"
+              alt="ARS Logo"
+            >
+
+          </div>
+
+          <div class="certificate-divider">
+            ✦ ✦ ✦
+          </div>
+
+          <!-- TITLE -->
+
+          <div class="certificate-title">
+
+            <div class="certificate-small-title">
+              THIS CERTIFICATE IS PROUDLY PRESENTED TO
+            </div>
+
+            <h1>
+              ${escapeHTML(
+                certificate.name
+              )}
+            </h1>
+
+            <div class="certificate-type">
+              CERTIFICATE OF
+              ${escapeHTML(
+                certificate.type
+              ).toUpperCase()}
+            </div>
+
+          </div>
+
+          <!-- MESSAGE -->
+
+          <div class="certificate-message">
+            ${certificateMessage(
+              certificate
+            )}
+          </div>
+
+          ${businessBlock}
+
+          ${
+            certificate.message
+              ? `
+                <div class="certificate-custom-message">
+                  ${escapeHTML(
+                    certificate.message
+                  )}
+                </div>
+              `
+              : ""
+          }
+
+          <!-- DETAILS -->
+
+          <div class="certificate-details">
+
+            <span>
+              <strong>Certificate ID</strong><br>
+              ${escapeHTML(
+                certificate.id
+              )}
+            </span>
+
+            <span>
+              <strong>Date of Issue</strong><br>
+              ${formatDate(
+                certificate.issuedAt
+              )}
+            </span>
+
+          </div>
+
+          <!-- FOOTER -->
+
+          <div class="certificate-footer">
+
+            <div class="certificate-signature">
+
+              <img
+                src="${signature}"
+                alt="Adarsh Raj Signature"
+                class="signature-image"
+              >
+
+              <div class="signature-line"></div>
+
+              <strong>
+                ${escapeHTML(
+                  window.ARS_CONFIG.FOUNDER
+                )}
+              </strong>
+
+              <small>
+                Founder, ARS
+              </small>
+
+            </div>
+
+            <div class="certificate-qr-box">
+
+              <img
+                src="${qrURL}"
+                class="certificate-qr"
+                alt="Certificate Verification QR"
+              >
+
+              <small>
+                Scan to Verify
+              </small>
+
+            </div>
+
+          </div>
+
+          <div class="certificate-website">
+            ${escapeHTML(
+              websiteName
+            )}
           </div>
 
         </div>
 
-        <div class="ars-certificate-body">
-
-          <p>This certificate confirms that</p>
-
-          <h1>${escapeHTML(
-            certificate.name
-          )}</h1>
-
-          <p>
-            has been approved for joining
-            <strong>ARS</strong>.
-          </p>
-
-          <p class="ars-certificate-id">
-            Certificate ID:
-            <strong>${escapeHTML(
-              certificate.id
-            )}</strong>
-          </p>
-
-          <p>
-            Status:
-            <strong>Approved ✓</strong>
-          </p>
-
-        </div>
-
-        <div class="ars-certificate-footer">
-
-          <div>
-            <strong>Adarsh Raj</strong>
-            <br>
-            Author
-          </div>
-
-          <div>
-            <strong>ARS</strong>
-            <br>
-            Official
-          </div>
-
-        </div>
-
-        <div class="ars-certificate-actions">
+        <div class="certificate-actions">
 
           <button
             type="button"
             onclick="window.ARS_CERTIFICATE.print()"
           >
-            🖨️ Print Certificate
+            🖨 Print / Save PDF
           </button>
 
-          <button
-            type="button"
-            onclick="window.ARS_CERTIFICATE.verify('${escapeHTML(
+          <a
+            href="verify.html?id=${encodeURIComponent(
               certificate.id
-            )}')"
+            )}"
           >
             🔎 Verify Certificate
-          </button>
+          </a>
 
         </div>
 
       </div>
     `;
 
-    container.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
   }
-
-  /* =========================================================
-     PRINT
-     ========================================================= */
 
   function print() {
+
     window.print();
+
   }
-
-  /* =========================================================
-     AUTO VERIFY FROM URL
-     ========================================================= */
-
-  function autoVerify() {
-    var params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    var id = params.get("id");
-
-    if (!id) return;
-
-    var input =
-      document.getElementById(
-        "certificateID"
-      ) ||
-      document.getElementById(
-        "verifyID"
-      );
-
-    if (input) {
-      input.value = id;
-    }
-
-    verify(id);
-  }
-
-  /* =========================================================
-     PUBLIC API
-     ========================================================= */
 
   window.ARS_CERTIFICATE = {
 
-    generate:
-      generateCertificate,
+    create: createCertificate,
 
-    render:
-      renderCertificate,
+    render,
 
-    find:
-      findCertificate,
+    print
 
-    verify:
-      verify,
-
-    submitJoining:
-      submitJoiningRequest,
-
-    approveJoining:
-      approveJoining,
-
-    getJoining:
-      getJoiningCertificate,
-
-    showJoining:
-      showJoiningCertificate,
-
-    print:
-      print,
-
-    autoVerify:
-      autoVerify
   };
 
-  /* =========================================================
-     INITIALIZATION
-     ========================================================= */
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-      console.log(
-        "🏆 ARS Certificate System Loaded"
-      );
-
-      if (
-        window.location.pathname
-          .toLowerCase()
-          .includes("verify")
-      ) {
-        setTimeout(
-          autoVerify,
-          100
-        );
-      }
-
-    }
+  console.log(
+    "🏆 ARS Certificate System Loaded"
   );
 
 })(window);
