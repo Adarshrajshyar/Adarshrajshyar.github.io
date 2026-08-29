@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Publisher Panel</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="shayari.js"></script>
+  <script src="story.js"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a class="logo" href="index.html">
+      🌹 ARS Publisher
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="admin.html">Admin</a>
+    </div>
+
+  </nav>
+</header>
+
+
+<main class="section">
+
+  <!-- LOGIN -->
+
+  <div id="publisherLogin" class="form-card">
+
+    <h1>✍️ Publisher Panel</h1>
+
+    <p>
+      Login to publish Shayari, Stories and Poems on ARS.
+    </p>
+
+    <input
+      id="publisherPassword"
+      type="password"
+      placeholder="Publisher Password"
+      autocomplete="current-password"
+    >
+
+    <button
+      class="btn"
+      id="publisherLoginBtn"
+    >
+      Login
+    </button>
+
+    <p id="publisherLoginMessage"></p>
+
+  </div>
+
+
+  <!-- DASHBOARD -->
+
+  <div id="publisherDashboard" style="display:none;">
+
+    <div class="panel-card">
+
+      <h1>🌹 ARS Publisher Dashboard</h1>
+
+      <p>
+        Publish new content without changing the website code.
+      </p>
+
+      <button
+        class="btn"
+        id="publisherLogout"
+      >
+        Logout
+      </button>
+
+    </div>
+
+
+    <!-- SHAYARI -->
+
+    <div class="form-card">
+
+      <h2>🌹 Publish Shayari</h2>
+
+      <form id="shayariForm">
+
+        <label>Shayari</label>
+
+        <textarea
+          id="shayariText"
+          required
+          placeholder="Write your Shayari here..."
+        ></textarea>
+
+
+        <label>Category</label>
+
+        <select id="shayariCategory" required>
+
+          <option value="love">❤️ Love</option>
+          <option value="sad">💔 Sad</option>
+          <option value="attitude">🔥 Attitude</option>
+          <option value="friendship">🤝 Friendship</option>
+          <option value="motivation">💪 Motivation</option>
+          <option value="life">🌱 Life</option>
+          <option value="education">📚 Education</option>
+          <option value="inspiration">✨ Inspiration</option>
+
+        </select>
+
+
+        <label>Author Name</label>
+
+        <input
+          id="shayariAuthor"
+          value="Adarsh Raj"
+          required
+          placeholder="Author Name"
+        >
+
+
+        <button
+          class="btn"
+          type="submit"
+        >
+          Publish Shayari
+        </button>
+
+      </form>
+
+      <p id="shayariMessage"></p>
+
+    </div>
+
+
+    <!-- STORY / POEM -->
+
+    <div class="form-card">
+
+      <h2>📖 Publish Story / Poem</h2>
+
+      <form id="storyForm">
+
+        <label>Title</label>
+
+        <input
+          id="storyTitle"
+          required
+          placeholder="Story / Poem Title"
+        >
+
+
+        <label>Content</label>
+
+        <textarea
+          id="storyContent"
+          required
+          placeholder="Write your Story or Poem..."
+        ></textarea>
+
+
+        <label>Type</label>
+
+        <select id="storyType">
+
+          <option value="story">
+            📖 Story
+          </option>
+
+          <option value="poem">
+            ✍️ Poem
+          </option>
+
+        </select>
+
+
+        <label>Category</label>
+
+        <select id="storyCategory">
+
+          <option value="motivation">💪 Motivation</option>
+          <option value="life">🌱 Life</option>
+          <option value="friendship">🤝 Friendship</option>
+          <option value="education">📚 Education</option>
+          <option value="dream">🌟 Dream</option>
+          <option value="inspiration">✨ Inspiration</option>
+          <option value="general">📚 General</option>
+
+        </select>
+
+
+        <label>Author Name</label>
+
+        <input
+          id="storyAuthor"
+          value="Adarsh Raj"
+          required
+          placeholder="Author Name"
+        >
+
+
+        <button
+          class="btn"
+          type="submit"
+        >
+          Publish
+        </button>
+
+      </form>
+
+      <p id="storyMessage"></p>
+
+    </div>
+
+
+    <!-- PUBLISHED CONTENT -->
+
+    <section class="panel-card">
+
+      <h2>📚 Recently Published</h2>
+
+      <div id="publishedContent">
+        Loading...
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const SESSION_KEY =
+    "ARS_PUBLISHER_LOGGED_IN";
+
+
+  const loginBox =
+    document.getElementById("publisherLogin");
+
+  const dashboard =
+    document.getElementById("publisherDashboard");
+
+  const password =
+    document.getElementById("publisherPassword");
+
+  const loginButton =
+    document.getElementById("publisherLoginBtn");
+
+  const loginMessage =
+    document.getElementById("publisherLoginMessage");
+
+  const logoutButton =
+    document.getElementById("publisherLogout");
+
+
+  /*
+   * LOGIN
+   */
+
+  loginButton.addEventListener("click", function () {
+
+    if (
+      password.value ===
+      ARS_CONFIG.PUBLISHER_PASSWORD
+    ) {
+
+      sessionStorage.setItem(
+        SESSION_KEY,
+        "true"
+      );
+
+      showDashboard();
+
+    } else {
+
+      loginMessage.innerHTML =
+        '<span class="status rejected">❌ Incorrect publisher password.</span>';
+
+    }
+
+  });
+
+
+  /*
+   * LOGOUT
+   */
+
+  logoutButton.addEventListener("click", function () {
+
+    sessionStorage.removeItem(
+      SESSION_KEY
+    );
+
+    location.reload();
+
+  });
+
+
+  /*
+   * SHOW DASHBOARD
+   */
+
+  function showDashboard() {
+
+    loginBox.style.display = "none";
+
+    dashboard.style.display = "block";
+
+    loadPublishedContent();
+
+  }
+
+
+  /*
+   * PUBLISH SHAYARI
+   */
+
+  document
+    .getElementById("shayariForm")
+    .addEventListener("submit", function (event) {
+
+      event.preventDefault();
+
+      const text =
+        document
+          .getElementById("shayariText")
+          .value
+          .trim();
+
+      const category =
+        document
+          .getElementById("shayariCategory")
+          .value;
+
+      const author =
+        document
+          .getElementById("shayariAuthor")
+          .value
+          .trim();
+
+
+      if (!text || !author) {
+
+        return;
+
+      }
+
+
+      const item =
+        ARS_SHAYARI.publish({
+
+          text: text,
+
+          category: category,
+
+          author: author
+
+        });
+
+
+      document
+        .getElementById("shayariMessage")
+        .innerHTML =
+        `
+          <span class="status approved">
+            ✅ Shayari published successfully.
+          </span>
+          <br>
+          <small>
+            ID: ${escapeHtml(item.id)}
+          </small>
+        `;
+
+
+      this.reset();
+
+      document
+        .getElementById("shayariAuthor")
+        .value = "Adarsh Raj";
+
+
+      loadPublishedContent();
+
+    });
+
+
+  /*
+   * PUBLISH STORY / POEM
+   */
+
+  document
+    .getElementById("storyForm")
+    .addEventListener("submit", function (event) {
+
+      event.preventDefault();
+
+      const title =
+        document
+          .getElementById("storyTitle")
+          .value
+          .trim();
+
+      const content =
+        document
+          .getElementById("storyContent")
+          .value
+          .trim();
+
+      const type =
+        document
+          .getElementById("storyType")
+          .value;
+
+      const category =
+        document
+          .getElementById("storyCategory")
+          .value;
+
+      const author =
+        document
+          .getElementById("storyAuthor")
+          .value
+          .trim();
+
+
+      if (!title || !content || !author) {
+
+        return;
+
+      }
+
+
+      const item =
+        ARS_STORY.publish({
+
+          title: title,
+
+          content: content,
+
+          type: type,
+
+          category: category,
+
+          author: author
+
+        });
+
+
+      document
+        .getElementById("storyMessage")
+        .innerHTML =
+        `
+          <span class="status approved">
+            ✅ ${type === "poem" ? "Poem" : "Story"} published successfully.
+          </span>
+          <br>
+          <small>
+            ID: ${escapeHtml(item.id)}
+          </small>
+        `;
+
+
+      this.reset();
+
+      document
+        .getElementById("storyAuthor")
+        .value = "Adarsh Raj";
+
+
+      loadPublishedContent();
+
+    });
+
+
+  /*
+   * SHOW PUBLISHED CONTENT
+   */
+
+  function loadPublishedContent() {
+
+    const box =
+      document.getElementById("publishedContent");
+
+
+    const shayari =
+      ARS_SHAYARI
+        .all()
+        .slice(0, 10)
+        .map(function (item) {
+
+          return `
+            <div class="content-card">
+
+              <span class="tag">
+                🌹 ${escapeHtml(item.category)}
+              </span>
+
+              <p>
+                ${escapeHtml(item.text)
+                  .replace(/\n/g, "<br>")}
+              </p>
+
+              <small>
+                — ${escapeHtml(item.author)}
+              </small>
+
+            </div>
+          `;
+
+        });
+
+
+    const stories =
+      ARS_STORY
+        .all()
+        .slice(0, 10)
+        .map(function (item) {
+
+          return `
+            <div class="content-card">
+
+              <span class="tag">
+                ${item.type === "poem"
+                  ? "✍️ Poem"
+                  : "📖 Story"}
+                · ${escapeHtml(item.category)}
+              </span>
+
+              <h3>
+                ${escapeHtml(item.title)}
+              </h3>
+
+              <p>
+                ${escapeHtml(item.content)
+                  .replace(/\n/g, "<br>")}
+              </p>
+
+              <small>
+                — ${escapeHtml(item.author)}
+              </small>
+
+            </div>
+          `;
+
+        });
+
+
+    const all =
+      [...shayari, ...stories];
+
+
+    box.innerHTML =
+      all.length
+        ? all.join("")
+        : "<p>No published content yet.</p>";
+
+  }
+
+
+  /*
+   * HTML SAFETY
+   */
+
+  function escapeHtml(value) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent =
+      value ?? "";
+
+    return div.innerHTML;
+
+  }
+
+
+  /*
+   * RESTORE LOGIN
+   */
+
+  if (
+    sessionStorage.getItem(
+      SESSION_KEY
+    ) === "true"
+  ) {
+
+    showDashboard();
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
