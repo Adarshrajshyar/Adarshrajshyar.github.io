@@ -1,1 +1,754 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ARS Joining Certificate | Adarsh Raj Shayar</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="certificate.js"></script>
+
+  <style>
+
+    .member-page{
+      max-width:1100px;
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    .member-search{
+      max-width:600px;
+      margin:20px auto 35px;
+      background:#fff;
+      padding:25px;
+      border-radius:20px;
+      border:1px solid #eee;
+      box-shadow:0 10px 35px rgba(0,0,0,.06);
+    }
+
+    .member-search input{
+      width:100%;
+      padding:14px;
+      border:1px solid #ddd;
+      border-radius:10px;
+      font-size:16px;
+      margin:10px 0 15px;
+    }
+
+    .member-search button{
+      width:100%;
+      border:0;
+      border-radius:10px;
+      padding:13px;
+      background:#8b1e3f;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .member-message{
+      text-align:center;
+      margin:15px 0;
+    }
+
+    .joining-certificate{
+      display:none;
+      position:relative;
+      max-width:900px;
+      min-height:1120px;
+      margin:30px auto;
+      padding:70px 65px;
+      background:#fff;
+      border:12px double #8b1e3f;
+      text-align:center;
+      box-shadow:0 15px 45px rgba(0,0,0,.1);
+      overflow:hidden;
+    }
+
+    .joining-certificate::before,
+    .joining-certificate::after{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      background-image:url("logo.png");
+      background-repeat:no-repeat;
+      background-size:contain;
+      opacity:.08;
+      pointer-events:none;
+    }
+
+    .joining-certificate::before{
+      top:25px;
+      left:25px;
+    }
+
+    .joining-certificate::after{
+      top:25px;
+      right:25px;
+    }
+
+    .certificate-logo{
+      width:95px;
+      height:95px;
+      object-fit:contain;
+      margin:auto;
+    }
+
+    .certificate-small{
+      letter-spacing:4px;
+      font-weight:800;
+      margin-top:10px;
+    }
+
+    .certificate-title{
+      font-family:Georgia,serif;
+      font-size:42px;
+      margin:18px 0 5px;
+    }
+
+    .certificate-subtitle{
+      color:#777;
+      font-size:15px;
+    }
+
+    .member-name{
+      font-family:Georgia,serif;
+      font-size:46px;
+      margin:45px 0 18px;
+    }
+
+    .member-line{
+      width:300px;
+      max-width:80%;
+      height:2px;
+      background:#8b1e3f;
+      margin:auto;
+    }
+
+    .member-message-text{
+      max-width:650px;
+      margin:30px auto;
+      font-size:18px;
+      line-height:1.9;
+    }
+
+    .member-message-text b{
+      color:#8b1e3f;
+    }
+
+    .member-quote{
+      max-width:650px;
+      margin:30px auto;
+      padding:20px;
+      background:#faf5f7;
+      border-radius:15px;
+      font-size:17px;
+      font-style:italic;
+    }
+
+    .certificate-info{
+      display:flex;
+      justify-content:center;
+      gap:30px;
+      flex-wrap:wrap;
+      margin-top:35px;
+      font-size:14px;
+    }
+
+    .certificate-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:30px;
+      margin-top:65px;
+    }
+
+    .signature-area{
+      width:220px;
+      text-align:center;
+    }
+
+    .signature-image{
+      width:150px;
+      height:70px;
+      object-fit:contain;
+      transform:rotate(-2deg) scaleX(1.05);
+      display:block;
+      margin:auto;
+    }
+
+    .signature-line{
+      border-top:1px solid #222;
+      margin-top:5px;
+    }
+
+    .qr-area{
+      text-align:center;
+    }
+
+    .qr-area img{
+      width:125px;
+      height:125px;
+      object-fit:contain;
+      border:5px solid #fff;
+    }
+
+    .qr-area small{
+      display:block;
+      margin-top:5px;
+    }
+
+    .website-footer{
+      position:absolute;
+      bottom:22px;
+      left:0;
+      right:0;
+      font-size:12px;
+      color:#777;
+    }
+
+    .certificate-actions{
+      display:none;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:20px;
+    }
+
+    .certificate-actions button,
+    .certificate-actions a{
+      border:0;
+      border-radius:10px;
+      padding:12px 17px;
+      background:#191919;
+      color:#fff;
+      text-decoration:none;
+      cursor:pointer;
+    }
+
+    @media(max-width:650px){
+
+      .joining-certificate{
+        padding:45px 20px;
+        min-height:950px;
+      }
+
+      .certificate-title{
+        font-size:30px;
+      }
+
+      .member-name{
+        font-size:32px;
+      }
+
+      .certificate-bottom{
+        flex-direction:column;
+        align-items:center;
+      }
+
+    }
+
+    @media print{
+
+      body{
+        background:#fff;
+      }
+
+      .site-header,
+      .member-search,
+      .member-message,
+      .certificate-actions{
+        display:none!important;
+      }
+
+      .joining-certificate{
+        display:block!important;
+        box-shadow:none;
+        margin:0;
+        max-width:none;
+        min-height:100vh;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<header class="site-header">
+
+  <nav class="navbar">
+
+    <a class="logo" href="index.html">
+      🌹 ARS Official
+    </a>
+
+    <div class="nav-links">
+
+      <a href="index.html">Home</a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+<main class="member-page">
+
+  <div class="member-search">
+
+    <h1>🏅 ARS Joining Certificate</h1>
+
+    <p>
+      अपने approved Joining Application ID से
+      अपना ARS Membership Certificate प्राप्त करें।
+    </p>
+
+    <input
+      id="requestId"
+      type="text"
+      placeholder="जैसे: ARS-JOIN-XXXX"
+      autocomplete="off"
+    >
+
+    <button id="findCertificate">
+      🔎 Certificate देखें
+    </button>
+
+    <div
+      id="memberMessage"
+      class="member-message"
+    ></div>
+
+  </div>
+
+
+  <section
+    id="certificate"
+    class="joining-certificate"
+  >
+
+    <img
+      src="logo.png"
+      class="certificate-logo"
+      alt="ARS Logo"
+      onerror="this.style.display='none'"
+    >
+
+    <div class="certificate-small">
+      ARS OFFICIAL
+    </div>
+
+    <h1 class="certificate-title">
+      CERTIFICATE OF MEMBERSHIP
+    </h1>
+
+    <div class="certificate-subtitle">
+      सदस्यता प्रमाण-पत्र
+    </div>
+
+
+    <p style="margin-top:35px">
+      यह प्रमाण-पत्र गर्वपूर्वक प्रदान किया जाता है
+    </p>
+
+
+    <h2
+      id="memberName"
+      class="member-name"
+    >
+      Member Name
+    </h2>
+
+    <div class="member-line"></div>
+
+
+    <div class="member-message-text">
+
+      <p>
+        🎉 <b>हार्दिक बधाई!</b>
+      </p>
+
+      <p>
+        आपको आधिकारिक रूप से
+        <b>Adarsh Raj Shayar (ARS)</b>
+        परिवार का सदस्य बनने पर हार्दिक शुभकामनाएँ।
+      </p>
+
+      <p>
+        आपकी रचनात्मकता, सोच और प्रतिभा ARS परिवार के लिए
+        हमेशा प्रेरणा बनी रहे।
+        सीखते रहें, लिखते रहें और अपने सपनों की ओर
+        लगातार आगे बढ़ते रहें।
+      </p>
+
+    </div>
+
+
+    <div class="member-quote">
+
+      “आपकी पहचान आपकी मेहनत से बने,
+      आपकी कलम आपकी आवाज़ बने,
+      और आपकी हर नई शुरुआत
+      एक नई उपलब्धि की कहानी लिखे।”
+
+    </div>
+
+
+    <div class="certificate-info">
+
+      <div>
+        <b>Certificate ID</b><br>
+        <span id="certificateId">—</span>
+      </div>
+
+      <div>
+        <b>Issue Date</b><br>
+        <span id="issueDate">—</span>
+      </div>
+
+      <div>
+        <b>Membership</b><br>
+        ARS Official Member
+      </div>
+
+    </div>
+
+
+    <div class="certificate-bottom">
+
+      <div class="signature-area">
+
+        <img
+          src="signature.jpeg"
+          class="signature-image"
+          alt="Adarsh Raj Signature"
+          onerror="this.style.display='none'"
+        >
+
+        <div class="signature-line"></div>
+
+        <strong>Adarsh Raj</strong>
+
+        <br>
+
+        <small>
+          Founder, ARS
+        </small>
+
+      </div>
+
+
+      <div class="qr-area">
+
+        <img
+          id="verificationQR"
+          alt="QR Verification"
+        >
+
+        <small>
+          Scan to Verify
+        </small>
+
+        <small id="qrCertificateId">
+          Certificate Verification
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <div class="website-footer">
+
+      Adarsh Raj Shayar • ARS Official •
+      adarshrajshyar.github.io
+
+    </div>
+
+  </section>
+
+
+  <div
+    id="certificateActions"
+    class="certificate-actions"
+  >
+
+    <button onclick="window.print()">
+      🖨 Print / Save PDF
+    </button>
+
+    <a
+      id="verifyLink"
+      href="verify.html"
+    >
+      🔎 Verify Certificate
+    </a>
+
+  </div>
+
+</main>
+
+
+<script>
+
+"use strict";
+
+const requestId = document.getElementById("requestId");
+const findCertificate =
+  document.getElementById("findCertificate");
+
+const memberMessage =
+  document.getElementById("memberMessage");
+
+const certificate =
+  document.getElementById("certificate");
+
+const certificateActions =
+  document.getElementById("certificateActions");
+
+const memberName =
+  document.getElementById("memberName");
+
+const certificateId =
+  document.getElementById("certificateId");
+
+const issueDate =
+  document.getElementById("issueDate");
+
+const verificationQR =
+  document.getElementById("verificationQR");
+
+const qrCertificateId =
+  document.getElementById("qrCertificateId");
+
+const verifyLink =
+  document.getElementById("verifyLink");
+
+
+function escapeHTML(value){
+
+  const div = document.createElement("div");
+
+  div.textContent = value ?? "";
+
+  return div.innerHTML;
+
+}
+
+
+function makeQRUrl(id){
+
+  const verifyURL =
+    new URL(
+      "verify.html",
+      window.location.href
+    );
+
+  verifyURL.searchParams.set("id", id);
+
+  /*
+    External QR image service is used only for
+    generating the QR image. The actual verification
+    remains on verify.html.
+  */
+
+  return (
+    "https://api.qrserver.com/v1/create-qr-code/" +
+    "?size=250x250&margin=10&data=" +
+    encodeURIComponent(verifyURL.href)
+  );
+
+}
+
+
+function showCertificate(join){
+
+  const memberId =
+    "ARS-MEMBER-" +
+    String(join.id)
+      .replace(/^ARS-JOIN-/i, "")
+      .toUpperCase();
+
+
+  memberName.textContent =
+    join.name || "ARS Member";
+
+  certificateId.textContent =
+    memberId;
+
+  issueDate.textContent =
+    new Date(
+      join.updatedAt ||
+      join.createdAt ||
+      Date.now()
+    ).toLocaleDateString(
+      "en-IN",
+      {
+        day:"2-digit",
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+  verificationQR.src =
+    makeQRUrl(memberId);
+
+  qrCertificateId.textContent =
+    memberId;
+
+
+  verifyLink.href =
+    "verify.html?id=" +
+    encodeURIComponent(memberId);
+
+
+  certificate.style.display =
+    "block";
+
+  certificateActions.style.display =
+    "flex";
+
+  memberMessage.innerHTML =
+    '<span class="status approved">✅ Membership Approved</span>';
+
+}
+
+
+function findApprovedMember(){
+
+  const id =
+    requestId.value.trim();
+
+  if(!id){
+
+    memberMessage.innerHTML =
+      '<span class="status rejected">कृपया Application ID डालें।</span>';
+
+    certificate.style.display =
+      "none";
+
+    certificateActions.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  const joins =
+    ARS_STORAGE.joins();
+
+  const join =
+    joins.find(
+      item =>
+        String(item.id).toLowerCase() ===
+        id.toLowerCase()
+    );
+
+
+  if(!join){
+
+    memberMessage.innerHTML =
+      '<span class="status rejected">❌ Application नहीं मिली। ID जाँचें।</span>';
+
+    certificate.style.display =
+      "none";
+
+    certificateActions.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  if(join.status !== "approved"){
+
+    memberMessage.innerHTML =
+      `<span class="status pending">
+        ⏳ Application अभी ${escapeHTML(join.status || "pending")} है।
+        Approval के बाद certificate उपलब्ध होगा।
+      </span>`;
+
+    certificate.style.display =
+      "none";
+
+    certificateActions.style.display =
+      "none";
+
+    return;
+
+  }
+
+
+  showCertificate(join);
+
+}
+
+
+findCertificate.addEventListener(
+  "click",
+  findApprovedMember
+);
+
+
+requestId.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+      findApprovedMember();
+    }
+
+  }
+);
+
+
+/* URL से ID आने पर automatically check */
+
+const urlID =
+  new URLSearchParams(
+    window.location.search
+  ).get("id");
+
+if(urlID){
+
+  requestId.value = urlID;
+
+  findApprovedMember();
+
+}
+
+</script>
+
+</body>
+</html>
