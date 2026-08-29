@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARS Joining Certificate</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="certificate.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+    <a class="logo" href="index.html">🌹 ARS Official</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+    </div>
+  </nav>
+</header>
+
+<main class="section">
+  <div class="form-card">
+    <h1>🏅 ARS Joining Certificate</h1>
+    <p>Enter your approved ARS Joining Request ID.</p>
+
+    <input
+      id="requestId"
+      type="text"
+      placeholder="Enter Joining ID"
+      autocomplete="off"
+    >
+
+    <button class="btn" id="checkApproval">
+      Check Approval
+    </button>
+
+    <div id="joiningResult"></div>
+  </div>
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const requestId = document.getElementById("requestId");
+  const checkApproval = document.getElementById("checkApproval");
+  const joiningResult = document.getElementById("joiningResult");
+
+  const urlId = new URLSearchParams(window.location.search).get("id");
+
+  if (urlId) {
+    requestId.value = urlId;
+  }
+
+  checkApproval.addEventListener("click", function () {
+
+    const id = requestId.value.trim();
+
+    if (!id) {
+      joiningResult.innerHTML =
+        '<p class="status rejected">Please enter your Joining ID.</p>';
+      return;
+    }
+
+    const requests = ARS_STORAGE.joins();
+
+    const request = requests.find(
+      item => String(item.id).toLowerCase() === id.toLowerCase()
+    );
+
+    if (!request) {
+      joiningResult.innerHTML =
+        '<p class="status rejected">❌ Joining request not found.</p>';
+      return;
+    }
+
+    if (request.status !== "approved") {
+
+      joiningResult.innerHTML = `
+        <div class="panel-card">
+          <h3>ARS Joining Status</h3>
+          <p>
+            <b>Name:</b>
+            ${escapeHtml(request.name)}
+          </p>
+          <p>
+            <b>Status:</b>
+            <span class="status ${request.status}">
+              ${escapeHtml(request.status)}
+            </span>
+          </p>
+          <p>
+            Your joining certificate will appear here after approval.
+          </p>
+        </div>
+      `;
+
+      return;
+    }
+
+    const certificateId =
+      "ARS-MEMBER-" +
+      request.id.replace(/^ARS-JOIN-/i, "");
+
+    let certificate =
+      ARS_STORAGE.findCertificate(certificateId);
+
+    if (!certificate) {
+
+      certificate = ARS_CERTIFICATE.create({
+        id: certificateId,
+        name: request.name,
+        type: "Membership",
+        status: "approved"
+      });
+
+    }
+
+    ARS_CERTIFICATE.render(
+      certificate,
+      joiningResult
+    );
+  });
+
+  function escapeHtml(value) {
+    const div = document.createElement("div");
+    div.textContent = value ?? "";
+    return div.innerHTML;
+  }
+
+});
+</script>
+
+</body>
+</html>
