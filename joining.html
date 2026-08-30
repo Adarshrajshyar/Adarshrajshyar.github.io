@@ -10,19 +10,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    Join ARS Official
-  </title>
+  <title>Join ARS Official</title>
 
-  <meta
-    name="description"
-    content="Join ARS Official community."
-  >
-
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 
   <script src="config.js"></script>
   <script src="storage.js"></script>
@@ -33,23 +23,16 @@
 <body>
 
 
-<!-- =====================================================
-     HEADER
-====================================================== -->
-
 <header class="site-header">
 
   <nav class="navbar">
 
-    <a
-      href="index.html"
-      class="brand"
-    >
+    <a class="brand" href="index.html">
 
       <img
-        src="logo.png"
-        alt="ARS Official Logo"
         class="brand-logo"
+        src="logo.png"
+        alt="ARS Logo"
       >
 
       <span>
@@ -63,30 +46,11 @@
     </a>
 
 
-    <button
-      type="button"
-      class="menu-toggle"
-      id="menuToggle"
-      aria-label="Open navigation"
-      aria-expanded="false"
-    >
-      ☰
-    </button>
+    <div class="nav-links">
 
+      <a href="index.html">Home</a>
 
-    <div
-      class="nav-links"
-      id="navLinks"
-    >
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a
-        href="joining.html"
-        class="active"
-      >
+      <a class="active" href="joining.html">
         Join ARS
       </a>
 
@@ -109,318 +73,184 @@
 </header>
 
 
-
-<!-- =====================================================
-     MAIN
-====================================================== -->
-
 <main>
 
+<section class="section">
 
-  <section class="section">
+  <div class="section-heading">
 
-    <div class="section-heading">
+    <span>ARS COMMUNITY</span>
 
-      <span>
-        JOIN ARS OFFICIAL
-      </span>
+    <h2>ARS से जुड़ें</h2>
 
-      <h1>
-        ARS Community से जुड़ें
-      </h1>
+    <p>
+      Writer, Creator, Supporter या किसी अन्य
+      interest के साथ ARS community का हिस्सा बनें।
+    </p>
 
-      <p>
-        अपनी basic information भरकर ARS joining request
-        भेजें। Request को ARS system में सुरक्षित किया जाएगा।
-      </p>
-
-    </div>
+  </div>
 
 
-    <!-- =================================================
-         JOIN FORM
-    ================================================== -->
+  <div class="form-card">
 
-    <div class="form-card">
+    <form id="joiningForm">
 
-      <form
-        id="joiningForm"
-        autocomplete="on"
-      >
-
-
-        <div class="form-row">
-
-
-          <div class="form-group">
-
-            <label for="joinName">
-              Full Name / पूरा नाम
-            </label>
-
-            <input
-              type="text"
-              id="joinName"
-              name="name"
-              maxlength="100"
-              required
-              autocomplete="name"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="joinEmail">
-              Email
-            </label>
-
-            <input
-              type="email"
-              id="joinEmail"
-              name="email"
-              maxlength="150"
-              required
-              autocomplete="email"
-            >
-
-          </div>
-
-
-        </div>
-
-
-        <div class="form-row">
-
-
-          <div class="form-group">
-
-            <label for="joinPhone">
-              Phone / Mobile
-            </label>
-
-            <input
-              type="tel"
-              id="joinPhone"
-              name="phone"
-              maxlength="20"
-              autocomplete="tel"
-              placeholder="Optional"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="joinRole">
-              Joining As
-            </label>
-
-            <select
-              id="joinRole"
-              name="role"
-              required
-            >
-
-              <option value="">
-                Select
-              </option>
-
-              <option value="member">
-                ARS Member
-              </option>
-
-              <option value="writer">
-                Writer
-              </option>
-
-              <option value="poet">
-                Poet
-              </option>
-
-              <option value="creator">
-                Creator
-              </option>
-
-              <option value="supporter">
-                Supporter
-              </option>
-
-            </select>
-
-          </div>
-
-
-        </div>
-
+      <div class="form-row">
 
         <div class="form-group">
 
-          <label for="joinMessage">
-            About You / Message
+          <label for="joinName">
+            Name / नाम
           </label>
 
-          <textarea
-            id="joinMessage"
-            name="message"
-            maxlength="1500"
-            placeholder="अपने बारे में या ARS से जुड़ने का कारण लिखें..."
+          <input
+            id="joinName"
             required
-          ></textarea>
+            placeholder="आपका नाम"
+          >
 
         </div>
 
 
         <div class="form-group">
 
-          <label>
-            Confirmation
+          <label for="joinEmail">
+            Email
           </label>
 
-          <p
-            style="
-              margin:0;
-              color:#707070;
-              font-size:13px;
-            "
+          <input
+            id="joinEmail"
+            type="email"
+            required
+            placeholder="your@email.com"
           >
-            मैं दी गई जानकारी सही होने की पुष्टि करता/करती हूँ
-            और ARS Official को joining request भेजना चाहता/चाहती हूँ।
-          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="joinAge">
+            Age / उम्र
+          </label>
+
+          <input
+            id="joinAge"
+            type="number"
+            min="1"
+            max="120"
+            required
+          >
 
         </div>
 
 
-        <button
-          type="submit"
-          class="primary-btn full-btn"
+        <div class="form-group">
+
+          <label for="joinInterest">
+            Interest / रुचि
+          </label>
+
+          <select id="joinInterest" required>
+
+            <option value="">
+              Select Interest
+            </option>
+
+            <option>Writer</option>
+            <option>Creator</option>
+            <option>Supporter</option>
+            <option>Shayar</option>
+            <option>Instagram</option>
+            <option>YouTube</option>
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="joinSocial">
+          Instagram / YouTube / Social Link
+        </label>
+
+        <input
+          id="joinSocial"
+          type="url"
+          placeholder="https://..."
         >
-          🤝 Submit Joining Request
-        </button>
+
+      </div>
 
 
-      </form>
+      <div class="form-group">
 
-    </div>
+        <label for="joinMessage">
+          About You / Message
+        </label>
+
+        <textarea
+          id="joinMessage"
+          placeholder="अपने बारे में थोड़ा बताइए..."
+        ></textarea>
+
+      </div>
 
 
-    <!-- =================================================
-         RESULT
-    ================================================== -->
+      <button
+        class="primary-btn"
+        type="submit"
+      >
+        🚀 Submit Joining Request
+      </button>
+
+    </form>
+
 
     <div
       id="joinResult"
-      class="empty-state hidden"
-      style="margin-top:25px;"
-      aria-live="polite"
+      style="margin-top:20px;"
     ></div>
 
+  </div>
 
-  </section>
-
+</section>
 
 </main>
 
-
-
-<!-- =====================================================
-     FOOTER
-====================================================== -->
 
 <footer class="site-footer">
 
   <div class="footer-inner">
 
-
     <div class="footer-brand">
 
-      <img
-        src="logo.png"
-        alt="ARS Official"
-      >
+      <img src="logo.png" alt="ARS Logo">
 
       <div>
 
-        <h3>
-          Adarsh Raj Shayar
-        </h3>
+        <h3>Adarsh Raj Shayar</h3>
 
         <p>
-          ARS Official — Join the Community
+          ARS Official Community
         </p>
 
       </div>
 
     </div>
 
-
-    <div class="footer-links">
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="joining.html">
-        Join ARS
-      </a>
-
-      <a href="certificate.html">
-        Certificate
-      </a>
-
-      <a href="verify.html">
-        Verify
-      </a>
-
-      <a href="founder.html">
-        Founder
-      </a>
-
-      <a href="policy.html">
-        Publisher Policy
-      </a>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-      <p>
-        ©
-        <span id="currentYear"></span>
-        ARS Official. All Rights Reserved.
-      </p>
-
-      <p>
-        Created by Adarsh Raj
-      </p>
-
-    </div>
-
-
   </div>
 
 </footer>
 
-
-
-<!-- =====================================================
-     TOAST
-====================================================== -->
-
-<div
-  class="toast"
-  id="toast"
-  aria-live="polite"
-></div>
-
-
-
-<!-- =====================================================
-     SCRIPT
-====================================================== -->
 
 <script>
 
@@ -430,317 +260,103 @@
 
 
   const form =
-    document.getElementById(
-      "joiningForm"
-    );
+    document.getElementById("joiningForm");
 
 
   const result =
-    document.getElementById(
-      "joinResult"
-    );
+    document.getElementById("joinResult");
 
 
-  const toast =
-    document.getElementById(
-      "toast"
-    );
+  form.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
 
 
-  const menuToggle =
-    document.getElementById(
-      "menuToggle"
-    );
+      const request = {
+
+        id:
+          "ARS-JOIN-" +
+          Date.now(),
+
+        name:
+          document
+            .getElementById("joinName")
+            .value.trim(),
+
+        email:
+          document
+            .getElementById("joinEmail")
+            .value.trim(),
+
+        age:
+          document
+            .getElementById("joinAge")
+            .value,
+
+        interest:
+          document
+            .getElementById("joinInterest")
+            .value,
+
+        social:
+          document
+            .getElementById("joinSocial")
+            .value.trim(),
+
+        message:
+          document
+            .getElementById("joinMessage")
+            .value.trim(),
+
+        status:
+          "Pending",
+
+        createdAt:
+          new Date().toISOString()
+
+      };
 
 
-  const navLinks =
-    document.getElementById(
-      "navLinks"
-    );
+      if (window.ARSStorage) {
 
-
-  function showToast(message) {
-
-    if (!toast) return;
-
-    toast.textContent =
-      String(message || "");
-
-    toast.classList.add(
-      "show"
-    );
-
-
-    setTimeout(
-      function () {
-
-        toast.classList.remove(
-          "show"
+        window.ARSStorage.saveJoinRequest(
+          request
         );
 
-      },
-      2500
-    );
-
-  }
-
-
-  function showResult(
-    id
-  ) {
-
-    if (!result) return;
-
-
-    result.classList.remove(
-      "hidden"
-    );
-
-
-    result.innerHTML = `
-
-      <div style="
-        font-size:38px;
-        margin-bottom:8px;
-      ">
-        ✅
-      </div>
-
-      <h3>
-        Joining Request Submitted
-      </h3>
-
-      <p>
-        आपकी joining request सफलतापूर्वक save हो गई है।
-      </p>
-
-      <p>
-        <strong>Request ID:</strong>
-        ${escapeHTML(id)}
-      </p>
-
-      <p>
-        Status:
-        <strong>Pending</strong>
-      </p>
-
-    `;
-
-
-    result.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
-  }
-
-
-  function escapeHTML(value) {
-
-    const div =
-      document.createElement(
-        "div"
-      );
-
-    div.textContent =
-      value == null
-        ? ""
-        : String(value);
-
-    return div.innerHTML;
-
-  }
-
-
-  if (menuToggle && navLinks) {
-
-    menuToggle.addEventListener(
-      "click",
-      function () {
-
-        const open =
-          navLinks.classList.toggle(
-            "open"
-          );
-
-
-        menuToggle.setAttribute(
-          "aria-expanded",
-          String(open)
-        );
-
-
-        menuToggle.textContent =
-          open
-            ? "✕"
-            : "☰";
-
       }
-    );
 
 
-    navLinks
-      .querySelectorAll("a")
-      .forEach(
-        function (link) {
+      result.innerHTML = `
 
-          link.addEventListener(
-            "click",
-            function () {
+        <div class="empty-state">
 
-              navLinks.classList.remove(
-                "open"
-              );
+          <div>✅</div>
 
-              menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-              );
+          <h3>
+            Joining Request Submitted
+          </h3>
 
-              menuToggle.textContent =
-                "☰";
+          <p>
+            आपका ARS joining request successfully
+            submit हो गया है।
+          </p>
 
-            }
-          );
+          <p>
+            Request ID:
+            <strong>${request.id}</strong>
+          </p>
 
-        }
-      );
+        </div>
 
-  }
+      `;
 
 
-  if (form) {
+      form.reset();
 
-    form.addEventListener(
-      "submit",
-      function (event) {
-
-        event.preventDefault();
-
-
-        const data = {
-
-          name:
-            document
-              .getElementById("joinName")
-              .value
-              .trim(),
-
-          email:
-            document
-              .getElementById("joinEmail")
-              .value
-              .trim(),
-
-          phone:
-            document
-              .getElementById("joinPhone")
-              .value
-              .trim(),
-
-          role:
-            document
-              .getElementById("joinRole")
-              .value
-              .trim(),
-
-          message:
-            document
-              .getElementById("joinMessage")
-              .value
-              .trim()
-
-        };
-
-
-        if (
-          !data.name ||
-          !data.email ||
-          !data.role ||
-          !data.message
-        ) {
-
-          showToast(
-            "कृपया सभी जरूरी जानकारी भरें।"
-          );
-
-          return;
-
-        }
-
-
-        try {
-
-          if (
-            !window.ARS_STORAGE ||
-            typeof window.ARS_STORAGE.saveJoin !==
-              "function"
-          ) {
-
-            throw new Error(
-              "ARS Storage System is not loaded."
-            );
-
-          }
-
-
-          const request =
-            window.ARS_STORAGE.saveJoin(
-              data
-            );
-
-
-          form.reset();
-
-
-          showResult(
-            request.id
-          );
-
-
-          showToast(
-            "✅ Joining request भेज दी गई।"
-          );
-
-
-        } catch (error) {
-
-          console.error(
-            "ARS Joining Error:",
-            error
-          );
-
-
-          showToast(
-            "Request save नहीं हो पाई। कृपया बाद में कोशिश करें।"
-          );
-
-        }
-
-      }
-    );
-
-  }
-
-
-  const year =
-    document.getElementById(
-      "currentYear"
-    );
-
-
-  if (year) {
-
-    year.textContent =
-      new Date().getFullYear();
-
-  }
-
-
-  console.log(
-    "🤝 ARS Joining System Loaded"
+    }
   );
-
 
 })();
 
