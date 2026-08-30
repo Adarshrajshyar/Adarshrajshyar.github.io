@@ -1,217 +1,125 @@
 /* =========================================================
-   ARS OFFICIAL WEBSITE
-   CONFIGURATION
+   ARS OFFICIAL — CONFIGURATION
+   Adarsh Raj Shayar
    ========================================================= */
 
-"use strict";
+(function (window) {
 
-window.ARS_CONFIG = Object.freeze({
+  "use strict";
 
-  VERSION: "5.0.0",
+  const CONFIG = Object.freeze({
 
-  SITE_NAME: "Adarsh Raj Shayar",
+    /* -----------------------------------------------------
+       WEBSITE
+    ----------------------------------------------------- */
 
-  SITE_SHORT_NAME: "ARS",
+    SITE_NAME:
+      "ARS Official",
 
-  FOUNDER: "Adarsh Raj",
-
-  LANGUAGE: "hi",
-
-  WEBSITE_URL: "https://adarshrajshyar.github.io/",
-
-  INSTAGRAM_URL:
-    "https://www.instagram.com/adarshrajshyar/",
-
-  EMAIL: "",
-
-
-  /* -------------------------------------------------------
-     ADMIN / PUBLISHER
-     ------------------------------------------------------- */
-
-  ADMIN_PASSWORD: "ARS2026",
-
-  PUBLISHER_PASSWORD: "Adarsh2026",
-
-
-  /* -------------------------------------------------------
-     ASSETS
-     ------------------------------------------------------- */
-
-  ASSETS: Object.freeze({
-
-    LOGO: "logo.png",
-
-    BANNER: "banner.png",
-
-    FOUNDER_PHOTO: "photo.jpg1.jpeg",
-
-    SIGNATURE: "signature.jpeg",
-
-    WEBSITE_IMAGE: "website.jpeg"
-
-  }),
-
-
-  /* -------------------------------------------------------
-     CERTIFICATE
-     ------------------------------------------------------- */
-
-  CERTIFICATE: Object.freeze({
-
-    PREFIX: "ARS-CERT",
-
-    MEMBER_PREFIX: "ARS-MEMBER",
-
-    ORGANIZATION:
+    SITE_TITLE:
       "Adarsh Raj Shayar",
 
-    FOUNDER:
+    SITE_URL:
+      "https://adarshrajshyar.github.io/",
+
+
+    /* -----------------------------------------------------
+       FOUNDER / PUBLISHER
+    ----------------------------------------------------- */
+
+    FOUNDER_NAME:
       "Adarsh Raj",
 
-    TITLE:
-      "ARS OFFICIAL",
+    PUBLISHER_NAME:
+      "Adarsh Raj",
 
-    WEBSITE:
-      "https://adarshrajshyar.github.io/"
+    ORGANIZATION:
+      "ARS Official",
 
-  }),
+    FOUNDER_ROLE:
+      "Founder & Creator",
 
-
-  /* -------------------------------------------------------
-     SHAYARI CATEGORIES
-     ------------------------------------------------------- */
-
-  SHAYARI_CATEGORIES: Object.freeze([
-
-    {
-      id: "love",
-      hi: "लव शायरी",
-      en: "Love Shayari"
-    },
-
-    {
-      id: "sad",
-      hi: "सैड शायरी",
-      en: "Sad Shayari"
-    },
-
-    {
-      id: "motivational",
-      hi: "मोटिवेशनल शायरी",
-      en: "Motivational Shayari"
-    },
-
-    {
-      id: "friendship",
-      hi: "दोस्ती शायरी",
-      en: "Friendship Shayari"
-    },
-
-    {
-      id: "attitude",
-      hi: "एटीट्यूड शायरी",
-      en: "Attitude Shayari"
-    }
-
-  ]),
+    PUBLISHER_ROLE:
+      "Founder, ARS Official",
 
 
-  /* -------------------------------------------------------
-     STORY CATEGORIES
-     ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       SOCIAL
+    ----------------------------------------------------- */
 
-  STORY_CATEGORIES: Object.freeze([
+    INSTAGRAM_USERNAME:
+      "@adarshrajshyar",
 
-    {
-      id: "mystery",
-      hi: "रहस्य",
-      en: "Mystery"
-    },
-
-    {
-      id: "horror",
-      hi: "हॉरर",
-      en: "Horror"
-    },
-
-    {
-      id: "biography",
-      hi: "जीवनी",
-      en: "Biography"
-    },
-
-    {
-      id: "inspiration",
-      hi: "प्रेरणादायक",
-      en: "Inspiration"
-    },
-
-    {
-      id: "life",
-      hi: "जीवन",
-      en: "Life"
-    },
-
-    {
-      id: "adventure",
-      hi: "रोमांच",
-      en: "Adventure"
-    }
-
-  ]),
+    INSTAGRAM_URL:
+      "https://www.instagram.com/adarshrajshyar/",
 
 
-  /* -------------------------------------------------------
-     STORY TYPES
-     ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       BRAND ASSETS
+    ----------------------------------------------------- */
 
-  STORY_TYPES: Object.freeze([
+    LOGO:
+      "logo.png",
 
-    "story",
+    BANNER:
+      "banner.png",
 
-    "poem"
+    FOUNDER_PHOTO:
+      "photo.jpg1.jpeg",
 
-  ]),
-
-
-  /* -------------------------------------------------------
-     CERTIFICATE TYPES
-     ------------------------------------------------------- */
-
-  CERTIFICATE_TYPES: Object.freeze([
-
-    "Achievement",
-
-    "Participation",
-
-    "Professional",
-
-    "Business",
-
-    "Membership"
-
-  ]),
+    SIGNATURE:
+      "signature.jpg",
 
 
-  /* -------------------------------------------------------
-     EMAILJS
-     ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       CERTIFICATE
+    ----------------------------------------------------- */
 
-  EMAILJS: Object.freeze({
+    CERTIFICATE_PREFIX:
+      "ARS-CERT",
 
-    SERVICE_ID: "service_3h6mmz4",
+    MEMBER_PREFIX:
+      "ARS-MEMBER",
 
-    TEMPLATE_ID: "template_2kzi4j8",
+    JOIN_PREFIX:
+      "ARS-JOIN",
 
-    PUBLIC_KEY: "kEJqwQlbZ03jFbMFC"
-
-  })
-
-});
+    MESSAGE_PREFIX:
+      "ARS-MSG",
 
 
-console.log(
-  "🌹 ARS Configuration Loaded:",
-  window.ARS_CONFIG.VERSION
-);
+    /* -----------------------------------------------------
+       CERTIFICATE TYPES
+    ----------------------------------------------------- */
+
+    CERTIFICATE_TYPES: Object.freeze([
+      "Achievement",
+      "Participation",
+      "Professional",
+      "Business"
+    ]),
+
+
+    /* -----------------------------------------------------
+       DEFAULT PUBLISHER
+    ----------------------------------------------------- */
+
+    DEFAULT_ISSUER:
+      "Adarsh Raj",
+
+    DEFAULT_ORGANIZATION:
+      "ARS Official"
+
+
+  });
+
+
+  window.ARS_CONFIG = CONFIG;
+
+
+  console.log(
+    "⚙️ ARS Configuration Loaded"
+  );
+
+
+})(window);
