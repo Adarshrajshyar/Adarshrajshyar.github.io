@@ -1,175 +1,301 @@
 /* =========================================================
-   ARS OFFICIAL — CONFIGURATION
-   Central Website Settings
+   ARS OFFICIAL
+   CENTRAL CONFIGURATION
    ========================================================= */
 
-"use strict";
+(function () {
 
-(function (window) {
+  "use strict";
 
-  const ARS_CONFIG = {
 
-    /* -------------------------------------------------------
+  window.ARS_CONFIG = {
+
+    /* -----------------------------------------------------
        WEBSITE
-    ------------------------------------------------------- */
+       ----------------------------------------------------- */
 
-    site: {
-      name: "ARS Official",
-      fullName: "Adarsh Raj Shayar",
-      tagline: "Official Website of Adarsh Raj",
-      publisher: "Adarsh Raj",
-      founder: "Adarsh Raj"
-    },
+    siteName: "ARS Official",
 
+    founderName: "Adarsh Raj Shayar",
 
-    /* -------------------------------------------------------
-       SOCIAL MEDIA
-       ------------------------------------------------------- */
-
-    social: {
-      instagram: "https://instagram.com/",
-      facebook: "",
-      youtube: "",
-      github: ""
-    },
+    websiteURL:
+      "https://adarshrajshyar.github.io/",
 
 
-    /* -------------------------------------------------------
-       WEBSITE ASSETS
-       Keep these filenames exactly as your files are named.
-       ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       SOCIAL
+       ----------------------------------------------------- */
+
+    instagram:
+      "https://www.instagram.com/adarshrajshyar/",
+
+
+    /* -----------------------------------------------------
+       IMAGE FILES
+       ----------------------------------------------------- */
 
     assets: {
-      logo: "logo.png",
-      banner: "banner.png",
-      founderPhoto: "photo.jpg1.jpeg"
-      signature: "signature.jpg"
-    },
 
+      logo:
+        "logo.png",
 
-    /* -------------------------------------------------------
-       CERTIFICATE
-       ------------------------------------------------------- */
+      banner:
+        "banner.png",
 
-    certificate: {
+      founderPhoto:
+        "photo.jpg1.jpeg",
 
-      idPrefix: "ARS-CERT",
-
-      issuer: "Adarsh Raj",
-
-      issuerTitle: "Founder & Publisher, ARS Official",
-
-      organization: "ARS Official",
-
-      verificationPage: "verify.html",
-
-      logo: "logo.png",
-
-      signature: "signature.jpg",
-
-      defaultType: "Professional",
-
-      types: [
-        "Professional",
-        "Business",
-        "Achievement",
-        "Participation"
-      ]
+      signature:
+        "signature.jpg"
 
     },
 
 
-    /* -------------------------------------------------------
-       PUBLISHER / ADMIN
-       ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       SHAYARI CATEGORIES
+       ----------------------------------------------------- */
 
-    publisher: {
+    shayariCategories: [
 
-      name: "Adarsh Raj",
+      {
+        id: "sad",
+        name: "Sad",
+        icon: "😔"
+      },
 
-      role: "Founder & Publisher",
+      {
+        id: "love",
+        name: "Love",
+        icon: "❤️"
+      },
 
-      /* Change this password only if you want another one. */
-      password: "ARS@2026"
+      {
+        id: "attitude",
+        name: "Attitude",
+        icon: "😎"
+      },
+
+      {
+        id: "friendship",
+        name: "Friendship",
+        icon: "🤝"
+      },
+
+      {
+        id: "motivation",
+        name: "Motivation",
+        icon: "🔥"
+      }
+
+    ],
+
+
+    /* -----------------------------------------------------
+       STORY CATEGORIES
+       ----------------------------------------------------- */
+
+    storyCategories: [
+
+      {
+        id: "poem",
+        name: "Poem"
+      },
+
+      {
+        id: "horror",
+        name: "Horror"
+      },
+
+      {
+        id: "friendship",
+        name: "Friendship"
+      },
+
+      {
+        id: "emotional",
+        name: "Emotional"
+      },
+
+      {
+        id: "story",
+        name: "Story"
+      },
+
+      {
+        id: "moral",
+        name: "Moral"
+      },
+
+      {
+        id: "mystery",
+        name: "Mystery"
+      },
+
+      {
+        id: "biography",
+        name: "Biography"
+      },
+
+      {
+        id: "motivation",
+        name: "Motivation"
+      }
+
+    ],
+
+
+    /* -----------------------------------------------------
+       CERTIFICATE TYPES
+       ----------------------------------------------------- */
+
+    certificateTypes: [
+
+      "Professional",
+
+      "Achievement",
+
+      "Participation",
+
+      "Business"
+
+    ],
+
+
+    /* -----------------------------------------------------
+       ARS JOINING ROLES
+       ----------------------------------------------------- */
+
+    joiningRoles: [
+
+      "Writer",
+
+      "Creator",
+
+      "Supporter",
+
+      "Shayar",
+
+      "Instagram Related",
+
+      "YouTube Related"
+
+    ],
+
+
+    /* -----------------------------------------------------
+       STORAGE KEYS
+       ----------------------------------------------------- */
+
+    storageKeys: {
+
+      certificates:
+        "ARS_CERTIFICATES",
+
+      joining:
+        "ARS_JOINING_REQUESTS",
+
+      shayari:
+        "ARS_SHAYARI",
+
+      stories:
+        "ARS_STORIES",
+
+      favorites:
+        "ARS_FAVORITES",
+
+      likes:
+        "ARS_LIKES",
+
+      saved:
+        "ARS_SAVED"
 
     },
 
 
-    /* -------------------------------------------------------
-       ADMIN
-       ------------------------------------------------------- */
+    /* -----------------------------------------------------
+       DEFAULT WEBSITE SETTINGS
+       ----------------------------------------------------- */
 
-    admin: {
+    settings: {
 
-      name: "Adarsh Raj",
+      enableLikes: true,
 
-      role: "Administrator",
+      enableFavorites: true,
 
-      password: "ARS@2026"
+      enableSave: true,
 
-    },
+      enableShare: true,
 
+      enableCertificateVerification: true,
 
-    /* -------------------------------------------------------
-       STORAGE
-       ------------------------------------------------------- */
+      enableJoining: true,
 
-    storage: {
+      enablePublisher: true,
 
-      shayari: "ARS_SHAYARI_DATA",
+      enableAdmin: true
 
-      stories: "ARS_STORY_DATA",
-
-      likes: "ARS_LIKES",
-
-      favorites: "ARS_FAVORITES",
-
-      certificates: "ARS_CERTIFICATES",
-
-      joinRequests: "ARS_JOIN_REQUESTS",
-
-      messages: "ARS_CONTACT_MESSAGES"
-
-    },
-
-
-    /* -------------------------------------------------------
-       BRAND
-       ------------------------------------------------------- */
-
-    brand: {
-
-      primary: "#8b1e3f",
-
-      primaryDark: "#64132d",
-
-      gold: "#b88932",
-
-      white: "#ffffff",
-
-      dark: "#171717"
-
-    },
-
-
-    /* -------------------------------------------------------
-       COPYRIGHT
-       ------------------------------------------------------- */
-
-    copyright: {
-      text: "© 2026 ARS Official — Adarsh Raj. All Rights Reserved."
     }
 
   };
 
 
-  /* ---------------------------------------------------------
-     PUBLIC CONFIG
-     --------------------------------------------------------- */
+  /* -------------------------------------------------------
+     MAKE CONFIG EASY TO USE
+     ------------------------------------------------------- */
 
-  window.ARS_CONFIG = Object.freeze(ARS_CONFIG);
+  window.ARS_CONFIG.getAsset =
+    function (name) {
+
+      return (
+        this.assets[name] || ""
+      );
+
+    };
 
 
-  console.log("⚙️ ARS Configuration Loaded");
+  window.ARS_CONFIG.getInstagram =
+    function () {
 
-})(window);
+      return this.instagram;
+
+    };
+
+
+  /* -------------------------------------------------------
+     APPLY CENTRAL SETTINGS
+     ------------------------------------------------------- */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+      const instagram =
+        document.getElementById(
+          "instagramLink"
+        );
+
+      if (instagram) {
+
+        instagram.href =
+          window.ARS_CONFIG.instagram;
+
+      }
+
+
+      const year =
+        document.getElementById(
+          "currentYear"
+        );
+
+      if (year) {
+
+        year.textContent =
+          new Date().getFullYear();
+
+      }
+
+    }
+  );
+
+
+})();
