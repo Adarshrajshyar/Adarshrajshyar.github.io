@@ -1,301 +1,130 @@
 /* =========================================================
-   ARS OFFICIAL
-   CENTRAL CONFIGURATION
+   ARS OFFICIAL — CENTRAL CONFIGURATION
    ========================================================= */
 
-(function () {
+window.ARS_CONFIG = {
 
-  "use strict";
+  /* -------------------------------------------------------
+     WEBSITE
+     ------------------------------------------------------- */
 
+  siteName: "ARS Official",
 
-  window.ARS_CONFIG = {
+  founderName: "Adarsh Raj Shayar",
 
-    /* -----------------------------------------------------
-       WEBSITE
-       ----------------------------------------------------- */
-
-    siteName: "ARS Official",
-
-    founderName: "Adarsh Raj Shayar",
-
-    websiteURL:
-      "https://adarshrajshyar.github.io/",
-
-
-    /* -----------------------------------------------------
-       SOCIAL
-       ----------------------------------------------------- */
-
-    instagram:
-      "https://www.instagram.com/adarshrajshyar/",
-
-
-    /* -----------------------------------------------------
-       IMAGE FILES
-       ----------------------------------------------------- */
-
-    assets: {
-
-      logo:
-        "logo.png",
-
-      banner:
-        "banner.png",
-
-      founderPhoto:
-        "photo.jpg1.jpeg",
-
-      signature:
-        "signature.jpg"
-
-    },
-
-
-    /* -----------------------------------------------------
-       SHAYARI CATEGORIES
-       ----------------------------------------------------- */
-
-    shayariCategories: [
-
-      {
-        id: "sad",
-        name: "Sad",
-        icon: "😔"
-      },
-
-      {
-        id: "love",
-        name: "Love",
-        icon: "❤️"
-      },
-
-      {
-        id: "attitude",
-        name: "Attitude",
-        icon: "😎"
-      },
-
-      {
-        id: "friendship",
-        name: "Friendship",
-        icon: "🤝"
-      },
-
-      {
-        id: "motivation",
-        name: "Motivation",
-        icon: "🔥"
-      }
-
-    ],
-
-
-    /* -----------------------------------------------------
-       STORY CATEGORIES
-       ----------------------------------------------------- */
-
-    storyCategories: [
-
-      {
-        id: "poem",
-        name: "Poem"
-      },
-
-      {
-        id: "horror",
-        name: "Horror"
-      },
-
-      {
-        id: "friendship",
-        name: "Friendship"
-      },
-
-      {
-        id: "emotional",
-        name: "Emotional"
-      },
-
-      {
-        id: "story",
-        name: "Story"
-      },
-
-      {
-        id: "moral",
-        name: "Moral"
-      },
-
-      {
-        id: "mystery",
-        name: "Mystery"
-      },
-
-      {
-        id: "biography",
-        name: "Biography"
-      },
-
-      {
-        id: "motivation",
-        name: "Motivation"
-      }
-
-    ],
-
-
-    /* -----------------------------------------------------
-       CERTIFICATE TYPES
-       ----------------------------------------------------- */
-
-    certificateTypes: [
-
-      "Professional",
-
-      "Achievement",
-
-      "Participation",
-
-      "Business"
-
-    ],
-
-
-    /* -----------------------------------------------------
-       ARS JOINING ROLES
-       ----------------------------------------------------- */
-
-    joiningRoles: [
-
-      "Writer",
-
-      "Creator",
-
-      "Supporter",
-
-      "Shayar",
-
-      "Instagram Related",
-
-      "YouTube Related"
-
-    ],
-
-
-    /* -----------------------------------------------------
-       STORAGE KEYS
-       ----------------------------------------------------- */
-
-    storageKeys: {
-
-      certificates:
-        "ARS_CERTIFICATES",
-
-      joining:
-        "ARS_JOINING_REQUESTS",
-
-      shayari:
-        "ARS_SHAYARI",
-
-      stories:
-        "ARS_STORIES",
-
-      favorites:
-        "ARS_FAVORITES",
-
-      likes:
-        "ARS_LIKES",
-
-      saved:
-        "ARS_SAVED"
-
-    },
-
-
-    /* -----------------------------------------------------
-       DEFAULT WEBSITE SETTINGS
-       ----------------------------------------------------- */
-
-    settings: {
-
-      enableLikes: true,
-
-      enableFavorites: true,
-
-      enableSave: true,
-
-      enableShare: true,
-
-      enableCertificateVerification: true,
-
-      enableJoining: true,
-
-      enablePublisher: true,
-
-      enableAdmin: true
-
-    }
-
-  };
+  websiteUrl:
+    "https://adarshrajshyar.github.io/",
 
 
   /* -------------------------------------------------------
-     MAKE CONFIG EASY TO USE
+     SOCIAL
      ------------------------------------------------------- */
 
-  window.ARS_CONFIG.getAsset =
-    function (name) {
-
-      return (
-        this.assets[name] || ""
-      );
-
-    };
-
-
-  window.ARS_CONFIG.getInstagram =
-    function () {
-
-      return this.instagram;
-
-    };
+  instagramUrl:
+    "https://www.instagram.com/adarshrajshyar/",
 
 
   /* -------------------------------------------------------
-     APPLY CENTRAL SETTINGS
+     IMAGES
      ------------------------------------------------------- */
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+  logo:
+    "logo.png",
 
-      const instagram =
-        document.getElementById(
-          "instagramLink"
-        );
+  banner:
+    "banner.png",
 
-      if (instagram) {
+  founderPhoto:
+    "photo.jpg1.jpeg",
 
-        instagram.href =
-          window.ARS_CONFIG.instagram;
+  signature:
+    "signature.jpg",
 
-      }
-
-
-      const year =
-        document.getElementById(
-          "currentYear"
-        );
-
-      if (year) {
-
-        year.textContent =
-          new Date().getFullYear();
-
-      }
-
-    }
-  );
+  websiteBanner:
+    "website.jpeg",
 
 
-})();
+  /* -------------------------------------------------------
+     ADMIN
+     -------------------------------------------------------
+     अपना वास्तविक Username और Password यहां रखें।
+     ------------------------------------------------------- */
+
+  adminUsername:
+    "CHANGE_ADMIN_USERNAME",
+
+  adminPassword:
+    "CHANGE_ADMIN_PASSWORD",
+
+
+  /* -------------------------------------------------------
+     PUBLISHER
+     -------------------------------------------------------
+     अपना Publisher Username और Password यहां रखें।
+     ------------------------------------------------------- */
+
+  publisherUsername:
+    "CHANGE_PUBLISHER_USERNAME",
+
+  publisherPassword:
+    "CHANGE_PUBLISHER_PASSWORD",
+
+
+  /* -------------------------------------------------------
+     CERTIFICATE
+     ------------------------------------------------------- */
+
+  certificatePrefix:
+    "ARS-CERT-",
+
+
+  /* -------------------------------------------------------
+     SHAYARI CATEGORIES
+     ------------------------------------------------------- */
+
+  shayariCategories: [
+
+    "Sad",
+    "Love",
+    "Attitude",
+    "Friendship",
+    "Motivation"
+
+  ],
+
+
+  /* -------------------------------------------------------
+     STORY CATEGORIES
+     ------------------------------------------------------- */
+
+  storyCategories: [
+
+    "Poem",
+    "Horror",
+    "Friendship",
+    "Emotional",
+    "Story",
+    "Moral",
+    "Mystery",
+    "Biography",
+    "Motivation"
+
+  ],
+
+
+  /* -------------------------------------------------------
+     JOINING INTERESTS
+     ------------------------------------------------------- */
+
+  joiningInterests: [
+
+    "Writer",
+    "Creator",
+    "Supporter",
+    "Shayar",
+    "Instagram Related",
+    "YouTube Related"
+
+  ]
+
+};
