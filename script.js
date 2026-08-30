@@ -1,80 +1,34 @@
 /* =========================================================
-   ARS OFFICIAL — MASTER SCRIPT
-   Main Website Controller
-========================================================= */
+   ARS OFFICIAL
+   MAIN WEBSITE SCRIPT
+   ========================================================= */
 
-"use strict";
+(function () {
 
-(function (window, document) {
-
-  /* =======================================================
-     SHORTCUTS
-  ======================================================== */
-
-  const $ = function (selector) {
-    return document.querySelector(selector);
-  };
-
-  const $$ = function (selector) {
-    return Array.from(document.querySelectorAll(selector));
-  };
+  "use strict";
 
 
   /* =======================================================
-     STATE
-  ======================================================== */
+     SAFE HELPERS
+     ======================================================= */
 
-  const state = {
-
-    shayari: [],
-
-    stories: [],
-
-    shayariSearch: "",
-
-    storySearch: "",
-
-    shayariCategory: "all",
-
-    storyCategory: "all"
-
-  };
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
 
-  /* =======================================================
-     TOAST
-  ======================================================== */
+  const $$ = (selector, parent = document) =>
+    Array.from(
+      parent.querySelectorAll(selector)
+    );
 
-  let toastTimer = null;
-
-  function showToast(message) {
-
-    const toast = $("#toast");
-
-    if (!toast) return;
-
-    toast.textContent = String(message || "");
-
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(function () {
-      toast.classList.remove("show");
-    }, 2500);
-
-  }
-
-
-  /* =======================================================
-     SAFE HTML
-  ======================================================== */
 
   function escapeHTML(value) {
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement("div");
 
-    div.textContent = value == null ? "" : String(value);
+    div.textContent =
+      value ?? "";
 
     return div.innerHTML;
 
@@ -82,1043 +36,89 @@
 
 
   /* =======================================================
-     CONFIG
-  ======================================================== */
+     TOAST
+     ======================================================= */
 
-  function getConfigValue(key, fallback) {
-
-    try {
-
-      if (
-        window.ARS_CONFIG &&
-        Object.prototype.hasOwnProperty.call(
-          window.ARS_CONFIG,
-          key
-        )
-      ) {
-
-        return window.ARS_CONFIG[key];
-
-      }
-
-    } catch (error) {
-
-      console.warn("ARS Config Error:", error);
-
-    }
-
-    return fallback;
-
-  }
+  const toast =
+    $("#toast");
 
 
-  function applyConfig() {
-
-    const instagram = getConfigValue(
-      "INSTAGRAM_URL",
-      ""
-    );
-
-    const instagramLink = $("#instagramLink");
-
-    if (instagramLink && instagram) {
-
-      instagramLink.href = instagram;
-
-    }
-
-  }
+  let toastTimer = null;
 
 
-  /* =======================================================
-     SHAYARI DATA
-  ======================================================== */
+  function showToast(message) {
 
-  function getShayariData() {
+    if (!toast) return;
 
-    try {
 
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.getShayari === "function"
-      ) {
+    toast.textContent =
+      message;
 
-        const data =
-          window.ARS_STORAGE.getShayari();
 
-        return Array.isArray(data)
-          ? data
-          : [];
+    toast.classList.add("show");
 
-      }
 
-    } catch (error) {
+    clearTimeout(toastTimer);
 
-      console.error(
-        "ARS Shayari Load Error:",
-        error
+
+    toastTimer =
+      setTimeout(
+        () => {
+          toast.classList.remove("show");
+        },
+        2200
       );
-
-    }
-
-    return [];
-
-  }
-
-
-  /* =======================================================
-     DEFAULT SHAYARI
-  ======================================================== */
-
-  function initializeShayari() {
-
-    const existing = getShayariData();
-
-    if (existing.length > 0) {
-
-      state.shayari = existing;
-
-      return;
-
-    }
-
-
-    const defaults = [
-
-      {
-        id: "SH-M01",
-        title: "एक छोटी सी बात",
-        category: "life",
-        author: "Adarsh Raj",
-        content:
-          "ज़िंदगी में आगे बढ़ते रहो, छोटे कदम भी एक दिन बड़ी मंज़िल तक ले जाते हैं।"
-      },
-
-      {
-        id: "SH-I01",
-        title: "उम्मीद",
-        category: "motivation",
-        author: "Adarsh Raj",
-        content:
-          "उम्मीद का दिया जलाए रखना, रास्ता कठिन हो तो भी मुस्कुराते रहना।"
-      },
-
-      {
-        id: "SH-F01",
-        title: "दोस्ती",
-        category: "friendship",
-        author: "Adarsh Raj",
-        content:
-          "दोस्ती विश्वास से बनती है और सम्मान से हमेशा मजबूत रहती है।"
-      },
-
-      {
-        id: "SH-L01",
-        title: "ज़िंदगी",
-        category: "life",
-        author: "Adarsh Raj",
-        content:
-          "हर दिन कुछ नया सिखाता है, हर अनुभव हमें थोड़ा और बेहतर बनाता है।"
-      }
-
-    ];
-
-
-    try {
-
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.saveShayari === "function"
-      ) {
-
-        window.ARS_STORAGE.saveShayari(defaults);
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "ARS Shayari Save Error:",
-        error
-      );
-
-    }
-
-
-    state.shayari = defaults;
-
-  }
-
-
-  /* =======================================================
-     STORY DATA
-  ======================================================== */
-
-  function loadStories() {
-
-    try {
-
-      if (
-        window.ARS_STORY &&
-        typeof window.ARS_STORY.all === "function"
-      ) {
-
-        const data =
-          window.ARS_STORY.all();
-
-        state.stories =
-          Array.isArray(data)
-            ? data
-            : [];
-
-        return;
-
-      }
-
-
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.getStories === "function"
-      ) {
-
-        const data =
-          window.ARS_STORAGE.getStories();
-
-        state.stories =
-          Array.isArray(data)
-            ? data
-            : [];
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "ARS Story Load Error:",
-        error
-      );
-
-      state.stories = [];
-
-    }
-
-  }
-
-
-  /* =======================================================
-     LIKE
-  ======================================================== */
-
-  function isLiked(id) {
-
-    try {
-
-      return Boolean(
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.hasLiked === "function" &&
-        window.ARS_STORAGE.hasLiked(id)
-      );
-
-    } catch (error) {
-
-      return false;
-
-    }
-
-  }
-
-
-  function toggleLike(id) {
-
-    try {
-
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.toggleLike === "function"
-      ) {
-
-        const liked =
-          window.ARS_STORAGE.toggleLike(id);
-
-        showToast(
-          liked
-            ? "❤️ Like किया गया"
-            : "Like हटाया गया"
-        );
-
-        renderAll();
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "ARS Like Error:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     FAVORITE
-  ======================================================== */
-
-  function isFavorite(id) {
-
-    try {
-
-      return Boolean(
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.isFavorite === "function" &&
-        window.ARS_STORAGE.isFavorite(id)
-      );
-
-    } catch (error) {
-
-      return false;
-
-    }
-
-  }
-
-
-  function toggleFavorite(id) {
-
-    try {
-
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.toggleFavorite === "function"
-      ) {
-
-        const favorite =
-          window.ARS_STORAGE.toggleFavorite(id);
-
-        showToast(
-          favorite
-            ? "⭐ Favorite में जोड़ा गया"
-            : "Favorite से हटाया गया"
-        );
-
-        renderAll();
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "ARS Favorite Error:",
-        error
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     CARD
-  ======================================================== */
-
-  function createCard(item, options) {
-
-    options = options || {};
-
-    const id =
-      String(item.id || "");
-
-    const title =
-      escapeHTML(item.title || "Untitled");
-
-    const content =
-      escapeHTML(item.content || "");
-
-    const author =
-      escapeHTML(item.author || "Adarsh Raj");
-
-    const category =
-      escapeHTML(item.category || "general");
-
-    const liked =
-      isLiked(id);
-
-    const favorite =
-      isFavorite(id);
-
-
-    const card =
-      document.createElement("article");
-
-    card.className =
-      "content-card";
-
-
-    const tag =
-      document.createElement("span");
-
-    tag.className = "tag";
-
-    tag.textContent =
-      category;
-
-
-    const heading =
-      document.createElement("h3");
-
-    heading.textContent =
-      item.title || "Untitled";
-
-
-    const text =
-      document.createElement("p");
-
-    text.className =
-      "content-text";
-
-    text.textContent =
-      item.content || "";
-
-
-    const authorEl =
-      document.createElement("div");
-
-    authorEl.className =
-      "author";
-
-    authorEl.textContent =
-      "✍️ " + (item.author || "Adarsh Raj");
-
-
-    const actions =
-      document.createElement("div");
-
-    actions.className =
-      "card-actions";
-
-
-    const likeButton =
-      document.createElement("button");
-
-    likeButton.type =
-      "button";
-
-    likeButton.className =
-      "card-action";
-
-    likeButton.innerHTML =
-      liked ? "❤️ Liked" : "♡ Like";
-
-    likeButton.setAttribute(
-      "aria-label",
-      liked
-        ? "Unlike"
-        : "Like"
-    );
-
-    likeButton.addEventListener(
-      "click",
-      function () {
-        toggleLike(id);
-      }
-    );
-
-
-    const favoriteButton =
-      document.createElement("button");
-
-    favoriteButton.type =
-      "button";
-
-    favoriteButton.className =
-      "card-action" +
-      (favorite
-        ? " favorite-active"
-        : "");
-
-    favoriteButton.innerHTML =
-      favorite
-        ? "⭐ Saved"
-        : "☆ Favorite";
-
-    favoriteButton.addEventListener(
-      "click",
-      function () {
-        toggleFavorite(id);
-      }
-    );
-
-
-    actions.appendChild(likeButton);
-
-    actions.appendChild(favoriteButton);
-
-
-    card.appendChild(tag);
-
-    card.appendChild(heading);
-
-    card.appendChild(text);
-
-    card.appendChild(authorEl);
-
-    card.appendChild(actions);
-
-
-    return card;
-
-  }
-
-
-  /* =======================================================
-     EMPTY STATE
-  ======================================================== */
-
-  function emptyState(
-    icon,
-    title,
-    message
-  ) {
-
-    const wrapper =
-      document.createElement("div");
-
-    wrapper.className =
-      "empty-state";
-
-    wrapper.innerHTML = `
-      <div>${escapeHTML(icon)}</div>
-      <h3>${escapeHTML(title)}</h3>
-      <p>${escapeHTML(message)}</p>
-    `;
-
-    return wrapper;
-
-  }
-
-
-  /* =======================================================
-     SHAYARI FILTER
-  ======================================================== */
-
-  function filteredShayari() {
-
-    const search =
-      state.shayariSearch
-        .trim()
-        .toLowerCase();
-
-
-    return state.shayari.filter(
-      function (item) {
-
-        const category =
-          String(
-            item.category || ""
-          ).toLowerCase();
-
-
-        const searchable =
-          [
-            item.title,
-            item.content,
-            item.author,
-            item.category
-          ]
-            .join(" ")
-            .toLowerCase();
-
-
-        const categoryMatch =
-          state.shayariCategory === "all" ||
-          category ===
-            state.shayariCategory;
-
-
-        const searchMatch =
-          !search ||
-          searchable.includes(search);
-
-
-        return (
-          categoryMatch &&
-          searchMatch
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     STORY FILTER
-  ======================================================== */
-
-  function filteredStories() {
-
-    const search =
-      state.storySearch
-        .trim()
-        .toLowerCase();
-
-
-    return state.stories.filter(
-      function (item) {
-
-        const category =
-          String(
-            item.category || ""
-          ).toLowerCase();
-
-        const type =
-          String(
-            item.type || ""
-          ).toLowerCase();
-
-
-        const searchable =
-          [
-            item.title,
-            item.content,
-            item.author,
-            item.category,
-            item.type
-          ]
-            .join(" ")
-            .toLowerCase();
-
-
-        let categoryMatch = true;
-
-
-        if (
-          state.storyCategory !== "all"
-        ) {
-
-          if (
-            state.storyCategory === "story"
-          ) {
-
-            categoryMatch =
-              type === "story";
-
-          } else if (
-            state.storyCategory === "poetry"
-          ) {
-
-            categoryMatch =
-              type === "poem" ||
-              category === "poetry";
-
-          } else {
-
-            categoryMatch =
-              category ===
-              state.storyCategory;
-
-          }
-
-        }
-
-
-        const searchMatch =
-          !search ||
-          searchable.includes(search);
-
-
-        return (
-          categoryMatch &&
-          searchMatch
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     RENDER SHAYARI
-  ======================================================== */
-
-  function renderShayari() {
-
-    const grid =
-      $("#shayariGrid");
-
-    if (!grid) return;
-
-    grid.innerHTML = "";
-
-
-    const items =
-      filteredShayari();
-
-
-    if (!items.length) {
-
-      grid.appendChild(
-        emptyState(
-          "✍️",
-          "कोई Shayari नहीं मिली",
-          "Search या category बदलकर फिर कोशिश करें।"
-        )
-      );
-
-      return;
-
-    }
-
-
-    items.forEach(
-      function (item) {
-
-        grid.appendChild(
-          createCard(item)
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     RENDER STORIES
-  ======================================================== */
-
-  function renderStories() {
-
-    const grid =
-      $("#storyGrid");
-
-    if (!grid) return;
-
-    grid.innerHTML = "";
-
-
-    const items =
-      filteredStories();
-
-
-    if (!items.length) {
-
-      grid.appendChild(
-        emptyState(
-          "📖",
-          "कोई Story नहीं मिली",
-          "Search या category बदलकर फिर कोशिश करें।"
-        )
-      );
-
-      return;
-
-    }
-
-
-    items.forEach(
-      function (item) {
-
-        grid.appendChild(
-          createCard(item)
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     FAVORITES
-  ======================================================== */
-
-  function renderFavorites() {
-
-    const grid =
-      $("#favoritesGrid");
-
-    if (!grid) return;
-
-    grid.innerHTML = "";
-
-
-    let favoriteIDs = [];
-
-
-    try {
-
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.favorites === "function"
-      ) {
-
-        favoriteIDs =
-          window.ARS_STORAGE.favorites();
-
-      }
-
-    } catch (error) {
-
-      favoriteIDs = [];
-
-    }
-
-
-    if (!Array.isArray(favoriteIDs)) {
-
-      favoriteIDs = [];
-
-    }
-
-
-    const allItems =
-      state.shayari.concat(
-        state.stories
-      );
-
-
-    const favorites =
-      allItems.filter(
-        function (item) {
-
-          return favoriteIDs.includes(
-            String(item.id)
-          );
-
-        }
-      );
-
-
-    if (!favorites.length) {
-
-      grid.appendChild(
-        emptyState(
-          "⭐",
-          "Favorites खाली हैं",
-          "किसी Shayari या Story पर Favorite दबाएँ।"
-        )
-      );
-
-      return;
-
-    }
-
-
-    favorites.forEach(
-      function (item) {
-
-        grid.appendChild(
-          createCard(item)
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     RENDER ALL
-  ======================================================== */
-
-  function renderAll() {
-
-    loadStories();
-
-    renderShayari();
-
-    renderStories();
-
-    renderFavorites();
-
-  }
-
-
-  /* =======================================================
-     CATEGORY BUTTONS
-  ======================================================== */
-
-  function setupCategoryButtons() {
-
-    $$("#shayariCategories .category-btn")
-      .forEach(
-        function (button) {
-
-          button.addEventListener(
-            "click",
-            function () {
-
-              $$("#shayariCategories .category-btn")
-                .forEach(
-                  function (item) {
-                    item.classList.remove("active");
-                  }
-                );
-
-
-              button.classList.add(
-                "active"
-              );
-
-
-              state.shayariCategory =
-                button.dataset.category ||
-                "all";
-
-
-              renderShayari();
-
-            }
-          );
-
-        }
-      );
-
-
-    $$("#storyCategories .category-btn")
-      .forEach(
-        function (button) {
-
-          button.addEventListener(
-            "click",
-            function () {
-
-              $$("#storyCategories .category-btn")
-                .forEach(
-                  function (item) {
-                    item.classList.remove("active");
-                  }
-                );
-
-
-              button.classList.add(
-                "active"
-              );
-
-
-              state.storyCategory =
-                button.dataset.category ||
-                "all";
-
-
-              renderStories();
-
-            }
-          );
-
-        }
-      );
-
-  }
-
-
-  /* =======================================================
-     SEARCH
-  ======================================================== */
-
-  function setupSearch() {
-
-    const shayariSearch =
-      $("#shayariSearch");
-
-    if (shayariSearch) {
-
-      shayariSearch.addEventListener(
-        "input",
-        function () {
-
-          state.shayariSearch =
-            shayariSearch.value || "";
-
-          renderShayari();
-
-        }
-      );
-
-    }
-
-
-    const storySearch =
-      $("#storySearch");
-
-    if (storySearch) {
-
-      storySearch.addEventListener(
-        "input",
-        function () {
-
-          state.storySearch =
-            storySearch.value || "";
-
-          renderStories();
-
-        }
-      );
-
-    }
 
   }
 
 
   /* =======================================================
      MOBILE NAVIGATION
-  ======================================================== */
+     ======================================================= */
 
-  function setupNavigation() {
-
-    const toggle =
-      $("#menuToggle");
-
-    const nav =
-      $("#navLinks");
-
-    if (!toggle || !nav) return;
+  const menuToggle =
+    $("#menuToggle");
 
 
-    toggle.addEventListener(
+  const navLinks =
+    $("#navLinks");
+
+
+  if (menuToggle && navLinks) {
+
+    menuToggle.addEventListener(
       "click",
       function () {
 
-        const open =
-          nav.classList.toggle("open");
+        const isOpen =
+          navLinks.classList.toggle("open");
 
 
-        toggle.setAttribute(
+        menuToggle.setAttribute(
           "aria-expanded",
-          String(open)
+          String(isOpen)
         );
-
-
-        toggle.textContent =
-          open ? "✕" : "☰";
 
       }
     );
 
 
-    $$("#navLinks a")
+    $$(".nav-links a")
       .forEach(
-        function (link) {
+        link => {
 
           link.addEventListener(
             "click",
-            function () {
+            () => {
 
-              nav.classList.remove(
+              navLinks.classList.remove(
                 "open"
               );
 
-              toggle.setAttribute(
+              menuToggle.setAttribute(
                 "aria-expanded",
                 "false"
               );
-
-              toggle.textContent =
-                "☰";
 
             }
           );
@@ -1130,173 +130,384 @@
 
 
   /* =======================================================
-     CONTACT FORM
-  ======================================================== */
+     YEAR
+     ======================================================= */
 
-  function setupContactForm() {
-
-    const form =
-      $("#contactForm");
-
-    if (!form) return;
+  const currentYear =
+    $("#currentYear");
 
 
-    form.addEventListener(
-      "submit",
-      function (event) {
+  if (currentYear) {
 
-        event.preventDefault();
+    currentYear.textContent =
+      new Date().getFullYear();
+
+  }
 
 
-        const name =
-          $("#contactName")?.value.trim();
+  /* =======================================================
+     SHAYARI DATA
+     ======================================================= */
 
-        const email =
-          $("#contactEmail")?.value.trim();
+  const defaultShayari = [
 
-        const subject =
-          $("#contactSubject")?.value.trim();
+    {
+      id: "love-001",
+      category: "Love",
+      text:
+        "कुछ रिश्ते शब्दों से नहीं,\nदिल की सच्चाई से पहचाने जाते हैं।"
+    },
 
-        const message =
-          $("#contactMessage")?.value.trim();
+    {
+      id: "love-002",
+      category: "Love",
+      text:
+        "जहाँ सम्मान और भरोसा हो,\nवहीं रिश्ता सबसे खूबसूरत होता है।"
+    },
 
+
+    {
+      id: "sad-001",
+      category: "Sad",
+      text:
+        "कभी-कभी खामोशी भी बहुत कुछ कह जाती है,\nबस समझने वाला चाहिए।"
+    },
+
+    {
+      id: "sad-002",
+      category: "Sad",
+      text:
+        "हर उदासी हमेशा नहीं रहती,\nसमय बदलता है और रास्ते भी।"
+    },
+
+
+    {
+      id: "attitude-001",
+      category: "Attitude",
+      text:
+        "अपनी पहचान बनाने निकले हैं,\nभीड़ में खोने नहीं।"
+    },
+
+    {
+      id: "attitude-002",
+      category: "Attitude",
+      text:
+        "रास्ते अपने चुनते हैं,\nमंज़िल समय के साथ मिलती है।"
+    },
+
+
+    {
+      id: "friendship-001",
+      category: "Friendship",
+      text:
+        "सच्ची दोस्ती दूरी नहीं देखती,\nवह भरोसा देखती है।"
+    },
+
+    {
+      id: "friendship-002",
+      category: "Friendship",
+      text:
+        "दोस्ती छोटी बातों से नहीं,\nमुश्किल समय में साथ देने से बड़ी होती है।"
+    },
+
+
+    {
+      id: "motivation-001",
+      category: "Motivation",
+      text:
+        "आज की छोटी मेहनत,\nकल की बड़ी सफलता की शुरुआत हो सकती है।"
+    },
+
+    {
+      id: "motivation-002",
+      category: "Motivation",
+      text:
+        "रुकना विकल्प हो सकता है,\nलेकिन कोशिश करना हमेशा तुम्हारे हाथ में है।"
+    }
+
+  ];
+
+
+  /* =======================================================
+     LOAD SHAYARI
+     ======================================================= */
+
+  function getShayariData() {
+
+    let published = [];
+
+
+    /*
+      Publisher system बाद में storage.js के माध्यम से
+      published Shayari उपलब्ध करा सकता है।
+    */
+
+    try {
+
+      if (
+        window.ARS_STORAGE &&
+        typeof
+          window.ARS_STORAGE.getShayari ===
+          "function"
+      ) {
+
+        const stored =
+          window.ARS_STORAGE.getShayari();
+
+
+        if (Array.isArray(stored)) {
+
+          published =
+            stored;
+
+        }
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Unable to load stored Shayari:",
+        error
+      );
+
+    }
+
+
+    /*
+      LocalStorage compatibility fallback
+    */
+
+    if (!published.length) {
+
+      try {
+
+        const raw =
+          localStorage.getItem(
+            "ARS_SHAYARI"
+          );
+
+
+        const parsed =
+          JSON.parse(
+            raw || "[]"
+          );
+
+
+        if (Array.isArray(parsed)) {
+
+          published =
+            parsed;
+
+        }
+
+      } catch (error) {
+
+        console.warn(
+          "ARS_SHAYARI storage unavailable."
+        );
+
+      }
+
+    }
+
+
+    /*
+      Default content + published content
+    */
+
+    return [
+      ...defaultShayari,
+      ...published
+    ];
+
+  }
+
+
+  /* =======================================================
+     USER INTERACTION STORAGE
+     ======================================================= */
+
+  function getJSON(key, fallback) {
+
+    try {
+
+      const value =
+        localStorage.getItem(key);
+
+
+      return value
+        ? JSON.parse(value)
+        : fallback;
+
+    } catch {
+
+      return fallback;
+
+    }
+
+  }
+
+
+  function saveJSON(key, value) {
+
+    try {
+
+      localStorage.setItem(
+        key,
+        JSON.stringify(value)
+      );
+
+      return true;
+
+    } catch {
+
+      return false;
+
+    }
+
+  }
+
+
+  function getLikes() {
+
+    return getJSON(
+      "ARS_LIKES",
+      {}
+    );
+
+  }
+
+
+  function getFavorites() {
+
+    return getJSON(
+      "ARS_FAVORITES",
+      {}
+    );
+
+  }
+
+
+  function toggleLike(id) {
+
+    const likes =
+      getLikes();
+
+
+    likes[id] =
+      !Boolean(likes[id]);
+
+
+    saveJSON(
+      "ARS_LIKES",
+      likes
+    );
+
+
+    return likes[id];
+
+  }
+
+
+  function toggleFavorite(id) {
+
+    const favorites =
+      getFavorites();
+
+
+    favorites[id] =
+      !Boolean(favorites[id]);
+
+
+    saveJSON(
+      "ARS_FAVORITES",
+      favorites
+    );
+
+
+    return favorites[id];
+
+  }
+
+
+  /* =======================================================
+     SHARE
+     ======================================================= */
+
+  async function shareShayari(item) {
+
+    const shareText =
+      `${item.text}\n\n— ARS Official`;
+
+
+    const shareURL =
+      `${window.location.origin}${window.location.pathname}#shayari-${encodeURIComponent(item.id)}`;
+
+
+    if (
+      navigator.share
+    ) {
+
+      try {
+
+        await navigator.share({
+
+          title:
+            "ARS Official Shayari",
+
+          text:
+            shareText,
+
+          url:
+            shareURL
+
+        });
+
+
+        return;
+
+      } catch (error) {
+
+        /*
+          User cancelled sharing.
+          No error message required.
+        */
 
         if (
-          !name ||
-          !email ||
-          !subject ||
-          !message
+          error &&
+          error.name === "AbortError"
         ) {
-
-          showToast(
-            "कृपया सभी fields भरें।"
-          );
 
           return;
 
         }
 
-
-        try {
-
-          if (
-            window.ARS_STORAGE &&
-            typeof window.ARS_STORAGE.saveMessage ===
-              "function"
-          ) {
-
-            window.ARS_STORAGE.saveMessage({
-
-              name: name,
-
-              email: email,
-
-              subject: subject,
-
-              message: message
-
-            });
-
-          }
-
-
-          form.reset();
-
-
-          showToast(
-            "✅ आपका message सुरक्षित रूप से save हो गया।"
-          );
-
-
-        } catch (error) {
-
-          console.error(
-            "ARS Contact Error:",
-            error
-          );
-
-          showToast(
-            "Message save नहीं हो पाया।"
-          );
-
-        }
-
       }
-    );
 
-  }
-
-
-  /* =======================================================
-     BACK TO TOP
-  ======================================================== */
-
-  function setupBackTop() {
-
-    const button =
-      $("#backTop");
-
-    if (!button) return;
+    }
 
 
-    window.addEventListener(
-      "scroll",
-      function () {
+    /*
+      Fallback: copy content
+    */
 
-        if (
-          window.scrollY > 450
-        ) {
+    try {
 
-          button.classList.add(
-            "show"
-          );
-
-        } else {
-
-          button.classList.remove(
-            "show"
-          );
-
-        }
-
-      },
-      {
-        passive: true
-      }
-    );
+      await navigator.clipboard.writeText(
+        `${shareText}\n${shareURL}`
+      );
 
 
-    button.addEventListener(
-      "click",
-      function () {
+      showToast(
+        "Shayari link और text copy हो गया।"
+      );
 
-        window.scrollTo({
+    } catch {
 
-          top: 0,
-
-          behavior: "smooth"
-
-        });
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     YEAR
-  ======================================================== */
-
-  function setupYear() {
-
-    const year =
-      $("#currentYear");
-
-    if (year) {
-
-      year.textContent =
-        new Date().getFullYear();
+      showToast(
+        "Share करने के लिए browser का share option इस्तेमाल करें।"
+      );
 
     }
 
@@ -1304,98 +515,323 @@
 
 
   /* =======================================================
-     LOADER
-  ======================================================== */
+     SHAYARI RENDER
+     ======================================================= */
 
-  function hideLoader() {
-
-    const loader =
-      $("#pageLoader");
-
-    if (!loader) return;
+  const shayariContainer =
+    $("#shayariContainer");
 
 
-    setTimeout(
-      function () {
+  let activeCategory =
+    "Love";
 
-        loader.classList.add(
-          "hide"
-        );
 
-      },
-      400
+  function renderShayari(category) {
+
+    if (!shayariContainer) {
+      return;
+    }
+
+
+    const allShayari =
+      getShayariData();
+
+
+    const filtered =
+      allShayari.filter(
+        item =>
+          String(item.category)
+            .toLowerCase() ===
+          String(category)
+            .toLowerCase()
+      );
+
+
+    if (!filtered.length) {
+
+      shayariContainer.innerHTML = `
+
+        <div class="empty-state">
+
+          <h3>
+            अभी इस category में Shayari उपलब्ध नहीं है।
+          </h3>
+
+          <p>
+            Publisher से नई Shayari publish होने पर
+            यहाँ दिखाई देगी।
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    const likes =
+      getLikes();
+
+
+    const favorites =
+      getFavorites();
+
+
+    shayariContainer.innerHTML =
+      filtered
+        .map(
+          item => {
+
+            const liked =
+              Boolean(
+                likes[item.id]
+              );
+
+
+            const saved =
+              Boolean(
+                favorites[item.id]
+              );
+
+
+            return `
+
+              <article
+                class="shayari-card"
+                id="shayari-${escapeHTML(item.id)}"
+              >
+
+                <div class="shayari-category">
+                  ${escapeHTML(item.category)}
+                </div>
+
+
+                <div class="shayari-text">
+                  ${escapeHTML(item.text)}
+                </div>
+
+
+                <div class="shayari-actions">
+
+                  <button
+                    type="button"
+                    class="action-btn ${liked ? "like-active" : ""}"
+                    data-action="like"
+                    data-id="${escapeHTML(item.id)}"
+                    aria-pressed="${liked}"
+                  >
+                    ${liked ? "❤️ Liked" : "♡ Like"}
+                  </button>
+
+
+                  <button
+                    type="button"
+                    class="action-btn ${saved ? "active" : ""}"
+                    data-action="favorite"
+                    data-id="${escapeHTML(item.id)}"
+                    aria-pressed="${saved}"
+                  >
+                    ${saved ? "⭐ Saved" : "☆ Save"}
+                  </button>
+
+
+                  <button
+                    type="button"
+                    class="action-btn"
+                    data-action="share"
+                    data-id="${escapeHTML(item.id)}"
+                  >
+                    ↗ Share
+                  </button>
+
+                </div>
+
+              </article>
+
+            `;
+
+          }
+        )
+        .join("");
+
+  }
+
+
+  /* =======================================================
+     CATEGORY SWITCH
+     ======================================================= */
+
+  const categoryButtons =
+    $$(".category-btn");
+
+
+  categoryButtons.forEach(
+    button => {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          categoryButtons.forEach(
+            btn =>
+              btn.classList.remove(
+                "active"
+              )
+          );
+
+
+          this.classList.add(
+            "active"
+          );
+
+
+          activeCategory =
+            this.dataset.category;
+
+
+          renderShayari(
+            activeCategory
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =======================================================
+     SHAYARI ACTIONS
+     ======================================================= */
+
+  if (shayariContainer) {
+
+    shayariContainer.addEventListener(
+      "click",
+      async function (event) {
+
+        const button =
+          event.target.closest(
+            "[data-action]"
+          );
+
+
+        if (!button) {
+          return;
+        }
+
+
+        const action =
+          button.dataset.action;
+
+
+        const id =
+          button.dataset.id;
+
+
+        const item =
+          getShayariData()
+            .find(
+              shayari =>
+                String(shayari.id) ===
+                String(id)
+            );
+
+
+        if (!item) {
+          return;
+        }
+
+
+        if (action === "like") {
+
+          const liked =
+            toggleLike(id);
+
+
+          button.classList.toggle(
+            "like-active",
+            liked
+          );
+
+
+          button.setAttribute(
+            "aria-pressed",
+            String(liked)
+          );
+
+
+          button.textContent =
+            liked
+              ? "❤️ Liked"
+              : "♡ Like";
+
+
+          showToast(
+            liked
+              ? "Shayari liked ❤️"
+              : "Like हटाया गया।"
+          );
+
+        }
+
+
+        if (action === "favorite") {
+
+          const saved =
+            toggleFavorite(id);
+
+
+          button.classList.toggle(
+            "active",
+            saved
+          );
+
+
+          button.setAttribute(
+            "aria-pressed",
+            String(saved)
+          );
+
+
+          button.textContent =
+            saved
+              ? "⭐ Saved"
+              : "☆ Save";
+
+
+          showToast(
+            saved
+              ? "Favorite में save हो गया ⭐"
+              : "Favorite से हटाया गया।"
+          );
+
+        }
+
+
+        if (action === "share") {
+
+          await shareShayari(
+            item
+          );
+
+        }
+
+      }
     );
 
   }
 
 
   /* =======================================================
-     INIT
-  ======================================================== */
+     INITIAL LOAD
+     ======================================================= */
 
-  function init() {
-
-    initializeShayari();
-
-    loadStories();
-
-    applyConfig();
-
-    setupNavigation();
-
-    setupCategoryButtons();
-
-    setupSearch();
-
-    setupContactForm();
-
-    setupBackTop();
-
-    setupYear();
-
-    renderAll();
-
-    hideLoader();
-
-    console.log(
-      "✅ ARS Master Script Loaded"
-    );
-
-  }
+  renderShayari(
+    activeCategory
+  );
 
 
-  /* =======================================================
-     DOM READY
-  ======================================================== */
-
-  if (
-    document.readyState ===
-    "loading"
-  ) {
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      init
-    );
-
-  } else {
-
-    init();
-
-  }
-
-
-  /* =======================================================
-     PUBLIC API
-  ======================================================== */
-
-  window.ARS_APP = {
-
-    refresh: renderAll,
-
-    toast: showToast
-
-  };
-
-
-})(window, document);
+})();
