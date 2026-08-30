@@ -1,1 +1,456 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Join ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <nav class="navbar">
+
+    <a class="brand" href="index.html">
+
+      <img
+        class="brand-logo"
+        src="logo.png"
+        alt="ARS Official Logo"
+      >
+
+      <span>
+        <strong>ARS Official</strong>
+        <small>Adarsh Raj Shayar</small>
+      </span>
+
+    </a>
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Open Menu"
+    >
+      ☰
+    </button>
+
+    <div class="nav-links" id="navLinks">
+
+      <a href="index.html">Home</a>
+      <a href="joining.html" class="active">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="founder.html">Founder</a>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+<main>
+
+  <section class="section">
+
+    <div class="section-heading">
+
+      <span>ARS OFFICIAL</span>
+
+      <h1>Join ARS</h1>
+
+      <p>
+        ARS Official से जुड़ने के लिए नीचे दिया गया form भरें।
+        आपकी request सुरक्षित रूप से इस browser में save होगी।
+      </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+      <form id="joinForm" autocomplete="off">
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="joinName">
+              Name / नाम
+            </label>
+
+            <input
+              id="joinName"
+              name="name"
+              type="text"
+              placeholder="अपना नाम लिखें"
+              required
+              maxlength="100"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="joinEmail">
+              Email / ईमेल
+            </label>
+
+            <input
+              id="joinEmail"
+              name="email"
+              type="email"
+              placeholder="example@email.com"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="joinPhone">
+              Phone / मोबाइल
+            </label>
+
+            <input
+              id="joinPhone"
+              name="phone"
+              type="tel"
+              placeholder="मोबाइल नंबर"
+              maxlength="20"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="joinRole">
+              Interested As / भूमिका
+            </label>
+
+            <select
+              id="joinRole"
+              name="role"
+              required
+            >
+
+              <option value="">
+                Select
+              </option>
+
+              <option value="Writer">
+                Writer / लेखक
+              </option>
+
+              <option value="Poet">
+                Poet / कवि
+              </option>
+
+              <option value="Creator">
+                Creator / Creator
+              </option>
+
+              <option value="Volunteer">
+                Volunteer
+              </option>
+
+              <option value="Member">
+                ARS Member
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="joinMessage">
+            Message / संदेश
+          </label>
+
+          <textarea
+            id="joinMessage"
+            name="message"
+            placeholder="ARS से जुड़ने के बारे में कुछ लिखें..."
+            maxlength="1000"
+            required
+          ></textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="primary-btn full-btn"
+        >
+          ✨ Submit Join Request
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-heading">
+
+      <span>WHY ARS?</span>
+
+      <h2>ARS Official Community</h2>
+
+      <p>
+        लेखन, कविता, कहानियों और creative work को एक जगह
+        प्रस्तुत करने का मंच।
+      </p>
+
+    </div>
+
+
+    <div class="content-grid">
+
+      <article class="content-card">
+
+        <span class="tag">Writing</span>
+
+        <h3>अपना लेखन साझा करें</h3>
+
+        <p class="content-text">
+          अपनी कविता, शायरी और रचनात्मक लेखन को
+          ARS platform पर प्रस्तुत करने का अवसर।
+        </p>
+
+      </article>
+
+
+      <article class="content-card">
+
+        <span class="tag">Community</span>
+
+        <h3>ARS Community</h3>
+
+        <p class="content-text">
+          समान रुचि रखने वाले creators और readers
+          के साथ जुड़ने का माध्यम।
+        </p>
+
+      </article>
+
+
+      <article class="content-card">
+
+        <span class="tag">Certificate</span>
+
+        <h3>Certificate Support</h3>
+
+        <p class="content-text">
+          योग्य activities और achievements के लिए
+          ARS Certificate system उपलब्ध रहेगा।
+        </p>
+
+      </article>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+      >
+
+      <div>
+
+        <h3>Adarsh Raj Shayar</h3>
+
+        <p>
+          ARS Official — Join Community
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="founder.html">Founder</a>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © 2026 ARS Official. All Rights Reserved.
+      </p>
+
+      <p>
+        Publisher: Adarsh Raj
+      </p>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<div
+  id="toast"
+  class="toast"
+  aria-live="polite"
+></div>
+
+
+<script>
+
+(function () {
+
+  "use strict";
+
+  const form = document.getElementById("joinForm");
+  const toast = document.getElementById("toast");
+
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+
+
+  function showToast(message) {
+
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(function () {
+      toast.classList.remove("show");
+    }, 3000);
+
+  }
+
+
+  if (menuToggle && navLinks) {
+
+    menuToggle.addEventListener("click", function () {
+
+      navLinks.classList.toggle("open");
+
+    });
+
+  }
+
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    if (
+      !window.ARS_STORAGE ||
+      typeof window.ARS_STORAGE.saveJoin !== "function"
+    ) {
+
+      showToast("Storage system उपलब्ध नहीं है।");
+      return;
+
+    }
+
+
+    const data = {
+
+      name:
+        document.getElementById("joinName").value.trim(),
+
+      email:
+        document.getElementById("joinEmail").value.trim(),
+
+      phone:
+        document.getElementById("joinPhone").value.trim(),
+
+      role:
+        document.getElementById("joinRole").value,
+
+      message:
+        document.getElementById("joinMessage").value.trim()
+
+    };
+
+
+    if (!data.name || !data.email || !data.role || !data.message) {
+
+      showToast("कृपया सभी आवश्यक जानकारी भरें।");
+      return;
+
+    }
+
+
+    try {
+
+      const request =
+        window.ARS_STORAGE.saveJoin(data);
+
+
+      form.reset();
+
+
+      showToast(
+        "✅ Join Request सफलतापूर्वक भेज दी गई। ID: " +
+        request.id
+      );
+
+
+    } catch (error) {
+
+      console.error(
+        "ARS Join Error:",
+        error
+      );
+
+      showToast(
+        "Request save नहीं हो सकी।"
+      );
+
+    }
+
+  });
+
+})();
+
+</script>
+
+</body>
+</html>
