@@ -51,10 +51,10 @@ window.ARS_CONFIG = {
      ------------------------------------------------------- */
 
   adminUsername:
-    "CHANGE_ADMIN_USERNAME",
+    "ARS",
 
   adminPassword:
-    "CHANGE_ADMIN_PASSWORD",
+    "ARS@2026",
 
 
   /* -------------------------------------------------------
@@ -64,10 +64,10 @@ window.ARS_CONFIG = {
      ------------------------------------------------------- */
 
   publisherUsername:
-    "CHANGE_PUBLISHER_USERNAME",
+    "ARS",
 
   publisherPassword:
-    "CHANGE_PUBLISHER_PASSWORD",
+    "ARS@2026",
 
 
   /* -------------------------------------------------------
