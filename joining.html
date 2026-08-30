@@ -2,54 +2,105 @@
 <html lang="hi">
 
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Join ARS Official</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <link rel="stylesheet" href="style.css">
+  <title>
+    Join ARS Official
+  </title>
+
+  <meta
+    name="description"
+    content="Join ARS Official community."
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
   <script src="config.js"></script>
   <script src="storage.js"></script>
+
 </head>
 
+
 <body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
 
 <header class="site-header">
 
   <nav class="navbar">
 
-    <a class="brand" href="index.html">
+    <a
+      href="index.html"
+      class="brand"
+    >
 
       <img
-        class="brand-logo"
         src="logo.png"
         alt="ARS Official Logo"
+        class="brand-logo"
       >
 
       <span>
+
         <strong>ARS Official</strong>
+
         <small>Adarsh Raj Shayar</small>
+
       </span>
 
     </a>
 
+
     <button
+      type="button"
       class="menu-toggle"
       id="menuToggle"
-      type="button"
-      aria-label="Open Menu"
+      aria-label="Open navigation"
+      aria-expanded="false"
     >
       ☰
     </button>
 
-    <div class="nav-links" id="navLinks">
 
-      <a href="index.html">Home</a>
-      <a href="joining.html" class="active">Join ARS</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="verify.html">Verify</a>
-      <a href="founder.html">Founder</a>
+    <div
+      class="nav-links"
+      id="navLinks"
+    >
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a
+        href="joining.html"
+        class="active"
+      >
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="founder.html">
+        Founder
+      </a>
 
     </div>
 
@@ -58,43 +109,62 @@
 </header>
 
 
+
+<!-- =====================================================
+     MAIN
+====================================================== -->
+
 <main>
+
 
   <section class="section">
 
     <div class="section-heading">
 
-      <span>ARS OFFICIAL</span>
+      <span>
+        JOIN ARS OFFICIAL
+      </span>
 
-      <h1>Join ARS</h1>
+      <h1>
+        ARS Community से जुड़ें
+      </h1>
 
       <p>
-        ARS Official से जुड़ने के लिए नीचे दिया गया form भरें।
-        आपकी request सुरक्षित रूप से इस browser में save होगी।
+        अपनी basic information भरकर ARS joining request
+        भेजें। Request को ARS system में सुरक्षित किया जाएगा।
       </p>
 
     </div>
 
 
+    <!-- =================================================
+         JOIN FORM
+    ================================================== -->
+
     <div class="form-card">
 
-      <form id="joinForm" autocomplete="off">
+      <form
+        id="joiningForm"
+        autocomplete="on"
+      >
+
 
         <div class="form-row">
+
 
           <div class="form-group">
 
             <label for="joinName">
-              Name / नाम
+              Full Name / पूरा नाम
             </label>
 
             <input
+              type="text"
               id="joinName"
               name="name"
-              type="text"
-              placeholder="अपना नाम लिखें"
-              required
               maxlength="100"
+              required
+              autocomplete="name"
             >
 
           </div>
@@ -103,36 +173,40 @@
           <div class="form-group">
 
             <label for="joinEmail">
-              Email / ईमेल
+              Email
             </label>
 
             <input
+              type="email"
               id="joinEmail"
               name="email"
-              type="email"
-              placeholder="example@email.com"
+              maxlength="150"
               required
+              autocomplete="email"
             >
 
           </div>
+
 
         </div>
 
 
         <div class="form-row">
 
+
           <div class="form-group">
 
             <label for="joinPhone">
-              Phone / मोबाइल
+              Phone / Mobile
             </label>
 
             <input
+              type="tel"
               id="joinPhone"
               name="phone"
-              type="tel"
-              placeholder="मोबाइल नंबर"
               maxlength="20"
+              autocomplete="tel"
+              placeholder="Optional"
             >
 
           </div>
@@ -141,7 +215,7 @@
           <div class="form-group">
 
             <label for="joinRole">
-              Interested As / भूमिका
+              Joining As
             </label>
 
             <select
@@ -154,29 +228,30 @@
                 Select
               </option>
 
-              <option value="Writer">
-                Writer / लेखक
-              </option>
-
-              <option value="Poet">
-                Poet / कवि
-              </option>
-
-              <option value="Creator">
-                Creator / Creator
-              </option>
-
-              <option value="Volunteer">
-                Volunteer
-              </option>
-
-              <option value="Member">
+              <option value="member">
                 ARS Member
+              </option>
+
+              <option value="writer">
+                Writer
+              </option>
+
+              <option value="poet">
+                Poet
+              </option>
+
+              <option value="creator">
+                Creator
+              </option>
+
+              <option value="supporter">
+                Supporter
               </option>
 
             </select>
 
           </div>
+
 
         </div>
 
@@ -184,16 +259,36 @@
         <div class="form-group">
 
           <label for="joinMessage">
-            Message / संदेश
+            About You / Message
           </label>
 
           <textarea
             id="joinMessage"
             name="message"
-            placeholder="ARS से जुड़ने के बारे में कुछ लिखें..."
-            maxlength="1000"
+            maxlength="1500"
+            placeholder="अपने बारे में या ARS से जुड़ने का कारण लिखें..."
             required
           ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Confirmation
+          </label>
+
+          <p
+            style="
+              margin:0;
+              color:#707070;
+              font-size:13px;
+            "
+          >
+            मैं दी गई जानकारी सही होने की पुष्टि करता/करती हूँ
+            और ARS Official को joining request भेजना चाहता/चाहती हूँ।
+          </p>
 
         </div>
 
@@ -202,99 +297,58 @@
           type="submit"
           class="primary-btn full-btn"
         >
-          ✨ Submit Join Request
+          🤝 Submit Joining Request
         </button>
+
 
       </form>
 
     </div>
 
+
+    <!-- =================================================
+         RESULT
+    ================================================== -->
+
+    <div
+      id="joinResult"
+      class="empty-state hidden"
+      style="margin-top:25px;"
+      aria-live="polite"
+    ></div>
+
+
   </section>
 
-
-  <section class="section">
-
-    <div class="section-heading">
-
-      <span>WHY ARS?</span>
-
-      <h2>ARS Official Community</h2>
-
-      <p>
-        लेखन, कविता, कहानियों और creative work को एक जगह
-        प्रस्तुत करने का मंच।
-      </p>
-
-    </div>
-
-
-    <div class="content-grid">
-
-      <article class="content-card">
-
-        <span class="tag">Writing</span>
-
-        <h3>अपना लेखन साझा करें</h3>
-
-        <p class="content-text">
-          अपनी कविता, शायरी और रचनात्मक लेखन को
-          ARS platform पर प्रस्तुत करने का अवसर।
-        </p>
-
-      </article>
-
-
-      <article class="content-card">
-
-        <span class="tag">Community</span>
-
-        <h3>ARS Community</h3>
-
-        <p class="content-text">
-          समान रुचि रखने वाले creators और readers
-          के साथ जुड़ने का माध्यम।
-        </p>
-
-      </article>
-
-
-      <article class="content-card">
-
-        <span class="tag">Certificate</span>
-
-        <h3>Certificate Support</h3>
-
-        <p class="content-text">
-          योग्य activities और achievements के लिए
-          ARS Certificate system उपलब्ध रहेगा।
-        </p>
-
-      </article>
-
-    </div>
-
-  </section>
 
 </main>
 
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
 
 <footer class="site-footer">
 
   <div class="footer-inner">
 
+
     <div class="footer-brand">
 
       <img
         src="logo.png"
-        alt="ARS Logo"
+        alt="ARS Official"
       >
 
       <div>
 
-        <h3>Adarsh Raj Shayar</h3>
+        <h3>
+          Adarsh Raj Shayar
+        </h3>
 
         <p>
-          ARS Official — Join Community
+          ARS Official — Join the Community
         </p>
 
       </div>
@@ -304,11 +358,29 @@
 
     <div class="footer-links">
 
-      <a href="index.html">Home</a>
-      <a href="joining.html">Join ARS</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="verify.html">Verify</a>
-      <a href="founder.html">Founder</a>
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="founder.html">
+        Founder
+      </a>
+
+      <a href="policy.html">
+        Publisher Policy
+      </a>
 
     </div>
 
@@ -316,26 +388,39 @@
     <div class="footer-bottom">
 
       <p>
-        © 2026 ARS Official. All Rights Reserved.
+        ©
+        <span id="currentYear"></span>
+        ARS Official. All Rights Reserved.
       </p>
 
       <p>
-        Publisher: Adarsh Raj
+        Created by Adarsh Raj
       </p>
 
     </div>
+
 
   </div>
 
 </footer>
 
 
+
+<!-- =====================================================
+     TOAST
+====================================================== -->
+
 <div
-  id="toast"
   class="toast"
+  id="toast"
   aria-live="polite"
 ></div>
 
+
+
+<!-- =====================================================
+     SCRIPT
+====================================================== -->
 
 <script>
 
@@ -343,114 +428,324 @@
 
   "use strict";
 
-  const form = document.getElementById("joinForm");
-  const toast = document.getElementById("toast");
 
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
+  const form =
+    document.getElementById(
+      "joiningForm"
+    );
+
+
+  const result =
+    document.getElementById(
+      "joinResult"
+    );
+
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+
+  const menuToggle =
+    document.getElementById(
+      "menuToggle"
+    );
+
+
+  const navLinks =
+    document.getElementById(
+      "navLinks"
+    );
 
 
   function showToast(message) {
 
     if (!toast) return;
 
-    toast.textContent = message;
-    toast.classList.add("show");
+    toast.textContent =
+      String(message || "");
 
-    setTimeout(function () {
-      toast.classList.remove("show");
-    }, 3000);
+    toast.classList.add(
+      "show"
+    );
+
+
+    setTimeout(
+      function () {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      },
+      2500
+    );
+
+  }
+
+
+  function showResult(
+    id
+  ) {
+
+    if (!result) return;
+
+
+    result.classList.remove(
+      "hidden"
+    );
+
+
+    result.innerHTML = `
+
+      <div style="
+        font-size:38px;
+        margin-bottom:8px;
+      ">
+        ✅
+      </div>
+
+      <h3>
+        Joining Request Submitted
+      </h3>
+
+      <p>
+        आपकी joining request सफलतापूर्वक save हो गई है।
+      </p>
+
+      <p>
+        <strong>Request ID:</strong>
+        ${escapeHTML(id)}
+      </p>
+
+      <p>
+        Status:
+        <strong>Pending</strong>
+      </p>
+
+    `;
+
+
+    result.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  }
+
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.textContent =
+      value == null
+        ? ""
+        : String(value);
+
+    return div.innerHTML;
 
   }
 
 
   if (menuToggle && navLinks) {
 
-    menuToggle.addEventListener("click", function () {
+    menuToggle.addEventListener(
+      "click",
+      function () {
 
-      navLinks.classList.toggle("open");
+        const open =
+          navLinks.classList.toggle(
+            "open"
+          );
 
-    });
+
+        menuToggle.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+
+        menuToggle.textContent =
+          open
+            ? "✕"
+            : "☰";
+
+      }
+    );
+
+
+    navLinks
+      .querySelectorAll("a")
+      .forEach(
+        function (link) {
+
+          link.addEventListener(
+            "click",
+            function () {
+
+              navLinks.classList.remove(
+                "open"
+              );
+
+              menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+              );
+
+              menuToggle.textContent =
+                "☰";
+
+            }
+          );
+
+        }
+      );
 
   }
 
 
-  form.addEventListener("submit", function (event) {
+  if (form) {
 
-    event.preventDefault();
+    form.addEventListener(
+      "submit",
+      function (event) {
 
-    if (
-      !window.ARS_STORAGE ||
-      typeof window.ARS_STORAGE.saveJoin !== "function"
-    ) {
-
-      showToast("Storage system उपलब्ध नहीं है।");
-      return;
-
-    }
+        event.preventDefault();
 
 
-    const data = {
+        const data = {
 
-      name:
-        document.getElementById("joinName").value.trim(),
+          name:
+            document
+              .getElementById("joinName")
+              .value
+              .trim(),
 
-      email:
-        document.getElementById("joinEmail").value.trim(),
+          email:
+            document
+              .getElementById("joinEmail")
+              .value
+              .trim(),
 
-      phone:
-        document.getElementById("joinPhone").value.trim(),
+          phone:
+            document
+              .getElementById("joinPhone")
+              .value
+              .trim(),
 
-      role:
-        document.getElementById("joinRole").value,
+          role:
+            document
+              .getElementById("joinRole")
+              .value
+              .trim(),
 
-      message:
-        document.getElementById("joinMessage").value.trim()
+          message:
+            document
+              .getElementById("joinMessage")
+              .value
+              .trim()
 
-    };
-
-
-    if (!data.name || !data.email || !data.role || !data.message) {
-
-      showToast("कृपया सभी आवश्यक जानकारी भरें।");
-      return;
-
-    }
-
-
-    try {
-
-      const request =
-        window.ARS_STORAGE.saveJoin(data);
-
-
-      form.reset();
+        };
 
 
-      showToast(
-        "✅ Join Request सफलतापूर्वक भेज दी गई। ID: " +
-        request.id
-      );
+        if (
+          !data.name ||
+          !data.email ||
+          !data.role ||
+          !data.message
+        ) {
+
+          showToast(
+            "कृपया सभी जरूरी जानकारी भरें।"
+          );
+
+          return;
+
+        }
 
 
-    } catch (error) {
+        try {
 
-      console.error(
-        "ARS Join Error:",
-        error
-      );
+          if (
+            !window.ARS_STORAGE ||
+            typeof window.ARS_STORAGE.saveJoin !==
+              "function"
+          ) {
 
-      showToast(
-        "Request save नहीं हो सकी।"
-      );
+            throw new Error(
+              "ARS Storage System is not loaded."
+            );
 
-    }
+          }
 
-  });
+
+          const request =
+            window.ARS_STORAGE.saveJoin(
+              data
+            );
+
+
+          form.reset();
+
+
+          showResult(
+            request.id
+          );
+
+
+          showToast(
+            "✅ Joining request भेज दी गई।"
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "ARS Joining Error:",
+            error
+          );
+
+
+          showToast(
+            "Request save नहीं हो पाई। कृपया बाद में कोशिश करें।"
+          );
+
+        }
+
+      }
+    );
+
+  }
+
+
+  const year =
+    document.getElementById(
+      "currentYear"
+    );
+
+
+  if (year) {
+
+    year.textContent =
+      new Date().getFullYear();
+
+  }
+
+
+  console.log(
+    "🤝 ARS Joining System Loaded"
+  );
+
 
 })();
 
 </script>
+
 
 </body>
 </html>
