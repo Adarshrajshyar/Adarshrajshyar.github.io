@@ -1,1 +1,560 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>ARS Official — Publisher</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="story.js"></script>
+
+  <style>
+    .publisher-page {
+      width: min(1050px, calc(100% - 32px));
+      margin: auto;
+      padding: 75px 0;
+    }
+
+    .publisher-hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .publisher-hero .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .publisher-hero h1 {
+      margin: 0;
+      color: var(--dark);
+      font-size: clamp(32px, 5vw, 48px);
+    }
+
+    .publisher-hero p {
+      max-width: 700px;
+      margin: 12px auto 0;
+      color: var(--muted);
+    }
+
+    .publisher-card {
+      max-width: 850px;
+      margin: auto;
+      padding: 32px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .publisher-card h2 {
+      margin: 0 0 22px;
+      color: var(--primary);
+    }
+
+    .publisher-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .publisher-full {
+      grid-column: 1 / -1;
+    }
+
+    .publisher-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .publisher-message {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+      display: none;
+    }
+
+    .publisher-message.show {
+      display: block;
+    }
+
+    .publisher-info {
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 17px;
+      background: var(--gold-light);
+      border: 1px solid #ead9aa;
+    }
+
+    .publisher-info strong {
+      color: var(--primary);
+    }
+
+    @media (max-width: 700px) {
+      .publisher-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .publisher-full {
+        grid-column: auto;
+      }
+
+      .publisher-card {
+        padding: 22px 17px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+<header class="site-header">
+
+  <nav class="navbar">
+
+    <a class="brand" href="index.html">
+
+      <img
+        class="brand-logo"
+        src="logo.png"
+        alt="ARS Official Logo"
+      >
+
+      <span>
+        <strong>ARS Official</strong>
+        <small>Adarsh Raj Shayar</small>
+      </span>
+
+    </a>
+
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Open navigation"
+    >
+      ☰
+    </button>
+
+
+    <div class="nav-links" id="navLinks">
+
+      <a href="index.html">Home</a>
+
+      <a href="joining.html">Join ARS</a>
+
+      <a href="certificate.html">Certificate</a>
+
+      <a href="verify.html">Verify</a>
+
+      <a href="founder.html">Founder</a>
+
+      <a class="active" href="publisher.html">Publisher</a>
+
+      <a href="policy.html">Policy</a>
+
+      <a href="admin.html">Admin</a>
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+<main class="publisher-page">
+
+  <section class="publisher-hero">
+
+    <span class="eyebrow">
+      ARS OFFICIAL • PUBLISHER
+    </span>
+
+    <h1>
+      Publisher Panel
+    </h1>
+
+    <p>
+      ARS Official पर Stories, Poetry और अन्य creative content
+      को व्यवस्थित तरीके से publish करने के लिए publisher area।
+    </p>
+
+  </section>
+
+
+  <section class="publisher-card">
+
+    <h2>
+      ✍️ Publish New Content
+    </h2>
+
+
+    <form id="publisherForm">
+
+      <div class="publisher-grid">
+
+        <div class="form-group">
+
+          <label for="publisherTitle">
+            Title / शीर्षक
+          </label>
+
+          <input
+            id="publisherTitle"
+            type="text"
+            placeholder="Content का title"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="publisherType">
+            Type / प्रकार
+          </label>
+
+          <select id="publisherType">
+
+            <option value="story">
+              Story
+            </option>
+
+            <option value="poem">
+              Poetry
+            </option>
+
+            <option value="biography">
+              Biography
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="publisherCategory">
+            Category / श्रेणी
+          </label>
+
+          <select id="publisherCategory">
+
+            <option value="life">
+              Life
+            </option>
+
+            <option value="mystery">
+              Mystery
+            </option>
+
+            <option value="horror">
+              Horror
+            </option>
+
+            <option value="inspiration">
+              Inspiration
+            </option>
+
+            <option value="education">
+              Education
+            </option>
+
+            <option value="friendship">
+              Friendship
+            </option>
+
+            <option value="poetry">
+              Poetry
+            </option>
+
+            <option value="biography">
+              Biography
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="publisherAuthor">
+            Author / लेखक
+          </label>
+
+          <input
+            id="publisherAuthor"
+            type="text"
+            value="Adarsh Raj"
+            placeholder="Author name"
+          >
+
+        </div>
+
+
+        <div class="form-group publisher-full">
+
+          <label for="publisherContent">
+            Content / सामग्री
+          </label>
+
+          <textarea
+            id="publisherContent"
+            placeholder="अपनी Story, Poetry या Biography यहाँ लिखें..."
+            required
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="publisher-actions">
+
+        <button
+          type="submit"
+          class="primary-btn"
+        >
+          🚀 Publish Content
+        </button>
+
+        <a
+          href="index.html#stories"
+          class="outline-btn"
+        >
+          📖 View Content
+        </a>
+
+      </div>
+
+    </form>
+
+
+    <div
+      id="publisherMessage"
+      class="publisher-message"
+      aria-live="polite"
+    ></div>
+
+
+    <div class="publisher-info">
+
+      <strong>Publisher Note:</strong>
+
+      <br>
+
+      Published content इस website के local ARS content database
+      में save होगा। बाद में इसी structure को online database से
+      connect किया जा सकता है।
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+      >
+
+      <div>
+
+        <h3>
+          Adarsh Raj Shayar
+        </h3>
+
+        <p>
+          ARS Official — Publisher
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <a href="index.html">Home</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="policy.html">Policy</a>
+      <a href="admin.html">Admin</a>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © <span id="footerYear"></span> ARS Official
+      </p>
+
+      <p>
+        Published by Adarsh Raj
+      </p>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+(function () {
+
+  "use strict";
+
+
+  const form =
+    document.getElementById("publisherForm");
+
+  const message =
+    document.getElementById("publisherMessage");
+
+
+  function showMessage(text) {
+
+    message.textContent = text;
+
+    message.classList.add("show");
+
+  }
+
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+
+    if (
+      !window.ARS_STORY ||
+      typeof window.ARS_STORY.publish !== "function"
+    ) {
+
+      showMessage(
+        "Publisher system load नहीं हो पाया। कृपया storage.js और story.js check करें।"
+      );
+
+      return;
+
+    }
+
+
+    try {
+
+      const item =
+        window.ARS_STORY.publish({
+
+          title:
+            document.getElementById(
+              "publisherTitle"
+            ).value,
+
+          type:
+            document.getElementById(
+              "publisherType"
+            ).value,
+
+          category:
+            document.getElementById(
+              "publisherCategory"
+            ).value,
+
+          author:
+            document.getElementById(
+              "publisherAuthor"
+            ).value,
+
+          content:
+            document.getElementById(
+              "publisherContent"
+            ).value
+
+        });
+
+
+      showMessage(
+        "✅ Content successfully published — ID: " +
+        item.id
+      );
+
+
+      form.reset();
+
+      document.getElementById(
+        "publisherAuthor"
+      ).value = "Adarsh Raj";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "❌ Content publish नहीं हो पाया। कृपया सभी fields check करें।"
+      );
+
+    }
+
+  });
+
+
+  document.getElementById(
+    "footerYear"
+  ).textContent = new Date().getFullYear();
+
+
+  const menu =
+    document.getElementById("menuToggle");
+
+  const nav =
+    document.getElementById("navLinks");
+
+
+  menu.addEventListener("click", function () {
+
+    nav.classList.toggle("open");
+
+  });
+
+
+})();
+
+</script>
+
+</body>
+</html>
