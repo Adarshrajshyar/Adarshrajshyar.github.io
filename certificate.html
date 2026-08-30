@@ -10,582 +10,13 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>ARS Official — Certificate Generator</title>
+  <title>ARS Certificate</title>
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 
   <script src="config.js"></script>
-
   <script src="storage.js"></script>
-
   <script src="certificate.js"></script>
-
-  <!-- QR Code Library -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-    defer
-  ></script>
-
-  <style>
-
-    /* =====================================================
-       CERTIFICATE PAGE
-    ===================================================== */
-
-    .certificate-page {
-      width: min(1100px, calc(100% - 32px));
-      margin: auto;
-      padding: 75px 0;
-    }
-
-    .certificate-heading {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 35px;
-    }
-
-    .certificate-heading .eyebrow {
-      display: inline-block;
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-
-    .certificate-heading h1 {
-      margin: 0;
-      color: var(--dark);
-      font-size: clamp(32px, 5vw, 48px);
-      line-height: 1.2;
-    }
-
-    .certificate-heading p {
-      margin: 12px auto 0;
-      color: var(--muted);
-      max-width: 680px;
-    }
-
-    /* Generator Card */
-
-    .certificate-generator-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow-md);
-      padding: 30px;
-    }
-
-    .certificate-form-title {
-      margin: 0 0 22px;
-      color: var(--dark);
-      font-size: 23px;
-    }
-
-    .certificate-form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .certificate-form-full {
-      grid-column: 1 / -1;
-    }
-
-    .certificate-form-group {
-      margin-bottom: 4px;
-    }
-
-    .certificate-form-group label {
-      display: block;
-      margin-bottom: 6px;
-      color: #333;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .certificate-form-group input,
-    .certificate-form-group select {
-      width: 100%;
-      padding: 12px 13px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      outline: none;
-      background: white;
-      color: var(--dark);
-    }
-
-    .certificate-form-group input:focus,
-    .certificate-form-group select:focus {
-      border-color: var(--primary);
-      box-shadow:
-        0 0 0 3px
-        rgba(139, 30, 63, .09);
-    }
-
-    .certificate-business-fields {
-      display: none;
-      grid-column: 1 / -1;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      padding: 17px;
-      margin-top: 4px;
-      background: var(--gold-light);
-      border: 1px solid #ead9aa;
-      border-radius: 14px;
-    }
-
-    .certificate-business-fields.show {
-      display: grid;
-    }
-
-    .certificate-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 23px;
-    }
-
-    .certificate-message {
-      margin-top: 15px;
-      padding: 12px 15px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      display: none;
-    }
-
-    .certificate-message.show {
-      display: block;
-    }
-
-    .certificate-message.error {
-      color: #9b1c1c;
-      background: #fff0f0;
-      border: 1px solid #f0caca;
-    }
-
-    .certificate-message.success {
-      color: #256b3a;
-      background: #eefaf1;
-      border: 1px solid #c9e7d1;
-    }
-
-
-    /* =====================================================
-       CERTIFICATE PREVIEW
-    ===================================================== */
-
-    .certificate-preview-wrapper {
-      display: none;
-      margin-top: 45px;
-    }
-
-    .certificate-preview-wrapper.show {
-      display: block;
-    }
-
-    .certificate-preview-title {
-      text-align: center;
-      margin-bottom: 18px;
-    }
-
-    .certificate-preview-title h2 {
-      margin: 0;
-      color: var(--dark);
-      font-size: 28px;
-    }
-
-    .certificate-preview-title p {
-      margin: 5px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-
-    /* Actual printable certificate */
-
-    .ars-certificate {
-      position: relative;
-
-      width: 100%;
-      max-width: 1000px;
-      min-height: 700px;
-
-      margin: auto;
-      padding: 45px 55px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #fffdf8,
-          #ffffff 45%,
-          #faf3f5
-        );
-
-      border: 8px solid var(--primary);
-      outline: 2px solid var(--gold);
-      outline-offset: -16px;
-
-      box-shadow: var(--shadow-md);
-
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .ars-certificate::before {
-      content: "";
-      position: absolute;
-      inset: 25px;
-      border: 1px solid rgba(184, 137, 50, .5);
-      pointer-events: none;
-    }
-
-    .certificate-logo {
-      position: relative;
-      z-index: 2;
-
-      width: 82px;
-      height: 82px;
-
-      margin: 0 auto 12px;
-
-      object-fit: contain;
-      border-radius: 10px;
-    }
-
-    .certificate-small-title {
-      position: relative;
-      z-index: 2;
-
-      color: var(--gold);
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 3px;
-    }
-
-    .certificate-main-title {
-      position: relative;
-      z-index: 2;
-
-      margin: 8px 0 2px;
-
-      color: var(--primary);
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: clamp(34px, 5vw, 58px);
-      line-height: 1.1;
-    }
-
-    .certificate-subtitle {
-      position: relative;
-      z-index: 2;
-
-      color: #666;
-      font-size: 15px;
-    }
-
-    .certificate-presented {
-      position: relative;
-      z-index: 2;
-
-      margin-top: 28px;
-
-      color: #666;
-      font-size: 14px;
-    }
-
-    .certificate-name {
-      position: relative;
-      z-index: 2;
-
-      margin: 8px 0 7px;
-
-      color: var(--dark);
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: clamp(30px, 5vw, 48px);
-      font-weight: 700;
-    }
-
-    .certificate-description {
-      position: relative;
-      z-index: 2;
-
-      max-width: 720px;
-
-      margin: 0 auto;
-
-      color: #555;
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    .certificate-business {
-      position: relative;
-      z-index: 2;
-
-      margin: 18px auto 0;
-
-      max-width: 650px;
-
-      padding: 12px 18px;
-
-      background: rgba(248, 239, 217, .65);
-
-      border: 1px solid #ead9aa;
-      border-radius: 10px;
-    }
-
-    .certificate-business div {
-      margin: 3px 0;
-      font-size: 14px;
-    }
-
-    .certificate-business strong {
-      color: var(--primary);
-    }
-
-    .certificate-footer {
-      position: relative;
-      z-index: 2;
-
-      display: grid;
-
-      grid-template-columns:
-        1fr
-        1fr
-        1fr;
-
-      align-items: end;
-
-      gap: 20px;
-
-      margin-top: 55px;
-    }
-
-    .certificate-date,
-    .certificate-id-box,
-    .certificate-signature {
-      min-height: 90px;
-    }
-
-    .certificate-date,
-    .certificate-id-box {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .certificate-footer-label {
-      color: #777;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .certificate-footer-value {
-      margin-top: 4px;
-      color: var(--dark);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .certificate-signature img {
-      width: 130px;
-      height: 55px;
-
-      margin: 0 auto 3px;
-
-      object-fit: contain;
-    }
-
-    .signature-line {
-      width: 150px;
-      height: 1px;
-      margin: auto;
-      background: #444;
-    }
-
-    .certificate-signature strong {
-      display: block;
-      margin-top: 5px;
-      color: var(--dark);
-      font-size: 12px;
-    }
-
-    .certificate-qr-area {
-      position: relative;
-      z-index: 2;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 10px;
-
-      margin-top: 25px;
-    }
-
-    #certificateQR {
-      width: 82px;
-      height: 82px;
-
-      padding: 5px;
-
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 7px;
-    }
-
-    #certificateQR img,
-    #certificateQR canvas {
-      width: 70px !important;
-      height: 70px !important;
-    }
-
-    .certificate-qr-text {
-      max-width: 180px;
-      text-align: left;
-    }
-
-    .certificate-qr-text strong {
-      display: block;
-      color: var(--primary);
-      font-size: 11px;
-    }
-
-    .certificate-qr-text small {
-      display: block;
-      margin-top: 3px;
-      color: #777;
-      font-size: 9px;
-      line-height: 1.4;
-    }
-
-
-    /* =====================================================
-       MOBILE
-    ===================================================== */
-
-    @media (max-width: 780px) {
-
-      .certificate-page {
-        width: calc(100% - 22px);
-        padding: 60px 0;
-      }
-
-      .certificate-generator-card {
-        padding: 20px 16px;
-      }
-
-      .certificate-form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .certificate-business-fields {
-        grid-template-columns: 1fr;
-      }
-
-      .certificate-form-full {
-        grid-column: auto;
-      }
-
-      .ars-certificate {
-        min-height: auto;
-        padding: 35px 22px;
-        border-width: 6px;
-      }
-
-      .ars-certificate::before {
-        inset: 17px;
-      }
-
-      .certificate-footer {
-        grid-template-columns: 1fr;
-        gap: 25px;
-        margin-top: 35px;
-      }
-
-      .certificate-date,
-      .certificate-id-box,
-      .certificate-signature {
-        min-height: auto;
-      }
-
-      .certificate-qr-area {
-        flex-direction: column;
-      }
-
-      .certificate-qr-text {
-        text-align: center;
-      }
-
-    }
-
-
-    /* =====================================================
-       PRINT
-    ===================================================== */
-
-    @media print {
-
-      body {
-        background: white;
-      }
-
-      .site-header,
-      .site-footer,
-      .certificate-heading,
-      .certificate-generator-card,
-      .certificate-preview-title,
-      .back-top,
-      .toast {
-        display: none !important;
-      }
-
-      .certificate-page {
-        width: 100%;
-        max-width: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .certificate-preview-wrapper {
-        display: block !important;
-        margin: 0;
-      }
-
-      .ars-certificate {
-        width: 100%;
-        max-width: none;
-        min-height: 100vh;
-
-        margin: 0;
-
-        box-shadow: none;
-
-        page-break-inside: avoid;
-      }
-
-      @page {
-        size: A4 landscape;
-        margin: 8mm;
-      }
-
-    }
-
-  </style>
 
 </head>
 
@@ -593,18 +24,11 @@
 <body>
 
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
 <header class="site-header">
 
   <nav class="navbar">
 
-    <a
-      class="brand"
-      href="index.html"
-    >
+    <a class="brand" href="index.html">
 
       <img
         class="brand-logo"
@@ -614,13 +38,9 @@
 
       <span>
 
-        <strong>
-          ARS Official
-        </strong>
+        <strong>ARS Official</strong>
 
-        <small>
-          Adarsh Raj Shayar
-        </small>
+        <small>Adarsh Raj Shayar</small>
 
       </span>
 
@@ -629,132 +49,77 @@
 
     <div class="nav-links">
 
-      <a href="index.html">
-        Home
-      </a>
+      <a href="index.html">Home</a>
 
-      <a href="joining.html">
-        Join ARS
-      </a>
+      <a href="joining.html">Join ARS</a>
 
-      <a
-        class="active"
-        href="certificate.html"
-      >
+      <a class="active" href="certificate.html">
         Certificate
       </a>
 
-      <a href="verify.html">
-        Verify
-      </a>
+      <a href="verify.html">Verify</a>
 
-      <a href="founder.html">
-        Founder
-      </a>
+      <a href="founder.html">Founder</a>
 
     </div>
-
-
-    <button
-      class="menu-toggle"
-      type="button"
-      aria-label="Open Menu"
-    >
-      ☰
-    </button>
 
   </nav>
 
 </header>
 
 
+<main>
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
+<section class="section">
 
-<main class="certificate-page">
+  <div class="section-heading">
 
+    <span>ARS OFFICIAL</span>
 
-  <section class="certificate-heading">
-
-    <span class="eyebrow">
-      ARS OFFICIAL
-    </span>
-
-    <h1>
-      🏆 Certificate Generator
-    </h1>
+    <h2>Certificate Generator</h2>
 
     <p>
-      ARS Official का professional certificate बनाएँ,
-      unique Certificate ID और QR verification के साथ।
+      अपना ARS Certificate तैयार करें।
     </p>
 
-  </section>
+  </div>
 
 
+  <div class="form-card">
 
-  <!-- ===================================================
-       GENERATOR
-  =================================================== -->
+    <form id="certificateForm">
 
-  <section class="certificate-generator-card">
+      <div class="form-row">
 
-    <h2 class="certificate-form-title">
-      Certificate Details
-    </h2>
-
-
-    <form
-      id="certificateForm"
-      autocomplete="off"
-    >
-
-      <div class="certificate-form-grid">
-
-
-        <!-- Name -->
-
-        <div class="certificate-form-group">
+        <div class="form-group">
 
           <label for="certificateName">
             Name / नाम
           </label>
 
           <input
-            type="text"
             id="certificateName"
-            placeholder="नाम दर्ज करें"
             required
+            placeholder="पूरा नाम"
           >
 
         </div>
 
 
-        <!-- Certificate Type -->
-
-        <div class="certificate-form-group">
+        <div class="form-group">
 
           <label for="certificateType">
             Certificate Type
           </label>
 
-          <select
-            id="certificateType"
-            required
-          >
+          <select id="certificateType" required>
 
             <option value="">
-              Select Certificate Type
+              Select Type
             </option>
 
             <option value="Professional">
               Professional
-            </option>
-
-            <option value="Business">
-              Business
             </option>
 
             <option value="Achievement">
@@ -765,26 +130,31 @@
               Participation
             </option>
 
+            <option value="Business">
+              Business
+            </option>
+
           </select>
 
         </div>
 
+      </div>
 
-        <!-- Business fields -->
 
-        <div
-          id="businessFields"
-          class="certificate-business-fields"
-        >
+      <div
+        id="businessFields"
+        class="hidden"
+      >
 
-          <div class="certificate-form-group">
+        <div class="form-row">
+
+          <div class="form-group">
 
             <label for="businessName">
               Business Name
             </label>
 
             <input
-              type="text"
               id="businessName"
               placeholder="Business Name"
             >
@@ -792,14 +162,13 @@
           </div>
 
 
-          <div class="certificate-form-group">
+          <div class="form-group">
 
             <label for="businessOwner">
-              Owner / Founder Name
+              Owner / Founder
             </label>
 
             <input
-              type="text"
               id="businessOwner"
               placeholder="Owner / Founder Name"
             >
@@ -808,282 +177,30 @@
 
         </div>
 
-
-        <!-- Publisher Password -->
-
-        <div class="certificate-form-group certificate-form-full">
-
-          <label for="publisherPassword">
-            Publisher Password
-          </label>
-
-          <input
-            type="password"
-            id="publisherPassword"
-            placeholder="Publisher password दर्ज करें"
-            autocomplete="new-password"
-            required
-          >
-
-        </div>
-
-
       </div>
 
 
-      <div class="certificate-actions">
-
-        <button
-          type="submit"
-          class="primary-btn"
-        >
-          🏆 Generate Certificate
-        </button>
-
-        <button
-          type="button"
-          id="resetCertificate"
-          class="outline-btn"
-        >
-          Reset
-        </button>
-
-      </div>
-
-
-      <div
-        id="certificateMessage"
-        class="certificate-message"
-        aria-live="polite"
-      ></div>
+      <button
+        class="primary-btn"
+        type="submit"
+      >
+        Generate Certificate
+      </button>
 
     </form>
 
-  </section>
+  </div>
 
 
+  <div
+    id="certificateOutput"
+    style="margin-top:30px;"
+  ></div>
 
-  <!-- ===================================================
-       PREVIEW
-  =================================================== -->
-
-  <section
-    id="certificatePreviewWrapper"
-    class="certificate-preview-wrapper"
-  >
-
-    <div class="certificate-preview-title">
-
-      <h2>
-        Certificate Preview
-      </h2>
-
-      <p>
-        नीचे दिए गए certificate को print/save किया जा सकता है।
-      </p>
-
-    </div>
-
-
-    <div
-      id="printableCertificate"
-      class="ars-certificate"
-    >
-
-      <!-- Logo -->
-
-      <img
-        class="certificate-logo"
-        src="logo.png"
-        alt="ARS Official Logo"
-      >
-
-
-      <div class="certificate-small-title">
-        ARS OFFICIAL
-      </div>
-
-
-      <h2 class="certificate-main-title">
-        CERTIFICATE
-      </h2>
-
-
-      <div class="certificate-subtitle">
-        Adarsh Raj Shayar Official
-      </div>
-
-
-      <div class="certificate-presented">
-        This certificate is proudly presented to
-      </div>
-
-
-      <div
-        id="previewName"
-        class="certificate-name"
-      >
-        —
-      </div>
-
-
-      <p
-        id="previewDescription"
-        class="certificate-description"
-      >
-        In recognition of participation,
-        achievement and contribution to ARS Official.
-      </p>
-
-
-      <!-- Business information -->
-
-      <div
-        id="previewBusiness"
-        class="certificate-business"
-        style="display:none;"
-      >
-
-        <div>
-          <strong>
-            Business Name:
-          </strong>
-
-          <span id="previewBusinessName">
-            —
-          </span>
-        </div>
-
-
-        <div>
-          <strong>
-            Owner / Founder:
-          </strong>
-
-          <span id="previewBusinessOwner">
-            —
-          </span>
-        </div>
-
-      </div>
-
-
-
-      <!-- Footer -->
-
-      <div class="certificate-footer">
-
-
-        <!-- Date -->
-
-        <div class="certificate-date">
-
-          <span class="certificate-footer-label">
-            ISSUE DATE
-          </span>
-
-          <strong
-            id="previewDate"
-            class="certificate-footer-value"
-          >
-            —
-          </strong>
-
-        </div>
-
-
-        <!-- Certificate ID -->
-
-        <div class="certificate-id-box">
-
-          <span class="certificate-footer-label">
-            CERTIFICATE ID
-          </span>
-
-          <strong
-            id="previewID"
-            class="certificate-footer-value"
-          >
-            —
-          </strong>
-
-        </div>
-
-
-        <!-- Signature -->
-
-        <div class="certificate-signature">
-
-          <img
-            src="signature.jpg"
-            alt="Adarsh Raj Signature"
-          >
-
-          <div class="signature-line"></div>
-
-          <strong>
-            Adarsh Raj
-          </strong>
-
-          <span class="certificate-footer-label">
-            Founder — ARS Official
-          </span>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- QR -->
-
-      <div class="certificate-qr-area">
-
-        <div id="certificateQR"></div>
-
-        <div class="certificate-qr-text">
-
-          <strong>
-            VERIFY CERTIFICATE
-          </strong>
-
-          <small>
-            Scan this QR code to verify
-            the certificate using its
-            unique Certificate ID.
-          </small>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="certificate-actions"
-      style="justify-content:center; margin-top:20px;"
-    >
-
-      <button
-        type="button"
-        id="printCertificate"
-        class="primary-btn"
-      >
-        🖨️ Print / Save PDF
-      </button>
-
-    </div>
-
-  </section>
+</section>
 
 </main>
 
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 
 <footer class="site-footer">
 
@@ -1091,64 +208,17 @@
 
     <div class="footer-brand">
 
-      <img
-        src="logo.png"
-        alt="ARS Logo"
-      >
+      <img src="logo.png" alt="ARS Logo">
 
       <div>
 
-        <h3>
-          Adarsh Raj Shayar
-        </h3>
+        <h3>Adarsh Raj Shayar</h3>
 
         <p>
-          ARS Official
+          ARS Official Certificate System
         </p>
 
       </div>
-
-    </div>
-
-
-    <div class="footer-links">
-
-      <a href="index.html">
-        Home
-      </a>
-
-      <a href="joining.html">
-        Join ARS
-      </a>
-
-      <a href="certificate.html">
-        Certificate
-      </a>
-
-      <a href="verify.html">
-        Verify
-      </a>
-
-      <a href="policy.html">
-        Policy
-      </a>
-
-      <a href="publisher.html">
-        Publisher
-      </a>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-      <p>
-        © 2026 ARS Official — Adarsh Raj Shayar
-      </p>
-
-      <p>
-        Certificate Verification System
-      </p>
 
     </div>
 
@@ -1157,714 +227,30 @@
 </footer>
 
 
-
-<!-- =====================================================
-     SCRIPT
-===================================================== -->
-
 <script>
 
-"use strict";
-
-
-(function () {
-
-
-  const form =
-    document.getElementById(
-      "certificateForm"
-    );
-
+document.addEventListener("DOMContentLoaded", function () {
 
   const type =
-    document.getElementById(
-      "certificateType"
+    document.getElementById("certificateType");
+
+  const business =
+    document.getElementById("businessFields");
+
+
+  type.addEventListener("change", function () {
+
+    business.classList.toggle(
+      "hidden",
+      this.value !== "Business"
     );
 
+  });
 
-  const businessFields =
-    document.getElementById(
-      "businessFields"
-    );
-
-
-  const nameInput =
-    document.getElementById(
-      "certificateName"
-    );
-
-
-  const businessName =
-    document.getElementById(
-      "businessName"
-    );
-
-
-  const businessOwner =
-    document.getElementById(
-      "businessOwner"
-    );
-
-
-  const passwordInput =
-    document.getElementById(
-      "publisherPassword"
-    );
-
-
-  const message =
-    document.getElementById(
-      "certificateMessage"
-    );
-
-
-  const previewWrapper =
-    document.getElementById(
-      "certificatePreviewWrapper"
-    );
-
-
-  const resetButton =
-    document.getElementById(
-      "resetCertificate"
-    );
-
-
-  const printButton =
-    document.getElementById(
-      "printCertificate"
-    );
-
-
-  /* =====================================================
-     MOBILE MENU
-  ===================================================== */
-
-  const menuToggle =
-    document.querySelector(
-      ".menu-toggle"
-    );
-
-  const navLinks =
-    document.querySelector(
-      ".nav-links"
-    );
-
-
-  if (
-    menuToggle &&
-    navLinks
-  ) {
-
-    menuToggle.addEventListener(
-      "click",
-      function () {
-
-        navLinks.classList.toggle(
-          "open"
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =====================================================
-     BUSINESS TYPE
-  ===================================================== */
-
-  type.addEventListener(
-    "change",
-    function () {
-
-      if (
-        this.value === "Business"
-      ) {
-
-        businessFields.classList.add(
-          "show"
-        );
-
-        businessName.required = true;
-        businessOwner.required = true;
-
-      } else {
-
-        businessFields.classList.remove(
-          "show"
-        );
-
-        businessName.required = false;
-        businessOwner.required = false;
-
-        businessName.value = "";
-        businessOwner.value = "";
-
-      }
-
-    }
-  );
-
-
-  /* =====================================================
-     MESSAGE
-  ===================================================== */
-
-  function showMessage(
-    text,
-    kind
-  ) {
-
-    message.textContent = text;
-
-    message.className =
-      "certificate-message show " +
-      kind;
-
-  }
-
-
-  function clearMessage() {
-
-    message.textContent = "";
-
-    message.className =
-      "certificate-message";
-
-  }
-
-
-  /* =====================================================
-     ESCAPE HTML
-  ===================================================== */
-
-  function escapeHTML(
-    value
-  ) {
-
-    const div =
-      document.createElement(
-        "div"
-      );
-
-    div.textContent =
-      value ?? "";
-
-    return div.innerHTML;
-
-  }
-
-
-  /* =====================================================
-     PASSWORD CHECK
-  ===================================================== */
-
-  function checkPublisherPassword(
-    password
-  ) {
-
-    /*
-      Password should be defined in config.js.
-
-      Supported names:
-
-      ARS_CONFIG.PUBLISHER_PASSWORD
-      ARS_CONFIG.publisherPassword
-      ARS_PUBLISHER_PASSWORD
-    */
-
-    const config =
-      window.ARS_CONFIG ||
-      {};
-
-    const correctPassword =
-      config.PUBLISHER_PASSWORD ||
-      config.publisherPassword ||
-      window.ARS_PUBLISHER_PASSWORD ||
-      "";
-
-    if (!correctPassword) {
-
-      console.error(
-        "ARS Publisher password is not configured in config.js"
-      );
-
-      return false;
-
-    }
-
-    return String(password) ===
-      String(correctPassword);
-
-  }
-
-
-  /* =====================================================
-     CERTIFICATE ID
-  ===================================================== */
-
-  function createCertificateID() {
-
-    if (
-      window.ARS_STORAGE &&
-      typeof window.ARS_STORAGE.newId ===
-        "function"
-    ) {
-
-      return window.ARS_STORAGE.newId(
-        "ARS-CERT"
-      );
-
-    }
-
-    const time =
-      Date.now()
-        .toString(36)
-        .toUpperCase();
-
-    const random =
-      Math.random()
-        .toString(36)
-        .substring(2, 7)
-        .toUpperCase();
-
-    return (
-      "ARS-CERT-" +
-      time +
-      random
-    );
-
-  }
-
-
-  /* =====================================================
-     DATE
-  ===================================================== */
-
-  function getDate() {
-
-    return new Date()
-      .toLocaleDateString(
-        "en-IN",
-        {
-          day: "2-digit",
-          month: "long",
-          year: "numeric"
-        }
-      );
-
-  }
-
-
-  /* =====================================================
-     QR
-  ===================================================== */
-
-  function generateQR(
-    certificateID
-  ) {
-
-    const qr =
-      document.getElementById(
-        "certificateQR"
-      );
-
-    qr.innerHTML = "";
-
-
-    if (
-      typeof QRCode ===
-      "undefined"
-    ) {
-
-      qr.textContent =
-        "QR";
-
-      console.error(
-        "QRCode library not loaded."
-      );
-
-      return;
-
-    }
-
-
-    const verifyURL =
-      new URL(
-        "verify.html",
-        window.location.href
-      );
-
-
-    verifyURL.searchParams.set(
-      "id",
-      certificateID
-    );
-
-
-    new QRCode(
-      qr,
-      {
-        text:
-          verifyURL.toString(),
-
-        width: 70,
-
-        height: 70,
-
-        correctLevel:
-          QRCode.CorrectLevel.M
-      }
-    );
-
-  }
-
-
-  /* =====================================================
-     DESCRIPTION
-  ===================================================== */
-
-  function getDescription(
-    certificateType
-  ) {
-
-    switch (
-      certificateType
-    ) {
-
-      case "Professional":
-
-        return (
-          "This certificate is presented in recognition of professional participation, contribution and excellence associated with ARS Official."
-        );
-
-
-      case "Business":
-
-        return (
-          "This certificate is presented in recognition of business identity, contribution and association with ARS Official."
-        );
-
-
-      case "Achievement":
-
-        return (
-          "This certificate is presented in recognition of achievement, dedication, effort and outstanding performance."
-        );
-
-
-      case "Participation":
-
-        return (
-          "This certificate is presented in recognition of valuable participation and contribution to ARS Official."
-        );
-
-
-      default:
-
-        return (
-          "This certificate is proudly presented in recognition of participation and contribution to ARS Official."
-        );
-
-    }
-
-  }
-
-
-  /* =====================================================
-     GENERATE
-  ===================================================== */
-
-  form.addEventListener(
-    "submit",
-    function (event) {
-
-      event.preventDefault();
-
-      clearMessage();
-
-
-      const name =
-        nameInput.value.trim();
-
-
-      const certificateType =
-        type.value;
-
-
-      const password =
-        passwordInput.value;
-
-
-      if (!name) {
-
-        showMessage(
-          "कृपया Name दर्ज करें।",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      if (!certificateType) {
-
-        showMessage(
-          "कृपया Certificate Type चुनें।",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        certificateType ===
-        "Business" &&
-        (
-          !businessName.value.trim() ||
-          !businessOwner.value.trim()
-        )
-      ) {
-
-        showMessage(
-          "Business Certificate के लिए Business Name और Owner / Founder Name आवश्यक है।",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      if (
-        !checkPublisherPassword(
-          password
-        )
-      ) {
-
-        showMessage(
-          "Publisher Password गलत है।",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      const id =
-        createCertificateID();
-
-
-      const issuedAt =
-        new Date()
-          .toISOString();
-
-
-      const certificate = {
-
-        id: id,
-
-        name: name,
-
-        type: certificateType,
-
-        author:
-          "Adarsh Raj",
-
-        issuer:
-          "Adarsh Raj — Founder, ARS Official",
-
-        issuedAt: issuedAt,
-
-        createdAt: issuedAt,
-
-        businessName:
-          certificateType === "Business"
-            ? businessName.value.trim()
-            : "",
-
-        businessOwner:
-          certificateType === "Business"
-            ? businessOwner.value.trim()
-            : ""
-
-      };
-
-
-      /* ===============================================
-         SAVE CERTIFICATE
-      =============================================== */
-
-      if (
-        window.ARS_STORAGE &&
-        typeof window.ARS_STORAGE.saveCertificate ===
-          "function"
-      ) {
-
-        window.ARS_STORAGE.saveCertificate(
-          certificate
-        );
-
-      } else {
-
-        showMessage(
-          "Storage system load नहीं हुआ। कृपया storage.js check करें।",
-          "error"
-        );
-
-        return;
-
-      }
-
-
-      /* ===============================================
-         PREVIEW
-      =============================================== */
-
-      document.getElementById(
-        "previewName"
-      ).textContent =
-        certificate.name;
-
-
-      document.getElementById(
-        "previewDescription"
-      ).textContent =
-        getDescription(
-          certificateType
-        );
-
-
-      document.getElementById(
-        "previewDate"
-      ).textContent =
-        getDate();
-
-
-      document.getElementById(
-        "previewID"
-      ).textContent =
-        certificate.id;
-
-
-      const previewBusiness =
-        document.getElementById(
-          "previewBusiness"
-        );
-
-
-      if (
-        certificateType ===
-        "Business"
-      ) {
-
-        previewBusiness.style.display =
-          "block";
-
-
-        document.getElementById(
-          "previewBusinessName"
-        ).textContent =
-          certificate.businessName;
-
-
-        document.getElementById(
-          "previewBusinessOwner"
-        ).textContent =
-          certificate.businessOwner;
-
-      } else {
-
-        previewBusiness.style.display =
-          "none";
-
-      }
-
-
-      generateQR(
-        certificate.id
-      );
-
-
-      previewWrapper.classList.add(
-        "show"
-      );
-
-
-      showMessage(
-        "✅ Certificate सफलतापूर्वक बनाया गया। Certificate ID: " +
-          certificate.id,
-        "success"
-      );
-
-
-      previewWrapper.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
-
-      passwordInput.value = "";
-
-    }
-  );
-
-
-  /* =====================================================
-     RESET
-  ===================================================== */
-
-  resetButton.addEventListener(
-    "click",
-    function () {
-
-      form.reset();
-
-      businessFields.classList.remove(
-        "show"
-      );
-
-      businessName.required = false;
-      businessOwner.required = false;
-
-      previewWrapper.classList.remove(
-        "show"
-      );
-
-      document.getElementById(
-        "certificateQR"
-      ).innerHTML = "";
-
-      clearMessage();
-
-    }
-  );
-
-
-  /* =====================================================
-     PRINT
-  ===================================================== */
-
-  printButton.addEventListener(
-    "click",
-    function () {
-
-      window.print();
-
-    }
-  );
-
-
-})();
+});
 
 </script>
 
 
 </body>
-
 </html>
