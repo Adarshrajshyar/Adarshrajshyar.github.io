@@ -1,1 +1,714 @@
+<!DOCTYPE html>
+<html lang="hi">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    ARS Certificate Verification
+  </title>
+
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+
+  <script src="config.js"></script>
+
+  <script src="storage.js"></script>
+
+  <script src="certificate.js"></script>
+
+</head>
+
+
+
+<body>
+
+
+<header class="site-header">
+
+  <nav class="navbar">
+
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+
+      <img
+        class="brand-logo"
+        src="logo.png"
+        alt="ARS Logo"
+      >
+
+
+      <span>
+
+        <strong>
+          ARS Official
+        </strong>
+
+        <small>
+          Adarsh Raj Shayar
+        </small>
+
+      </span>
+
+    </a>
+
+
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Open Menu"
+    >
+      ☰
+    </button>
+
+
+
+    <div
+      class="nav-links"
+      id="navLinks"
+    >
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a
+        class="active"
+        href="verify.html"
+      >
+        Verify
+      </a>
+
+      <a href="founder.html">
+        Founder
+      </a>
+
+    </div>
+
+
+  </nav>
+
+</header>
+
+
+
+<main>
+
+
+<section class="section">
+
+
+  <div class="section-heading">
+
+
+    <span>
+      ARS OFFICIAL
+    </span>
+
+
+    <h1>
+      🔎 Certificate Verification
+    </h1>
+
+
+    <p>
+
+      अपने ARS Certificate की सत्यता जाँचें।
+
+      <br>
+
+      Verify an ARS Certificate using its
+      unique Certificate ID.
+
+    </p>
+
+
+  </div>
+
+
+
+  <div class="form-card">
+
+
+    <form
+      id="verificationForm"
+      autocomplete="off"
+    >
+
+
+      <div class="form-group">
+
+
+        <label for="verificationID">
+
+          Certificate ID /
+          प्रमाणपत्र ID
+
+        </label>
+
+
+        <input
+          type="text"
+          id="verificationID"
+          placeholder="ARS-CERT-XXXXXX"
+          required
+          maxlength="100"
+        >
+
+
+      </div>
+
+
+
+      <button
+        type="submit"
+        class="primary-btn full-btn"
+      >
+
+        🔎 Verify Certificate
+
+      </button>
+
+
+    </form>
+
+
+
+    <div
+      id="verificationResult"
+      aria-live="polite"
+    ></div>
+
+
+  </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer class="site-footer">
+
+
+  <div class="footer-inner">
+
+
+    <div class="footer-brand">
+
+
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+      >
+
+
+      <div>
+
+        <h3>
+          Adarsh Raj Shayar
+        </h3>
+
+        <p>
+          ARS Official — Certificate Verification
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="footer-links">
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="founder.html">
+        Founder
+      </a>
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+      <p>
+        © 2026 ARS Official. All Rights Reserved.
+      </p>
+
+      <p>
+        Publisher: Adarsh Raj
+      </p>
+
+    </div>
+
+
+  </div>
+
+</footer>
+
+
+
+<script>
+
+(function () {
+
+  "use strict";
+
+
+  const form =
+    document.getElementById(
+      "verificationForm"
+    );
+
+
+  const input =
+    document.getElementById(
+      "verificationID"
+    );
+
+
+  const result =
+    document.getElementById(
+      "verificationResult"
+    );
+
+
+  const menuToggle =
+    document.getElementById(
+      "menuToggle"
+    );
+
+
+  const navLinks =
+    document.getElementById(
+      "navLinks"
+    );
+
+
+  if (menuToggle && navLinks) {
+
+    menuToggle.addEventListener(
+      "click",
+      function () {
+
+        navLinks.classList.toggle(
+          "open"
+        );
+
+      }
+    );
+
+  }
+
+
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const urlID =
+    params.get("id");
+
+
+  if (urlID) {
+
+    input.value = urlID;
+
+    verify(urlID);
+
+  }
+
+
+
+  function verify(id) {
+
+    const cleanID =
+      String(id || "").trim();
+
+
+    if (!cleanID) {
+
+      showError(
+        "कृपया Certificate ID दर्ज करें।"
+      );
+
+      return;
+
+    }
+
+
+    let certificate = null;
+
+
+    if (
+      window.ARS_CERTIFICATE &&
+      typeof window.ARS_CERTIFICATE.find ===
+      "function"
+    ) {
+
+      certificate =
+        window.ARS_CERTIFICATE.find(
+          cleanID
+        );
+
+    }
+
+
+    if (!certificate) {
+
+      try {
+
+        certificate =
+          window.ARS_STORAGE.findCertificate(
+            cleanID
+          );
+
+      } catch (error) {
+
+        console.error(
+          "ARS Certificate Search Error:",
+          error
+        );
+
+      }
+
+    }
+
+
+    if (!certificate) {
+
+      showError(
+        "यह Certificate ID ARS रिकॉर्ड में नहीं मिली। कृपया ID दोबारा जाँचें।"
+      );
+
+      return;
+
+    }
+
+
+    showCertificate(
+      certificate
+    );
+
+  }
+
+
+
+  function showCertificate(certificate) {
+
+
+    const date =
+      new Date(
+        certificate.issuedAt ||
+        certificate.createdAt
+      );
+
+
+    const formattedDate =
+      Number.isNaN(date.getTime())
+        ? "—"
+        : date.toLocaleDateString(
+            "en-IN",
+            {
+              day: "2-digit",
+              month: "long",
+              year: "numeric"
+            }
+          );
+
+
+    const type =
+      certificate.type ||
+      "Certificate";
+
+
+    result.innerHTML = `
+
+      <div
+        class="content-card"
+        style="margin-top:20px;"
+      >
+
+        <span class="tag">
+          ✓ VERIFIED
+        </span>
+
+
+        <h3>
+          Certificate Verified
+        </h3>
+
+
+        <p class="content-text">
+
+          ✅ यह प्रमाणपत्र ARS Official
+          के रिकॉर्ड में सफलतापूर्वक
+          सत्यापित है।
+
+        </p>
+
+
+        <div
+          style="
+            display:grid;
+            gap:12px;
+            margin-top:18px;
+          "
+        >
+
+
+          <div>
+
+            <strong>
+              Name / नाम
+            </strong>
+
+            <p class="content-text">
+              ${escapeHTML(
+                certificate.name
+              )}
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              Certificate Type
+            </strong>
+
+            <p class="content-text">
+              ${escapeHTML(type)}
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              Certificate ID
+            </strong>
+
+            <p class="content-text">
+              ${escapeHTML(
+                certificate.id
+              )}
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              Issue Date
+            </strong>
+
+            <p class="content-text">
+              ${formattedDate}
+            </p>
+
+          </div>
+
+
+          <div>
+
+            <strong>
+              Issued By
+            </strong>
+
+            <p class="content-text">
+              Adarsh Raj —
+              Founder & Publisher,
+              ARS Official
+            </p>
+
+          </div>
+
+
+          ${
+            type === "Business"
+              ? `
+
+                <div>
+
+                  <strong>
+                    Business Name
+                  </strong>
+
+                  <p class="content-text">
+                    ${escapeHTML(
+                      certificate.businessName
+                    )}
+                  </p>
+
+                </div>
+
+
+                <div>
+
+                  <strong>
+                    Owner / Founder
+                  </strong>
+
+                  <p class="content-text">
+                    ${escapeHTML(
+                      certificate.businessOwner
+                    )}
+                  </p>
+
+                </div>
+
+              `
+              : ""
+          }
+
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:20px;
+            padding:12px;
+            text-align:center;
+            border-radius:10px;
+            background:#f6e9ee;
+            color:#8b1e3f;
+            font-weight:900;
+          "
+        >
+
+          ✓ VERIFIED ARS CERTIFICATE
+
+        </div>
+
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  function showError(message) {
+
+    result.innerHTML = `
+
+      <div
+        class="content-card"
+        style="margin-top:20px;"
+      >
+
+        <span class="tag">
+          NOT FOUND
+        </span>
+
+
+        <h3>
+          Certificate Not Found
+        </h3>
+
+
+        <p class="content-text">
+          ${escapeHTML(message)}
+        </p>
+
+
+        <p class="content-text">
+
+          कृपया Certificate ID सही तरीके
+          से दर्ज करें।
+
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+
+
+  function escapeHTML(value) {
+
+    const div =
+      document.createElement("div");
+
+
+    div.textContent =
+      value ?? "";
+
+
+    return div.innerHTML;
+
+  }
+
+
+
+  form.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+      verify(input.value);
+
+    }
+  );
+
+
+})();
+
+</script>
+
+
+</body>
+</html>
