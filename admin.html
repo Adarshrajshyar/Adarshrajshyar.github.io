@@ -1,159 +1,249 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS Admin Panel</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <link rel="stylesheet" href="style.css">
+  <title>
+    ARS Admin Panel
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
   <script src="config.js"></script>
   <script src="storage.js"></script>
-  <script src="shayari.js"></script>
-  <script src="story.js"></script>
+
 </head>
+
 
 <body>
 
 <header class="site-header">
+
   <nav class="navbar">
 
-    <a class="logo" href="index.html">
-      <img src="logo.png" alt="ARS Logo">
-      <span>ARS Official</span>
+    <a
+      class="logo"
+      href="index.html"
+    >
+
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+      >
+
+      <span>
+        ARS Official
+      </span>
+
     </a>
 
+
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="joining.html">Join ARS</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="verify.html">Verify</a>
-      <a href="founder.html">Founder</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="joining.html">
+        Joining
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="publisher.html">
+        Publisher
+      </a>
+
+      <a
+        href="admin.html"
+        class="active"
+      >
+        Admin
+      </a>
+
     </div>
 
   </nav>
+
 </header>
 
 
-<main class="admin-page">
+<main>
 
   <section class="page-heading">
 
-    <span class="eyebrow">ARS OFFICIAL</span>
+    <span class="eyebrow">
+      ARS OFFICIAL ADMIN
+    </span>
 
-    <h1>🔐 Admin Panel</h1>
+    <h1>
+      🔐 Admin Panel
+    </h1>
 
     <p>
-      ARS Official की सामग्री और रिकॉर्ड को नियंत्रित करें।
+      ARS Official website management dashboard।
     </p>
 
   </section>
 
 
-  <!-- LOGIN -->
+  <!-- ADMIN LOGIN -->
 
-  <section id="adminLoginCard" class="verification-card">
+  <section
+    id="adminLogin"
+    class="card"
+  >
+
+    <h2>
+      Admin Login
+    </h2>
 
     <form id="adminLoginForm">
 
-      <label for="adminUsername">
-        Admin Username
-      </label>
+      <div class="form-group">
 
-      <input
-        type="text"
-        id="adminUsername"
-        autocomplete="username"
-        required
+        <label for="adminUsername">
+          Username
+        </label>
+
+        <input
+          id="adminUsername"
+          type="text"
+          autocomplete="username"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="adminPassword">
+          Password
+        </label>
+
+        <input
+          id="adminPassword"
+          type="password"
+          autocomplete="current-password"
+          required
+        >
+
+      </div>
+
+
+      <button
+        class="btn"
+        type="submit"
       >
-
-      <label for="adminPassword">
-        Admin Password
-      </label>
-
-      <input
-        type="password"
-        id="adminPassword"
-        autocomplete="current-password"
-        required
-      >
-
-      <button type="submit" class="btn">
-        🔐 Login
+        Login
       </button>
 
     </form>
 
-    <div id="adminLoginMessage"></div>
+    <p
+      id="adminLoginMessage"
+      aria-live="polite"
+    ></p>
 
   </section>
 
 
-  <!-- PANEL -->
+  <!-- ADMIN DASHBOARD -->
 
   <section
-    id="adminPanel"
-    class="verification-card"
-    hidden
+    id="adminDashboard"
+    class="hidden"
   >
 
-    <div class="admin-topbar">
+    <section class="card">
 
-      <div>
-        <span class="eyebrow">CONTROL CENTER</span>
+      <h2>
+        ⚙️ ARS Dashboard
+      </h2>
 
-        <h2>
-          ARS Administration
-        </h2>
-      </div>
+      <p>
+        Website की local information और
+        stored content यहाँ से manage किया जा सकता है।
+      </p>
 
       <button
-        type="button"
-        class="btn"
         id="adminLogout"
+        class="btn btn-danger"
+        type="button"
       >
         Logout
       </button>
 
-    </div>
+    </section>
 
 
-    <!-- DASHBOARD -->
+    <!-- STATISTICS -->
 
-    <div class="admin-stats">
+    <section>
 
-      <div class="admin-stat">
-        <strong id="certificateCount">0</strong>
-        <span>Certificates</span>
-      </div>
+      <div class="grid">
 
-      <div class="admin-stat">
-        <strong id="joiningCount">0</strong>
-        <span>Joining Requests</span>
-      </div>
+        <div class="card">
 
-      <div class="admin-stat">
-        <strong id="shayariCount">0</strong>
-        <span>Shayari</span>
-      </div>
+          <h3>
+            👥 Joining Applications
+          </h3>
 
-      <div class="admin-stat">
-        <strong id="storyCount">0</strong>
-        <span>Stories</span>
-      </div>
+          <strong
+            id="joiningCount"
+          >
+            0
+          </strong>
 
-    </div>
+        </div>
 
 
-    <!-- CERTIFICATES -->
+        <div class="card">
 
-    <section class="admin-section">
+          <h3>
+            🖊️ Shayari
+          </h3>
 
-      <h3>📜 Certificate Records</h3>
+          <strong
+            id="shayariCount"
+          >
+            0
+          </strong>
 
-      <div id="certificateRecords">
-        <p>Loading records...</p>
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            📖 Stories
+          </h3>
+
+          <strong
+            id="storyCount"
+          >
+            0
+          </strong>
+
+        </div>
+
       </div>
 
     </section>
@@ -161,12 +251,14 @@
 
     <!-- JOINING -->
 
-    <section class="admin-section">
+    <section class="card">
 
-      <h3>🤝 ARS Joining Requests</h3>
+      <h2>
+        👥 Joining Applications
+      </h2>
 
-      <div id="joiningRecords">
-        <p>Loading joining requests...</p>
+      <div id="joiningList">
+        No applications found.
       </div>
 
     </section>
@@ -174,13 +266,47 @@
 
     <!-- CONTENT -->
 
-    <section class="admin-section">
+    <section class="card">
 
-      <h3>📝 Content Overview</h3>
+      <h2>
+        📚 Published Content
+      </h2>
 
-      <div id="contentRecords">
-        <p>Loading content...</p>
+      <div id="contentList">
+        No content found.
       </div>
+
+    </section>
+
+
+    <!-- STORAGE -->
+
+    <section class="card">
+
+      <h2>
+        🗄️ Local Storage Management
+      </h2>
+
+      <p>
+        नीचे दिए गए controls केवल browser में
+        stored ARS data को manage करते हैं।
+      </p>
+
+      <button
+        id="exportData"
+        class="btn"
+        type="button"
+      >
+        Export Data
+      </button>
+
+      <button
+        id="clearDemoData"
+        class="btn btn-danger"
+        type="button"
+      >
+        Clear Local Data
+      </button>
 
     </section>
 
@@ -193,14 +319,21 @@
 
   <div class="footer-inner">
 
-    <img src="logo.png" alt="ARS Logo">
+    <img
+      src="logo.png"
+      alt="ARS Logo"
+    >
 
     <div>
-      <strong>Adarsh Raj Shayar</strong>
+
+      <strong>
+        Adarsh Raj Shayar
+      </strong>
 
       <p>
         ARS Official — Admin Panel
       </p>
+
     </div>
 
   </div>
@@ -209,100 +342,98 @@
 
 
 <script>
+"use strict";
 
 (function () {
 
-  "use strict";
+  const login =
+    document.getElementById("adminLogin");
 
+  const dashboard =
+    document.getElementById("adminDashboard");
 
-  const loginCard =
-    document.getElementById("adminLoginCard");
-
-  const panel =
-    document.getElementById("adminPanel");
-
-  const loginForm =
+  const form =
     document.getElementById("adminLoginForm");
 
-  const loginMessage =
+  const message =
     document.getElementById("adminLoginMessage");
 
-  const logoutButton =
-    document.getElementById("adminLogout");
+
+  const adminConfig =
+    window.ARS_CONFIG?.admin || {};
 
 
-  function getConfig() {
-
-    return window.ARS_CONFIG || {};
-
-  }
-
-
-  function isLoggedIn() {
+  function loggedIn() {
 
     return sessionStorage.getItem(
-      "ARS_ADMIN_AUTH"
-    ) === "true";
+      "ARS_ADMIN_SESSION"
+    ) === "1";
 
   }
 
 
-  function showPanel() {
+  function showDashboard() {
 
-    loginCard.hidden = true;
-    panel.hidden = false;
+    login.classList.add("hidden");
 
-    loadDashboard();
+    dashboard.classList.remove("hidden");
+
+    refreshDashboard();
 
   }
 
 
   function showLogin() {
 
-    loginCard.hidden = false;
-    panel.hidden = true;
+    login.classList.remove("hidden");
+
+    dashboard.classList.add("hidden");
 
   }
 
 
-  loginForm.addEventListener(
+  if (loggedIn()) {
+    showDashboard();
+  }
+
+
+  form.addEventListener(
     "submit",
     function (event) {
 
       event.preventDefault();
 
-      const config = getConfig();
 
       const username =
-        document.getElementById(
-          "adminUsername"
-        ).value.trim();
+        document
+          .getElementById("adminUsername")
+          .value
+          .trim();
 
       const password =
-        document.getElementById(
-          "adminPassword"
-        ).value;
+        document
+          .getElementById("adminPassword")
+          .value;
 
 
       if (
-        username === config.adminUsername &&
-        password === config.adminPassword
+        username ===
+          (adminConfig.username || "") &&
+        password ===
+          (adminConfig.password || "")
       ) {
 
         sessionStorage.setItem(
-          "ARS_ADMIN_AUTH",
-          "true"
+          "ARS_ADMIN_SESSION",
+          "1"
         );
 
-        loginMessage.innerHTML =
-          "<p>✅ Login successful.</p>";
-
-        showPanel();
+        showDashboard();
 
       } else {
 
-        loginMessage.innerHTML =
-          "<p>❌ Username या Password गलत है।</p>";
+        message.textContent =
+          "Username या Password गलत है।";
 
       }
 
@@ -310,23 +441,23 @@
   );
 
 
-  logoutButton.addEventListener(
-    "click",
-    function () {
+  document
+    .getElementById("adminLogout")
+    .addEventListener(
+      "click",
+      function () {
 
-      sessionStorage.removeItem(
-        "ARS_ADMIN_AUTH"
-      );
+        sessionStorage.removeItem(
+          "ARS_ADMIN_SESSION"
+        );
 
-      loginForm.reset();
+        showLogin();
 
-      showLogin();
-
-    }
-  );
+      }
+    );
 
 
-  function getArray(key) {
+  function read(key) {
 
     try {
 
@@ -334,9 +465,7 @@
         localStorage.getItem(key) || "[]"
       );
 
-    } catch (error) {
-
-      console.error(error);
+    } catch {
 
       return [];
 
@@ -345,42 +474,35 @@
   }
 
 
-  function loadDashboard() {
-
-    const certificates =
-      getArray("ARS_CERTIFICATES");
+  function refreshDashboard() {
 
     const joining =
-      getArray("ARS_JOINING_REQUESTS");
+      read("ARS_JOINING_APPLICATIONS");
 
     const shayari =
-      getArray("ARS_SHAYARI");
+      read("ARS_SHAYARI_CONTENT");
 
     const stories =
-      getArray("ARS_STORIES");
-
-
-    document.getElementById(
-      "certificateCount"
-    ).textContent = certificates.length;
+      read("ARS_STORY_CONTENT");
 
 
     document.getElementById(
       "joiningCount"
-    ).textContent = joining.length;
+    ).textContent =
+      joining.length;
 
 
     document.getElementById(
       "shayariCount"
-    ).textContent = shayari.length;
+    ).textContent =
+      shayari.length;
 
 
     document.getElementById(
       "storyCount"
-    ).textContent = stories.length;
+    ).textContent =
+      stories.length;
 
-
-    renderCertificates(certificates);
 
     renderJoining(joining);
 
@@ -392,104 +514,60 @@
   }
 
 
-  function renderCertificates(records) {
+  function renderJoining(items) {
 
     const box =
       document.getElementById(
-        "certificateRecords"
+        "joiningList"
       );
 
 
-    if (!records.length) {
+    if (!items.length) {
 
-      box.innerHTML =
-        "<p>No certificate records found.</p>";
+      box.textContent =
+        "No applications found.";
 
       return;
 
     }
 
 
-    box.innerHTML = records
-      .slice()
-      .reverse()
-      .map(function (item) {
+    box.innerHTML =
+      items
+        .slice()
+        .reverse()
+        .map(item => `
 
-        return `
+          <article class="content-card">
 
-          <div class="admin-record">
+            <h3>
+              ${escapeHTML(item.name)}
+            </h3>
 
-            <strong>
-              ${escapeHTML(item.name || "—")}
-            </strong>
+            <p>
+              Email:
+              ${escapeHTML(item.email)}
+            </p>
 
-            <span>
-              Type: ${escapeHTML(item.type || "—")}
-            </span>
+            <p>
+              Interest:
+              ${escapeHTML(item.interest)}
+            </p>
 
-            <span>
-              ID: ${escapeHTML(item.id || "—")}
-            </span>
+            <p>
+              Role:
+              ${escapeHTML(item.role)}
+            </p>
 
-          </div>
+            <small>
+              ID:
+              ${escapeHTML(item.id)}
+            </small>
 
-        `;
+          </article>
 
-      })
-      .join("");
-
-  }
-
-
-  function renderJoining(records) {
-
-    const box =
-      document.getElementById(
-        "joiningRecords"
-      );
-
-
-    if (!records.length) {
-
-      box.innerHTML =
-        "<p>No joining requests found.</p>";
-
-      return;
-
-    }
-
-
-    box.innerHTML = records
-      .slice()
-      .reverse()
-      .map(function (item) {
-
-        return `
-
-          <div class="admin-record">
-
-            <strong>
-              ${escapeHTML(item.name || "—")}
-            </strong>
-
-            <span>
-              Email: ${escapeHTML(item.email || "—")}
-            </span>
-
-            <span>
-              Interest: ${escapeHTML(item.interest || "—")}
-            </span>
-
-            <span>
-              Status: ${escapeHTML(item.status || "Pending")}
-            </span>
-
-          </div>
-
-        `;
-
-      })
-      .join("");
+        `)
+        .join("");
 
   }
 
@@ -501,46 +579,165 @@
 
     const box =
       document.getElementById(
-        "contentRecords"
+        "contentList"
       );
 
 
-    box.innerHTML = `
+    const all = [
 
-      <div class="admin-record">
+      ...shayari.map(item => ({
+        type: "Shayari",
+        title: item.text,
+        category: item.category,
+        id: item.id
+      })),
 
-        <strong>Shayari</strong>
+      ...stories.map(item => ({
+        type: "Story",
+        title: item.title,
+        category: item.category,
+        id: item.id
+      }))
 
-        <span>
-          ${shayari.length} total items
-        </span>
-
-        <span>
-          Categories:
-          Sad · Love · Attitude · Friendship · Motivation
-        </span>
-
-      </div>
+    ];
 
 
-      <div class="admin-record">
+    if (!all.length) {
 
-        <strong>Stories</strong>
+      box.textContent =
+        "No content found.";
 
-        <span>
-          ${stories.length} total items
-        </span>
+      return;
 
-        <span>
-          Categories:
-          Poem · Horror · Friendship · Emotional · Story · Moral · Mystery · Biography · Motivation
-        </span>
+    }
 
-      </div>
 
-    `;
+    box.innerHTML =
+      all
+        .slice()
+        .reverse()
+        .map(item => `
+
+          <article class="content-card">
+
+            <span class="eyebrow">
+              ${escapeHTML(item.type)}
+            </span>
+
+            <h3>
+              ${escapeHTML(item.title)}
+            </h3>
+
+            <p>
+              Category:
+              ${escapeHTML(item.category)}
+            </p>
+
+            <small>
+              ${escapeHTML(item.id)}
+            </small>
+
+          </article>
+
+        `)
+        .join("");
 
   }
+
+
+  document
+    .getElementById("exportData")
+    .addEventListener(
+      "click",
+      function () {
+
+        const data = {
+
+          joining:
+            read("ARS_JOINING_APPLICATIONS"),
+
+          shayari:
+            read("ARS_SHAYARI_CONTENT"),
+
+          stories:
+            read("ARS_STORY_CONTENT"),
+
+          certificates:
+            read("ARS_CERTIFICATES"),
+
+          exportedAt:
+            new Date().toISOString()
+
+        };
+
+
+        const blob =
+          new Blob(
+            [
+              JSON.stringify(
+                data,
+                null,
+                2
+              )
+            ],
+            {
+              type:
+                "application/json"
+            }
+          );
+
+
+        const url =
+          URL.createObjectURL(blob);
+
+
+        const a =
+          document.createElement("a");
+
+        a.href = url;
+
+        a.download =
+          "ARS-backup.json";
+
+        a.click();
+
+
+        URL.revokeObjectURL(url);
+
+      }
+    );
+
+
+  document
+    .getElementById("clearDemoData")
+    .addEventListener(
+      "click",
+      function () {
+
+        const confirmed =
+          window.confirm(
+            "क्या आप browser में stored ARS local data हटाना चाहते हैं?"
+          );
+
+
+        if (!confirmed) return;
+
+
+        [
+          "ARS_JOINING_APPLICATIONS",
+          "ARS_SHAYARI_CONTENT",
+          "ARS_STORY_CONTENT",
+          "ARS_CERTIFICATES"
+        ].forEach(
+          key =>
+            localStorage.removeItem(key)
+        );
+
+
+        refreshDashboard();
+
+      }
+    );
 
 
   function escapeHTML(value) {
@@ -555,20 +752,7 @@
 
   }
 
-
-  if (isLoggedIn()) {
-
-    showPanel();
-
-  } else {
-
-    showLogin();
-
-  }
-
-
 })();
-
 </script>
 
 </body>
