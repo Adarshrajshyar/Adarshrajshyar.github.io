@@ -1,125 +1,64 @@
 /* =========================================================
-   ARS OFFICIAL — CONFIGURATION
-   Adarsh Raj Shayar
+   ARS OFFICIAL — CONFIG.JS
+   Central Website Configuration
    ========================================================= */
+
+"use strict";
 
 (function (window) {
 
-  "use strict";
+  const ARS_CONFIG = Object.freeze({
 
-  const CONFIG = Object.freeze({
+    /* ---------------- BRAND ---------------- */
 
-    /* -----------------------------------------------------
-       WEBSITE
-    ----------------------------------------------------- */
+    siteName: "Adarsh Raj Shayar",
+    shortName: "ARS Official",
 
-    SITE_NAME:
-      "ARS Official",
+    founderName: "Adarsh Raj",
+    publisherName: "Adarsh Raj",
 
-    SITE_TITLE:
-      "Adarsh Raj Shayar",
+    logo: "logo.png",
+    signature: "signature.jpg",
 
-    SITE_URL:
-      "https://adarshrajshyar.github.io/",
+    /* ---------------- SOCIAL ---------------- */
 
+    /*
+      Instagram ID:
+      इसे पूरे website में इसी एक जगह से control किया जाएगा.
+    */
+    instagramId: "adarshrajshyar",
+    instagramUrl: "https://www.instagram.com/adarshrajshyar/",
 
-    /* -----------------------------------------------------
-       FOUNDER / PUBLISHER
-    ----------------------------------------------------- */
+    /* ---------------- CERTIFICATE ---------------- */
 
-    FOUNDER_NAME:
-      "Adarsh Raj",
+    certificatePrefix: "ARS-CERT",
 
-    PUBLISHER_NAME:
-      "Adarsh Raj",
+    certificateIssuer:
+      "Adarsh Raj — Founder, ARS Official",
 
-    ORGANIZATION:
-      "ARS Official",
+    certificateVerificationPage:
+      "verify.html",
 
-    FOUNDER_ROLE:
-      "Founder & Creator",
+    /* ---------------- PUBLISHER ---------------- */
 
-    PUBLISHER_ROLE:
-      "Founder, ARS Official",
+    publisher: {
+      name: "Adarsh Raj",
+      role: "Founder & Publisher",
+      organization: "ARS Official"
+    },
 
+    /* ---------------- ASSETS ---------------- */
 
-    /* -----------------------------------------------------
-       SOCIAL
-    ----------------------------------------------------- */
-
-    INSTAGRAM_USERNAME:
-      "@adarshrajshyar",
-
-    INSTAGRAM_URL:
-      "https://www.instagram.com/adarshrajshyar/",
-
-
-    /* -----------------------------------------------------
-       BRAND ASSETS
-    ----------------------------------------------------- */
-
-    LOGO:
-      "logo.png",
-
-    BANNER:
-      "banner.png",
-
-    FOUNDER_PHOTO:
-      "photo.jpg1.jpeg",
-
-    SIGNATURE:
-      "signature.jpg",
-
-
-    /* -----------------------------------------------------
-       CERTIFICATE
-    ----------------------------------------------------- */
-
-    CERTIFICATE_PREFIX:
-      "ARS-CERT",
-
-    MEMBER_PREFIX:
-      "ARS-MEMBER",
-
-    JOIN_PREFIX:
-      "ARS-JOIN",
-
-    MESSAGE_PREFIX:
-      "ARS-MSG",
-
-
-    /* -----------------------------------------------------
-       CERTIFICATE TYPES
-    ----------------------------------------------------- */
-
-    CERTIFICATE_TYPES: Object.freeze([
-      "Achievement",
-      "Participation",
-      "Professional",
-      "Business"
-    ]),
-
-
-    /* -----------------------------------------------------
-       DEFAULT PUBLISHER
-    ----------------------------------------------------- */
-
-    DEFAULT_ISSUER:
-      "Adarsh Raj",
-
-    DEFAULT_ORGANIZATION:
-      "ARS Official"
-
+    assets: {
+      logo: "logo.png",
+      signature: "signature.jpg",
+      banner: "banner.png"
+    }
 
   });
 
+  window.ARS_CONFIG = ARS_CONFIG;
 
-  window.ARS_CONFIG = CONFIG;
-
-
-  console.log(
-    "⚙️ ARS Configuration Loaded"
-  );
-
+  console.log("⚙️ ARS Configuration Loaded");
 
 })(window);
