@@ -1,837 +1,1154 @@
 /* =========================================================
-   ARS OFFICIAL
-   MAIN WEBSITE SCRIPT
-   ========================================================= */
+   ARS OFFICIAL — MASTER SCRIPT
+   Adarsh Raj Shayar
+   Main website controller
+========================================================= */
 
-(function () {
+"use strict";
 
-  "use strict";
+/* =========================================================
+   GLOBAL ARS CONFIG
+========================================================= */
+
+window.ARS_CONFIG = window.ARS_CONFIG || {
+
+  instagram:
+    "https://www.instagram.com/adarshrajshyar/",
+
+  website:
+    window.location.origin,
+
+  brand:
+    "ARS Official",
+
+  founder:
+    "Adarsh Raj Shayar"
+
+};
 
 
-  /* =======================================================
-     SAFE HELPERS
-     ======================================================= */
+/* =========================================================
+   DOM READY
+========================================================= */
 
-  const $ = (selector, parent = document) =>
-    parent.querySelector(selector);
+document.addEventListener("DOMContentLoaded", () => {
+
+  initLoader();
+  initNavigation();
+  initBackToTop();
+  initInstagram();
+  initSearch();
+  initCategories();
+  initInteractions();
+  initContactForm();
+  initYear();
+
+});
 
 
-  const $$ = (selector, parent = document) =>
-    Array.from(
-      parent.querySelectorAll(selector)
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+function initLoader() {
+
+  const loader =
+    document.querySelector(".page-loader");
+
+  if (!loader) return;
+
+  const hideLoader = () => {
+
+    setTimeout(() => {
+      loader.classList.add("hide");
+    }, 350);
+
+  };
+
+  if (document.readyState === "complete") {
+
+    hideLoader();
+
+  } else {
+
+    window.addEventListener(
+      "load",
+      hideLoader,
+      { once: true }
     );
-
-
-  function escapeHTML(value) {
-
-    const div =
-      document.createElement("div");
-
-    div.textContent =
-      value ?? "";
-
-    return div.innerHTML;
 
   }
 
-
-  /* =======================================================
-     TOAST
-     ======================================================= */
-
-  const toast =
-    $("#toast");
+}
 
 
-  let toastTimer = null;
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function initNavigation() {
+
+  const toggle =
+    document.querySelector(".menu-toggle");
+
+  const nav =
+    document.querySelector(".nav-links");
+
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener("click", () => {
+
+    const isOpen =
+      nav.classList.toggle("open");
+
+    toggle.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+
+    toggle.textContent =
+      isOpen ? "✕" : "☰";
+
+  });
 
 
-  function showToast(message) {
+  /* Close menu after clicking a link */
 
-    if (!toast) return;
+  nav.querySelectorAll("a").forEach(link => {
 
+    link.addEventListener("click", () => {
 
-    toast.textContent =
-      message;
+      nav.classList.remove("open");
 
-
-    toast.classList.add("show");
-
-
-    clearTimeout(toastTimer);
-
-
-    toastTimer =
-      setTimeout(
-        () => {
-          toast.classList.remove("show");
-        },
-        2200
+      toggle.setAttribute(
+        "aria-expanded",
+        "false"
       );
 
-  }
+      toggle.textContent = "☰";
 
+    });
 
-  /* =======================================================
-     MOBILE NAVIGATION
-     ======================================================= */
+  });
 
-  const menuToggle =
-    $("#menuToggle");
 
+  /* Close menu when clicking outside */
 
-  const navLinks =
-    $("#navLinks");
-
-
-  if (menuToggle && navLinks) {
-
-    menuToggle.addEventListener(
-      "click",
-      function () {
-
-        const isOpen =
-          navLinks.classList.toggle("open");
-
-
-        menuToggle.setAttribute(
-          "aria-expanded",
-          String(isOpen)
-        );
-
-      }
-    );
-
-
-    $$(".nav-links a")
-      .forEach(
-        link => {
-
-          link.addEventListener(
-            "click",
-            () => {
-
-              navLinks.classList.remove(
-                "open"
-              );
-
-              menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-              );
-
-            }
-          );
-
-        }
-      );
-
-  }
-
-
-  /* =======================================================
-     YEAR
-     ======================================================= */
-
-  const currentYear =
-    $("#currentYear");
-
-
-  if (currentYear) {
-
-    currentYear.textContent =
-      new Date().getFullYear();
-
-  }
-
-
-  /* =======================================================
-     SHAYARI DATA
-     ======================================================= */
-
-  const defaultShayari = [
-
-    {
-      id: "love-001",
-      category: "Love",
-      text:
-        "कुछ रिश्ते शब्दों से नहीं,\nदिल की सच्चाई से पहचाने जाते हैं।"
-    },
-
-    {
-      id: "love-002",
-      category: "Love",
-      text:
-        "जहाँ सम्मान और भरोसा हो,\nवहीं रिश्ता सबसे खूबसूरत होता है।"
-    },
-
-
-    {
-      id: "sad-001",
-      category: "Sad",
-      text:
-        "कभी-कभी खामोशी भी बहुत कुछ कह जाती है,\nबस समझने वाला चाहिए।"
-    },
-
-    {
-      id: "sad-002",
-      category: "Sad",
-      text:
-        "हर उदासी हमेशा नहीं रहती,\nसमय बदलता है और रास्ते भी।"
-    },
-
-
-    {
-      id: "attitude-001",
-      category: "Attitude",
-      text:
-        "अपनी पहचान बनाने निकले हैं,\nभीड़ में खोने नहीं।"
-    },
-
-    {
-      id: "attitude-002",
-      category: "Attitude",
-      text:
-        "रास्ते अपने चुनते हैं,\nमंज़िल समय के साथ मिलती है।"
-    },
-
-
-    {
-      id: "friendship-001",
-      category: "Friendship",
-      text:
-        "सच्ची दोस्ती दूरी नहीं देखती,\nवह भरोसा देखती है।"
-    },
-
-    {
-      id: "friendship-002",
-      category: "Friendship",
-      text:
-        "दोस्ती छोटी बातों से नहीं,\nमुश्किल समय में साथ देने से बड़ी होती है।"
-    },
-
-
-    {
-      id: "motivation-001",
-      category: "Motivation",
-      text:
-        "आज की छोटी मेहनत,\nकल की बड़ी सफलता की शुरुआत हो सकती है।"
-    },
-
-    {
-      id: "motivation-002",
-      category: "Motivation",
-      text:
-        "रुकना विकल्प हो सकता है,\nलेकिन कोशिश करना हमेशा तुम्हारे हाथ में है।"
-    }
-
-  ];
-
-
-  /* =======================================================
-     LOAD SHAYARI
-     ======================================================= */
-
-  function getShayariData() {
-
-    let published = [];
-
-
-    /*
-      Publisher system बाद में storage.js के माध्यम से
-      published Shayari उपलब्ध करा सकता है।
-    */
-
-    try {
-
-      if (
-        window.ARS_STORAGE &&
-        typeof
-          window.ARS_STORAGE.getShayari ===
-          "function"
-      ) {
-
-        const stored =
-          window.ARS_STORAGE.getShayari();
-
-
-        if (Array.isArray(stored)) {
-
-          published =
-            stored;
-
-        }
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Unable to load stored Shayari:",
-        error
-      );
-
-    }
-
-
-    /*
-      LocalStorage compatibility fallback
-    */
-
-    if (!published.length) {
-
-      try {
-
-        const raw =
-          localStorage.getItem(
-            "ARS_SHAYARI"
-          );
-
-
-        const parsed =
-          JSON.parse(
-            raw || "[]"
-          );
-
-
-        if (Array.isArray(parsed)) {
-
-          published =
-            parsed;
-
-        }
-
-      } catch (error) {
-
-        console.warn(
-          "ARS_SHAYARI storage unavailable."
-        );
-
-      }
-
-    }
-
-
-    /*
-      Default content + published content
-    */
-
-    return [
-      ...defaultShayari,
-      ...published
-    ];
-
-  }
-
-
-  /* =======================================================
-     USER INTERACTION STORAGE
-     ======================================================= */
-
-  function getJSON(key, fallback) {
-
-    try {
-
-      const value =
-        localStorage.getItem(key);
-
-
-      return value
-        ? JSON.parse(value)
-        : fallback;
-
-    } catch {
-
-      return fallback;
-
-    }
-
-  }
-
-
-  function saveJSON(key, value) {
-
-    try {
-
-      localStorage.setItem(
-        key,
-        JSON.stringify(value)
-      );
-
-      return true;
-
-    } catch {
-
-      return false;
-
-    }
-
-  }
-
-
-  function getLikes() {
-
-    return getJSON(
-      "ARS_LIKES",
-      {}
-    );
-
-  }
-
-
-  function getFavorites() {
-
-    return getJSON(
-      "ARS_FAVORITES",
-      {}
-    );
-
-  }
-
-
-  function toggleLike(id) {
-
-    const likes =
-      getLikes();
-
-
-    likes[id] =
-      !Boolean(likes[id]);
-
-
-    saveJSON(
-      "ARS_LIKES",
-      likes
-    );
-
-
-    return likes[id];
-
-  }
-
-
-  function toggleFavorite(id) {
-
-    const favorites =
-      getFavorites();
-
-
-    favorites[id] =
-      !Boolean(favorites[id]);
-
-
-    saveJSON(
-      "ARS_FAVORITES",
-      favorites
-    );
-
-
-    return favorites[id];
-
-  }
-
-
-  /* =======================================================
-     SHARE
-     ======================================================= */
-
-  async function shareShayari(item) {
-
-    const shareText =
-      `${item.text}\n\n— ARS Official`;
-
-
-    const shareURL =
-      `${window.location.origin}${window.location.pathname}#shayari-${encodeURIComponent(item.id)}`;
-
+  document.addEventListener("click", event => {
 
     if (
-      navigator.share
+      nav.classList.contains("open") &&
+      !nav.contains(event.target) &&
+      !toggle.contains(event.target)
     ) {
 
-      try {
+      nav.classList.remove("open");
 
-        await navigator.share({
+      toggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
 
-          title:
-            "ARS Official Shayari",
+      toggle.textContent = "☰";
 
-          text:
-            shareText,
+    }
 
-          url:
-            shareURL
+  });
 
-        });
+}
 
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+function initBackToTop() {
+
+  const button =
+    document.querySelector(".back-top");
+
+  if (!button) return;
+
+  const update =
+    () => {
+
+      button.classList.toggle(
+        "show",
+        window.scrollY > 450
+      );
+
+    };
+
+  window.addEventListener(
+    "scroll",
+    update,
+    { passive: true }
+  );
+
+  update();
+
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   INSTAGRAM
+========================================================= */
+
+function initInstagram() {
+
+  const link =
+    document.getElementById(
+      "instagramLink"
+    );
+
+  if (!link) return;
+
+  link.href =
+    window.ARS_CONFIG.instagram;
+
+  link.target = "_blank";
+
+  link.rel =
+    "noopener noreferrer";
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function initSearch() {
+
+  const searchInput =
+    document.querySelector(
+      ".search-box input"
+    );
+
+  if (!searchInput) return;
+
+  const cards =
+    Array.from(
+      document.querySelectorAll(
+        ".content-card"
+      )
+    );
+
+  if (!cards.length) return;
+
+  searchInput.addEventListener(
+    "input",
+    () => {
+
+      const query =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      let visible = 0;
+
+      cards.forEach(card => {
+
+        const text =
+          card.textContent
+            .toLowerCase();
+
+        const matched =
+          !query ||
+          text.includes(query);
+
+        card.style.display =
+          matched ? "" : "none";
+
+        if (matched) {
+          visible++;
+        }
+
+      });
+
+      showSearchEmpty(
+        visible === 0 && query
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SEARCH EMPTY STATE
+========================================================= */
+
+function showSearchEmpty(show) {
+
+  let empty =
+    document.getElementById(
+      "searchEmptyState"
+    );
+
+  if (show) {
+
+    if (empty) return;
+
+    const grid =
+      document.querySelector(
+        ".content-grid"
+      );
+
+    if (!grid) return;
+
+    empty =
+      document.createElement("div");
+
+    empty.id =
+      "searchEmptyState";
+
+    empty.className =
+      "empty-state";
+
+    empty.innerHTML = `
+      <div>🔎</div>
+      <h3>कोई परिणाम नहीं मिला</h3>
+      <p>अपनी खोज बदलकर फिर कोशिश करें।</p>
+    `;
+
+    grid.parentNode.insertBefore(
+      empty,
+      grid.nextSibling
+    );
+
+  } else if (empty) {
+
+    empty.remove();
+
+  }
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function initCategories() {
+
+  const buttons =
+    document.querySelectorAll(
+      ".category-btn"
+    );
+
+  if (!buttons.length) return;
+
+  buttons.forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        buttons.forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        const category =
+          (
+            button.dataset.category ||
+            button.textContent ||
+            "all"
+          )
+          .trim()
+          .toLowerCase();
+
+        filterCards(category);
+
+      }
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   FILTER CARDS
+========================================================= */
+
+function filterCards(category) {
+
+  const cards =
+    document.querySelectorAll(
+      ".content-card"
+    );
+
+  if (!cards.length) return;
+
+  const isAll =
+    category === "all" ||
+    category === "सभी" ||
+    category === "*";
+
+  let visible = 0;
+
+  cards.forEach(card => {
+
+    const cardCategory =
+      (
+        card.dataset.category ||
+        card.getAttribute("data-category") ||
+        card.querySelector(".tag")?.textContent ||
+        ""
+      )
+      .trim()
+      .toLowerCase();
+
+    const match =
+      isAll ||
+      cardCategory === category ||
+      cardCategory.includes(category) ||
+      category.includes(cardCategory);
+
+    card.style.display =
+      match ? "" : "none";
+
+    if (match) visible++;
+
+  });
+
+  const empty =
+    document.getElementById(
+      "categoryEmptyState"
+    );
+
+  if (visible === 0 && !empty) {
+
+    const grid =
+      document.querySelector(
+        ".content-grid"
+      );
+
+    if (!grid) return;
+
+    const state =
+      document.createElement("div");
+
+    state.id =
+      "categoryEmptyState";
+
+    state.className =
+      "empty-state";
+
+    state.innerHTML = `
+      <div>📚</div>
+      <h3>इस category में अभी content नहीं है</h3>
+      <p>दूसरी category चुनें।</p>
+    `;
+
+    grid.parentNode.insertBefore(
+      state,
+      grid.nextSibling
+    );
+
+  } else if (
+    visible > 0 &&
+    empty
+  ) {
+
+    empty.remove();
+
+  }
+
+}
+
+
+/* =========================================================
+   LIKE / FAVORITE / SAVE / SHARE
+========================================================= */
+
+function initInteractions() {
+
+  document.addEventListener(
+    "click",
+    event => {
+
+      const button =
+        event.target.closest(
+          ".card-action"
+        );
+
+      if (!button) return;
+
+      const action =
+        (
+          button.dataset.action ||
+          button.textContent
+        )
+        .trim()
+        .toLowerCase();
+
+      const card =
+        button.closest(
+          ".content-card"
+        );
+
+      if (
+        action.includes("like") ||
+        action.includes("लाइक")
+      ) {
+
+        toggleLike(
+          button,
+          card
+        );
 
         return;
 
-      } catch (error) {
+      }
 
-        /*
-          User cancelled sharing.
-          No error message required.
-        */
 
-        if (
-          error &&
-          error.name === "AbortError"
-        ) {
+      if (
+        action.includes("favorite") ||
+        action.includes("fav") ||
+        action.includes("फेवरेट")
+      ) {
 
-          return;
+        toggleFavorite(
+          button,
+          card
+        );
 
-        }
+        return;
 
       }
 
-    }
 
+      if (
+        action.includes("save") ||
+        action.includes("सेव")
+      ) {
 
-    /*
-      Fallback: copy content
-    */
+        toggleSave(
+          button,
+          card
+        );
 
-    try {
+        return;
 
-      await navigator.clipboard.writeText(
-        `${shareText}\n${shareURL}`
-      );
+      }
 
 
-      showToast(
-        "Shayari link और text copy हो गया।"
-      );
+      if (
+        action.includes("share") ||
+        action.includes("शेयर")
+      ) {
 
-    } catch {
+        shareCard(card);
 
-      showToast(
-        "Share करने के लिए browser का share option इस्तेमाल करें।"
-      );
-
-    }
-
-  }
-
-
-  /* =======================================================
-     SHAYARI RENDER
-     ======================================================= */
-
-  const shayariContainer =
-    $("#shayariContainer");
-
-
-  let activeCategory =
-    "Love";
-
-
-  function renderShayari(category) {
-
-    if (!shayariContainer) {
-      return;
-    }
-
-
-    const allShayari =
-      getShayariData();
-
-
-    const filtered =
-      allShayari.filter(
-        item =>
-          String(item.category)
-            .toLowerCase() ===
-          String(category)
-            .toLowerCase()
-      );
-
-
-    if (!filtered.length) {
-
-      shayariContainer.innerHTML = `
-
-        <div class="empty-state">
-
-          <h3>
-            अभी इस category में Shayari उपलब्ध नहीं है।
-          </h3>
-
-          <p>
-            Publisher से नई Shayari publish होने पर
-            यहाँ दिखाई देगी।
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const likes =
-      getLikes();
-
-
-    const favorites =
-      getFavorites();
-
-
-    shayariContainer.innerHTML =
-      filtered
-        .map(
-          item => {
-
-            const liked =
-              Boolean(
-                likes[item.id]
-              );
-
-
-            const saved =
-              Boolean(
-                favorites[item.id]
-              );
-
-
-            return `
-
-              <article
-                class="shayari-card"
-                id="shayari-${escapeHTML(item.id)}"
-              >
-
-                <div class="shayari-category">
-                  ${escapeHTML(item.category)}
-                </div>
-
-
-                <div class="shayari-text">
-                  ${escapeHTML(item.text)}
-                </div>
-
-
-                <div class="shayari-actions">
-
-                  <button
-                    type="button"
-                    class="action-btn ${liked ? "like-active" : ""}"
-                    data-action="like"
-                    data-id="${escapeHTML(item.id)}"
-                    aria-pressed="${liked}"
-                  >
-                    ${liked ? "❤️ Liked" : "♡ Like"}
-                  </button>
-
-
-                  <button
-                    type="button"
-                    class="action-btn ${saved ? "active" : ""}"
-                    data-action="favorite"
-                    data-id="${escapeHTML(item.id)}"
-                    aria-pressed="${saved}"
-                  >
-                    ${saved ? "⭐ Saved" : "☆ Save"}
-                  </button>
-
-
-                  <button
-                    type="button"
-                    class="action-btn"
-                    data-action="share"
-                    data-id="${escapeHTML(item.id)}"
-                  >
-                    ↗ Share
-                  </button>
-
-                </div>
-
-              </article>
-
-            `;
-
-          }
-        )
-        .join("");
-
-  }
-
-
-  /* =======================================================
-     CATEGORY SWITCH
-     ======================================================= */
-
-  const categoryButtons =
-    $$(".category-btn");
-
-
-  categoryButtons.forEach(
-    button => {
-
-      button.addEventListener(
-        "click",
-        function () {
-
-          categoryButtons.forEach(
-            btn =>
-              btn.classList.remove(
-                "active"
-              )
-          );
-
-
-          this.classList.add(
-            "active"
-          );
-
-
-          activeCategory =
-            this.dataset.category;
-
-
-          renderShayari(
-            activeCategory
-          );
-
-        }
-      );
+      }
 
     }
   );
 
-
-  /* =======================================================
-     SHAYARI ACTIONS
-     ======================================================= */
-
-  if (shayariContainer) {
-
-    shayariContainer.addEventListener(
-      "click",
-      async function (event) {
-
-        const button =
-          event.target.closest(
-            "[data-action]"
-          );
+}
 
 
-        if (!button) {
-          return;
-        }
+/* =========================================================
+   UNIQUE CONTENT KEY
+========================================================= */
+
+function getContentKey(card) {
+
+  if (!card) return "";
+
+  if (card.dataset.id) {
+
+    return card.dataset.id;
+
+  }
+
+  const title =
+    card.querySelector("h3")
+      ?.textContent
+      ?.trim() || "";
+
+  const text =
+    card.querySelector(".content-text")
+      ?.textContent
+      ?.trim() || "";
+
+  return (
+    title + "|" + text
+  )
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .slice(0, 180);
+
+}
 
 
-        const action =
-          button.dataset.action;
+/* =========================================================
+   LIKE
+========================================================= */
+
+function toggleLike(button, card) {
+
+  if (!card) return;
+
+  const key =
+    "ARS_LIKE_" +
+    getContentKey(card);
+
+  const liked =
+    localStorage.getItem(key) === "true";
+
+  localStorage.setItem(
+    key,
+    String(!liked)
+  );
+
+  button.classList.toggle(
+    "favorite-active",
+    !liked
+  );
+
+  button.setAttribute(
+    "aria-pressed",
+    String(!liked)
+  );
+
+  button.textContent =
+    !liked ? "❤️ Liked" : "♡ Like";
+
+  showToast(
+    !liked
+      ? "❤️ Like किया गया"
+      : "Like हटाया गया"
+  );
+
+}
 
 
-        const id =
-          button.dataset.id;
+/* =========================================================
+   FAVORITE
+========================================================= */
+
+function toggleFavorite(button, card) {
+
+  if (!card) return;
+
+  const key =
+    "ARS_FAVORITE_" +
+    getContentKey(card);
+
+  const active =
+    localStorage.getItem(key) === "true";
+
+  localStorage.setItem(
+    key,
+    String(!active)
+  );
+
+  button.classList.toggle(
+    "favorite-active",
+    !active
+  );
+
+  button.textContent =
+    !active
+      ? "⭐ Favorite"
+      : "☆ Favorite";
+
+  showToast(
+    !active
+      ? "⭐ Favorite में जोड़ा गया"
+      : "Favorite से हटाया गया"
+  );
+
+}
 
 
-        const item =
-          getShayariData()
-            .find(
-              shayari =>
-                String(shayari.id) ===
-                String(id)
-            );
+/* =========================================================
+   SAVE
+========================================================= */
 
+function toggleSave(button, card) {
 
-        if (!item) {
-          return;
-        }
+  if (!card) return;
 
+  const key =
+    "ARS_SAVED_ITEMS";
 
-        if (action === "like") {
+  let saved = [];
 
-          const liked =
-            toggleLike(id);
+  try {
 
+    saved =
+      JSON.parse(
+        localStorage.getItem(key) ||
+        "[]"
+      );
 
-          button.classList.toggle(
-            "like-active",
-            liked
-          );
+  } catch {
 
+    saved = [];
 
-          button.setAttribute(
-            "aria-pressed",
-            String(liked)
-          );
+  }
 
+  const id =
+    getContentKey(card);
 
-          button.textContent =
-            liked
-              ? "❤️ Liked"
-              : "♡ Like";
+  const index =
+    saved.indexOf(id);
 
+  if (index === -1) {
 
-          showToast(
-            liked
-              ? "Shayari liked ❤️"
-              : "Like हटाया गया।"
-          );
+    saved.push(id);
 
-        }
+    localStorage.setItem(
+      key,
+      JSON.stringify(saved)
+    );
 
+    button.classList.add(
+      "favorite-active"
+    );
 
-        if (action === "favorite") {
+    button.textContent =
+      "💾 Saved";
 
-          const saved =
-            toggleFavorite(id);
+    showToast(
+      "💾 Content save किया गया"
+    );
 
+  } else {
 
-          button.classList.toggle(
-            "active",
-            saved
-          );
+    saved.splice(index, 1);
 
+    localStorage.setItem(
+      key,
+      JSON.stringify(saved)
+    );
 
-          button.setAttribute(
-            "aria-pressed",
-            String(saved)
-          );
+    button.classList.remove(
+      "favorite-active"
+    );
 
+    button.textContent =
+      "💾 Save";
 
-          button.textContent =
-            saved
-              ? "⭐ Saved"
-              : "☆ Save";
-
-
-          showToast(
-            saved
-              ? "Favorite में save हो गया ⭐"
-              : "Favorite से हटाया गया।"
-          );
-
-        }
-
-
-        if (action === "share") {
-
-          await shareShayari(
-            item
-          );
-
-        }
-
-      }
+    showToast(
+      "Save हटाया गया"
     );
 
   }
 
+}
 
-  /* =======================================================
-     INITIAL LOAD
-     ======================================================= */
 
-  renderShayari(
-    activeCategory
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareCard(card) {
+
+  if (!card) return;
+
+  const title =
+    card.querySelector("h3")
+      ?.textContent
+      ?.trim() ||
+    "ARS Official";
+
+  const text =
+    card.querySelector(".content-text")
+      ?.textContent
+      ?.trim() ||
+    "ARS Official";
+
+  const shareData = {
+
+    title:
+      title,
+
+    text:
+      text +
+      "\n\n— ARS Official",
+
+    url:
+      window.location.href
+
+  };
+
+
+  if (
+    navigator.share
+  ) {
+
+    try {
+
+      await navigator.share(
+        shareData
+      );
+
+      return;
+
+    } catch (error) {
+
+      if (
+        error?.name ===
+        "AbortError"
+      ) {
+
+        return;
+
+      }
+
+    }
+
+  }
+
+
+  try {
+
+    await navigator.clipboard.writeText(
+      shareData.url
+    );
+
+    showToast(
+      "🔗 Link copy हो गया"
+    );
+
+  } catch {
+
+    showToast(
+      "🔗 Share करने के लिए browser menu इस्तेमाल करें"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer = null;
+
+function showToast(message) {
+
+  let toast =
+    document.querySelector(".toast");
+
+  if (!toast) {
+
+    toast =
+      document.createElement("div");
+
+    toast.className =
+      "toast";
+
+    document.body.appendChild(
+      toast
+    );
+
+  }
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
   );
 
+  clearTimeout(
+    toastTimer
+  );
+
+  toastTimer =
+    setTimeout(
+      () => {
+
+        toast.classList.remove(
+          "show"
+        );
+
+      },
+      2200
+    );
+
+}
+
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+
+function initContactForm() {
+
+  const form =
+    document.querySelector(
+      "#contactForm"
+    );
+
+  if (!form) return;
+
+  form.addEventListener(
+    "submit",
+    event => {
+
+      event.preventDefault();
+
+      const name =
+        form.querySelector(
+          '[name="name"]'
+        )?.value.trim() || "";
+
+      const email =
+        form.querySelector(
+          '[name="email"]'
+        )?.value.trim() || "";
+
+      const message =
+        form.querySelector(
+          '[name="message"]'
+        )?.value.trim() || "";
+
+      if (
+        !name ||
+        !email ||
+        !message
+      ) {
+
+        showToast(
+          "कृपया सभी जरूरी जानकारी भरें।"
+        );
+
+        return;
+
+      }
+
+      /*
+        Front-end demo only.
+
+        वास्तविक email delivery के लिए
+        backend / Formspree / EmailJS /
+        अपना server आदि जोड़ना होगा।
+      */
+
+      showToast(
+        "✅ आपका संदेश तैयार है।"
+      );
+
+      form.reset();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   FOOTER YEAR
+========================================================= */
+
+function initYear() {
+
+  document
+    .querySelectorAll(
+      "[data-year]"
+    )
+    .forEach(element => {
+
+      element.textContent =
+        new Date()
+          .getFullYear();
+
+    });
+
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+(function markActiveNavigation() {
+
+  const current =
+    window.location.pathname
+      .split("/")
+      .pop()
+      .toLowerCase() ||
+    "index.html";
+
+  document
+    .querySelectorAll(
+      ".nav-links a"
+    )
+    .forEach(link => {
+
+      const href =
+        link.getAttribute("href");
+
+      if (!href) return;
+
+      const page =
+        href
+          .split("/")
+          .pop()
+          .split("?")[0]
+          .toLowerCase();
+
+      if (
+        page === current
+      ) {
+
+        link.classList.add(
+          "active"
+        );
+
+      }
+
+    });
 
 })();
+
+
+/* =========================================================
+   INITIAL CARD STATES
+========================================================= */
+
+(function restoreStates() {
+
+  document
+    .querySelectorAll(
+      ".content-card"
+    )
+    .forEach(card => {
+
+      const key =
+        getContentKey(card);
+
+      const likeButton =
+        card.querySelector(
+          '[data-action="like"]'
+        );
+
+      const favoriteButton =
+        card.querySelector(
+          '[data-action="favorite"]'
+        );
+
+      const saveButton =
+        card.querySelector(
+          '[data-action="save"]'
+        );
+
+
+      if (
+        likeButton &&
+        localStorage.getItem(
+          "ARS_LIKE_" + key
+        ) === "true"
+      ) {
+
+        likeButton.classList.add(
+          "favorite-active"
+        );
+
+        likeButton.textContent =
+          "❤️ Liked";
+
+      }
+
+
+      if (
+        favoriteButton &&
+        localStorage.getItem(
+          "ARS_FAVORITE_" + key
+        ) === "true"
+      ) {
+
+        favoriteButton.classList.add(
+          "favorite-active"
+        );
+
+        favoriteButton.textContent =
+          "⭐ Favorite";
+
+      }
+
+
+      if (saveButton) {
+
+        let saved = [];
+
+        try {
+
+          saved =
+            JSON.parse(
+              localStorage.getItem(
+                "ARS_SAVED_ITEMS"
+              ) || "[]"
+            );
+
+        } catch {
+
+          saved = [];
+
+        }
+
+        if (
+          saved.includes(key)
+        ) {
+
+          saveButton.classList.add(
+            "favorite-active"
+          );
+
+          saveButton.textContent =
+            "💾 Saved";
+
+        }
+
+      }
+
+    });
+
+})();
+
+
+/* =========================================================
+   GLOBAL HELPERS
+========================================================= */
+
+window.ARS = {
+
+  toast:
+    showToast,
+
+  share:
+    shareCard,
+
+  filter:
+    filterCards,
+
+  version:
+    "ARS Official Master Script"
+
+};
