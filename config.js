@@ -1,57 +1,49 @@
 /* =========================================================
    ARS OFFICIAL — CONFIGURATION
-   Adarsh Raj Shayar
+   Central Website Settings
    ========================================================= */
 
 "use strict";
 
 (function (window) {
 
-  const ARS_CONFIG = Object.freeze({
+  const ARS_CONFIG = {
 
     /* -------------------------------------------------------
-       WEBSITE IDENTITY
+       WEBSITE
     ------------------------------------------------------- */
 
     site: {
       name: "ARS Official",
       fullName: "Adarsh Raj Shayar",
-      shortName: "ARS",
-      tagline: "Words • Stories • Poetry • Creativity",
-      language: "hi"
+      tagline: "Official Website of Adarsh Raj",
+      publisher: "Adarsh Raj",
+      founder: "Adarsh Raj"
     },
 
 
     /* -------------------------------------------------------
-       PUBLISHER / FOUNDER
-       ------------------------------------------------------- */
-
-    publisher: {
-      name: "Adarsh Raj",
-      title: "Founder & Publisher",
-      organization: "ARS Official"
-    },
-
-
-    /* -------------------------------------------------------
-       SOCIAL
+       SOCIAL MEDIA
        ------------------------------------------------------- */
 
     social: {
-      instagram: "@adarshrajshyar",
-      instagramUrl: "https://www.instagram.com/adarshrajshyar/"
+      instagram: "https://instagram.com/",
+      facebook: "",
+      youtube: "",
+      github: ""
     },
 
 
     /* -------------------------------------------------------
        WEBSITE ASSETS
+       Keep these filenames exactly as your files are named.
        ------------------------------------------------------- */
 
     assets: {
       logo: "logo.png",
       banner: "banner.png",
-      signature: "signature.jpg",
-      founderPhoto: "founder.jpg"
+      founderPhoto: "photo.jpg",
+      signature: "signature.jpg"
     },
 
 
@@ -61,21 +53,21 @@
 
     certificate: {
 
-      enabled: true,
-
       idPrefix: "ARS-CERT",
+
+      issuer: "Adarsh Raj",
+
+      issuerTitle: "Founder & Publisher, ARS Official",
+
+      organization: "ARS Official",
 
       verificationPage: "verify.html",
 
-      publisherName: "Adarsh Raj",
-
-      publisherTitle: "Founder & Publisher, ARS Official",
+      logo: "logo.png",
 
       signature: "signature.jpg",
 
-      logo: "logo.png",
-
-      qrEnabled: true,
+      defaultType: "Professional",
 
       types: [
         "Professional",
@@ -88,100 +80,94 @@
 
 
     /* -------------------------------------------------------
-       NAVIGATION
+       PUBLISHER / ADMIN
        ------------------------------------------------------- */
 
-    navigation: [
+    publisher: {
 
-      {
-        label: "Home",
-        href: "index.html"
-      },
+      name: "Adarsh Raj",
 
-      {
-        label: "Shayari",
-        href: "index.html#shayari"
-      },
+      role: "Founder & Publisher",
 
-      {
-        label: "Stories",
-        href: "index.html#stories"
-      },
+      /* Change this password only if you want another one. */
+      password: "ARS@Publisher2026"
 
-      {
-        label: "Favorites",
-        href: "index.html#favorites"
-      },
-
-      {
-        label: "Join ARS",
-        href: "joining.html"
-      },
-
-      {
-        label: "Certificate",
-        href: "certificate.html"
-      },
-
-      {
-        label: "Verify",
-        href: "verify.html"
-      },
-
-      {
-        label: "Founder",
-        href: "founder.html"
-      },
-
-      {
-        label: "Admin",
-        href: "admin.html"
-      }
-
-    ],
+    },
 
 
     /* -------------------------------------------------------
-       STORAGE PREFIX
+       ADMIN
        ------------------------------------------------------- */
 
-    storagePrefix: "ARS_",
+    admin: {
+
+      name: "Adarsh Raj",
+
+      role: "Administrator",
+
+      password: "ARS@Publisher2026"
+
+    },
 
 
     /* -------------------------------------------------------
-       WEBSITE SETTINGS
+       STORAGE
        ------------------------------------------------------- */
 
-    settings: {
+    storage: {
 
-      defaultAuthor: "Adarsh Raj",
+      shayari: "ARS_SHAYARI_DATA",
 
-      defaultCategory: "life",
+      stories: "ARS_STORY_DATA",
 
-      itemsPerPage: 9,
+      likes: "ARS_LIKES",
 
-      enableLikes: true,
+      favorites: "ARS_FAVORITES",
 
-      enableFavorites: true,
+      certificates: "ARS_CERTIFICATES",
 
-      enableSearch: true,
+      joinRequests: "ARS_JOIN_REQUESTS",
 
-      enableCertificates: true,
+      messages: "ARS_CONTACT_MESSAGES"
 
-      enableJoinRequests: true,
+    },
 
-      enableContactMessages: true
 
+    /* -------------------------------------------------------
+       BRAND
+       ------------------------------------------------------- */
+
+    brand: {
+
+      primary: "#8b1e3f",
+
+      primaryDark: "#64132d",
+
+      gold: "#b88932",
+
+      white: "#ffffff",
+
+      dark: "#171717"
+
+    },
+
+
+    /* -------------------------------------------------------
+       COPYRIGHT
+       ------------------------------------------------------- */
+
+    copyright: {
+      text: "© 2026 ARS Official — Adarsh Raj. All Rights Reserved."
     }
 
-  });
+  };
 
 
   /* ---------------------------------------------------------
-     PUBLIC API
+     PUBLIC CONFIG
      --------------------------------------------------------- */
 
-  window.ARS_CONFIG = ARS_CONFIG;
+  window.ARS_CONFIG = Object.freeze(ARS_CONFIG);
 
 
   console.log("⚙️ ARS Configuration Loaded");
