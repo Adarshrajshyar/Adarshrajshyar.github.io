@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -10,21 +12,16 @@
 
   <title>ARS Joining Certificate</title>
 
-  <!-- Existing ARS Design -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Existing ARS Storage -->
   <script src="config.js"></script>
   <script src="storage.js"></script>
 
-  <!-- QR Code Library -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-    defer
-  ></script>
 </head>
 
+
 <body>
+
 
 <header class="site-header">
 
@@ -35,324 +32,23 @@
       <img
         class="brand-logo"
         src="logo.png"
-        alt="ARS Official Logo"
+        alt="ARS Logo"
       >
 
       <span>
+
         <strong>ARS Official</strong>
+
         <small>Adarsh Raj Shayar</small>
+
       </span>
 
     </a>
 
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-      type="button"
-      aria-label="Open navigation"
-      aria-expanded="false"
-    >
-      ☰
-    </button>
 
-    <div class="nav-links" id="navLinks">
+    <div class="nav-links">
 
       <a href="index.html">Home</a>
-
-      <a href="joining.html">Join ARS</a>
-
-      <a href="certificate.html">Certificate</a>
-
-      <a href="verify.html">Verify</a>
-
-      <a href="founder.html">Founder</a>
-
-    </div>
-
-  </nav>
-
-</header>
-
-
-<main class="joining-certificate-page">
-
-  <section class="section">
-
-    <div class="section-heading">
-
-      <span>ARS OFFICIAL</span>
-
-      <h1>Joining Certificate</h1>
-
-      <p>
-        ARS Official में जुड़ने के लिए जारी प्रमाणपत्र
-      </p>
-
-    </div>
-
-
-    <div class="joining-certificate-wrapper">
-
-      <article
-        class="joining-certificate"
-        id="joiningCertificate"
-      >
-
-        <!-- TOP -->
-        <div class="certificate-top">
-
-          <div class="certificate-logo-box">
-
-            <img
-              src="logo.png"
-              alt="ARS Logo"
-              class="certificate-logo"
-            >
-
-          </div>
-
-
-          <div class="certificate-heading">
-
-            <p class="certificate-org">
-              ARS OFFICIAL
-            </p>
-
-            <h2>
-              JOINING CERTIFICATE
-            </h2>
-
-            <p class="certificate-subtitle">
-              Adarsh Raj Shayar
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div class="certificate-divider"></div>
-
-
-        <!-- BODY -->
-        <div class="certificate-body">
-
-          <p class="certificate-intro">
-            यह प्रमाणित किया जाता है कि
-          </p>
-
-
-          <h1 id="memberName">
-            ARS Member
-          </h1>
-
-
-          <p class="certificate-description">
-            ने ARS Official के साथ जुड़कर
-            इसके रचनात्मक एवं सामुदायिक कार्यों में
-            सहभागिता हेतु अपना पंजीकरण कराया है।
-          </p>
-
-
-          <p class="certificate-description-en">
-            This certificate acknowledges the joining
-            of the above-mentioned member with
-            ARS Official.
-          </p>
-
-
-          <!-- DETAILS -->
-          <div class="certificate-details">
-
-            <div class="certificate-detail">
-
-              <span>
-                Joining ID
-              </span>
-
-              <strong id="joiningID">
-                —
-              </strong>
-
-            </div>
-
-
-            <div class="certificate-detail">
-
-              <span>
-                Joining Date
-              </span>
-
-              <strong id="joiningDate">
-                —
-              </strong>
-
-            </div>
-
-
-            <div class="certificate-detail">
-
-              <span>
-                Status
-              </span>
-
-              <strong id="joiningStatus">
-                Approved
-              </strong>
-
-            </div>
-
-          </div>
-
-
-          <!-- QR -->
-          <div class="certificate-verification">
-
-            <div
-              id="joiningQRCode"
-              class="joining-qr"
-            ></div>
-
-            <p>
-              Scan to verify
-            </p>
-
-            <small>
-              ARS Official Verification
-            </small>
-
-          </div>
-
-        </div>
-
-
-        <!-- BOTTOM -->
-        <div class="certificate-bottom">
-
-          <div class="certificate-signature">
-
-            <img
-              src="signature.jpg"
-              alt="Adarsh Raj Signature"
-            >
-
-            <div class="signature-line"></div>
-
-            <strong>
-              Adarsh Raj
-            </strong>
-
-            <span>
-              Founder & Publisher
-            </span>
-
-            <small>
-              ARS Official
-            </small>
-
-          </div>
-
-
-          <div class="certificate-id-box">
-
-            <span>
-              Certificate ID
-            </span>
-
-            <strong id="certificateID">
-              —
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <div class="certificate-footer">
-
-          <span>
-            ARS Official
-          </span>
-
-          <span>
-            •
-          </span>
-
-          <span>
-            Adarsh Raj Shayar
-          </span>
-
-          <span>
-            •
-          </span>
-
-          <span>
-            Official Joining Certificate
-          </span>
-
-        </div>
-
-      </article>
-
-
-      <!-- ACTIONS -->
-      <div class="certificate-actions">
-
-        <button
-          type="button"
-          class="primary-btn"
-          id="printCertificate"
-        >
-          🖨️ Print Certificate
-        </button>
-
-        <a
-          href="joining.html"
-          class="outline-btn"
-        >
-          ← Back to Join ARS
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-</main>
-
-
-<footer class="site-footer">
-
-  <div class="footer-inner">
-
-    <div class="footer-brand">
-
-      <img
-        src="logo.png"
-        alt="ARS Logo"
-      >
-
-      <div>
-
-        <h3>
-          Adarsh Raj Shayar
-        </h3>
-
-        <p>
-          ARS Official — Joining Certificate
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <div class="footer-links">
-
-      <a href="index.html">
-        Home
-      </a>
 
       <a href="joining.html">
         Join ARS
@@ -366,23 +62,119 @@
         Verify
       </a>
 
-      <a href="policy.html">
-        Policy
+      <a href="founder.html">
+        Founder
       </a>
 
     </div>
 
+  </nav>
 
-    <div class="footer-bottom">
+</header>
 
-      <p>
-        © <span id="footerYear"></span>
-        ARS Official. All Rights Reserved.
-      </p>
 
-      <p>
-        Adarsh Raj — Founder & Publisher
-      </p>
+<main>
+
+<section class="section">
+
+  <div class="section-heading">
+
+    <span>ARS COMMUNITY</span>
+
+    <h2>ARS Joining Certificate</h2>
+
+    <p>
+      Approved ARS member के लिए joining certificate।
+    </p>
+
+  </div>
+
+
+  <div class="form-card">
+
+    <form id="joiningCertificateForm">
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="memberName">
+            Member Name
+          </label>
+
+          <input
+            id="memberName"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="memberRole">
+            ARS Role
+          </label>
+
+          <select id="memberRole" required>
+
+            <option value="">
+              Select Role
+            </option>
+
+            <option>Writer</option>
+            <option>Creator</option>
+            <option>Supporter</option>
+            <option>Shayar</option>
+            <option>Instagram Creator</option>
+            <option>YouTube Creator</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="primary-btn"
+        type="submit"
+      >
+        Generate Joining Certificate
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <div
+    id="joiningCertificateOutput"
+    style="margin-top:30px;"
+  ></div>
+
+</section>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+
+      <img src="logo.png" alt="ARS Logo">
+
+      <div>
+
+        <h3>Adarsh Raj Shayar</h3>
+
+        <p>
+          ARS Official — Member Certificate
+        </p>
+
+      </div>
 
     </div>
 
@@ -392,76 +184,22 @@
 
 
 <script>
+
 (function () {
 
   "use strict";
 
 
-  /* =====================================================
-     NAVIGATION
-  ===================================================== */
-
-  const menuToggle =
-    document.getElementById("menuToggle");
-
-  const navLinks =
-    document.getElementById("navLinks");
-
-
-  if (menuToggle && navLinks) {
-
-    menuToggle.addEventListener(
-      "click",
-      function () {
-
-        const isOpen =
-          navLinks.classList.toggle("open");
-
-        menuToggle.setAttribute(
-          "aria-expanded",
-          String(isOpen)
-        );
-
-      }
+  const form =
+    document.getElementById(
+      "joiningCertificateForm"
     );
 
 
-    navLinks.querySelectorAll("a")
-      .forEach(function (link) {
-
-        link.addEventListener(
-          "click",
-          function () {
-
-            navLinks.classList.remove("open");
-
-            menuToggle.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
-        );
-
-      });
-
-  }
-
-
-  /* =====================================================
-     HELPERS
-  ===================================================== */
-
-  function getQueryValue(name) {
-
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    return params.get(name);
-
-  }
+  const output =
+    document.getElementById(
+      "joiningCertificateOutput"
+    );
 
 
   function escapeHTML(value) {
@@ -477,1071 +215,273 @@
   }
 
 
-  function formatDate(value) {
+  function generateMemberID() {
 
-    if (!value) return "—";
-
-    const date =
-      new Date(value);
-
-    if (
-      Number.isNaN(
-        date.getTime()
-      )
-    ) {
-      return "—";
-    }
-
-    return date.toLocaleDateString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-      }
-    );
-
-  }
-
-
-  /* =====================================================
-     GET JOINING RECORD
-  ===================================================== */
-
-  function findJoiningRecord(id) {
-
-    if (!id) return null;
-
-
-    /*
-      Primary ARS storage API
-    */
-
-    if (
-      window.ARS_STORAGE &&
-      typeof window.ARS_STORAGE.findJoin === "function"
-    ) {
-
-      const record =
-        window.ARS_STORAGE.findJoin(id);
-
-      if (record) {
-        return record;
-      }
-
-    }
-
-
-    /*
-      Storage fallback
-    */
-
-    try {
-
-      const data =
-        JSON.parse(
-          localStorage.getItem(
-            "ARS_JOIN_REQUESTS"
-          ) || "[]"
-        );
-
-
-      return data.find(function (item) {
-
-        return String(item.id)
-          .trim()
-          .toLowerCase() ===
-          String(id)
-            .trim()
-            .toLowerCase();
-
-      }) || null;
-
-    } catch (error) {
-
-      console.error(
-        "ARS Joining Certificate Error:",
-        error
-      );
-
-      return null;
-
-    }
-
-  }
-
-
-  /* =====================================================
-     GENERATE CERTIFICATE ID
-  ===================================================== */
-
-  function makeCertificateID(joinID) {
-
-    if (!joinID) {
-
-      return "ARS-JOIN-CERT-" +
-        Date.now().toString(36)
-          .toUpperCase();
-
-    }
-
-
-    return "ARS-JOIN-CERT-" +
-      String(joinID)
-        .replace(
-          /^ARS-JOIN-/i,
-          ""
-        )
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2, 8)
         .toUpperCase();
 
-  }
 
-
-  /* =====================================================
-     LOAD DATA
-  ===================================================== */
-
-  const requestedID =
-    getQueryValue("id");
-
-
-  let joining =
-    findJoiningRecord(
-      requestedID
-    );
-
-
-  /*
-    If no ID is provided,
-    show a clean empty certificate
-    rather than breaking the page.
-  */
-
-  if (!joining) {
-
-    document.getElementById(
-      "memberName"
-    ).textContent =
-      "ARS Member";
-
-
-    document.getElementById(
-      "joiningID"
-    ).textContent =
-      "—";
-
-
-    document.getElementById(
-      "joiningDate"
-    ).textContent =
-      "—";
-
-
-    document.getElementById(
-      "joiningStatus"
-    ).textContent =
-      "—";
-
-
-    document.getElementById(
-      "certificateID"
-    ).textContent =
-      "—";
-
-  } else {
-
-    const name =
-      joining.name ||
-      joining.fullName ||
-      joining.memberName ||
-      joining.applicantName ||
-      "ARS Member";
-
-
-    const joinID =
-      joining.id ||
-      requestedID ||
-      "—";
-
-
-    const createdAt =
-      joining.createdAt ||
-      joining.joiningDate ||
-      joining.date;
-
-
-    const status =
-      joining.status ||
-      "approved";
-
-
-    const certificateID =
-      joining.certificateId ||
-      joining.certificateID ||
-      makeCertificateID(
-        joinID
-      );
-
-
-    document.getElementById(
-      "memberName"
-    ).textContent =
-      name;
-
-
-    document.getElementById(
-      "joiningID"
-    ).textContent =
-      joinID;
-
-
-    document.getElementById(
-      "joiningDate"
-    ).textContent =
-      formatDate(
-        createdAt
-      );
-
-
-    document.getElementById(
-      "joiningStatus"
-    ).textContent =
-      String(status)
-        .charAt(0)
-        .toUpperCase() +
-      String(status)
-        .slice(1);
-
-
-    document.getElementById(
-      "certificateID"
-    ).textContent =
-      certificateID;
-
-
-    /*
-      Generate QR after the page
-      has loaded.
-    */
-
-    generateQR(
-      certificateID
-    );
+    return `
+      ARS-MEMBER-${new Date().getFullYear()}-${random}
+    `.replace(/\s+/g, "");
 
   }
 
 
-  /* =====================================================
-     QR CODE
-  ===================================================== */
+  form.addEventListener(
+    "submit",
+    function (event) {
 
-  function generateQR(id) {
-
-    const qrBox =
-      document.getElementById(
-        "joiningQRCode"
-      );
+      event.preventDefault();
 
 
-    if (!qrBox || !id) {
-      return;
-    }
+      const name =
+        document
+          .getElementById("memberName")
+          .value.trim();
 
 
-    qrBox.innerHTML = "";
+      const role =
+        document
+          .getElementById("memberRole")
+          .value;
 
 
-    const verifyURL =
-      new URL(
-        "verify.html",
-        window.location.href
-      );
+      if (!name || !role) {
 
+        alert(
+          "कृपया Name और Role भरें।"
+        );
 
-    verifyURL.searchParams.set(
-      "id",
-      id
-    );
-
-
-    /*
-      qrcode.js loaded successfully
-    */
-
-    if (
-      typeof window.QRCode ===
-      "function"
-    ) {
-
-      new QRCode(
-        qrBox,
-        {
-          text:
-            verifyURL.toString(),
-
-          width: 120,
-
-          height: 120,
-
-          correctLevel:
-            QRCode.CorrectLevel.M
-        }
-      );
-
-      return;
-
-    }
-
-
-    /*
-      Safe fallback when QR library
-      has not loaded.
-    */
-
-    qrBox.innerHTML =
-      "<div class=\"qr-fallback\">" +
-      "QR" +
-      "</div>";
-
-  }
-
-
-  /* =====================================================
-     PRINT
-  ===================================================== */
-
-  const printButton =
-    document.getElementById(
-      "printCertificate"
-    );
-
-
-  if (printButton) {
-
-    printButton.addEventListener(
-      "click",
-      function () {
-
-        window.print();
+        return;
 
       }
-    );
-
-  }
 
 
-  /* =====================================================
-     FOOTER YEAR
-  ===================================================== */
-
-  const footerYear =
-    document.getElementById(
-      "footerYear"
-    );
+      const memberID =
+        generateMemberID();
 
 
-  if (footerYear) {
+      const certificate = {
 
-    footerYear.textContent =
-      new Date().getFullYear();
+        id: memberID,
 
-  }
+        name,
 
+        type: "ARS Membership",
+
+        role,
+
+        issuedAt:
+          new Date().toISOString(),
+
+        issuedBy:
+          "Adarsh Raj — Founder, ARS Official"
+
+      };
+
+
+      if (window.ARSStorage) {
+
+        window.ARSStorage.saveCertificate(
+          certificate
+        );
+
+      }
+
+
+      const verifyURL =
+        `${window.location.origin}/verify.html?id=${encodeURIComponent(memberID)}`;
+
+
+      output.innerHTML = `
+
+        <div
+          id="joiningCertificate"
+          style="
+            max-width:900px;
+            margin:auto;
+            padding:50px;
+            background:#fff;
+            border:10px solid #8b1e3f;
+            outline:2px solid #b88932;
+            outline-offset:-20px;
+            text-align:center;
+            box-shadow:0 15px 45px rgba(0,0,0,.12);
+          "
+        >
+
+          <img
+            src="logo.png"
+            alt="ARS Logo"
+            style="
+              width:90px;
+              height:90px;
+              object-fit:contain;
+              margin:auto;
+            "
+          >
+
+
+          <p
+            style="
+              color:#b88932;
+              font-weight:900;
+              letter-spacing:3px;
+            "
+          >
+            ARS OFFICIAL
+          </p>
+
+
+          <h1
+            style="
+              color:#8b1e3f;
+              font-size:40px;
+              margin:10px 0;
+            "
+          >
+            MEMBERSHIP CERTIFICATE
+          </h1>
+
+
+          <p>
+            This certificate proudly confirms that
+          </p>
+
+
+          <h2
+            style="
+              font-size:34px;
+              margin:15px 0;
+            "
+          >
+            ${escapeHTML(name)}
+          </h2>
+
+
+          <p>
+            is recognized as an
+            <strong>
+              ARS Official Member
+            </strong>
+          </p>
+
+
+          <p>
+            Role:
+            <strong>
+              ${escapeHTML(role)}
+            </strong>
+          </p>
+
+
+          <div
+            style="
+              margin-top:40px;
+              display:flex;
+              justify-content:space-between;
+              align-items:end;
+              gap:20px;
+            "
+          >
+
+            <div style="text-align:left;">
+
+              <img
+                src="signature.jpg"
+                alt="Founder Signature"
+                style="
+                  width:130px;
+                  height:55px;
+                  object-fit:contain;
+                "
+              >
+
+              <div
+                style="
+                  border-top:1px solid #555;
+                  padding-top:5px;
+                "
+              >
+                Founder
+              </div>
+
+              <strong>
+                Adarsh Raj
+              </strong>
+
+            </div>
+
+
+            <div
+              style="
+                text-align:right;
+                font-size:12px;
+              "
+            >
+
+              <strong>
+                Member ID
+              </strong>
+
+              <br>
+
+              ${memberID}
+
+            </div>
+
+          </div>
+
+
+          <div
+            style="
+              margin-top:25px;
+              padding-top:15px;
+              border-top:1px solid #ddd;
+              font-size:12px;
+              color:#666;
+            "
+          >
+
+            Scan / Open to verify:
+            <br>
+
+            ${verifyURL}
+
+          </div>
+
+        </div>
+
+
+        <div
+          style="
+            text-align:center;
+            margin-top:20px;
+          "
+        >
+
+          <button
+            class="primary-btn"
+            onclick="window.print()"
+          >
+            🖨️ Print Joining Certificate
+          </button>
+
+        </div>
+
+      `;
+
+    }
+  );
 
 })();
+
 </script>
 
 
-<style>
-
-/* =========================================================
-   JOINING CERTIFICATE PAGE
-   Uses the existing ARS visual language.
-========================================================= */
-
-.joining-certificate-page {
-  min-height: 80vh;
-}
-
-
-.joining-certificate-wrapper {
-  width: min(100%, 1000px);
-  margin: auto;
-}
-
-
-.joining-certificate {
-  position: relative;
-
-  overflow: hidden;
-
-  background:
-    linear-gradient(
-      145deg,
-      #ffffff,
-      #fffaf7
-    );
-
-  border:
-    1px solid #dfcba3;
-
-  border-radius:
-    18px;
-
-  box-shadow:
-    0 20px 55px
-    rgba(0, 0, 0, .10);
-
-  padding:
-    45px 50px;
-
-  color:
-    #292929;
-}
-
-
-.joining-certificate::before {
-  content: "";
-
-  position: absolute;
-
-  inset: 12px;
-
-  border:
-    1px solid
-    rgba(184, 137, 50, .35);
-
-  border-radius:
-    12px;
-
-  pointer-events:
-    none;
-}
-
-
-.certificate-top {
-  position: relative;
-
-  z-index: 1;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 25px;
-
-  text-align: center;
-}
-
-
-.certificate-logo-box {
-  width: 82px;
-  height: 82px;
-
-  flex: 0 0 82px;
-
-  display: grid;
-
-  place-items: center;
-
-  border-radius: 14px;
-
-  background: white;
-
-  border:
-    1px solid #ead9aa;
-
-  box-shadow:
-    0 8px 20px
-    rgba(0, 0, 0, .08);
-}
-
-
-.certificate-logo {
-  width: 68px;
-  height: 68px;
-
-  object-fit: contain;
-
-  border-radius: 10px;
-}
-
-
-.certificate-heading {
-  text-align: left;
-}
-
-
-.certificate-org {
-  margin: 0 0 3px;
-
-  color:
-    var(--primary);
-
-  font-size: 12px;
-
-  font-weight: 900;
-
-  letter-spacing: 3px;
-}
-
-
-.certificate-heading h2 {
-  margin: 0;
-
-  color:
-    var(--dark);
-
-  font-size:
-    clamp(27px, 4vw, 42px);
-
-  line-height: 1.1;
-
-  letter-spacing: 1px;
-}
-
-
-.certificate-subtitle {
-  margin: 5px 0 0;
-
-  color:
-    var(--gold);
-
-  font-weight: 800;
-
-  font-size: 14px;
-}
-
-
-.certificate-divider {
-  position: relative;
-
-  z-index: 1;
-
-  height: 1px;
-
-  margin:
-    28px 30px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #b88932,
-      transparent
-    );
-}
-
-
-.certificate-body {
-  position: relative;
-
-  z-index: 1;
-
-  text-align: center;
-
-  padding:
-    10px 35px 30px;
-}
-
-
-.certificate-intro {
-  margin:
-    0 0 10px;
-
-  color:
-    var(--muted);
-
-  font-size: 15px;
-}
-
-
-.certificate-body h1 {
-  margin:
-    0 0 15px;
-
-  color:
-    var(--primary);
-
-  font-size:
-    clamp(34px, 6vw, 54px);
-
-  line-height: 1.15;
-
-  font-weight: 900;
-}
-
-
-.certificate-description {
-  max-width: 680px;
-
-  margin:
-    0 auto 8px;
-
-  color:
-    #444;
-
-  font-size:
-    16px;
-}
-
-
-.certificate-description-en {
-  max-width: 650px;
-
-  margin:
-    0 auto 28px;
-
-  color:
-    var(--muted);
-
-  font-size:
-    13px;
-}
-
-
-.certificate-details {
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: 12px;
-
-  max-width: 760px;
-
-  margin:
-    0 auto 25px;
-}
-
-
-.certificate-detail {
-  padding:
-    13px;
-
-  background:
-    #fffdf8;
-
-  border:
-    1px solid #eadfca;
-
-  border-radius:
-    10px;
-}
-
-
-.certificate-detail span {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color:
-    var(--muted);
-
-  font-size: 10px;
-
-  font-weight: 800;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    .7px;
-}
-
-
-.certificate-detail strong {
-  display: block;
-
-  color:
-    var(--dark);
-
-  font-size: 13px;
-
-  word-break:
-    break-word;
-}
-
-
-.certificate-verification {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  margin-top: 10px;
-}
-
-
-.joining-qr {
-  width: 120px;
-  height: 120px;
-
-  padding: 5px;
-
-  display: grid;
-
-  place-items: center;
-
-  background:
-    white;
-
-  border:
-    1px solid #dfdfdf;
-
-  border-radius:
-    8px;
-}
-
-
-.joining-qr img {
-  display: block;
-
-  width: 110px !important;
-  height: 110px !important;
-}
-
-
-.certificate-verification p {
-  margin:
-    8px 0 0;
-
-  color:
-    var(--dark);
-
-  font-size:
-    12px;
-
-  font-weight:
-    800;
-}
-
-
-.certificate-verification small {
-  color:
-    var(--muted);
-
-  font-size:
-    10px;
-}
-
-
-.qr-fallback {
-  width: 100px;
-  height: 100px;
-
-  display: grid;
-
-  place-items: center;
-
-  border:
-    2px dashed #bbb;
-
-  color:
-    #777;
-
-  font-weight:
-    900;
-}
-
-
-.certificate-bottom {
-  position: relative;
-
-  z-index: 1;
-
-  display: flex;
-
-  align-items: flex-end;
-
-  justify-content: space-between;
-
-  gap: 30px;
-
-  padding:
-    20px 25px 5px;
-}
-
-
-.certificate-signature {
-  min-width: 180px;
-
-  text-align: center;
-}
-
-
-.certificate-signature img {
-  width: 130px;
-  height: 58px;
-
-  margin:
-    0 auto 2px;
-
-  object-fit: contain;
-}
-
-
-.signature-line {
-  width: 175px;
-
-  margin:
-    0 auto 5px;
-
-  border-top:
-    1px solid #444;
-}
-
-
-.certificate-signature strong {
-  display: block;
-
-  color:
-    var(--dark);
-
-  font-size:
-    14px;
-}
-
-
-.certificate-signature span,
-.certificate-signature small {
-  display: block;
-
-  color:
-    var(--muted);
-
-  font-size:
-    10px;
-}
-
-
-.certificate-id-box {
-  text-align: right;
-
-  min-width: 220px;
-}
-
-
-.certificate-id-box span {
-  display: block;
-
-  margin-bottom: 5px;
-
-  color:
-    var(--muted);
-
-  font-size:
-    10px;
-
-  font-weight:
-    800;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    1px;
-}
-
-
-.certificate-id-box strong {
-  display: block;
-
-  color:
-    var(--primary);
-
-  font-size:
-    13px;
-
-  word-break:
-    break-word;
-}
-
-
-.certificate-footer {
-  position: relative;
-
-  z-index: 1;
-
-  display: flex;
-
-  justify-content: center;
-
-  flex-wrap: wrap;
-
-  gap: 8px;
-
-  margin-top:
-    28px;
-
-  padding-top:
-    15px;
-
-  border-top:
-    1px solid #eadfca;
-
-  color:
-    #777;
-
-  font-size:
-    10px;
-}
-
-
-.certificate-actions {
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-  margin-top: 25px;
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 700px) {
-
-  .joining-certificate {
-    padding:
-      30px 20px;
-  }
-
-
-  .certificate-top {
-    flex-direction:
-      column;
-
-    gap: 13px;
-  }
-
-
-  .certificate-heading {
-    text-align:
-      center;
-  }
-
-
-  .certificate-body {
-    padding:
-      5px 10px 25px;
-  }
-
-
-  .certificate-details {
-    grid-template-columns:
-      1fr;
-  }
-
-
-  .certificate-bottom {
-    flex-direction:
-      column;
-
-    align-items:
-      center;
-
-    padding-left:
-      0;
-
-    padding-right:
-      0;
-  }
-
-
-  .certificate-id-box {
-    text-align:
-      center;
-  }
-
-
-  .certificate-divider {
-    margin:
-      22px 10px;
-  }
-
-}
-
-
-/* =========================================================
-   PRINT
-========================================================= */
-
-@media print {
-
-  @page {
-    size: A4 landscape;
-
-    margin: 10mm;
-  }
-
-
-  body {
-    background:
-      white !important;
-  }
-
-
-  .site-header,
-  .site-footer,
-  .section-heading,
-  .certificate-actions {
-    display:
-      none !important;
-  }
-
-
-  .joining-certificate-page,
-  .section {
-    width:
-      100% !important;
-
-    min-height:
-      0 !important;
-
-    margin:
-      0 !important;
-
-    padding:
-      0 !important;
-  }
-
-
-  .joining-certificate-wrapper {
-    width:
-      100% !important;
-
-    margin:
-      0 !important;
-  }
-
-
-  .joining-certificate {
-    width:
-      100% !important;
-
-    box-shadow:
-      none !important;
-
-    border-radius:
-      0 !important;
-  }
-
-}
-
-</style>
-
 </body>
 </html>
-```
-
