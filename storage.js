@@ -1,744 +1,231 @@
 /* =========================================================
-   ARS OFFICIAL — STORAGE.JS
-   Central LocalStorage Data Layer
-   ========================================================= */
+   ARS OFFICIAL — STORAGE ENGINE
+   Certificate + Joining Data
+========================================================= */
 
-"use strict";
+(function () {
 
-(function (window) {
-
-  const KEYS = Object.freeze({
-
-    SHAYARI: "ARS_SHAYARI_DATA",
-
-    STORIES: "ARS_STORY_DATA",
-
-    LIKES: "ARS_LIKES",
-
-    FAVORITES: "ARS_FAVORITES",
-
-    CERTIFICATES: "ARS_CERTIFICATES",
-
-    JOIN_REQUESTS: "ARS_JOIN_REQUESTS",
-
-    MESSAGES: "ARS_CONTACT_MESSAGES",
-
-    SETTINGS: "ARS_SETTINGS"
-
-  });
+  "use strict";
 
 
-  /* =======================================================
-     SAFE READ
-     ======================================================= */
+  const CERT_KEY = "ARS_CERTIFICATES";
+  const JOIN_KEY = "ARS_JOIN_REQUESTS";
 
-  function read(key, fallback = []) {
+
+  function read(key) {
 
     try {
 
-      const value = localStorage.getItem(key);
-
-      if (value === null) {
-        return fallback;
-      }
-
-      const parsed = JSON.parse(value);
-
-      return parsed ?? fallback;
+      return JSON.parse(
+        localStorage.getItem(key) || "[]"
+      );
 
     } catch (error) {
 
-      console.error(
-        "ARS Storage Read Error:",
-        error
-      );
+      console.error("ARS Storage Read Error:", error);
 
-      return fallback;
+      return [];
     }
-
   }
 
 
-  /* =======================================================
-     SAFE WRITE
-     ======================================================= */
-
-  function write(key, value) {
+  function write(key, data) {
 
     try {
 
       localStorage.setItem(
         key,
-        JSON.stringify(value)
+        JSON.stringify(data)
       );
-
-      return value;
-
-    } catch (error) {
-
-      console.error(
-        "ARS Storage Write Error:",
-        error
-      );
-
-      return value;
-    }
-
-  }
-
-
-  /* =======================================================
-     REMOVE
-     ======================================================= */
-
-  function remove(key) {
-
-    try {
-
-      localStorage.removeItem(key);
 
       return true;
 
     } catch (error) {
 
-      console.error(
-        "ARS Storage Remove Error:",
-        error
-      );
+      console.error("ARS Storage Write Error:", error);
 
       return false;
     }
-
-  }
-
-
-  /* =======================================================
-     CLEAR ARS DATA
-     ======================================================= */
-
-  function clearKey(key) {
-
-    return remove(key);
-
-  }
-
-
-  /* =======================================================
-     ID GENERATOR
-     ======================================================= */
-
-  function makeId(prefix = "ARS") {
-
-    const timestamp =
-      Date.now()
-        .toString(36)
-        .toUpperCase();
-
-    const random =
-      Math.random()
-        .toString(36)
-        .substring(2, 8)
-        .toUpperCase();
-
-    return `${prefix}-${timestamp}-${random}`;
-
-  }
-
-
-  /* =======================================================
-     SHAYARI
-     ======================================================= */
-
-  function getShayari() {
-
-    return read(
-      KEYS.SHAYARI,
-      []
-    );
-
-  }
-
-
-  function saveShayari(data) {
-
-    return write(
-      KEYS.SHAYARI,
-      Array.isArray(data) ? data : []
-    );
-
-  }
-
-
-  /* =======================================================
-     STORIES
-     ======================================================= */
-
-  function getStories() {
-
-    return read(
-      KEYS.STORIES,
-      []
-    );
-
-  }
-
-
-  function saveStories(data) {
-
-    return write(
-      KEYS.STORIES,
-      Array.isArray(data) ? data : []
-    );
-
-  }
-
-
-  /* =======================================================
-     LIKES
-     ======================================================= */
-
-  function getLikes() {
-
-    return read(
-      KEYS.LIKES,
-      []
-    );
-
-  }
-
-
-  function hasLiked(id) {
-
-    const cleanID =
-      String(id);
-
-    return getLikes()
-      .map(String)
-      .includes(cleanID);
-
-  }
-
-
-  function toggleLike(id) {
-
-    const cleanID =
-      String(id);
-
-    const likes =
-      getLikes();
-
-    const index =
-      likes
-        .map(String)
-        .indexOf(cleanID);
-
-
-    if (index === -1) {
-
-      likes.push(cleanID);
-
-      write(
-        KEYS.LIKES,
-        likes
-      );
-
-      return true;
-    }
-
-
-    likes.splice(index, 1);
-
-    write(
-      KEYS.LIKES,
-      likes
-    );
-
-    return false;
-
-  }
-
-
-  /* =======================================================
-     FAVORITES
-     ======================================================= */
-
-  function getFavorites() {
-
-    return read(
-      KEYS.FAVORITES,
-      []
-    );
-
-  }
-
-
-  function isFavorite(id) {
-
-    return getFavorites()
-      .map(String)
-      .includes(
-        String(id)
-      );
-
-  }
-
-
-  function toggleFavorite(id) {
-
-    const cleanID =
-      String(id);
-
-    const favorites =
-      getFavorites();
-
-    const index =
-      favorites
-        .map(String)
-        .indexOf(cleanID);
-
-
-    if (index === -1) {
-
-      favorites.push(cleanID);
-
-      write(
-        KEYS.FAVORITES,
-        favorites
-      );
-
-      return true;
-    }
-
-
-    favorites.splice(index, 1);
-
-    write(
-      KEYS.FAVORITES,
-      favorites
-    );
-
-    return false;
-
-  }
-
-
-  function clearFavorites() {
-
-    return write(
-      KEYS.FAVORITES,
-      []
-    );
-
   }
 
 
   /* =======================================================
      CERTIFICATES
-     ======================================================= */
+  ======================================================= */
 
-  function certificates() {
+  function getCertificates() {
 
-    return read(
-      KEYS.CERTIFICATES,
-      []
-    );
-
+    return read(CERT_KEY);
   }
 
 
   function saveCertificate(certificate) {
 
-    if (
-      !certificate ||
-      !certificate.id
-    ) {
-
-      throw new Error(
-        "Certificate ID is required."
-      );
-
-    }
+    const certificates =
+      getCertificates();
 
 
-    const list =
-      certificates();
-
-    const index =
-      list.findIndex(
+    const existing =
+      certificates.findIndex(
         item =>
           String(item.id).toLowerCase() ===
           String(certificate.id).toLowerCase()
       );
 
 
-    if (index === -1) {
+    if (existing >= 0) {
 
-      list.push(certificate);
+      certificates[existing] = certificate;
 
     } else {
 
-      list[index] =
-        certificate;
+      certificates.push(certificate);
 
     }
 
 
-    write(
-      KEYS.CERTIFICATES,
-      list
-    );
+    write(CERT_KEY, certificates);
 
     return certificate;
-
   }
 
 
   function findCertificate(id) {
 
-    if (!id) {
-      return null;
-    }
-
-
     const cleanID =
-      String(id)
-        .trim()
-        .toLowerCase();
+      String(id || "").trim().toLowerCase();
 
 
-    return certificates()
-      .find(
-        item =>
-          String(item.id)
-            .trim()
-            .toLowerCase() ===
-          cleanID
-      ) || null;
+    if (!cleanID) return null;
 
+
+    return getCertificates().find(
+      certificate =>
+        String(certificate.id)
+          .trim()
+          .toLowerCase() === cleanID
+    ) || null;
   }
 
 
   function deleteCertificate(id) {
 
-    const cleanID =
-      String(id)
-        .trim()
-        .toLowerCase();
-
-
-    const updated =
-      certificates()
-        .filter(
-          item =>
-            String(item.id)
-              .trim()
-              .toLowerCase() !==
-            cleanID
-        );
-
-
-    write(
-      KEYS.CERTIFICATES,
-      updated
-    );
-
-    return updated;
-
-  }
-
-
-  /* =======================================================
-     JOIN REQUESTS
-     ======================================================= */
-
-  function joins() {
-
-    return read(
-      KEYS.JOIN_REQUESTS,
-      []
-    );
-
-  }
-
-
-  function saveJoin(data = {}) {
-
-    const now =
-      new Date().toISOString();
-
-
-    const request = {
-
-      ...data,
-
-      id:
-        data.id ||
-        makeId("ARS-JOIN"),
-
-      status:
-        data.status ||
-        "pending",
-
-      createdAt:
-        data.createdAt ||
-        now,
-
-      updatedAt:
-        now
-
-    };
-
-
-    const list =
-      joins();
-
-    list.push(request);
-
-
-    write(
-      KEYS.JOIN_REQUESTS,
-      list
-    );
-
-
-    return request;
-
-  }
-
-
-  function findJoin(id) {
-
-    if (!id) {
-      return null;
-    }
-
-
-    return joins()
-      .find(
-        item =>
-          String(item.id)
-            .trim()
-            .toLowerCase() ===
-          String(id)
-            .trim()
-            .toLowerCase()
-      ) || null;
-
-  }
-
-
-  function updateJoin(id, updates = {}) {
-
-    const list =
-      joins();
-
-
-    const index =
-      list.findIndex(
-        item =>
-          String(item.id)
-            .trim()
-            .toLowerCase() ===
-          String(id)
-            .trim()
-            .toLowerCase()
+    const certificates =
+      getCertificates().filter(
+        certificate =>
+          String(certificate.id).toLowerCase() !==
+          String(id).toLowerCase()
       );
 
 
-    if (index === -1) {
-      return null;
-    }
-
-
-    list[index] = {
-
-      ...list[index],
-
-      ...updates,
-
-      updatedAt:
-        new Date().toISOString()
-
-    };
-
-
-    write(
-      KEYS.JOIN_REQUESTS,
-      list
-    );
-
-
-    return list[index];
-
+    write(CERT_KEY, certificates);
   }
 
 
   /* =======================================================
-     CONTACT MESSAGES
-     ======================================================= */
+     JOINING REQUESTS
+  ======================================================= */
 
-  function messages() {
+  function getJoinRequests() {
 
-    return read(
-      KEYS.MESSAGES,
-      []
-    );
-
+    return read(JOIN_KEY);
   }
 
 
-  function saveMessage(data = {}) {
+  function saveJoinRequest(request) {
 
-    const message = {
-
-      ...data,
-
-      id:
-        makeId("ARS-MSG"),
-
-      createdAt:
-        new Date().toISOString(),
-
-      status:
-        data.status ||
-        "unread"
-
-    };
+    const requests =
+      getJoinRequests();
 
 
-    const list =
-      messages();
-
-    list.push(message);
+    requests.push(request);
 
 
-    write(
-      KEYS.MESSAGES,
-      list
-    );
+    write(JOIN_KEY, requests);
 
-
-    return message;
-
+    return request;
   }
 
 
-  /* =======================================================
-     SETTINGS
-     ======================================================= */
+  function updateJoinStatus(id, status) {
 
-  function getSettings() {
-
-    return read(
-      KEYS.SETTINGS,
-      {}
-    );
-
-  }
+    const requests =
+      getJoinRequests();
 
 
-  function saveSettings(data = {}) {
+    const index =
+      requests.findIndex(
+        item => String(item.id) === String(id)
+      );
 
-    return write(
-      KEYS.SETTINGS,
-      data
-    );
 
+    if (index === -1) return false;
+
+
+    requests[index].status = status;
+
+    requests[index].updatedAt =
+      new Date().toISOString();
+
+
+    write(JOIN_KEY, requests);
+
+    return true;
   }
 
 
   /* =======================================================
-     DATABASE SUMMARY
-     ======================================================= */
+     CLEAR — ADMIN USE
+  ======================================================= */
 
-  function getSummary() {
+  function clearCertificates() {
 
-    return {
+    localStorage.removeItem(CERT_KEY);
 
-      shayari:
-        getShayari().length,
+  }
 
-      stories:
-        getStories().length,
 
-      likes:
-        getLikes().length,
+  function clearJoinRequests() {
 
-      favorites:
-        getFavorites().length,
-
-      certificates:
-        certificates().length,
-
-      joins:
-        joins().length,
-
-      messages:
-        messages().length
-
-    };
+    localStorage.removeItem(JOIN_KEY);
 
   }
 
 
   /* =======================================================
      PUBLIC API
-     ======================================================= */
+  ======================================================= */
 
-  window.ARS_STORAGE = {
+  window.ARSStorage = {
 
-    KEYS,
-
-    read,
-    write,
-    remove,
-    clearKey,
-
-    newId:
-      makeId,
-
-    getShayari,
-    saveShayari,
-
-    getStories,
-    saveStories,
-
-    likes:
-      getLikes,
-
-    hasLiked,
-    toggleLike,
-
-    favorites:
-      getFavorites,
-
-    isFavorite,
-    toggleFavorite,
-    clearFavorites,
-
-    certificates,
+    getCertificates,
     saveCertificate,
     findCertificate,
     deleteCertificate,
 
-    joins,
-    saveJoin,
-    findJoin,
-    updateJoin,
+    getJoinRequests,
+    saveJoinRequest,
+    updateJoinStatus,
 
-    messages,
-    saveMessage,
-
-    getSettings,
-    saveSettings,
-
-    getSummary
+    clearCertificates,
+    clearJoinRequests
 
   };
 
 
-  console.log(
-    "✅ ARS Storage System Loaded"
-  );
+  /* =======================================================
+     BACKWARD COMPATIBILITY
+  ======================================================= */
 
-})(window);
+  window.ARS_CERTIFICATE = {
+
+    find: findCertificate,
+
+    save: saveCertificate,
+
+    all: getCertificates
+
+  };
+
+
+})();
