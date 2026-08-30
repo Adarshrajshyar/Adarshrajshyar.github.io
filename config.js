@@ -42,7 +42,7 @@
     assets: {
       logo: "logo.png",
       banner: "banner.png",
-      founderPhoto: "photo.jpg",
+      founderPhoto: "photo.jpg1.jpeg"
       signature: "signature.jpg"
     },
 
@@ -90,7 +90,7 @@
       role: "Founder & Publisher",
 
       /* Change this password only if you want another one. */
-      password: "ARS@Publisher2026"
+      password: "ARS@2026"
 
     },
 
@@ -105,7 +105,7 @@
 
       role: "Administrator",
 
-      password: "ARS@Publisher2026"
+      password: "ARS@2026"
 
     },
 
