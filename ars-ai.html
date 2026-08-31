@@ -4,312 +4,308 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS AI | Adarsh Raj Shayar</title>
-  <meta name="description" content="ARS AI - Adarsh Raj Shayar का AI Assistant.">
+  <title>ARS AI | ARS Official</title>
+  <meta name="description" content="ARS AI — ARS Official का AI-powered digital platform.">
+  <meta name="theme-color" content="#0f172a">
 
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .ai-page {
-      min-height: 100vh;
-      padding: 100px 18px 50px;
-    }
-
-    .ai-container {
-      width: min(950px, 100%);
-      margin: auto;
-    }
-
-    .ai-hero {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .ai-logo {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      border-radius: 24px;
-      margin-bottom: 15px;
-    }
-
-    .ai-hero h1 {
-      font-size: clamp(2rem, 6vw, 4rem);
-      margin: 0;
-    }
-
-    .ai-hero p {
-      opacity: .75;
-      margin-top: 10px;
-    }
-
-    .ai-card {
-      background: var(--card-bg, rgba(255,255,255,.08));
-      border: 1px solid rgba(128,128,128,.2);
-      border-radius: 25px;
-      padding: 22px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.12);
-      backdrop-filter: blur(14px);
-    }
-
-    .ai-messages {
-      height: 430px;
-      overflow-y: auto;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .ai-message {
-      max-width: 82%;
-      padding: 13px 16px;
-      border-radius: 18px;
-      line-height: 1.6;
-      word-wrap: break-word;
-    }
-
-    .ai-message.bot {
-      align-self: flex-start;
-      background: rgba(128,128,128,.12);
-      border-bottom-left-radius: 5px;
-    }
-
-    .ai-message.user {
-      align-self: flex-end;
-      background: linear-gradient(135deg, #7c3aed, #ec4899);
-      color: white;
-      border-bottom-right-radius: 5px;
-    }
-
-    .ai-input-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .ai-input {
-      flex: 1;
-      min-width: 0;
-      border: 1px solid rgba(128,128,128,.3);
-      background: transparent;
-      color: inherit;
-      border-radius: 14px;
-      padding: 14px;
-      outline: none;
-      font-size: 1rem;
-    }
-
-    .ai-send {
-      border: 0;
-      border-radius: 14px;
-      padding: 0 22px;
-      cursor: pointer;
-      font-weight: 700;
-      color: white;
-      background: linear-gradient(135deg, #7c3aed, #ec4899);
-    }
-
-    .ai-shortcuts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 15px;
-    }
-
-    .ai-shortcut {
-      border: 1px solid rgba(128,128,128,.3);
-      background: transparent;
-      color: inherit;
-      border-radius: 999px;
-      padding: 8px 13px;
-      cursor: pointer;
-    }
-
-    .ai-shortcut:hover {
-      background: rgba(128,128,128,.12);
-    }
-  </style>
 </head>
 
 <body>
 
+  <div id="progressBar"></div>
+
   <header class="site-header">
-    <div class="header-inner">
+    <nav class="navbar">
 
       <a href="index.html" class="brand">
         <img src="logo.png" alt="ARS Logo">
-        <span>ARS</span>
+        <span>ARS Official</span>
       </a>
 
-      <nav class="main-nav" aria-label="Main Navigation">
-        <a href="index.html">Home</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="story.html">Story</a>
-        <a href="ars-ai.html" class="active">ARS AI</a>
-        <a href="founder.html">Founder</a>
-        <a href="verify.html">Verify</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-      <button
-        type="button"
-        class="theme-toggle"
-        id="themeToggle"
-        aria-label="Toggle theme">
-        🌙
+      <button id="navToggle"
+              class="nav-toggle"
+              type="button"
+              aria-label="Open Menu"
+              aria-expanded="false">
+        ☰
       </button>
 
-    </div>
+      <div id="navLinks" class="nav-links">
+
+        <a href="index.html">Home</a>
+        <a href="ars-ai.html" class="active">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="story.html">Stories</a>
+        <a href="founder.html">Founder</a>
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-more">
+          <button id="navMoreButton"
+                  type="button"
+                  aria-expanded="false">
+            More ▾
+          </button>
+
+          <div id="navMoreMenu" class="nav-more-menu">
+            <a href="publisher.html">Publisher</a>
+            <a href="admin.html">Admin</a>
+            <a href="policy.html">Policy</a>
+          </div>
+        </div>
+
+        <button id="themeToggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Dark Mode">
+          🌙
+        </button>
+
+      </div>
+    </nav>
   </header>
 
-  <main class="ai-page">
-    <div class="ai-container">
 
-      <section class="ai-hero">
-        <img src="logo.png" class="ai-logo" alt="ARS">
-        <h1>ARS <span>AI</span></h1>
-        <p>Adarsh Raj Shayar का smart assistant</p>
-      </section>
+  <main>
 
-      <section class="ai-card">
+    <!-- HERO -->
+    <section class="hero-section">
 
-        <div class="ai-messages" id="aiMessages">
+      <div class="hero-content">
 
-          <div class="ai-message bot">
-            नमस्ते 👋 मैं <strong>ARS AI</strong> हूँ।<br>
-            आप मुझसे ARS, Shayari, Stories और सामान्य जानकारी से जुड़े सवाल पूछ सकते हैं।
+        <span class="eyebrow">NEXT GENERATION • ARS</span>
+
+        <h1>
+          Welcome to
+          <span>ARS AI</span>
+        </h1>
+
+        <p>
+          ARS AI एक future-ready AI platform है,
+          जिसे ARS ecosystem के साथ विकसित किया जा रहा है।
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#about" class="btn btn-primary">
+            Explore ARS AI
+          </a>
+
+          <a href="contact.html" class="btn btn-secondary">
+            Contact
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="ai-orbit">
+
+          <div class="ai-core">
+            <img src="logo.png" alt="ARS AI">
           </div>
 
+          <span class="ai-dot dot-one"></span>
+          <span class="ai-dot dot-two"></span>
+          <span class="ai-dot dot-three"></span>
+
         </div>
 
-        <div class="ai-shortcuts">
-          <button class="ai-shortcut" data-question="ARS क्या है?">
-            ARS क्या है?
-          </button>
+      </div>
 
-          <button class="ai-shortcut" data-question="एक motivation shayari सुनाओ">
-            Motivation Shayari
-          </button>
+    </section>
 
-          <button class="ai-shortcut" data-question="ARS की website के बारे में बताओ">
-            Website
-          </button>
 
-          <button class="ai-shortcut" data-question="Certificate verify कैसे करें?">
-            Certificate Verify
-          </button>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">ABOUT</span>
+
+        <h2>ARS AI क्या है?</h2>
+
+        <p>
+          ARS AI का उद्देश्य AI technology को ARS के
+          educational और creative ecosystem से जोड़ना है।
+        </p>
+
+      </div>
+
+
+      <div class="cards-grid">
+
+        <article class="feature-card">
+
+          <div class="feature-icon">🤖</div>
+
+          <h3>AI Assistant</h3>
+
+          <p>
+            भविष्य में intelligent AI assistance और
+            useful digital tools उपलब्ध कराने की योजना।
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">📚</div>
+
+          <h3>Education</h3>
+
+          <p>
+            विद्यार्थियों के लिए learning और educational
+            resources को बेहतर तरीके से उपलब्ध कराने का लक्ष्य।
+          </p>
+
+        </article>
+
+
+        <article class="feature-card">
+
+          <div class="feature-icon">⚡</div>
+
+          <h3>Smart Experience</h3>
+
+          <p>
+            सरल, तेज और modern digital experience के लिए
+            ARS ecosystem को लगातार विकसित किया जाएगा।
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- FUTURE -->
+    <section class="section section-highlight">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">COMING SOON</span>
+
+        <h2>ARS AI — Future Vision</h2>
+
+        <p>
+          ARS AI को समय के साथ एक complete digital platform
+          और भविष्य में Android application के रूप में भी विकसित
+          किया जाएगा।
+        </p>
+
+      </div>
+
+      <div class="future-list">
+
+        <div class="future-item">
+          <strong>01</strong>
+          <span>AI-powered features</span>
         </div>
 
-        <div class="ai-input-row">
-          <input
-            id="aiInput"
-            class="ai-input"
-            type="text"
-            autocomplete="off"
-            placeholder="ARS AI से कुछ पूछें...">
-
-          <button id="aiSend" class="ai-send" type="button">
-            Send
-          </button>
+        <div class="future-item">
+          <strong>02</strong>
+          <span>Educational assistance</span>
         </div>
 
-      </section>
+        <div class="future-item">
+          <strong>03</strong>
+          <span>Smart ARS ecosystem</span>
+        </div>
 
-    </div>
+        <div class="future-item">
+          <strong>04</strong>
+          <span>Future Android App</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="section">
+
+      <div class="cta-card">
+
+        <span class="eyebrow">ARS OFFICIAL</span>
+
+        <h2>
+          ARS के साथ जुड़े रहें
+        </h2>
+
+        <p>
+          ARS की नई सुविधाओं, educational initiatives और
+          future projects के लिए जुड़े रहें।
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="joining.html"
+             class="btn btn-primary">
+            Join ARS
+          </a>
+
+          <a href="index.html"
+             class="btn btn-secondary">
+            Back to Home
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
 
+
+  <footer class="site-footer">
+
+    <div class="footer-content">
+
+      <div class="footer-brand">
+        <img src="logo.png" alt="ARS Logo">
+        <h3>ARS Official</h3>
+        <p>
+          Creativity • Education • Technology
+        </p>
+      </div>
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © <span class="current-year"></span> ARS Official. All Rights Reserved.
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
   <script>
-    const input = document.getElementById("aiInput");
-    const send = document.getElementById("aiSend");
-    const messages = document.getElementById("aiMessages");
-
-    function addMessage(text, type) {
-      const div = document.createElement("div");
-      div.className = "ai-message " + type;
-      div.textContent = text;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function getReply(question) {
-      const q = question.toLowerCase();
-
-      if (q.includes("ars") && q.includes("क्या")) {
-        return "ARS, Adarsh Raj Shayar के creative, Shayari, Story, educational और digital projects का platform है।";
-      }
-
-      if (q.includes("motivation") || q.includes("मोटिवेशन")) {
-        return "मुश्किल रास्ते अक्सर वहीं ले जाते हैं, जहाँ से नई शुरुआत सबसे खूबसूरत बनती है।";
-      }
-
-      if (q.includes("certificate") || q.includes("सर्टिफिकेट")) {
-        return "Certificate Verify section में जाकर सही category चुनें और अपना Certificate ID या Joining Application Number दर्ज करें।";
-      }
-
-      if (q.includes("website") || q.includes("वेबसाइट")) {
-        return "ARS website में Shayari, Stories, ARS AI, Founder, Certificates, Joining और Verification जैसी सुविधाएँ उपलब्ध हैं।";
-      }
-
-      if (
-        q.includes("hello") ||
-        q.includes("hi") ||
-        q.includes("नमस्ते")
-      ) {
-        return "नमस्ते 👋 ARS AI में आपका स्वागत है।";
-      }
-
-      return "मैं अभी basic ARS Assistant mode में हूँ। आप ARS, Shayari, Story या Certificate Verification से जुड़ा सवाल पूछ सकते हैं।";
-    }
-
-    function sendMessage() {
-      const question = input.value.trim();
-
-      if (!question) return;
-
-      addMessage(question, "user");
-      input.value = "";
-
-      setTimeout(() => {
-        addMessage(getReply(question), "bot");
-      }, 350);
-    }
-
-    send.addEventListener("click", sendMessage);
-
-    input.addEventListener("keydown", function(e) {
-      if (e.key === "Enter") {
-        sendMessage();
-      }
-    });
-
-    document.querySelectorAll(".ai-shortcut").forEach(button => {
-      button.addEventListener("click", () => {
-        input.value = button.dataset.question;
-        sendMessage();
-      });
-    });
-
-    const themeToggle = document.getElementById("themeToggle");
-
-    function setTheme(theme) {
-      document.documentElement.dataset.theme = theme;
-      localStorage.setItem("ars-theme", theme);
-      themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
-    }
-
-    const savedTheme = localStorage.getItem("ars-theme");
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme("light");
-    }
-
-    themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.dataset.theme;
-      setTheme(current === "dark" ? "light" : "dark");
+    document.querySelectorAll(".current-year").forEach(el => {
+      el.textContent = new Date().getFullYear();
     });
   </script>
 
