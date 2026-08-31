@@ -1,1 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ARS Official Publisher — publish and manage creative content.">
+  <title>Publisher | ARS Official</title>
+  <link rel="stylesheet" href="style.css">
 
+  <style>
+    .publisher-page {
+      min-height: 100vh;
+      padding: 120px 20px 80px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(212,175,55,.13), transparent 32%),
+        radial-gradient(circle at 90% 20%, rgba(124,58,237,.13), transparent 30%),
+        var(--bg);
+    }
+
+    .publisher-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .publisher-hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .publisher-hero h1 {
+      font-size: clamp(38px, 6vw, 62px);
+      margin-bottom: 10px;
+    }
+
+    .publisher-hero p {
+      color: var(--text-soft);
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .publisher-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .publisher-card {
+      padding: 28px;
+      border-radius: 22px;
+      border: 1px solid rgba(212,175,55,.28);
+      background: var(--card-bg, rgba(255,255,255,.05));
+      box-shadow: 0 18px 50px rgba(0,0,0,.12);
+    }
+
+    .publisher-card h2 {
+      margin-bottom: 10px;
+    }
+
+    .publisher-card p {
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .publisher-form {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .publisher-form label {
+      font-weight: 800;
+      margin-bottom: -8px;
+    }
+
+    .publisher-form input,
+    .publisher-form textarea,
+    .publisher-form select {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 11px;
+      border: 1px solid rgba(128,128,128,.30);
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+
+    .publisher-form textarea {
+      min-height: 170px;
+      resize: vertical;
+    }
+
+    .publisher-form input:focus,
+    .publisher-form textarea:focus,
+    .publisher-form select:focus {
+      border-color: #d4af37;
+    }
+
+    .publisher-btn {
+      border: 0;
+      padding: 14px 20px;
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 900;
+      background: linear-gradient(135deg,#d4af37,#f5d76e);
+      color: #111;
+    }
+
+    .publisher-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .publisher-item {
+      padding: 16px;
+      border-radius: 13px;
+      background: rgba(128,128,128,.08);
+      border: 1px solid rgba(128,128,128,.13);
+    }
+
+    .publisher-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .publisher-item small {
+      color: var(--text-soft);
+    }
+
+    .publisher-info {
+      margin-top: 25px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .publisher-info div {
+      padding: 16px;
+      border-radius: 13px;
+      background: rgba(128,128,128,.08);
+    }
+
+    @media (max-width: 780px) {
+      .publisher-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official">
+      <span>ARS Official</span>
+    </a>
+
+    <button id="navToggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false">☰</button>
+
+    <div id="navLinks" class="nav-links">
+
+      <a href="index.html">Home</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="founder.html">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html">Joining Certificate</a>
+      <a href="verify.html">Verify</a>
+
+      <div class="nav-more">
+
+        <button id="navMoreButton"
+          type="button"
+          aria-expanded="false">
+          More ▾
+        </button>
+
+        <div id="navMoreMenu" class="nav-more-menu">
+          <a href="joining.html">Joining ARS</a>
+          <a href="publisher.html" class="active">Publisher</a>
+          <a href="policy.html">Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+        </div>
+
+      </div>
+
+      <button id="themeToggle"
+        type="button"
+        aria-label="Switch to dark mode">🌙</button>
+
+    </div>
+  </nav>
+</header>
+
+<main class="publisher-page">
+
+  <div class="publisher-container">
+
+    <section class="publisher-hero">
+      <h1>Publisher</h1>
+      <p>
+        A dedicated ARS Official space for preparing and
+        managing creative publications.
+      </p>
+    </section>
+
+    <div class="publisher-grid">
+
+      <section class="publisher-card">
+
+        <h2>📝 Create Publication</h2>
+
+        <p>
+          Prepare your content below. Saved drafts remain
+          available in this browser.
+        </p>
+
+        <form id="publisherForm"
+              class="publisher-form">
+
+          <label for="publisherTitle">
+            Title
+          </label>
+
+          <input
+            id="publisherTitle"
+            type="text"
+            placeholder="Publication title"
+            required>
+
+          <label for="publisherAuthor">
+            Author
+          </label>
+
+          <input
+            id="publisherAuthor"
+            type="text"
+            placeholder="Author name"
+            required>
+
+          <label for="publisherCategory">
+            Category
+          </label>
+
+          <select id="publisherCategory">
+            <option>Article</option>
+            <option>Story</option>
+            <option>Shayari</option>
+            <option>Poem</option>
+            <option>Technology</option>
+            <option>Other</option>
+          </select>
+
+          <label for="publisherContent">
+            Content
+          </label>
+
+          <textarea
+            id="publisherContent"
+            placeholder="Write your content..."
+            required></textarea>
+
+          <button
+            class="publisher-btn"
+            type="submit">
+            Save Draft
+          </button>
+
+        </form>
+
+      </section>
+
+      <section class="publisher-card">
+
+        <h2>📚 Publisher Workspace</h2>
+
+        <p>
+          Your locally saved publication drafts are shown here.
+        </p>
+
+        <div id="publisherList"
+             class="publisher-list">
+        </div>
+
+        <div class="publisher-info">
+
+          <div>
+            <strong>Publisher Role</strong>
+            <br>
+            <span>
+              Content preparation and publication management.
+            </span>
+          </div>
+
+          <div>
+            <strong>Storage</strong>
+            <br>
+            <span>
+              Drafts are stored locally in this browser.
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="storage.js"></script>
+<script src="script.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const form = document.getElementById("publisherForm");
+  const list = document.getElementById("publisherList");
+
+  const KEY = "ARS_PUBLISHER_DRAFTS";
+
+  function getDrafts() {
+    try {
+      const data =
+        JSON.parse(localStorage.getItem(KEY) || "[]");
+
+      return Array.isArray(data) ? data : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  function saveDrafts(data) {
+    localStorage.setItem(KEY, JSON.stringify(data));
+  }
+
+  function renderDrafts() {
+
+    const drafts = getDrafts();
+
+    if (!drafts.length) {
+      list.innerHTML =
+        '<div class="publisher-item">' +
+        '<small>No drafts saved yet.</small>' +
+        '</div>';
+      return;
+    }
+
+    list.innerHTML = drafts.map(function (draft) {
+
+      return `
+        <div class="publisher-item">
+          <strong>${escapeHTML(draft.title)}</strong>
+          <small>
+            ${escapeHTML(draft.author)}
+            · ${escapeHTML(draft.category)}
+          </small>
+        </div>
+      `;
+
+    }).join("");
+  }
+
+  function escapeHTML(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const draft = {
+      id:
+        "ARS-PUB-" +
+        Date.now().toString(36).toUpperCase(),
+
+      title:
+        document.getElementById("publisherTitle").value.trim(),
+
+      author:
+        document.getElementById("publisherAuthor").value.trim(),
+
+      category:
+        document.getElementById("publisherCategory").value,
+
+      content:
+        document.getElementById("publisherContent").value.trim(),
+
+      createdAt:
+        new Date().toISOString(),
+
+      status: "draft"
+    };
+
+    const drafts = getDrafts();
+
+    drafts.unshift(draft);
+
+    saveDrafts(drafts);
+
+    form.reset();
+
+    renderDrafts();
+
+    if (window.ARS && window.ARS.showToast) {
+      window.ARS.showToast("Publication draft saved ✓");
+    }
+  });
+
+  renderDrafts();
+
+})();
+</script>
+
+</body>
+</html>
