@@ -16,27 +16,40 @@
     [...parent.querySelectorAll(selector)];
 
 
-  /* =======================================================
-     PAGE LOADER
-     ======================================================= */
+ /* =========================================================
+   PAGE LOADER — FINAL FIX
+   ========================================================= */
 
-  function hideLoader() {
-    const loader = $("#pageLoader");
+(function () {
+
+  function hidePageLoader() {
+
+    const loader =
+      document.getElementById("pageLoader");
 
     if (!loader) return;
 
-    setTimeout(() => {
-      loader.classList.add("hidden");
-    }, 350);
-  }
+    loader.classList.add("hidden");
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", hideLoader);
-  } else {
-    hideLoader();
   }
 
 
+  /* Normal page loading */
+  window.addEventListener("load", function () {
+
+    hidePageLoader();
+
+  });
+
+
+  /* Safety fallback */
+  setTimeout(function () {
+
+    hidePageLoader();
+
+  }, 3000);
+
+})();
   /* =======================================================
      MOBILE NAVIGATION
      ======================================================= */
