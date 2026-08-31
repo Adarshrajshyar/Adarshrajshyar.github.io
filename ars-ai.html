@@ -3,377 +3,315 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
 
   <title>ARS AI | Adarsh Raj Shayar</title>
+  <meta name="description" content="ARS AI - Adarsh Raj Shayar का AI Assistant.">
 
+  <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef1f5;
-      color: #172033;
-    }
-
     .ai-page {
-      max-width: 900px;
+      min-height: 100vh;
+      padding: 100px 18px 50px;
+    }
+
+    .ai-container {
+      width: min(950px, 100%);
       margin: auto;
-      padding: 24px 16px 60px;
     }
 
-    .back {
-      display: inline-block;
-      margin-bottom: 18px;
-      padding: 10px 15px;
-      border-radius: 9px;
-      background: #111827;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .hero {
+    .ai-hero {
       text-align: center;
-      color: #fff;
-      padding: 45px 20px;
+      margin-bottom: 30px;
+    }
+
+    .ai-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
       border-radius: 24px;
-      background: linear-gradient(135deg, #111827, #374151);
-      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      margin-bottom: 15px;
     }
 
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: 36px;
-    }
-
-    .hero p {
+    .ai-hero h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
       margin: 0;
-      line-height: 1.6;
-      opacity: .92;
     }
 
-    .chat-card {
-      background: #fff;
-      margin-top: 22px;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 7px 24px rgba(0,0,0,.08);
+    .ai-hero p {
+      opacity: .75;
+      margin-top: 10px;
     }
 
-    .chat-box {
+    .ai-card {
+      background: var(--card-bg, rgba(255,255,255,.08));
+      border: 1px solid rgba(128,128,128,.2);
+      border-radius: 25px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      backdrop-filter: blur(14px);
+    }
+
+    .ai-messages {
       height: 430px;
       overflow-y: auto;
-      padding: 15px;
-      border-radius: 14px;
-      background: #f7f8fa;
-      border: 1px solid #e5e7eb;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
-    .message {
+    .ai-message {
       max-width: 82%;
-      padding: 12px 14px;
-      margin: 10px 0;
-      border-radius: 14px;
+      padding: 13px 16px;
+      border-radius: 18px;
       line-height: 1.6;
-      white-space: pre-wrap;
+      word-wrap: break-word;
     }
 
-    .bot {
-      background: #e5e7eb;
-      margin-right: auto;
+    .ai-message.bot {
+      align-self: flex-start;
+      background: rgba(128,128,128,.12);
+      border-bottom-left-radius: 5px;
     }
 
-    .user {
-      background: #111827;
-      color: #fff;
-      margin-left: auto;
+    .ai-message.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      color: white;
+      border-bottom-right-radius: 5px;
     }
 
-    .input-area {
+    .ai-input-row {
       display: flex;
       gap: 10px;
-      margin-top: 14px;
+      margin-top: 18px;
     }
 
-    .input-area input {
+    .ai-input {
       flex: 1;
       min-width: 0;
+      border: 1px solid rgba(128,128,128,.3);
+      background: transparent;
+      color: inherit;
+      border-radius: 14px;
       padding: 14px;
-      border: 1px solid #d1d5db;
-      border-radius: 11px;
-      font-size: 15px;
+      outline: none;
+      font-size: 1rem;
     }
 
-    .input-area button {
+    .ai-send {
       border: 0;
-      border-radius: 11px;
-      padding: 0 20px;
-      background: #111827;
-      color: #fff;
-      font-weight: 700;
+      border-radius: 14px;
+      padding: 0 22px;
       cursor: pointer;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
     }
 
-    .quick-actions {
+    .ai-shortcuts {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+      gap: 9px;
+      margin-top: 15px;
     }
 
-    .quick-actions button {
-      border: 1px solid #d1d5db;
-      background: #fff;
-      padding: 9px 12px;
-      border-radius: 9px;
+    .ai-shortcut {
+      border: 1px solid rgba(128,128,128,.3);
+      background: transparent;
+      color: inherit;
+      border-radius: 999px;
+      padding: 8px 13px;
       cursor: pointer;
     }
 
-    .note {
-      margin-top: 20px;
-      line-height: 1.7;
-      opacity: .75;
-      font-size: 14px;
+    .ai-shortcut:hover {
+      background: rgba(128,128,128,.12);
     }
   </style>
 </head>
 
 <body>
 
-<main class="ai-page">
+  <header class="site-header">
+    <div class="header-inner">
 
-  <a href="index.html" class="back">
-    ← ARS Home
-  </a>
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Logo">
+        <span>ARS</span>
+      </a>
 
-  <section class="hero">
-    <h1>ARS AI</h1>
-    <p>
-      Adarsh Raj Shayar का creative AI assistant
-    </p>
-  </section>
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="story.html">Story</a>
+        <a href="ars-ai.html" class="active">ARS AI</a>
+        <a href="founder.html">Founder</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+      </nav>
 
-  <section class="chat-card">
-
-    <div
-      id="chatBox"
-      class="chat-box"
-    ></div>
-
-    <div class="quick-actions">
-
-      <button onclick="quickAsk('मेरे लिए एक शायरी बनाओ')">
-        ✍️ Shayari
-      </button>
-
-      <button onclick="quickAsk('मेरे नाम पर एक शायरी बनाओ')">
-        💫 Name Shayari
-      </button>
-
-      <button onclick="quickAsk('ARS क्या है?')">
-        ℹ️ ARS
-      </button>
-
-      <button onclick="quickAsk('ARS AI क्या कर सकता है?')">
-        🤖 About AI
+      <button
+        type="button"
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Toggle theme">
+        🌙
       </button>
 
     </div>
+  </header>
 
-    <div class="input-area">
+  <main class="ai-page">
+    <div class="ai-container">
 
-      <input
-        id="userInput"
-        type="text"
-        maxlength="500"
-        placeholder="ARS AI से कुछ पूछें..."
-        autocomplete="off"
-      >
+      <section class="ai-hero">
+        <img src="logo.png" class="ai-logo" alt="ARS">
+        <h1>ARS <span>AI</span></h1>
+        <p>Adarsh Raj Shayar का smart assistant</p>
+      </section>
 
-      <button onclick="sendMessage()">
-        Send
-      </button>
+      <section class="ai-card">
+
+        <div class="ai-messages" id="aiMessages">
+
+          <div class="ai-message bot">
+            नमस्ते 👋 मैं <strong>ARS AI</strong> हूँ।<br>
+            आप मुझसे ARS, Shayari, Stories और सामान्य जानकारी से जुड़े सवाल पूछ सकते हैं।
+          </div>
+
+        </div>
+
+        <div class="ai-shortcuts">
+          <button class="ai-shortcut" data-question="ARS क्या है?">
+            ARS क्या है?
+          </button>
+
+          <button class="ai-shortcut" data-question="एक motivation shayari सुनाओ">
+            Motivation Shayari
+          </button>
+
+          <button class="ai-shortcut" data-question="ARS की website के बारे में बताओ">
+            Website
+          </button>
+
+          <button class="ai-shortcut" data-question="Certificate verify कैसे करें?">
+            Certificate Verify
+          </button>
+        </div>
+
+        <div class="ai-input-row">
+          <input
+            id="aiInput"
+            class="ai-input"
+            type="text"
+            autocomplete="off"
+            placeholder="ARS AI से कुछ पूछें...">
+
+          <button id="aiSend" class="ai-send" type="button">
+            Send
+          </button>
+        </div>
+
+      </section>
 
     </div>
+  </main>
 
-    <p class="note">
-      ARS AI का यह प्रारंभिक browser-based interface है।
-      वास्तविक AI responses के लिए सुरक्षित server-side AI
-      API integration की आवश्यकता होगी। API key को HTML या
-      JavaScript में सीधे रखना सुरक्षित नहीं है।
-    </p>
+  <script>
+    const input = document.getElementById("aiInput");
+    const send = document.getElementById("aiSend");
+    const messages = document.getElementById("aiMessages");
 
-  </section>
-
-</main>
-
-
-<script>
-
-(function () {
-
-  const chatBox =
-    document.getElementById("chatBox");
-
-  const input =
-    document.getElementById("userInput");
-
-
-  function addMessage(text, type) {
-
-    const message =
-      document.createElement("div");
-
-    message.className =
-      "message " + type;
-
-    message.textContent = text;
-
-    chatBox.appendChild(message);
-
-    chatBox.scrollTop =
-      chatBox.scrollHeight;
-  }
-
-
-  function getLocalResponse(text) {
-
-    const value =
-      text.toLowerCase();
-
-
-    if (
-      value.includes("ars ai") ||
-      value.includes("ai क्या") ||
-      value.includes("ai kya")
-    ) {
-
-      return (
-        "ARS AI, ARS website का creative assistant " +
-        "interface है। भविष्य में इसे सुरक्षित AI backend " +
-        "से जोड़कर बातचीत, writing help, ideas और " +
-        "Shayari जैसी सुविधाएँ दी जा सकती हैं।"
-      );
-
+    function addMessage(text, type) {
+      const div = document.createElement("div");
+      div.className = "ai-message " + type;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
     }
 
+    function getReply(question) {
+      const q = question.toLowerCase();
 
-    if (
-      value.includes("ars क्या") ||
-      value.includes("ars kya")
-    ) {
-
-      return (
-        "ARS यानी Adarsh Raj Shayar. " +
-        "यह platform Shayari, Stories, creative content " +
-        "और future community features के लिए बनाया जा रहा है।"
-      );
-
-    }
-
-
-    if (
-      value.includes("शायरी") ||
-      value.includes("shayari")
-    ) {
-
-      return (
-        "बिल्कुल! ✨\n\n" +
-        "आप जिस नाम या विषय पर शायरी चाहते हैं, " +
-        "उसका नाम लिखिए। मैं उसके आधार पर एक " +
-        "नई शायरी तैयार करने में मदद कर सकता हूँ।"
-      );
-
-    }
-
-
-    if (
-      value.includes("नमस्ते") ||
-      value.includes("hello") ||
-      value.includes("hi")
-    ) {
-
-      return (
-        "नमस्ते! 👋\n" +
-        "मैं ARS AI हूँ। आप मुझसे Shayari, Stories, " +
-        "ARS या creative ideas के बारे में पूछ सकते हैं।"
-      );
-
-    }
-
-
-    return (
-      "आपका message मिला। 😊\n\n" +
-      "यह ARS AI का प्रारंभिक offline assistant है। " +
-      "Full AI conversation के लिए future में secure " +
-      "AI backend जोड़ना होगा।"
-    );
-
-  }
-
-
-  window.sendMessage = function () {
-
-    const text =
-      input.value.trim();
-
-
-    if (!text) {
-      return;
-    }
-
-
-    addMessage(
-      text,
-      "user"
-    );
-
-
-    input.value = "";
-
-
-    setTimeout(function () {
-
-      addMessage(
-        getLocalResponse(text),
-        "bot"
-      );
-
-    }, 350);
-
-  };
-
-
-  window.quickAsk = function (text) {
-
-    input.value = text;
-
-    window.sendMessage();
-
-  };
-
-
-  input.addEventListener(
-    "keydown",
-    function (event) {
-
-      if (event.key === "Enter") {
-        window.sendMessage();
+      if (q.includes("ars") && q.includes("क्या")) {
+        return "ARS, Adarsh Raj Shayar के creative, Shayari, Story, educational और digital projects का platform है।";
       }
 
+      if (q.includes("motivation") || q.includes("मोटिवेशन")) {
+        return "मुश्किल रास्ते अक्सर वहीं ले जाते हैं, जहाँ से नई शुरुआत सबसे खूबसूरत बनती है।";
+      }
+
+      if (q.includes("certificate") || q.includes("सर्टिफिकेट")) {
+        return "Certificate Verify section में जाकर सही category चुनें और अपना Certificate ID या Joining Application Number दर्ज करें।";
+      }
+
+      if (q.includes("website") || q.includes("वेबसाइट")) {
+        return "ARS website में Shayari, Stories, ARS AI, Founder, Certificates, Joining और Verification जैसी सुविधाएँ उपलब्ध हैं।";
+      }
+
+      if (
+        q.includes("hello") ||
+        q.includes("hi") ||
+        q.includes("नमस्ते")
+      ) {
+        return "नमस्ते 👋 ARS AI में आपका स्वागत है।";
+      }
+
+      return "मैं अभी basic ARS Assistant mode में हूँ। आप ARS, Shayari, Story या Certificate Verification से जुड़ा सवाल पूछ सकते हैं।";
     }
-  );
 
+    function sendMessage() {
+      const question = input.value.trim();
 
-  addMessage(
-    "नमस्ते! 👋 मैं ARS AI हूँ। आप मुझसे कुछ भी creative पूछ सकते हैं।",
-    "bot"
-  );
+      if (!question) return;
 
-})();
+      addMessage(question, "user");
+      input.value = "";
 
-</script>
+      setTimeout(() => {
+        addMessage(getReply(question), "bot");
+      }, 350);
+    }
+
+    send.addEventListener("click", sendMessage);
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+
+    document.querySelectorAll(".ai-shortcut").forEach(button => {
+      button.addEventListener("click", () => {
+        input.value = button.dataset.question;
+        sendMessage();
+      });
+    });
+
+    const themeToggle = document.getElementById("themeToggle");
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("ars-theme", theme);
+      themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    }
+
+    const savedTheme = localStorage.getItem("ars-theme");
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      setTheme("light");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const current = document.documentElement.dataset.theme;
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+  </script>
 
 </body>
 </html>
