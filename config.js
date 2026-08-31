@@ -1,104 +1,74 @@
+"use strict";
+
 /* =========================================================
-   ARS OFFICIAL — CENTRAL CONFIGURATION
+   ARS WEBSITE CONFIGURATION
+   Adarsh Raj Shayar Official
    ========================================================= */
 
 window.ARS_CONFIG = {
 
-  /* -------------------------------------------------------
-     WEBSITE
-     ------------------------------------------------------- */
+  /* ---------- Website ---------- */
 
-  siteName: "ARS Official",
+  siteName: "Adarsh Raj Shayar Official",
+
+  shortName: "ARS",
 
   founderName: "Adarsh Raj Shayar",
 
-  websiteUrl:
+  siteUrl:
     "https://adarshrajshyar.github.io/",
 
 
-  /* -------------------------------------------------------
-     SOCIAL
-     ------------------------------------------------------- */
+  /* ---------- Social Links ---------- */
 
-  instagramUrl:
+  instagram:
     "https://www.instagram.com/adarshrajshyar/",
 
+  whatsappGK:
+    "https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e",
 
-  /* -------------------------------------------------------
-     IMAGES
-     ------------------------------------------------------- */
-
-  logo:
-    "logo.png",
-
-  banner:
-    "banner.png",
-
-  founderPhoto:
-    "photo.jpg1.jpeg",
-
-  signature:
-    "signature.jpg",
-
-  websiteBanner:
-    "website.jpeg",
+  whatsappShayar:
+    "https://whatsapp.com/channel/0029Vb8vRP4DZ4LgW27mNc3A",
 
 
-  /* -------------------------------------------------------
-     ADMIN
-     -------------------------------------------------------
-     अपना वास्तविक Username और Password यहां रखें।
-     ------------------------------------------------------- */
+  /* ---------- Images ---------- */
 
-  adminUsername:
-    "ARS",
+  images: {
 
-  adminPassword:
-    "ARS@2026",
+    logo: "logo.png",
 
+    founder:
+      "founder.png",
 
-  /* -------------------------------------------------------
-     PUBLISHER
-     -------------------------------------------------------
-     अपना Publisher Username और Password यहां रखें।
-     ------------------------------------------------------- */
+    photo:
+      "photo.png",
 
-  publisherUsername:
-    "ARS",
+    banner:
+      "banner.png",
 
-  publisherPassword:
-    "ARS@2026",
+    websiteBanner:
+      "website-banner.png",
+
+    signature:
+      "signature.png"
+
+  },
 
 
-  /* -------------------------------------------------------
-     CERTIFICATE
-     ------------------------------------------------------- */
-
-  certificatePrefix:
-    "ARS-CERT-",
-
-
-  /* -------------------------------------------------------
-     SHAYARI CATEGORIES
-     ------------------------------------------------------- */
+  /* ---------- Shayari Categories ---------- */
 
   shayariCategories: [
-
     "Sad",
     "Love",
     "Attitude",
     "Friendship",
     "Motivation"
-
   ],
 
 
-  /* -------------------------------------------------------
-     STORY CATEGORIES
-     ------------------------------------------------------- */
+  /* ---------- Story Categories ---------- */
 
   storyCategories: [
-
     "Poem",
     "Horror",
     "Friendship",
@@ -108,23 +78,97 @@ window.ARS_CONFIG = {
     "Mystery",
     "Biography",
     "Motivation"
-
   ],
 
 
-  /* -------------------------------------------------------
-     JOINING INTERESTS
-     ------------------------------------------------------- */
+  /* ---------- Certificate ---------- */
 
-  joiningInterests: [
+  certificateTypes: [
+    "Professional",
+    "Achievement",
+    "Business"
+  ],
 
+
+  /* ---------- ARS Roles ---------- */
+
+  joiningRoles: [
     "Writer",
     "Creator",
     "Supporter",
     "Shayar",
     "Instagram Related",
     "YouTube Related"
+  ],
 
-  ]
+
+  /* ---------- Storage Keys ---------- */
+
+  storage: {
+
+    normalCertificates:
+      "NORMAL_CERTIFICATES",
+
+    joiningApplications:
+      "JOINING_APPLICATIONS",
+
+    shayari:
+      "SHAYARI",
+
+    stories:
+      "STORIES",
+
+    likes:
+      "LIKES",
+
+    saves:
+      "SAVES",
+
+    updates:
+      "UPDATES"
+
+  },
+
+
+  /* ---------- Future Features ---------- */
+
+  features: {
+
+    arsAI: true,
+
+    joining: true,
+
+    certificates: true,
+
+    certificateVerification: true,
+
+    publisher: true,
+
+    admin: true,
+
+    futureEducationalChannel: true,
+
+    futureAndroidApp: true
+
+  },
+
+
+  /* ---------- Website Text ---------- */
+
+  messages: {
+
+    follow:
+      "ARS से जुड़े रहने के लिए हमें Follow और Share करें।",
+
+    educational:
+      "भविष्य में ARS का Educational Channel भी बनाया जाएगा।",
+
+    app:
+      "भविष्य में ARS का Android App भी उपलब्ध कराया जाएगा।",
+
+    ai:
+      "ARS AI — आपका creative assistant।"
+
+  }
 
 };
