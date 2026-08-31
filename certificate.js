@@ -1,377 +1,344 @@
-"use strict";
-
 /* =========================================================
    ARS CERTIFICATE SYSTEM
-   Adarsh Raj Shayar Official
+   Search • Display • Print • Local Storage Support
    ========================================================= */
 
 (function () {
+  "use strict";
 
-  const STORAGE_KEY = "ARS_NORMAL_CERTIFICATES";
+  const form =
+    document.getElementById("certificateForm");
 
+  const input =
+    document.getElementById("certificateId");
 
-  function getCertificates() {
+  const message =
+    document.getElementById("certificateMessage");
+
+  const preview =
+    document.getElementById("certificatePreview");
+
+  const printButton =
+    document.getElementById("printCertificate");
+
+  const STORAGE_KEY =
+    "ARS_CERTIFICATES";
+
+  function readCertificates() {
     try {
       const data =
         JSON.parse(
-          localStorage.getItem(STORAGE_KEY)
+          localStorage.getItem(STORAGE_KEY) || "[]"
         );
 
       return Array.isArray(data) ? data : [];
-
-    } catch (error) {
-      console.error(
-        "Certificate storage read error:",
-        error
-      );
-
+    } catch {
       return [];
     }
   }
 
-
-  function saveCertificates(data) {
-    try {
-
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-      );
-
-      return true;
-
-    } catch (error) {
-
-      console.error(
-        "Certificate storage save error:",
-        error
-      );
-
-      return false;
-    }
-  }
-
-
-  function generateCertificateId() {
-
-    const time =
-      Date.now()
-        .toString(36)
-        .toUpperCase();
-
-    const random =
-      Math.random()
-        .toString(36)
-        .substring(2, 7)
-        .toUpperCase();
-
-    return `ARS-CERT-${time}-${random}`;
-  }
-
-
-  function escapeHTML(value) {
-
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-
-  function createCertificate(data) {
-
-    if (!data || !data.name) {
-      throw new Error(
-        "Certificate name is required."
-      );
-    }
-
-
-    const certificate = {
-
-      id:
-        data.id ||
-        generateCertificateId(),
-
-      name:
-        String(data.name).trim(),
-
-      type:
-        String(
-          data.type ||
-          "Achievement"
-        ).trim(),
-
-      profession:
-        String(
-          data.profession || ""
-        ).trim(),
-
-      businessName:
-        String(
-          data.businessName || ""
-        ).trim(),
-
-      ownerName:
-        String(
-          data.ownerName || ""
-        ).trim(),
-
-      achievement:
-        String(
-          data.achievement || ""
-        ).trim(),
-
-      issuedDate:
-        data.issuedDate ||
-        new Date().toISOString(),
-
-      issuer:
-        "Adarsh Raj Shayar Official"
-
-    };
-
-
-    const certificates =
-      getCertificates();
-
-
-    const existing =
-      certificates.findIndex(
-        item =>
-          item.id === certificate.id
-      );
-
-
-    if (existing >= 0) {
-
-      certificates[existing] =
-        certificate;
-
-    } else {
-
-      certificates.push(
-        certificate
-      );
-
-    }
-
-
-    if (!saveCertificates(certificates)) {
-      throw new Error(
-        "Certificate could not be saved."
-      );
-    }
-
-
-    return certificate;
-  }
-
-
   function getCertificate(id) {
 
-    const cleanId =
-      String(id || "")
-        .trim()
-        .toUpperCase();
+    const certificates =
+      readCertificates();
 
+    return certificates.find(
+      certificate =>
+        String(
+          certificate.id ||
+          certificate.certificateId ||
+          ""
+        ).toUpperCase() ===
+        String(id).trim().toUpperCase()
+    );
+  }
 
-    if (!cleanId) {
-      return null;
+  function setMessage(text, success) {
+
+    if (!message) return;
+
+    message.textContent = text;
+
+    message.className =
+      "form-message " +
+      (success ? "success" : "error");
+  }
+
+  function showCertificate(certificate) {
+
+    if (!preview) return;
+
+    const name =
+      certificate.name ||
+      certificate.fullName ||
+      "ARS Member";
+
+    const type =
+      certificate.type ||
+      certificate.certificateType ||
+      "Achievement";
+
+    const profession =
+      certificate.profession ||
+      certificate.achievement ||
+      "";
+
+    const business =
+      certificate.businessName ||
+      "";
+
+    const id =
+      certificate.id ||
+      certificate.certificateId ||
+      "";
+
+    const date =
+      certificate.date ||
+      certificate.issueDate ||
+      new Date().toLocaleDateString("en-IN");
+
+    const nameElement =
+      document.getElementById("previewName");
+
+    const typeElement =
+      document.getElementById("previewType");
+
+    const professionElement =
+      document.getElementById("previewProfession");
+
+    const businessElement =
+      document.getElementById("previewBusiness");
+
+    const idElement =
+      document.getElementById("previewId");
+
+    const dateElement =
+      document.getElementById("previewDate");
+
+    if (nameElement)
+      nameElement.textContent = name;
+
+    if (typeElement)
+      typeElement.textContent = type;
+
+    if (professionElement) {
+      professionElement.textContent =
+        profession;
     }
 
+    if (businessElement) {
+      businessElement.textContent =
+        business;
+      businessElement.style.display =
+        business ? "block" : "none";
+    }
 
-    return (
-      getCertificates().find(
-        certificate =>
-          String(certificate.id)
-            .toUpperCase() === cleanId
-      ) || null
-    );
+    if (idElement)
+      idElement.textContent = id;
+
+    if (dateElement)
+      dateElement.textContent = date;
+
+    preview.style.display = "block";
+
+    preview.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   }
 
+  function openCertificateFromURL() {
 
-  function deleteCertificate(id) {
-
-    const cleanId =
-      String(id || "")
-        .trim()
-        .toUpperCase();
-
-
-    const certificates =
-      getCertificates();
-
-
-    const filtered =
-      certificates.filter(
-        certificate =>
-          String(certificate.id)
-            .toUpperCase() !== cleanId
+    const params =
+      new URLSearchParams(
+        window.location.search
       );
 
+    const id =
+      params.get("id") ||
+      params.get("certificate") ||
+      params.get("certificateId");
 
-    return saveCertificates(
-      filtered
-    );
+    if (id && input) {
+
+      input.value =
+        decodeURIComponent(id);
+
+      const certificate =
+        getCertificate(id);
+
+      if (certificate) {
+        showCertificate(certificate);
+        setMessage(
+          "Certificate मिल गया।",
+          true
+        );
+      }
+    }
   }
 
+  if (form) {
 
-  function getAllCertificates() {
-    return getCertificates();
-  }
+    form.addEventListener(
+      "submit",
+      function (event) {
 
+        event.preventDefault();
 
-  /* -------------------------------------------------------
-     Public ARS Certificate API
-     ------------------------------------------------------- */
+        const id =
+          input.value.trim();
 
-  window.ARSCertificate = {
+        if (!id) {
+          setMessage(
+            "कृपया Certificate ID डालें।",
+            false
+          );
+          return;
+        }
 
-    create:
-      createCertificate,
+        const certificate =
+          getCertificate(id);
 
-    get:
-      getCertificate,
+        if (!certificate) {
 
-    getAll:
-      getAllCertificates,
+          if (preview) {
+            preview.style.display =
+              "none";
+          }
 
-    delete:
-      deleteCertificate,
+          setMessage(
+            "Certificate नहीं मिला। ID दोबारा जाँचें।",
+            false
+          );
 
-    generateId:
-      generateCertificateId,
+          return;
+        }
 
-    escapeHTML:
-      escapeHTML
-
-  };
-
-
-  /* -------------------------------------------------------
-     Optional form integration
-     ------------------------------------------------------- */
-
-  document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-      const form =
-        document.getElementById(
-          "certificateForm"
+        setMessage(
+          "Certificate सफलतापूर्वक मिल गया।",
+          true
         );
 
+        showCertificate(certificate);
 
-      if (!form) {
-        return;
       }
+    );
 
+  }
 
-      form.addEventListener(
-        "submit",
-        function (event) {
+  if (printButton) {
 
-          event.preventDefault();
+    printButton.addEventListener(
+      "click",
+      function () {
 
-
-          const name =
-            document.getElementById(
-              "certificateName"
-            )?.value.trim();
-
-
-          const type =
-            document.getElementById(
-              "certificateType"
-            )?.value.trim();
-
-
-          const profession =
-            document.getElementById(
-              "profession"
-            )?.value.trim();
-
-
-          const businessName =
-            document.getElementById(
-              "businessName"
-            )?.value.trim();
-
-
-          const ownerName =
-            document.getElementById(
-              "ownerName"
-            )?.value.trim();
-
-
-          const achievement =
-            document.getElementById(
-              "achievement"
-            )?.value.trim();
-
-
-          if (!name) {
-
-            alert(
-              "कृपया नाम दर्ज करें।"
-            );
-
-            return;
-          }
-
-
-          try {
-
-            const certificate =
-              createCertificate({
-
-                name,
-                type,
-                profession,
-                businessName,
-                ownerName,
-                achievement
-
-              });
-
-
-            alert(
-              "Certificate successfully created!\n\n" +
-              "Certificate ID: " +
-              certificate.id
-            );
-
-
-            form.reset();
-
-
-            document.dispatchEvent(
-              new CustomEvent(
-                "arsCertificateCreated",
-                {
-                  detail: certificate
-                }
-              )
-            );
-
-
-          } catch (error) {
-
-            console.error(error);
-
-            alert(
-              "Certificate बनाने में समस्या हुई।"
-            );
-
-          }
-
+        if (
+          !preview ||
+          preview.style.display === "none"
+        ) {
+          return;
         }
-      );
+
+        window.print();
+
+      }
+    );
+
+  }
+
+  /* Theme */
+
+  const themeToggle =
+    document.getElementById(
+      "themeToggle"
+    );
+
+  function applyTheme(theme) {
+
+    document.documentElement.dataset.theme =
+      theme;
+
+    localStorage.setItem(
+      "ars-theme",
+      theme
+    );
+
+    if (themeToggle) {
+
+      themeToggle.textContent =
+        theme === "dark"
+          ? "☀️"
+          : "🌙";
+
+    }
+
+  }
+
+  applyTheme(
+    localStorage.getItem("ars-theme") ||
+    "light"
+  );
+
+  if (themeToggle) {
+
+    themeToggle.addEventListener(
+      "click",
+      function () {
+
+        const current =
+          document.documentElement.dataset.theme ||
+          "light";
+
+        applyTheme(
+          current === "dark"
+            ? "light"
+            : "dark"
+        );
+
+      }
+    );
+
+  }
+
+  /* Back to top */
+
+  const backToTop =
+    document.getElementById(
+      "backToTop"
+    );
+
+  window.addEventListener(
+    "scroll",
+    function () {
+
+      if (!backToTop) return;
+
+      backToTop.style.display =
+        window.scrollY > 350
+          ? "flex"
+          : "none";
 
     }
   );
+
+  if (backToTop) {
+
+    backToTop.addEventListener(
+      "click",
+      function (event) {
+
+        event.preventDefault();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+    );
+
+  }
+
+  openCertificateFromURL();
 
 })();
