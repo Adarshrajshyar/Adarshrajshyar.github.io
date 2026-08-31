@@ -4,222 +4,593 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS Certificate | Official</title>
-
-  <meta
-    name="description"
-    content="ARS Official Certificate Generator">
+  <title>ARS Certificate | ARS Official</title>
+  <meta name="description" content="ARS Official Certificate Generator">
 
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .certificate-page {
+      min-height: 100vh;
+      padding: 60px 20px;
+    }
+
+    .certificate-wrapper {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .certificate-generator {
+      max-width: 760px;
+      margin: 0 auto 40px;
+    }
+
+    .certificate {
+      background: #fff;
+      color: #111827;
+      border: 12px solid #111827;
+      padding: 14px;
+      box-shadow: 0 25px 70px rgba(0,0,0,.20);
+      overflow: hidden;
+    }
+
+    .certificate-inner {
+      position: relative;
+      min-height: 620px;
+      border: 3px solid #c59b2a;
+      padding: 45px 55px;
+      text-align: center;
+      background:
+        radial-gradient(circle at center,
+          rgba(197,155,42,.08),
+          transparent 60%);
+    }
+
+    .certificate-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+
+    .certificate-kicker {
+      margin-top: 8px;
+      font-size: 13px;
+      letter-spacing: 4px;
+      font-weight: 800;
+    }
+
+    .certificate-title {
+      margin: 15px 0 5px;
+      font-family: Georgia, serif;
+      font-size: clamp(34px, 6vw, 58px);
+    }
+
+    .certificate-subtitle {
+      margin-bottom: 28px;
+    }
+
+    .certificate-name {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 0 35px 8px;
+      border-bottom: 2px solid #c59b2a;
+      font-family: Georgia, serif;
+      font-size: clamp(30px, 5vw, 48px);
+      font-weight: 700;
+    }
+
+    .certificate-text {
+      max-width: 760px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    .certificate-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 50px;
+      text-align: left;
+    }
+
+    .certificate-meta-box {
+      flex: 1;
+    }
+
+    .certificate-meta-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: .7;
+    }
+
+    .certificate-signature {
+      display: block;
+      width: 150px;
+      height: 65px;
+      object-fit: contain;
+      margin-bottom: 5px;
+      transform: rotate(-90deg);
+      transform-origin: center;
+    }
+
+    .certificate-sign-line {
+      width: 170px;
+      border-top: 1px solid #111827;
+      padding-top: 5px;
+    }
+
+    .certificate-id {
+      font-family: monospace;
+      font-weight: 800;
+      word-break: break-all;
+    }
+
+    @media print {
+      body {
+        background: #fff !important;
+      }
+
+      .site-header,
+      .site-footer,
+      .certificate-generator,
+      #backToTop,
+      #progressBar {
+        display: none !important;
+      }
+
+      .certificate-page {
+        padding: 0;
+      }
+
+      .certificate {
+        box-shadow: none;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .certificate-inner {
+        padding: 30px 20px;
+        min-height: auto;
+      }
+
+      .certificate-meta {
+        flex-direction: column;
+        margin-top: 30px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
+<div id="progressBar"></div>
+
 <header class="site-header">
-  <div class="header-inner">
+  <nav class="navbar">
 
     <a href="index.html" class="brand">
       <img src="logo.png" alt="ARS Logo">
-      <span>ARS</span>
+      <span>ARS Official</span>
     </a>
 
-    <nav class="main-nav">
+    <button id="navToggle"
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false">
+      ☰
+    </button>
+
+    <div id="navLinks" class="nav-links">
+
       <a href="index.html">Home</a>
-      <a href="shayari.html">Shayari</a>
-      <a href="story.html">Story</a>
       <a href="ars-ai.html">ARS AI</a>
       <a href="joining.html">Join ARS</a>
       <a href="certificate.html" class="active">Certificate</a>
       <a href="verify.html">Verify</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="story.html">Stories</a>
       <a href="founder.html">Founder</a>
       <a href="contact.html">Contact</a>
-    </nav>
 
-    <button
-      id="themeToggle"
-      class="theme-toggle"
-      type="button"
-      aria-label="Theme बदलें">
-      🌙
-    </button>
+      <div class="nav-more">
+        <button id="navMoreButton"
+                type="button"
+                aria-expanded="false">
+          More ▾
+        </button>
 
-  </div>
+        <div id="navMoreMenu" class="nav-more-menu">
+          <a href="publisher.html">Publisher</a>
+          <a href="admin.html">Admin</a>
+          <a href="policy.html">Policy</a>
+        </div>
+      </div>
+
+      <button id="themeToggle"
+              class="theme-toggle"
+              type="button">
+        🌙
+      </button>
+
+    </div>
+  </nav>
 </header>
 
-<main>
 
-<section class="hero-section">
+<main class="certificate-page">
 
-  <img
-    src="logo.png"
-    class="page-logo"
-    alt="ARS Logo">
+  <div class="certificate-wrapper">
 
-  <p class="eyebrow">
-    ARS OFFICIAL
-  </p>
+    <!-- GENERATOR -->
+    <section class="certificate-generator">
 
-  <h1>
-    ARS <span>Certificate</span>
-  </h1>
+      <div class="form-card">
 
-  <p>
-    ARS Certificate Portal
-  </p>
+        <div class="section-heading">
+          <span class="eyebrow">ARS OFFICIAL</span>
+          <h1>Certificate Generator</h1>
+          <p>
+            Certificate details भरकर अपना ARS Certificate तैयार करें।
+          </p>
+        </div>
 
-</section>
+        <div class="form-grid">
 
-<section class="future-section">
+          <div class="form-group">
+            <label for="certificateNameInput">
+              Name
+            </label>
 
-  <div class="form-card">
+            <input
+              id="certificateNameInput"
+              type="text"
+              maxlength="100"
+              placeholder="नाम दर्ज करें"
+              autocomplete="off">
+          </div>
 
-    <p class="eyebrow">
-      CERTIFICATE SEARCH
-    </p>
 
-    <h2>
-      अपना Certificate देखें
-    </h2>
+          <div class="form-group">
+            <label for="certificateType">
+              Certificate Type
+            </label>
 
-    <p>
-      अपना Certificate ID डालकर certificate
-      की जानकारी देखें।
-    </p>
+            <select id="certificateType">
 
-    <form id="certificateForm">
+              <option value="">
+                Select Certificate Type
+              </option>
 
-      <div class="form-group">
+              <option value="Professional">
+                Professional
+              </option>
 
-        <label for="certificateId">
-          Certificate ID
-        </label>
+              <option value="Business">
+                Business
+              </option>
 
-        <input
-          id="certificateId"
-          name="certificateId"
-          type="text"
-          placeholder="उदाहरण: ARS-CERT-XXXXXX"
-          autocomplete="off"
-          required>
+              <option value="Achievement">
+                Achievement
+              </option>
+
+              <option value="Participation">
+                Participation
+              </option>
+
+            </select>
+          </div>
+
+
+          <div id="businessFields"
+               class="form-full"
+               hidden>
+
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label for="businessName">
+                  Business Name
+                </label>
+
+                <input
+                  id="businessName"
+                  type="text"
+                  maxlength="120"
+                  placeholder="Business Name">
+              </div>
+
+              <div class="form-group">
+                <label for="ownerName">
+                  Owner / Founder Name
+                </label>
+
+                <input
+                  id="ownerName"
+                  type="text"
+                  maxlength="100"
+                  placeholder="Owner / Founder Name">
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group form-full">
+
+            <label for="certificatePurpose">
+              Achievement / Purpose
+            </label>
+
+            <textarea
+              id="certificatePurpose"
+              rows="4"
+              maxlength="400"
+              placeholder="Certificate का purpose या achievement"></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="hero-actions">
+
+          <button
+            id="generateCertificate"
+            type="button"
+            class="btn btn-primary">
+            Generate Certificate
+          </button>
+
+          <button
+            id="printCertificate"
+            type="button"
+            class="btn btn-secondary"
+            hidden>
+            Print / Save PDF
+          </button>
+
+        </div>
+
+
+        <p id="certificateMessage"
+           role="status"
+           aria-live="polite">
+        </p>
 
       </div>
 
-      <button
-        type="submit"
-        class="primary-btn">
-        View Certificate
-      </button>
+    </section>
 
-    </form>
 
-    <div
-      id="certificateMessage"
-      class="form-message"
-      aria-live="polite">
-    </div>
+    <!-- CERTIFICATE -->
+    <section id="certificate"
+             class="certificate"
+             hidden>
+
+      <div class="certificate-inner">
+
+        <img
+          src="logo.png"
+          alt="ARS Official Logo"
+          class="certificate-logo">
+
+        <div class="certificate-kicker">
+          ARS OFFICIAL
+        </div>
+
+        <h2 class="certificate-title">
+          Certificate
+        </h2>
+
+        <p class="certificate-subtitle"
+           id="certificateTypeDisplay">
+          Certificate of Recognition
+        </p>
+
+        <p>
+          This certificate is proudly presented to
+        </p>
+
+        <div id="certificateNameDisplay"
+             class="certificate-name">
+          Name
+        </div>
+
+        <p id="certificateText"
+           class="certificate-text">
+          In recognition of outstanding contribution,
+          achievement and association with ARS Official.
+        </p>
+
+
+        <div id="businessDisplay"
+             hidden
+             style="margin-top:20px;">
+
+          <strong id="businessNameDisplay"></strong>
+
+          <span> • </span>
+
+          <span id="ownerNameDisplay"></span>
+
+        </div>
+
+
+        <div class="certificate-meta">
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Certificate ID
+            </span>
+
+            <span id="certificateIdDisplay"
+                  class="certificate-id">
+              —
+            </span>
+
+          </div>
+
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Issue Date
+            </span>
+
+            <span id="certificateDateDisplay">
+              —
+            </span>
+
+          </div>
+
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Issued By
+            </span>
+
+            <strong>
+              ARS Official
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="certificate-meta"
+             style="align-items:end;">
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Verification
+            </span>
+
+            <span>
+              Verify at ARS Official
+            </span>
+
+          </div>
+
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Authorized Signature
+            </span>
+
+            <img
+              src="signature.jpg"
+              alt="Authorized Signature"
+              class="certificate-signature">
+
+            <div class="certificate-sign-line">
+              Authorized Signature
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </div>
-
-</section>
-
-<section
-  id="certificatePreview"
-  class="certificate-page"
-  style="display:none;">
-
-  <div class="normal-certificate">
-
-    <img
-      src="logo.png"
-      class="certificate-logo"
-      alt="ARS Logo">
-
-    <p class="eyebrow">
-      ARS OFFICIAL
-    </p>
-
-    <h2>
-      CERTIFICATE OF ACHIEVEMENT
-    </h2>
-
-    <p>
-      This certificate is proudly presented to
-    </p>
-
-    <h1 id="previewName">
-      —
-    </h1>
-
-    <p id="previewType">
-      Achievement
-    </p>
-
-    <p id="previewProfession">
-      —
-    </p>
-
-    <p id="previewBusiness">
-      —
-    </p>
-
-    <div class="certificate-meta">
-
-      <span>
-        Certificate ID:
-        <strong id="previewId">—</strong>
-      </span>
-
-      <span>
-        Date:
-        <strong id="previewDate">—</strong>
-      </span>
-
-    </div>
-
-    <div class="certificate-signature">
-
-      <img
-        src="signature.jpg"
-        alt="Founder Signature">
-
-      <strong>Founder</strong>
-      <span>Adarsh Raj</span>
-
-    </div>
-
-  </div>
-
-  <div class="certificate-actions">
-
-    <button
-      type="button"
-      class="primary-btn"
-      id="printCertificate">
-      🖨️ Print / Save PDF
-    </button>
-
-    <a
-      href="verify.html"
-      class="secondary-btn">
-      🔎 Verify Certificate
-    </a>
-
-  </div>
-
-</section>
 
 </main>
 
-<a
-  href="#"
-  id="backToTop"
-  class="back-to-top"
-  aria-label="ऊपर जाएँ">
-  ↑
-</a>
 
+<footer class="site-footer">
+
+  <div class="footer-content">
+
+    <div class="footer-brand">
+
+      <img src="logo.png" alt="ARS Logo">
+
+      <h3>ARS Official</h3>
+
+      <p>
+        Creativity • Education • Technology
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <h4>Quick Links</h4>
+
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="contact.html">Contact</a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    © <span class="current-year"></span>
+    ARS Official. All Rights Reserved.
+
+  </div>
+
+</footer>
+
+
+<script src="script.js"></script>
 <script src="certificate.js"></script>
+
+<script>
+document
+  .querySelectorAll(".current-year")
+  .forEach(el => {
+    el.textContent = new Date().getFullYear();
+  });
+
+const typeSelect =
+  document.getElementById("certificateType");
+
+const businessFields =
+  document.getElementById("businessFields");
+
+if (typeSelect && businessFields) {
+
+  typeSelect.addEventListener("change", () => {
+
+    businessFields.hidden =
+      typeSelect.value !== "Business";
+
+  });
+
+}
+
+const printButton =
+  document.getElementById("printCertificate");
+
+if (printButton) {
+
+  printButton.addEventListener("click", () => {
+    window.print();
+  });
+
+}
+</script>
 
 </body>
 </html>
