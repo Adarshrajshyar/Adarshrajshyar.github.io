@@ -2,15 +2,10 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Verify | ARS Official</title>
-
-  <meta
-    name="description"
-    content="ARS Certificate और Joining Certificate Verification">
+  <meta name="description" content="ARS Official verification portal">
 
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
@@ -18,234 +13,468 @@
 
 <body>
 
+<div id="progressBar"></div>
+
 <header class="site-header">
 
-  <div class="header-inner">
+  <nav class="navbar">
 
     <a href="index.html" class="brand">
-      <img
-        src="logo.png"
-        alt="ARS Logo">
-      <span>ARS</span>
+
+      <img src="logo.png" alt="ARS Logo">
+
+      <span>ARS Official</span>
+
     </a>
 
-    <nav class="main-nav">
+
+    <button id="navToggle"
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false">
+      ☰
+    </button>
+
+
+    <div id="navLinks"
+         class="nav-links">
 
       <a href="index.html">Home</a>
-      <a href="shayari.html">Shayari</a>
-      <a href="story.html">Story</a>
       <a href="ars-ai.html">ARS AI</a>
       <a href="joining.html">Join ARS</a>
       <a href="certificate.html">Certificate</a>
-      <a
-        href="verify.html"
-        class="active">
+
+      <a href="verify.html"
+         class="active">
         Verify
       </a>
+
+      <a href="shayari.html">Shayari</a>
+      <a href="story.html">Stories</a>
       <a href="founder.html">Founder</a>
       <a href="contact.html">Contact</a>
 
-    </nav>
 
-    <button
-      id="themeToggle"
-      class="theme-toggle"
-      type="button"
-      aria-label="Theme बदलें">
-      🌙
-    </button>
+      <div class="nav-more">
 
-  </div>
+        <button id="navMoreButton"
+                type="button"
+                aria-expanded="false">
+          More ▾
+        </button>
 
-</header>
+        <div id="navMoreMenu"
+             class="nav-more-menu">
 
-<main>
+          <a href="publisher.html">
+            Publisher
+          </a>
 
-<section class="hero-section">
+          <a href="admin.html">
+            Admin
+          </a>
 
-  <img
-    src="logo.png"
-    class="page-logo"
-    alt="ARS Logo">
+          <a href="policy.html">
+            Policy
+          </a>
 
-  <p class="eyebrow">
-    ARS OFFICIAL
-  </p>
-
-  <h1>
-    Certificate <span>Verify</span>
-  </h1>
-
-  <p>
-    सही verification category चुनें और
-    अपना ID / Application Number दर्ज करें।
-  </p>
-
-</section>
-
-<section class="future-section">
-
-  <div class="form-card">
-
-    <p class="eyebrow">
-      VERIFICATION TYPE
-    </p>
-
-    <h2>
-      क्या Verify करना है?
-    </h2>
-
-    <div class="info-grid">
-
-      <button
-        type="button"
-        class="info-card verify-choice"
-        data-type="joining">
-
-        <div class="card-icon">
-          🤝
         </div>
 
-        <h3>
-          Joining Certificate
-        </h3>
+      </div>
 
-        <p>
-          ARS Joining Application /
-          Joining Certificate को verify करें।
-        </p>
 
-      </button>
-
-      <button
-        type="button"
-        class="info-card verify-choice"
-        data-type="certificate">
-
-        <div class="card-icon">
-          🏆
-        </div>
-
-        <h3>
-          Normal Certificate
-        </h3>
-
-        <p>
-          ARS Certificate ID से
-          certificate verify करें।
-        </p>
-
+      <button id="themeToggle"
+              class="theme-toggle"
+              type="button">
+        🌙
       </button>
 
     </div>
 
-    <div
-      id="verifyFormArea"
-      style="display:none; margin-top:30px;">
+  </nav>
 
-      <form id="verifyForm">
+</header>
 
-        <input
-          type="hidden"
-          id="verifyType"
-          value="">
 
-        <div class="form-group">
+<main>
 
-          <label id="verifyLabel"
-            for="verifyId">
-            Verification ID
-          </label>
+  <!-- HERO -->
 
-          <input
-            id="verifyId"
-            type="text"
-            autocomplete="off"
-            placeholder="ID दर्ज करें"
-            required>
+  <section class="hero-section">
 
+    <div class="hero-content">
+
+      <span class="eyebrow">
+        ARS VERIFICATION
+      </span>
+
+      <h1>
+        Verify
+        <span>ARS</span>
+      </h1>
+
+      <p>
+        एक ही verification page से
+        ARS Joining और ARS Certificate दोनों
+        को check करें।
+      </p>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+      <div class="glass-card">
+
+        <div class="feature-icon">
+          ✓
         </div>
 
-        <button
-          type="submit"
-          class="primary-btn">
-          🔎 Verify Now
-        </button>
+        <h3>
+          Official Verification
+        </h3>
 
-      </form>
+        <p>
+          सही category चुनें और अपनी ID दर्ज करें।
+        </p>
 
-      <div
-        id="verifyMessage"
-        class="form-message"
-        aria-live="polite">
       </div>
 
     </div>
 
-  </div>
+  </section>
 
-</section>
 
-<section
-  id="verifyResult"
-  class="future-section"
-  style="display:none;">
+  <!-- CATEGORY -->
 
-  <div class="form-card">
+  <section class="section">
 
-    <div
-      id="verifyIcon"
-      class="card-icon">
-      ✓
+    <div class="section-heading">
+
+      <span class="eyebrow">
+        SELECT CATEGORY
+      </span>
+
+      <h2>
+        आप क्या verify करना चाहते हैं?
+      </h2>
+
+      <p>
+        नीचे दिए गए दो विकल्पों में से सही विकल्प चुनें।
+      </p>
+
     </div>
 
-    <h2 id="verifyTitle">
-      Verification Result
-    </h2>
 
-    <div id="verifyDetails">
+    <div class="cards-grid">
+
+
+      <article
+        class="feature-card verify-option"
+        data-verify-type="joining">
+
+        <div class="feature-icon">
+          🤝
+        </div>
+
+        <h3>
+          ARS Joining Certificate
+        </h3>
+
+        <p>
+          Joining Application Number के आधार पर
+          Joining record verify करें।
+        </p>
+
+        <button
+          type="button"
+          class="btn btn-primary choose-verify"
+          data-type="joining">
+          Check Joining
+        </button>
+
+      </article>
+
+
+      <article
+        class="feature-card verify-option"
+        data-verify-type="certificate">
+
+        <div class="feature-icon">
+          🏆
+        </div>
+
+        <h3>
+          ARS Certificate
+        </h3>
+
+        <p>
+          ARS Certificate ID के आधार पर
+          certificate verify करें।
+        </p>
+
+        <button
+          type="button"
+          class="btn btn-primary choose-verify"
+          data-type="certificate">
+          Check Certificate
+        </button>
+
+      </article>
+
+
     </div>
 
-  </div>
+  </section>
 
-</section>
+
+  <!-- VERIFY FORM -->
+
+  <section
+    id="verifySection"
+    class="section"
+    hidden>
+
+    <div class="form-card">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">
+          VERIFICATION
+        </span>
+
+        <h2 id="verifyTitle">
+          Verify
+        </h2>
+
+        <p id="verifyDescription">
+          अपनी ID दर्ज करें।
+        </p>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="verifyId">
+          Verification ID
+        </label>
+
+        <input
+          id="verifyId"
+          type="text"
+          autocomplete="off"
+          placeholder="ID दर्ज करें">
+
+      </div>
+
+
+      <div class="hero-actions">
+
+        <button
+          id="verifyButton"
+          type="button"
+          class="btn btn-primary">
+          Verify Now
+        </button>
+
+        <button
+          id="changeCategory"
+          type="button"
+          class="btn btn-secondary">
+          Change Category
+        </button>
+
+      </div>
+
+
+      <p
+        id="verifyMessage"
+        role="status"
+        aria-live="polite">
+      </p>
+
+
+      <!-- RESULT -->
+
+      <div
+        id="verifyResult"
+        class="result-card"
+        hidden>
+
+        <div class="result-icon">
+          ✓
+        </div>
+
+        <h3 id="resultTitle">
+          Verified
+        </h3>
+
+        <p id="resultStatus">
+          Record verified successfully.
+        </p>
+
+
+        <div class="certificate-meta"
+             style="text-align:left;">
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Name
+            </span>
+
+            <strong id="resultName">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              ID
+            </span>
+
+            <strong id="resultId"
+                    class="certificate-id">
+              —
+            </strong>
+
+          </div>
+
+
+          <div class="certificate-meta-box">
+
+            <span class="certificate-meta-label">
+              Date
+            </span>
+
+            <strong id="resultDate">
+              —
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- HELP -->
+
+  <section class="section">
+
+    <div class="cta-card">
+
+      <span class="eyebrow">
+        NEED HELP?
+      </span>
+
+      <h2>
+        गलत category चुन ली?
+      </h2>
+
+      <p>
+        अगर आपने Joining ID को Certificate verification
+        में डाला है, तो सही category चुनकर दोबारा check करें।
+      </p>
+
+      <a
+        href="contact.html"
+        class="btn btn-primary">
+        Contact ARS
+      </a>
+
+    </div>
+
+  </section>
 
 </main>
 
-<a
-  href="#"
-  id="backToTop"
-  class="back-to-top"
-  aria-label="ऊपर जाएँ">
-  ↑
-</a>
 
+<footer class="site-footer">
+
+  <div class="footer-content">
+
+    <div class="footer-brand">
+
+      <img src="logo.png"
+           alt="ARS Logo">
+
+      <h3>
+        ARS Official
+      </h3>
+
+      <p>
+        Creativity • Education • Technology
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <h4>
+        Quick Links
+      </h4>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    © <span class="current-year"></span>
+    ARS Official. All Rights Reserved.
+
+  </div>
+
+</footer>
+
+
+<script src="script.js"></script>
 <script src="verify-storage.js"></script>
 
 <script>
 
 (function () {
 
-  "use strict";
-
-  const choices =
-    document.querySelectorAll(
-      ".verify-choice"
+  const verifySection =
+    document.getElementById(
+      "verifySection"
     );
 
-  const formArea =
+  const verifyTitle =
     document.getElementById(
-      "verifyFormArea"
+      "verifyTitle"
     );
 
-  const verifyType =
+  const verifyDescription =
     document.getElementById(
-      "verifyType"
-    );
-
-  const verifyLabel =
-    document.getElementById(
-      "verifyLabel"
+      "verifyDescription"
     );
 
   const verifyId =
@@ -253,334 +482,345 @@
       "verifyId"
     );
 
-  const verifyForm =
+  const verifyButton =
     document.getElementById(
-      "verifyForm"
+      "verifyButton"
     );
 
-  const message =
+  const verifyMessage =
     document.getElementById(
       "verifyMessage"
     );
 
-  const result =
+  const verifyResult =
     document.getElementById(
       "verifyResult"
     );
 
-  const resultTitle =
+  const changeCategory =
     document.getElementById(
-      "verifyTitle"
+      "changeCategory"
     );
 
-  const details =
-    document.getElementById(
-      "verifyDetails"
-    );
 
-  function showType(type) {
+  let selectedType = "";
 
-    verifyType.value = type;
 
-    formArea.style.display =
-      "block";
+  function setType(type) {
+
+    selectedType = type;
+
+    verifySection.hidden = false;
+
+    verifyResult.hidden = true;
+
+    verifyMessage.textContent = "";
+
+    verifyId.value = "";
+
 
     if (type === "joining") {
 
-      verifyLabel.textContent =
-        "Joining Application Number / ID";
+      verifyTitle.textContent =
+        "Verify Joining Certificate";
+
+      verifyDescription.textContent =
+        "अपना ARS Joining Application Number दर्ज करें।";
 
       verifyId.placeholder =
-        "ARS Joining Application Number";
-
-    } else {
-
-      verifyLabel.textContent =
-        "Certificate ID";
-
-      verifyId.placeholder =
-        "उदाहरण: ARS-CERT-XXXXXX";
+        "ARS-JOIN-2026-123456";
 
     }
 
-    verifyId.focus();
 
-  }
+    if (type === "certificate") {
 
-  choices.forEach(function (choice) {
+      verifyTitle.textContent =
+        "Verify ARS Certificate";
 
-    choice.addEventListener(
-      "click",
-      function () {
+      verifyDescription.textContent =
+        "अपना ARS Certificate ID दर्ज करें।";
 
-        showType(
-          choice.dataset.type
-        );
-
-      }
-    );
-
-  });
-
-  function escapeHTML(value) {
-
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-
-  }
-
-  function showResult(data, type) {
-
-    result.style.display =
-      "block";
-
-    if (!data) {
-
-      resultTitle.textContent =
-        "❌ Verification Failed";
-
-      details.innerHTML =
-        "<p>यह ID / Application Number नहीं मिला। कृपया दोबारा जाँचें।</p>";
-
-      result.scrollIntoView({
-        behavior: "smooth"
-      });
-
-      return;
+      verifyId.placeholder =
+        "ARS-XXXXXXXX-XXXXX";
 
     }
 
-    resultTitle.textContent =
-      "✅ Verified";
 
-    details.innerHTML = `
-      <div class="info-card">
-        <h3>${escapeHTML(
-          data.name ||
-          data.fullName ||
-          "ARS Member"
-        )}</h3>
-
-        <p>
-          <strong>Type:</strong>
-          ${escapeHTML(
-            type === "joining"
-              ? "Joining Certificate"
-              : "Certificate"
-          )}
-        </p>
-
-        <p>
-          <strong>ID:</strong>
-          ${escapeHTML(
-            data.id ||
-            data.applicationNumber ||
-            data.certificateId ||
-            ""
-          )}
-        </p>
-
-        ${
-          data.date
-            ? `<p><strong>Date:</strong>
-               ${escapeHTML(data.date)}</p>`
-            : ""
-        }
-
-        <p>
-          This record was found in the
-          ARS verification system.
-        </p>
-      </div>
-    `;
-
-    result.scrollIntoView({
-      behavior: "smooth"
+    verifySection.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
     });
 
   }
 
-  verifyForm.addEventListener(
-    "submit",
-    function (event) {
 
-      event.preventDefault();
+  document
+    .querySelectorAll(".choose-verify")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          setType(
+            button.dataset.type
+          );
+
+        }
+      );
+
+    });
+
+
+  changeCategory.addEventListener(
+    "click",
+    function () {
+
+      verifySection.hidden = true;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+  );
+
+
+  verifyButton.addEventListener(
+    "click",
+    function () {
 
       const id =
         verifyId.value.trim();
 
-      const type =
-        verifyType.value;
-
       if (!id) {
 
-        message.textContent =
-          "कृपया ID दर्ज करें।";
+        verifyMessage.textContent =
+          "कृपया Verification ID दर्ज करें।";
+
+        verifyResult.hidden = true;
 
         return;
 
       }
 
-      let data = null;
+
+      let record = null;
+
+
+      /*
+       * verify-storage.js exposes the
+       * verification methods.
+       */
 
       if (
-        window.ARSVerifyStorage &&
-        typeof
-        window.ARSVerifyStorage.verify ===
+        window.ARS_VERIFY &&
+        typeof window.ARS_VERIFY.verify ===
         "function"
       ) {
 
-        data =
-          window.ARSVerifyStorage.verify(
-            type,
+        record =
+          window.ARS_VERIFY.verify(
+            selectedType,
             id
           );
 
       } else {
 
         /*
-          Fallback:
-          यदि verify-storage.js उपलब्ध न हो,
-          तो localStorage से basic verification।
-        */
+         * Fallback for local testing.
+         */
 
-        const key =
-          type === "joining"
-            ? "ARS_JOINING_CERTIFICATES"
-            : "ARS_CERTIFICATES";
+        if (
+          selectedType === "joining"
+        ) {
 
-        try {
+          try {
 
-          const records =
-            JSON.parse(
-              localStorage.getItem(key) ||
-              "[]"
-            );
+            const list =
+              JSON.parse(
+                localStorage.getItem(
+                  "ARS_JOINING_APPLICATIONS"
+                ) || "[]"
+              );
 
-          data =
-            records.find(
-              record =>
-                String(
-                  record.id ||
-                  record.applicationNumber ||
-                  record.certificateId ||
-                  ""
-                ).toUpperCase() ===
-                id.toUpperCase()
-            ) || null;
+            record =
+              list.find(
+                item =>
+                  String(item.id)
+                    .toUpperCase() ===
+                  id.toUpperCase()
+              );
 
-        } catch {
+          } catch (_) {}
 
-          data = null;
+        }
+
+
+        if (
+          selectedType === "certificate"
+        ) {
+
+          try {
+
+            const list =
+              JSON.parse(
+                localStorage.getItem(
+                  "ARS_CERTIFICATES"
+                ) || "[]"
+              );
+
+            record =
+              list.find(
+                item =>
+                  String(item.id)
+                    .toUpperCase() ===
+                  id.toUpperCase()
+              );
+
+          } catch (_) {}
 
         }
 
       }
 
-      showResult(
-        data,
-        type
-      );
 
-    }
-  );
+      if (!record) {
 
-  /* Theme */
+        verifyResult.hidden = true;
 
-  const themeToggle =
-    document.getElementById(
-      "themeToggle"
-    );
+        verifyMessage.textContent =
+          selectedType === "joining"
+            ? "यह Joining ID नहीं मिली। कृपया Joining category में सही Application Number डालें।"
+            : "यह Certificate ID नहीं मिली। कृपया Certificate category में सही Certificate ID डालें।";
 
-  function applyTheme(theme) {
-
-    document.documentElement.dataset.theme =
-      theme;
-
-    localStorage.setItem(
-      "ars-theme",
-      theme
-    );
-
-    if (themeToggle) {
-
-      themeToggle.textContent =
-        theme === "dark"
-          ? "☀️"
-          : "🌙";
-
-    }
-
-  }
-
-  applyTheme(
-    localStorage.getItem("ars-theme") ||
-    "light"
-  );
-
-  if (themeToggle) {
-
-    themeToggle.addEventListener(
-      "click",
-      function () {
-
-        const current =
-          document.documentElement.dataset.theme ||
-          "light";
-
-        applyTheme(
-          current === "dark"
-            ? "light"
-            : "dark"
-        );
+        return;
 
       }
-    );
 
-  }
 
-  /* Back to top */
+      const recordType =
+        String(
+          record.type || ""
+        ).toLowerCase();
 
-  const backToTop =
-    document.getElementById(
-      "backToTop"
-    );
 
-  window.addEventListener(
-    "scroll",
-    function () {
+      /*
+       * Wrong-category protection.
+       */
 
-      if (!backToTop) return;
+      if (
+        selectedType === "joining" &&
+        recordType === "certificate"
+      ) {
 
-      backToTop.style.display =
-        window.scrollY > 350
-          ? "flex"
-          : "none";
+        verifyResult.hidden = true;
+
+        verifyMessage.textContent =
+          "आप इस page पर गलत category में आए हैं। यह Certificate ID है। कृपया ARS Certificate में जाकर verify करें।";
+
+        return;
+
+      }
+
+
+      if (
+        selectedType === "certificate" &&
+        recordType === "joining"
+      ) {
+
+        verifyResult.hidden = true;
+
+        verifyMessage.textContent =
+          "आप इस page पर गलत category में आए हैं। यह Joining ID है। कृपया ARS Joining Certificate में जाकर verify करें।";
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "resultName"
+      ).textContent =
+        record.name || "—";
+
+
+      document.getElementById(
+        "resultId"
+      ).textContent =
+        record.id || id;
+
+
+      document.getElementById(
+        "resultDate"
+      ).textContent =
+        record.createdAt
+          ? new Date(
+              record.createdAt
+            ).toLocaleDateString(
+              "en-IN"
+            )
+          : "—";
+
+
+      document.getElementById(
+        "resultTitle"
+      ).textContent =
+        "✓ Verified";
+
+
+      document.getElementById(
+        "resultStatus"
+      ).textContent =
+        selectedType === "joining"
+          ? "ARS Joining record successfully verified."
+          : "ARS Certificate successfully verified.";
+
+
+      verifyMessage.textContent =
+        "Verification successful.";
+
+      verifyResult.hidden = false;
+
+
+      verifyResult.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
 
     }
   );
 
-  if (backToTop) {
 
-    backToTop.addEventListener(
-      "click",
-      function (event) {
+  verifyId.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Enter"
+      ) {
 
         event.preventDefault();
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        verifyButton.click();
 
       }
-    );
 
-  }
+    }
+  );
+
+
+  document
+    .querySelectorAll(".current-year")
+    .forEach(el => {
+
+      el.textContent =
+        new Date().getFullYear();
+
+    });
+
 
 })();
 
