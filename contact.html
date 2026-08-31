@@ -1,1 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta name="description"
+    content="Contact ARS Official for questions, suggestions, collaborations and support.">
+
+  <title>Contact | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .contact-page {
+      min-height: 100vh;
+      padding: 120px 20px 70px;
+      background:
+        radial-gradient(circle at top left, rgba(124,58,237,.13), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(236,72,153,.12), transparent 35%),
+        var(--bg);
+    }
+
+    .contact-container {
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .contact-heading {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .contact-heading h1 {
+      font-size: clamp(34px, 6vw, 55px);
+      margin-bottom: 10px;
+    }
+
+    .contact-heading p {
+      color: var(--text-soft);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 24px;
+    }
+
+    .contact-card {
+      padding: 28px;
+      border-radius: 22px;
+      border: 1px solid rgba(212,175,55,.30);
+      background: var(--card-bg, rgba(255,255,255,.05));
+      box-shadow: 0 20px 55px rgba(0,0,0,.12);
+    }
+
+    .contact-card h2 {
+      margin-bottom: 10px;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 13px;
+      margin-top: 22px;
+    }
+
+    .contact-item {
+      padding: 16px;
+      border-radius: 13px;
+      background: rgba(128,128,128,.08);
+    }
+
+    .contact-item small {
+      display: block;
+      color: var(--text-soft);
+      margin-bottom: 5px;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 15px;
+    }
+
+    .contact-form label {
+      font-weight: 700;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 11px;
+      border: 1px solid rgba(128,128,128,.30);
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+
+    .contact-form textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      border-color: #d4af37;
+    }
+
+    .contact-submit {
+      border: 0;
+      border-radius: 11px;
+      padding: 14px 22px;
+      cursor: pointer;
+      font-weight: 800;
+      background: linear-gradient(135deg, #d4af37, #f5d76e);
+      color: #111;
+    }
+
+    .contact-note {
+      margin-top: 13px;
+      color: var(--text-soft);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official">
+      <span>ARS Official</span>
+    </a>
+
+    <button id="navToggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false">☰</button>
+
+    <div id="navLinks" class="nav-links">
+
+      <a href="index.html">Home</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="founder.html">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html">Joining Certificate</a>
+      <a href="verify.html">Verify</a>
+
+      <div class="nav-more">
+        <button id="navMoreButton"
+          type="button"
+          aria-expanded="false">More ▾</button>
+
+        <div id="navMoreMenu" class="nav-more-menu">
+          <a href="joining.html">Joining ARS</a>
+          <a href="publisher.html">Publisher</a>
+          <a href="policy.html">Policy</a>
+          <a href="contact.html" class="active">Contact</a>
+          <a href="admin.html">Admin</a>
+        </div>
+      </div>
+
+      <button id="themeToggle"
+        type="button"
+        aria-label="Switch to dark mode">🌙</button>
+
+    </div>
+  </nav>
+</header>
+
+<main class="contact-page">
+
+  <div class="contact-container">
+
+    <div class="contact-heading">
+      <h1>Contact ARS Official</h1>
+      <p>
+        Questions, suggestions, collaboration or support —
+        send us a message.
+      </p>
+    </div>
+
+    <div class="contact-layout">
+
+      <section class="contact-card">
+
+        <h2>Let's Connect</h2>
+
+        <p>
+          ARS Official welcomes genuine questions,
+          suggestions, ideas and collaboration requests.
+        </p>
+
+        <div class="contact-info">
+
+          <div class="contact-item">
+            <small>Website</small>
+            <strong>ARS Official</strong>
+          </div>
+
+          <div class="contact-item">
+            <small>Founder</small>
+            <strong>Adarsh Raj</strong>
+          </div>
+
+          <div class="contact-item">
+            <small>GitHub</small>
+            <strong>Adarshrajshyar</strong>
+          </div>
+
+          <div class="contact-item">
+            <small>Email</small>
+            <strong id="contactEmail">
+              Email contact
+            </strong>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="contact-card">
+
+        <h2>Send a Message</h2>
+
+        <form id="contactForm" class="contact-form">
+
+          <div>
+            <label for="contactName">Name</label>
+            <input
+              id="contactName"
+              name="name"
+              type="text"
+              placeholder="Your name"
+              required>
+          </div>
+
+          <div>
+            <label for="contactEmailInput">Email</label>
+            <input
+              id="contactEmailInput"
+              name="email"
+              type="email"
+              placeholder="Your email"
+              required>
+          </div>
+
+          <div>
+            <label for="contactSubject">Subject</label>
+
+            <select id="contactSubject"
+              name="subject">
+
+              <option>General Query</option>
+              <option>Certificate</option>
+              <option>Joining ARS</option>
+              <option>Publisher</option>
+              <option>Collaboration</option>
+              <option>Website Feedback</option>
+              <option>Other</option>
+
+            </select>
+          </div>
+
+          <div>
+            <label for="contactMessage">Message</label>
+
+            <textarea
+              id="contactMessage"
+              name="message"
+              placeholder="Write your message..."
+              required></textarea>
+          </div>
+
+          <button
+            class="contact-submit"
+            type="submit">
+            Send Message
+          </button>
+
+        </form>
+
+        <p class="contact-note">
+          Your email application will open with the message
+          prepared for sending.
+        </p>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const form =
+    document.getElementById("contactForm");
+
+  if (!form) return;
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("contactName").value.trim();
+
+    const email =
+      document.getElementById("contactEmailInput").value.trim();
+
+    const subject =
+      document.getElementById("contactSubject").value;
+
+    const message =
+      document.getElementById("contactMessage").value.trim();
+
+    const configuredEmail =
+      window.ARS_CONFIG &&
+      window.ARS_CONFIG.contact &&
+      window.ARS_CONFIG.contact.email;
+
+    if (!configuredEmail) {
+
+      if (window.ARS && window.ARS.showToast) {
+        window.ARS.showToast(
+          "Contact email is not configured yet."
+        );
+      }
+
+      alert(
+        "Contact email is not configured in config.js yet."
+      );
+
+      return;
+    }
+
+    const body =
+      `Name: ${name}\n` +
+      `Email: ${email}\n\n` +
+      `Message:\n${message}`;
+
+    const mailto =
+      `mailto:${configuredEmail}` +
+      `?subject=${encodeURIComponent(
+        "[ARS Official] " + subject
+      )}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+  });
+
+})();
+</script>
+
+</body>
+</html>
