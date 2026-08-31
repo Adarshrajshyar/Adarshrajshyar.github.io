@@ -1,30 +1,9 @@
 /* =========================================================
-   ARS OFFICIAL — MASTER SCRIPT
-   Adarsh Raj Shayar
-   Main website controller
-========================================================= */
+   ARS OFFICIAL
+   Main Website JavaScript
+   ========================================================= */
 
 "use strict";
-
-/* =========================================================
-   GLOBAL ARS CONFIG
-========================================================= */
-
-window.ARS_CONFIG = window.ARS_CONFIG || {
-
-  instagram:
-    "https://www.instagram.com/adarshrajshyar/",
-
-  website:
-    window.location.origin,
-
-  brand:
-    "ARS Official",
-
-  founder:
-    "Adarsh Raj Shayar"
-
-};
 
 
 /* =========================================================
@@ -33,124 +12,95 @@ window.ARS_CONFIG = window.ARS_CONFIG || {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  initLoader();
-  initNavigation();
-  initBackToTop();
-  initInstagram();
-  initSearch();
-  initCategories();
-  initInteractions();
-  initContactForm();
-  initYear();
+  initMobileNavigation();
+
+  initCurrentYear();
+
+  initComingSoonButtons();
+
+  initActiveNavigation();
+
+  initExternalLinks();
 
 });
 
 
 /* =========================================================
-   PAGE LOADER
+   MOBILE NAVIGATION
 ========================================================= */
 
-function initLoader() {
+function initMobileNavigation() {
 
-  const loader =
-    document.querySelector(".page-loader");
+  const menuToggle =
+    document.getElementById("menuToggle");
 
-  if (!loader) return;
+  const mainNav =
+    document.getElementById("mainNav");
 
-  const hideLoader = () => {
-
-    setTimeout(() => {
-      loader.classList.add("hide");
-    }, 350);
-
-  };
-
-  if (document.readyState === "complete") {
-
-    hideLoader();
-
-  } else {
-
-    window.addEventListener(
-      "load",
-      hideLoader,
-      { once: true }
-    );
-
+  if (!menuToggle || !mainNav) {
+    return;
   }
 
-}
 
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function initNavigation() {
-
-  const toggle =
-    document.querySelector(".menu-toggle");
-
-  const nav =
-    document.querySelector(".nav-links");
-
-  if (!toggle || !nav) return;
-
-  toggle.addEventListener("click", () => {
+  menuToggle.addEventListener("click", () => {
 
     const isOpen =
-      nav.classList.toggle("open");
+      mainNav.classList.toggle("open");
 
-    toggle.setAttribute(
+    document.body.classList.toggle(
+      "menu-open",
+      isOpen
+    );
+
+    menuToggle.setAttribute(
       "aria-expanded",
       String(isOpen)
     );
 
-    toggle.textContent =
-      isOpen ? "✕" : "☰";
-
   });
 
 
-  /* Close menu after clicking a link */
+  const navLinks =
+    mainNav.querySelectorAll("a");
 
-  nav.querySelectorAll("a").forEach(link => {
+  navLinks.forEach((link) => {
 
     link.addEventListener("click", () => {
 
-      nav.classList.remove("open");
+      mainNav.classList.remove("open");
 
-      toggle.setAttribute(
+      document.body.classList.remove(
+        "menu-open"
+      );
+
+      menuToggle.setAttribute(
         "aria-expanded",
         "false"
       );
-
-      toggle.textContent = "☰";
 
     });
 
   });
 
 
-  /* Close menu when clicking outside */
-
-  document.addEventListener("click", event => {
+  document.addEventListener("keydown", (event) => {
 
     if (
-      nav.classList.contains("open") &&
-      !nav.contains(event.target) &&
-      !toggle.contains(event.target)
+      event.key === "Escape" &&
+      mainNav.classList.contains("open")
     ) {
 
-      nav.classList.remove("open");
+      mainNav.classList.remove("open");
 
-      toggle.setAttribute(
+      document.body.classList.remove(
+        "menu-open"
+      );
+
+      menuToggle.setAttribute(
         "aria-expanded",
         "false"
       );
 
-      toggle.textContent = "☰";
-
     }
 
   });
@@ -159,686 +109,52 @@ function initNavigation() {
 
 
 /* =========================================================
-   BACK TO TOP
+   CURRENT YEAR
 ========================================================= */
 
-function initBackToTop() {
+function initCurrentYear() {
 
-  const button =
-    document.querySelector(".back-top");
+  const yearElement =
+    document.getElementById("currentYear");
 
-  if (!button) return;
-
-  const update =
-    () => {
-
-      button.classList.toggle(
-        "show",
-        window.scrollY > 450
-      );
-
-    };
-
-  window.addEventListener(
-    "scroll",
-    update,
-    { passive: true }
-  );
-
-  update();
-
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   INSTAGRAM
-========================================================= */
-
-function initInstagram() {
-
-  const link =
-    document.getElementById(
-      "instagramLink"
-    );
-
-  if (!link) return;
-
-  link.href =
-    window.ARS_CONFIG.instagram;
-
-  link.target = "_blank";
-
-  link.rel =
-    "noopener noreferrer";
-
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-function initSearch() {
-
-  const searchInput =
-    document.querySelector(
-      ".search-box input"
-    );
-
-  if (!searchInput) return;
-
-  const cards =
-    Array.from(
-      document.querySelectorAll(
-        ".content-card"
-      )
-    );
-
-  if (!cards.length) return;
-
-  searchInput.addEventListener(
-    "input",
-    () => {
-
-      const query =
-        searchInput.value
-          .trim()
-          .toLowerCase();
-
-      let visible = 0;
-
-      cards.forEach(card => {
-
-        const text =
-          card.textContent
-            .toLowerCase();
-
-        const matched =
-          !query ||
-          text.includes(query);
-
-        card.style.display =
-          matched ? "" : "none";
-
-        if (matched) {
-          visible++;
-        }
-
-      });
-
-      showSearchEmpty(
-        visible === 0 && query
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SEARCH EMPTY STATE
-========================================================= */
-
-function showSearchEmpty(show) {
-
-  let empty =
-    document.getElementById(
-      "searchEmptyState"
-    );
-
-  if (show) {
-
-    if (empty) return;
-
-    const grid =
-      document.querySelector(
-        ".content-grid"
-      );
-
-    if (!grid) return;
-
-    empty =
-      document.createElement("div");
-
-    empty.id =
-      "searchEmptyState";
-
-    empty.className =
-      "empty-state";
-
-    empty.innerHTML = `
-      <div>🔎</div>
-      <h3>कोई परिणाम नहीं मिला</h3>
-      <p>अपनी खोज बदलकर फिर कोशिश करें।</p>
-    `;
-
-    grid.parentNode.insertBefore(
-      empty,
-      grid.nextSibling
-    );
-
-  } else if (empty) {
-
-    empty.remove();
-
+  if (!yearElement) {
+    return;
   }
 
+  yearElement.textContent =
+    new Date().getFullYear();
+
 }
 
 
 /* =========================================================
-   CATEGORY FILTER
+   COMING SOON
 ========================================================= */
 
-function initCategories() {
+function initComingSoonButtons() {
 
-  const buttons =
+  const elements =
     document.querySelectorAll(
-      ".category-btn"
+      "[data-coming-soon]"
     );
 
-  if (!buttons.length) return;
+  elements.forEach((element) => {
 
-  buttons.forEach(button => {
+    element.addEventListener("click", (event) => {
 
-    button.addEventListener(
-      "click",
-      () => {
+      event.preventDefault();
 
-        buttons.forEach(btn =>
-          btn.classList.remove("active")
-        );
+      const feature =
+        element.dataset.comingSoon ||
+        "This feature";
 
-        button.classList.add("active");
+      showToast(
+        `${feature} — Coming Soon`
+      );
 
-        const category =
-          (
-            button.dataset.category ||
-            button.textContent ||
-            "all"
-          )
-          .trim()
-          .toLowerCase();
-
-        filterCards(category);
-
-      }
-    );
+    });
 
   });
-
-}
-
-
-/* =========================================================
-   FILTER CARDS
-========================================================= */
-
-function filterCards(category) {
-
-  const cards =
-    document.querySelectorAll(
-      ".content-card"
-    );
-
-  if (!cards.length) return;
-
-  const isAll =
-    category === "all" ||
-    category === "सभी" ||
-    category === "*";
-
-  let visible = 0;
-
-  cards.forEach(card => {
-
-    const cardCategory =
-      (
-        card.dataset.category ||
-        card.getAttribute("data-category") ||
-        card.querySelector(".tag")?.textContent ||
-        ""
-      )
-      .trim()
-      .toLowerCase();
-
-    const match =
-      isAll ||
-      cardCategory === category ||
-      cardCategory.includes(category) ||
-      category.includes(cardCategory);
-
-    card.style.display =
-      match ? "" : "none";
-
-    if (match) visible++;
-
-  });
-
-  const empty =
-    document.getElementById(
-      "categoryEmptyState"
-    );
-
-  if (visible === 0 && !empty) {
-
-    const grid =
-      document.querySelector(
-        ".content-grid"
-      );
-
-    if (!grid) return;
-
-    const state =
-      document.createElement("div");
-
-    state.id =
-      "categoryEmptyState";
-
-    state.className =
-      "empty-state";
-
-    state.innerHTML = `
-      <div>📚</div>
-      <h3>इस category में अभी content नहीं है</h3>
-      <p>दूसरी category चुनें।</p>
-    `;
-
-    grid.parentNode.insertBefore(
-      state,
-      grid.nextSibling
-    );
-
-  } else if (
-    visible > 0 &&
-    empty
-  ) {
-
-    empty.remove();
-
-  }
-
-}
-
-
-/* =========================================================
-   LIKE / FAVORITE / SAVE / SHARE
-========================================================= */
-
-function initInteractions() {
-
-  document.addEventListener(
-    "click",
-    event => {
-
-      const button =
-        event.target.closest(
-          ".card-action"
-        );
-
-      if (!button) return;
-
-      const action =
-        (
-          button.dataset.action ||
-          button.textContent
-        )
-        .trim()
-        .toLowerCase();
-
-      const card =
-        button.closest(
-          ".content-card"
-        );
-
-      if (
-        action.includes("like") ||
-        action.includes("लाइक")
-      ) {
-
-        toggleLike(
-          button,
-          card
-        );
-
-        return;
-
-      }
-
-
-      if (
-        action.includes("favorite") ||
-        action.includes("fav") ||
-        action.includes("फेवरेट")
-      ) {
-
-        toggleFavorite(
-          button,
-          card
-        );
-
-        return;
-
-      }
-
-
-      if (
-        action.includes("save") ||
-        action.includes("सेव")
-      ) {
-
-        toggleSave(
-          button,
-          card
-        );
-
-        return;
-
-      }
-
-
-      if (
-        action.includes("share") ||
-        action.includes("शेयर")
-      ) {
-
-        shareCard(card);
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   UNIQUE CONTENT KEY
-========================================================= */
-
-function getContentKey(card) {
-
-  if (!card) return "";
-
-  if (card.dataset.id) {
-
-    return card.dataset.id;
-
-  }
-
-  const title =
-    card.querySelector("h3")
-      ?.textContent
-      ?.trim() || "";
-
-  const text =
-    card.querySelector(".content-text")
-      ?.textContent
-      ?.trim() || "";
-
-  return (
-    title + "|" + text
-  )
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .slice(0, 180);
-
-}
-
-
-/* =========================================================
-   LIKE
-========================================================= */
-
-function toggleLike(button, card) {
-
-  if (!card) return;
-
-  const key =
-    "ARS_LIKE_" +
-    getContentKey(card);
-
-  const liked =
-    localStorage.getItem(key) === "true";
-
-  localStorage.setItem(
-    key,
-    String(!liked)
-  );
-
-  button.classList.toggle(
-    "favorite-active",
-    !liked
-  );
-
-  button.setAttribute(
-    "aria-pressed",
-    String(!liked)
-  );
-
-  button.textContent =
-    !liked ? "❤️ Liked" : "♡ Like";
-
-  showToast(
-    !liked
-      ? "❤️ Like किया गया"
-      : "Like हटाया गया"
-  );
-
-}
-
-
-/* =========================================================
-   FAVORITE
-========================================================= */
-
-function toggleFavorite(button, card) {
-
-  if (!card) return;
-
-  const key =
-    "ARS_FAVORITE_" +
-    getContentKey(card);
-
-  const active =
-    localStorage.getItem(key) === "true";
-
-  localStorage.setItem(
-    key,
-    String(!active)
-  );
-
-  button.classList.toggle(
-    "favorite-active",
-    !active
-  );
-
-  button.textContent =
-    !active
-      ? "⭐ Favorite"
-      : "☆ Favorite";
-
-  showToast(
-    !active
-      ? "⭐ Favorite में जोड़ा गया"
-      : "Favorite से हटाया गया"
-  );
-
-}
-
-
-/* =========================================================
-   SAVE
-========================================================= */
-
-function toggleSave(button, card) {
-
-  if (!card) return;
-
-  const key =
-    "ARS_SAVED_ITEMS";
-
-  let saved = [];
-
-  try {
-
-    saved =
-      JSON.parse(
-        localStorage.getItem(key) ||
-        "[]"
-      );
-
-  } catch {
-
-    saved = [];
-
-  }
-
-  const id =
-    getContentKey(card);
-
-  const index =
-    saved.indexOf(id);
-
-  if (index === -1) {
-
-    saved.push(id);
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(saved)
-    );
-
-    button.classList.add(
-      "favorite-active"
-    );
-
-    button.textContent =
-      "💾 Saved";
-
-    showToast(
-      "💾 Content save किया गया"
-    );
-
-  } else {
-
-    saved.splice(index, 1);
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(saved)
-    );
-
-    button.classList.remove(
-      "favorite-active"
-    );
-
-    button.textContent =
-      "💾 Save";
-
-    showToast(
-      "Save हटाया गया"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   SHARE
-========================================================= */
-
-async function shareCard(card) {
-
-  if (!card) return;
-
-  const title =
-    card.querySelector("h3")
-      ?.textContent
-      ?.trim() ||
-    "ARS Official";
-
-  const text =
-    card.querySelector(".content-text")
-      ?.textContent
-      ?.trim() ||
-    "ARS Official";
-
-  const shareData = {
-
-    title:
-      title,
-
-    text:
-      text +
-      "\n\n— ARS Official",
-
-    url:
-      window.location.href
-
-  };
-
-
-  if (
-    navigator.share
-  ) {
-
-    try {
-
-      await navigator.share(
-        shareData
-      );
-
-      return;
-
-    } catch (error) {
-
-      if (
-        error?.name ===
-        "AbortError"
-      ) {
-
-        return;
-
-      }
-
-    }
-
-  }
-
-
-  try {
-
-    await navigator.clipboard.writeText(
-      shareData.url
-    );
-
-    showToast(
-      "🔗 Link copy हो गया"
-    );
-
-  } catch {
-
-    showToast(
-      "🔗 Share करने के लिए browser menu इस्तेमाल करें"
-    );
-
-  }
 
 }
 
@@ -851,134 +167,25 @@ let toastTimer = null;
 
 function showToast(message) {
 
-  let toast =
-    document.querySelector(".toast");
+  const toast =
+    document.getElementById("toast");
 
   if (!toast) {
-
-    toast =
-      document.createElement("div");
-
-    toast.className =
-      "toast";
-
-    document.body.appendChild(
-      toast
-    );
-
+    return;
   }
 
-  toast.textContent =
-    message;
+  toast.textContent = message;
 
-  toast.classList.add(
-    "show"
-  );
+  toast.classList.add("show");
 
-  clearTimeout(
-    toastTimer
-  );
+  window.clearTimeout(toastTimer);
 
   toastTimer =
-    setTimeout(
-      () => {
+    window.setTimeout(() => {
 
-        toast.classList.remove(
-          "show"
-        );
+      toast.classList.remove("show");
 
-      },
-      2200
-    );
-
-}
-
-
-/* =========================================================
-   CONTACT FORM
-========================================================= */
-
-function initContactForm() {
-
-  const form =
-    document.querySelector(
-      "#contactForm"
-    );
-
-  if (!form) return;
-
-  form.addEventListener(
-    "submit",
-    event => {
-
-      event.preventDefault();
-
-      const name =
-        form.querySelector(
-          '[name="name"]'
-        )?.value.trim() || "";
-
-      const email =
-        form.querySelector(
-          '[name="email"]'
-        )?.value.trim() || "";
-
-      const message =
-        form.querySelector(
-          '[name="message"]'
-        )?.value.trim() || "";
-
-      if (
-        !name ||
-        !email ||
-        !message
-      ) {
-
-        showToast(
-          "कृपया सभी जरूरी जानकारी भरें।"
-        );
-
-        return;
-
-      }
-
-      /*
-        Front-end demo only.
-
-        वास्तविक email delivery के लिए
-        backend / Formspree / EmailJS /
-        अपना server आदि जोड़ना होगा।
-      */
-
-      showToast(
-        "✅ आपका संदेश तैयार है।"
-      );
-
-      form.reset();
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   FOOTER YEAR
-========================================================= */
-
-function initYear() {
-
-  document
-    .querySelectorAll(
-      "[data-year]"
-    )
-    .forEach(element => {
-
-      element.textContent =
-        new Date()
-          .getFullYear();
-
-    });
+    }, 2600);
 
 }
 
@@ -987,168 +194,105 @@ function initYear() {
    ACTIVE NAVIGATION
 ========================================================= */
 
-(function markActiveNavigation() {
+function initActiveNavigation() {
 
-  const current =
-    window.location.pathname
-      .split("/")
-      .pop()
-      .toLowerCase() ||
-    "index.html";
+  const navLinks =
+    document.querySelectorAll(
+      ".main-nav .nav-link"
+    );
 
-  document
-    .querySelectorAll(
-      ".nav-links a"
-    )
-    .forEach(link => {
+  if (!navLinks.length) {
+    return;
+  }
 
-      const href =
-        link.getAttribute("href");
+  const currentPage =
+    getCurrentPageName();
 
-      if (!href) return;
+  navLinks.forEach((link) => {
 
-      const page =
-        href
-          .split("/")
-          .pop()
-          .split("?")[0]
-          .toLowerCase();
+    const href =
+      link.getAttribute("href");
 
-      if (
-        page === current
-      ) {
+    if (!href) {
+      return;
+    }
 
-        link.classList.add(
-          "active"
-        );
+    const linkPage =
+      href.split("/").pop().split("#")[0];
 
-      }
+    link.classList.remove("active");
 
-    });
+    if (
+      linkPage === currentPage ||
+      (
+        currentPage === "" &&
+        linkPage === "index.html"
+      )
+    ) {
 
-})();
+      link.classList.add("active");
+
+    }
+
+  });
+
+}
 
 
 /* =========================================================
-   INITIAL CARD STATES
+   CURRENT PAGE
 ========================================================= */
 
-(function restoreStates() {
+function getCurrentPageName() {
 
-  document
-    .querySelectorAll(
-      ".content-card"
-    )
-    .forEach(card => {
+  const pathname =
+    window.location.pathname;
 
-      const key =
-        getContentKey(card);
+  const filename =
+    pathname.split("/").pop();
 
-      const likeButton =
-        card.querySelector(
-          '[data-action="like"]'
-        );
+  return filename || "index.html";
 
-      const favoriteButton =
-        card.querySelector(
-          '[data-action="favorite"]'
-        );
-
-      const saveButton =
-        card.querySelector(
-          '[data-action="save"]'
-        );
-
-
-      if (
-        likeButton &&
-        localStorage.getItem(
-          "ARS_LIKE_" + key
-        ) === "true"
-      ) {
-
-        likeButton.classList.add(
-          "favorite-active"
-        );
-
-        likeButton.textContent =
-          "❤️ Liked";
-
-      }
-
-
-      if (
-        favoriteButton &&
-        localStorage.getItem(
-          "ARS_FAVORITE_" + key
-        ) === "true"
-      ) {
-
-        favoriteButton.classList.add(
-          "favorite-active"
-        );
-
-        favoriteButton.textContent =
-          "⭐ Favorite";
-
-      }
-
-
-      if (saveButton) {
-
-        let saved = [];
-
-        try {
-
-          saved =
-            JSON.parse(
-              localStorage.getItem(
-                "ARS_SAVED_ITEMS"
-              ) || "[]"
-            );
-
-        } catch {
-
-          saved = [];
-
-        }
-
-        if (
-          saved.includes(key)
-        ) {
-
-          saveButton.classList.add(
-            "favorite-active"
-          );
-
-          saveButton.textContent =
-            "💾 Saved";
-
-        }
-
-      }
-
-    });
-
-})();
+}
 
 
 /* =========================================================
-   GLOBAL HELPERS
+   EXTERNAL LINKS
+========================================================= */
+
+function initExternalLinks() {
+
+  const externalLinks =
+    document.querySelectorAll(
+      'a[target="_blank"]'
+    );
+
+  externalLinks.forEach((link) => {
+
+    link.addEventListener("click", () => {
+
+      /*
+       * External links intentionally open in a new tab.
+       * rel="noopener noreferrer" is already present
+       * in the HTML for security.
+       */
+
+    });
+
+  });
+
+}
+
+
+/* =========================================================
+   GLOBAL SAFE HELPERS
+   Other ARS pages can reuse these functions.
 ========================================================= */
 
 window.ARS = {
 
-  toast:
-    showToast,
+  showToast,
 
-  share:
-    shareCard,
-
-  filter:
-    filterCards,
-
-  version:
-    "ARS Official Master Script"
+  getCurrentPageName
 
 };
