@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>ARS Admin Panel</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
 
+  <style>
+    .admin-page{
+      min-height:100vh;
+      padding:110px 18px 70px;
+    }
+
+    .admin-wrap{
+      width:min(1150px,100%);
+      margin:auto;
+    }
+
+    .admin-hero{
+      padding:35px 25px;
+      border-radius:28px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 15% 20%,rgba(251,191,36,.22),transparent 32%),
+        radial-gradient(circle at 85% 80%,rgba(168,85,247,.25),transparent 35%),
+        linear-gradient(135deg,#090909,#25152f);
+      box-shadow:0 22px 60px rgba(0,0,0,.18);
+      margin-bottom:22px;
+    }
+
+    .admin-hero h1{
+      margin:0 0 8px;
+      font-size:clamp(30px,5vw,48px);
+    }
+
+    .admin-hero p{
+      margin:0;
+      opacity:.78;
+    }
+
+    .admin-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .admin-card{
+      padding:23px;
+      border-radius:22px;
+      background:var(--card,#fff);
+      border:1px solid var(--border,rgba(0,0,0,.08));
+      box-shadow:0 12px 35px rgba(0,0,0,.07);
+    }
+
+    .admin-card h2{
+      margin:0 0 8px;
+      font-size:19px;
+    }
+
+    .admin-card p{
+      color:var(--text-soft,#6b7280);
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .admin-icon{
+      font-size:30px;
+      margin-bottom:12px;
+    }
+
+    .admin-form{
+      margin-top:22px;
+      padding:25px;
+      border-radius:24px;
+      background:var(--card,#fff);
+      border:1px solid var(--border,rgba(0,0,0,.08));
+    }
+
+    .admin-form h2{
+      margin-top:0;
+    }
+
+    .field{
+      margin-bottom:15px;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select{
+      width:100%;
+      box-sizing:border-box;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid var(--border,rgba(0,0,0,.12));
+      background:var(--input-bg,#fff);
+      color:var(--text,#111827);
+      font:inherit;
+      outline:none;
+    }
+
+    .field textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    .admin-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .admin-btn{
+      border:0;
+      border-radius:12px;
+      padding:12px 17px;
+      cursor:pointer;
+      font-weight:800;
+      color:#fff;
+      background:linear-gradient(135deg,#7c3aed,#db2777);
+    }
+
+    .admin-btn.secondary{
+      color:var(--text,#111827);
+      background:var(--input-bg,#f3f4f6);
+      border:1px solid var(--border,rgba(0,0,0,.1));
+    }
+
+    .admin-status{
+      margin-top:15px;
+      padding:12px 14px;
+      border-radius:12px;
+      display:none;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .admin-status.show{
+      display:block;
+    }
+
+    @media(max-width:800px){
+      .admin-grid{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official" width="42" height="42">
+      <span>ARS Official</span>
+    </a>
+
+    <button
+      id="navToggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-label="Open navigation"
+    >☰</button>
+
+    <div id="navLinks" class="nav-links">
+
+      <a href="index.html">Home</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="story.html">Stories</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html">Joining Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="founder.html">Founder</a>
+      <a href="publisher.html">Publisher</a>
+      <a href="policy.html">Policy</a>
+      <a href="contact.html">Contact</a>
+
+      <button id="themeToggle" type="button">🌙</button>
+    </div>
+
+  </nav>
+</header>
+
+
+<main class="admin-page">
+  <div class="admin-wrap">
+
+    <section class="admin-hero">
+      <h1>ARS Admin Panel</h1>
+      <p>
+        Manage ARS Official content, certificates,
+        verification data and website settings.
+      </p>
+    </section>
+
+
+    <section class="admin-grid">
+
+      <article class="admin-card">
+        <div class="admin-icon">📜</div>
+        <h2>Certificates</h2>
+        <p>
+          Certificate records और certificate IDs
+          को manage करने के लिए।
+        </p>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-icon">🤝</div>
+        <h2>Joining Certificates</h2>
+        <p>
+          Joining application और joining certificate
+          records के management के लिए।
+        </p>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-icon">🔎</div>
+        <h2>Verification</h2>
+        <p>
+          ARS verification system से जुड़े records
+          को check और manage करने के लिए।
+        </p>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-icon">✍️</div>
+        <h2>Shayari</h2>
+        <p>
+          Shayari content और categories को
+          manage करने के लिए।
+        </p>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-icon">📖</div>
+        <h2>Stories</h2>
+        <p>
+          Stories और उनकी categories को manage
+          करने के लिए।
+        </p>
+      </article>
+
+      <article class="admin-card">
+        <div class="admin-icon">⚙️</div>
+        <h2>Website Settings</h2>
+        <p>
+          ARS Official की local settings और
+          administrative information।
+        </p>
+      </article>
+
+    </section>
+
+
+    <section class="admin-form">
+
+      <h2>Admin Access</h2>
+
+      <div class="field">
+        <label for="adminName">Admin Name</label>
+        <input
+          id="adminName"
+          type="text"
+          placeholder="Enter admin name"
+        >
+      </div>
+
+      <div class="field">
+        <label for="adminPassword">Password</label>
+        <input
+          id="adminPassword"
+          type="password"
+          placeholder="Enter password"
+        >
+      </div>
+
+      <div class="admin-actions">
+
+        <button
+          id="adminLogin"
+          class="admin-btn"
+          type="button"
+        >
+          Login
+        </button>
+
+        <button
+          id="adminLogout"
+          class="admin-btn secondary"
+          type="button"
+        >
+          Clear
+        </button>
+
+      </div>
+
+      <div
+        id="adminStatus"
+        class="admin-status"
+      ></div>
+
+    </section>
+
+  </div>
+</main>
+
+
+<footer class="site-footer">
+  <p>
+    © <span id="currentYear"></span>
+    ARS Official — Adarsh Raj Shayar
+  </p>
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+(function(){
+
+  "use strict";
+
+  const nameInput =
+    document.getElementById("adminName");
+
+  const passwordInput =
+    document.getElementById("adminPassword");
+
+  const loginButton =
+    document.getElementById("adminLogin");
+
+  const clearButton =
+    document.getElementById("adminLogout");
+
+  const status =
+    document.getElementById("adminStatus");
+
+  function showStatus(message){
+    status.textContent = message;
+    status.classList.add("show");
+  }
+
+  loginButton.addEventListener("click",function(){
+
+    const name = nameInput.value.trim();
+    const password = passwordInput.value;
+
+    if(!name || !password){
+      showStatus("Please enter admin name and password.");
+      return;
+    }
+
+    /*
+      IMPORTANT:
+      Real administrator authentication must be handled
+      by a secure backend. Passwords should NOT be stored
+      directly in frontend JavaScript.
+    */
+
+    showStatus(
+      "Admin interface is ready. Secure backend authentication can be connected through config.js."
+    );
+
+  });
+
+  clearButton.addEventListener("click",function(){
+    nameInput.value = "";
+    passwordInput.value = "";
+    status.textContent = "";
+    status.classList.remove("show");
+  });
+
+  const year =
+    document.getElementById("currentYear");
+
+  if(year){
+    year.textContent =
+      new Date().getFullYear();
+  }
+
+})();
+</script>
+
+</body>
+</html>
