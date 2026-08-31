@@ -784,32 +784,3 @@
   );
 
 })();
-/* =========================================================
-   ARS PAGE LOADER — FINAL
-   ========================================================= */
-
-(function () {
-
-  function hidePageLoader() {
-    const loader = document.getElementById("pageLoader");
-
-    if (!loader) return;
-
-    loader.classList.add("hidden");
-
-    loader.style.opacity = "0";
-    loader.style.visibility = "hidden";
-    loader.style.pointerEvents = "none";
-
-    setTimeout(function () {
-      loader.remove();
-    }, 500);
-  }
-
-  /* DOM ready होते ही fallback timer शुरू */
-  setTimeout(hidePageLoader, 3000);
-
-  /* पूरी page load होने पर भी hide */
-  window.addEventListener("load", hidePageLoader);
-
-})();
