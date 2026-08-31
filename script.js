@@ -1,66 +1,402 @@
 /* =========================================================
-   ARS OFFICIAL — MAIN APPLICATION SCRIPT
+   ARS OFFICIAL — MAIN WEBSITE SCRIPT
+   Version: Final Website System
    ========================================================= */
 
-(() => {
+(function () {
   "use strict";
 
-  const $ = (selector, root = document) =>
-    root.querySelector(selector);
+  /* =========================
+     HELPERS
+     ========================= */
 
-  const $$ = (selector, root = document) =>
-    [...root.querySelectorAll(selector)];
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
+  const $$ = (selector, parent = document) =>
+    Array.from(parent.querySelectorAll(selector));
 
 
-  /* =======================================================
-     SAFE STORAGE
-     ======================================================= */
+  /* =========================
+     DOM READY
+     ========================= */
 
-  const storage = {
+  document.addEventListener("DOMContentLoaded", init);
 
-    get(key, fallback = null) {
-      try {
-        const value = localStorage.getItem(key);
 
-        return value === null
-          ? fallback
-          : JSON.parse(value);
+  function init() {
 
-      } catch {
-        return fallback;
+    setupMobileMenu();
+
+    setupTheme();
+
+    setupBackToTop();
+
+    setupYear();
+
+    setupSmoothLinks();
+
+    setupShayariCategories();
+
+    setupStoryCategories();
+
+  }
+
+
+  /* =========================
+     MOBILE MENU
+     ========================= */
+
+  function setupMobileMenu() {
+
+    const menuButton = $("#mobileMenuBtn");
+    const nav = $("#mainNav");
+
+    if (!menuButton || !nav) return;
+
+    menuButton.addEventListener("click", function () {
+
+      nav.classList.toggle("open");
+
+      const opened = nav.classList.contains("open");
+
+      menuButton.textContent = opened ? "✕" : "☰";
+
+    });
+
+
+    $$(".nav-link", nav).forEach(link => {
+
+      link.addEventListener("click", function () {
+        nav.classList.remove("open");
+        menuButton.textContent = "☰";
+      });
+
+    });
+
+
+    document.addEventListener("click", function (event) {
+
+      if (
+        nav.classList.contains("open") &&
+        !nav.contains(event.target) &&
+        !menuButton.contains(event.target)
+      ) {
+
+        nav.classList.remove("open");
+        menuButton.textContent = "☰";
+
       }
-    },
 
-    set(key, value) {
-      try {
-        localStorage.setItem(
-          key,
-          JSON.stringify(value)
-        );
+    });
 
-        return true;
+  }
 
-      } catch {
-        return false;
-      }
-    },
 
-    remove(key) {
-      try {
-        localStorage.removeItem(key);
-      } catch {}
+  /* =========================
+     DARK / LIGHT MODE
+     ========================= */
+
+  function setupTheme() {
+
+    const button = $("#themeToggle");
+
+    if (!button) return;
+
+
+    let savedTheme = null;
+
+    try {
+      savedTheme = localStorage.getItem("ars-theme");
+    } catch (error) {
+      savedTheme = null;
     }
 
-  };
+
+    if (
+      savedTheme === "dark" ||
+      savedTheme === "light"
+    ) {
+
+      document.documentElement.classList.toggle(
+        "dark",
+        savedTheme === "dark"
+      );
+
+    } else {
+
+      const prefersDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      document.documentElement.classList.toggle(
+        "dark",
+        prefersDark
+      );
+
+    }
 
 
-  /* =======================================================
-     TOAST
-     ======================================================= */
+    updateThemeButton();
 
-  let toastTimer = null;
 
-  function showToast(message) {
+    button.addEventListener("click", function () {
+
+      const dark =
+        document.documentElement.classList.toggle("dark");
+
+      try {
+        localStorage.setItem(
+          "ars-theme",
+          dark ? "dark" : "light"
+        );
+      } catch (error) {
+        /* localStorage unavailable */
+      }
+
+      updateThemeButton();
+
+    });
+
+
+    function updateThemeButton() {
+
+      const dark =
+        document.documentElement.classList.contains("dark");
+
+      button.textContent = dark ? "☀️" : "🌙";
+
+      button.setAttribute(
+        "aria-label",
+        dark
+          ? "Switch to light mode"
+          : "Switch to dark mode"
+      );
+
+    }
+
+  }
+
+
+  /* =========================
+     BACK TO TOP
+     ========================= */
+
+  function setupBackToTop() {
+
+    const button = $("#backToTop");
+
+    if (!button) return;
+
+
+    window.addEventListener(
+      "scroll",
+      function () {
+
+        if (window.scrollY > 450) {
+          button.classList.add("show");
+        } else {
+          button.classList.remove("show");
+        }
+
+      },
+      { passive: true }
+    );
+
+
+    button.addEventListener("click", function () {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+
+  }
+
+
+  /* =========================
+     YEAR
+     ========================= */
+
+  function setupYear() {
+
+    const year = $("#currentYear");
+
+    if (year) {
+      year.textContent = new Date().getFullYear();
+    }
+
+  }
+
+
+  /* =========================
+     SMOOTH INTERNAL LINKS
+     ========================= */
+
+  function setupSmoothLinks() {
+
+    $$('a[href^="#"]').forEach(link => {
+
+      link.addEventListener("click", function (event) {
+
+        const targetId = this.getAttribute("href");
+
+        if (!targetId || targetId === "#") return;
+
+        const target = $(targetId);
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        const header = $(".site-header");
+
+        const offset =
+          header ? header.offsetHeight + 15 : 15;
+
+        const position =
+          target.getBoundingClientRect().top +
+          window.scrollY -
+          offset;
+
+        window.scrollTo({
+          top: position,
+          behavior: "smooth"
+        });
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================
+     SHAYARI CATEGORY
+     ========================= */
+
+  function setupShayariCategories() {
+
+    const buttons = $$("#shayariCategories .category-btn");
+
+    const container = $("#shayariContainer");
+
+    if (!buttons.length || !container) return;
+
+
+    buttons.forEach(button => {
+
+      button.addEventListener("click", function () {
+
+        buttons.forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+        this.classList.add("active");
+
+        const category =
+          this.dataset.category || "all";
+
+        filterCards(
+          container,
+          category
+        );
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================
+     STORY CATEGORY
+     ========================= */
+
+  function setupStoryCategories() {
+
+    const buttons = $$("#storyCategories .category-btn");
+
+    const container = $("#storyContainer");
+
+    if (!buttons.length || !container) return;
+
+
+    buttons.forEach(button => {
+
+      button.addEventListener("click", function () {
+
+        buttons.forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+        this.classList.add("active");
+
+        const category =
+          this.dataset.category || "all";
+
+        filterCards(
+          container,
+          category
+        );
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================
+     GENERIC CARD FILTER
+     ========================= */
+
+  function filterCards(container, category) {
+
+    const cards =
+      $$(".content-card, [data-category]", container);
+
+    if (!cards.length) return;
+
+
+    cards.forEach(card => {
+
+      if (category === "all") {
+
+        card.hidden = false;
+        return;
+
+      }
+
+
+      const cardCategories =
+        String(card.dataset.category || "")
+          .toLowerCase()
+          .split(",")
+          .map(value => value.trim())
+          .filter(Boolean);
+
+
+      card.hidden =
+        !cardCategories.includes(
+          String(category).toLowerCase()
+        );
+
+    });
+
+  }
+
+
+  /* =========================
+     GLOBAL TOAST
+     ========================= */
+
+  window.ARS = window.ARS || {};
+
+
+  window.ARS.toast = function (message) {
 
     const toast = $("#toast");
 
@@ -70,428 +406,108 @@
 
     toast.classList.add("show");
 
-    clearTimeout(toastTimer);
+    clearTimeout(window.ARS.toastTimer);
 
-    toastTimer = setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2400);
-  }
+    window.ARS.toastTimer =
+      setTimeout(function () {
+        toast.classList.remove("show");
+      }, 2200);
 
+  };
 
-  /* =======================================================
-     THEME
-     ======================================================= */
 
-  function getTheme() {
+  /* =========================
+     COPY TEXT
+     ========================= */
 
-    const saved = storage.get("ARS_THEME");
+  window.ARS.copyText = async function (text) {
 
-    if (saved === "light" || saved === "dark") {
-      return saved;
-    }
-
-    return window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches
-      ? "dark"
-      : "light";
-  }
-
-
-  function applyTheme(theme) {
-
-    document.documentElement.dataset.theme = theme;
-
-    storage.set("ARS_THEME", theme);
-
-    const button = $("#themeToggle");
-
-    if (button) {
-
-      button.textContent =
-        theme === "dark"
-          ? "☀️"
-          : "🌙";
-
-      button.setAttribute(
-        "aria-label",
-        theme === "dark"
-          ? "Switch to light mode"
-          : "Switch to dark mode"
-      );
-
-    }
-  }
-
-
-  function initTheme() {
-
-    applyTheme(getTheme());
-
-    const button = $("#themeToggle");
-
-    if (!button) return;
-
-    button.addEventListener("click", () => {
-
-      const current =
-        document.documentElement.dataset.theme;
-
-      applyTheme(
-        current === "dark"
-          ? "light"
-          : "dark"
-      );
-
-    });
-
-  }
-
-
-  /* =======================================================
-     MOBILE MENU
-     ======================================================= */
-
-  function initMenu() {
-
-    const button = $("#menuToggle");
-    const nav = $("#mainNav");
-
-    if (!button || !nav) return;
-
-    button.addEventListener("click", () => {
-
-      const open =
-        nav.classList.toggle("open");
-
-      button.setAttribute(
-        "aria-expanded",
-        String(open)
-      );
-
-      button.textContent =
-        open ? "✕" : "☰";
-
-    });
-
-
-    $$("#mainNav a").forEach(link => {
-
-      link.addEventListener("click", () => {
-
-        nav.classList.remove("open");
-
-        button.setAttribute(
-          "aria-expanded",
-          "false"
-        );
-
-        button.textContent = "☰";
-
-      });
-
-    });
-
-  }
-
-
-  /* =======================================================
-     BACK TO TOP
-     ======================================================= */
-
-  function initScrollTop() {
-
-    const button = $("#scrollTopBtn");
-
-    if (!button) return;
-
-
-    function update() {
-
-      if (window.scrollY > 450) {
-
-        button.classList.add("visible");
-
-      } else {
-
-        button.classList.remove("visible");
-
-      }
-
-    }
-
-
-    window.addEventListener(
-      "scroll",
-      update,
-      { passive: true }
-    );
-
-
-    button.addEventListener("click", () => {
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    });
-
-
-    update();
-
-  }
-
-
-  /* =======================================================
-     YEAR
-     ======================================================= */
-
-  function initYear() {
-
-    const year = $("#currentYear");
-
-    if (year) {
-      year.textContent =
-        new Date().getFullYear();
-    }
-
-  }
-
-
-  /* =======================================================
-     FAVORITES
-     ======================================================= */
-
-  const FAVORITES_KEY = "ARS_FAVORITES";
-
-
-  function getFavorites() {
-
-    const data =
-      storage.get(FAVORITES_KEY, []);
-
-    return Array.isArray(data)
-      ? data
-      : [];
-
-  }
-
-
-  function isFavorite(id) {
-
-    return getFavorites()
-      .some(item => item.id === id);
-
-  }
-
-
-  function toggleFavorite(item) {
-
-    if (!item || !item.id) return false;
-
-    let favorites = getFavorites();
-
-    const index =
-      favorites.findIndex(
-        entry => entry.id === item.id
-      );
-
-
-    if (index >= 0) {
-
-      favorites.splice(index, 1);
-
-      storage.set(
-        FAVORITES_KEY,
-        favorites
-      );
-
-      showToast("Removed from Favorites");
-
-      return false;
-
-    }
-
-
-    favorites.push({
-      id: String(item.id),
-      type: item.type || "content",
-      category: item.category || "all",
-      title: item.title || "",
-      text: item.text || "",
-      createdAt:
-        item.createdAt ||
-        new Date().toISOString()
-    });
-
-
-    storage.set(
-      FAVORITES_KEY,
-      favorites
-    );
-
-    showToast("Added to Favorites ⭐");
-
-    return true;
-
-  }
-
-
-  /* =======================================================
-     LIKE
-     ======================================================= */
-
-  function getLikes() {
-
-    const likes =
-      storage.get("ARS_LIKES", []);
-
-    return Array.isArray(likes)
-      ? likes
-      : [];
-
-  }
-
-
-  function isLiked(id) {
-
-    return getLikes().includes(String(id));
-
-  }
-
-
-  function toggleLike(id) {
-
-    const normalized =
-      String(id);
-
-    let likes =
-      getLikes();
-
-
-    if (likes.includes(normalized)) {
-
-      likes =
-        likes.filter(
-          item => item !== normalized
-        );
-
-      storage.set(
-        "ARS_LIKES",
-        likes
-      );
-
-      showToast("Unliked");
-
-      return false;
-
-    }
-
-
-    likes.push(normalized);
-
-    storage.set(
-      "ARS_LIKES",
-      likes
-    );
-
-    showToast("Liked ❤️");
-
-    return true;
-
-  }
-
-
-  /* =======================================================
-     COPY
-     ======================================================= */
-
-  async function copyText(text) {
-
-    if (!text) {
-      showToast("Nothing to copy");
-      return;
-    }
+    if (!text) return false;
 
 
     try {
 
       await navigator.clipboard.writeText(text);
 
-      showToast("Copied ✓");
+      window.ARS.toast("कॉपी हो गया ✓");
 
-    } catch {
+      return true;
 
-      const textarea =
-        document.createElement("textarea");
-
-      textarea.value = text;
-
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-
-      document.body.appendChild(textarea);
-
-      textarea.select();
+    } catch (error) {
 
       try {
-        document.execCommand("copy");
-        showToast("Copied ✓");
-      } catch {
-        showToast("Copy failed");
-      }
 
-      textarea.remove();
+        const textarea =
+          document.createElement("textarea");
+
+        textarea.value = text;
+
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+
+        document.body.appendChild(textarea);
+
+        textarea.select();
+
+        document.execCommand("copy");
+
+        textarea.remove();
+
+        window.ARS.toast("कॉपी हो गया ✓");
+
+        return true;
+
+      } catch (fallbackError) {
+
+        window.ARS.toast("Copy नहीं हो पाया");
+
+        return false;
+
+      }
 
     }
 
-  }
+  };
 
 
-  /* =======================================================
+  /* =========================
      SHARE
-     ======================================================= */
+     ========================= */
 
-  async function shareContent(item) {
+  window.ARS.share = async function (data = {}) {
 
-    if (!item) return;
+    const shareData = {
+
+      title:
+        data.title ||
+        document.title,
+
+      text:
+        data.text ||
+        "ARS Official",
+
+      url:
+        data.url ||
+        window.location.href
+
+    };
 
 
-    const title =
-      item.title ||
-      "ARS Official";
-
-
-    const text =
-      item.text ||
-      "";
-
-
-    const url =
-      item.url ||
-      window.location.href;
-
-
-    if (navigator.share) {
+    if (
+      navigator.share &&
+      typeof navigator.share === "function"
+    ) {
 
       try {
 
-        await navigator.share({
-          title,
-          text,
-          url
-        });
+        await navigator.share(shareData);
 
-        return;
+        return true;
 
       } catch (error) {
 
-        if (
-          error &&
-          error.name === "AbortError"
-        ) {
-          return;
+        if (error.name === "AbortError") {
+          return false;
         }
 
       }
@@ -499,643 +515,245 @@
     }
 
 
-    await copyText(
-      `${title}\n\n${text}\n\n${url}`
+    return window.ARS.copyText(
+      shareData.url
     );
 
-    showToast(
-      "Share unavailable — content copied instead"
-    );
-
-  }
-
-
-  /* =======================================================
-     NORMALIZE CONTENT
-     ======================================================= */
-
-  function normalizeContent(item, type, index) {
-
-    if (!item) return null;
-
-
-    const title =
-      item.title ||
-      item.name ||
-      `${type === "shayari" ? "Shayari" : "Story"} ${index + 1}`;
-
-
-    const text =
-      item.text ||
-      item.content ||
-      item.body ||
-      item.description ||
-      "";
-
-
-    const category =
-      String(
-        item.category ||
-        item.type ||
-        "all"
-      ).toLowerCase();
-
-
-    const id =
-      String(
-        item.id ||
-        item._id ||
-        `${type}-${index}-${title}`
-      );
-
-
-    return {
-      id,
-      title,
-      text,
-      category,
-      type,
-      createdAt:
-        item.createdAt ||
-        null
-    };
-
-  }
-
-
-  /* =======================================================
-     GET GLOBAL DATA
-     ======================================================= */
-
-  function getGlobalArray(names) {
-
-    for (const name of names) {
-
-      if (
-        Array.isArray(window[name])
-      ) {
-        return window[name];
-      }
-
-    }
-
-    return [];
-
-  }
-
-
-  /* =======================================================
-     RENDER CARD
-     ======================================================= */
-
-  function createContentCard(item) {
-
-    const article =
-      document.createElement("article");
-
-    article.className =
-      "content-card";
-
-
-    const safeText =
-      escapeHtml(item.text);
-
-
-    const safeTitle =
-      escapeHtml(item.title);
-
-
-    const safeCategory =
-      escapeHtml(item.category);
-
-
-    article.innerHTML = `
-
-      <div class="content-card-body">
-
-        <span class="content-card-category">
-          ${safeCategory}
-        </span>
-
-        <h3>
-          ${safeTitle}
-        </h3>
-
-        <p>
-          ${safeText}
-        </p>
-
-        <div class="content-actions">
-
-          <button
-            type="button"
-            class="content-action js-like"
-            data-id="${escapeAttr(item.id)}"
-          >
-            ${isLiked(item.id) ? "💖 Liked" : "❤️ Like"}
-          </button>
-
-          <button
-            type="button"
-            class="content-action js-favorite"
-            data-id="${escapeAttr(item.id)}"
-          >
-            ${isFavorite(item.id) ? "⭐ Favorited" : "☆ Favorite"}
-          </button>
-
-          <button
-            type="button"
-            class="content-action js-copy"
-          >
-            📋 Copy
-          </button>
-
-          <button
-            type="button"
-            class="content-action js-share"
-          >
-            ↗ Share
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    const likeButton =
-      $(".js-like", article);
-
-    const favoriteButton =
-      $(".js-favorite", article);
-
-    const copyButton =
-      $(".js-copy", article);
-
-    const shareButton =
-      $(".js-share", article);
-
-
-    likeButton?.addEventListener(
-      "click",
-      () => {
-
-        const liked =
-          toggleLike(item.id);
-
-        likeButton.textContent =
-          liked
-            ? "💖 Liked"
-            : "❤️ Like";
-
-      }
-    );
-
-
-    favoriteButton?.addEventListener(
-      "click",
-      () => {
-
-        const favorite =
-          toggleFavorite(item);
-
-        favoriteButton.textContent =
-          favorite
-            ? "⭐ Favorited"
-            : "☆ Favorite";
-
-      }
-    );
-
-
-    copyButton?.addEventListener(
-      "click",
-      () => {
-
-        copyText(
-          `${item.title}\n\n${item.text}`
-        );
-
-      }
-    );
-
-
-    shareButton?.addEventListener(
-      "click",
-      () => {
-
-        shareContent({
-          ...item,
-          url:
-            `${window.location.origin}${window.location.pathname}#${item.id}`
-        });
-
-      }
-    );
-
-
-    return article;
-
-  }
-
-
-  /* =======================================================
-     ESCAPE HTML
-     ======================================================= */
-
-  function escapeHtml(value) {
-
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-
-  }
-
-
-  function escapeAttr(value) {
-
-    return escapeHtml(value)
-      .replaceAll("`", "&#096;");
-
-  }
-
-
-  /* =======================================================
-     SHAYARI DATA
-     ======================================================= */
-
-  function getShayariData() {
-
-    const data =
-      getGlobalArray([
-        "shayariData",
-        "shayaris",
-        "shayari",
-        "ARS_SHAYARI"
-      ]);
-
-
-    return data
-      .map(
-        (item, index) =>
-          normalizeContent(
-            item,
-            "shayari",
-            index
-          )
-      )
-      .filter(Boolean);
-
-  }
-
-
-  /* =======================================================
-     STORY DATA
-     ======================================================= */
-
-  function getStoryData() {
-
-    const data =
-      getGlobalArray([
-        "storyData",
-        "stories",
-        "story",
-        "ARS_STORIES"
-      ]);
-
-
-    return data
-      .map(
-        (item, index) =>
-          normalizeContent(
-            item,
-            "story",
-            index
-          )
-      )
-      .filter(Boolean);
-
-  }
-
-
-  /* =======================================================
-     RENDER COLLECTION
-     ======================================================= */
-
-  function renderCollection(
-    container,
-    items,
-    category = "all"
+  };
+
+
+  /* =========================
+     LIKE SYSTEM
+     First click = Like
+     Second click = Unlike
+     ========================= */
+
+  window.ARS.toggleLike = function (
+    id,
+    button,
+    counter = null
   ) {
 
-    if (!container) return;
+    if (!id || !button) return;
 
 
-    const normalizedCategory =
-      String(category)
-        .toLowerCase()
-        .trim();
+    const key = "ars-like-" + id;
+
+    let liked = false;
+
+    try {
+      liked =
+        localStorage.getItem(key) === "1";
+    } catch (error) {}
 
 
-    const filtered =
-      normalizedCategory === "all"
-        ? items
-        : items.filter(
-            item =>
-              String(item.category)
-                .toLowerCase()
-                .trim() ===
-              normalizedCategory
-          );
+    liked = !liked;
 
 
-    container.innerHTML = "";
+    try {
 
-
-    if (!filtered.length) {
-
-      container.innerHTML = `
-
-        <div class="empty-state">
-
-          <div class="empty-icon">
-            🔎
-          </div>
-
-          <h3>No content found</h3>
-
-          <p>
-            इस category में अभी content उपलब्ध नहीं है।
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    const fragment =
-      document.createDocumentFragment();
-
-
-    filtered.forEach(item => {
-
-      fragment.appendChild(
-        createContentCard(item)
+      localStorage.setItem(
+        key,
+        liked ? "1" : "0"
       );
 
-    });
+    } catch (error) {}
 
 
-    container.appendChild(fragment);
+    button.classList.toggle(
+      "liked",
+      liked
+    );
 
-  }
-
-
-  /* =======================================================
-     CATEGORY FILTER
-     ======================================================= */
-
-  function initCategoryFilter({
-    buttonsSelector,
-    containerSelector,
-    dataGetter
-  }) {
-
-    const buttons =
-      $$(buttonsSelector);
-
-    const container =
-      $(containerSelector);
+    button.setAttribute(
+      "aria-pressed",
+      String(liked)
+    );
 
 
-    if (!buttons.length || !container) {
-      return;
-    }
+    if (counter) {
 
+      const current =
+        Number(counter.textContent) || 0;
 
-    const data =
-      dataGetter();
-
-
-    function activate(button) {
-
-      buttons.forEach(btn => {
-
-        btn.classList.toggle(
-          "active",
-          btn === button
+      const next =
+        Math.max(
+          0,
+          liked
+            ? current + 1
+            : current - 1
         );
 
-      });
-
-
-      renderCollection(
-        container,
-        data,
-        button.dataset.category || "all"
-      );
+      counter.textContent = next;
 
     }
 
 
-    buttons.forEach(button => {
+    window.ARS.toast(
+      liked
+        ? "Liked ❤️"
+        : "Unliked"
+    );
 
-      button.addEventListener(
-        "click",
-        () => activate(button)
+  };
+
+
+  /* =========================
+     FAVORITE SYSTEM
+     First click = Favorite
+     Second click = Unfavorite
+     ========================= */
+
+  window.ARS.toggleFavorite = function (
+    id,
+    button
+  ) {
+
+    if (!id || !button) return;
+
+
+    const key =
+      "ars-favorite-" + id;
+
+    let favorite = false;
+
+    try {
+
+      favorite =
+        localStorage.getItem(key) === "1";
+
+    } catch (error) {}
+
+
+    favorite = !favorite;
+
+
+    try {
+
+      localStorage.setItem(
+        key,
+        favorite ? "1" : "0"
       );
 
-    });
+    } catch (error) {}
 
 
-    const initial =
-      buttons.find(
-        button =>
-          button.classList.contains("active")
-      ) ||
-      buttons[0];
+    button.classList.toggle(
+      "favorited",
+      favorite
+    );
+
+    button.setAttribute(
+      "aria-pressed",
+      String(favorite)
+    );
 
 
-    activate(initial);
+    window.ARS.toast(
+      favorite
+        ? "Favorite में जोड़ दिया ⭐"
+        : "Favorite से हटा दिया"
+    );
 
-  }
-
-
-  /* =======================================================
-     FAVORITES PAGE/SECTION
-     ======================================================= */
-
-  function renderFavorites() {
-
-    const container =
-      $("#favoritesContainer");
-
-    if (!container) return;
+  };
 
 
-    const favorites =
-      getFavorites();
+  /* =========================
+     SAVE SYSTEM
+     ========================= */
+
+  window.ARS.toggleSave = function (
+    id,
+    button
+  ) {
+
+    if (!id || !button) return;
 
 
-    if (!favorites.length) {
+    const key =
+      "ars-save-" + id;
 
-      container.innerHTML = `
+    let saved = false;
 
-        <div class="empty-state">
+    try {
 
-          <div class="empty-icon">⭐</div>
+      saved =
+        localStorage.getItem(key) === "1";
 
-          <h3>No Favorites Yet</h3>
-
-          <p>
-            Favorite button दबाने पर content यहाँ आएगा।
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
+    } catch (error) {}
 
 
-    container.innerHTML = "";
+    saved = !saved;
 
 
-    const fragment =
-      document.createDocumentFragment();
+    try {
 
-
-    favorites.forEach(item => {
-
-      fragment.appendChild(
-        createContentCard(item)
+      localStorage.setItem(
+        key,
+        saved ? "1" : "0"
       );
 
-    });
+    } catch (error) {}
 
 
-    container.appendChild(fragment);
+    button.classList.toggle(
+      "saved",
+      saved
+    );
 
-  }
+
+    window.ARS.toast(
+      saved
+        ? "Saved ✓"
+        : "Save हटाया गया"
+    );
+
+  };
 
 
-  /* =======================================================
-     STORAGE EVENT
-     ======================================================= */
+  /* =========================
+     EXPORT HELPERS
+     ========================= */
+
+  window.ARS.getState = function (id) {
+
+    return {
+
+      liked:
+        localStorage.getItem(
+          "ars-like-" + id
+        ) === "1",
+
+      favorite:
+        localStorage.getItem(
+          "ars-favorite-" + id
+        ) === "1",
+
+      saved:
+        localStorage.getItem(
+          "ars-save-" + id
+        ) === "1"
+
+    };
+
+  };
+
+
+  /* =========================
+     ERROR PROTECTION
+     ========================= */
 
   window.addEventListener(
-    "storage",
-    event => {
+    "error",
+    function (event) {
 
-      if (
-        event.key === FAVORITES_KEY ||
-        event.key === "ARS_LIKES"
-      ) {
-
-        renderFavorites();
-
-        const shayariContainer =
-          $("#shayariContainer");
-
-        const storyContainer =
-          $("#storyContainer");
-
-
-        if (shayariContainer) {
-
-          renderCollection(
-            shayariContainer,
-            getShayariData(),
-            "all"
-          );
-
-        }
-
-
-        if (storyContainer) {
-
-          renderCollection(
-            storyContainer,
-            getStoryData(),
-            "all"
-          );
-
-        }
-
-      }
+      console.warn(
+        "ARS website warning:",
+        event.message
+      );
 
     }
   );
 
-
-  /* =======================================================
-     INIT
-     ======================================================= */
-
-  function init() {
-
-    initTheme();
-
-    initMenu();
-
-    initScrollTop();
-
-    initYear();
-
-
-    initCategoryFilter({
-      buttonsSelector:
-        "#shayariCategories .category-btn",
-
-      containerSelector:
-        "#shayariContainer",
-
-      dataGetter:
-        getShayariData
-    });
-
-
-    initCategoryFilter({
-      buttonsSelector:
-        "#storyCategories .category-btn",
-
-      containerSelector:
-        "#storyContainer",
-
-      dataGetter:
-        getStoryData
-    });
-
-
-    renderFavorites();
-
-  }
-
-
-  if (
-    document.readyState === "loading"
-  ) {
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      init,
-      { once: true }
-    );
-
-  } else {
-
-    init();
-
-  }
 
 })();
