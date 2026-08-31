@@ -1,344 +1,433 @@
 /* =========================================================
-   ARS CERTIFICATE SYSTEM
-   Search • Display • Print • Local Storage Support
+   ARS OFFICIAL
+   Certificate Generator
    ========================================================= */
 
 (function () {
+
   "use strict";
 
-  const form =
-    document.getElementById("certificateForm");
 
-  const input =
-    document.getElementById("certificateId");
+  const NAME_KEY = "ARS_CERTIFICATES";
 
-  const message =
-    document.getElementById("certificateMessage");
 
-  const preview =
-    document.getElementById("certificatePreview");
+  function getCertificates() {
 
-  const printButton =
-    document.getElementById("printCertificate");
-
-  const STORAGE_KEY =
-    "ARS_CERTIFICATES";
-
-  function readCertificates() {
     try {
+
       const data =
         JSON.parse(
-          localStorage.getItem(STORAGE_KEY) || "[]"
+          localStorage.getItem(NAME_KEY) || "[]"
         );
 
-      return Array.isArray(data) ? data : [];
-    } catch {
+      return Array.isArray(data)
+        ? data
+        : [];
+
+    } catch (error) {
+
       return [];
-    }
-  }
 
-  function getCertificate(id) {
-
-    const certificates =
-      readCertificates();
-
-    return certificates.find(
-      certificate =>
-        String(
-          certificate.id ||
-          certificate.certificateId ||
-          ""
-        ).toUpperCase() ===
-        String(id).trim().toUpperCase()
-    );
-  }
-
-  function setMessage(text, success) {
-
-    if (!message) return;
-
-    message.textContent = text;
-
-    message.className =
-      "form-message " +
-      (success ? "success" : "error");
-  }
-
-  function showCertificate(certificate) {
-
-    if (!preview) return;
-
-    const name =
-      certificate.name ||
-      certificate.fullName ||
-      "ARS Member";
-
-    const type =
-      certificate.type ||
-      certificate.certificateType ||
-      "Achievement";
-
-    const profession =
-      certificate.profession ||
-      certificate.achievement ||
-      "";
-
-    const business =
-      certificate.businessName ||
-      "";
-
-    const id =
-      certificate.id ||
-      certificate.certificateId ||
-      "";
-
-    const date =
-      certificate.date ||
-      certificate.issueDate ||
-      new Date().toLocaleDateString("en-IN");
-
-    const nameElement =
-      document.getElementById("previewName");
-
-    const typeElement =
-      document.getElementById("previewType");
-
-    const professionElement =
-      document.getElementById("previewProfession");
-
-    const businessElement =
-      document.getElementById("previewBusiness");
-
-    const idElement =
-      document.getElementById("previewId");
-
-    const dateElement =
-      document.getElementById("previewDate");
-
-    if (nameElement)
-      nameElement.textContent = name;
-
-    if (typeElement)
-      typeElement.textContent = type;
-
-    if (professionElement) {
-      professionElement.textContent =
-        profession;
     }
 
-    if (businessElement) {
-      businessElement.textContent =
-        business;
-      businessElement.style.display =
-        business ? "block" : "none";
-    }
-
-    if (idElement)
-      idElement.textContent = id;
-
-    if (dateElement)
-      dateElement.textContent = date;
-
-    preview.style.display = "block";
-
-    preview.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
   }
 
-  function openCertificateFromURL() {
 
-    const params =
-      new URLSearchParams(
-        window.location.search
+  function saveCertificates(list) {
+
+    try {
+
+      localStorage.setItem(
+        NAME_KEY,
+        JSON.stringify(list)
       );
 
+      return true;
+
+    } catch (error) {
+
+      return false;
+
+    }
+
+  }
+
+
+  function generateCertificateId() {
+
+    const timestamp =
+      Date.now()
+        .toString(36)
+        .toUpperCase();
+
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2, 7)
+        .toUpperCase();
+
+    return `ARS-${timestamp}-${random}`;
+
+  }
+
+
+  function formatDate(value) {
+
+    const date =
+      value
+        ? new Date(value)
+        : new Date();
+
+    if (Number.isNaN(date.getTime())) {
+      return "—";
+    }
+
+    return date.toLocaleDateString(
+      "en-IN",
+      {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+  }
+
+
+  function getValue(id) {
+
+    const element =
+      document.getElementById(id);
+
+    return element
+      ? element.value.trim()
+      : "";
+
+  }
+
+
+  function setText(id, value) {
+
+    const element =
+      document.getElementById(id);
+
+    if (element) {
+      element.textContent = value;
+    }
+
+  }
+
+
+  function showMessage(message) {
+
+    const element =
+      document.getElementById(
+        "certificateMessage"
+      );
+
+    if (element) {
+      element.textContent = message;
+    }
+
+  }
+
+
+  function showCertificate() {
+
+    const certificate =
+      document.getElementById(
+        "certificate"
+      );
+
+    const printButton =
+      document.getElementById(
+        "printCertificate"
+      );
+
+    if (certificate) {
+      certificate.hidden = false;
+    }
+
+    if (printButton) {
+      printButton.hidden = false;
+    }
+
+  }
+
+
+  function generate() {
+
+    const name =
+      getValue(
+        "certificateNameInput"
+      );
+
+    const type =
+      getValue(
+        "certificateType"
+      );
+
+    const purpose =
+      getValue(
+        "certificatePurpose"
+      );
+
+    const businessName =
+      getValue(
+        "businessName"
+      );
+
+    const ownerName =
+      getValue(
+        "ownerName"
+      );
+
+
+    if (!name) {
+
+      showMessage(
+        "कृपया Name दर्ज करें।"
+      );
+
+      return null;
+
+    }
+
+
+    if (!type) {
+
+      showMessage(
+        "कृपया Certificate Type चुनें।"
+      );
+
+      return null;
+
+    }
+
+
+    if (
+      type === "Business" &&
+      !businessName
+    ) {
+
+      showMessage(
+        "Business Certificate के लिए Business Name दर्ज करें।"
+      );
+
+      return null;
+
+    }
+
+
+    if (
+      type === "Business" &&
+      !ownerName
+    ) {
+
+      showMessage(
+        "Business Certificate के लिए Owner / Founder Name दर्ज करें।"
+      );
+
+      return null;
+
+    }
+
+
     const id =
-      params.get("id") ||
-      params.get("certificate") ||
-      params.get("certificateId");
+      generateCertificateId();
 
-    if (id && input) {
+    const createdAt =
+      new Date().toISOString();
 
-      input.value =
-        decodeURIComponent(id);
 
-      const certificate =
-        getCertificate(id);
+    const certificateData = {
 
-      if (certificate) {
-        showCertificate(certificate);
-        setMessage(
-          "Certificate मिल गया।",
-          true
-        );
+      id,
+
+      name,
+
+      type,
+
+      purpose,
+
+      businessName,
+
+      ownerName,
+
+      createdAt,
+
+      issuer: "ARS Official",
+
+      status: "valid"
+
+    };
+
+
+    const certificates =
+      getCertificates();
+
+
+    certificates.push(
+      certificateData
+    );
+
+
+    saveCertificates(
+      certificates
+    );
+
+
+    setText(
+      "certificateNameDisplay",
+      name
+    );
+
+    setText(
+      "certificateTypeDisplay",
+      `${type} Certificate`
+    );
+
+    setText(
+      "certificateIdDisplay",
+      id
+    );
+
+    setText(
+      "certificateDateDisplay",
+      formatDate(createdAt)
+    );
+
+
+    const defaultText =
+      `This certificate is proudly presented to ${name} in recognition of their ${type.toLowerCase()} association, contribution and achievement with ARS Official.`;
+
+    setText(
+      "certificateText",
+      purpose || defaultText
+    );
+
+
+    const businessDisplay =
+      document.getElementById(
+        "businessDisplay"
+      );
+
+
+    if (type === "Business") {
+
+      setText(
+        "businessNameDisplay",
+        businessName
+      );
+
+      setText(
+        "ownerNameDisplay",
+        ownerName
+      );
+
+      if (businessDisplay) {
+        businessDisplay.hidden = false;
       }
-    }
-  }
 
-  if (form) {
+    } else {
 
-    form.addEventListener(
-      "submit",
-      function (event) {
-
-        event.preventDefault();
-
-        const id =
-          input.value.trim();
-
-        if (!id) {
-          setMessage(
-            "कृपया Certificate ID डालें।",
-            false
-          );
-          return;
-        }
-
-        const certificate =
-          getCertificate(id);
-
-        if (!certificate) {
-
-          if (preview) {
-            preview.style.display =
-              "none";
-          }
-
-          setMessage(
-            "Certificate नहीं मिला। ID दोबारा जाँचें।",
-            false
-          );
-
-          return;
-        }
-
-        setMessage(
-          "Certificate सफलतापूर्वक मिल गया।",
-          true
-        );
-
-        showCertificate(certificate);
-
+      if (businessDisplay) {
+        businessDisplay.hidden = true;
       }
-    );
-
-  }
-
-  if (printButton) {
-
-    printButton.addEventListener(
-      "click",
-      function () {
-
-        if (
-          !preview ||
-          preview.style.display === "none"
-        ) {
-          return;
-        }
-
-        window.print();
-
-      }
-    );
-
-  }
-
-  /* Theme */
-
-  const themeToggle =
-    document.getElementById(
-      "themeToggle"
-    );
-
-  function applyTheme(theme) {
-
-    document.documentElement.dataset.theme =
-      theme;
-
-    localStorage.setItem(
-      "ars-theme",
-      theme
-    );
-
-    if (themeToggle) {
-
-      themeToggle.textContent =
-        theme === "dark"
-          ? "☀️"
-          : "🌙";
 
     }
 
-  }
 
-  applyTheme(
-    localStorage.getItem("ars-theme") ||
-    "light"
-  );
+    showCertificate();
 
-  if (themeToggle) {
-
-    themeToggle.addEventListener(
-      "click",
-      function () {
-
-        const current =
-          document.documentElement.dataset.theme ||
-          "light";
-
-        applyTheme(
-          current === "dark"
-            ? "light"
-            : "dark"
-        );
-
-      }
+    showMessage(
+      `Certificate generated successfully. ID: ${id}`
     );
 
+
+    const certificateElement =
+      document.getElementById(
+        "certificate"
+      );
+
+    if (certificateElement) {
+
+      certificateElement.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
+
+    return certificateData;
+
   }
 
-  /* Back to top */
 
-  const backToTop =
-    document.getElementById(
-      "backToTop"
-    );
+  window.ARS_CERTIFICATE = {
 
-  window.addEventListener(
-    "scroll",
+    getAll: getCertificates,
+
+    saveAll: saveCertificates,
+
+    generateId: generateCertificateId,
+
+    generate: generate,
+
+    formatDate: formatDate
+
+  };
+
+
+  document.addEventListener(
+    "DOMContentLoaded",
     function () {
 
-      if (!backToTop) return;
+      const generateButton =
+        document.getElementById(
+          "generateCertificate"
+        );
 
-      backToTop.style.display =
-        window.scrollY > 350
-          ? "flex"
-          : "none";
+
+      if (generateButton) {
+
+        generateButton.addEventListener(
+          "click",
+          generate
+        );
+
+      }
+
+
+      const nameInput =
+        document.getElementById(
+          "certificateNameInput"
+        );
+
+
+      if (nameInput) {
+
+        nameInput.addEventListener(
+          "keydown",
+          function (event) {
+
+            if (
+              event.key === "Enter"
+            ) {
+
+              event.preventDefault();
+
+              generate();
+
+            }
+
+          }
+        );
+
+      }
 
     }
   );
-
-  if (backToTop) {
-
-    backToTop.addEventListener(
-      "click",
-      function (event) {
-
-        event.preventDefault();
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-
-      }
-    );
-
-  }
-
-  openCertificateFromURL();
 
 })();
