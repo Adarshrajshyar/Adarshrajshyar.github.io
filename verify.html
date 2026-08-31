@@ -372,5 +372,254 @@
 })();
 </script>
 
-</body>
+/* =========================================================
+   ARS VERIFY STORAGE
+   Adarsh Raj Shayar Official
+   ========================================================= */
+
+"use strict";
+
+const ARS_VERIFY_STORAGE = {
+  NORMAL_CERTIFICATES: "ARS_NORMAL_CERTIFICATES",
+  JOINING_APPLICATIONS: "ARS_JOINING_APPLICATIONS"
+};
+
+
+/* ---------- Safe JSON Read ---------- */
+
+function arsReadStorage(key) {
+  try {
+    const data = localStorage.getItem(key);
+
+    if (!data) {
+      return [];
+    }
+
+    const parsed = JSON.parse(data);
+
+    return Array.isArray(parsed) ? parsed : [];
+
+  } catch (error) {
+    console.error("ARS Storage Read Error:", error);
+    return [];
+  }
+}
+
+
+/* ---------- Safe JSON Write ---------- */
+
+function arsWriteStorage(key, data) {
+  try {
+    localStorage.setItem(
+      key,
+      JSON.stringify(data)
+    );
+
+    return true;
+
+  } catch (error) {
+    console.error("ARS Storage Write Error:", error);
+    return false;
+  }
+}
+
+
+/* ---------- Find Normal Certificate ---------- */
+
+function arsFindCertificate(certificateId) {
+
+  const id =
+    String(certificateId || "")
+      .trim()
+      .toUpperCase();
+
+  if (!id) {
+    return null;
+  }
+
+  const certificates =
+    arsReadStorage(
+      ARS_VERIFY_STORAGE.NORMAL_CERTIFICATES
+    );
+
+  return (
+    certificates.find(item =>
+      String(item.id || "")
+        .trim()
+        .toUpperCase() === id
+    ) || null
+  );
+}
+
+
+/* ---------- Find Joining Application ---------- */
+
+function arsFindJoiningApplication(applicationId) {
+
+  const id =
+    String(applicationId || "")
+      .trim()
+      .toUpperCase();
+
+  if (!id) {
+    return null;
+  }
+
+  const applications =
+    arsReadStorage(
+      ARS_VERIFY_STORAGE.JOINING_APPLICATIONS
+    );
+
+  return (
+    applications.find(item =>
+      String(item.applicationId || "")
+        .trim()
+        .toUpperCase() === id
+    ) || null
+  );
+}
+
+
+/* ---------- Verify Normal Certificate ---------- */
+
+function arsVerifyNormalCertificate(certificateId) {
+
+  const certificate =
+    arsFindCertificate(certificateId);
+
+  if (!certificate) {
+    return {
+      verified: false,
+      type: "normal",
+      data: null
+    };
+  }
+
+  return {
+    verified: true,
+    type: "normal",
+    data: certificate
+  };
+}
+
+
+/* ---------- Verify Joining Certificate ---------- */
+
+function arsVerifyJoiningCertificate(applicationId) {
+
+  const application =
+    arsFindJoiningApplication(applicationId);
+
+  if (!application) {
+    return {
+      verified: false,
+      type: "joining",
+      data: null
+    };
+  }
+
+  const approved =
+    String(application.status || "")
+      .trim()
+      .toLowerCase() === "approved";
+
+  return {
+    verified: approved,
+    type: "joining",
+    data: approved ? application : null
+  };
+}
+
+
+/* ---------- Verify Any ARS ID ---------- */
+
+function arsVerifyAnyId(id) {
+
+  const cleanId =
+    String(id || "")
+      .trim()
+      .toUpperCase();
+
+  if (!cleanId) {
+    return {
+      verified: false,
+      type: null,
+      data: null
+    };
+  }
+
+
+  /* Normal certificate */
+
+  if (cleanId.startsWith("ARS-CERT-")) {
+
+    return arsVerifyNormalCertificate(
+      cleanId
+    );
+
+  }
+
+
+  /* Joining certificate */
+
+  if (cleanId.startsWith("ARS-JOIN-")) {
+
+    return arsVerifyJoiningCertificate(
+      cleanId
+    );
+
+  }
+
+
+  /* Fallback search */
+
+  const normal =
+    arsVerifyNormalCertificate(cleanId);
+
+  if (normal.verified) {
+    return normal;
+  }
+
+
+  const joining =
+    arsVerifyJoiningCertificate(cleanId);
+
+  if (joining.verified) {
+    return joining;
+  }
+
+
+  return {
+    verified: false,
+    type: null,
+    data: null
+  };
+}
+
+
+/* ---------- Public Helper ---------- */
+
+window.ARSVerifyStorage = {
+
+  read: arsReadStorage,
+
+  write: arsWriteStorage,
+
+  findCertificate:
+    arsFindCertificate,
+
+  findJoiningApplication:
+    arsFindJoiningApplication,
+
+  verifyCertificate:
+    arsVerifyNormalCertificate,
+
+  verifyJoining:
+    arsVerifyJoiningCertificate,
+
+  verify:
+    arsVerifyAnyId
+
+};
+  </body>
 </html>
