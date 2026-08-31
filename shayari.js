@@ -1,15 +1,14 @@
 /* =========================================================
-   ARS SHAYARI ENGINE
-   Categories:
-   Love, Sad, Motivation, Attitude, Friendship
-   Features:
-   Like • Favourite • Save • Copy • Share
+   ARS OFFICIAL — SHAYARI DATA & INTERACTIONS
    ========================================================= */
 
-(function () {
-  "use strict";
+"use strict";
 
-  const STORAGE_KEY = "ARS_SHAYARI_DATA_V2";
+(function () {
+
+  const SHAYARI_KEY = "ARS_SHAYARI_DATA";
+  const FAVORITE_KEY = "ARS_FAVORITE_SHAYARI";
+  const LIKE_KEY = "ARS_LIKED_SHAYARI";
 
   const categories = [
     "All",
@@ -17,209 +16,600 @@
     "Sad",
     "Motivation",
     "Attitude",
-    "Friendship"
+    "Friendship",
+    "Life",
+    "Success",
+    "Emotional"
   ];
 
-  const shayariData = [
+  const defaultShayari = [
+
     {
-      id: "love-001",
+      id: "ARS-SHY-001",
       category: "Love",
-      text: "मोहब्बत नाम नहीं सिर्फ़ साथ रहने का,\nमोहब्बत तो नाम है हर हाल में साथ निभाने का।"
+      title: "मोहब्बत",
+      text: "कुछ रिश्ते शब्दों से नहीं, एहसासों से पहचाने जाते हैं।",
+      author: "Adarsh Raj"
     },
+
     {
-      id: "love-002",
-      category: "Love",
-      text: "तेरी मुस्कान की वजह बनना चाहता हूँ,\nतेरी हर खुशी में शामिल होना चाहता हूँ।"
-    },
-    {
-      id: "sad-001",
+      id: "ARS-SHY-002",
       category: "Sad",
-      text: "कुछ खामोशियाँ भी बहुत कुछ कह जाती हैं,\nजब दिल की बातें होंठों तक नहीं आ पाती हैं।"
+      title: "खामोशी",
+      text: "कभी-कभी खामोशी भी उन बातों को कह जाती है, जिन्हें शब्द नहीं कह पाते।",
+      author: "Adarsh Raj"
     },
+
     {
-      id: "sad-002",
-      category: "Sad",
-      text: "वक्त बदलता है, लोग बदल जाते हैं,\nकुछ रिश्ते बस यादों में रह जाते हैं।"
-    },
-    {
-      id: "motivation-001",
+      id: "ARS-SHY-003",
       category: "Motivation",
-      text: "रास्ते मुश्किल हैं तो क्या हुआ,\nहौसला मजबूत हो तो मंज़िल दूर नहीं।"
+      title: "हौसला",
+      text: "रास्ते मुश्किल हों तो कदम रोकना नहीं, मंज़िल अक्सर हिम्मत वालों को मिलती है।",
+      author: "Adarsh Raj"
     },
+
     {
-      id: "motivation-002",
-      category: "Motivation",
-      text: "गिरकर संभलना ही असली जीत है,\nकोशिश करते रहना ही सबसे बड़ी उम्मीद है।"
-    },
-    {
-      id: "attitude-001",
+      id: "ARS-SHY-004",
       category: "Attitude",
-      text: "हम अपनी पहचान खुद बनाते हैं,\nलोग क्या कहते हैं, इससे रास्ते नहीं बदलते।"
+      title: "अपनी पहचान",
+      text: "पहचान बनाने के लिए भीड़ का हिस्सा नहीं, अपने रास्ते का मुसाफिर बनना पड़ता है।",
+      author: "Adarsh Raj"
     },
+
     {
-      id: "attitude-002",
-      category: "Attitude",
-      text: "खामोश हूँ, कमजोर नहीं,\nअपना वक्त आने का इंतज़ार है।"
-    },
-    {
-      id: "friendship-001",
+      id: "ARS-SHY-005",
       category: "Friendship",
-      text: "दोस्ती वो नहीं जो हर दिन मिले,\nदोस्ती वो है जो दूर रहकर भी दिल के करीब रहे।"
+      title: "दोस्ती",
+      text: "सच्चा दोस्त वही है जो वक्त बदलने पर अपना साथ नहीं बदलता।",
+      author: "Adarsh Raj"
     },
+
     {
-      id: "friendship-002",
-      category: "Friendship",
-      text: "सच्चे दोस्त जिंदगी की खूबसूरत कहानी होते हैं,\nजो मुश्किल समय में भी हमारे साथ खड़े होते हैं।"
+      id: "ARS-SHY-006",
+      category: "Life",
+      title: "ज़िंदगी",
+      text: "ज़िंदगी छोटी जरूर है, मगर हर दिन को खूबसूरत बनाने का मौका देती है।",
+      author: "Adarsh Raj"
+    },
+
+    {
+      id: "ARS-SHY-007",
+      category: "Success",
+      title: "कामयाबी",
+      text: "कामयाबी का रास्ता धीरे चलता है, लेकिन मेहनत कभी खाली नहीं जाती।",
+      author: "Adarsh Raj"
+    },
+
+    {
+      id: "ARS-SHY-008",
+      category: "Emotional",
+      title: "यादें",
+      text: "कुछ यादें समय के साथ पुरानी नहीं होतीं, बल्कि और गहरी हो जाती हैं।",
+      author: "Adarsh Raj"
     }
+
   ];
 
-  function getState() {
+
+  function loadData() {
+
     try {
-      return JSON.parse(
-        localStorage.getItem(STORAGE_KEY) ||
-        '{"likes":{},"favorites":{},"saves":{}}'
-      );
-    } catch {
-      return {
-        likes: {},
-        favorites: {},
-        saves: {}
-      };
-    }
-  }
 
-  function saveState(state) {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(state)
-    );
-  }
+      const saved =
+        JSON.parse(
+          localStorage.getItem(SHAYARI_KEY) || "null"
+        );
 
-  function toggle(type, id) {
-    const state = getState();
-
-    if (!state[type]) {
-      state[type] = {};
-    }
-
-    state[type][id] = !state[type][id];
-
-    if (!state[type][id]) {
-      delete state[type][id];
-    }
-
-    saveState(state);
-
-    document.dispatchEvent(
-      new CustomEvent("arsShayariUpdated", {
-        detail: {
-          type,
-          id,
-          active: !!state[type][id]
-        }
-      })
-    );
-
-    return !!state[type][id];
-  }
-
-  async function copy(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch {
-      const textarea =
-        document.createElement("textarea");
-
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-
-      const success =
-        document.execCommand("copy");
-
-      textarea.remove();
-
-      return success;
-    }
-  }
-
-  async function share(item) {
-    const shareData = {
-      title: "ARS Shayari",
-      text: item.text,
-      url: window.location.href
-    };
-
-    if (
-      navigator.share &&
-      typeof navigator.share === "function"
-    ) {
-      try {
-        await navigator.share(shareData);
-        return true;
-      } catch {
-        return false;
+      if (Array.isArray(saved) && saved.length) {
+        return saved;
       }
-    }
 
-    return copy(
-      item.text +
-      "\n\n— ARS Shayari\n" +
-      window.location.href
-    );
+    } catch (error) {}
+
+    return defaultShayari.slice();
+
   }
 
-  function filter(category) {
-    if (
-      !category ||
-      category.toLowerCase() === "all"
-    ) {
-      return [...shayariData];
+
+  function saveData(data) {
+
+    try {
+
+      localStorage.setItem(
+        SHAYARI_KEY,
+        JSON.stringify(data)
+      );
+
+      return true;
+
+    } catch (error) {
+
+      return false;
+
     }
 
-    return shayariData.filter(
-      item =>
-        item.category.toLowerCase() ===
-        category.toLowerCase()
-    );
   }
+
 
   function getFavorites() {
-    const state = getState();
 
-    return shayariData.filter(
-      item => state.favorites[item.id]
-    );
+    try {
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(FAVORITE_KEY) || "[]"
+        );
+
+      return Array.isArray(data) ? data : [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+
   }
 
-  function getLiked() {
-    const state = getState();
 
-    return shayariData.filter(
-      item => state.likes[item.id]
+  function saveFavorites(data) {
+
+    localStorage.setItem(
+      FAVORITE_KEY,
+      JSON.stringify(data)
     );
+
   }
 
-  function getSaved() {
-    const state = getState();
 
-    return shayariData.filter(
-      item => state.saves[item.id]
-    );
+  function getLikes() {
+
+    try {
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(LIKE_KEY) || "[]"
+        );
+
+      return Array.isArray(data) ? data : [];
+
+    } catch (error) {
+
+      return [];
+
+    }
+
   }
 
-  window.ARSShayari = {
-    data: shayariData,
+
+  function saveLikes(data) {
+
+    localStorage.setItem(
+      LIKE_KEY,
+      JSON.stringify(data)
+    );
+
+  }
+
+
+  function toggleFavorite(id) {
+
+    const favorites = getFavorites();
+
+    const index =
+      favorites.indexOf(id);
+
+    if (index === -1) {
+
+      favorites.push(id);
+
+    } else {
+
+      favorites.splice(index, 1);
+
+    }
+
+    saveFavorites(favorites);
+
+    return index === -1;
+
+  }
+
+
+  function toggleLike(id) {
+
+    const likes = getLikes();
+
+    const index =
+      likes.indexOf(id);
+
+    if (index === -1) {
+
+      likes.push(id);
+
+    } else {
+
+      likes.splice(index, 1);
+
+    }
+
+    saveLikes(likes);
+
+    return index === -1;
+
+  }
+
+
+  function copyText(text) {
+
+    if (
+      navigator.clipboard &&
+      window.isSecureContext
+    ) {
+
+      return navigator.clipboard.writeText(text);
+
+    }
+
+    const area =
+      document.createElement("textarea");
+
+    area.value = text;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+
+    document.body.appendChild(area);
+
+    area.focus();
+    area.select();
+
+    try {
+      document.execCommand("copy");
+    } catch (error) {}
+
+    area.remove();
+
+    return Promise.resolve();
+
+  }
+
+
+  async function share(item) {
+
+    const text =
+      `${item.text}\n\n— ${item.author}`;
+
+    if (
+      navigator.share
+    ) {
+
+      try {
+
+        await navigator.share({
+          title: item.title,
+          text
+        });
+
+        return true;
+
+      } catch (error) {
+
+        return false;
+
+      }
+
+    }
+
+    await copyText(text);
+
+    return true;
+
+  }
+
+
+  function render(container, category) {
+
+    if (!container) return;
+
+    const data = loadData();
+
+    const filtered =
+      category === "All"
+        ? data
+        : data.filter(
+            item =>
+              String(item.category).toLowerCase() ===
+              String(category).toLowerCase()
+          );
+
+
+    if (!filtered.length) {
+
+      container.innerHTML = `
+        <div class="empty-state">
+          <h3>इस category में अभी Shayari उपलब्ध नहीं है।</h3>
+          <p>जल्द ही नई Shayari जोड़ी जाएगी।</p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    const favorites = getFavorites();
+    const likes = getLikes();
+
+
+    container.innerHTML =
+      filtered.map(item => {
+
+        const favorite =
+          favorites.includes(item.id);
+
+        const liked =
+          likes.includes(item.id);
+
+
+        return `
+
+          <article
+            class="shayari-card"
+            data-shayari-id="${escapeHTML(item.id)}">
+
+            <span class="shayari-category">
+              ${escapeHTML(item.category)}
+            </span>
+
+            <h3>
+              ${escapeHTML(item.title)}
+            </h3>
+
+            <p class="shayari-text">
+              ${escapeHTML(item.text)}
+            </p>
+
+            <div class="shayari-author">
+              — ${escapeHTML(item.author)}
+            </div>
+
+            <div class="shayari-actions">
+
+              <button
+                type="button"
+                class="shayari-action favorite-btn ${favorite ? "active" : ""}"
+                data-action="favorite"
+                data-id="${escapeHTML(item.id)}"
+                aria-label="Favorite">
+                ${favorite ? "★" : "☆"}
+                <span>Favorite</span>
+              </button>
+
+              <button
+                type="button"
+                class="shayari-action like-btn ${liked ? "active" : ""}"
+                data-action="like"
+                data-id="${escapeHTML(item.id)}"
+                aria-label="Like">
+                ${liked ? "♥" : "♡"}
+                <span>Like</span>
+              </button>
+
+              <button
+                type="button"
+                class="shayari-action"
+                data-action="copy"
+                data-id="${escapeHTML(item.id)}">
+                📋 <span>Copy</span>
+              </button>
+
+              <button
+                type="button"
+                class="shayari-action"
+                data-action="share"
+                data-id="${escapeHTML(item.id)}">
+                ↗ <span>Share</span>
+              </button>
+
+            </div>
+
+          </article>
+
+        `;
+
+      }).join("");
+
+  }
+
+
+  function escapeHTML(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function setup() {
+
+    const container =
+      document.getElementById("shayariList");
+
+    if (!container) return;
+
+
+    const categoryButtons =
+      document.querySelectorAll(
+        "[data-shayari-category]"
+      );
+
+
+    let currentCategory = "All";
+
+
+    render(
+      container,
+      currentCategory
+    );
+
+
+    categoryButtons.forEach(button => {
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          currentCategory =
+            button.dataset.shayariCategory ||
+            "All";
+
+
+          categoryButtons.forEach(
+            item =>
+              item.classList.remove("active")
+          );
+
+
+          button.classList.add("active");
+
+
+          render(
+            container,
+            currentCategory
+          );
+
+        }
+      );
+
+    });
+
+
+    container.addEventListener(
+      "click",
+      async function (event) {
+
+        const button =
+          event.target.closest(
+            "[data-action]"
+          );
+
+        if (!button) return;
+
+
+        const action =
+          button.dataset.action;
+
+        const id =
+          button.dataset.id;
+
+        const item =
+          loadData().find(
+            value => value.id === id
+          );
+
+        if (!item) return;
+
+
+        if (action === "favorite") {
+
+          const state =
+            toggleFavorite(id);
+
+          button.classList.toggle(
+            "active",
+            state
+          );
+
+          button.firstChild.textContent =
+            state ? "★ " : "☆ ";
+
+        }
+
+
+        if (action === "like") {
+
+          const state =
+            toggleLike(id);
+
+          button.classList.toggle(
+            "active",
+            state
+          );
+
+          button.firstChild.textContent =
+            state ? "♥ " : "♡ ";
+
+        }
+
+
+        if (action === "copy") {
+
+          await copyText(
+            `${item.text}\n\n— ${item.author}`
+          );
+
+          button.classList.add("active");
+
+          const oldHTML =
+            button.innerHTML;
+
+          button.innerHTML =
+            "✓ <span>Copied</span>";
+
+          setTimeout(
+            () => {
+              button.innerHTML = oldHTML;
+              button.classList.remove("active");
+            },
+            1500
+          );
+
+        }
+
+
+        if (action === "share") {
+
+          await share(item);
+
+        }
+
+      }
+    );
+
+  }
+
+
+  window.ARS_SHAYARI = {
+
     categories,
-    getState,
-    filter,
-    toggle,
-    copy,
-    share,
+
+    getAll: loadData,
+
+    saveAll: saveData,
+
     getFavorites,
-    getLiked,
-    getSaved
+
+    getLikes,
+
+    toggleFavorite,
+
+    toggleLike,
+
+    copyText,
+
+    share,
+
+    render
+
   };
+
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    setup
+  );
 
 })();
