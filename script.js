@@ -15,41 +15,6 @@
   const $$ = (selector, parent = document) =>
     [...parent.querySelectorAll(selector)];
 
-
- /* =========================================================
-   PAGE LOADER — FINAL FIX
-   ========================================================= */
-
-(function () {
-
-  function hidePageLoader() {
-
-    const loader =
-      document.getElementById("pageLoader");
-
-    if (!loader) return;
-
-    loader.classList.add("hidden");
-
-  }
-
-
-  /* Normal page loading */
-  window.addEventListener("load", function () {
-
-    hidePageLoader();
-
-  });
-
-
-  /* Safety fallback */
-  setTimeout(function () {
-
-    hidePageLoader();
-
-  }, 3000);
-
-})();
   /* =======================================================
      MOBILE NAVIGATION
      ======================================================= */
@@ -820,42 +785,31 @@
 
 })();
 /* =========================================================
-   ARS PAGE LOADER FIX
+   ARS PAGE LOADER — FINAL
    ========================================================= */
 
 (function () {
 
   function hidePageLoader() {
-
     const loader = document.getElementById("pageLoader");
 
     if (!loader) return;
 
-    loader.classList.add("loader-hidden");
+    loader.classList.add("hidden");
 
     loader.style.opacity = "0";
     loader.style.visibility = "hidden";
     loader.style.pointerEvents = "none";
 
     setTimeout(function () {
-      if (loader && loader.parentNode) {
-        loader.remove();
-      }
+      loader.remove();
     }, 500);
   }
 
+  /* DOM ready होते ही fallback timer शुरू */
+  setTimeout(hidePageLoader, 3000);
 
-  /* Page पूरी तरह load होने के बाद */
-  window.addEventListener("load", function () {
-
-    setTimeout(hidePageLoader, 300);
-
-  });
-
-
-  /* Safety fallback:
-     किसी resource की वजह से load event अटक जाए
-     तो भी loader 5 सेकंड से ज्यादा नहीं रहेगा */
-  setTimeout(hidePageLoader, 5000);
+  /* पूरी page load होने पर भी hide */
+  window.addEventListener("load", hidePageLoader);
 
 })();
