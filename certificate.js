@@ -1,14 +1,81 @@
+"use strict";
+
 /* =========================================================
-   ARS OFFICIAL
-   Certificate Generator
+   ARS OFFICIAL — CERTIFICATE ENGINE
    ========================================================= */
 
 (function () {
 
-  "use strict";
+  const STORAGE_KEY = "ARS_CERTIFICATES";
+
+  const form =
+    document.getElementById("certificateForm");
+
+  const type =
+    document.getElementById("certificateType");
+
+  const name =
+    document.getElementById("certificateName");
+
+  const businessName =
+    document.getElementById("businessName");
+
+  const ownerName =
+    document.getElementById("ownerName");
+
+  const reason =
+    document.getElementById("certificateReason");
+
+  const preview =
+    document.getElementById("certificatePreview");
+
+  if (!form) return;
 
 
-  const NAME_KEY = "ARS_CERTIFICATES";
+  const previewName =
+    document.getElementById("previewName");
+
+  const previewType =
+    document.getElementById("previewType");
+
+  const previewMessage =
+    document.getElementById("previewMessage");
+
+  const previewDate =
+    document.getElementById("previewDate");
+
+  const previewId =
+    document.getElementById("previewId");
+
+
+  function escapeHTML(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function generateId() {
+
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
+
+    const time =
+      Date.now()
+        .toString(36)
+        .toUpperCase();
+
+    return `ARS-CERT-${time}-${random}`;
+
+  }
 
 
   function getCertificates() {
@@ -17,7 +84,7 @@
 
       const data =
         JSON.parse(
-          localStorage.getItem(NAME_KEY) || "[]"
+          localStorage.getItem(STORAGE_KEY) || "[]"
         );
 
       return Array.isArray(data)
@@ -33,401 +100,312 @@
   }
 
 
-  function saveCertificates(list) {
-
-    try {
-
-      localStorage.setItem(
-        NAME_KEY,
-        JSON.stringify(list)
-      );
-
-      return true;
-
-    } catch (error) {
-
-      return false;
-
-    }
-
-  }
-
-
-  function generateCertificateId() {
-
-    const timestamp =
-      Date.now()
-        .toString(36)
-        .toUpperCase();
-
-    const random =
-      Math.random()
-        .toString(36)
-        .substring(2, 7)
-        .toUpperCase();
-
-    return `ARS-${timestamp}-${random}`;
-
-  }
-
-
-  function formatDate(value) {
-
-    const date =
-      value
-        ? new Date(value)
-        : new Date();
-
-    if (Number.isNaN(date.getTime())) {
-      return "—";
-    }
-
-    return date.toLocaleDateString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-      }
-    );
-
-  }
-
-
-  function getValue(id) {
-
-    const element =
-      document.getElementById(id);
-
-    return element
-      ? element.value.trim()
-      : "";
-
-  }
-
-
-  function setText(id, value) {
-
-    const element =
-      document.getElementById(id);
-
-    if (element) {
-      element.textContent = value;
-    }
-
-  }
-
-
-  function showMessage(message) {
-
-    const element =
-      document.getElementById(
-        "certificateMessage"
-      );
-
-    if (element) {
-      element.textContent = message;
-    }
-
-  }
-
-
-  function showCertificate() {
-
-    const certificate =
-      document.getElementById(
-        "certificate"
-      );
-
-    const printButton =
-      document.getElementById(
-        "printCertificate"
-      );
-
-    if (certificate) {
-      certificate.hidden = false;
-    }
-
-    if (printButton) {
-      printButton.hidden = false;
-    }
-
-  }
-
-
-  function generate() {
-
-    const name =
-      getValue(
-        "certificateNameInput"
-      );
-
-    const type =
-      getValue(
-        "certificateType"
-      );
-
-    const purpose =
-      getValue(
-        "certificatePurpose"
-      );
-
-    const businessName =
-      getValue(
-        "businessName"
-      );
-
-    const ownerName =
-      getValue(
-        "ownerName"
-      );
-
-
-    if (!name) {
-
-      showMessage(
-        "कृपया Name दर्ज करें।"
-      );
-
-      return null;
-
-    }
-
-
-    if (!type) {
-
-      showMessage(
-        "कृपया Certificate Type चुनें।"
-      );
-
-      return null;
-
-    }
-
-
-    if (
-      type === "Business" &&
-      !businessName
-    ) {
-
-      showMessage(
-        "Business Certificate के लिए Business Name दर्ज करें।"
-      );
-
-      return null;
-
-    }
-
-
-    if (
-      type === "Business" &&
-      !ownerName
-    ) {
-
-      showMessage(
-        "Business Certificate के लिए Owner / Founder Name दर्ज करें।"
-      );
-
-      return null;
-
-    }
-
-
-    const id =
-      generateCertificateId();
-
-    const createdAt =
-      new Date().toISOString();
-
-
-    const certificateData = {
-
-      id,
-
-      name,
-
-      type,
-
-      purpose,
-
-      businessName,
-
-      ownerName,
-
-      createdAt,
-
-      issuer: "ARS Official",
-
-      status: "valid"
-
-    };
-
+  function saveCertificate(data) {
 
     const certificates =
       getCertificates();
 
+    certificates.push(data);
 
-    certificates.push(
-      certificateData
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(certificates)
     );
-
-
-    saveCertificates(
-      certificates
-    );
-
-
-    setText(
-      "certificateNameDisplay",
-      name
-    );
-
-    setText(
-      "certificateTypeDisplay",
-      `${type} Certificate`
-    );
-
-    setText(
-      "certificateIdDisplay",
-      id
-    );
-
-    setText(
-      "certificateDateDisplay",
-      formatDate(createdAt)
-    );
-
-
-    const defaultText =
-      `This certificate is proudly presented to ${name} in recognition of their ${type.toLowerCase()} association, contribution and achievement with ARS Official.`;
-
-    setText(
-      "certificateText",
-      purpose || defaultText
-    );
-
-
-    const businessDisplay =
-      document.getElementById(
-        "businessDisplay"
-      );
-
-
-    if (type === "Business") {
-
-      setText(
-        "businessNameDisplay",
-        businessName
-      );
-
-      setText(
-        "ownerNameDisplay",
-        ownerName
-      );
-
-      if (businessDisplay) {
-        businessDisplay.hidden = false;
-      }
-
-    } else {
-
-      if (businessDisplay) {
-        businessDisplay.hidden = true;
-      }
-
-    }
-
-
-    showCertificate();
-
-    showMessage(
-      `Certificate generated successfully. ID: ${id}`
-    );
-
-
-    const certificateElement =
-      document.getElementById(
-        "certificate"
-      );
-
-    if (certificateElement) {
-
-      certificateElement.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-    }
-
-
-    return certificateData;
 
   }
 
 
-  window.ARS_CERTIFICATE = {
+  function updateBusinessFields() {
 
-    getAll: getCertificates,
+    const fields =
+      document.querySelectorAll(
+        ".business-field"
+      );
 
-    saveAll: saveCertificates,
-
-    generateId: generateCertificateId,
-
-    generate: generate,
-
-    formatDate: formatDate
-
-  };
+    const isBusiness =
+      type.value === "Business";
 
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+    fields.forEach(field => {
 
-      const generateButton =
-        document.getElementById(
-          "generateCertificate"
-        );
+      field.style.display =
+        isBusiness ? "flex" : "none";
+
+    });
 
 
-      if (generateButton) {
+    businessName.required =
+      isBusiness;
 
-        generateButton.addEventListener(
-          "click",
-          generate
-        );
+    ownerName.required =
+      isBusiness;
+
+  }
+
+
+  type.addEventListener(
+    "change",
+    updateBusinessFields
+  );
+
+
+  form.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+
+      const userName =
+        name.value.trim();
+
+
+      if (!userName) {
+
+        name.focus();
+
+        return;
 
       }
 
 
-      const nameInput =
-        document.getElementById(
-          "certificateNameInput"
+      if (
+        type.value === "Business" &&
+        (
+          !businessName.value.trim() ||
+          !ownerName.value.trim()
+        )
+      ) {
+
+        alert(
+          "Business Name और Owner / Founder Name भरें।"
         );
 
+        return;
 
-      if (nameInput) {
+      }
 
-        nameInput.addEventListener(
-          "keydown",
-          function (event) {
 
-            if (
-              event.key === "Enter"
-            ) {
+      const id =
+        generateId();
 
-              event.preventDefault();
+      const now =
+        new Date();
 
-              generate();
 
-            }
+      const certificate = {
 
+        id,
+
+        type:
+          type.value,
+
+        name:
+          userName,
+
+        businessName:
+          businessName.value.trim(),
+
+        ownerName:
+          ownerName.value.trim(),
+
+        reason:
+          reason.value.trim(),
+
+        date:
+          now.toISOString(),
+
+        issuer:
+          "Adarsh Raj",
+
+        organization:
+          "ARS Official"
+
+      };
+
+
+      saveCertificate(
+        certificate
+      );
+
+
+      previewName.textContent =
+        userName;
+
+
+      previewType.textContent =
+        `OF ${type.value.toUpperCase()}`;
+
+
+      let message =
+        reason.value.trim() ||
+        "for outstanding achievement and contribution";
+
+
+      if (type.value === "Business") {
+
+        message +=
+          ` | Business: ${businessName.value.trim()} | Owner/Founder: ${ownerName.value.trim()}`;
+
+      }
+
+
+      previewMessage.textContent =
+        `This certificate is proudly presented to ${userName} ${message}.`;
+
+
+      previewDate.textContent =
+        now.toLocaleDateString(
+          "en-IN",
+          {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
           }
         );
 
-      }
+
+      previewId.textContent =
+        id;
+
+
+      preview.style.display =
+        "block";
+
+
+      preview.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+
+      window.ARS_LAST_CERTIFICATE =
+        certificate;
 
     }
   );
+
+
+  const printButton =
+    document.getElementById(
+      "printCertificate"
+    );
+
+
+  if (printButton) {
+
+    printButton.addEventListener(
+      "click",
+      function () {
+
+        window.print();
+
+      }
+    );
+
+  }
+
+
+  const downloadButton =
+    document.getElementById(
+      "downloadCertificate"
+    );
+
+
+  if (downloadButton) {
+
+    downloadButton.addEventListener(
+      "click",
+      function () {
+
+        const paper =
+          document.querySelector(
+            ".certificate-paper"
+          );
+
+
+        if (!paper) return;
+
+
+        const html =
+          `
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>ARS Certificate</title>
+            <style>
+              body {
+                margin: 0;
+                padding: 30px;
+                font-family: Arial, sans-serif;
+              }
+            </style>
+          </head>
+          <body>
+            ${paper.outerHTML}
+          </body>
+          </html>
+          `;
+
+
+        const blob =
+          new Blob(
+            [html],
+            { type: "text/html" }
+          );
+
+
+        const url =
+          URL.createObjectURL(blob);
+
+
+        const link =
+          document.createElement("a");
+
+
+        link.href = url;
+
+        link.download =
+          `${
+            window.ARS_LAST_CERTIFICATE?.id ||
+            "ARS-Certificate"
+          }.html`;
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        setTimeout(
+          () => URL.revokeObjectURL(url),
+          1000
+        );
+
+      }
+    );
+
+  }
+
+
+  updateBusinessFields();
+
+
+  window.ARS_CERTIFICATE = {
+
+    getAll:
+      getCertificates,
+
+    save:
+      saveCertificate,
+
+    generateId,
+
+    getLast:
+      () => window.ARS_LAST_CERTIFICATE || null
+
+  };
 
 })();
