@@ -1735,3 +1735,12 @@ ol {
   }
 
 }
+/* =========================================================
+   ARS PAGE LOADER FIX
+   ========================================================= */
+
+#pageLoader.loader-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
