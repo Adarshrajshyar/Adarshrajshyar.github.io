@@ -1,392 +1,172 @@
-`ars-ai.html`
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="description"
+        content="ARS AI — intelligent assistant for ARS Official.">
 
-  <meta
-    name="description"
-    content="ARS AI — Official AI assistant of Adarsh Raj Shayar."
-  >
-
-  <meta
-    name="theme-color"
-    content="#111111"
-  >
-
-  <title>ARS AI | Adarsh Raj Shayar</title>
-
-  <link rel="icon" href="logo.png">
+  <title>ARS AI | ARS Official</title>
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* =====================================================
-       ARS AI PAGE
-       ===================================================== */
-
     .ai-page {
       min-height: 100vh;
-      padding: 110px 20px 70px;
+      padding: 115px 20px 70px;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(124,58,237,.20), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(236,72,153,.16), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(212,175,55,.10), transparent 35%),
+        var(--bg);
     }
 
     .ai-container {
-      width: min(1100px, 100%);
+      max-width: 1050px;
       margin: auto;
     }
 
     .ai-hero {
-      position: relative;
-      overflow: hidden;
       text-align: center;
-      padding: 55px 25px;
-      margin-bottom: 30px;
-      border-radius: 30px;
-
-      background:
-        radial-gradient(
-          circle at 20% 20%,
-          rgba(168, 85, 247, .25),
-          transparent 35%
-        ),
-        radial-gradient(
-          circle at 80% 80%,
-          rgba(236, 72, 153, .22),
-          transparent 35%
-        ),
-        linear-gradient(
-          135deg,
-          rgba(17, 17, 17, .98),
-          rgba(38, 20, 55, .96)
-        );
-
-      color: #fff;
-      box-shadow:
-        0 25px 70px rgba(0,0,0,.20);
+      margin-bottom: 25px;
     }
 
-    .ai-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-
-      padding: 8px 16px;
-      margin-bottom: 18px;
-
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 999px;
-
-      background: rgba(255,255,255,.08);
-      backdrop-filter: blur(10px);
-
-      font-size: 13px;
-      font-weight: 700;
+    .ai-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 12px;
+      border-radius: 22px;
     }
 
     .ai-hero h1 {
-      margin: 0 0 12px;
-      font-size: clamp(34px, 6vw, 65px);
-      line-height: 1.05;
+      font-size: clamp(42px, 7vw, 70px);
+      margin-bottom: 8px;
     }
 
-    .ai-gradient-text {
+    .ai-gradient {
       background:
         linear-gradient(
           90deg,
-          #fbbf24,
-          #f472b6,
-          #c084fc
+          #d4af37,
+          #a855f7,
+          #ec4899
         );
-
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
     .ai-hero p {
-      max-width: 720px;
-      margin: 0 auto;
-      color: rgba(255,255,255,.78);
-      line-height: 1.7;
+      color: var(--text-soft);
     }
 
-    .ai-card {
-      border-radius: 26px;
-      padding: 25px;
-
-      background:
-        var(--card, rgba(255,255,255,.96));
-
-      border: 1px solid
-        var(--border, rgba(0,0,0,.08));
-
-      box-shadow:
-        0 18px 55px rgba(0,0,0,.08);
-    }
-
-    .ai-chat {
-      min-height: 500px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .ai-chat-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-
-      border-bottom: 1px solid
-        var(--border, rgba(0,0,0,.08));
-    }
-
-    .ai-avatar {
-      width: 52px;
-      height: 52px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 16px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #fbbf24,
-          #c084fc,
-          #ec4899
-        );
-
-      color: #111;
-      font-size: 23px;
-      font-weight: 900;
-
-      flex-shrink: 0;
-    }
-
-    .ai-chat-header h2 {
-      margin: 0;
-      font-size: 20px;
+    .ai-shell {
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(212,175,55,.30);
+      background: var(--card-bg, rgba(255,255,255,.05));
+      box-shadow: 0 25px 75px rgba(0,0,0,.16);
     }
 
     .ai-status {
-      margin: 3px 0 0;
-      color: #16a34a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(128,128,128,.16);
       font-size: 13px;
-      font-weight: 700;
+      color: var(--text-soft);
+    }
+
+    .ai-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 12px rgba(34,197,94,.7);
     }
 
     .ai-messages {
-      flex: 1;
-      min-height: 250px;
+      height: 430px;
       overflow-y: auto;
-
+      padding: 22px;
       display: flex;
       flex-direction: column;
       gap: 14px;
-
-      padding: 5px;
     }
 
     .ai-message {
       max-width: 82%;
       padding: 13px 16px;
-      border-radius: 18px;
-
-      line-height: 1.55;
-      font-size: 14px;
+      border-radius: 16px;
+      line-height: 1.65;
+      white-space: pre-wrap;
     }
 
     .ai-message.bot {
       align-self: flex-start;
-
-      background:
-        rgba(139, 92, 246, .10);
-
-      border-bottom-left-radius: 5px;
+      background: rgba(124,58,237,.10);
+      border: 1px solid rgba(124,58,237,.20);
     }
 
     .ai-message.user {
       align-self: flex-end;
-
-      color: #fff;
-
-      background:
-        linear-gradient(
-          135deg,
-          #7c3aed,
-          #db2777
-        );
-
-      border-bottom-right-radius: 5px;
+      background: linear-gradient(135deg,#d4af37,#f5d76e);
+      color: #111;
+      font-weight: 600;
     }
 
     .ai-input-area {
       display: flex;
       gap: 10px;
-
-      margin-top: 20px;
-      padding-top: 18px;
-
-      border-top: 1px solid
-        var(--border, rgba(0,0,0,.08));
+      padding: 16px;
+      border-top: 1px solid rgba(128,128,128,.16);
     }
 
     .ai-input {
       flex: 1;
-      min-width: 0;
-
-      border: 1px solid
-        var(--border, rgba(0,0,0,.12));
-
-      background:
-        var(--input-bg, rgba(255,255,255,.8));
-
-      color:
-        var(--text, #111827);
-
-      border-radius: 14px;
-      padding: 13px 15px;
-
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(128,128,128,.28);
+      background: transparent;
+      color: var(--text);
       outline: none;
-      font: inherit;
-    }
-
-    .ai-input:focus {
-      border-color: #8b5cf6;
-      box-shadow:
-        0 0 0 3px rgba(139,92,246,.12);
     }
 
     .ai-send {
+      min-width: 100px;
       border: 0;
-      border-radius: 14px;
-
-      padding: 0 20px;
-
+      border-radius: 12px;
       cursor: pointer;
-
-      color: #fff;
-      font-weight: 800;
-
-      background:
-        linear-gradient(
-          135deg,
-          #7c3aed,
-          #db2777
-        );
-
-      transition:
-        transform .2s ease,
-        opacity .2s ease;
+      font-weight: 900;
+      background: linear-gradient(135deg,#d4af37,#f5d76e);
+      color: #111;
     }
 
-    .ai-send:hover {
-      transform: translateY(-2px);
-    }
-
-    .ai-send:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .ai-quick {
+    .ai-tools {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 16px;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
     }
 
-    .ai-quick button {
-      border: 1px solid
-        var(--border, rgba(0,0,0,.1));
-
-      background:
-        var(--input-bg, rgba(255,255,255,.7));
-
-      color:
-        var(--text, #111827);
-
+    .ai-tool {
+      padding: 10px 14px;
       border-radius: 999px;
-      padding: 8px 12px;
-
+      border: 1px solid rgba(128,128,128,.22);
+      background: rgba(128,128,128,.07);
+      color: var(--text);
       cursor: pointer;
-      font-size: 12px;
       font-weight: 700;
     }
 
-    .ai-quick button:hover {
-      border-color: #8b5cf6;
-    }
-
-    .ai-info-grid {
-      display: grid;
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-      gap: 18px;
-      margin-top: 22px;
-    }
-
-    .ai-info-card {
-      padding: 22px;
-      border-radius: 22px;
-
-      background:
-        var(--card, rgba(255,255,255,.96));
-
-      border: 1px solid
-        var(--border, rgba(0,0,0,.08));
-    }
-
-    .ai-info-icon {
-      font-size: 28px;
-      margin-bottom: 12px;
-    }
-
-    .ai-info-card h3 {
-      margin: 0 0 7px;
-      font-size: 17px;
-    }
-
-    .ai-info-card p {
-      margin: 0;
-
-      color:
-        var(--text-soft, #6b7280);
-
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 760px) {
-
-      .ai-page {
-        padding: 90px 14px 50px;
-      }
-
-      .ai-hero {
-        padding: 40px 18px;
-        border-radius: 22px;
-      }
-
-      .ai-card {
-        padding: 18px;
-        border-radius: 21px;
-      }
-
-      .ai-message {
-        max-width: 92%;
+    @media (max-width: 600px) {
+      .ai-messages {
+        height: 380px;
       }
 
       .ai-input-area {
@@ -394,11 +174,11 @@
       }
 
       .ai-send {
-        min-height: 46px;
+        padding: 13px;
       }
 
-      .ai-info-grid {
-        grid-template-columns: 1fr;
+      .ai-message {
+        max-width: 92%;
       }
     }
   </style>
@@ -406,520 +186,329 @@
 
 <body>
 
-  <!-- =====================================================
-       NAVIGATION
-       ===================================================== -->
+<header class="site-header">
+  <nav class="navbar">
 
-  <header class="site-header">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official">
+      <span>ARS Official</span>
+    </a>
 
-    <nav class="navbar">
+    <button id="navToggle"
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false">☰</button>
 
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="ARS Official Home"
-      >
-        <img
-          src="logo.png"
-          alt="ARS Official"
-          width="42"
-          height="42"
-        >
+    <div id="navLinks" class="nav-links">
 
-        <span>ARS Official</span>
+      <a href="index.html">Home</a>
+
+      <a href="ars-ai.html"
+         class="active">
+        ARS AI
       </a>
 
-      <button
-        id="navToggle"
-        class="nav-toggle"
-        type="button"
-        aria-label="Open navigation"
-        aria-expanded="false"
-      >
-        ☰
-      </button>
+      <a href="founder.html">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html">
+        Joining Certificate
+      </a>
+      <a href="verify.html">Verify</a>
 
-      <div id="navLinks" class="nav-links">
+      <div class="nav-more">
 
-        <a href="index.html">Home</a>
-
-        <a href="ars-ai.html" class="active">
-          ARS AI
-        </a>
-
-        <a href="shayari.html">
-          Shayari
-        </a>
-
-        <a href="story.html">
-          Stories
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-        <a href="verify.html">
-          Verify
-        </a>
-
-        <a href="founder.html">
-          Founder
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <button
-          id="themeToggle"
-          type="button"
-          aria-label="Switch theme"
-          title="Dark Mode"
-        >
-          🌙
+        <button id="navMoreButton"
+                type="button"
+                aria-expanded="false">
+          More ▾
         </button>
+
+        <div id="navMoreMenu" class="nav-more-menu">
+          <a href="joining.html">Joining ARS</a>
+          <a href="publisher.html">Publisher</a>
+          <a href="policy.html">Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+        </div>
 
       </div>
 
-    </nav>
+      <button id="themeToggle"
+              type="button">
+        🌙
+      </button>
 
-  </header>
+    </div>
+  </nav>
+</header>
 
+<main class="ai-page">
 
-  <!-- =====================================================
-       MAIN
-       ===================================================== -->
+  <div class="ai-container">
 
-  <main class="ai-page">
+    <section class="ai-hero">
 
-    <div class="ai-container">
+      <img
+        src="logo.png"
+        alt="ARS AI"
+        class="ai-logo">
 
-      <section class="ai-hero">
+      <h1>
+        <span class="ai-gradient">ARS AI</span>
+      </h1>
 
-        <div class="ai-badge">
-          ✨ ARS OFFICIAL AI
+      <p>
+        Your ARS Official digital assistant.
+      </p>
+
+    </section>
+
+    <section class="ai-shell">
+
+      <div class="ai-status">
+        <span class="ai-dot"></span>
+        <span>ARS AI is ready</span>
+      </div>
+
+      <div id="aiMessages"
+           class="ai-messages">
+
+        <div class="ai-message bot">
+          Namaste! 👋
+          I am ARS AI, the digital assistant of ARS Official.
+
+          I can help you understand the website, certificates,
+          joining, publisher section, founder information,
+          verification and other ARS Official features.
         </div>
 
-        <h1>
-          Meet
-          <span class="ai-gradient-text">
-            ARS AI
-          </span>
-        </h1>
+      </div>
 
-        <p>
-          Your friendly ARS Official assistant.
-          Ask about the website, ARS services,
-          certificates, verification, stories,
-          shayari, the founder, or general questions.
-        </p>
+      <form id="aiForm"
+            class="ai-input-area">
 
-      </section>
-
-
-      <!-- =================================================
-           CHAT
-           ================================================= -->
-
-      <section class="ai-card ai-chat">
-
-        <div class="ai-chat-header">
-
-          <div class="ai-avatar">
-            ARS
-          </div>
-
-          <div>
-            <h2>ARS AI Assistant</h2>
-
-            <p class="ai-status">
-              ● Ready to help
-            </p>
-          </div>
-
-        </div>
-
-
-        <div
-          id="aiMessages"
-          class="ai-messages"
-          aria-live="polite"
-        >
-
-          <div class="ai-message bot">
-            नमस्ते! 👋 मैं ARS AI हूँ।
-            आप ARS Official website के बारे में
-            कुछ भी पूछ सकते हैं।
-          </div>
-
-        </div>
-
-
-        <div class="ai-quick">
-
-          <button
-            type="button"
-            data-ai-question="ARS Official क्या है?"
-          >
-            ARS Official क्या है?
-          </button>
-
-          <button
-            type="button"
-            data-ai-question="Certificate कैसे verify करें?"
-          >
-            Certificate Verify
-          </button>
-
-          <button
-            type="button"
-            data-ai-question="Founder कौन हैं?"
-          >
-            Founder
-          </button>
-
-          <button
-            type="button"
-            data-ai-question="ARS Official में क्या-क्या मिलता है?"
-          >
-            Website Features
-          </button>
-
-        </div>
-
-
-        <form
-          id="aiForm"
-          class="ai-input-area"
+        <input
+          id="aiInput"
+          class="ai-input"
+          type="text"
           autocomplete="off"
-        >
+          placeholder="Ask ARS AI something..."
+          required>
 
-          <input
-            id="aiInput"
-            class="ai-input"
-            type="text"
-            placeholder="ARS AI से कुछ पूछें..."
-            maxlength="500"
-            required
-          >
+        <button
+          class="ai-send"
+          type="submit">
+          Send
+        </button>
 
-          <button
-            id="aiSend"
-            class="ai-send"
-            type="submit"
-          >
-            Send
-          </button>
+      </form>
 
-        </form>
+    </section>
 
-      </section>
+    <div class="ai-tools">
 
+      <button class="ai-tool"
+              data-question="What is ARS Official?">
+        What is ARS?
+      </button>
 
-      <!-- =================================================
-           FEATURES
-           ================================================= -->
+      <button class="ai-tool"
+              data-question="How can I verify a certificate?">
+        Verify Certificate
+      </button>
 
-      <section class="ai-info-grid">
+      <button class="ai-tool"
+              data-question="How can I join ARS Official?">
+        Joining
+      </button>
 
-        <article class="ai-info-card">
-
-          <div class="ai-info-icon">
-            🤖
-          </div>
-
-          <h3>
-            Smart Assistant
-          </h3>
-
-          <p>
-            ARS Official से जुड़े सामान्य सवालों
-            के लिए एक आसान conversational interface।
-          </p>
-
-        </article>
-
-
-        <article class="ai-info-card">
-
-          <div class="ai-info-icon">
-            📜
-          </div>
-
-          <h3>
-            Certificate Help
-          </h3>
-
-          <p>
-            Certificate और verification से जुड़े
-            pages तक आसानी से पहुँचने में मदद।
-          </p>
-
-        </article>
-
-
-        <article class="ai-info-card">
-
-          <div class="ai-info-icon">
-            ✨
-          </div>
-
-          <h3>
-            ARS Experience
-          </h3>
-
-          <p>
-            Shayari, Stories, Founder और
-            ARS Official के अलग-अलग sections
-            को explore करने का आसान तरीका।
-          </p>
-
-        </article>
-
-      </section>
+      <button class="ai-tool"
+              data-question="Who is the founder of ARS Official?">
+        Founder
+      </button>
 
     </div>
 
-  </main>
-
-
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
-
-  <footer class="site-footer">
-
-    <p>
-      © <span id="currentYear"></span>
-      ARS Official — Adarsh Raj Shayar
-    </p>
-
-  </footer>
-
-
-  <!-- =====================================================
-       ARS AI PAGE SCRIPT
-       ===================================================== -->
-
-  <script src="script.js"></script>
-
-  <script>
-
-    (function () {
-
-      "use strict";
-
-
-      const form =
-        document.getElementById("aiForm");
-
-      const input =
-        document.getElementById("aiInput");
-
-      const messages =
-        document.getElementById("aiMessages");
-
-
-      function addMessage(text, type) {
-
-        const message =
-          document.createElement("div");
-
-        message.className =
-          "ai-message " + type;
-
-        message.textContent = text;
-
-        messages.appendChild(message);
-
-        messages.scrollTop =
-          messages.scrollHeight;
-      }
-
-
-      function getLocalReply(question) {
-
-        const q =
-          question.toLowerCase();
-
-
-        if (
-          q.includes("certificate") ||
-          q.includes("सर्टिफिकेट")
-        ) {
-
-          return (
-            "Certificate से संबंधित जानकारी के लिए " +
-            "Certificate page खोलें। किसी certificate " +
-            "की authenticity जाँचने के लिए Verify page " +
-            "का उपयोग किया जा सकता है।"
-          );
-        }
-
-
-        if (
-          q.includes("founder") ||
-          q.includes("founder कौन") ||
-          q.includes("फाउंडर")
-        ) {
-
-          return (
-            "ARS Official के Founder की जानकारी " +
-            "Founder page पर उपलब्ध है।"
-          );
-        }
-
-
-        if (
-          q.includes("shayari") ||
-          q.includes("शायरी")
-        ) {
-
-          return (
-            "आप ARS Official के Shayari section में " +
-            "अलग-अलग categories की शायरी explore कर सकते हैं।"
-          );
-        }
-
-
-        if (
-          q.includes("story") ||
-          q.includes("stories") ||
-          q.includes("स्टोरी")
-        ) {
-
-          return (
-            "Stories section में उपलब्ध stories को " +
-            "उनकी categories के अनुसार explore किया जा सकता है।"
-          );
-        }
-
-
-        if (
-          q.includes("verify") ||
-          q.includes("वेरिफाई")
-        ) {
-
-          return (
-            "Verification के लिए Verify page खोलें और " +
-            "अपना संबंधित ID डालें।"
-          );
-        }
-
-
-        if (
-          q.includes("ars official") ||
-          q.includes("ars क्या") ||
-          q.includes("ars kya")
-        ) {
-
-          return (
-            "ARS Official एक creative और digital platform " +
-            "है जिसमें Shayari, Stories, Certificates, " +
-            "Verification और अन्य sections शामिल हैं।"
-          );
-        }
-
-
-        return (
-          "आपका सवाल समझ गया। मैं ARS Official के " +
-          "available sections और features के बारे में " +
-          "मदद कर सकता हूँ। आप थोड़ा specific सवाल पूछें।"
-        );
-      }
-
-
-      async function askAI(question) {
-
-        const cleanQuestion =
-          question.trim();
-
-        if (!cleanQuestion) return;
-
-
-        addMessage(
-          cleanQuestion,
-          "user"
-        );
-
-
-        input.value = "";
-
-
-        /*
-         * फिलहाल यह safe local assistant है।
-         *
-         * किसी API key को इस HTML file में रखना
-         * सुरक्षित नहीं है। वास्तविक AI backend को
-         * बाद में secure server/API endpoint से जोड़ा जा सकता है।
-         */
-
-        const reply =
-          getLocalReply(cleanQuestion);
-
-
-        setTimeout(function () {
-
-          addMessage(
-            reply,
-            "bot"
-          );
-
-        }, 350);
-
-      }
-
-
-      if (form) {
-
-        form.addEventListener(
-          "submit",
-          function (event) {
-
-            event.preventDefault();
-
-            askAI(input.value);
-
-          }
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+
+<script>
+(function () {
+
+  "use strict";
+
+  const form =
+    document.getElementById("aiForm");
+
+  const input =
+    document.getElementById("aiInput");
+
+  const messages =
+    document.getElementById("aiMessages");
+
+  if (!form || !input || !messages) return;
+
+  function addMessage(text, type) {
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "ai-message " + type;
+
+    div.textContent = text;
+
+    messages.appendChild(div);
+
+    messages.scrollTop =
+      messages.scrollHeight;
+  }
+
+  function getResponse(question) {
+
+    const q =
+      question.toLowerCase();
+
+    if (
+      q.includes("what is ars") ||
+      q.includes("ars official")
+    ) {
+      return (
+        "ARS Official is a digital platform created by " +
+        "Adarsh Raj. It brings together creative content, " +
+        "ARS AI, certificates, joining, publishing, stories, " +
+        "shayari and certificate verification."
+      );
+    }
+
+    if (
+      q.includes("founder") ||
+      q.includes("adarsh")
+    ) {
+      return (
+        "The founder and creator of ARS Official is " +
+        "Adarsh Raj. You can visit the dedicated Founder " +
+        "section for more information."
+      );
+    }
+
+    if (
+      q.includes("verify") ||
+      q.includes("certificate id")
+    ) {
+      return (
+        "You can use the Verify section to enter a supported " +
+        "ARS certificate ID. The verification page is designed " +
+        "to handle certificate and joining-certificate records."
+      );
+    }
+
+    if (
+      q.includes("join") ||
+      q.includes("joining")
+    ) {
+      return (
+        "You can join ARS Official through the Joining ARS " +
+        "section. After submitting a joining request, the " +
+        "website can generate a local joining reference ID."
+      );
+    }
+
+    if (
+      q.includes("publisher") ||
+      q.includes("publish")
+    ) {
+      return (
+        "The Publisher section is designed for preparing and " +
+        "managing publication drafts."
+      );
+    }
+
+    if (
+      q.includes("contact") ||
+      q.includes("email")
+    ) {
+      return (
+        "Use the separate Contact page to send a message. " +
+        "The contact email can be configured through config.js."
+      );
+    }
+
+    if (
+      q.includes("dark") ||
+      q.includes("light") ||
+      q.includes("theme")
+    ) {
+      return (
+        "ARS Official supports both dark and light modes. " +
+        "Use the theme button in the navigation bar to switch."
+      );
+    }
+
+    if (
+      q.includes("help") ||
+      q.includes("feature")
+    ) {
+      return (
+        "I can explain ARS Official, ARS AI, Founder, " +
+        "Certificates, Joining Certificate, Joining ARS, " +
+        "Publisher, Policy, Contact, Admin and Verification."
+      );
+    }
+
+    return (
+      "I am the ARS Official website assistant. " +
+      "Try asking about ARS Official, the founder, certificates, " +
+      "verification, joining, publisher, contact or website features."
+    );
+  }
+
+  function ask(question) {
+
+    const text =
+      question.trim();
+
+    if (!text) return;
+
+    addMessage(text, "user");
+
+    input.value = "";
+
+    setTimeout(function () {
+      addMessage(
+        getResponse(text),
+        "bot"
+      );
+    }, 250);
+  }
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    ask(input.value);
+
+  });
+
+  document.querySelectorAll(".ai-tool")
+    .forEach(function (button) {
+
+      button.addEventListener("click", function () {
+
+        ask(
+          button.dataset.question || ""
         );
 
-      }
+      });
 
+    });
 
-      document
-        .querySelectorAll("[data-ai-question]")
-        .forEach(function (button) {
-
-          button.addEventListener(
-            "click",
-            function () {
-
-              askAI(
-                button.dataset.aiQuestion
-              );
-
-            }
-          );
-
-        });
-
-
-      const year =
-        document.getElementById("currentYear");
-
-      if (year) {
-
-        year.textContent =
-          new Date().getFullYear();
-
-      }
-
-    })();
-
-  </script>
+})();
+</script>
 
 </body>
 </html>
-```
-
