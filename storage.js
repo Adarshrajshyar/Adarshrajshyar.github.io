@@ -1,79 +1,83 @@
-/* =========================================================
-   ARS CENTRAL STORAGE ENGINE
-   ---------------------------------------------------------
-   Likes
-   Favorites
-   Saves
-   Shayari
-   Stories
-   Published Content
-   Certificates
-   Joining Records
-   ========================================================= */
+"use strict";
+
+/*
+ * ============================================================
+ * ARS OFFICIAL — STORAGE ENGINE
+ * ============================================================
+ *
+ * Central localStorage manager for:
+ *
+ * • Certificates
+ * • Joining Certificates
+ * • Favorites
+ * • Likes
+ * • Saved items
+ * • Theme
+ *
+ * इसमें कोई external database required नहीं है।
+ * ============================================================
+ */
 
 (function () {
 
-  "use strict";
+  const CONFIG =
+    window.ARS_CONFIG || {};
 
 
-  const KEYS = {
+  const STORAGE =
+    CONFIG.storage || {
 
-    likes:
-      "ARS_LIKES",
+      certificates:
+        "ARS_CERTIFICATES",
 
-    favorites:
-      "ARS_FAVORITES",
+      joiningCertificates:
+        "ARS_JOINING_CERTIFICATES",
 
-    saves:
-      "ARS_SAVES",
+      favorites:
+        "ARS_FAVORITES",
 
-    shayari:
-      "ARS_SHAYARI",
+      likes:
+        "ARS_LIKES",
 
-    stories:
-      "ARS_STORIES",
+      saved:
+        "ARS_SAVED",
 
-    published:
-      "ARS_PUBLISHED_CONTENT",
+      copied:
+        "ARS_COPIED",
 
-    certificates:
-      "ARS_CERTIFICATES",
+      theme:
+        "ARS_THEME"
 
-    joining:
-      "ARS_JOINING_CERTIFICATES"
-
-  };
+    };
 
 
-  function read(key) {
+  /* ==========================================================
+     BASIC STORAGE HELPERS
+     ========================================================== */
+
+  function read(key, fallback) {
 
     try {
 
       const value =
         localStorage.getItem(key);
 
-      if (!value) return [];
+      if (value === null) {
+        return fallback;
+      }
 
-      const parsed =
-        JSON.parse(value);
+      return JSON.parse(value);
 
-      return Array.isArray(parsed)
-        ? parsed
-        : [];
+    } catch (error) {
 
-    } catch {
-
-      return [];
+      return fallback;
 
     }
 
   }
 
 
-  function write(
-    key,
-    value
-  ) {
+  function write(key, value) {
 
     try {
 
@@ -84,7 +88,12 @@
 
       return true;
 
-    } catch {
+    } catch (error) {
+
+      console.error(
+        "ARS Storage Error:",
+        error
+      );
 
       return false;
 
@@ -92,6 +101,39 @@
 
   }
 
+
+  function remove(key) {
+
+    try {
+
+      localStorage.removeItem(key);
+
+      return true;
+
+    } catch (error) {
+
+      return false;
+
+    }
+
+  }
+
+
+  function getArray(key) {
+
+    const value =
+      read(key, []);
+
+    return Array.isArray(value)
+      ? value
+      : [];
+
+  }
+
+
+  /* ==========================================================
+     UNIQUE ARRAY HELPERS
+     ========================================================== */
 
   function normalizeId(id) {
 
@@ -101,39 +143,35 @@
   }
 
 
-  function contains(
-    key,
-    id
-  ) {
-
-    const target =
-      normalizeId(id);
-
-    return read(key)
-      .map(normalizeId)
-      .includes(target);
-
-  }
-
-
-  function add(
-    key,
-    id
-  ) {
+  function contains(key, id) {
 
     const target =
       normalizeId(id);
 
     if (!target) return false;
 
-    const data =
-      read(key);
+    return getArray(key)
+      .map(normalizeId)
+      .includes(target);
 
-    if (!data.includes(target)) {
+  }
 
-      data.push(target);
 
-      write(key,data);
+  function addToArray(key, id) {
+
+    const target =
+      normalizeId(id);
+
+    if (!target) return false;
+
+    const list =
+      getArray(key);
+
+    if (!list.includes(target)) {
+
+      list.push(target);
+
+      return write(key, list);
 
     }
 
@@ -142,466 +180,600 @@
   }
 
 
-  function remove(
-    key,
-    id
-  ) {
+  function removeFromArray(key, id) {
 
     const target =
       normalizeId(id);
 
-    const data =
-      read(key);
+    const list =
+      getArray(key);
 
-    const filtered =
-      data.filter(
+    const updated =
+      list.filter(
         item =>
           normalizeId(item) !== target
       );
 
     return write(
       key,
-      filtered
+      updated
     );
 
   }
 
 
-  function toggle(
-    key,
-    id
-  ) {
+  function toggleArray(key, id) {
 
-    if (contains(key,id)) {
+    if (contains(key, id)) {
 
-      remove(key,id);
+      removeFromArray(
+        key,
+        id
+      );
 
       return false;
 
     }
 
-    add(key,id);
+    addToArray(
+      key,
+      id
+    );
 
     return true;
 
   }
 
 
-  /* =========================
-     LIKE
-     ========================= */
-
-  function toggleLike(id) {
-
-    return toggle(
-      KEYS.likes,
-      id
-    );
-
-  }
-
-
-  function isLiked(id) {
-
-    return contains(
-      KEYS.likes,
-      id
-    );
-
-  }
-
-
-  /* =========================
-     FAVORITE
-     ========================= */
-
-  function toggleFavorite(id) {
-
-    return toggle(
-      KEYS.favorites,
-      id
-    );
-
-  }
-
+  /* ==========================================================
+     FAVORITES
+     ========================================================== */
 
   function isFavorite(id) {
 
     return contains(
-      KEYS.favorites,
+      STORAGE.favorites,
       id
     );
 
   }
 
 
-  /* =========================
-     SAVE
-     ========================= */
+  function toggleFavorite(id) {
 
-  function toggleSave(id) {
-
-    return toggle(
-      KEYS.saves,
+    return toggleArray(
+      STORAGE.favorites,
       id
     );
 
   }
 
+
+  function getFavorites() {
+
+    return getArray(
+      STORAGE.favorites
+    );
+
+  }
+
+
+  /* ==========================================================
+     LIKES
+     ========================================================== */
+
+  function isLiked(id) {
+
+    return contains(
+      STORAGE.likes,
+      id
+    );
+
+  }
+
+
+  function toggleLike(id) {
+
+    return toggleArray(
+      STORAGE.likes,
+      id
+    );
+
+  }
+
+
+  function getLikes() {
+
+    return getArray(
+      STORAGE.likes
+    );
+
+  }
+
+
+  /* ==========================================================
+     SAVED ITEMS
+     ========================================================== */
 
   function isSaved(id) {
 
     return contains(
-      KEYS.saves,
+      STORAGE.saved,
       id
     );
 
   }
 
 
-  /* =========================
-     PUBLISHED CONTENT
-     ========================= */
+  function toggleSaved(id) {
 
-  function getPublished() {
-
-    return read(
-      KEYS.published
-    );
-
-  }
-
-
-  function savePublished(
-    record
-  ) {
-
-    if (!record) return false;
-
-    const data =
-      getPublished();
-
-    const id =
-      record.id ||
-      (
-        "ARS-CONTENT-" +
-        Date.now()
-      );
-
-    const item = {
-      ...record,
-      id
-    };
-
-    const index =
-      data.findIndex(
-        x =>
-          String(x.id) ===
-          String(id)
-      );
-
-    if (index >= 0) {
-
-      data[index] =
-        item;
-
-    } else {
-
-      data.unshift(item);
-
-    }
-
-    return write(
-      KEYS.published,
-      data
-    );
-
-  }
-
-
-  function deletePublished(
-    id
-  ) {
-
-    return removeObject(
-      KEYS.published,
+    return toggleArray(
+      STORAGE.saved,
       id
     );
 
   }
 
 
-  /* =========================
+  function getSaved() {
+
+    return getArray(
+      STORAGE.saved
+    );
+
+  }
+
+
+  /* ==========================================================
+     COPIED CONTENT
+     ========================================================== */
+
+  function markCopied(id) {
+
+    return addToArray(
+      STORAGE.copied,
+      id
+    );
+
+  }
+
+
+  function getCopied() {
+
+    return getArray(
+      STORAGE.copied
+    );
+
+  }
+
+
+  /* ==========================================================
      CERTIFICATES
-     ========================= */
+     ========================================================== */
 
   function getCertificates() {
 
-    return read(
-      KEYS.certificates
+    return getArray(
+      STORAGE.certificates
     );
 
   }
 
 
-  function saveCertificate(
-    record
-  ) {
+  function saveCertificate(data) {
 
-    return saveObject(
-      KEYS.certificates,
-      record,
-      "certificateId"
-    );
-
-  }
+    if (
+      !data ||
+      typeof data !== "object"
+    ) {
+      return false;
+    }
 
 
-  function getCertificate(
-    id
-  ) {
+    const list =
+      getCertificates();
 
-    return findObject(
-      KEYS.certificates,
-      id,
-      [
-        "id",
-        "certificateId"
-      ]
-    );
-
-  }
-
-
-  /* =========================
-     JOINING
-     ========================= */
-
-  function getJoiningRecords() {
-
-    return read(
-      KEYS.joining
-    );
-
-  }
-
-
-  function saveJoining(
-    record
-  ) {
-
-    return saveObject(
-      KEYS.joining,
-      record,
-      "applicationNumber"
-    );
-
-  }
-
-
-  function getJoining(
-    id
-  ) {
-
-    return findObject(
-      KEYS.joining,
-      id,
-      [
-        "id",
-        "applicationNumber",
-        "applicationId"
-      ]
-    );
-
-  }
-
-
-  /* =========================
-     OBJECT STORAGE
-     ========================= */
-
-  function saveObject(
-    key,
-    record,
-    fallbackField
-  ) {
-
-    if (!record) return false;
-
-    const data =
-      read(key);
 
     const id =
-      record.id ||
-      record[fallbackField] ||
-      (
-        "ARS-" +
-        Date.now()
+      normalizeId(
+        data.id ||
+        data.certificateId
       );
 
-    const item = {
-      ...record,
-      id
-    };
+
+    if (!id) {
+
+      return false;
+
+    }
+
 
     const index =
-      data.findIndex(
-        x => {
-
-          const xId =
-            x.id ||
-            x[fallbackField];
-
-          return String(xId) ===
-            String(id);
-
-        }
+      list.findIndex(
+        item =>
+          normalizeId(
+            item.id ||
+            item.certificateId
+          ) === id
       );
 
 
     if (index >= 0) {
 
-      data[index] =
-        {
-          ...data[index],
-          ...item
-        };
+      list[index] = {
+        ...list[index],
+        ...data
+      };
 
     } else {
 
-      data.push(item);
+      list.push({
+        ...data,
+        id
+      });
 
     }
 
 
     return write(
-      key,
-      data
+      STORAGE.certificates,
+      list
     );
 
   }
 
 
-  function removeObject(
-    key,
-    id
-  ) {
-
-    const target =
-      normalizeId(id);
-
-    const data =
-      read(key);
-
-    const filtered =
-      data.filter(
-        item =>
-          normalizeId(
-            item.id ||
-            item.certificateId ||
-            item.applicationNumber
-          ) !== target
-      );
-
-    return write(
-      key,
-      filtered
-    );
-
-  }
-
-
-  function findObject(
-    key,
-    id,
-    fields
-  ) {
+  function findCertificate(id) {
 
     const target =
       normalizeId(id);
 
     if (!target) return null;
 
-    const data =
-      read(key);
 
-    return (
-      data.find(
-        item => {
+    return getCertificates()
+      .find(
+        item =>
+          normalizeId(
+            item.id ||
+            item.certificateId
+          ) === target
+      ) || null;
 
-          return fields.some(
-            field =>
-              normalizeId(
-                item[field]
-              ).toUpperCase() ===
-              target.toUpperCase()
-          );
+  }
 
-        }
-      ) || null
+
+  /* ==========================================================
+     JOINING CERTIFICATES
+     ========================================================== */
+
+  function getJoiningCertificates() {
+
+    return getArray(
+      STORAGE.joiningCertificates
     );
 
   }
 
 
-  /* =========================
-     CLEAR USER INTERACTION
-     ========================= */
+  function saveJoiningCertificate(data) {
+
+    if (
+      !data ||
+      typeof data !== "object"
+    ) {
+      return false;
+    }
+
+
+    const list =
+      getJoiningCertificates();
+
+
+    const id =
+      normalizeId(
+        data.applicationNumber ||
+        data.applicationNo ||
+        data.applicationId ||
+        data.id
+      );
+
+
+    if (!id) {
+
+      return false;
+
+    }
+
+
+    const index =
+      list.findIndex(
+        item =>
+          normalizeId(
+            item.applicationNumber ||
+            item.applicationNo ||
+            item.applicationId ||
+            item.id
+          ) === id
+      );
+
+
+    if (index >= 0) {
+
+      list[index] = {
+        ...list[index],
+        ...data
+      };
+
+    } else {
+
+      list.push({
+        ...data,
+        applicationNumber: id
+      });
+
+    }
+
+
+    return write(
+      STORAGE.joiningCertificates,
+      list
+    );
+
+  }
+
+
+  function findJoiningCertificate(id) {
+
+    const target =
+      normalizeId(id);
+
+    if (!target) return null;
+
+
+    return getJoiningCertificates()
+      .find(
+        item =>
+          normalizeId(
+            item.applicationNumber ||
+            item.applicationNo ||
+            item.applicationId ||
+            item.id
+          ) === target
+      ) || null;
+
+  }
+
+
+  /* ==========================================================
+     THEME
+     ========================================================== */
+
+  function getTheme() {
+
+    return (
+      localStorage.getItem(
+        STORAGE.theme
+      ) || "light"
+    );
+
+  }
+
+
+  function setTheme(theme) {
+
+    const value =
+      theme === "dark"
+        ? "dark"
+        : "light";
+
+
+    try {
+
+      localStorage.setItem(
+        STORAGE.theme,
+        value
+      );
+
+    } catch (_) {}
+
+
+    document.documentElement
+      .setAttribute(
+        "data-theme",
+        value
+      );
+
+
+    document.body?.classList.toggle(
+      "dark-mode",
+      value === "dark"
+    );
+
+
+    return value;
+
+  }
+
+
+  function toggleTheme() {
+
+    return setTheme(
+      getTheme() === "dark"
+        ? "light"
+        : "dark"
+    );
+
+  }
+
+
+  /* ==========================================================
+     CLEAR FUNCTIONS
+     ========================================================== */
+
+  function clearCertificates() {
+
+    return remove(
+      STORAGE.certificates
+    );
+
+  }
+
+
+  function clearJoiningCertificates() {
+
+    return remove(
+      STORAGE.joiningCertificates
+    );
+
+  }
+
 
   function clearInteractions() {
 
     [
-      KEYS.likes,
-      KEYS.favorites,
-      KEYS.saves
-    ].forEach(
-      key =>
-        localStorage.removeItem(key)
-    );
+      STORAGE.favorites,
+      STORAGE.likes,
+      STORAGE.saved,
+      STORAGE.copied
+    ].forEach(remove);
+
+
+    return true;
 
   }
 
 
-  /* =========================
-     EXPORT PUBLIC API
-     ========================= */
+  /* ==========================================================
+     COUNTS
+     ========================================================== */
 
-  window.ARSStorage = {
+  function counts() {
 
-    keys: KEYS,
+    return {
+
+      certificates:
+        getCertificates().length,
+
+      joiningCertificates:
+        getJoiningCertificates().length,
+
+      favorites:
+        getFavorites().length,
+
+      likes:
+        getLikes().length,
+
+      saved:
+        getSaved().length,
+
+      copied:
+        getCopied().length
+
+    };
+
+  }
+
+
+  /* ==========================================================
+     PUBLIC ARS STORAGE API
+     ========================================================== */
+
+  window.ARS_STORAGE = {
 
     read,
     write,
-
-    contains,
-    add,
     remove,
-    toggle,
 
-    toggleLike,
-    isLiked,
+    getArray,
 
-    toggleFavorite,
+    /* Favorites */
     isFavorite,
+    toggleFavorite,
+    getFavorites,
 
-    toggleSave,
+    /* Likes */
+    isLiked,
+    toggleLike,
+    getLikes,
+
+    /* Saved */
     isSaved,
+    toggleSaved,
+    getSaved,
 
-    getPublished,
-    savePublished,
-    deletePublished,
+    /* Copy */
+    markCopied,
+    getCopied,
 
+    /* Certificates */
     getCertificates,
     saveCertificate,
-    getCertificate,
+    findCertificate,
 
-    getJoiningRecords,
-    saveJoining,
-    getJoining,
+    /* Joining */
+    getJoiningCertificates,
+    saveJoiningCertificate,
+    findJoiningCertificate,
 
-    clearInteractions
+    /* Theme */
+    getTheme,
+    setTheme,
+    toggleTheme,
+
+    /* Maintenance */
+    clearCertificates,
+    clearJoiningCertificates,
+    clearInteractions,
+
+    /* Statistics */
+    counts
 
   };
 
+
+  /* ==========================================================
+     APPLY SAVED THEME
+     ========================================================== */
+
+  function applyInitialTheme() {
+
+    const theme =
+      getTheme();
+
+    document.documentElement
+      .setAttribute(
+        "data-theme",
+        theme
+      );
+
+    if (document.body) {
+
+      document.body.classList.toggle(
+        "dark-mode",
+        theme === "dark"
+      );
+
+    }
+
+  }
+
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      applyInitialTheme,
+      { once: true }
+    );
+
+  } else {
+
+    applyInitialTheme();
+
+  }
 
 })();
