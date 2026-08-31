@@ -1,1 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
+  <meta name="description"
+    content="Meet the founder of ARS Official — Adarsh Raj.">
+
+  <title>Founder | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .founder-page {
+      min-height: 100vh;
+      padding: 120px 20px 80px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,.16), transparent 32%),
+        radial-gradient(circle at 90% 90%, rgba(236,72,153,.14), transparent 32%),
+        var(--bg);
+    }
+
+    .founder-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .founder-hero {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 35px;
+      align-items: center;
+      padding: 35px;
+      border-radius: 28px;
+      border: 1px solid rgba(212,175,55,.35);
+      background: var(--card-bg, rgba(255,255,255,.05));
+      box-shadow: 0 25px 70px rgba(0,0,0,.15);
+    }
+
+    .founder-photo-wrap {
+      text-align: center;
+    }
+
+    .founder-photo {
+      width: 270px;
+      height: 270px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 7px solid #d4af37;
+      box-shadow:
+        0 0 0 5px #17120b,
+        0 20px 50px rgba(0,0,0,.25);
+    }
+
+    .founder-badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      background: linear-gradient(135deg,#d4af37,#f5d76e);
+      color: #111;
+    }
+
+    .founder-content .eyebrow {
+      color: #c49a2e;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .founder-content h1 {
+      margin: 8px 0;
+      font-size: clamp(38px, 6vw, 65px);
+    }
+
+    .founder-content h2 {
+      margin-bottom: 18px;
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    .founder-content p {
+      line-height: 1.8;
+      color: var(--text-soft);
+    }
+
+    .founder-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .founder-links a {
+      display: inline-block;
+      padding: 11px 17px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      background: rgba(128,128,128,.10);
+      border: 1px solid rgba(128,128,128,.20);
+    }
+
+    .founder-section {
+      margin-top: 28px;
+      padding: 30px;
+      border-radius: 22px;
+      border: 1px solid rgba(128,128,128,.18);
+      background: var(--card-bg, rgba(255,255,255,.04));
+    }
+
+    .founder-section h2 {
+      margin-bottom: 13px;
+    }
+
+    .founder-section p {
+      line-height: 1.85;
+      color: var(--text-soft);
+    }
+
+    .founder-values {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .value-card {
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(128,128,128,.08);
+    }
+
+    .value-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .value-card p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 800px) {
+      .founder-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .founder-links {
+        justify-content: center;
+      }
+
+      .founder-values {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official">
+      <span>ARS Official</span>
+    </a>
+
+    <button id="navToggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false">☰</button>
+
+    <div id="navLinks" class="nav-links">
+
+      <a href="index.html">Home</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="founder.html" class="active">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html">Joining Certificate</a>
+      <a href="verify.html">Verify</a>
+
+      <div class="nav-more">
+
+        <button id="navMoreButton"
+          type="button"
+          aria-expanded="false">
+          More ▾
+        </button>
+
+        <div id="navMoreMenu"
+          class="nav-more-menu">
+
+          <a href="joining.html">Joining ARS</a>
+          <a href="publisher.html">Publisher</a>
+          <a href="policy.html">Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+
+        </div>
+
+      </div>
+
+      <button id="themeToggle"
+        type="button"
+        aria-label="Switch to dark mode">
+        🌙
+      </button>
+
+    </div>
+  </nav>
+</header>
+
+<main class="founder-page">
+
+  <div class="founder-container">
+
+    <section class="founder-hero">
+
+      <div class="founder-photo-wrap">
+
+        <img
+          src="photo.jpg1.jpeg"
+          alt="Adarsh Raj"
+          class="founder-photo">
+
+        <div class="founder-badge">
+          Founder & Creator
+        </div>
+
+      </div>
+
+      <div class="founder-content">
+
+        <div class="eyebrow">
+          ARS Official
+        </div>
+
+        <h1>Adarsh Raj</h1>
+
+        <h2>Founder of ARS Official</h2>
+
+        <p>
+          Welcome to ARS Official — a digital platform created
+          with the goal of bringing useful ideas, creative work,
+          digital services and technology together in one place.
+        </p>
+
+        <p>
+          The platform is designed to grow with its community,
+          while keeping its identity, creativity and useful
+          digital features at the centre.
+        </p>
+
+        <div class="founder-links">
+
+          <a href="ars-ai.html">
+            Explore ARS AI
+          </a>
+
+          <a href="certificate.html">
+            Certificates
+          </a>
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="founder-section">
+
+      <h2>About the Founder</h2>
+
+      <p>
+        Adarsh Raj is the founder and creator behind ARS Official.
+        The project represents an ongoing effort to build a
+        recognizable digital platform with creative content,
+        technology-focused features and useful online tools.
+      </p>
+
+      <p>
+        ARS Official brings together sections such as ARS AI,
+        certificates, verification, stories, shayari, publishing,
+        joining and community-oriented features.
+      </p>
+
+    </section>
+
+    <section class="founder-section">
+
+      <h2>Vision of ARS Official</h2>
+
+      <p>
+        The vision is to develop ARS Official into a clean,
+        creative and useful digital identity where visitors can
+        discover content, interact with features and access
+        services through a simple and attractive experience.
+      </p>
+
+      <div class="founder-values">
+
+        <div class="value-card">
+          <h3>🚀 Innovation</h3>
+          <p>
+            Building useful digital features and continuously
+            improving the platform.
+          </p>
+        </div>
+
+        <div class="value-card">
+          <h3>✨ Creativity</h3>
+          <p>
+            Giving creative ideas, stories and original work
+            a dedicated place.
+          </p>
+        </div>
+
+        <div class="value-card">
+          <h3>🌐 Digital Identity</h3>
+          <p>
+            Creating a recognizable and organized ARS Official
+            digital ecosystem.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
