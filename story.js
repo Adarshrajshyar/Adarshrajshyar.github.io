@@ -1,274 +1,227 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
-  <title>Stories | ARS Official</title>
-  <link rel="stylesheet" href="style.css">
+/* =========================================================
+   ARS STORY ENGINE
+   Categories + Like + Favourite + Save + Copy + Share
+   ========================================================= */
 
-  <style>
-    body{margin:0;font-family:Arial,sans-serif;background:#f4f6f9;color:#172033}
-    .page{max-width:1100px;margin:auto;padding:24px 16px 60px}
-    .back{display:inline-block;margin-bottom:18px;padding:10px 15px;border-radius:9px;background:#111827;color:#fff;text-decoration:none}
-    .hero{padding:42px 20px;text-align:center;color:#fff;border-radius:24px;background:linear-gradient(135deg,#111827,#374151);margin-bottom:22px}
-    .hero h1{margin:0 0 8px;font-size:34px}
-    .categories{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-    .categories button{border:1px solid #d1d5db;background:#fff;padding:10px 15px;border-radius:20px;cursor:pointer}
-    .categories button.active{background:#111827;color:#fff}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-    .story{background:#fff;border-radius:18px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,.07)}
-    .tag{font-size:13px;font-weight:bold;opacity:.65}
-    .story h2{margin:10px 0}
-    .story p{line-height:1.8;white-space:pre-line}
-    .actions{display:flex;gap:8px;flex-wrap:wrap}
-    .actions button{border:1px solid #d1d5db;background:#fff;border-radius:9px;padding:9px 12px;cursor:pointer}
-  </style>
-</head>
+(function () {
+  "use strict";
 
-<body>
+  const STORAGE_KEY = "ARS_STORY_DATA_V2";
 
-<main class="page">
-
-  <a href="index.html" class="back">← ARS Home</a>
-
-  <section class="hero">
-    <h1>ARS Stories</h1>
-    <p>Read • Discover • Share</p>
-  </section>
-
-  <div id="categories" class="categories"></div>
-
-  <section id="storyGrid" class="grid"></section>
-
-</main>
-
-<script>
-(function(){
-
-  const categories=[
+  const categories = [
     "All",
-    "Poem",
-    "Horror",
+    "Motivation",
     "Friendship",
+    "Life",
+    "Inspiration",
+    "Success",
     "Emotional",
-    "Story",
-    "Moral",
-    "Mystery",
-    "Biography",
-    "Motivation"
+    "Education"
   ];
 
-  const stories=[
+  const stories = [
     {
-      id:"ARS-ST-001",
-      category:"Moral",
-      title:"मेहनत का फल",
-      text:"एक छोटे से गाँव में एक बच्चा हर दिन अपने लक्ष्य के लिए मेहनत करता था। रास्ता कठिन था, लेकिन उसने हार नहीं मानी। आखिरकार उसकी मेहनत उसकी सबसे बड़ी पहचान बन गई।"
+      id: "story-001",
+      category: "Motivation",
+      title: "एक कदम और",
+      text:
+        "कभी-कभी मंज़िल दिखाई नहीं देती, " +
+        "लेकिन इसका मतलब यह नहीं कि रास्ता खत्म हो गया। " +
+        "बस एक कदम और बढ़ाइए।"
     },
     {
-      id:"ARS-ST-002",
-      category:"Friendship",
-      title:"सच्ची दोस्ती",
-      text:"सच्चा दोस्त वही होता है जो अच्छे समय में साथ रहने के साथ कठिन समय में भी हिम्मत देता है।"
+      id: "story-002",
+      category: "Friendship",
+      title: "सच्ची दोस्ती",
+      text:
+        "सच्चा दोस्त वही होता है जो आपकी सफलता में खुश हो " +
+        "और आपकी परेशानी में आपका साथ दे।"
     },
     {
-      id:"ARS-ST-003",
-      category:"Motivation",
-      title:"एक कदम और",
-      text:"कभी-कभी मंजिल बहुत दूर लगती है। ऐसे समय में पूरी यात्रा के बारे में सोचने के बजाय केवल अगला कदम उठाना चाहिए।"
+      id: "story-003",
+      category: "Life",
+      title: "वक्त की सीख",
+      text:
+        "जिंदगी हर दिन हमें कुछ नया सिखाती है। " +
+        "जरूरत सिर्फ इतनी है कि हम हर अनुभव से सीखने की कोशिश करें।"
+    },
+    {
+      id: "story-004",
+      category: "Inspiration",
+      title: "छोटी शुरुआत",
+      text:
+        "हर बड़ी सफलता की शुरुआत एक छोटे कदम से होती है। " +
+        "छोटी शुरुआत को कभी छोटा मत समझिए।"
+    },
+    {
+      id: "story-005",
+      category: "Success",
+      title: "लगातार प्रयास",
+      text:
+        "सफलता एक दिन में नहीं मिलती। " +
+        "लेकिन रोज़ की मेहनत एक दिन सफलता जरूर बनाती है।"
+    },
+    {
+      id: "story-006",
+      category: "Education",
+      title: "ज्ञान की ताकत",
+      text:
+        "ज्ञान वह संपत्ति है जिसे कोई आपसे छीन नहीं सकता। " +
+        "सीखते रहिए और आगे बढ़ते रहिए।"
     }
   ];
 
-  let selected="All";
-
-  const categoryBox=
-    document.getElementById("categories");
-
-  const grid=
-    document.getElementById("storyGrid");
-
-
-  function renderCategories(){
-
-    categoryBox.innerHTML="";
-
-    categories.forEach(category=>{
-
-      const button=
-        document.createElement("button");
-
-      button.textContent=category;
-
-      if(category===selected){
-        button.classList.add("active");
-      }
-
-      button.onclick=function(){
-        selected=category;
-        renderCategories();
-        render();
+  function getState() {
+    try {
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY) ||
+        '{"likes":{},"favorites":{},"saves":{}}'
+      );
+    } catch {
+      return {
+        likes: {},
+        favorites: {},
+        saves: {}
       };
-
-      categoryBox.appendChild(button);
-
-    });
-
+    }
   }
 
+  function saveState(state) {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
+  }
 
-  function render(){
+  function toggle(type, id) {
+    const state = getState();
 
-    grid.innerHTML="";
-
-    const filtered=
-      selected==="All"
-      ? stories
-      : stories.filter(
-          story=>story.category===selected
-        );
-
-
-    if(!filtered.length){
-
-      grid.innerHTML=
-        "<div class='story'>इस category में अभी कोई story उपलब्ध नहीं है।</div>";
-
-      return;
+    if (!state[type]) {
+      state[type] = {};
     }
 
+    state[type][id] = !state[type][id];
 
-    filtered.forEach(story=>{
+    if (!state[type][id]) {
+      delete state[type][id];
+    }
 
-      const card=
-        document.createElement("article");
+    saveState(state);
 
-      card.className="story";
+    document.dispatchEvent(
+      new CustomEvent("arsStoryUpdated", {
+        detail: {
+          type,
+          id,
+          active: !!state[type][id]
+        }
+      })
+    );
 
-      card.innerHTML=`
-        <div class="tag">
-          ${escapeHTML(story.category)}
-        </div>
-
-        <h2>${escapeHTML(story.title)}</h2>
-
-        <p>${escapeHTML(story.text)}</p>
-
-        <div class="actions">
-
-          <button data-share="${story.id}">
-            ↗ Share
-          </button>
-
-          <button data-save="${story.id}">
-            🔖 Save
-          </button>
-
-        </div>
-      `;
-
-      grid.appendChild(card);
-
-    });
-
-
-    document.querySelectorAll("[data-share]")
-      .forEach(button=>{
-
-        button.onclick=function(){
-
-          const story=
-            stories.find(
-              item=>item.id===this.dataset.share
-            );
-
-          if(!story)return;
-
-          const text=
-            story.title+
-            "\n\n"+
-            story.text+
-            "\n\n— ARS Official";
-
-          if(navigator.share){
-
-            navigator.share({
-              title:story.title,
-              text:text,
-              url:location.href
-            }).catch(()=>{});
-
-          }else{
-
-            navigator.clipboard
-              .writeText(text+"\n"+location.href)
-              .then(()=>alert("Story copied!"));
-
-          }
-
-        };
-
-      });
-
-
-    document.querySelectorAll("[data-save]")
-      .forEach(button=>{
-
-        button.onclick=function(){
-
-          const key="ARS_STORY_SAVED";
-
-          let saved=[];
-
-          try{
-            saved=JSON.parse(
-              localStorage.getItem(key)
-            )||[];
-          }catch{}
-
-          const id=this.dataset.save;
-
-          if(saved.includes(id)){
-
-            saved=saved.filter(x=>x!==id);
-            this.textContent="🔖 Save";
-
-          }else{
-
-            saved.push(id);
-            this.textContent="✓ Saved";
-
-          }
-
-          localStorage.setItem(
-            key,
-            JSON.stringify(saved)
-          );
-
-        };
-
-      });
-
+    return !!state[type][id];
   }
 
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const textarea =
+        document.createElement("textarea");
 
-  function escapeHTML(value){
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
 
-    return String(value)
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
+      const success =
+        document.execCommand("copy");
 
+      textarea.remove();
+
+      return success;
+    }
   }
 
+  async function share(story) {
+    const text =
+      story.title +
+      "\n\n" +
+      story.text;
 
-  renderCategories();
-  render();
+    if (
+      navigator.share &&
+      typeof navigator.share === "function"
+    ) {
+      try {
+        await navigator.share({
+          title: "ARS Story",
+          text,
+          url: window.location.href
+        });
+
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    return copy(
+      text +
+      "\n\n— ARS Story\n" +
+      window.location.href
+    );
+  }
+
+  function filter(category) {
+    if (
+      !category ||
+      category.toLowerCase() === "all"
+    ) {
+      return [...stories];
+    }
+
+    return stories.filter(
+      story =>
+        story.category.toLowerCase() ===
+        category.toLowerCase()
+    );
+  }
+
+  function getFavorites() {
+    const state = getState();
+
+    return stories.filter(
+      story => state.favorites[story.id]
+    );
+  }
+
+  function getLiked() {
+    const state = getState();
+
+    return stories.filter(
+      story => state.likes[story.id]
+    );
+  }
+
+  function getSaved() {
+    const state = getState();
+
+    return stories.filter(
+      story => state.saves[story.id]
+    );
+  }
+
+  window.ARSStory = {
+    data: stories,
+    categories,
+    getState,
+    filter,
+    toggle,
+    copy,
+    share,
+    getFavorites,
+    getLiked,
+    getSaved
+  };
 
 })();
-</script>
-
-</body>
-</html>
