@@ -1,499 +1,250 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>ARS Official | Adarsh Raj Shayar</title>
-  <meta name="description" content="ARS Official — Shayari, Stories, Certificates, ARS AI, educational updates and more.">
-  <meta name="theme-color" content="#0b1020">
+
+  <meta
+    name="description"
+    content="ARS Official — Adarsh Raj Shayar की Shayari, Stories, Poetry, ARS AI, Community और Certificate Services."
+  >
+  <meta name="theme-color" content="#7c3aed">
 
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- ================= CORE CONFIG / STORAGE ================= -->
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
 
-  <script defer src="storage.js"></script>
-  <script defer src="script.js"></script>
+  <!-- ================= CONTENT DATA ================= -->
+  <script src="shayari.js"></script>
+  <script src="story.js"></script>
+
+  <!-- ================= EMAIL SERVICE ================= -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="site-header" id="top">
-    <div class="header-inner">
+  <!-- =========================================================
+       PAGE LOADER
+       ========================================================= -->
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-content">
 
-      <a href="index.html" class="brand">
-        <img src="logo.png" alt="ARS Logo" class="brand-logo">
-        <div class="brand-text">
-          <strong>ARS Official</strong>
-          <span>Adarsh Raj Shayar</span>
-        </div>
+      <img
+        src="logo.png"
+        alt="ARS Official Logo"
+        class="loader-logo"
+      >
+
+      <div class="loader-spinner"></div>
+
+      <h3>ARS Official</h3>
+      <p>Loading...</p>
+
+    </div>
+  </div>
+
+
+  <!-- =========================================================
+       PROGRESS BAR
+       ========================================================= -->
+  <div id="progressBar"></div>
+
+
+  <!-- =========================================================
+       HEADER / NAVIGATION
+       ========================================================= -->
+  <header class="site-header">
+
+    <nav class="navbar container">
+
+      <!-- BRAND -->
+      <a href="index.html" class="brand" aria-label="ARS Official Home">
+
+        <img
+          src="logo.png"
+          alt="ARS Logo"
+        >
+
+        <span class="brand-text">
+          <span class="brand-name">ARS Official</span>
+          <span class="brand-tagline">Adarsh Raj Shayar</span>
+        </span>
+
       </a>
 
-      <button class="mobile-menu-btn"
-              id="mobileMenuBtn"
-              type="button"
-              aria-label="Open menu">
+
+      <!-- MOBILE MENU BUTTON -->
+      <button
+        type="button"
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
         ☰
       </button>
 
-      <nav class="main-nav" id="mainNav">
 
-        <a href="index.html" class="nav-link active">Home</a>
+      <!-- NAVIGATION -->
+      <div class="nav-links" id="navLinks">
 
-        <a href="#shayari" class="nav-link">Shayari</a>
+        <a href="index.html" class="active">
+          Home
+        </a>
 
-        <a href="#stories" class="nav-link">Stories</a>
+        <a href="#about">
+          About
+        </a>
 
-        <a href="ars-ai.html" class="nav-link">ARS AI</a>
+        <a href="#shayari">
+          Shayari
+        </a>
 
-        <a href="joining.html" class="nav-link">Join ARS</a>
+        <a href="#stories">
+          Stories
+        </a>
 
-        <a href="certificate.html" class="nav-link">Certificate</a>
+        <a href="ars-ai.html">
+          ARS AI
+        </a>
 
-        <a href="verify.html" class="nav-link">Verify</a>
+        <a href="joining.html">
+          Join ARS
+        </a>
 
-        <a href="founder.html" class="nav-link">Founder</a>
+        <a href="certificate.html">
+          Certificate
+        </a>
 
-        <a href="#links" class="nav-link">Links</a>
+        <a href="verify.html">
+          Verify
+        </a>
 
-        <a href="#contact" class="nav-link">Contact</a>
+        <a href="founder.html">
+          Founder
+        </a>
 
-      </nav>
+        <a href="contact.html">
+          Contact
+        </a>
 
-      <button class="theme-toggle"
-              id="themeToggle"
-              type="button"
-              aria-label="Toggle dark and light mode">
-        🌙
-      </button>
+        <!-- ADMIN / PUBLISHER / POLICY -->
+        <div class="nav-more">
 
-    </div>
+          <button
+            type="button"
+            class="nav-more-button"
+            id="navMoreButton"
+            aria-expanded="false"
+          >
+            More ▾
+          </button>
+
+          <div class="nav-more-menu" id="navMoreMenu">
+
+            <a href="publisher.html">
+              Publisher
+            </a>
+
+            <a href="admin.html">
+              Admin
+            </a>
+
+            <a href="policy.html">
+              Policy
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- NAV ACTIONS -->
+      <div class="nav-actions">
+
+        <button
+          type="button"
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle dark mode"
+          title="Dark / Light Mode"
+        >
+          🌙
+        </button>
+
+      </div>
+
+    </nav>
+
   </header>
 
 
-  <!-- ================= HERO ================= -->
+  <!-- =========================================================
+       MAIN CONTENT
+       ========================================================= -->
   <main>
 
-    <section class="hero-section">
+
+    <!-- =======================================================
+         HERO SECTION
+         ======================================================= -->
+    <section class="hero">
 
       <div class="hero-overlay"></div>
 
-      <div class="hero-content">
-
-        <div class="hero-logo-wrap">
-          <img src="logo.png" alt="ARS Official Logo" class="hero-logo">
-        </div>
-
-        <p class="eyebrow">WELCOME TO ARS OFFICIAL</p>
-
-        <h1>
-          Adarsh Raj Shayar
-          <span>Official Website</span>
-        </h1>
-
-        <p class="hero-description">
-          Shayari • Stories • ARS AI • Certificates • Educational Updates
-        </p>
-
-        <div class="hero-buttons">
-
-          <a href="#shayari" class="btn btn-primary">
-            Explore Shayari
-          </a>
-
-          <a href="joining.html" class="btn btn-outline">
-            Join ARS
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= FOLLOW STRIP ================= -->
-    <section class="follow-strip">
-
       <div class="container">
 
-        <div class="follow-content">
-
-          <div>
-            <span class="small-label">STAY CONNECTED</span>
-            <h2>ARS से जुड़े रहने के लिए हमें Follow करें</h2>
-            <p>
-              नई Shayari, Stories, Updates और आने वाले Educational Projects
-              की जानकारी के लिए जुड़े रहें।
-            </p>
-          </div>
-
-          <a
-            class="btn btn-social"
-            href="https://www.instagram.com/adarshrajshyar/"
-            target="_blank"
-            rel="noopener noreferrer">
-            Instagram पर Follow करें
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= ABOUT ================= -->
-    <section class="section about-section">
-
-      <div class="container">
-
-        <div class="section-heading">
-          <span class="section-tag">ABOUT ARS</span>
-          <h2>एक जगह, कई खूबसूरत चीज़ें</h2>
-          <p>
-            ARS Official पर आपको Shayari, Stories, ARS AI,
-            Certificates और आने वाले Educational Projects एक ही जगह मिलेंगे।
-          </p>
-        </div>
-
-        <div class="feature-grid">
-
-          <article class="feature-card">
-            <div class="feature-icon">✍️</div>
-            <h3>Shayari</h3>
-            <p>
-              Love, Sad, Motivation, Attitude और Friendship
-              सहित अलग-अलग categories।
-            </p>
-            <a href="#shayari">Explore →</a>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">📖</div>
-            <h3>Stories</h3>
-            <p>
-              अलग-अलग categories में stories पढ़ें और अपनी पसंद की
-              stories save करें।
-            </p>
-            <a href="#stories">Read Stories →</a>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">🤖</div>
-            <h3>ARS AI</h3>
-            <p>
-              ARS का AI project — भविष्य में और सुविधाओं के साथ।
-            </p>
-            <a href="ars-ai.html">Open ARS AI →</a>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">🏆</div>
-            <h3>Certificates</h3>
-            <p>
-              ARS certificates generate करें और verification system
-              से verify करें।
-            </p>
-            <a href="certificate.html">Certificates →</a>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= SHAYARI ================= -->
-    <section class="section shayari-section" id="shayari">
-
-      <div class="container">
-
-        <div class="section-heading">
-          <span class="section-tag">SHAYARI</span>
-          <h2>अपनी पसंद की Shayari चुनें</h2>
-          <p>
-            Category चुनें और उसी category की Shayari देखें।
-          </p>
-        </div>
-
-
-        <div class="category-bar" id="shayariCategories">
-
-          <button class="category-btn active" data-category="all">
-            All
-          </button>
-
-          <button class="category-btn" data-category="love">
-            ❤️ Love
-          </button>
-
-          <button class="category-btn" data-category="sad">
-            💙 Sad
-          </button>
-
-          <button class="category-btn" data-category="motivation">
-            🔥 Motivation
-          </button>
-
-          <button class="category-btn" data-category="attitude">
-            😎 Attitude
-          </button>
-
-          <button class="category-btn" data-category="friendship">
-            🤝 Friendship
-          </button>
-
-        </div>
-
-
-        <div class="content-grid" id="shayariContainer">
-          <!-- shayari.js data can be rendered here -->
-        </div>
-
-
-        <div class="empty-state" id="shayariEmpty" hidden>
-          <div>✍️</div>
-          <h3>अभी इस category में content नहीं है</h3>
-          <p>दूसरी category चुनकर देखें।</p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= STORIES ================= -->
-    <section class="section stories-section" id="stories">
-
-      <div class="container">
-
-        <div class="section-heading">
-          <span class="section-tag">STORIES</span>
-          <h2>Stories Collection</h2>
-          <p>
-            अपनी पसंद की category चुनकर stories पढ़ें।
-          </p>
-        </div>
-
-
-        <div class="category-bar" id="storyCategories">
-
-          <button class="category-btn active" data-category="all">
-            All
-          </button>
-
-          <button class="category-btn" data-category="love">
-            ❤️ Love
-          </button>
-
-          <button class="category-btn" data-category="sad">
-            💙 Sad
-          </button>
-
-          <button class="category-btn" data-category="motivation">
-            🔥 Motivation
-          </button>
-
-          <button class="category-btn" data-category="friendship">
-            🤝 Friendship
-          </button>
-
-          <button class="category-btn" data-category="life">
-            🌱 Life
-          </button>
-
-          <button class="category-btn" data-category="inspiration">
-            ✨ Inspiration
-          </button>
-
-        </div>
-
-
-        <div class="content-grid" id="storyContainer">
-          <!-- story.js data will render here -->
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= ARS APP / FUTURE ================= -->
-    <section class="section future-section">
-
-      <div class="container">
-
-        <div class="future-card">
-
-          <div class="future-icon">📱</div>
-
-          <div class="future-content">
-
-            <span class="section-tag">COMING SOON</span>
-
-            <h2>ARS App & Educational Channel</h2>
-
-            <p>
-              भविष्य में ARS का dedicated Android App और
-              Educational Channel भी बनाया जाएगा।
-            </p>
-
-            <p>
-              फिलहाल GK updates के लिए हमारा WhatsApp Channel
-              उपलब्ध है।
-            </p>
-
-          </div>
-
-          <a
-            href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary">
-            GK Channel
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= LINKS ================= -->
-    <section class="section links-section" id="links">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <span class="section-tag">CONNECT</span>
-
-          <h2>ARS से जुड़े रहने के लिए सभी Links</h2>
+        <div class="hero-content">
+
+          <img
+            src="logo.png"
+            alt="Adarsh Raj Shayar"
+            class="hero-logo"
+          >
+
+          <span class="hero-badge">
+            🌹 ARS OFFICIAL WEBSITE
+          </span>
+
+          <h1>
+            Adarsh Raj
+            <span>Shayar</span>
+          </h1>
 
           <p>
-            Follow करें, Channel join करें और ARS के आने वाले
-            projects से जुड़े रहें।
+            Shayari • Stories • Poetry • Creativity • ARS Community
           </p>
 
-        </div>
+          <div class="hero-actions">
 
+            <a
+              href="#shayari"
+              class="btn btn-primary"
+            >
+              🌹 Explore Shayari
+            </a>
 
-        <div class="links-grid">
+            <a
+              href="joining.html"
+              class="btn btn-outline"
+            >
+              🤝 Join ARS
+            </a>
 
-          <!-- Instagram -->
-          <a
-            class="link-card"
-            href="https://www.instagram.com/adarshrajshyar/"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <span class="link-icon">📸</span>
-
-            <span>
-              <strong>Instagram</strong>
-              <small>ARS Official Profile Follow करें</small>
-            </span>
-
-            <span class="link-arrow">→</span>
-
-          </a>
-
-
-          <!-- GK WhatsApp -->
-          <a
-            class="link-card"
-            href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <span class="link-icon">📚</span>
-
-            <span>
-              <strong>GK WhatsApp Channel</strong>
-              <small>GK Updates के लिए Join करें</small>
-            </span>
-
-            <span class="link-arrow">→</span>
-
-          </a>
-
-
-          <!-- Shayari WhatsApp -->
-          <a
-            class="link-card"
-            href="https://whatsapp.com/channel/0029Vb8vRP4DZ4LgW27mNc3A"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <span class="link-icon">💬</span>
-
-            <span>
-              <strong>Shayari WhatsApp Channel</strong>
-              <small>नई Shayari के लिए Join करें</small>
-            </span>
-
-            <span class="link-arrow">→</span>
-
-          </a>
-
-
-          <!-- ARS AI -->
-          <a
-            class="link-card"
-            href="ars-ai.html">
-
-            <span class="link-icon">🤖</span>
-
-            <span>
-              <strong>ARS AI</strong>
-              <small>ARS AI Project</small>
-            </span>
-
-            <span class="link-arrow">→</span>
-
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= FOUNDER ================= -->
-    <section class="section founder-preview">
-
-      <div class="container">
-
-        <div class="founder-card">
-
-          <div class="founder-photo-wrap">
-            <img
-              src="photo.jpg1.jpeg"
-              alt="Founder"
-              class="founder-photo"
-              onerror="this.onerror=null;this.src='photo.jpg1.jpeg';">
-          </div>
-
-          <div class="founder-info">
-
-            <span class="section-tag">FOUNDER</span>
-
-            <h2>Adarsh Raj Shayar</h2>
-
-            <p>
-              ARS Official के Founder और Creator।
-            </p>
-
-            <a href="founder.html" class="btn btn-primary">
-              Founder Page →
+            <a
+              href="ars-ai.html"
+              class="btn btn-light"
+            >
+              🤖 ARS AI
             </a>
 
           </div>
@@ -505,61 +256,72 @@
     </section>
 
 
-    <!-- ================= CONTACT ================= -->
-    <section class="section contact-section" id="contact">
+    <!-- =======================================================
+         QUICK LINKS
+         ======================================================= -->
+    <section class="quick-section">
 
       <div class="container">
 
-        <div class="section-heading">
-
-          <span class="section-tag">CONTACT</span>
-
-          <h2>हमसे जुड़े रहें</h2>
-
-          <p>
-            किसी भी सामान्य query या ARS से संबंधित जानकारी के लिए
-            हमारे official channels का उपयोग करें।
-          </p>
-
-        </div>
-
-
-        <div class="contact-grid">
+        <div class="quick-grid">
 
           <a
-            class="contact-card"
-            href="https://www.instagram.com/adarshrajshyar/"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <span>📸</span>
-            <strong>Instagram</strong>
-            <small>Message / Follow</small>
-
+            href="#shayari"
+            class="quick-card"
+          >
+            <span>🌹</span>
+            <strong>Shayari</strong>
+            <small>Read ARS Shayari</small>
           </a>
 
 
           <a
-            class="contact-card"
-            href="https://whatsapp.com/channel/0029Vb8vRP4DZ4LgW27mNc3A"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <span>💬</span>
-            <strong>WhatsApp</strong>
-            <small>Shayari Channel</small>
-
+            href="#stories"
+            class="quick-card"
+          >
+            <span>📖</span>
+            <strong>Stories</strong>
+            <small>Stories & Poetry</small>
           </a>
 
 
           <a
-            class="contact-card"
-            href="ars-ai.html">
-
+            href="ars-ai.html"
+            class="quick-card"
+          >
             <span>🤖</span>
             <strong>ARS AI</strong>
-            <small>AI Project</small>
+            <small>Smart ARS Assistant</small>
+          </a>
 
+
+          <a
+            href="certificate.html"
+            class="quick-card"
+          >
+            <span>🏆</span>
+            <strong>Certificate</strong>
+            <small>Generate Certificate</small>
+          </a>
+
+
+          <a
+            href="verify.html"
+            class="quick-card"
+          >
+            <span>🔎</span>
+            <strong>Verify</strong>
+            <small>Verify ARS Certificate</small>
+          </a>
+
+
+          <a
+            href="joining.html"
+            class="quick-card"
+          >
+            <span>🤝</span>
+            <strong>Join ARS</strong>
+            <small>Become an ARS Member</small>
           </a>
 
         </div>
@@ -568,78 +330,109 @@
 
     </section>
 
-  </main>
+
+    <!-- =======================================================
+         ABOUT ARS
+         ======================================================= -->
+    <section
+      class="section about-section"
+      id="about"
+    >
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span>ABOUT ARS</span>
+
+          <h2>
+            Welcome to ARS Official
+          </h2>
+
+          <p>
+            A creative space for Shayari, Stories, Poetry
+            and the ARS community.
+          </p>
+
+        </div>
 
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="site-footer">
+        <div class="about-grid">
 
-    <div class="container">
+          <div class="about-image-card">
 
-      <div class="footer-top">
+            <img
+              src="photo.jpg1.jpeg"
+              alt="Adarsh Raj"
+              loading="lazy"
+            >
 
-        <div class="footer-brand">
+          </div>
 
-          <img src="logo.png" alt="ARS Logo">
 
-          <div>
-            <strong>ARS Official</strong>
-            <p>Adarsh Raj Shayar</p>
+          <div class="about-content">
+
+            <span class="tag">
+              🌹 ARS OFFICIAL
+            </span>
+
+            <h3>
+              Adarsh Raj Shayar
+            </h3>
+
+            <p>
+              Welcome to the official ARS platform.
+              Here you can explore Shayari, Stories and
+              Poetry, join the ARS community and access
+              ARS certificate services.
+            </p>
+
+            <p>
+              ARS is designed as a simple, creative and
+              user-friendly platform where visitors can
+              read, discover and enjoy meaningful content.
+            </p>
+
+
+            <div class="about-points">
+
+              <div>✓ Shayari & Poetry</div>
+
+              <div>✓ Stories & Creative Content</div>
+
+              <div>✓ ARS AI</div>
+
+              <div>✓ ARS Community</div>
+
+              <div>✓ Certificate Services</div>
+
+              <div>✓ Certificate Verification</div>
+
+            </div>
+
+
+            <div class="about-actions">
+
+              <a
+                href="founder.html"
+                class="btn btn-primary"
+              >
+                Founder →
+              </a>
+
+              <a
+                href="contact.html"
+                class="btn btn-light"
+              >
+                Contact ARS
+              </a>
+
+            </div>
+
           </div>
 
         </div>
 
-
-        <div class="footer-links">
-
-          <a href="index.html">Home</a>
-          <a href="ars-ai.html">ARS AI</a>
-          <a href="joining.html">Join ARS</a>
-          <a href="certificate.html">Certificate</a>
-          <a href="verify.html">Verify</a>
-          <a href="founder.html">Founder</a>
-          <a href="policy.html">Policy</a>
-
-        </div>
-
       </div>
 
-
-      <div class="footer-bottom">
-
-        <p>
-          © <span id="currentYear"></span> ARS Official.
-          All rights reserved.
-        </p>
-
-        <p>
-          Future: ARS Android App & Educational Channel
-        </p>
-
-      </div>
-
-    </div>
-
-  </footer>
-
-
-  <!-- ================= BACK TO TOP ================= -->
-  <button
-    id="backToTop"
-    class="back-to-top"
-    type="button"
-    aria-label="Back to top">
-    ↑
-  </button>
-
-
-  <!-- ================= TOAST ================= -->
-  <div
-    id="toast"
-    class="toast"
-    role="status"
-    aria-live="polite">
-  </div>
-
-</body>
-</html>
+    </section>
