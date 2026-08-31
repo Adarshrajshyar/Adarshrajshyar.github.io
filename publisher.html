@@ -1,288 +1,220 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1.0">
-
-  <title>ARS Publisher</title>
-
-  <meta
-    name="description"
-    content="ARS Official Publisher Panel">
+  <title>Publisher | ARS Official</title>
 
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
-
-  <style>
-
-    .publisher-wrap {
-      max-width: 1050px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    .publisher-card {
-      background: var(--card-bg,#fff);
-      border: 1px solid rgba(128,128,128,.2);
-      border-radius: 22px;
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 12px 35px rgba(0,0,0,.07);
-    }
-
-    .publisher-actions {
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .danger-btn {
-      background:#b42318;
-      color:#fff;
-      border:0;
-      border-radius:10px;
-      padding:10px 14px;
-      cursor:pointer;
-    }
-
-    .hidden {
-      display:none !important;
-    }
-
-    textarea {
-      min-height:160px;
-      resize:vertical;
-    }
-
-  </style>
-
 </head>
 
 <body>
 
 <header class="site-header">
-
-  <div class="header-inner">
+  <nav class="navbar">
 
     <a href="index.html" class="brand">
       <img src="logo.png" alt="ARS Logo">
-      <span>ARS</span>
+      <span>ARS Official</span>
     </a>
 
-    <nav class="main-nav">
+    <button
+      id="navToggle"
+      class="nav-toggle"
+      type="button"
+      aria-label="Open navigation">
+      ☰
+    </button>
+
+    <div id="navLinks" class="nav-links">
 
       <a href="index.html">Home</a>
-      <a href="shayari.html">Shayari</a>
-      <a href="story.html">Story</a>
       <a href="ars-ai.html">ARS AI</a>
       <a href="joining.html">Join ARS</a>
       <a href="certificate.html">Certificate</a>
       <a href="verify.html">Verify</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="story.html">Stories</a>
       <a href="founder.html">Founder</a>
       <a href="contact.html">Contact</a>
 
-    </nav>
+      <button
+        id="themeToggle"
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle theme">
+        🌙
+      </button>
 
-    <button
-      id="themeToggle"
-      class="theme-toggle"
-      type="button">
-      🌙
-    </button>
-
-  </div>
-
+    </div>
+  </nav>
 </header>
 
 
-<main class="publisher-wrap">
+<main>
 
+  <section class="page-hero">
 
-  <!-- LOGIN -->
+    <div class="container">
 
-  <section
-    id="publisherLogin"
-    class="publisher-card">
+      <span class="eyebrow">
+        ARS OFFICIAL
+      </span>
 
-    <p class="eyebrow">
-      ARS PUBLISHER
-    </p>
+      <h1>
+        Publisher
+      </h1>
 
-    <h1>
-      Publisher Panel
-    </h1>
+      <p>
+        ARS Official के प्रकाशन और रचनात्मक
+        सामग्री से संबंधित जानकारी।
+      </p>
 
-    <p>
-      Content publish करने के लिए password डालें।
-    </p>
-
-    <form id="publisherLoginForm">
-
-      <div class="form-group">
-
-        <label for="publisherPassword">
-          Publisher Password
-        </label>
-
-        <input
-          id="publisherPassword"
-          type="password"
-          autocomplete="current-password"
-          required>
-
-      </div>
-
-      <button
-        type="submit"
-        class="primary-btn">
-        🔐 Login
-      </button>
-
-    </form>
-
-    <div
-      id="publisherMessage"
-      class="form-message">
     </div>
 
   </section>
 
 
-  <!-- PANEL -->
+  <section class="content-section">
 
-  <section
-    id="publisherPanel"
-    class="hidden">
+    <div class="container">
 
+      <div class="content-card">
 
-    <!-- CREATE -->
+        <h2>
+          📚 ARS Publisher
+        </h2>
 
-    <div class="publisher-card">
+        <p>
+          ARS Official एक डिजिटल प्लेटफ़ॉर्म है
+          जहाँ रचनात्मक लेखन, शायरी, कहानियाँ,
+          प्रेरणादायक सामग्री और अन्य डिजिटल
+          सामग्री प्रकाशित की जाती है।
+        </p>
 
-      <p class="eyebrow">
-        CREATE CONTENT
-      </p>
+        <p>
+          इस वेबसाइट पर प्रकाशित सामग्री का
+          उद्देश्य रचनात्मकता, ज्ञान और सकारात्मक
+          विचारों को बढ़ावा देना है।
+        </p>
 
-      <h2>
-        नया Content Publish करें
-      </h2>
-
-      <form id="publishForm">
-
-        <div class="form-group">
-
-          <label for="contentType">
-            Content Type
-          </label>
-
-          <select id="contentType">
-
-            <option value="shayari">
-              Shayari
-            </option>
-
-            <option value="story">
-              Story
-            </option>
-
-            <option value="announcement">
-              Announcement
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="contentCategory">
-            Category
-          </label>
-
-          <input
-            id="contentCategory"
-            type="text"
-            placeholder="Love / Motivation / etc."
-            required>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="contentTitle">
-            Title
-          </label>
-
-          <input
-            id="contentTitle"
-            type="text"
-            placeholder="Content title"
-            required>
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="contentText">
-            Content
-          </label>
-
-          <textarea
-            id="contentText"
-            placeholder="अपना content लिखें..."
-            required></textarea>
-
-        </div>
-
-
-        <button
-          type="submit"
-          class="primary-btn">
-          🚀 Publish
-        </button>
-
-      </form>
-
-      <div
-        id="publishMessage"
-        class="form-message">
       </div>
 
-    </div>
+
+      <div class="content-card">
+
+        <h2>
+          ✍️ Publisher Information
+        </h2>
+
+        <div class="info-list">
+
+          <div>
+            <strong>Platform:</strong>
+            ARS Official
+          </div>
+
+          <div>
+            <strong>Founder:</strong>
+            Adarsh Raj
+          </div>
+
+          <div>
+            <strong>Content:</strong>
+            Shayari, Stories, Articles & Digital Content
+          </div>
+
+          <div>
+            <strong>Website:</strong>
+            ARS Official
+          </div>
+
+        </div>
+
+      </div>
 
 
-    <!-- CONTENT LIST -->
+      <div class="content-card">
 
-    <div class="publisher-card">
+        <h2>
+          📝 Publishing Guidelines
+        </h2>
 
-      <p class="eyebrow">
-        PUBLISHED
-      </p>
+        <ul>
 
-      <h2>
-        Published Content
-      </h2>
+          <li>
+            सामग्री मौलिक और रचनात्मक होनी चाहिए।
+          </li>
 
-      <div id="publishedList"></div>
+          <li>
+            किसी अन्य व्यक्ति की सामग्री को
+            बिना अनुमति के अपने नाम से प्रकाशित
+            नहीं किया जाना चाहिए।
+          </li>
 
-    </div>
+          <li>
+            आपत्तिजनक, गैर-कानूनी या हानिकारक
+            सामग्री प्रकाशित नहीं की जाएगी।
+          </li>
+
+          <li>
+            प्रकाशित सामग्री की गुणवत्ता और
+            उपयुक्तता की समीक्षा की जा सकती है।
+          </li>
+
+          <li>
+            ARS Official आवश्यकतानुसार किसी
+            सामग्री को संपादित, हटाने या अस्वीकार
+            करने का अधिकार रखता है।
+          </li>
+
+        </ul>
+
+      </div>
 
 
-    <div class="publisher-card">
+      <div class="content-card">
 
-      <button
-        id="publisherLogout"
-        class="secondary-btn"
-        type="button">
-        Logout
-      </button>
+        <h2>
+          © Copyright
+        </h2>
+
+        <p>
+          ARS Official पर उपलब्ध सामग्री के
+          उपयोग, पुनर्प्रकाशन या वितरण से पहले
+          उचित अनुमति और attribution का ध्यान
+          रखा जाना चाहिए।
+        </p>
+
+        <p>
+          किसी भी सामग्री के संबंध में समस्या,
+          copyright claim या correction request
+          के लिए Contact page का उपयोग करें।
+        </p>
+
+      </div>
+
+
+      <div class="content-card">
+
+        <h2>
+          📩 Contact Publisher
+        </h2>
+
+        <p>
+          Publishing, copyright या content से
+          संबंधित प्रश्न के लिए हमसे संपर्क करें।
+        </p>
+
+        <a
+          href="contact.html"
+          class="btn btn-primary">
+          Contact ARS
+        </a>
+
+      </div>
 
     </div>
 
@@ -291,471 +223,41 @@
 </main>
 
 
-<a
-  href="#"
-  id="backToTop"
-  class="back-to-top">
-  ↑
-</a>
+<footer class="site-footer">
+
+  <div class="footer-content">
+
+    <div>
+      <strong>ARS Official</strong>
+      <p>
+        Create • Inspire • Share
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href="publisher.html">Publisher</a>
+      <a href="policy.html">Policy</a>
+      <a href="contact.html">Contact</a>
+      <a href="verify.html">Verify</a>
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    ©
+    <span class="current-year"></span>
+    ARS Official. All Rights Reserved.
+
+  </div>
+
+</footer>
 
 
 <script src="config.js"></script>
 <script src="storage.js"></script>
-
-<script>
-
-(function () {
-
-  "use strict";
-
-
-  const PUBLISHER_PASSWORD =
-    "ARS 2026";
-
-
-  const login =
-    document.getElementById(
-      "publisherLogin"
-    );
-
-  const panel =
-    document.getElementById(
-      "publisherPanel"
-    );
-
-  const loginForm =
-    document.getElementById(
-      "publisherLoginForm"
-    );
-
-  const password =
-    document.getElementById(
-      "publisherPassword"
-    );
-
-  const loginMessage =
-    document.getElementById(
-      "publisherMessage"
-    );
-
-  const publishForm =
-    document.getElementById(
-      "publishForm"
-    );
-
-  const publishMessage =
-    document.getElementById(
-      "publishMessage"
-    );
-
-  const list =
-    document.getElementById(
-      "publishedList"
-    );
-
-
-  function read() {
-
-    try {
-
-      const data =
-        JSON.parse(
-          localStorage.getItem(
-            "ARS_PUBLISHED_CONTENT"
-          ) || "[]"
-        );
-
-      return Array.isArray(data)
-        ? data
-        : [];
-
-    } catch {
-
-      return [];
-
-    }
-
-  }
-
-
-  function write(data) {
-
-    localStorage.setItem(
-      "ARS_PUBLISHED_CONTENT",
-      JSON.stringify(data)
-    );
-
-  }
-
-
-  function esc(value) {
-
-    return String(value || "")
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
-
-  }
-
-
-  function openPanel() {
-
-    login.classList.add("hidden");
-    panel.classList.remove("hidden");
-
-    render();
-
-  }
-
-
-  function logout() {
-
-    sessionStorage.removeItem(
-      "ARS_PUBLISHER_LOGIN"
-    );
-
-    panel.classList.add("hidden");
-    login.classList.remove("hidden");
-
-  }
-
-
-  loginForm.addEventListener(
-    "submit",
-    function (event) {
-
-      event.preventDefault();
-
-      if (
-        password.value ===
-        PUBLISHER_PASSWORD
-      ) {
-
-        sessionStorage.setItem(
-          "ARS_PUBLISHER_LOGIN",
-          "true"
-        );
-
-        openPanel();
-
-      } else {
-
-        loginMessage.textContent =
-          "गलत password।";
-
-        loginMessage.className =
-          "form-message error";
-
-      }
-
-    }
-  );
-
-
-  document.getElementById(
-    "publisherLogout"
-  ).addEventListener(
-    "click",
-    logout
-  );
-
-
-  publishForm.addEventListener(
-    "submit",
-    function (event) {
-
-      event.preventDefault();
-
-
-      const records =
-        read();
-
-
-      const record = {
-
-        id:
-          "ARS-CONTENT-" +
-          Date.now(),
-
-        type:
-          document.getElementById(
-            "contentType"
-          ).value,
-
-        category:
-          document.getElementById(
-            "contentCategory"
-          ).value.trim(),
-
-        title:
-          document.getElementById(
-            "contentTitle"
-          ).value.trim(),
-
-        text:
-          document.getElementById(
-            "contentText"
-          ).value.trim(),
-
-        date:
-          new Date().toISOString(),
-
-        author:
-          "ARS Publisher"
-
-      };
-
-
-      records.unshift(record);
-
-      write(records);
-
-
-      publishMessage.textContent =
-        "Content successfully publish हो गया।";
-
-      publishMessage.className =
-        "form-message success";
-
-
-      publishForm.reset();
-
-      render();
-
-    }
-  );
-
-
-  function render() {
-
-    const records =
-      read();
-
-
-    if (!records.length) {
-
-      list.innerHTML =
-        "<p>अभी कोई published content नहीं है।</p>";
-
-      return;
-
-    }
-
-
-    list.innerHTML =
-      records.map(
-        function (item,index) {
-
-          return `
-
-            <article class="info-card">
-
-              <small>
-                ${esc(item.type)}
-                •
-                ${esc(item.category)}
-              </small>
-
-              <h3>
-                ${esc(item.title)}
-              </h3>
-
-              <p>
-                ${esc(item.text)}
-              </p>
-
-              <small>
-                ${esc(item.date)}
-              </small>
-
-              <div class="publisher-actions">
-
-                <button
-                  class="secondary-btn"
-                  data-edit="${index}">
-                  ✏️ Edit
-                </button>
-
-                <button
-                  class="danger-btn"
-                  data-delete="${index}">
-                  🗑️ Delete
-                </button>
-
-              </div>
-
-            </article>
-
-          `;
-
-        }
-      ).join("");
-
-  }
-
-
-  list.addEventListener(
-    "click",
-    function (event) {
-
-      const deleteButton =
-        event.target.closest(
-          "[data-delete]"
-        );
-
-      const editButton =
-        event.target.closest(
-          "[data-edit]"
-        );
-
-
-      if (deleteButton) {
-
-        const index =
-          Number(
-            deleteButton.dataset.delete
-          );
-
-        const records =
-          read();
-
-        if (
-          confirm(
-            "क्या आप इसे delete करना चाहते हैं?"
-          )
-        ) {
-
-          records.splice(index,1);
-
-          write(records);
-
-          render();
-
-        }
-
-      }
-
-
-      if (editButton) {
-
-        const index =
-          Number(
-            editButton.dataset.edit
-          );
-
-        const records =
-          read();
-
-        const item =
-          records[index];
-
-        if (!item) return;
-
-
-        const title =
-          prompt(
-            "Title:",
-            item.title
-          );
-
-        if (title === null) return;
-
-
-        const text =
-          prompt(
-            "Content:",
-            item.text
-          );
-
-        if (text === null) return;
-
-
-        item.title =
-          title.trim();
-
-        item.text =
-          text.trim();
-
-
-        records[index] =
-          item;
-
-        write(records);
-
-        render();
-
-      }
-
-    }
-  );
-
-
-  if (
-    sessionStorage.getItem(
-      "ARS_PUBLISHER_LOGIN"
-    ) === "true"
-  ) {
-
-    openPanel();
-
-  }
-
-
-  /* Theme */
-
-  const themeToggle =
-    document.getElementById(
-      "themeToggle"
-    );
-
-
-  function applyTheme(theme) {
-
-    document.documentElement.dataset.theme =
-      theme;
-
-    localStorage.setItem(
-      "ars-theme",
-      theme
-    );
-
-    themeToggle.textContent =
-      theme === "dark"
-        ? "☀️"
-        : "🌙";
-
-  }
-
-
-  applyTheme(
-    localStorage.getItem(
-      "ars-theme"
-    ) || "light"
-  );
-
-
-  themeToggle.addEventListener(
-    "click",
-    function () {
-
-      const current =
-        document.documentElement.dataset.theme ||
-        "light";
-
-      applyTheme(
-        current === "dark"
-          ? "light"
-          : "dark"
-      );
-
-    }
-  );
-
-})();
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
