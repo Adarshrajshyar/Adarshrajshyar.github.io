@@ -1,497 +1,450 @@
 /* =========================================================
-   ARS OFFICIAL — MAIN WEBSITE SCRIPT
-   Version: Final Website System
+   ARS OFFICIAL — MASTER SCRIPT
    ========================================================= */
 
 (function () {
   "use strict";
 
-  /* =========================
-     HELPERS
-     ========================= */
+  /* =======================================================
+     SHORTCUTS
+     ======================================================= */
 
   const $ = (selector, parent = document) =>
     parent.querySelector(selector);
 
   const $$ = (selector, parent = document) =>
-    Array.from(parent.querySelectorAll(selector));
+    [...parent.querySelectorAll(selector)];
 
 
-  /* =========================
-     DOM READY
-     ========================= */
+  /* =======================================================
+     PAGE LOADER
+     ======================================================= */
 
-  document.addEventListener("DOMContentLoaded", init);
+  function hideLoader() {
+    const loader = $("#pageLoader");
 
+    if (!loader) return;
 
-  function init() {
+    setTimeout(() => {
+      loader.classList.add("hidden");
+    }, 350);
+  }
 
-    setupMobileMenu();
-
-    setupTheme();
-
-    setupBackToTop();
-
-    setupYear();
-
-    setupSmoothLinks();
-
-    setupShayariCategories();
-
-    setupStoryCategories();
-
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", hideLoader);
+  } else {
+    hideLoader();
   }
 
 
-  /* =========================
-     MOBILE MENU
-     ========================= */
+  /* =======================================================
+     MOBILE NAVIGATION
+     ======================================================= */
 
-  function setupMobileMenu() {
+  function initMobileNavigation() {
+    const toggle = $("#navToggle");
+    const links = $("#navLinks");
 
-    const menuButton = $("#mobileMenuBtn");
-    const nav = $("#mainNav");
+    if (!toggle || !links) return;
 
-    if (!menuButton || !nav) return;
+    toggle.addEventListener("click", () => {
+      const opened = links.classList.toggle("open");
 
-    menuButton.addEventListener("click", function () {
+      toggle.setAttribute(
+        "aria-expanded",
+        String(opened)
+      );
 
-      nav.classList.toggle("open");
-
-      const opened = nav.classList.contains("open");
-
-      menuButton.textContent = opened ? "✕" : "☰";
-
+      toggle.textContent = opened ? "✕" : "☰";
     });
 
 
-    $$(".nav-link", nav).forEach(link => {
+    /* Close navigation after clicking a normal link */
+    $$("a", links).forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 780) {
+          links.classList.remove("open");
 
-      link.addEventListener("click", function () {
-        nav.classList.remove("open");
-        menuButton.textContent = "☰";
+          toggle.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+          toggle.textContent = "☰";
+        }
       });
-
     });
 
 
-    document.addEventListener("click", function (event) {
-
+    /* Close on outside click */
+    document.addEventListener("click", (event) => {
       if (
-        nav.classList.contains("open") &&
-        !nav.contains(event.target) &&
-        !menuButton.contains(event.target)
+        !links.contains(event.target) &&
+        !toggle.contains(event.target) &&
+        window.innerWidth <= 780
       ) {
+        links.classList.remove("open");
 
-        nav.classList.remove("open");
-        menuButton.textContent = "☰";
+        toggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
 
+        toggle.textContent = "☰";
       }
-
     });
-
   }
 
 
-  /* =========================
-     DARK / LIGHT MODE
-     ========================= */
+  /* =======================================================
+     MORE MENU
+     ======================================================= */
 
-  function setupTheme() {
+  function initMoreMenu() {
+    const button = $("#navMoreButton");
+    const menu = $("#navMoreMenu");
+    const wrapper = $(".nav-more");
+
+    if (!button || !menu || !wrapper) return;
+
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      const opened =
+        wrapper.classList.toggle("open");
+
+      button.setAttribute(
+        "aria-expanded",
+        String(opened)
+      );
+    });
+
+
+    document.addEventListener("click", (event) => {
+      if (!wrapper.contains(event.target)) {
+        wrapper.classList.remove("open");
+
+        button.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+      }
+    });
+  }
+
+
+  /* =======================================================
+     DARK / LIGHT MODE
+     ======================================================= */
+
+  const THEME_KEY = "ARS_THEME";
+
+  function getSavedTheme() {
+    const saved =
+      localStorage.getItem(THEME_KEY);
+
+    if (saved === "dark" || saved === "light") {
+      return saved;
+    }
+
+    return window.matchMedia &&
+      window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches
+      ? "dark"
+      : "light";
+  }
+
+
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme =
+      theme;
+
+    localStorage.setItem(
+      THEME_KEY,
+      theme
+    );
 
     const button = $("#themeToggle");
 
     if (!button) return;
 
+    button.textContent =
+      theme === "dark" ? "☀️" : "🌙";
 
-    let savedTheme = null;
+    button.setAttribute(
+      "aria-label",
+      theme === "dark"
+        ? "Switch to light mode"
+        : "Switch to dark mode"
+    );
 
-    try {
-      savedTheme = localStorage.getItem("ars-theme");
-    } catch (error) {
-      savedTheme = null;
-    }
-
-
-    if (
-      savedTheme === "dark" ||
-      savedTheme === "light"
-    ) {
-
-      document.documentElement.classList.toggle(
-        "dark",
-        savedTheme === "dark"
-      );
-
-    } else {
-
-      const prefersDark =
-        window.matchMedia &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-      document.documentElement.classList.toggle(
-        "dark",
-        prefersDark
-      );
-
-    }
-
-
-    updateThemeButton();
-
-
-    button.addEventListener("click", function () {
-
-      const dark =
-        document.documentElement.classList.toggle("dark");
-
-      try {
-        localStorage.setItem(
-          "ars-theme",
-          dark ? "dark" : "light"
-        );
-      } catch (error) {
-        /* localStorage unavailable */
-      }
-
-      updateThemeButton();
-
-    });
-
-
-    function updateThemeButton() {
-
-      const dark =
-        document.documentElement.classList.contains("dark");
-
-      button.textContent = dark ? "☀️" : "🌙";
-
-      button.setAttribute(
-        "aria-label",
-        dark
-          ? "Switch to light mode"
-          : "Switch to dark mode"
-      );
-
-    }
-
+    button.setAttribute(
+      "title",
+      theme === "dark"
+        ? "Light Mode"
+        : "Dark Mode"
+    );
   }
 
 
-  /* =========================
-     BACK TO TOP
-     ========================= */
+  function initTheme() {
+    applyTheme(getSavedTheme());
 
-  function setupBackToTop() {
-
-    const button = $("#backToTop");
+    const button = $("#themeToggle");
 
     if (!button) return;
 
+    button.addEventListener("click", () => {
 
-    window.addEventListener(
-      "scroll",
-      function () {
+      const current =
+        document.documentElement.dataset.theme ||
+        "light";
 
-        if (window.scrollY > 450) {
-          button.classList.add("show");
-        } else {
-          button.classList.remove("show");
-        }
-
-      },
-      { passive: true }
-    );
+      applyTheme(
+        current === "dark"
+          ? "light"
+          : "dark"
+      );
+    });
+  }
 
 
-    button.addEventListener("click", function () {
+  /* =======================================================
+     SCROLL PROGRESS
+     ======================================================= */
 
+  function updateScrollProgress() {
+    const progress = $("#progressBar");
+
+    if (!progress) return;
+
+    const scrollTop =
+      window.scrollY || document.documentElement.scrollTop;
+
+    const documentHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    const percentage =
+      documentHeight > 0
+        ? (scrollTop / documentHeight) * 100
+        : 0;
+
+    progress.style.width =
+      `${Math.min(100, Math.max(0, percentage))}%`;
+  }
+
+
+  /* =======================================================
+     BACK TO TOP
+     ======================================================= */
+
+  function createBackToTop() {
+    let button = $("#backToTop");
+
+    if (!button) {
+      button = document.createElement("button");
+
+      button.id = "backToTop";
+      button.type = "button";
+      button.innerHTML = "↑";
+
+      button.setAttribute(
+        "aria-label",
+        "Back to top"
+      );
+
+      document.body.appendChild(button);
+    }
+
+    button.addEventListener("click", () => {
       window.scrollTo({
         top: 0,
         behavior: "smooth"
       });
-
     });
 
-  }
 
-
-  /* =========================
-     YEAR
-     ========================= */
-
-  function setupYear() {
-
-    const year = $("#currentYear");
-
-    if (year) {
-      year.textContent = new Date().getFullYear();
+    function toggleBackToTop() {
+      button.classList.toggle(
+        "show",
+        window.scrollY > 350
+      );
     }
 
+    toggleBackToTop();
+
+    window.addEventListener(
+      "scroll",
+      toggleBackToTop,
+      { passive: true }
+    );
   }
 
 
-  /* =========================
+  /* =======================================================
+     ACTIVE NAVIGATION
+     ======================================================= */
+
+  function setActiveNavigation() {
+    const current =
+      window.location.pathname
+        .split("/")
+        .pop()
+        .toLowerCase() || "index.html";
+
+    $$(".nav-links > a").forEach((link) => {
+
+      const href =
+        link.getAttribute("href");
+
+      if (!href || href.startsWith("#")) return;
+
+      const file =
+        href.split("/").pop().toLowerCase();
+
+      link.classList.toggle(
+        "active",
+        file === current
+      );
+    });
+  }
+
+
+  /* =======================================================
      SMOOTH INTERNAL LINKS
-     ========================= */
+     ======================================================= */
 
-  function setupSmoothLinks() {
+  function initSmoothLinks() {
+    $$('a[href^="#"]').forEach((link) => {
 
-    $$('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", (event) => {
 
-      link.addEventListener("click", function (event) {
+        const id =
+          link.getAttribute("href");
 
-        const targetId = this.getAttribute("href");
+        if (!id || id === "#") return;
 
-        if (!targetId || targetId === "#") return;
-
-        const target = $(targetId);
+        const target =
+          document.querySelector(id);
 
         if (!target) return;
 
         event.preventDefault();
 
-        const header = $(".site-header");
-
-        const offset =
-          header ? header.offsetHeight + 15 : 15;
-
-        const position =
-          target.getBoundingClientRect().top +
-          window.scrollY -
-          offset;
-
-        window.scrollTo({
-          top: position,
-          behavior: "smooth"
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
         });
-
       });
 
     });
-
   }
 
 
-  /* =========================
-     SHAYARI CATEGORY
-     ========================= */
-
-  function setupShayariCategories() {
-
-    const buttons = $$("#shayariCategories .category-btn");
-
-    const container = $("#shayariContainer");
-
-    if (!buttons.length || !container) return;
-
-
-    buttons.forEach(button => {
-
-      button.addEventListener("click", function () {
-
-        buttons.forEach(btn =>
-          btn.classList.remove("active")
-        );
-
-        this.classList.add("active");
-
-        const category =
-          this.dataset.category || "all";
-
-        filterCards(
-          container,
-          category
-        );
-
-      });
-
-    });
-
-  }
-
-
-  /* =========================
-     STORY CATEGORY
-     ========================= */
-
-  function setupStoryCategories() {
-
-    const buttons = $$("#storyCategories .category-btn");
-
-    const container = $("#storyContainer");
-
-    if (!buttons.length || !container) return;
-
-
-    buttons.forEach(button => {
-
-      button.addEventListener("click", function () {
-
-        buttons.forEach(btn =>
-          btn.classList.remove("active")
-        );
-
-        this.classList.add("active");
-
-        const category =
-          this.dataset.category || "all";
-
-        filterCards(
-          container,
-          category
-        );
-
-      });
-
-    });
-
-  }
-
-
-  /* =========================
-     GENERIC CARD FILTER
-     ========================= */
-
-  function filterCards(container, category) {
-
-    const cards =
-      $$(".content-card, [data-category]", container);
-
-    if (!cards.length) return;
-
-
-    cards.forEach(card => {
-
-      if (category === "all") {
-
-        card.hidden = false;
-        return;
-
-      }
-
-
-      const cardCategories =
-        String(card.dataset.category || "")
-          .toLowerCase()
-          .split(",")
-          .map(value => value.trim())
-          .filter(Boolean);
-
-
-      card.hidden =
-        !cardCategories.includes(
-          String(category).toLowerCase()
-        );
-
-    });
-
-  }
-
-
-  /* =========================
-     GLOBAL TOAST
-     ========================= */
-
-  window.ARS = window.ARS || {};
-
-
-  window.ARS.toast = function (message) {
-
-    const toast = $("#toast");
-
-    if (!toast) return;
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(window.ARS.toastTimer);
-
-    window.ARS.toastTimer =
-      setTimeout(function () {
-        toast.classList.remove("show");
-      }, 2200);
-
-  };
-
-
-  /* =========================
+  /* =======================================================
      COPY TEXT
-     ========================= */
+     ======================================================= */
 
-  window.ARS.copyText = async function (text) {
-
+  async function copyText(text) {
     if (!text) return false;
 
-
     try {
-
       await navigator.clipboard.writeText(text);
-
-      window.ARS.toast("कॉपी हो गया ✓");
-
       return true;
-
     } catch (error) {
 
+      const textarea =
+        document.createElement("textarea");
+
+      textarea.value = text;
+
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+
+      document.body.appendChild(textarea);
+
+      textarea.select();
+
+      let copied = false;
+
       try {
-
-        const textarea =
-          document.createElement("textarea");
-
-        textarea.value = text;
-
-        textarea.style.position = "fixed";
-        textarea.style.opacity = "0";
-
-        document.body.appendChild(textarea);
-
-        textarea.select();
-
-        document.execCommand("copy");
-
-        textarea.remove();
-
-        window.ARS.toast("कॉपी हो गया ✓");
-
-        return true;
-
-      } catch (fallbackError) {
-
-        window.ARS.toast("Copy नहीं हो पाया");
-
-        return false;
-
+        copied =
+          document.execCommand("copy");
+      } catch (_) {
+        copied = false;
       }
 
+      textarea.remove();
+
+      return copied;
     }
+  }
 
-  };
+
+  /* =======================================================
+     COPY BUTTONS
+     ======================================================= */
+
+  function initCopyButtons() {
+
+    $$("[data-copy]").forEach((button) => {
+
+      button.addEventListener("click", async () => {
+
+        const selector =
+          button.dataset.copy;
+
+        let text = "";
+
+        if (selector) {
+          const target =
+            document.querySelector(selector);
+
+          if (target) {
+            text =
+              target.value ??
+              target.textContent ??
+              "";
+          }
+        }
+
+        if (!text) {
+          text =
+            button.dataset.copyText || "";
+        }
+
+        const success =
+          await copyText(text);
+
+        const original =
+          button.textContent;
+
+        button.textContent =
+          success
+            ? "✓ Copied"
+            : "Copy Failed";
+
+        setTimeout(() => {
+          button.textContent = original;
+        }, 1600);
+
+      });
+
+    });
+  }
 
 
-  /* =========================
+  /* =======================================================
      SHARE
-     ========================= */
+     ======================================================= */
 
-  window.ARS.share = async function (data = {}) {
-
-    const shareData = {
-
-      title:
-        data.title ||
-        document.title,
-
-      text:
-        data.text ||
-        "ARS Official",
-
-      url:
-        data.url ||
-        window.location.href
-
-    };
-
+  async function shareContent({
+    title = "ARS Official",
+    text = "",
+    url = window.location.href
+  } = {}) {
 
     if (
       navigator.share &&
@@ -499,8 +452,11 @@
     ) {
 
       try {
-
-        await navigator.share(shareData);
+        await navigator.share({
+          title,
+          text,
+          url
+        });
 
         return true;
 
@@ -511,249 +467,342 @@
         }
 
       }
-
     }
 
 
-    return window.ARS.copyText(
-      shareData.url
-    );
+    const copied =
+      await copyText(url);
 
-  };
+    if (copied) {
+      showToast(
+        "Share link copied!"
+      );
+    }
 
-
-  /* =========================
-     LIKE SYSTEM
-     First click = Like
-     Second click = Unlike
-     ========================= */
-
-  window.ARS.toggleLike = function (
-    id,
-    button,
-    counter = null
-  ) {
-
-    if (!id || !button) return;
+    return copied;
+  }
 
 
-    const key = "ars-like-" + id;
+  /* =======================================================
+     SHARE BUTTONS
+     ======================================================= */
 
-    let liked = false;
+  function initShareButtons() {
 
-    try {
-      liked =
-        localStorage.getItem(key) === "1";
-    } catch (error) {}
+    $$("[data-share]").forEach((button) => {
+
+      button.addEventListener("click", async () => {
+
+        const title =
+          button.dataset.title ||
+          document.title;
+
+        const text =
+          button.dataset.text || "";
+
+        const url =
+          button.dataset.url ||
+          window.location.href;
+
+        await shareContent({
+          title,
+          text,
+          url
+        });
+
+      });
+
+    });
+  }
 
 
-    liked = !liked;
+  /* =======================================================
+     TOAST
+     ======================================================= */
 
+  function showToast(message) {
 
-    try {
+    let toast =
+      $("#arsToast");
 
-      localStorage.setItem(
-        key,
-        liked ? "1" : "0"
+    if (!toast) {
+
+      toast =
+        document.createElement("div");
+
+      toast.id = "arsToast";
+
+      Object.assign(
+        toast.style,
+        {
+          position: "fixed",
+          left: "50%",
+          bottom: "30px",
+          transform:
+            "translateX(-50%) translateY(20px)",
+          zIndex: "100000",
+          padding: "11px 17px",
+          borderRadius: "999px",
+          background: "#111827",
+          color: "#ffffff",
+          fontSize: "14px",
+          fontWeight: "700",
+          opacity: "0",
+          pointerEvents: "none",
+          transition:
+            "opacity .25s ease, transform .25s ease"
+        }
       );
 
-    } catch (error) {}
+      document.body.appendChild(toast);
+    }
 
+    toast.textContent = message;
 
-    button.classList.toggle(
-      "liked",
-      liked
+    toast.style.opacity = "1";
+    toast.style.transform =
+      "translateX(-50%) translateY(0)";
+
+    clearTimeout(
+      toast._timer
     );
 
-    button.setAttribute(
-      "aria-pressed",
-      String(liked)
-    );
+    toast._timer =
+      setTimeout(() => {
+
+        toast.style.opacity = "0";
+
+        toast.style.transform =
+          "translateX(-50%) translateY(20px)";
+
+      }, 1800);
+  }
 
 
-    if (counter) {
+  /* =======================================================
+     FAVORITE / LIKE HELPERS
+     ======================================================= */
 
-      const current =
-        Number(counter.textContent) || 0;
+  const FAVORITE_KEY =
+    "ARS_FAVORITES";
 
-      const next =
-        Math.max(
-          0,
-          liked
-            ? current + 1
-            : current - 1
+  const LIKE_KEY =
+    "ARS_LIKES";
+
+
+  function readArray(key) {
+
+    try {
+
+      const value =
+        JSON.parse(
+          localStorage.getItem(key) || "[]"
         );
 
-      counter.textContent = next;
+      return Array.isArray(value)
+        ? value
+        : [];
+
+    } catch (_) {
+
+      return [];
+
+    }
+  }
+
+
+  function writeArray(key, value) {
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(value)
+    );
+  }
+
+
+  function toggleStoredItem(key, id) {
+
+    if (!id) return false;
+
+    const list =
+      readArray(key);
+
+    const index =
+      list.indexOf(id);
+
+    if (index === -1) {
+
+      list.push(id);
+
+      writeArray(key, list);
+
+      return true;
 
     }
 
+    list.splice(index, 1);
 
-    window.ARS.toast(
-      liked
-        ? "Liked ❤️"
-        : "Unliked"
-    );
+    writeArray(key, list);
 
-  };
+    return false;
+  }
 
 
-  /* =========================
-     FAVORITE SYSTEM
-     First click = Favorite
-     Second click = Unfavorite
-     ========================= */
+  /* =======================================================
+     LIKE / FAVORITE BUTTONS
+     ======================================================= */
 
-  window.ARS.toggleFavorite = function (
-    id,
-    button
-  ) {
+  function initReactionButtons() {
 
-    if (!id || !button) return;
+    $$("[data-reaction]").forEach((button) => {
 
+      const type =
+        button.dataset.reaction;
 
-    const key =
-      "ars-favorite-" + id;
+      const id =
+        button.dataset.id;
 
-    let favorite = false;
-
-    try {
-
-      favorite =
-        localStorage.getItem(key) === "1";
-
-    } catch (error) {}
+      if (!type || !id) return;
 
 
-    favorite = !favorite;
+      const key =
+        type === "favorite"
+          ? FAVORITE_KEY
+          : LIKE_KEY;
 
 
-    try {
+      const list =
+        readArray(key);
 
-      localStorage.setItem(
-        key,
-        favorite ? "1" : "0"
+
+      if (list.includes(id)) {
+        button.classList.add("active");
+      }
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const active =
+            toggleStoredItem(
+              key,
+              id
+            );
+
+          button.classList.toggle(
+            "active",
+            active
+          );
+
+
+          if (type === "favorite") {
+
+            button.setAttribute(
+              "aria-pressed",
+              String(active)
+            );
+
+            showToast(
+              active
+                ? "Added to Favorites ❤️"
+                : "Removed from Favorites"
+            );
+
+          } else {
+
+            button.setAttribute(
+              "aria-pressed",
+              String(active)
+            );
+
+            showToast(
+              active
+                ? "Liked 👍"
+                : "Unliked"
+            );
+
+          }
+
+        }
       );
 
-    } catch (error) {}
+    });
+  }
 
 
-    button.classList.toggle(
-      "favorited",
-      favorite
+  /* =======================================================
+     EXPOSE GLOBAL HELPERS
+     ======================================================= */
+
+  window.ARS = window.ARS || {};
+
+  window.ARS.copyText =
+    copyText;
+
+  window.ARS.shareContent =
+    shareContent;
+
+  window.ARS.showToast =
+    showToast;
+
+  window.ARS.readArray =
+    readArray;
+
+  window.ARS.writeArray =
+    writeArray;
+
+  window.ARS.toggleStoredItem =
+    toggleStoredItem;
+
+
+  /* =======================================================
+     INITIALIZE
+     ======================================================= */
+
+  function init() {
+
+    initMobileNavigation();
+
+    initMoreMenu();
+
+    initTheme();
+
+    createBackToTop();
+
+    setActiveNavigation();
+
+    initSmoothLinks();
+
+    initCopyButtons();
+
+    initShareButtons();
+
+    initReactionButtons();
+
+    updateScrollProgress();
+
+  }
+
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
     );
 
-    button.setAttribute(
-      "aria-pressed",
-      String(favorite)
-    );
+  } else {
 
+    init();
 
-    window.ARS.toast(
-      favorite
-        ? "Favorite में जोड़ दिया ⭐"
-        : "Favorite से हटा दिया"
-    );
+  }
 
-  };
-
-
-  /* =========================
-     SAVE SYSTEM
-     ========================= */
-
-  window.ARS.toggleSave = function (
-    id,
-    button
-  ) {
-
-    if (!id || !button) return;
-
-
-    const key =
-      "ars-save-" + id;
-
-    let saved = false;
-
-    try {
-
-      saved =
-        localStorage.getItem(key) === "1";
-
-    } catch (error) {}
-
-
-    saved = !saved;
-
-
-    try {
-
-      localStorage.setItem(
-        key,
-        saved ? "1" : "0"
-      );
-
-    } catch (error) {}
-
-
-    button.classList.toggle(
-      "saved",
-      saved
-    );
-
-
-    window.ARS.toast(
-      saved
-        ? "Saved ✓"
-        : "Save हटाया गया"
-    );
-
-  };
-
-
-  /* =========================
-     EXPORT HELPERS
-     ========================= */
-
-  window.ARS.getState = function (id) {
-
-    return {
-
-      liked:
-        localStorage.getItem(
-          "ars-like-" + id
-        ) === "1",
-
-      favorite:
-        localStorage.getItem(
-          "ars-favorite-" + id
-        ) === "1",
-
-      saved:
-        localStorage.getItem(
-          "ars-save-" + id
-        ) === "1"
-
-    };
-
-  };
-
-
-  /* =========================
-     ERROR PROTECTION
-     ========================= */
 
   window.addEventListener(
-    "error",
-    function (event) {
-
-      console.warn(
-        "ARS website warning:",
-        event.message
-      );
-
-    }
+    "scroll",
+    updateScrollProgress,
+    { passive: true }
   );
-
 
 })();
