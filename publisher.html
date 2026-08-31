@@ -1,462 +1,760 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
 
-  <title>ARS Publisher | Adarsh Raj Shayar</title>
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1.0">
 
+  <title>ARS Publisher</title>
+
+  <meta
+    name="description"
+    content="ARS Official Publisher Panel">
+
+  <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      color: #111827;
-    }
 
     .publisher-wrap {
       max-width: 1050px;
-      margin: auto;
-      padding: 30px 18px 60px;
-    }
-
-    .publisher-header {
-      background: linear-gradient(135deg, #111827, #374151);
-      color: white;
-      padding: 35px 25px;
-      border-radius: 22px;
-      margin-bottom: 25px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.15);
-    }
-
-    .publisher-header h1 {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
-
-    .publisher-header p {
-      margin: 0;
-      opacity: .85;
+      margin: 40px auto;
+      padding: 20px;
     }
 
     .publisher-card {
-      background: white;
+      background: var(--card-bg,#fff);
+      border: 1px solid rgba(128,128,128,.2);
+      border-radius: 22px;
       padding: 25px;
-      border-radius: 18px;
-      margin-bottom: 22px;
-      box-shadow: 0 7px 22px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.07);
     }
 
-    .publisher-card h2 {
-      margin-top: 0;
+    .publisher-actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    label {
-      display: block;
-      font-weight: 700;
-      margin: 14px 0 7px;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 150px;
-      resize: vertical;
-    }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 18px;
-      cursor: pointer;
-      font-weight: 700;
-      background: #111827;
-      color: white;
-    }
-
-    button:hover {
-      opacity: .88;
-    }
-
-    .danger {
-      background: #b91c1c;
-    }
-
-    .success {
-      background: #166534;
-    }
-
-    .logout {
-      background: #6b7280;
+    .danger-btn {
+      background:#b42318;
+      color:#fff;
+      border:0;
+      border-radius:10px;
+      padding:10px 14px;
+      cursor:pointer;
     }
 
     .hidden {
-      display: none !important;
+      display:none !important;
     }
 
-    .item {
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 16px;
-      margin-top: 12px;
-      background: #fafafa;
+    textarea {
+      min-height:160px;
+      resize:vertical;
     }
 
-    .item strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .status {
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 12px;
-      background: #eef2ff;
-    }
   </style>
+
 </head>
 
 <body>
 
-<div class="publisher-wrap">
+<header class="site-header">
 
-  <header class="publisher-header">
-    <h1>ARS Publisher Panel</h1>
-    <p>Adarsh Raj Shayar Official Website — Content Publishing System</p>
-  </header>
+  <div class="header-inner">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Logo">
+      <span>ARS</span>
+    </a>
+
+    <nav class="main-nav">
+
+      <a href="index.html">Home</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="story.html">Story</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="founder.html">Founder</a>
+      <a href="contact.html">Contact</a>
+
+    </nav>
+
+    <button
+      id="themeToggle"
+      class="theme-toggle"
+      type="button">
+      🌙
+    </button>
+
+  </div>
+
+</header>
+
+
+<main class="publisher-wrap">
+
 
   <!-- LOGIN -->
-  <section id="loginSection" class="publisher-card">
-    <h2>Publisher Login</h2>
 
-    <label for="publisherPassword">Publisher Password</label>
-    <input
-      type="password"
-      id="publisherPassword"
-      placeholder="Password डालें"
-      autocomplete="current-password"
-    >
+  <section
+    id="publisherLogin"
+    class="publisher-card">
 
-    <div class="btn-row">
-      <button onclick="publisherLogin()">Login</button>
+    <p class="eyebrow">
+      ARS PUBLISHER
+    </p>
+
+    <h1>
+      Publisher Panel
+    </h1>
+
+    <p>
+      Content publish करने के लिए password डालें।
+    </p>
+
+    <form id="publisherLoginForm">
+
+      <div class="form-group">
+
+        <label for="publisherPassword">
+          Publisher Password
+        </label>
+
+        <input
+          id="publisherPassword"
+          type="password"
+          autocomplete="current-password"
+          required>
+
+      </div>
+
+      <button
+        type="submit"
+        class="primary-btn">
+        🔐 Login
+      </button>
+
+    </form>
+
+    <div
+      id="publisherMessage"
+      class="form-message">
     </div>
 
-    <div id="loginMessage" class="status hidden"></div>
   </section>
 
 
   <!-- PANEL -->
-  <main id="publisherPanel" class="hidden">
 
-    <section class="publisher-card">
-      <h2>Publish New Content</h2>
+  <section
+    id="publisherPanel"
+    class="hidden">
 
-      <label for="contentType">Content Type</label>
-      <select id="contentType">
-        <option value="shayari">Shayari</option>
-        <option value="story">Story</option>
-        <option value="update">Update</option>
-      </select>
 
-      <label for="contentCategory">Category</label>
-      <select id="contentCategory">
-        <option value="sad">Sad</option>
-        <option value="love">Love</option>
-        <option value="attitude">Attitude</option>
-        <option value="friendship">Friendship</option>
-        <option value="motivation">Motivation</option>
-        <option value="poem">Poem</option>
-        <option value="horror">Horror</option>
-        <option value="emotional">Emotional</option>
-        <option value="moral">Moral</option>
-        <option value="mystery">Mystery</option>
-        <option value="biography">Biography</option>
-      </select>
+    <!-- CREATE -->
 
-      <label for="contentTitle">Title</label>
-      <input
-        type="text"
-        id="contentTitle"
-        placeholder="Content का title"
-      >
+    <div class="publisher-card">
 
-      <label for="contentText">Content</label>
-      <textarea
-        id="contentText"
-        placeholder="यहाँ Shayari / Story / Update लिखें..."
-      ></textarea>
+      <p class="eyebrow">
+        CREATE CONTENT
+      </p>
 
-      <div class="btn-row">
-        <button class="success" onclick="publishContent()">
-          Publish
+      <h2>
+        नया Content Publish करें
+      </h2>
+
+      <form id="publishForm">
+
+        <div class="form-group">
+
+          <label for="contentType">
+            Content Type
+          </label>
+
+          <select id="contentType">
+
+            <option value="shayari">
+              Shayari
+            </option>
+
+            <option value="story">
+              Story
+            </option>
+
+            <option value="announcement">
+              Announcement
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="contentCategory">
+            Category
+          </label>
+
+          <input
+            id="contentCategory"
+            type="text"
+            placeholder="Love / Motivation / etc."
+            required>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="contentTitle">
+            Title
+          </label>
+
+          <input
+            id="contentTitle"
+            type="text"
+            placeholder="Content title"
+            required>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label for="contentText">
+            Content
+          </label>
+
+          <textarea
+            id="contentText"
+            placeholder="अपना content लिखें..."
+            required></textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="primary-btn">
+          🚀 Publish
         </button>
+
+      </form>
+
+      <div
+        id="publishMessage"
+        class="form-message">
       </div>
 
-      <div id="publishMessage" class="status hidden"></div>
-    </section>
+    </div>
 
 
-    <section class="publisher-card">
-      <h2>Published Content</h2>
+    <!-- CONTENT LIST -->
 
-      <div id="contentList">
-        Loading...
-      </div>
-    </section>
+    <div class="publisher-card">
+
+      <p class="eyebrow">
+        PUBLISHED
+      </p>
+
+      <h2>
+        Published Content
+      </h2>
+
+      <div id="publishedList"></div>
+
+    </div>
 
 
-    <section class="publisher-card">
-      <h2>Publisher Controls</h2>
+    <div class="publisher-card">
 
-      <div class="btn-row">
-        <button onclick="loadContent()">Refresh</button>
-        <button class="logout" onclick="publisherLogout()">Logout</button>
-      </div>
-    </section>
+      <button
+        id="publisherLogout"
+        class="secondary-btn"
+        type="button">
+        Logout
+      </button>
 
-  </main>
+    </div>
 
-</div>
+  </section>
 
+</main>
+
+
+<a
+  href="#"
+  id="backToTop"
+  class="back-to-top">
+  ↑
+</a>
+
+
+<script src="config.js"></script>
+<script src="storage.js"></script>
 
 <script>
+
 (function () {
 
-  const PASSWORD = "ARS 2026";
-  const STORAGE_KEY = "ARS_PUBLISHED_CONTENT";
+  "use strict";
 
-  function getItems() {
+
+  const PUBLISHER_PASSWORD =
+    "ARS 2026";
+
+
+  const login =
+    document.getElementById(
+      "publisherLogin"
+    );
+
+  const panel =
+    document.getElementById(
+      "publisherPanel"
+    );
+
+  const loginForm =
+    document.getElementById(
+      "publisherLoginForm"
+    );
+
+  const password =
+    document.getElementById(
+      "publisherPassword"
+    );
+
+  const loginMessage =
+    document.getElementById(
+      "publisherMessage"
+    );
+
+  const publishForm =
+    document.getElementById(
+      "publishForm"
+    );
+
+  const publishMessage =
+    document.getElementById(
+      "publishMessage"
+    );
+
+  const list =
+    document.getElementById(
+      "publishedList"
+    );
+
+
+  function read() {
+
     try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(
+            "ARS_PUBLISHED_CONTENT"
+          ) || "[]"
+        );
+
+      return Array.isArray(data)
+        ? data
+        : [];
+
     } catch {
+
       return [];
+
     }
+
   }
 
-  function saveItems(items) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+
+  function write(data) {
+
+    localStorage.setItem(
+      "ARS_PUBLISHED_CONTENT",
+      JSON.stringify(data)
+    );
+
   }
 
-  window.publisherLogin = function () {
 
-    const password =
-      document.getElementById("publisherPassword").value;
+  function esc(value) {
 
-    const message =
-      document.getElementById("loginMessage");
+    return String(value || "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
 
-    if (password === PASSWORD) {
+  }
 
-      sessionStorage.setItem("ARS_PUBLISHER_LOGIN", "true");
 
-      document
-        .getElementById("loginSection")
-        .classList.add("hidden");
+  function openPanel() {
 
-      document
-        .getElementById("publisherPanel")
-        .classList.remove("hidden");
+    login.classList.add("hidden");
+    panel.classList.remove("hidden");
 
-      loadContent();
+    render();
 
-    } else {
+  }
 
-      message.textContent = "गलत Publisher Password.";
-      message.classList.remove("hidden");
+
+  function logout() {
+
+    sessionStorage.removeItem(
+      "ARS_PUBLISHER_LOGIN"
+    );
+
+    panel.classList.add("hidden");
+    login.classList.remove("hidden");
+
+  }
+
+
+  loginForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+      if (
+        password.value ===
+        PUBLISHER_PASSWORD
+      ) {
+
+        sessionStorage.setItem(
+          "ARS_PUBLISHER_LOGIN",
+          "true"
+        );
+
+        openPanel();
+
+      } else {
+
+        loginMessage.textContent =
+          "गलत password।";
+
+        loginMessage.className =
+          "form-message error";
+
+      }
+
     }
-  };
+  );
 
 
-  window.publisherLogout = function () {
+  document.getElementById(
+    "publisherLogout"
+  ).addEventListener(
+    "click",
+    logout
+  );
 
-    sessionStorage.removeItem("ARS_PUBLISHER_LOGIN");
 
-    location.reload();
-  };
+  publishForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
 
 
-  window.publishContent = function () {
+      const records =
+        read();
 
-    const type =
-      document.getElementById("contentType").value;
 
-    const category =
-      document.getElementById("contentCategory").value;
+      const record = {
 
-    const title =
-      document.getElementById("contentTitle").value.trim();
+        id:
+          "ARS-CONTENT-" +
+          Date.now(),
 
-    const text =
-      document.getElementById("contentText").value.trim();
+        type:
+          document.getElementById(
+            "contentType"
+          ).value,
 
-    const message =
-      document.getElementById("publishMessage");
+        category:
+          document.getElementById(
+            "contentCategory"
+          ).value.trim(),
 
-    if (!title || !text) {
-      message.textContent =
-        "Title और Content दोनों भरना जरूरी है.";
-      message.classList.remove("hidden");
-      return;
+        title:
+          document.getElementById(
+            "contentTitle"
+          ).value.trim(),
+
+        text:
+          document.getElementById(
+            "contentText"
+          ).value.trim(),
+
+        date:
+          new Date().toISOString(),
+
+        author:
+          "ARS Publisher"
+
+      };
+
+
+      records.unshift(record);
+
+      write(records);
+
+
+      publishMessage.textContent =
+        "Content successfully publish हो गया।";
+
+      publishMessage.className =
+        "form-message success";
+
+
+      publishForm.reset();
+
+      render();
+
     }
-
-    const items = getItems();
-
-    items.unshift({
-      id: "ARS-" + Date.now(),
-      type,
-      category,
-      title,
-      text,
-      likes: 0,
-      shares: 0,
-      saves: 0,
-      createdAt: new Date().toISOString()
-    });
-
-    saveItems(items);
-
-    document.getElementById("contentTitle").value = "";
-    document.getElementById("contentText").value = "";
-
-    message.textContent = "Content successfully published.";
-    message.classList.remove("hidden");
-
-    loadContent();
-  };
+  );
 
 
-  window.editContent = function (id) {
+  function render() {
 
-    const items = getItems();
-    const item = items.find(x => x.id === id);
-
-    if (!item) return;
-
-    const newTitle =
-      prompt("New Title:", item.title);
-
-    if (newTitle === null) return;
-
-    const newText =
-      prompt("New Content:", item.text);
-
-    if (newText === null) return;
-
-    item.title = newTitle.trim() || item.title;
-    item.text = newText.trim() || item.text;
-
-    saveItems(items);
-    loadContent();
-  };
+    const records =
+      read();
 
 
-  window.deleteContent = function (id) {
+    if (!records.length) {
 
-    if (!confirm("क्या आप इस content को delete करना चाहते हैं?")) {
-      return;
-    }
-
-    const items =
-      getItems().filter(item => item.id !== id);
-
-    saveItems(items);
-    loadContent();
-  };
-
-
-  window.loadContent = function () {
-
-    const list =
-      document.getElementById("contentList");
-
-    const items = getItems();
-
-    if (!items.length) {
       list.innerHTML =
-        "<p>अभी कोई content publish नहीं किया गया है.</p>";
+        "<p>अभी कोई published content नहीं है।</p>";
+
       return;
+
     }
 
-    list.innerHTML = items.map(item => {
 
-      return `
-        <article class="item">
-          <strong>${escapeHTML(item.title)}</strong>
+    list.innerHTML =
+      records.map(
+        function (item,index) {
 
-          <small>
-            ${escapeHTML(item.type)}
-            •
-            ${escapeHTML(item.category)}
-          </small>
+          return `
 
-          <p>${escapeHTML(item.text)}</p>
+            <article class="info-card">
 
-          <div class="btn-row">
-            <button onclick="editContent('${item.id}')">
-              Edit
-            </button>
+              <small>
+                ${esc(item.type)}
+                •
+                ${esc(item.category)}
+              </small>
 
-            <button
-              class="danger"
-              onclick="deleteContent('${item.id}')"
-            >
-              Delete
-            </button>
-          </div>
-        </article>
-      `;
+              <h3>
+                ${esc(item.title)}
+              </h3>
 
-    }).join("");
-  };
+              <p>
+                ${esc(item.text)}
+              </p>
 
+              <small>
+                ${esc(item.date)}
+              </small>
 
-  function escapeHTML(value) {
+              <div class="publisher-actions">
 
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+                <button
+                  class="secondary-btn"
+                  data-edit="${index}">
+                  ✏️ Edit
+                </button>
+
+                <button
+                  class="danger-btn"
+                  data-delete="${index}">
+                  🗑️ Delete
+                </button>
+
+              </div>
+
+            </article>
+
+          `;
+
+        }
+      ).join("");
+
   }
+
+
+  list.addEventListener(
+    "click",
+    function (event) {
+
+      const deleteButton =
+        event.target.closest(
+          "[data-delete]"
+        );
+
+      const editButton =
+        event.target.closest(
+          "[data-edit]"
+        );
+
+
+      if (deleteButton) {
+
+        const index =
+          Number(
+            deleteButton.dataset.delete
+          );
+
+        const records =
+          read();
+
+        if (
+          confirm(
+            "क्या आप इसे delete करना चाहते हैं?"
+          )
+        ) {
+
+          records.splice(index,1);
+
+          write(records);
+
+          render();
+
+        }
+
+      }
+
+
+      if (editButton) {
+
+        const index =
+          Number(
+            editButton.dataset.edit
+          );
+
+        const records =
+          read();
+
+        const item =
+          records[index];
+
+        if (!item) return;
+
+
+        const title =
+          prompt(
+            "Title:",
+            item.title
+          );
+
+        if (title === null) return;
+
+
+        const text =
+          prompt(
+            "Content:",
+            item.text
+          );
+
+        if (text === null) return;
+
+
+        item.title =
+          title.trim();
+
+        item.text =
+          text.trim();
+
+
+        records[index] =
+          item;
+
+        write(records);
+
+        render();
+
+      }
+
+    }
+  );
 
 
   if (
-    sessionStorage.getItem("ARS_PUBLISHER_LOGIN") === "true"
+    sessionStorage.getItem(
+      "ARS_PUBLISHER_LOGIN"
+    ) === "true"
   ) {
 
-    document
-      .getElementById("loginSection")
-      .classList.add("hidden");
+    openPanel();
 
-    document
-      .getElementById("publisherPanel")
-      .classList.remove("hidden");
-
-    loadContent();
   }
 
+
+  /* Theme */
+
+  const themeToggle =
+    document.getElementById(
+      "themeToggle"
+    );
+
+
+  function applyTheme(theme) {
+
+    document.documentElement.dataset.theme =
+      theme;
+
+    localStorage.setItem(
+      "ars-theme",
+      theme
+    );
+
+    themeToggle.textContent =
+      theme === "dark"
+        ? "☀️"
+        : "🌙";
+
+  }
+
+
+  applyTheme(
+    localStorage.getItem(
+      "ars-theme"
+    ) || "light"
+  );
+
+
+  themeToggle.addEventListener(
+    "click",
+    function () {
+
+      const current =
+        document.documentElement.dataset.theme ||
+        "light";
+
+      applyTheme(
+        current === "dark"
+          ? "light"
+          : "dark"
+      );
+
+    }
+  );
+
 })();
+
 </script>
 
 </body>
