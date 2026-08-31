@@ -113,7 +113,7 @@ ol {
 
 
 /* =========================================================
-   PAGE LOADER
+   PAGE LOADER — FINAL
    ========================================================= */
 
 .page-loader {
@@ -125,15 +125,28 @@ ol {
   place-items: center;
 
   background: var(--bg);
+
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
   transition:
     opacity 0.4s ease,
     visibility 0.4s ease;
 }
 
+/* Loader hidden state */
 .page-loader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Also support JS fallback class */
+.page-loader.loader-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 .loader-content {
@@ -143,8 +156,10 @@ ol {
 .loader-logo {
   width: 90px;
   height: 90px;
+
   object-fit: contain;
 
+  display: block;
   margin: 0 auto 18px;
 
   border-radius: 20px;
@@ -161,7 +176,8 @@ ol {
 
   border-radius: 50%;
 
-  animation: loaderSpin 0.8s linear infinite;
+  animation:
+    loaderSpin 0.8s linear infinite;
 }
 
 .loader-content h3 {
@@ -174,6 +190,10 @@ ol {
 }
 
 @keyframes loaderSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
   to {
     transform: rotate(360deg);
   }
@@ -186,6 +206,7 @@ ol {
 
 #progressBar {
   position: fixed;
+
   top: 0;
   left: 0;
 
@@ -202,7 +223,6 @@ ol {
       var(--accent)
     );
 }
-
 
 /* =========================================================
    HEADER
