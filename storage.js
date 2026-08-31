@@ -1,108 +1,607 @@
-"use strict";
-
 /* =========================================================
-   ARS STORAGE SYSTEM
-   Adarsh Raj Shayar Official
-   Central localStorage helper
+   ARS CENTRAL STORAGE ENGINE
+   ---------------------------------------------------------
+   Likes
+   Favorites
+   Saves
+   Shayari
+   Stories
+   Published Content
+   Certificates
+   Joining Records
    ========================================================= */
 
-window.ARSStorage = (function () {
+(function () {
 
-  const PREFIX = "ARS_";
+  "use strict";
 
-  function read(key, fallback = []) {
+
+  const KEYS = {
+
+    likes:
+      "ARS_LIKES",
+
+    favorites:
+      "ARS_FAVORITES",
+
+    saves:
+      "ARS_SAVES",
+
+    shayari:
+      "ARS_SHAYARI",
+
+    stories:
+      "ARS_STORIES",
+
+    published:
+      "ARS_PUBLISHED_CONTENT",
+
+    certificates:
+      "ARS_CERTIFICATES",
+
+    joining:
+      "ARS_JOINING_CERTIFICATES"
+
+  };
+
+
+  function read(key) {
+
     try {
-      const raw = localStorage.getItem(PREFIX + key);
 
-      if (!raw) return fallback;
+      const value =
+        localStorage.getItem(key);
 
-      const data = JSON.parse(raw);
+      if (!value) return [];
 
-      return data ?? fallback;
+      const parsed =
+        JSON.parse(value);
 
-    } catch (error) {
-      console.error("ARS Storage Read Error:", error);
-      return fallback;
+      return Array.isArray(parsed)
+        ? parsed
+        : [];
+
+    } catch {
+
+      return [];
+
     }
+
   }
 
 
-  function write(key, value) {
+  function write(
+    key,
+    value
+  ) {
+
     try {
+
       localStorage.setItem(
-        PREFIX + key,
+        key,
         JSON.stringify(value)
       );
 
       return true;
 
-    } catch (error) {
-      console.error("ARS Storage Write Error:", error);
+    } catch {
+
       return false;
+
     }
+
   }
 
 
-  function remove(key) {
-    try {
-      localStorage.removeItem(PREFIX + key);
-      return true;
-    } catch (error) {
-      console.error("ARS Storage Remove Error:", error);
-      return false;
-    }
+  function normalizeId(id) {
+
+    return String(id || "")
+      .trim();
+
   }
 
 
-  function clearARS() {
-    try {
+  function contains(
+    key,
+    id
+  ) {
 
-      const keys = [];
+    const target =
+      normalizeId(id);
 
-      for (let i = 0; i < localStorage.length; i++) {
+    return read(key)
+      .map(normalizeId)
+      .includes(target);
 
-        const key =
-          localStorage.key(i);
+  }
 
-        if (
-          key &&
-          key.startsWith(PREFIX)
-        ) {
-          keys.push(key);
+
+  function add(
+    key,
+    id
+  ) {
+
+    const target =
+      normalizeId(id);
+
+    if (!target) return false;
+
+    const data =
+      read(key);
+
+    if (!data.includes(target)) {
+
+      data.push(target);
+
+      write(key,data);
+
+    }
+
+    return true;
+
+  }
+
+
+  function remove(
+    key,
+    id
+  ) {
+
+    const target =
+      normalizeId(id);
+
+    const data =
+      read(key);
+
+    const filtered =
+      data.filter(
+        item =>
+          normalizeId(item) !== target
+      );
+
+    return write(
+      key,
+      filtered
+    );
+
+  }
+
+
+  function toggle(
+    key,
+    id
+  ) {
+
+    if (contains(key,id)) {
+
+      remove(key,id);
+
+      return false;
+
+    }
+
+    add(key,id);
+
+    return true;
+
+  }
+
+
+  /* =========================
+     LIKE
+     ========================= */
+
+  function toggleLike(id) {
+
+    return toggle(
+      KEYS.likes,
+      id
+    );
+
+  }
+
+
+  function isLiked(id) {
+
+    return contains(
+      KEYS.likes,
+      id
+    );
+
+  }
+
+
+  /* =========================
+     FAVORITE
+     ========================= */
+
+  function toggleFavorite(id) {
+
+    return toggle(
+      KEYS.favorites,
+      id
+    );
+
+  }
+
+
+  function isFavorite(id) {
+
+    return contains(
+      KEYS.favorites,
+      id
+    );
+
+  }
+
+
+  /* =========================
+     SAVE
+     ========================= */
+
+  function toggleSave(id) {
+
+    return toggle(
+      KEYS.saves,
+      id
+    );
+
+  }
+
+
+  function isSaved(id) {
+
+    return contains(
+      KEYS.saves,
+      id
+    );
+
+  }
+
+
+  /* =========================
+     PUBLISHED CONTENT
+     ========================= */
+
+  function getPublished() {
+
+    return read(
+      KEYS.published
+    );
+
+  }
+
+
+  function savePublished(
+    record
+  ) {
+
+    if (!record) return false;
+
+    const data =
+      getPublished();
+
+    const id =
+      record.id ||
+      (
+        "ARS-CONTENT-" +
+        Date.now()
+      );
+
+    const item = {
+      ...record,
+      id
+    };
+
+    const index =
+      data.findIndex(
+        x =>
+          String(x.id) ===
+          String(id)
+      );
+
+    if (index >= 0) {
+
+      data[index] =
+        item;
+
+    } else {
+
+      data.unshift(item);
+
+    }
+
+    return write(
+      KEYS.published,
+      data
+    );
+
+  }
+
+
+  function deletePublished(
+    id
+  ) {
+
+    return removeObject(
+      KEYS.published,
+      id
+    );
+
+  }
+
+
+  /* =========================
+     CERTIFICATES
+     ========================= */
+
+  function getCertificates() {
+
+    return read(
+      KEYS.certificates
+    );
+
+  }
+
+
+  function saveCertificate(
+    record
+  ) {
+
+    return saveObject(
+      KEYS.certificates,
+      record,
+      "certificateId"
+    );
+
+  }
+
+
+  function getCertificate(
+    id
+  ) {
+
+    return findObject(
+      KEYS.certificates,
+      id,
+      [
+        "id",
+        "certificateId"
+      ]
+    );
+
+  }
+
+
+  /* =========================
+     JOINING
+     ========================= */
+
+  function getJoiningRecords() {
+
+    return read(
+      KEYS.joining
+    );
+
+  }
+
+
+  function saveJoining(
+    record
+  ) {
+
+    return saveObject(
+      KEYS.joining,
+      record,
+      "applicationNumber"
+    );
+
+  }
+
+
+  function getJoining(
+    id
+  ) {
+
+    return findObject(
+      KEYS.joining,
+      id,
+      [
+        "id",
+        "applicationNumber",
+        "applicationId"
+      ]
+    );
+
+  }
+
+
+  /* =========================
+     OBJECT STORAGE
+     ========================= */
+
+  function saveObject(
+    key,
+    record,
+    fallbackField
+  ) {
+
+    if (!record) return false;
+
+    const data =
+      read(key);
+
+    const id =
+      record.id ||
+      record[fallbackField] ||
+      (
+        "ARS-" +
+        Date.now()
+      );
+
+    const item = {
+      ...record,
+      id
+    };
+
+    const index =
+      data.findIndex(
+        x => {
+
+          const xId =
+            x.id ||
+            x[fallbackField];
+
+          return String(xId) ===
+            String(id);
+
         }
-      }
-
-      keys.forEach(key =>
-        localStorage.removeItem(key)
       );
 
-      return true;
 
-    } catch (error) {
+    if (index >= 0) {
 
-      console.error(
-        "ARS Storage Clear Error:",
-        error
-      );
+      data[index] =
+        {
+          ...data[index],
+          ...item
+        };
 
-      return false;
+    } else {
+
+      data.push(item);
+
     }
+
+
+    return write(
+      key,
+      data
+    );
+
   }
 
 
-  function exists(key) {
-    return localStorage.getItem(
-      PREFIX + key
-    ) !== null;
+  function removeObject(
+    key,
+    id
+  ) {
+
+    const target =
+      normalizeId(id);
+
+    const data =
+      read(key);
+
+    const filtered =
+      data.filter(
+        item =>
+          normalizeId(
+            item.id ||
+            item.certificateId ||
+            item.applicationNumber
+          ) !== target
+      );
+
+    return write(
+      key,
+      filtered
+    );
+
   }
 
 
-  return {
+  function findObject(
+    key,
+    id,
+    fields
+  ) {
+
+    const target =
+      normalizeId(id);
+
+    if (!target) return null;
+
+    const data =
+      read(key);
+
+    return (
+      data.find(
+        item => {
+
+          return fields.some(
+            field =>
+              normalizeId(
+                item[field]
+              ).toUpperCase() ===
+              target.toUpperCase()
+          );
+
+        }
+      ) || null
+    );
+
+  }
+
+
+  /* =========================
+     CLEAR USER INTERACTION
+     ========================= */
+
+  function clearInteractions() {
+
+    [
+      KEYS.likes,
+      KEYS.favorites,
+      KEYS.saves
+    ].forEach(
+      key =>
+        localStorage.removeItem(key)
+    );
+
+  }
+
+
+  /* =========================
+     EXPORT PUBLIC API
+     ========================= */
+
+  window.ARSStorage = {
+
+    keys: KEYS,
+
     read,
     write,
+
+    contains,
+    add,
     remove,
-    clearARS,
-    exists
+    toggle,
+
+    toggleLike,
+    isLiked,
+
+    toggleFavorite,
+    isFavorite,
+
+    toggleSave,
+    isSaved,
+
+    getPublished,
+    savePublished,
+    deletePublished,
+
+    getCertificates,
+    saveCertificate,
+    getCertificate,
+
+    getJoiningRecords,
+    saveJoining,
+    getJoining,
+
+    clearInteractions
+
   };
+
 
 })();
