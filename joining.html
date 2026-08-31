@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS Joining | Adarsh Raj Shayar</title>
-  <meta name="description" content="Join ARS - Adarsh Raj Shayar">
+  <title>Join ARS | ARS Official</title>
+  <meta name="description" content="ARS Official से जुड़ने के लिए Joining Application।">
 
   <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
@@ -13,312 +13,617 @@
 
 <body>
 
+  <div id="progressBar"></div>
+
   <header class="site-header">
-    <div class="header-inner">
+    <nav class="navbar">
 
       <a href="index.html" class="brand">
         <img src="logo.png" alt="ARS Logo">
-        <span>ARS</span>
+        <span>ARS Official</span>
       </a>
 
-      <nav class="main-nav">
+      <button id="navToggle"
+              class="nav-toggle"
+              type="button"
+              aria-expanded="false">
+        ☰
+      </button>
+
+      <div id="navLinks" class="nav-links">
+
         <a href="index.html">Home</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="story.html">Story</a>
         <a href="ars-ai.html">ARS AI</a>
         <a href="joining.html" class="active">Join ARS</a>
         <a href="certificate.html">Certificate</a>
         <a href="verify.html">Verify</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="story.html">Stories</a>
         <a href="founder.html">Founder</a>
-      </nav>
+        <a href="contact.html">Contact</a>
 
-      <button
-        type="button"
-        class="theme-toggle"
-        id="themeToggle">
-        🌙
-      </button>
+        <div class="nav-more">
 
-    </div>
-  </header>
+          <button id="navMoreButton"
+                  type="button"
+                  aria-expanded="false">
+            More ▾
+          </button>
 
-  <main class="page-container">
+          <div id="navMoreMenu" class="nav-more-menu">
+            <a href="publisher.html">Publisher</a>
+            <a href="admin.html">Admin</a>
+            <a href="policy.html">Policy</a>
+          </div>
 
-    <section class="hero-section">
-
-      <img
-        src="logo.png"
-        alt="ARS Logo"
-        class="page-logo">
-
-      <h1>Join <span>ARS</span></h1>
-
-      <p>
-        ARS से जुड़ें और अपने talent, creativity और knowledge को आगे बढ़ाएँ।
-      </p>
-
-    </section>
-
-    <section class="form-card">
-
-      <h2>ARS Joining Registration</h2>
-
-      <p class="form-info">
-        नीचे अपनी जानकारी भरकर ARS Joining के लिए आवेदन करें।
-      </p>
-
-      <form id="joiningForm">
-
-        <div class="form-group">
-          <label for="fullName">पूरा नाम</label>
-          <input
-            id="fullName"
-            type="text"
-            required
-            maxlength="100"
-            placeholder="अपना पूरा नाम">
         </div>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            maxlength="150"
-            placeholder="example@email.com">
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Mobile Number</label>
-          <input
-            id="phone"
-            type="tel"
-            maxlength="15"
-            placeholder="Mobile Number">
-        </div>
-
-        <div class="form-group">
-          <label for="category">Joining Category</label>
-
-          <select id="category" required>
-            <option value="">Category चुनें</option>
-            <option value="Writer">Writer</option>
-            <option value="Shayar">Shayar</option>
-            <option value="Story Writer">Story Writer</option>
-            <option value="Creator">Creator</option>
-            <option value="Volunteer">Volunteer</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="message">अपने बारे में</label>
-
-          <textarea
-            id="message"
-            rows="5"
-            maxlength="1000"
-            placeholder="अपने बारे में संक्षेप में लिखें"></textarea>
-        </div>
-
-        <button
-          type="submit"
-          class="primary-btn">
-          Apply for ARS Joining
+        <button id="themeToggle"
+                class="theme-toggle"
+                type="button">
+          🌙
         </button>
 
-      </form>
+      </div>
 
-      <div
-        id="joiningResult"
-        class="result-box"
-        hidden>
+    </nav>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero-section">
+
+      <div class="hero-content">
+
+        <span class="eyebrow">ARS COMMUNITY</span>
+
+        <h1>
+          Join
+          <span>ARS</span>
+        </h1>
+
+        <p>
+          ARS community से जुड़ें और ARS के future projects,
+          educational initiatives और creative platform का हिस्सा बनें।
+        </p>
+
+        <div class="hero-actions">
+
+          <a href="#application"
+             class="btn btn-primary">
+            Apply Now
+          </a>
+
+          <a href="verify.html"
+             class="btn btn-secondary">
+            Verify
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="glass-card">
+
+          <img src="logo.png"
+               alt="ARS"
+               class="card-logo">
+
+          <h3>ARS Joining</h3>
+
+          <p>
+            Your journey with ARS starts here.
+          </p>
+
+        </div>
+
       </div>
 
     </section>
 
-    <section class="info-grid">
 
-      <article class="info-card">
-        <h3>📋 Application ID</h3>
-        <p>
-          आवेदन submit होने के बाद एक unique Application Number बनाया जाएगा।
-        </p>
-      </article>
+    <!-- BENEFITS -->
+    <section class="section">
 
-      <article class="info-card">
-        <h3>🔎 Verification</h3>
-        <p>
-          Joining Application Number का उपयोग बाद में ARS Joining Verification के लिए किया जा सकता है।
-        </p>
-      </article>
+      <div class="section-heading">
 
-      <article class="info-card">
-        <h3>📜 Joining Certificate</h3>
+        <span class="eyebrow">WHY JOIN?</span>
+
+        <h2>ARS से क्यों जुड़ें?</h2>
+
+      </div>
+
+
+      <div class="cards-grid">
+
+        <article class="feature-card">
+          <div class="feature-icon">🌟</div>
+          <h3>ARS Community</h3>
+          <p>
+            ARS के creative और educational ecosystem
+            से जुड़ने का अवसर।
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3>Learning</h3>
+          <p>
+            आने वाले educational projects और
+            learning initiatives से जुड़े रहें।
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3>Future Projects</h3>
+          <p>
+            ARS AI, educational channel और future
+            digital projects की updates प्राप्त करें।
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- APPLICATION -->
+    <section id="application" class="section">
+
+      <div class="section-heading">
+
+        <span class="eyebrow">APPLICATION</span>
+
+        <h2>ARS Joining Application</h2>
+
         <p>
-          Approved joining record के आधार पर Joining Certificate बनाया जा सकता है।
+          नीचे अपनी जानकारी भरें। Application submit करने के बाद
+          generated application number को सुरक्षित रखें।
         </p>
-      </article>
+
+      </div>
+
+
+      <div class="form-card">
+
+        <form id="joiningForm"
+              autocomplete="off">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="joinName">
+                Full Name
+              </label>
+
+              <input
+                id="joinName"
+                name="name"
+                type="text"
+                placeholder="अपना पूरा नाम"
+                required
+                maxlength="80">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="joinEmail">
+                Email
+              </label>
+
+              <input
+                id="joinEmail"
+                name="email"
+                type="email"
+                placeholder="example@email.com"
+                maxlength="120">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="joinPhone">
+                Mobile Number
+              </label>
+
+              <input
+                id="joinPhone"
+                name="phone"
+                type="tel"
+                placeholder="मोबाइल नंबर"
+                maxlength="15">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="joinCategory">
+                Category
+              </label>
+
+              <select
+                id="joinCategory"
+                name="category"
+                required>
+
+                <option value="">
+                  Select Category
+                </option>
+
+                <option value="Member">
+                  ARS Member
+                </option>
+
+                <option value="Student">
+                  Student
+                </option>
+
+                <option value="Creator">
+                  Creator
+                </option>
+
+                <option value="Volunteer">
+                  Volunteer
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-group form-full">
+
+              <label for="joinMessage">
+                About You
+              </label>
+
+              <textarea
+                id="joinMessage"
+                name="message"
+                rows="5"
+                maxlength="500"
+                placeholder="अपने बारे में संक्षेप में बताएं"></textarea>
+
+            </div>
+
+          </div>
+
+
+          <label class="checkbox-row">
+
+            <input
+              type="checkbox"
+              id="joinConsent"
+              required>
+
+            <span>
+              मैं दी गई जानकारी की शुद्धता की पुष्टि करता/करती हूँ।
+            </span>
+
+          </label>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary">
+            Submit Application
+          </button>
+
+        </form>
+
+
+        <div id="joiningResult"
+             class="result-card"
+             hidden>
+
+          <div class="result-icon">✓</div>
+
+          <h3>Application Created</h3>
+
+          <p>
+            आपका ARS Joining Application Number:
+          </p>
+
+          <strong id="applicationNumber"></strong>
+
+          <div class="hero-actions">
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="copyApplication">
+              Copy ID
+            </button>
+
+            <a
+              href="joining-certificate.html"
+              class="btn btn-primary">
+              Joining Certificate
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VERIFY CTA -->
+    <section class="section">
+
+      <div class="cta-card">
+
+        <span class="eyebrow">ALREADY JOINED?</span>
+
+        <h2>अपना Joining ID verify करें</h2>
+
+        <p>
+          अगर आपके पास ARS Joining Application Number है,
+          तो Verify page पर जाकर उसकी स्थिति check करें।
+        </p>
+
+        <a href="verify.html"
+           class="btn btn-primary">
+          Verify Joining
+        </a>
+
+      </div>
 
     </section>
 
   </main>
 
-  <a
-    href="#"
-    class="back-to-top"
-    id="backToTop"
-    aria-label="ऊपर जाएँ">
-    ↑
-  </a>
+
+  <footer class="site-footer">
+
+    <div class="footer-content">
+
+      <div class="footer-brand">
+
+        <img src="logo.png"
+             alt="ARS Logo">
+
+        <h3>ARS Official</h3>
+
+        <p>
+          Creativity • Education • Technology
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      © <span class="current-year"></span>
+      ARS Official. All Rights Reserved.
+
+    </div>
+
+  </footer>
+
+
+  <script src="script.js"></script>
 
   <script>
-    const form = document.getElementById("joiningForm");
-    const result = document.getElementById("joiningResult");
+    (function () {
 
-    function generateApplicationNumber() {
-      const year = new Date().getFullYear();
+      const form =
+        document.getElementById("joiningForm");
 
-      const random =
-        Math.random()
-          .toString(36)
-          .substring(2, 8)
-          .toUpperCase();
-
-      return "ARS-JOIN-" + year + "-" + random;
-    }
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const name =
-        document.getElementById("fullName").value.trim();
-
-      const email =
-        document.getElementById("email").value.trim();
-
-      const phone =
-        document.getElementById("phone").value.trim();
-
-      const category =
-        document.getElementById("category").value;
-
-      const message =
-        document.getElementById("message").value.trim();
+      const result =
+        document.getElementById("joiningResult");
 
       const applicationNumber =
-        generateApplicationNumber();
+        document.getElementById("applicationNumber");
 
-      const application = {
-        applicationNumber,
-        name,
-        email,
-        phone,
-        category,
-        message,
-        status: "Pending",
-        createdAt: new Date().toISOString()
-      };
+      const copyButton =
+        document.getElementById("copyApplication");
 
-      const oldApplications =
-        JSON.parse(
-          localStorage.getItem("arsJoiningApplications") || "[]"
+
+      if (!form) return;
+
+
+      function generateApplicationNumber() {
+
+        const now =
+          new Date();
+
+        const year =
+          now.getFullYear();
+
+        const random =
+          Math.floor(
+            100000 +
+            Math.random() * 900000
+          );
+
+        return `ARS-JOIN-${year}-${random}`;
+
+      }
+
+
+      form.addEventListener(
+        "submit",
+        function (event) {
+
+          event.preventDefault();
+
+
+          const name =
+            document
+              .getElementById("joinName")
+              .value
+              .trim();
+
+          const email =
+            document
+              .getElementById("joinEmail")
+              .value
+              .trim();
+
+          const phone =
+            document
+              .getElementById("joinPhone")
+              .value
+              .trim();
+
+          const category =
+            document
+              .getElementById("joinCategory")
+              .value;
+
+          const message =
+            document
+              .getElementById("joinMessage")
+              .value
+              .trim();
+
+
+          const id =
+            generateApplicationNumber();
+
+
+          const record = {
+            id,
+            name,
+            email,
+            phone,
+            category,
+            message,
+            type: "joining",
+            status: "submitted",
+            createdAt:
+              new Date().toISOString()
+          };
+
+
+          /*
+           * Temporary local record.
+           * storage.js / future backend can use the same
+           * record structure without changing this page.
+           */
+
+          try {
+
+            const existing =
+              JSON.parse(
+                localStorage.getItem(
+                  "ARS_JOINING_APPLICATIONS"
+                ) || "[]"
+              );
+
+            existing.push(record);
+
+            localStorage.setItem(
+              "ARS_JOINING_APPLICATIONS",
+              JSON.stringify(existing)
+            );
+
+          } catch (_) {}
+
+
+          applicationNumber.textContent =
+            id;
+
+          result.hidden = false;
+
+          form.reset();
+
+          result.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+
+          if (
+            window.ARS &&
+            typeof window.ARS.showToast === "function"
+          ) {
+
+            window.ARS.showToast(
+              "Joining application created successfully."
+            );
+
+          }
+
+        }
+      );
+
+
+      if (copyButton) {
+
+        copyButton.addEventListener(
+          "click",
+          async function () {
+
+            const id =
+              applicationNumber.textContent;
+
+            if (!id) return;
+
+
+            if (
+              window.ARS &&
+              typeof window.ARS.copyText === "function"
+            ) {
+
+              const success =
+                await window.ARS.copyText(id);
+
+              window.ARS.showToast(
+                success
+                  ? "Application ID copied."
+                  : "Copy failed."
+              );
+
+            }
+
+          }
         );
 
-      oldApplications.push(application);
+      }
 
-      localStorage.setItem(
-        "arsJoiningApplications",
-        JSON.stringify(oldApplications)
-      );
+    })();
 
-      result.hidden = false;
 
-      result.innerHTML = `
-        <div>
-          <h3>✅ Application Submitted</h3>
-
-          <p>
-            आपका ARS Joining Application सफलतापूर्वक submit हो गया है।
-          </p>
-
-          <div class="application-number">
-            ${applicationNumber}
-          </div>
-
-          <p>
-            इस Application Number को सुरक्षित रखें।
-            यही Joining Verification में उपयोग होगा।
-          </p>
-
-          <a
-            href="verify.html"
-            class="primary-btn">
-            Verify Joining
-          </a>
-        </div>
-      `;
-
-      form.reset();
-      result.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
+    document
+      .querySelectorAll(".current-year")
+      .forEach(el => {
+        el.textContent =
+          new Date().getFullYear();
       });
-    });
 
-    const themeToggle =
-      document.getElementById("themeToggle");
-
-    function applyTheme(theme) {
-      document.documentElement.dataset.theme = theme;
-
-      localStorage.setItem(
-        "ars-theme",
-        theme
-      );
-
-      themeToggle.textContent =
-        theme === "dark" ? "☀️" : "🌙";
-    }
-
-    const savedTheme =
-      localStorage.getItem("ars-theme") || "light";
-
-    applyTheme(savedTheme);
-
-    themeToggle.addEventListener("click", () => {
-
-      const current =
-        document.documentElement.dataset.theme;
-
-      applyTheme(
-        current === "dark"
-          ? "light"
-          : "dark"
-      );
-
-    });
-
-    const backToTop =
-      document.getElementById("backToTop");
-
-    window.addEventListener("scroll", () => {
-
-      backToTop.style.display =
-        window.scrollY > 350
-          ? "flex"
-          : "none";
-
-    });
-
-    backToTop.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
   </script>
 
 </body>
