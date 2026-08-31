@@ -1,1 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta name="description"
+        content="ARS Official Joining Certificate">
+
+  <title>Joining Certificate | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .joining-certificate-page {
+      min-height: 100vh;
+      padding: 115px 20px 70px;
+      background:
+        radial-gradient(circle at top left, rgba(212,175,55,.15), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(124,58,237,.14), transparent 32%),
+        var(--bg);
+    }
+
+    .jc-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .jc-heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .jc-heading h1 {
+      font-size: clamp(36px, 6vw, 58px);
+    }
+
+    .jc-heading p {
+      color: var(--text-soft);
+    }
+
+    .jc-form-card {
+      max-width: 720px;
+      margin: auto;
+      padding: 28px;
+      border-radius: 22px;
+      border: 1px solid rgba(212,175,55,.30);
+      background: var(--card-bg, rgba(255,255,255,.05));
+    }
+
+    .jc-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .jc-form label {
+      font-weight: 800;
+    }
+
+    .jc-form input,
+    .jc-form textarea {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid rgba(128,128,128,.30);
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+
+    .jc-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .jc-btn {
+      padding: 14px;
+      border: 0;
+      border-radius: 11px;
+      cursor: pointer;
+      font-weight: 900;
+      background: linear-gradient(135deg,#d4af37,#f5d76e);
+      color: #111;
+    }
+
+    .certificate-result {
+      display: none;
+      margin-top: 35px;
+    }
+
+    .certificate-result.show {
+      display: block;
+    }
+
+    .certificate-paper {
+      position: relative;
+      overflow: hidden;
+      padding: 55px 45px;
+      min-height: 600px;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(212,175,55,.12), transparent 20%),
+        radial-gradient(circle at 90% 85%, rgba(212,175,55,.12), transparent 20%),
+        #0d0b08;
+      color: #f5e6b8;
+      border: 5px solid #d4af37;
+      box-shadow:
+        inset 0 0 0 8px #17120b,
+        inset 0 0 0 11px #d4af37,
+        0 25px 70px rgba(0,0,0,.30);
+      text-align: center;
+    }
+
+    .certificate-paper::before,
+    .certificate-paper::after {
+      content: "✿";
+      position: absolute;
+      font-size: 70px;
+      color: #d4af37;
+      opacity: .75;
+    }
+
+    .certificate-paper::before {
+      top: 12px;
+      left: 22px;
+    }
+
+    .certificate-paper::after {
+      right: 22px;
+      bottom: 12px;
+    }
+
+    .jc-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    .certificate-paper h2 {
+      font-family: Georgia, serif;
+      font-size: 38px;
+      letter-spacing: 4px;
+      margin: 8px 0;
+      color: #f5d76e;
+    }
+
+    .certificate-subtitle {
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #d4af37;
+    }
+
+    .certificate-name {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      margin: 30px 0 12px;
+      color: #fff3c4;
+    }
+
+    .certificate-text {
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.8;
+      color: #e8dfca;
+    }
+
+    .certificate-id {
+      margin-top: 28px;
+      font-weight: 900;
+      color: #f5d76e;
+    }
+
+    .jc-signature {
+      width: 145px;
+      margin-top: 30px;
+      transform: rotate(-7deg);
+      filter: brightness(1.15);
+    }
+
+    .print-btn {
+      margin-top: 20px;
+      padding: 13px 22px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+
+      .certificate-paper,
+      .certificate-paper * {
+        visibility: visible !important;
+      }
+
+      .certificate-paper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        min-height: 100vh;
+        box-shadow: none;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .certificate-paper {
+        padding: 40px 22px;
+      }
+
+      .certificate-paper h2 {
+        font-size: 27px;
+      }
+
+      .certificate-name {
+        font-size: 27px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official">
+      <span>ARS Official</span>
+    </a>
+
+    <button id="navToggle"
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false">☰</button>
+
+    <div id="navLinks" class="nav-links">
+
+      <a href="index.html">Home</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="founder.html">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html" class="active">
+        Joining Certificate
+      </a>
+      <a href="verify.html">Verify</a>
+
+      <div class="nav-more">
+
+        <button id="navMoreButton"
+                type="button"
+                aria-expanded="false">
+          More ▾
+        </button>
+
+        <div id="navMoreMenu" class="nav-more-menu">
+          <a href="joining.html">Joining ARS</a>
+          <a href="publisher.html">Publisher</a>
+          <a href="policy.html">Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+        </div>
+
+      </div>
+
+      <button id="themeToggle"
+              type="button">
+        🌙
+      </button>
+
+    </div>
+  </nav>
+</header>
+
+<main class="joining-certificate-page">
+
+  <div class="jc-container">
+
+    <section class="jc-heading">
+      <h1>Joining Certificate</h1>
+      <p>
+        Generate an ARS Official joining certificate.
+      </p>
+    </section>
+
+    <section class="jc-form-card">
+
+      <form id="jcForm" class="jc-form">
+
+        <label for="jcName">
+          Member Name
+        </label>
+
+        <input
+          id="jcName"
+          type="text"
+          placeholder="Enter member name"
+          required>
+
+        <label for="jcRole">
+          Role
+        </label>
+
+        <input
+          id="jcRole"
+          type="text"
+          placeholder="Member / Publisher / Contributor"
+          required>
+
+        <label for="jcDate">
+          Joining Date
+        </label>
+
+        <input
+          id="jcDate"
+          type="date"
+          required>
+
+        <label for="jcMessage">
+          Additional Message
+        </label>
+
+        <textarea
+          id="jcMessage"
+          placeholder="Optional message"></textarea>
+
+        <button class="jc-btn" type="submit">
+          Generate Joining Certificate
+        </button>
+
+      </form>
+
+    </section>
+
+    <section id="certificateResult"
+             class="certificate-result">
+
+      <div class="certificate-paper">
+
+        <img
+          src="logo.png"
+          alt="ARS Official"
+          class="jc-logo">
+
+        <div class="certificate-subtitle">
+          ARS OFFICIAL
+        </div>
+
+        <h2>JOINING CERTIFICATE</h2>
+
+        <p>
+          This certificate is proudly presented to
+        </p>
+
+        <div id="certificateName"
+             class="certificate-name">
+        </div>
+
+        <p class="certificate-text">
+          In recognition of joining ARS Official as
+          <strong id="certificateRole"></strong>
+          and becoming part of the ARS Official digital community.
+        </p>
+
+        <p id="certificateMessage"
+           class="certificate-text">
+        </p>
+
+        <p>
+          Joining Date:
+          <strong id="certificateDate"></strong>
+        </p>
+
+        <div class="certificate-id">
+          Certificate ID:
+          <span id="certificateID"></span>
+        </div>
+
+        <img
+          src="signature.jpg"
+          alt="Founder Signature"
+          class="jc-signature">
+
+        <p>
+          Founder & Creator<br>
+          <strong>Adarsh Raj</strong>
+        </p>
+
+      </div>
+
+      <button
+        class="print-btn"
+        type="button"
+        onclick="window.print()">
+        🖨️ Print Certificate
+      </button>
+
+    </section>
+
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="storage.js"></script>
+<script src="script.js"></script>
+
+<script>
+(function () {
+
+  "use strict";
+
+  const form =
+    document.getElementById("jcForm");
+
+  const result =
+    document.getElementById("certificateResult");
+
+  if (!form) return;
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById("jcName").value.trim();
+
+    const role =
+      document.getElementById("jcRole").value.trim();
+
+    const date =
+      document.getElementById("jcDate").value;
+
+    const message =
+      document.getElementById("jcMessage").value.trim();
+
+    const id =
+      "ARS-JOIN-" +
+      Date.now().toString(36).toUpperCase();
+
+    document.getElementById("certificateName")
+      .textContent = name;
+
+    document.getElementById("certificateRole")
+      .textContent = role;
+
+    document.getElementById("certificateDate")
+      .textContent = date;
+
+    document.getElementById("certificateID")
+      .textContent = id;
+
+    document.getElementById("certificateMessage")
+      .textContent = message
+        ? message
+        : "Welcome to the ARS Official community.";
+
+    result.classList.add("show");
+
+    const records =
+      JSON.parse(
+        localStorage.getItem("ARS_JOINING_CERTIFICATES") || "[]"
+      );
+
+    records.unshift({
+      id: id,
+      name: name,
+      role: role,
+      joiningDate: date,
+      message: message,
+      type: "joining",
+      createdAt: new Date().toISOString()
+    });
+
+    localStorage.setItem(
+      "ARS_JOINING_CERTIFICATES",
+      JSON.stringify(records)
+    );
+
+    if (window.ARS && window.ARS.showToast) {
+      window.ARS.showToast(
+        "Joining certificate generated ✓"
+      );
+    }
+
+    result.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  });
+
+})();
+</script>
+
+</body>
+</html>
