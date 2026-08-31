@@ -1,74 +1,98 @@
-"use strict";
-
 /* =========================================================
-   ARS WEBSITE CONFIGURATION
-   Adarsh Raj Shayar Official
+   ARS OFFICIAL
+   CENTRAL CONFIGURATION FILE
+
+   बाकी pages इस file से common settings ले सकते हैं।
    ========================================================= */
 
 window.ARS_CONFIG = {
 
-  /* ---------- Website ---------- */
+  /* Website */
 
-  siteName: "Adarsh Raj Shayar Official",
+  siteName: "ARS Official",
 
-  shortName: "ARS",
+  siteShortName: "ARS",
 
-  founderName: "Adarsh Raj Shayar",
+  founderName: "Adarsh Raj",
 
   siteUrl:
-    "https://adarshrajshyar.github.io/",
+    window.location.origin,
 
 
-  /* ---------- Social Links ---------- */
+  /* Social */
 
   instagram:
     "https://www.instagram.com/adarshrajshyar/",
 
+
   whatsappGK:
     "https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e",
 
-  whatsappShayar:
+
+  whatsappShayari:
     "https://whatsapp.com/channel/0029Vb8vRP4DZ4LgW27mNc3A",
 
 
-  /* ---------- Images ---------- */
+  /* Future */
 
-  images: {
+  futureApp: true,
 
-    logo: "logo.png",
+  futureEducationalChannel: true,
 
-    founder:
-      "founder.png",
+  arsAI: true,
 
-    photo:
-      "photo.png",
 
-    banner:
-      "banner.png",
+  /* Storage */
 
-    websiteBanner:
-      "website-banner.png",
+  storageKeys: {
 
-    signature:
-      "signature.png"
+    certificates:
+      "ARS_CERTIFICATES",
+
+    joining:
+      "ARS_JOINING_CERTIFICATES",
+
+    published:
+      "ARS_PUBLISHED_CONTENT",
+
+    favorites:
+      "ARS_FAVORITES",
+
+    likes:
+      "ARS_LIKES",
+
+    saves:
+      "ARS_SAVES"
 
   },
 
 
-  /* ---------- Shayari Categories ---------- */
+  /* Certificate */
+
+  certificatePrefix:
+    "ARS-CERT-",
+
+
+  joiningPrefix:
+    "ARS-JOIN-",
+
+
+  /* Shayari */
 
   shayariCategories: [
-    "Sad",
+    "All",
     "Love",
+    "Sad",
     "Attitude",
     "Friendship",
     "Motivation"
   ],
 
 
-  /* ---------- Story Categories ---------- */
+  /* Story */
 
   storyCategories: [
+    "All",
     "Poem",
     "Horror",
     "Friendship",
@@ -77,98 +101,87 @@ window.ARS_CONFIG = {
     "Moral",
     "Mystery",
     "Biography",
-    "Motivation"
+    "Motivation",
+    "Inspirational"
   ],
 
 
-  /* ---------- Certificate ---------- */
+  /* Certificate types */
 
   certificateTypes: [
     "Professional",
     "Achievement",
-    "Business"
+    "Business",
+    "Participation"
   ],
 
 
-  /* ---------- ARS Roles ---------- */
+  /* Theme */
 
-  joiningRoles: [
-    "Writer",
-    "Creator",
-    "Supporter",
-    "Shayar",
-    "Instagram Related",
-    "YouTube Related"
-  ],
+  defaultTheme:
+    "light",
 
 
-  /* ---------- Storage Keys ---------- */
+  /* Navigation */
 
-  storage: {
+  pages: {
 
-    normalCertificates:
-      "NORMAL_CERTIFICATES",
-
-    joiningApplications:
-      "JOINING_APPLICATIONS",
+    home:
+      "index.html",
 
     shayari:
-      "SHAYARI",
+      "shayari.html",
 
-    stories:
-      "STORIES",
-
-    likes:
-      "LIKES",
-
-    saves:
-      "SAVES",
-
-    updates:
-      "UPDATES"
-
-  },
-
-
-  /* ---------- Future Features ---------- */
-
-  features: {
-
-    arsAI: true,
-
-    joining: true,
-
-    certificates: true,
-
-    certificateVerification: true,
-
-    publisher: true,
-
-    admin: true,
-
-    futureEducationalChannel: true,
-
-    futureAndroidApp: true
-
-  },
-
-
-  /* ---------- Website Text ---------- */
-
-  messages: {
-
-    follow:
-      "ARS से जुड़े रहने के लिए हमें Follow और Share करें।",
-
-    educational:
-      "भविष्य में ARS का Educational Channel भी बनाया जाएगा।",
-
-    app:
-      "भविष्य में ARS का Android App भी उपलब्ध कराया जाएगा।",
+    story:
+      "story.html",
 
     ai:
-      "ARS AI — आपका creative assistant।"
+      "ars-ai.html",
+
+    joining:
+      "joining.html",
+
+    joiningCertificate:
+      "joining-certificate.html",
+
+    certificate:
+      "certificate.html",
+
+    verify:
+      "verify.html",
+
+    founder:
+      "founder.html",
+
+    contact:
+      "contact.html",
+
+    admin:
+      "admin.html",
+
+    publisher:
+      
+
+    policy:
+   
 
   }
 
 };
+
+
+/*
+   Safe helper:
+   अगर किसी दूसरे JS को config की जरूरत हो,
+   तो वह ARS_CONFIG से values ले सकता है।
+*/
+
+window.ARS_CONFIG.getPage =
+  function (name) {
+
+    return (
+      window.ARS_CONFIG.pages[name] ||
+      "index.html"
+    );
+
+  };
