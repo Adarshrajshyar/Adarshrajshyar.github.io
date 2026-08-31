@@ -1,123 +1,274 @@
-/* =========================================================
-   ARS VERIFY STORAGE
-   Joining Certificate + Normal Certificate
-   ========================================================= */
+"use strict";
+
+/*
+ * ARS OFFICIAL
+ * Verification Storage
+ *
+ * Supports:
+ * 1. Normal Certificate → ARS-CERT-...
+ * 2. Joining Certificate → Application Number
+ *
+ * Works with localStorage and the existing certificate/storage systems.
+ */
 
 (function () {
-  "use strict";
 
-  const CERTIFICATE_KEY = "ARS_CERTIFICATES";
-  const JOINING_KEY = "ARS_JOINING_CERTIFICATES";
+  const CERTIFICATE_KEYS = [
+    "ARS_CERTIFICATES",
+    "ARS_CERTIFICATE_STORAGE",
+    "ARS_CERTIFICATE_DATA",
+    "certificates"
+  ];
 
-  function read(key) {
+  const JOINING_KEYS = [
+    "ARS_JOINING_CERTIFICATES",
+    "ARS_JOINING_CERTIFICATE",
+    "ARS_JOINING_DATA",
+    "joiningCertificates",
+    "ARS_JOINING_APPLICATIONS"
+  ];
+
+  function safeParse(value) {
+    if (!value) return null;
+
     try {
-      const data = JSON.parse(
-        localStorage.getItem(key) || "[]"
-      );
-
-      return Array.isArray(data) ? data : [];
+      return JSON.parse(value);
     } catch {
-      return [];
-    }
-  }
-
-  function normalize(value) {
-    return String(value || "")
-      .trim()
-      .toUpperCase();
-  }
-
-  function verify(type, value) {
-
-    const id = normalize(value);
-
-    if (!id) {
       return null;
     }
+  }
+
+  function readKey(key) {
+    return safeParse(localStorage.getItem(key));
+  }
+
+  function normalizeList(data) {
+    if (!data) return [];
+
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    if (typeof data === "object") {
+      if (Array.isArray(data.items)) return data.items;
+      if (Array.isArray(data.data)) return data.data;
+      if (Array.isArray(data.certificates)) return data.certificates;
+      if (Array.isArray(data.records)) return data.records;
+
+      return Object.values(data).filter(
+        item => item && typeof item === "object"
+      );
+    }
+
+    return [];
+  }
+
+  function getAllFromKeys(keys) {
+    const result = [];
+
+    keys.forEach(key => {
+      const data = readKey(key);
+
+      normalizeList(data).forEach(item => {
+        if (
+          item &&
+          typeof item === "object" &&
+          !result.some(existing =>
+            JSON.stringify(existing) === JSON.stringify(item)
+          )
+        ) {
+          result.push(item);
+        }
+      });
+    });
+
+    return result;
+  }
+
+  function clean(value) {
+    return String(value ?? "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function findValue(record, keys) {
+    for (const key of keys) {
+      if (
+        record &&
+        record[key] !== undefined &&
+        record[key] !== null &&
+        String(record[key]).trim() !== ""
+      ) {
+        return record[key];
+      }
+    }
+
+    return "";
+  }
+
+  function findCertificate(id) {
+    const target = clean(id);
+
+    if (!target) return null;
 
     const records =
-      type === "joining"
-        ? read(JOINING_KEY)
-        : read(CERTIFICATE_KEY);
+      getAllFromKeys(CERTIFICATE_KEYS);
+
+    return records.find(record => {
+
+      const recordId = findValue(record, [
+        "id",
+        "certificateId",
+        "certificateID",
+        "certId",
+        "certificate_id"
+      ]);
+
+      return clean(recordId) === target;
+
+    }) || null;
+  }
+
+  function findJoiningCertificate(applicationNumber) {
+    const target = clean(applicationNumber);
+
+    if (!target) return null;
+
+    const records =
+      getAllFromKeys(JOINING_KEYS);
+
+    return records.find(record => {
+
+      const appNo = findValue(record, [
+        "applicationNumber",
+        "applicationNo",
+        "application",
+        "application_id",
+        "applicationId",
+        "joiningApplicationNumber",
+        "joiningId",
+        "id"
+      ]);
+
+      return clean(appNo) === target;
+
+    }) || null;
+  }
+
+  function verifyCertificate(id) {
+    const record = findCertificate(id);
+
+    if (!record) return null;
+
+    return {
+      ...record,
+      id:
+        findValue(record, [
+          "id",
+          "certificateId",
+          "certificateID",
+          "certId"
+        ]) || id,
+
+      type:
+        findValue(record, [
+          "type",
+          "certificateType"
+        ]) || "Certificate",
+
+      name:
+        findValue(record, [
+          "name",
+          "fullName",
+          "recipientName"
+        ])
+    };
+  }
+
+  function verifyJoining(id) {
+    const record =
+      findJoiningCertificate(id);
+
+    if (!record) return null;
+
+    return {
+      ...record,
+
+      id:
+        findValue(record, [
+          "applicationNumber",
+          "applicationNo",
+          "application",
+          "applicationId",
+          "joiningApplicationNumber",
+          "joiningId",
+          "id"
+        ]) || id,
+
+      type:
+        findValue(record, [
+          "type",
+          "certificateType"
+        ]) || "Joining Certificate",
+
+      name:
+        findValue(record, [
+          "name",
+          "fullName",
+          "applicantName",
+          "candidateName",
+          "recipientName"
+        ])
+    };
+  }
+
+  function verify(type, id) {
+
+    const cleanId = String(id || "").trim();
+
+    if (!cleanId) return null;
+
+    if (type === "joining") {
+      return verifyJoining(cleanId);
+    }
+
+    return verifyCertificate(cleanId);
+  }
+
+  /*
+   * Helpful automatic detection:
+   *
+   * ARS-CERT-... → normal certificate
+   * Otherwise → joining application number
+   */
+  function autoVerify(id) {
+
+    const cleanId =
+      String(id || "").trim();
+
+    if (!cleanId) return null;
+
+    if (
+      cleanId
+        .toUpperCase()
+        .startsWith("ARS-CERT-")
+    ) {
+      return verifyCertificate(cleanId);
+    }
 
     return (
-      records.find(record => {
-
-        const possibleIds = [
-          record.id,
-          record.applicationNumber,
-          record.applicationId,
-          record.certificateId
-        ];
-
-        return possibleIds.some(
-          item => normalize(item) === id
-        );
-
-      }) || null
+      verifyJoining(cleanId) ||
+      verifyCertificate(cleanId)
     );
   }
 
-  function getAll(type) {
-    return type === "joining"
-      ? read(JOINING_KEY)
-      : read(CERTIFICATE_KEY);
-  }
-
-  function save(type, record) {
-
-    const key =
-      type === "joining"
-        ? JOINING_KEY
-        : CERTIFICATE_KEY;
-
-    const records = read(key);
-
-    const id =
-      record.id ||
-      record.applicationNumber ||
-      record.certificateId;
-
-    if (!id) {
-      return false;
-    }
-
-    const index =
-      records.findIndex(
-        item =>
-          normalize(
-            item.id ||
-            item.applicationNumber ||
-            item.certificateId
-          ) === normalize(id)
-      );
-
-    if (index >= 0) {
-      records[index] = {
-        ...records[index],
-        ...record
-      };
-    } else {
-      records.push(record);
-    }
-
-    localStorage.setItem(
-      key,
-      JSON.stringify(records)
-    );
-
-    return true;
-  }
-
-  window.ARSVerifyStorage = {
+  window.ARS_VERIFY = {
     verify,
-    getAll,
-    save,
-
-    keys: {
-      certificate: CERTIFICATE_KEY,
-      joining: JOINING_KEY
-    }
+    verifyCertificate,
+    verifyJoining,
+    autoVerify,
+    findCertificate,
+    findJoiningCertificate
   };
 
 })();
