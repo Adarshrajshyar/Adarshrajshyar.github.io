@@ -1,256 +1,655 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>ARS Certificate</title>
+  <title>ARS Certificate Generator</title>
 
   <link rel="stylesheet" href="style.css">
 
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-  <script src="certificate.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef1f5;
+      color: #172033;
+    }
 
+    .page {
+      max-width: 1050px;
+      margin: auto;
+      padding: 25px 16px 60px;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 10px 15px;
+      border-radius: 9px;
+      background: #111827;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .hero {
+      padding: 40px 22px;
+      text-align: center;
+      color: #fff;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #111827, #374151);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 7px 24px rgba(0,0,0,.08);
+    }
+
+    label {
+      display: block;
+      margin: 13px 0 7px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 19px;
+      margin-top: 17px;
+      background: #111827;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .business-fields {
+      display: none;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .certificate {
+      display: none;
+      position: relative;
+      background: #fff;
+      border: 10px solid #111827;
+      min-height: 600px;
+      padding: 55px 45px;
+      box-sizing: border-box;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .certificate::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 2px solid #9ca3af;
+      pointer-events: none;
+    }
+
+    .cert-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+    }
+
+    .certificate h2 {
+      font-size: 35px;
+      letter-spacing: 3px;
+      margin: 12px 0 5px;
+    }
+
+    .certificate h3 {
+      font-size: 27px;
+      margin: 25px 0 12px;
+    }
+
+    .cert-description {
+      max-width: 720px;
+      margin: auto;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .cert-id {
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .founder-sign {
+      margin-top: 35px;
+      text-align: right;
+      padding-right: 25px;
+    }
+
+    .founder-sign img {
+      width: 130px;
+      max-height: 65px;
+      object-fit: contain;
+    }
+
+    .founder-sign p {
+      margin: 4px 0;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: none;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    @media print {
+
+      body {
+        background: #fff;
+      }
+
+      .hero,
+      .generator,
+      .actions,
+      .back {
+        display: none !important;
+      }
+
+      .page {
+        padding: 0;
+        max-width: none;
+      }
+
+      .certificate {
+        display: block !important;
+        min-height: 95vh;
+        box-shadow: none;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
+<main class="page">
 
-<header class="site-header">
+  <a href="index.html" class="back">
+    ← ARS Home
+  </a>
 
-  <nav class="navbar">
+  <header class="hero">
+    <h1>ARS Certificate</h1>
+    <p>Adarsh Raj Shayar Official Certificate System</p>
+  </header>
 
-    <a class="brand" href="index.html">
 
-      <img
-        class="brand-logo"
-        src="logo.png"
-        alt="ARS Logo"
+  <!-- GENERATOR -->
+
+  <section class="card generator">
+
+    <h2>Create Certificate</h2>
+
+    <label for="certificateType">
+      Certificate Type *
+    </label>
+
+    <select id="certificateType">
+      <option value="Professional">Professional</option>
+      <option value="Achievement">Achievement</option>
+      <option value="Business">Business</option>
+    </select>
+
+
+    <label for="recipientName">
+      Name *
+    </label>
+
+    <input
+      id="recipientName"
+      type="text"
+      maxlength="100"
+      placeholder="Certificate पाने वाले का नाम"
+    >
+
+
+    <label for="profession">
+      Profession / Achievement
+    </label>
+
+    <input
+      id="profession"
+      type="text"
+      maxlength="120"
+      placeholder="Profession या Achievement"
+    >
+
+
+    <div
+      id="businessFields"
+      class="business-fields"
+    >
+
+      <label for="businessName">
+        Business Name
+      </label>
+
+      <input
+        id="businessName"
+        type="text"
+        maxlength="120"
+        placeholder="Business Name"
       >
 
-      <span>
 
-        <strong>ARS Official</strong>
+      <label for="ownerName">
+        Owner / Founder Name
+      </label>
 
-        <small>Adarsh Raj Shayar</small>
-
-      </span>
-
-    </a>
-
-
-    <div class="nav-links">
-
-      <a href="index.html">Home</a>
-
-      <a href="joining.html">Join ARS</a>
-
-      <a class="active" href="certificate.html">
-        Certificate
-      </a>
-
-      <a href="verify.html">Verify</a>
-
-      <a href="founder.html">Founder</a>
+      <input
+        id="ownerName"
+        type="text"
+        maxlength="120"
+        placeholder="Owner / Founder Name"
+      >
 
     </div>
 
-  </nav>
 
-</header>
+    <label for="certificateMessage">
+      Certificate Message
+    </label>
 
-
-<main>
-
-<section class="section">
-
-  <div class="section-heading">
-
-    <span>ARS OFFICIAL</span>
-
-    <h2>Certificate Generator</h2>
-
-    <p>
-      अपना ARS Certificate तैयार करें।
-    </p>
-
-  </div>
+    <textarea
+      id="certificateMessage"
+      maxlength="500"
+      placeholder="Certificate के लिए message..."
+    ></textarea>
 
 
-  <div class="form-card">
+    <button onclick="generateCertificate()">
+      Generate Certificate
+    </button>
 
-    <form id="certificateForm">
+    <div id="errorMessage" class="message"></div>
 
-      <div class="form-row">
-
-        <div class="form-group">
-
-          <label for="certificateName">
-            Name / नाम
-          </label>
-
-          <input
-            id="certificateName"
-            required
-            placeholder="पूरा नाम"
-          >
-
-        </div>
+  </section>
 
 
-        <div class="form-group">
+  <!-- CERTIFICATE -->
 
-          <label for="certificateType">
-            Certificate Type
-          </label>
+  <section
+    id="certificate"
+    class="certificate"
+  >
 
-          <select id="certificateType" required>
+    <div class="cert-content">
 
-            <option value="">
-              Select Type
-            </option>
+      <img
+        src="logo.png"
+        alt="ARS Logo"
+        class="logo"
+        onerror="this.style.display='none'"
+      >
 
-            <option value="Professional">
-              Professional
-            </option>
+      <h2>CERTIFICATE</h2>
 
-            <option value="Achievement">
-              Achievement
-            </option>
+      <p>This certificate is proudly presented to</p>
 
-            <option value="Participation">
-              Participation
-            </option>
+      <h3 id="displayName">
+        Recipient Name
+      </h3>
 
-            <option value="Business">
-              Business
-            </option>
+      <p
+        id="displayDescription"
+        class="cert-description"
+      ></p>
 
-          </select>
+      <p
+        id="displayMessage"
+        class="cert-description"
+      ></p>
 
-        </div>
-
+      <div class="cert-id">
+        Certificate ID:
+        <span id="displayId"></span>
       </div>
 
 
-      <div
-        id="businessFields"
-        class="hidden"
-      >
+      <div class="founder-sign">
 
-        <div class="form-row">
+        <img
+          src="signature.png"
+          alt="Founder Signature"
+          onerror="this.style.display='none'"
+        >
 
-          <div class="form-group">
-
-            <label for="businessName">
-              Business Name
-            </label>
-
-            <input
-              id="businessName"
-              placeholder="Business Name"
-            >
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="businessOwner">
-              Owner / Founder
-            </label>
-
-            <input
-              id="businessOwner"
-              placeholder="Owner / Founder Name"
-            >
-
-          </div>
-
-        </div>
+        <p>Founder</p>
+        <p>Adarsh Raj Shayar</p>
 
       </div>
 
+    </div>
 
-      <button
-        class="primary-btn"
-        type="submit"
-      >
-        Generate Certificate
-      </button>
-
-    </form>
-
-  </div>
+  </section>
 
 
   <div
-    id="certificateOutput"
-    style="margin-top:30px;"
-  ></div>
+    id="actions"
+    class="actions"
+  >
 
-</section>
+    <button onclick="window.print()">
+      Print / Save PDF
+    </button>
+
+    <button onclick="location.reload()">
+      Create Another
+    </button>
+
+  </div>
 
 </main>
 
 
-<footer class="site-footer">
-
-  <div class="footer-inner">
-
-    <div class="footer-brand">
-
-      <img src="logo.png" alt="ARS Logo">
-
-      <div>
-
-        <h3>Adarsh Raj Shayar</h3>
-
-        <p>
-          ARS Official Certificate System
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</footer>
-
-
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
 
-  const type =
+  const STORAGE_KEY =
+    "ARS_NORMAL_CERTIFICATES";
+
+
+  const typeSelect =
     document.getElementById("certificateType");
 
-  const business =
+  const businessFields =
     document.getElementById("businessFields");
 
 
-  type.addEventListener("change", function () {
+  typeSelect.addEventListener(
+    "change",
+    function () {
 
-    business.classList.toggle(
-      "hidden",
-      this.value !== "Business"
+      if (this.value === "Business") {
+
+        businessFields.style.display =
+          "block";
+
+      } else {
+
+        businessFields.style.display =
+          "none";
+      }
+
+    }
+  );
+
+
+  function getCertificates() {
+
+    try {
+
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      ) || [];
+
+    } catch {
+
+      return [];
+
+    }
+  }
+
+
+  function saveCertificates(items) {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(items)
+    );
+  }
+
+
+  function createCertificateId() {
+
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
+
+    return (
+      "ARS-CERT-" +
+      Date.now() +
+      "-" +
+      random
+    );
+  }
+
+
+  function showError(message) {
+
+    const box =
+      document.getElementById("errorMessage");
+
+    box.textContent = message;
+    box.style.display = "block";
+  }
+
+
+  window.generateCertificate = function () {
+
+    const type =
+      typeSelect.value;
+
+    const name =
+      document
+        .getElementById("recipientName")
+        .value
+        .trim();
+
+    const profession =
+      document
+        .getElementById("profession")
+        .value
+        .trim();
+
+    const businessName =
+      document
+        .getElementById("businessName")
+        .value
+        .trim();
+
+    const ownerName =
+      document
+        .getElementById("ownerName")
+        .value
+        .trim();
+
+    const message =
+      document
+        .getElementById("certificateMessage")
+        .value
+        .trim();
+
+
+    document
+      .getElementById("errorMessage")
+      .style.display = "none";
+
+
+    if (!name) {
+
+      showError(
+        "कृपया नाम भरें।"
+      );
+
+      return;
+    }
+
+
+    if (
+      type === "Business" &&
+      (!businessName || !ownerName)
+    ) {
+
+      showError(
+        "Business Certificate के लिए Business Name और Owner / Founder Name भरें।"
+      );
+
+      return;
+    }
+
+
+    const certificateId =
+      createCertificateId();
+
+
+    let description = "";
+
+
+    if (type === "Business") {
+
+      description =
+        "This certificate recognizes " +
+        businessName +
+        " and its Owner / Founder " +
+        ownerName +
+        " through the ARS Certificate System.";
+
+    } else if (type === "Achievement") {
+
+      description =
+        name +
+        " is recognized for " +
+        (profession || "an achievement") +
+        " by Adarsh Raj Shayar.";
+
+    } else {
+
+      description =
+        name +
+        " is recognized as a " +
+        (profession || "professional contributor") +
+        " through Adarsh Raj Shayar.";
+
+    }
+
+
+    const certificateData = {
+
+      id: certificateId,
+
+      type: type,
+
+      name: name,
+
+      profession: profession,
+
+      businessName: businessName,
+
+      ownerName: ownerName,
+
+      message: message,
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    const certificates =
+      getCertificates();
+
+    certificates.unshift(
+      certificateData
     );
 
-  });
+    saveCertificates(certificates);
 
-});
+
+    document
+      .getElementById("displayName")
+      .textContent = name;
+
+
+    document
+      .getElementById("displayDescription")
+      .textContent = description;
+
+
+    document
+      .getElementById("displayMessage")
+      .textContent =
+      message ||
+      "With appreciation from Adarsh Raj Shayar Official.";
+
+
+    document
+      .getElementById("displayId")
+      .textContent =
+      certificateId;
+
+
+    document
+      .getElementById("certificate")
+      .style.display = "block";
+
+
+    document
+      .getElementById("actions")
+      .style.display = "flex";
+
+
+    document
+      .getElementById("certificate")
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+  };
+
+})();
 
 </script>
-
 
 </body>
 </html>
