@@ -1,145 +1,41 @@
-/* =========================================================
-   ARS OFFICIAL
-   CENTRAL CONFIGURATION FILE
+"use strict";
 
-   बाकी pages इस file से common settings ले सकते हैं।
-   ========================================================= */
+/*
+ * ============================================================
+ * ARS OFFICIAL — GLOBAL CONFIGURATION
+ * ============================================================
+ *
+ * इस file में website की common settings रखी गई हैं।
+ * बाकी JavaScript files इन्हीं settings को use कर सकती हैं।
+ *
+ * IMPORTANT:
+ * GitHub Pages जैसी frontend-only website में कोई भी secret
+ * password/API secret इस file में सुरक्षित नहीं रखा जा सकता।
+ * ============================================================
+ */
 
 window.ARS_CONFIG = {
 
-  /* Website */
-
-  siteName: "ARS Official",
-
-  siteShortName: "ARS",
-
-  founderName: "Adarsh Raj",
-
-  siteUrl:
-    window.location.origin,
-
-
-  /* Social */
-
-  instagram:
-    "https://www.instagram.com/adarshrajshyar/",
-
-
-  whatsappGK:
-    "https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e",
-
-
-  whatsappShayari:
-    "https://whatsapp.com/channel/0029Vb8vRP4DZ4LgW27mNc3A",
-
-
-  /* Future */
-
-  futureApp: true,
-
-  futureEducationalChannel: true,
-
-  arsAI: true,
-
-
-  /* Storage */
-
-  storageKeys: {
-
-    certificates:
-      "ARS_CERTIFICATES",
-
-    joining:
-      "ARS_JOINING_CERTIFICATES",
-
-    published:
-      "ARS_PUBLISHED_CONTENT",
-
-    favorites:
-      "ARS_FAVORITES",
-
-    likes:
-      "ARS_LIKES",
-
-    saves:
-      "ARS_SAVES"
-
+  /* Website identity */
+  site: {
+    name: "ARS Official",
+    shortName: "ARS",
+    founder: "Adarsh Raj",
+    description:
+      "ARS Official — Shayari, Stories, Joining, Certificates and more.",
+    logo: "logo.png",
+    signature: "signature.jpg"
   },
 
 
-  /* Certificate */
+  /* Main website links */
+  links: {
 
-  certificatePrefix:
-    "ARS-CERT-",
+    home: "index.html",
 
+    ai: "ars-ai.html",
 
-  joiningPrefix:
-    "ARS-JOIN-",
-
-
-  /* Shayari */
-
-  shayariCategories: [
-    "All",
-    "Love",
-    "Sad",
-    "Attitude",
-    "Friendship",
-    "Motivation"
-  ],
-
-
-  /* Story */
-
-  storyCategories: [
-    "All",
-    "Poem",
-    "Horror",
-    "Friendship",
-    "Emotional",
-    "Story",
-    "Moral",
-    "Mystery",
-    "Biography",
-    "Motivation",
-    "Inspirational"
-  ],
-
-
-  /* Certificate types */
-
-  certificateTypes: [
-    "Professional",
-    "Achievement",
-    "Business",
-    "Participation"
-  ],
-
-
-  /* Theme */
-
-  defaultTheme:
-    "light",
-
-
-  /* Navigation */
-
-  pages: {
-
-    home:
-      "index.html",
-
-    shayari:
-      "shayari.html",
-
-    story:
-      "story.html",
-
-    ai:
-      "ars-ai.html",
-
-    joining:
-      "joining.html",
+    joining: "joining.html",
 
     joiningCertificate:
       "joining-certificate.html",
@@ -150,38 +46,180 @@ window.ARS_CONFIG = {
     verify:
       "verify.html",
 
+    shayari:
+      "shayari.html",
+
+    story:
+      "story.html",
+
     founder:
       "founder.html",
 
     contact:
       "contact.html",
 
-    admin:
-      "admin.html",
-
     publisher:
-      
+      "publisher.html",
 
     policy:
-   
+      "policy.html",
 
-  }
+    admin:
+      "admin.html"
+
+  },
+
+
+  /* Social / ARS joining links */
+  social: {
+
+    instagram:
+      "https://www.instagram.com/reel/DcTV9wBJQ6D/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==",
+
+    whatsappChannel1:
+      "https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e",
+
+    whatsappChannel2:
+      "https://whatsapp.com/channel/0029Vb8vRP4DZ4LgW27mNc3A"
+
+  },
+
+
+  /* Content categories */
+  categories: {
+
+    shayari: [
+      "All",
+      "Love",
+      "Sad",
+      "Motivation",
+      "Attitude",
+      "Friendship"
+    ],
+
+    story: [
+      "All",
+      "Motivational",
+      "Inspirational",
+      "Life",
+      "Friendship",
+      "Success",
+      "Emotional",
+      "Knowledge"
+    ]
+
+  },
+
+
+  /* Storage names */
+  storage: {
+
+    certificates:
+      "ARS_CERTIFICATES",
+
+    joiningCertificates:
+      "ARS_JOINING_CERTIFICATES",
+
+    favorites:
+      "ARS_FAVORITES",
+
+    likes:
+      "ARS_LIKES",
+
+    saved:
+      "ARS_SAVED",
+
+    copied:
+      "ARS_COPIED",
+
+    theme:
+      "ARS_THEME",
+
+    adminAuth:
+      "ARS_ADMIN_AUTH"
+
+  },
+
+
+  /* Certificate configuration */
+  certificate: {
+
+    prefix:
+      "ARS-CERT-",
+
+    organization:
+      "ARS Official",
+
+    issuer:
+      "Adarsh Raj",
+
+    types: [
+      "Professional",
+      "Business",
+      "Achievement",
+      "Participation"
+    ]
+
+  },
+
+
+  /* Joining configuration */
+  joining: {
+
+    idBasedOn:
+      "applicationNumber",
+
+    organization:
+      "ARS Official"
+
+  },
+
+
+  /* Verification */
+  verification: {
+
+    certificatePrefix:
+      "ARS-CERT-",
+
+    modes: [
+      "certificate",
+      "joining"
+    ]
+
+  },
+
+
+  /* UI defaults */
+  ui: {
+
+    defaultTheme:
+      "light",
+
+    scrollTopButton:
+      true,
+
+    smoothScroll:
+      true,
+
+    mobileNavigation:
+      true
+
+  },
+
+
+  /* App version */
+  version:
+    "1.0.0"
 
 };
 
 
 /*
-   Safe helper:
-   अगर किसी दूसरे JS को config की जरूरत हो,
-   तो वह ARS_CONFIG से values ले सकता है।
-*/
-
-window.ARS_CONFIG.getPage =
-  function (name) {
-
-    return (
-      window.ARS_CONFIG.pages[name] ||
-      "index.html"
-    );
-
-  };
+ * Freeze only the top-level configuration object.
+ * Individual modules can still read the settings safely.
+ */
+try {
+  Object.freeze(window.ARS_CONFIG);
+} catch (_) {
+  /* Older browsers can safely ignore this. */
+}
