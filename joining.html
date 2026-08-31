@@ -1,1 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta name="description"
+        content="Join ARS Official and become part of the ARS community.">
+
+  <title>Joining ARS | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .joining-page {
+      min-height: 100vh;
+      padding: 120px 20px 80px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(212,175,55,.15), transparent 32%),
+        radial-gradient(circle at 90% 20%, rgba(124,58,237,.14), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(236,72,153,.10), transparent 35%),
+        var(--bg);
+    }
+
+    .joining-container {
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .joining-hero {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+
+    .joining-hero img {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .joining-hero h1 {
+      font-size: clamp(40px, 7vw, 68px);
+      margin-bottom: 12px;
+    }
+
+    .joining-hero p {
+      max-width: 720px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.75;
+    }
+
+    .joining-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 24px;
+    }
+
+    .joining-card {
+      padding: 30px;
+      border-radius: 24px;
+      border: 1px solid rgba(212,175,55,.30);
+      background: var(--card-bg, rgba(255,255,255,.05));
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+    }
+
+    .joining-card h2 {
+      margin-bottom: 12px;
+    }
+
+    .joining-card p,
+    .joining-card li {
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .joining-card ul {
+      padding-left: 22px;
+      margin-top: 18px;
+    }
+
+    .joining-form {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .joining-form label {
+      font-weight: 800;
+    }
+
+    .joining-form input,
+    .joining-form select,
+    .joining-form textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 11px;
+      border: 1px solid rgba(128,128,128,.30);
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+
+    .joining-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .joining-form input:focus,
+    .joining-form select:focus,
+    .joining-form textarea:focus {
+      border-color: #d4af37;
+    }
+
+    .joining-btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-weight: 900;
+      background: linear-gradient(135deg,#d4af37,#f5d76e);
+      color: #111;
+    }
+
+    .joining-success {
+      display: none;
+      margin-top: 18px;
+      padding: 17px;
+      border-radius: 13px;
+      background: rgba(34,197,94,.10);
+      border: 1px solid rgba(34,197,94,.30);
+    }
+
+    .joining-success.show {
+      display: block;
+    }
+
+    .joining-id {
+      font-weight: 900;
+      word-break: break-all;
+    }
+
+    @media (max-width: 780px) {
+      .joining-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Official">
+      <span>ARS Official</span>
+    </a>
+
+    <button id="navToggle"
+            class="nav-toggle"
+            type="button"
+            aria-expanded="false">☰</button>
+
+    <div id="navLinks" class="nav-links">
+
+      <a href="index.html">Home</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="founder.html">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="joining-certificate.html">Joining Certificate</a>
+      <a href="verify.html">Verify</a>
+
+      <div class="nav-more">
+
+        <button id="navMoreButton"
+                type="button"
+                aria-expanded="false">
+          More ▾
+        </button>
+
+        <div id="navMoreMenu" class="nav-more-menu">
+          <a href="joining.html" class="active">Joining ARS</a>
+          <a href="publisher.html">Publisher</a>
+          <a href="policy.html">Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+        </div>
+
+      </div>
+
+      <button id="themeToggle"
+              type="button"
+              aria-label="Switch to dark mode">
+        🌙
+      </button>
+
+    </div>
+  </nav>
+</header>
+
+<main class="joining-page">
+
+  <div class="joining-container">
+
+    <section class="joining-hero">
+
+      <img src="logo.png" alt="ARS Official Logo">
+
+      <h1>Join ARS Official</h1>
+
+      <p>
+        Become part of the ARS Official community and explore
+        its digital, creative and publishing ecosystem.
+      </p>
+
+    </section>
+
+    <div class="joining-grid">
+
+      <section class="joining-card">
+
+        <h2>🌟 Why Join ARS?</h2>
+
+        <p>
+          ARS Official brings multiple features together in one
+          digital platform.
+        </p>
+
+        <ul>
+          <li>Access ARS digital features.</li>
+          <li>Explore creative content.</li>
+          <li>Participate in the ARS community.</li>
+          <li>Use supported certificate services.</li>
+          <li>Explore publishing opportunities.</li>
+        </ul>
+
+      </section>
+
+      <section class="joining-card">
+
+        <h2>Join Now</h2>
+
+        <form id="joiningForm"
+              class="joining-form">
+
+          <label for="joiningName">
+            Full Name
+          </label>
+
+          <input
+            id="joiningName"
+            type="text"
+            placeholder="Enter your name"
+            required>
+
+          <label for="joiningEmail">
+            Email
+          </label>
+
+          <input
+            id="joiningEmail"
+            type="email"
+            placeholder="Enter your email"
+            required>
+
+          <label for="joiningRole">
+            Preferred Role
+          </label>
+
+          <select id="joiningRole">
+            <option value="Member">Member</option>
+            <option value="Publisher">Publisher</option>
+            <option value="Contributor">Contributor</option>
+            <option value="Volunteer">Volunteer</option>
+          </select>
+
+          <label for="joiningMessage">
+            Message
+          </label>
+
+          <textarea
+            id="joiningMessage"
+            placeholder="Tell us something about yourself..."></textarea>
+
+          <button
+            class="joining-btn"
+            type="submit">
+            Submit Joining Request
+          </button>
+
+        </form>
+
+        <div id="joiningSuccess"
+             class="joining-success">
+
+          <strong>Joining request saved ✓</strong>
+
+          <p>
+            Your local joining reference ID is:
+          </p>
+
+          <div id="joiningID"
+               class="joining-id"></div>
+
+          <p>
+            Keep this ID for your records.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="storage.js"></script>
+<script src="script.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const form =
+    document.getElementById("joiningForm");
+
+  const success =
+    document.getElementById("joiningSuccess");
+
+  const joiningID =
+    document.getElementById("joiningID");
+
+  if (!form) return;
+
+  const KEY = "ARS_JOINING_REQUESTS";
+
+  function getRequests() {
+    try {
+      const data =
+        JSON.parse(localStorage.getItem(KEY) || "[]");
+
+      return Array.isArray(data) ? data : [];
+    } catch (_) {
+      return [];
+    }
+  }
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const id =
+      "ARS-JOIN-" +
+      Date.now().toString(36).toUpperCase();
+
+    const request = {
+      id: id,
+
+      name:
+        document.getElementById("joiningName").value.trim(),
+
+      email:
+        document.getElementById("joiningEmail").value.trim(),
+
+      role:
+        document.getElementById("joiningRole").value,
+
+      message:
+        document.getElementById("joiningMessage").value.trim(),
+
+      status: "pending",
+
+      createdAt:
+        new Date().toISOString()
+    };
+
+    const requests = getRequests();
+
+    requests.unshift(request);
+
+    localStorage.setItem(
+      KEY,
+      JSON.stringify(requests)
+    );
+
+    joiningID.textContent = id;
+
+    success.classList.add("show");
+
+    form.reset();
+
+    if (window.ARS && window.ARS.showToast) {
+      window.ARS.showToast("Joining request submitted ✓");
+    }
+
+  });
+
+})();
+</script>
+
+</body>
+</html>
