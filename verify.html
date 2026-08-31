@@ -1,1 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <meta name="description"
+    content="Verify ARS Official certificates and joining certificates.">
+
+  <title>Verify Certificate | ARS Official</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .verify-page {
+      min-height: 100vh;
+      padding: 120px 20px 70px;
+      background:
+        radial-gradient(circle at top left, rgba(124,58,237,.12), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(236,72,153,.10), transparent 35%),
+        var(--bg);
+    }
+
+    .verify-container {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .verify-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .verify-header h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      margin-bottom: 10px;
+    }
+
+    .verify-header p {
+      color: var(--text-soft);
+    }
+
+    .verify-card {
+      padding: 30px;
+      border-radius: 22px;
+      border: 1px solid rgba(212,175,55,.35);
+      background: var(--card-bg, rgba(255,255,255,.05));
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+    }
+
+    .verify-input-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .verify-input-row input {
+      flex: 1;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid rgba(128,128,128,.3);
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+
+    .verify-input-row button {
+      padding: 15px 24px;
+      border: 0;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+      background: linear-gradient(135deg, #d4af37, #f5d76e);
+      color: #111;
+    }
+
+    #verifyResult {
+      margin-top: 25px;
+    }
+
+    .verify-status {
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid rgba(34,197,94,.35);
+      background: rgba(34,197,94,.08);
+    }
+
+    .verify-status.invalid {
+      border-color: rgba(239,68,68,.35);
+      background: rgba(239,68,68,.08);
+    }
+
+    .verify-status h2 {
+      margin-bottom: 10px;
+    }
+
+    .verify-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .verify-detail {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(128,128,128,.08);
+    }
+
+    .verify-detail small {
+      display: block;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 650px) {
+      .verify-input-row,
+      .verify-details {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <nav class="navbar">
+
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official">
+        <span>ARS Official</span>
+      </a>
+
+      <button id="navToggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false">☰</button>
+
+      <div id="navLinks" class="nav-links">
+
+        <a href="index.html">Home</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="founder.html">Founder</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="joining-certificate.html">Joining Certificate</a>
+        <a href="verify.html" class="active">Verify</a>
+
+        <div class="nav-more">
+
+          <button id="navMoreButton"
+            type="button"
+            aria-expanded="false">
+            More ▾
+          </button>
+
+          <div id="navMoreMenu"
+            class="nav-more-menu">
+
+            <a href="joining.html">Joining ARS</a>
+            <a href="publisher.html">Publisher</a>
+            <a href="policy.html">Policy</a>
+            <a href="contact.html">Contact</a>
+            <a href="admin.html">Admin</a>
+
+          </div>
+        </div>
+
+        <button id="themeToggle"
+          type="button"
+          aria-label="Switch to dark mode">
+          🌙
+        </button>
+
+      </div>
+    </nav>
+  </header>
+
+  <main class="verify-page">
+
+    <div class="verify-container">
+
+      <div class="verify-header">
+
+        <h1>Verify Certificate</h1>
+
+        <p>
+          Enter any ARS Certificate ID or Joining Certificate ID
+          to check its verification record.
+        </p>
+
+      </div>
+
+      <section class="verify-card">
+
+        <div class="verify-input-row">
+
+          <input
+            id="verifyId"
+            type="text"
+            placeholder="Example: ARS-CERT-20260830-ABC123"
+            autocomplete="off"
+          >
+
+          <button id="verifyButton"
+            type="button">
+            Verify
+          </button>
+
+        </div>
+
+        <div id="verifyResult"></div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script src="storage.js"></script>
+  <script src="verify-storage.js"></script>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const input =
+        document.getElementById("verifyId");
+
+      const button =
+        document.getElementById("verifyButton");
+
+      const result =
+        document.getElementById("verifyResult");
+
+      function escapeHTML(value) {
+        return String(value ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function verify() {
+
+        const id =
+          input.value.trim();
+
+        if (!id) {
+          result.innerHTML =
+            `<div class="verify-status invalid">
+              <h2>⚠️ Enter an ID</h2>
+              <p>Please enter a certificate or joining certificate ID.</p>
+            </div>`;
+          return;
+        }
+
+        let record = null;
+
+        if (
+          window.ARSVerify &&
+          typeof window.ARSVerify.find === "function"
+        ) {
+          record =
+            window.ARSVerify.find(id);
+        }
+
+        if (!record && window.ARS) {
+
+          const lists = [
+            "ARS_CERTIFICATES",
+            "ARS_JOINING_CERTIFICATES",
+            "ARS_CERTIFICATE_RECORDS",
+            "ARS_JOINING_RECORDS"
+          ];
+
+          for (const key of lists) {
+
+            try {
+
+              const data =
+                JSON.parse(
+                  localStorage.getItem(key) || "[]"
+                );
+
+              if (Array.isArray(data)) {
+
+                record =
+                  data.find(
+                    item =>
+                      String(
+                        item.id ||
+                        item.certificateId ||
+                        item.certificateID ||
+                        ""
+                      ).toLowerCase() ===
+                      id.toLowerCase()
+                  );
+
+                if (record) break;
+              }
+
+            } catch (_) {}
+          }
+        }
+
+        if (!record) {
+
+          result.innerHTML =
+            `<div class="verify-status invalid">
+              <h2>❌ Certificate Not Found</h2>
+              <p>
+                No verification record was found for
+                <strong>${escapeHTML(id)}</strong>.
+              </p>
+            </div>`;
+
+          return;
+        }
+
+        const name =
+          record.name ||
+          record.recipientName ||
+          "Not available";
+
+        const type =
+          record.type ||
+          record.certificateType ||
+          "ARS Certificate";
+
+        const date =
+          record.date ||
+          record.issuedAt ||
+          "Not available";
+
+        result.innerHTML =
+          `<div class="verify-status">
+
+            <h2>✅ Certificate Verified</h2>
+
+            <p>
+              This ID matches an ARS Official verification record.
+            </p>
+
+            <div class="verify-details">
+
+              <div class="verify-detail">
+                <small>Certificate ID</small>
+                <strong>${escapeHTML(id)}</strong>
+              </div>
+
+              <div class="verify-detail">
+                <small>Name</small>
+                <strong>${escapeHTML(name)}</strong>
+              </div>
+
+              <div class="verify-detail">
+                <small>Certificate Type</small>
+                <strong>${escapeHTML(type)}</strong>
+              </div>
+
+              <div class="verify-detail">
+                <small>Date</small>
+                <strong>${escapeHTML(date)}</strong>
+              </div>
+
+            </div>
+
+          </div>`;
+      }
+
+      button.addEventListener(
+        "click",
+        verify
+      );
+
+      input.addEventListener(
+        "keydown",
+        event => {
+          if (event.key === "Enter") {
+            verify();
+          }
+        }
+      );
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      const urlId =
+        params.get("id");
+
+      if (urlId) {
+        input.value = urlId;
+        verify();
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
