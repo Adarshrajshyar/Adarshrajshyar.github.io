@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0">
@@ -10,136 +12,472 @@
 
   <meta
     name="description"
-    content="Adarsh Raj Shayar - Founder of ARS">
+    content="Meet the Founder of ARS Official">
 
-  <link rel="icon" href="logo.png">
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="icon"
+    href="logo.png">
+
+  <link
+    rel="stylesheet"
+    href="style.css">
+
+  <style>
+
+    .founder-page {
+      min-height: 100vh;
+    }
+
+    .founder-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 90px 20px;
+    }
+
+    .founder-layout {
+      max-width: 1150px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .founder-photo-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .founder-photo-frame {
+      position: relative;
+      width: min(390px, 90vw);
+      aspect-ratio: 1 / 1;
+      padding: 12px;
+      border-radius: 35px;
+      background: linear-gradient(
+        135deg,
+        #f59e0b,
+        #ec4899,
+        #6366f1
+      );
+      box-shadow:
+        0 30px 70px rgba(0,0,0,.22);
+    }
+
+    .founder-photo-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 27px;
+      background: #fff;
+    }
+
+    .founder-badge {
+      position: absolute;
+      right: -15px;
+      bottom: 25px;
+      padding: 13px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.92);
+      color: #111827;
+      font-weight: 800;
+      box-shadow:
+        0 15px 40px rgba(0,0,0,.18);
+    }
+
+    .founder-content h1 {
+      margin: 10px 0 15px;
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1;
+    }
+
+    .founder-content h1 span {
+      background: linear-gradient(
+        90deg,
+        #f59e0b,
+        #ec4899,
+        #6366f1
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .founder-role {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .founder-bio {
+      font-size: 17px;
+      line-height: 1.9;
+      opacity: .86;
+    }
+
+    .founder-stats {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .founder-stat {
+      padding: 20px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(128,128,128,.18);
+      text-align: center;
+    }
+
+    .founder-stat strong {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+
+    .founder-stat span {
+      font-size: 13px;
+      opacity: .7;
+    }
+
+    .founder-section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 20px;
+    }
+
+    .founder-info-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 35px;
+    }
+
+    .founder-info-card {
+      padding: 30px;
+      border-radius: 25px;
+      background: rgba(128,128,128,.08);
+      border: 1px solid rgba(128,128,128,.15);
+    }
+
+    .founder-info-card .icon {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .founder-info-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .founder-info-card p {
+      line-height: 1.7;
+      opacity: .78;
+    }
+
+    .future-box {
+      margin-top: 35px;
+      padding: 35px;
+      border-radius: 28px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(99,102,241,.14),
+          rgba(236,72,153,.12)
+        );
+      border: 1px solid rgba(99,102,241,.2);
+    }
+
+    .future-box h2 {
+      margin-bottom: 12px;
+    }
+
+    .future-list {
+      margin: 20px 0 0;
+      padding-left: 22px;
+      line-height: 2;
+    }
+
+    @media (max-width: 850px) {
+
+      .founder-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .founder-content {
+        max-width: 750px;
+        margin: auto;
+      }
+
+      .founder-stats {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .founder-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 520px) {
+
+      .founder-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .founder-photo-frame {
+        width: 85vw;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-  <header class="site-header">
+<div id="progressBar"></div>
 
-    <div class="header-inner">
 
-      <a href="index.html" class="brand">
-        <img
-          src="logo.png"
-          alt="ARS Logo">
-        <span>ARS</span>
+<header class="site-header">
+
+  <nav class="navbar">
+
+    <a
+      href="index.html"
+      class="brand">
+
+      <img
+        src="logo.png"
+        alt="ARS Logo">
+
+      <span>
+        ARS Official
+      </span>
+
+    </a>
+
+
+    <button
+      id="navToggle"
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false">
+
+      ☰
+
+    </button>
+
+
+    <div
+      id="navLinks"
+      class="nav-links">
+
+      <a href="index.html">
+        Home
       </a>
 
-      <nav class="main-nav">
+      <a href="ars-ai.html">
+        ARS AI
+      </a>
 
-        <a href="index.html">Home</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="story.html">Story</a>
-        <a href="ars-ai.html">ARS AI</a>
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify</a>
-        <a
-          href="founder.html"
-          class="active">
-          Founder
-        </a>
-        <a href="contact.html">Contact</a>
+      <a href="joining.html">
+        Join ARS
+      </a>
 
-      </nav>
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="shayari.html">
+        Shayari
+      </a>
+
+      <a href="story.html">
+        Stories
+      </a>
+
+      <a
+        href="founder.html"
+        class="active">
+        Founder
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
+
+
+      <div class="nav-more">
+
+        <button
+          id="navMoreButton"
+          type="button"
+          aria-expanded="false">
+
+          More ▾
+
+        </button>
+
+
+        <div
+          id="navMoreMenu"
+          class="nav-more-menu">
+
+          <a href="publisher.html">
+            Publisher
+          </a>
+
+          <a href="admin.html">
+            Admin
+          </a>
+
+          <a href="policy.html">
+            Policy
+          </a>
+
+        </div>
+
+      </div>
+
 
       <button
         id="themeToggle"
         class="theme-toggle"
         type="button"
-        aria-label="Theme बदलें">
+        aria-label="Toggle theme">
+
         🌙
+
       </button>
 
     </div>
 
-  </header>
+  </nav>
 
-  <main>
+</header>
 
-    <section class="hero-section">
 
-      <img
-        src="logo.png"
-        alt="ARS"
-        class="page-logo">
+<main class="founder-page">
 
-      <p class="eyebrow">
-        ARS OFFICIAL
-      </p>
 
-      <h1>
-        Meet the <span>Founder</span>
-      </h1>
+  <!-- FOUNDER HERO -->
 
-      <p>
-        ARS — Adarsh Raj Shayar
-      </p>
+  <section class="founder-hero">
 
-    </section>
+    <div class="founder-layout">
 
-    <section class="founder-section">
 
-      <div class="founder-card">
+      <div class="founder-photo-wrap">
 
-        <div class="founder-image-wrap">
+        <div class="founder-photo-frame">
+
+          <!--
+            photo.jpg1.jpeg is the founder image
+            already present in the repository.
+          -->
 
           <img
             src="photo.jpg1.jpeg"
-            alt="Adarsh Raj"
-            class="founder-image"
-            onerror="
-              this.onerror=null;
-              this.src='photo.jpg1.jpeg';
-            ">
+            alt="Founder of ARS Official"
+            loading="eager"
+            onerror="this.onerror=null;this.src='logo.png';">
+
+          <div class="founder-badge">
+            Founder • ARS Official
+          </div>
 
         </div>
 
-        <div class="founder-content">
+      </div>
 
-          <p class="eyebrow">
-            FOUNDER & CREATOR
-          </p>
 
-          <h2>
-            Adarsh Raj
-          </h2>
+      <div class="founder-content">
 
-          <p class="founder-role">
-            Founder — ARS
-          </p>
+        <span class="eyebrow">
+          MEET THE FOUNDER
+        </span>
 
-          <p>
-            ARS का उद्देश्य creativity, Shayari,
-            Stories, education और digital innovation
-            को एक ही platform पर जोड़ना है।
-          </p>
 
-          <p>
-            आने वाले समय में ARS के अंतर्गत
-            <strong>ARS AI</strong>,
-            educational initiatives और
-            Android application जैसी सुविधाएँ
-            विकसित की जाएँगी।
-          </p>
+        <h1>
+          Adarsh
+          <span>Raj</span>
+        </h1>
 
-          <div class="founder-actions">
 
-            <a
-              href="joining.html"
-              class="primary-btn">
-              Join ARS
-            </a>
+        <div class="founder-role">
+          Founder & Creator of ARS Official
+        </div>
 
-            <a
-              href="ars-ai.html"
-              class="secondary-btn">
-              Explore ARS AI
-            </a>
+
+        <p class="founder-bio">
+
+          ARS Official एक creative और educational
+          platform है, जिसका उद्देश्य creativity,
+          education, technology और digital innovation
+          को एक साथ आगे बढ़ाना है।
+
+          <br><br>
+
+          ARS को एक ऐसा platform बनाने की दिशा में
+          विकसित किया जा रहा है जहाँ users को
+          Shayari, Stories, Education, ARS AI,
+          certificates और आने वाली digital services
+          एक ही जगह मिल सकें।
+
+        </p>
+
+
+        <div class="founder-stats">
+
+          <div class="founder-stat">
+
+            <strong>
+              ARS
+            </strong>
+
+            <span>
+              Official Platform
+            </span>
+
+          </div>
+
+
+          <div class="founder-stat">
+
+            <strong>
+              AI
+            </strong>
+
+            <span>
+              Future Technology
+            </span>
+
+          </div>
+
+
+          <div class="founder-stat">
+
+            <strong>
+              EDU
+            </strong>
+
+            <span>
+              Future Education
+            </span>
 
           </div>
 
@@ -147,174 +485,247 @@
 
       </div>
 
-    </section>
+    </div>
 
-    <section class="info-grid">
+  </section>
 
-      <article class="info-card">
 
-        <h3>✍️ Creativity</h3>
+  <!-- ABOUT -->
 
-        <p>
-          Shayari और Stories के माध्यम से
-          विचारों और भावनाओं को प्रस्तुत करना।
-        </p>
+  <section class="founder-section">
 
-      </article>
+    <div class="section-heading">
 
-      <article class="info-card">
+      <span class="eyebrow">
+        ABOUT ARS
+      </span>
 
-        <h3>📚 Education</h3>
+      <h2>
+        एक विचार से एक platform तक
+      </h2>
 
-        <p>
-          भविष्य में educational content और
-          educational channel को ARS ecosystem
-          से जोड़ा जाएगा।
-        </p>
+      <p>
+        ARS Official को लगातार बेहतर और उपयोगी
+        बनाने की दिशा में विकसित किया जा रहा है।
+      </p>
 
-      </article>
+    </div>
 
-      <article class="info-card">
 
-        <h3>🤖 ARS AI</h3>
+    <div class="founder-info-grid">
 
-        <p>
-          ARS platform के लिए smart AI experience
-          विकसित करने की दिशा में काम किया जा रहा है।
-        </p>
 
-      </article>
+      <article class="founder-info-card">
 
-    </section>
-
-    <section class="future-section">
-
-      <div class="form-card">
-
-        <p class="eyebrow">
-          FUTURE VISION
-        </p>
-
-        <h2>
-          ARS — आगे की यात्रा
-        </h2>
-
-        <p>
-          ARS को एक ऐसा digital platform बनाने
-          का लक्ष्य है जहाँ creativity, education,
-          technology और community एक साथ आगे बढ़ें।
-        </p>
-
-        <div class="info-grid">
-
-          <div class="info-card">
-            <h3>📱 ARS App</h3>
-            <p>
-              भविष्य में ARS का Android App
-              विकसित किया जाएगा।
-            </p>
-          </div>
-
-          <div class="info-card">
-            <h3>🎓 Educational Channel</h3>
-            <p>
-              भविष्य में dedicated educational
-              channel भी बनाया जाएगा।
-            </p>
-          </div>
-
+        <div class="icon">
+          💡
         </div>
 
-      </div>
+        <h3>
+          Vision
+        </h3>
 
-    </section>
+        <p>
+          ऐसा digital platform तैयार करना जहाँ
+          creativity, education और technology
+          को सरल और आकर्षक तरीके से जोड़ा जा सके।
+        </p>
 
-  </main>
+      </article>
 
-  <a
-    href="#"
-    id="backToTop"
-    class="back-to-top"
-    aria-label="ऊपर जाएँ">
-    ↑
-  </a>
 
-  <script>
+      <article class="founder-info-card">
 
-    const themeToggle =
-      document.getElementById(
-        "themeToggle"
-      );
+        <div class="icon">
+          🎓
+        </div>
 
-    function applyTheme(theme) {
+        <h3>
+          Education
+        </h3>
 
-      document.documentElement.dataset.theme =
-        theme;
+        <p>
+          भविष्य में ARS Educational Channel
+          और उससे जुड़ी educational services
+          उपलब्ध कराने की योजना है।
+        </p>
 
-      localStorage.setItem(
-        "ars-theme",
-        theme
-      );
+      </article>
 
-      themeToggle.textContent =
-        theme === "dark"
-          ? "☀️"
-          : "🌙";
-    }
 
-    applyTheme(
-      localStorage.getItem("ars-theme") ||
-      "light"
+      <article class="founder-info-card">
+
+        <div class="icon">
+          🤖
+        </div>
+
+        <h3>
+          ARS AI
+        </h3>
+
+        <p>
+          ARS AI को platform के future technology
+          ecosystem का महत्वपूर्ण हिस्सा बनाया जा रहा है।
+        </p>
+
+      </article>
+
+
+    </div>
+
+
+    <!-- FUTURE -->
+
+    <div class="future-box">
+
+      <span class="eyebrow">
+        FUTURE PLANS
+      </span>
+
+      <h2>
+        ARS का अगला कदम
+      </h2>
+
+      <p>
+        ARS Official को समय के साथ और अधिक
+        उपयोगी services से जोड़ा जाएगा।
+      </p>
+
+
+      <ul class="future-list">
+
+        <li>
+          ARS Educational Channel
+        </li>
+
+        <li>
+          ARS AI का विस्तार
+        </li>
+
+        <li>
+          ARS Mobile App
+        </li>
+
+        <li>
+          Educational और digital resources
+        </li>
+
+        <li>
+          Certificate और verification system
+        </li>
+
+      </ul>
+
+    </div>
+
+
+    <div
+      class="hero-actions"
+      style="margin-top:35px;">
+
+      <a
+        href="ars-ai.html"
+        class="btn btn-primary">
+
+        Explore ARS AI
+
+      </a>
+
+
+      <a
+        href="contact.html"
+        class="btn btn-secondary">
+
+        Contact ARS
+
+      </a>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="footer-content">
+
+
+    <div class="footer-brand">
+
+      <img
+        src="logo.png"
+        alt="ARS Logo">
+
+      <h3>
+        ARS Official
+      </h3>
+
+      <p>
+        Creativity • Education • Technology
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <h4>
+        Quick Links
+      </h4>
+
+      <a href="ars-ai.html">
+        ARS AI
+      </a>
+
+      <a href="joining.html">
+        Join ARS
+      </a>
+
+      <a href="certificate.html">
+        Certificate
+      </a>
+
+      <a href="verify.html">
+        Verify
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    ©
+    <span class="current-year"></span>
+    ARS Official. All Rights Reserved.
+
+  </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+  document
+    .querySelectorAll(".current-year")
+    .forEach(
+      element =>
+        element.textContent =
+          new Date().getFullYear()
     );
 
-    themeToggle.addEventListener(
-      "click",
-      () => {
+</script>
 
-        const current =
-          document.documentElement.dataset.theme;
-
-        applyTheme(
-          current === "dark"
-            ? "light"
-            : "dark"
-        );
-
-      }
-    );
-
-    const backToTop =
-      document.getElementById(
-        "backToTop"
-      );
-
-    window.addEventListener(
-      "scroll",
-      () => {
-
-        backToTop.style.display =
-          window.scrollY > 350
-            ? "flex"
-            : "none";
-
-      }
-    );
-
-    backToTop.addEventListener(
-      "click",
-      event => {
-
-        event.preventDefault();
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-
-      }
-    );
-
-  </script>
 
 </body>
 </html>
