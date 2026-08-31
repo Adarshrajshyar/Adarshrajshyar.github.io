@@ -3,442 +3,564 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
 
   <title>ARS Joining Certificate</title>
 
+  <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    body {
-      margin: 0;
-      background: #eef1f5;
-      color: #172033;
-      font-family: Arial, sans-serif;
+    .joining-certificate-page {
+      min-height: 100vh;
+      padding: 100px 15px 60px;
     }
 
-    .page {
-      max-width: 1000px;
-      margin: auto;
-      padding: 25px 16px 60px;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #111827, #374151);
-      color: #fff;
-      padding: 35px 22px;
-      border-radius: 22px;
-      text-align: center;
-      margin-bottom: 22px;
-    }
-
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: 30px;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 18px;
+    .certificate-search {
+      width: min(650px, 100%);
+      margin: 0 auto 35px;
       padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 7px 24px rgba(0,0,0,.08);
+      border-radius: 22px;
+      background: var(--card-bg, rgba(128,128,128,.08));
+      border: 1px solid rgba(128,128,128,.2);
+      text-align: center;
     }
 
-    label {
-      display: block;
-      font-weight: 700;
-      margin: 13px 0 7px;
-    }
-
-    input {
+    .certificate-search input {
       width: 100%;
       box-sizing: border-box;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
-      font-size: 15px;
-    }
-
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 13px 20px;
-      margin-top: 16px;
-      background: #111827;
-      color: #fff;
-      font-weight: 700;
-      cursor: pointer;
+      padding: 14px;
+      margin: 15px 0;
+      border-radius: 12px;
+      border: 1px solid rgba(128,128,128,.3);
+      background: transparent;
+      color: inherit;
     }
 
     .certificate {
-      display: none;
-      position: relative;
-      background: #fff;
-      border: 10px solid #111827;
-      padding: 50px 40px;
-      text-align: center;
-      min-height: 520px;
+      width: min(1050px, 100%);
+      min-height: 700px;
+      margin: auto;
       box-sizing: border-box;
-    }
-
-    .certificate::before {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border: 2px solid #9ca3af;
-      pointer-events: none;
-    }
-
-    .cert-content {
+      padding: 55px;
       position: relative;
-      z-index: 2;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(124,58,237,.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          rgba(236,72,153,.12),
+          transparent 30%
+        ),
+        var(--card-bg, #fff);
+
+      border: 12px double #8b5cf6;
+      box-shadow: 0 25px 80px rgba(0,0,0,.15);
+      color: inherit;
     }
 
-    .cert-logo {
-      width: 90px;
-      height: 90px;
+    .certificate-inner {
+      height: 100%;
+      min-height: 580px;
+      border: 2px solid rgba(139,92,246,.5);
+      padding: 35px;
+      box-sizing: border-box;
+      text-align: center;
+      position: relative;
+    }
+
+    .certificate-logo {
+      width: 85px;
+      height: 85px;
       object-fit: contain;
       margin-bottom: 12px;
     }
 
-    .certificate h2 {
-      font-size: 34px;
-      margin: 8px 0;
+    .certificate h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 5px 0;
       letter-spacing: 2px;
     }
 
-    .certificate h3 {
-      font-size: 25px;
-      margin: 20px 0 8px;
+    .certificate-subtitle {
+      font-size: 1.2rem;
+      opacity: .75;
     }
 
-    .cert-text {
-      font-size: 17px;
+    .certificate-title {
+      margin: 45px 0 20px;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .certificate-name {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      margin: 20px 0;
+      border-bottom: 2px solid currentColor;
+      display: inline-block;
+      padding: 0 25px 8px;
+    }
+
+    .certificate-text {
+      max-width: 750px;
+      margin: 25px auto;
       line-height: 1.8;
+      font-size: 1.05rem;
     }
 
-    .cert-id {
-      margin-top: 20px;
-      font-weight: 700;
-      font-size: 15px;
+    .certificate-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 65px;
+      text-align: left;
+    }
+
+    .signature-area {
+      text-align: center;
+      min-width: 180px;
     }
 
     .signature {
-      margin-top: 35px;
-      text-align: right;
-      padding-right: 30px;
-    }
-
-    .signature img {
-      width: 130px;
-      max-height: 60px;
+      width: 150px;
+      height: 65px;
       object-fit: contain;
+      transform: rotate(-90deg);
+      margin-bottom: -5px;
     }
 
-    .signature p {
-      margin: 4px 0;
-      font-weight: 700;
+    .signature-line {
+      border-top: 1px solid currentColor;
+      padding-top: 8px;
     }
 
-    .error {
-      display: none;
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #fef2f2;
-      color: #991b1b;
+    .certificate-id {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: .85rem;
+      opacity: .7;
     }
 
-    .actions {
-      display: none;
-      gap: 10px;
+    .flower {
+      position: absolute;
+      font-size: 35px;
+      opacity: .65;
+    }
+
+    .flower.one {
+      top: 15px;
+      left: 18px;
+    }
+
+    .flower.two {
+      top: 15px;
+      right: 18px;
+    }
+
+    .flower.three {
+      bottom: 25px;
+      left: 18px;
+    }
+
+    .flower.four {
+      bottom: 25px;
+      right: 18px;
+    }
+
+    .certificate-actions {
+      text-align: center;
+      margin: 30px 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .back {
-      display: inline-block;
-      margin-bottom: 18px;
-      padding: 10px 15px;
-      border-radius: 9px;
-      background: #111827;
-      color: white;
-      text-decoration: none;
     }
 
     @media print {
 
-      body {
-        background: white;
-      }
-
-      .page {
-        max-width: none;
-        padding: 0;
-      }
-
-      .hero,
-      .search-card,
-      .actions {
+      header,
+      .certificate-search,
+      .certificate-actions,
+      .back-to-top {
         display: none !important;
       }
 
-      .certificate {
-        display: block !important;
-        min-height: 95vh;
-        border-width: 8px;
-        box-shadow: none;
+      body {
+        background: white !important;
       }
+
+      .joining-certificate-page {
+        padding: 0;
+      }
+
+      .certificate {
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+      }
+    }
+
+    @media(max-width:650px) {
+
+      .certificate {
+        padding: 18px;
+        border-width: 7px;
+      }
+
+      .certificate-inner {
+        padding: 20px 12px;
+      }
+
+      .certificate-meta {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
     }
   </style>
 </head>
 
 <body>
 
-<main class="page">
+  <header class="site-header">
+    <div class="header-inner">
 
-  <a href="index.html" class="back">
-    ← ARS Home
-  </a>
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Logo">
+        <span>ARS</span>
+      </a>
 
-  <header class="hero">
-    <h1>ARS Joining Certificate</h1>
-    <p>Adarsh Raj Shayar Official</p>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="founder.html">Founder</a>
+      </nav>
+
+      <button
+        id="themeToggle"
+        class="theme-toggle"
+        type="button">
+        🌙
+      </button>
+
+    </div>
   </header>
 
+  <main class="joining-certificate-page">
 
-  <section class="card search-card">
+    <section class="certificate-search">
 
-    <h2>Certificate Check</h2>
+      <h2>ARS Joining Certificate</h2>
 
-    <p>
-      अपना approved Application ID डालकर joining certificate
-      उपलब्ध है या नहीं, यह check करें।
-    </p>
-
-    <label for="applicationId">
-      Application ID
-    </label>
-
-    <input
-      type="text"
-      id="applicationId"
-      placeholder="उदाहरण: ARS-JOIN-..."
-      autocomplete="off"
-    >
-
-    <button onclick="showCertificate()">
-      View Certificate
-    </button>
-
-    <div id="errorMessage" class="error"></div>
-
-  </section>
-
-
-  <section id="certificate" class="certificate">
-
-    <div class="cert-content">
-
-      <img
-        src="logo.png"
-        alt="ARS Logo"
-        class="cert-logo"
-        onerror="this.style.display='none'"
-      >
-
-      <h2>JOINING CERTIFICATE</h2>
-
-      <p class="cert-text">
-        This is to certify that
+      <p>
+        अपना Joining Application Number डालकर certificate देखें।
       </p>
 
-      <h3 id="memberName">
-        ARS Member
-      </h3>
+      <input
+        id="applicationId"
+        type="text"
+        placeholder="ARS-JOIN-2026-XXXXXX"
+        autocomplete="off">
 
-      <p class="cert-text">
-        has been approved as a member of
-        <strong>Adarsh Raj Shayar (ARS)</strong>
-        and is welcomed to the ARS creative community.
-      </p>
+      <button
+        id="loadCertificate"
+        class="primary-btn"
+        type="button">
+        Certificate देखें
+      </button>
 
-      <p class="cert-text">
-        Role:
-        <strong id="memberRole">Member</strong>
-      </p>
+      <p id="searchMessage"></p>
 
-      <p class="cert-text">
-        This certificate acknowledges the approved joining
-        application and participation in the ARS community.
-      </p>
+    </section>
 
-      <div class="cert-id">
-        Certificate / Application ID:
-        <span id="certificateId"></span>
-      </div>
+    <section
+      id="certificateArea"
+      class="certificate"
+      hidden>
 
-      <div class="signature">
+      <div class="certificate-inner">
+
+        <span class="flower one">✿</span>
+        <span class="flower two">❀</span>
+        <span class="flower three">❁</span>
+        <span class="flower four">✿</span>
 
         <img
-          src="signature.png"
-          alt="Founder Signature"
-          onerror="this.style.display='none'"
-        >
+          src="logo.png"
+          alt="ARS Logo"
+          class="certificate-logo">
 
-        <p>Founder</p>
-        <p>Adarsh Raj Shayar</p>
+        <h1>ARS</h1>
+
+        <div class="certificate-subtitle">
+          Adarsh Raj Shayar
+        </div>
+
+        <div class="certificate-title">
+          Joining Certificate
+        </div>
+
+        <div>
+          यह प्रमाणित किया जाता है कि
+        </div>
+
+        <div
+          id="certificateName"
+          class="certificate-name">
+        </div>
+
+        <p class="certificate-text">
+          ने <strong>Adarsh Raj Shayar (ARS)</strong> से
+          सफलतापूर्वक जुड़ने के लिए आवेदन किया है।
+          यह Joining Certificate संबंधित आवेदन रिकॉर्ड के आधार पर
+          जारी किया गया है।
+        </p>
+
+        <p>
+          Joining Category:
+          <strong id="certificateCategory"></strong>
+        </p>
+
+        <div class="certificate-meta">
+
+          <div>
+            <strong>Application No.</strong><br>
+            <span id="certificateApplication"></span>
+          </div>
+
+          <div class="signature-area">
+
+            <img
+              src="signature.jpg"
+              alt="Founder Signature"
+              class="signature">
+
+            <div class="signature-line">
+              <strong>Adarsh Raj</strong><br>
+              Founder, ARS
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="certificate-id">
+          Verified Joining Record • ARS
+        </div>
 
       </div>
+
+    </section>
+
+    <div
+      id="certificateActions"
+      class="certificate-actions"
+      hidden>
+
+      <button
+        type="button"
+        class="primary-btn"
+        onclick="window.print()">
+        🖨️ Print / Save PDF
+      </button>
+
+      <a
+        href="verify.html"
+        class="primary-btn">
+        🔎 Verify
+      </a>
 
     </div>
 
-  </section>
+  </main>
 
+  <a
+    href="#"
+    id="backToTop"
+    class="back-to-top">
+    ↑
+  </a>
 
-  <div id="actions" class="actions">
+  <script>
+    const idInput =
+      document.getElementById("applicationId");
 
-    <button onclick="window.print()">
-      Print / Save PDF
-    </button>
+    const loadButton =
+      document.getElementById("loadCertificate");
 
-    <button onclick="location.reload()">
-      Check Another
-    </button>
+    const message =
+      document.getElementById("searchMessage");
 
-  </div>
+    const certificate =
+      document.getElementById("certificateArea");
 
-</main>
+    const actions =
+      document.getElementById("certificateActions");
 
+    function loadJoiningCertificate() {
 
-<script>
-(function () {
+      const id =
+        idInput.value.trim().toUpperCase();
 
-  const STORAGE_KEY =
-    "ARS_JOINING_APPLICATIONS";
+      if (!id) {
+        message.textContent =
+          "कृपया Application Number डालें।";
 
+        certificate.hidden = true;
+        actions.hidden = true;
 
-  function getApplications() {
+        return;
+      }
 
-    try {
+      const applications =
+        JSON.parse(
+          localStorage.getItem(
+            "arsJoiningApplications"
+          ) || "[]"
+        );
 
-      return JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-      ) || [];
+      const application =
+        applications.find(
+          item =>
+            String(item.applicationNumber)
+              .toUpperCase() === id
+        );
 
-    } catch (error) {
+      if (!application) {
 
-      return [];
+        message.textContent =
+          "❌ यह Joining Application Number नहीं मिला।";
 
-    }
-  }
+        certificate.hidden = true;
+        actions.hidden = true;
 
+        return;
+      }
 
-  function showError(message) {
+      document.getElementById(
+        "certificateName"
+      ).textContent =
+        application.name;
 
-    const box =
-      document.getElementById("errorMessage");
+      document.getElementById(
+        "certificateCategory"
+      ).textContent =
+        application.category || "ARS Member";
 
-    box.textContent = message;
-    box.style.display = "block";
-  }
+      document.getElementById(
+        "certificateApplication"
+      ).textContent =
+        application.applicationNumber;
 
+      message.textContent =
+        "✅ Joining record मिल गया।";
 
-  window.showCertificate = function () {
+      certificate.hidden = false;
+      actions.hidden = false;
 
-    const id =
-      document
-        .getElementById("applicationId")
-        .value
-        .trim();
-
-
-    const error =
-      document.getElementById("errorMessage");
-
-    error.style.display = "none";
-
-
-    if (!id) {
-
-      showError(
-        "कृपया Application ID डालें।"
-      );
-
-      return;
-    }
-
-
-    const applications =
-      getApplications();
-
-
-    const application =
-      applications.find(
-        item =>
-          String(item.applicationId).toUpperCase() ===
-          id.toUpperCase()
-      );
-
-
-    if (!application) {
-
-      showError(
-        "यह Application ID नहीं मिली।"
-      );
-
-      return;
-    }
-
-
-    if (
-      String(application.status).toLowerCase() !==
-      "approved"
-    ) {
-
-      showError(
-        "यह application अभी approved नहीं है।"
-      );
-
-      return;
-    }
-
-
-    document.getElementById("memberName")
-      .textContent =
-      application.name;
-
-
-    document.getElementById("memberRole")
-      .textContent =
-      application.interest || "Member";
-
-
-    document.getElementById("certificateId")
-      .textContent =
-      application.applicationId;
-
-
-    document.getElementById("certificate")
-      .style.display = "block";
-
-
-    document.getElementById("actions")
-      .style.display = "flex";
-
-
-    document
-      .getElementById("certificate")
-      .scrollIntoView({
+      certificate.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
+    }
 
-  };
+    loadButton.addEventListener(
+      "click",
+      loadJoiningCertificate
+    );
 
-})();
-</script>
+    idInput.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Enter") {
+          loadJoiningCertificate();
+        }
+
+      }
+    );
+
+    const themeToggle =
+      document.getElementById("themeToggle");
+
+    function applyTheme(theme) {
+
+      document.documentElement.dataset.theme =
+        theme;
+
+      localStorage.setItem(
+        "ars-theme",
+        theme
+      );
+
+      themeToggle.textContent =
+        theme === "dark"
+          ? "☀️"
+          : "🌙";
+    }
+
+    applyTheme(
+      localStorage.getItem("ars-theme") ||
+      "light"
+    );
+
+    themeToggle.addEventListener(
+      "click",
+      function() {
+
+        const current =
+          document.documentElement.dataset.theme;
+
+        applyTheme(
+          current === "dark"
+            ? "light"
+            : "dark"
+        );
+
+      }
+    );
+
+    const backToTop =
+      document.getElementById("backToTop");
+
+    window.addEventListener(
+      "scroll",
+      function() {
+
+        backToTop.style.display =
+          window.scrollY > 350
+            ? "flex"
+            : "none";
+
+      }
+    );
+
+    backToTop.addEventListener(
+      "click",
+      function(event) {
+
+        event.preventDefault();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      }
+    );
+  </script>
 
 </body>
 </html>
