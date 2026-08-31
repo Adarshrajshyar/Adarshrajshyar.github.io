@@ -1,367 +1,399 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Join ARS Official</title>
+  <title>ARS Joining | Adarsh Raj Shayar</title>
 
   <link rel="stylesheet" href="style.css">
 
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+    }
 
+    .joining-page {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 16px 60px;
+    }
+
+    .joining-hero {
+      text-align: center;
+      padding: 42px 22px;
+      border-radius: 24px;
+      color: #fff;
+      background: linear-gradient(135deg, #111827, #374151);
+      box-shadow: 0 12px 30px rgba(0,0,0,.15);
+      margin-bottom: 22px;
+    }
+
+    .joining-hero h1 {
+      margin: 0 0 10px;
+      font-size: 32px;
+    }
+
+    .joining-hero p {
+      margin: 0;
+      opacity: .9;
+      line-height: 1.6;
+    }
+
+    .joining-card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 7px 24px rgba(0,0,0,.07);
+    }
+
+    .joining-card h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 7px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .join-button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: 0;
+      border-radius: 11px;
+      background: #111827;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .join-button:hover {
+      opacity: .9;
+    }
+
+    .message {
+      margin-top: 15px;
+      padding: 13px;
+      border-radius: 10px;
+      background: #eef2ff;
+      line-height: 1.6;
+      display: none;
+    }
+
+    .success {
+      background: #ecfdf5;
+      color: #166534;
+    }
+
+    .error {
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 10px 15px;
+      border-radius: 9px;
+      background: #111827;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .note {
+      line-height: 1.7;
+      opacity: .8;
+    }
+  </style>
 </head>
-
 
 <body>
 
+<main class="joining-page">
 
-<header class="site-header">
+  <a href="index.html" class="back">← ARS Home</a>
 
-  <nav class="navbar">
-
-    <a class="brand" href="index.html">
-
-      <img
-        class="brand-logo"
-        src="logo.png"
-        alt="ARS Logo"
-      >
-
-      <span>
-
-        <strong>ARS Official</strong>
-
-        <small>Adarsh Raj Shayar</small>
-
-      </span>
-
-    </a>
-
-
-    <div class="nav-links">
-
-      <a href="index.html">Home</a>
-
-      <a class="active" href="joining.html">
-        Join ARS
-      </a>
-
-      <a href="certificate.html">
-        Certificate
-      </a>
-
-      <a href="verify.html">
-        Verify
-      </a>
-
-      <a href="founder.html">
-        Founder
-      </a>
-
-    </div>
-
-  </nav>
-
-</header>
-
-
-<main>
-
-<section class="section">
-
-  <div class="section-heading">
-
-    <span>ARS COMMUNITY</span>
-
-    <h2>ARS से जुड़ें</h2>
-
+  <header class="joining-hero">
+    <h1>ARS Joining</h1>
     <p>
-      Writer, Creator, Supporter या किसी अन्य
-      interest के साथ ARS community का हिस्सा बनें।
+      Adarsh Raj Shayar से जुड़ने के लिए अपना आवेदन भेजें।
     </p>
+  </header>
 
-  </div>
+  <section class="joining-card">
 
+    <h2>Join ARS Community</h2>
 
-  <div class="form-card">
+    <p class="note">
+      अपनी सही जानकारी भरें। आवेदन submit होने के बाद
+      approval process के अनुसार आगे की प्रक्रिया की जाएगी।
+    </p>
 
     <form id="joiningForm">
 
-      <div class="form-row">
+      <label for="joinName">Full Name *</label>
+      <input
+        type="text"
+        id="joinName"
+        required
+        maxlength="80"
+        placeholder="अपना नाम लिखें"
+      >
 
-        <div class="form-group">
+      <label for="joinEmail">Email *</label>
+      <input
+        type="email"
+        id="joinEmail"
+        required
+        maxlength="120"
+        placeholder="example@email.com"
+      >
 
-          <label for="joinName">
-            Name / नाम
-          </label>
+      <label for="joinAge">Age *</label>
+      <input
+        type="number"
+        id="joinAge"
+        required
+        min="5"
+        max="100"
+        placeholder="Age"
+      >
 
-          <input
-            id="joinName"
-            required
-            placeholder="आपका नाम"
-          >
+      <label for="joinInterest">Interest *</label>
+      <select id="joinInterest" required>
+        <option value="">Select Interest</option>
+        <option value="Writer">Writer</option>
+        <option value="Creator">Creator</option>
+        <option value="Supporter">Supporter</option>
+        <option value="Shayar">Shayar</option>
+        <option value="Instagram Related">Instagram Related</option>
+        <option value="YouTube Related">YouTube Related</option>
+        <option value="Educational">Educational</option>
+        <option value="Other">Other</option>
+      </select>
 
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="joinEmail">
-            Email
-          </label>
-
-          <input
-            id="joinEmail"
-            type="email"
-            required
-            placeholder="your@email.com"
-          >
-
-        </div>
-
-      </div>
-
-
-      <div class="form-row">
-
-        <div class="form-group">
-
-          <label for="joinAge">
-            Age / उम्र
-          </label>
-
-          <input
-            id="joinAge"
-            type="number"
-            min="1"
-            max="120"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label for="joinInterest">
-            Interest / रुचि
-          </label>
-
-          <select id="joinInterest" required>
-
-            <option value="">
-              Select Interest
-            </option>
-
-            <option>Writer</option>
-            <option>Creator</option>
-            <option>Supporter</option>
-            <option>Shayar</option>
-            <option>Instagram</option>
-            <option>YouTube</option>
-            <option>Other</option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="joinSocial">
-          Instagram / YouTube / Social Link
-        </label>
-
-        <input
-          id="joinSocial"
-          type="url"
-          placeholder="https://..."
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="joinMessage">
-          About You / Message
-        </label>
-
-        <textarea
-          id="joinMessage"
-          placeholder="अपने बारे में थोड़ा बताइए..."
-        ></textarea>
-
-      </div>
-
+      <label for="joinMessage">About You</label>
+      <textarea
+        id="joinMessage"
+        maxlength="500"
+        placeholder="अपने बारे में थोड़ा बताएं..."
+      ></textarea>
 
       <button
-        class="primary-btn"
         type="submit"
+        class="join-button"
       >
-        🚀 Submit Joining Request
+        Submit ARS Joining Application
       </button>
 
     </form>
 
+    <div id="joinResult" class="message"></div>
 
-    <div
-      id="joinResult"
-      style="margin-top:20px;"
-    ></div>
+  </section>
 
-  </div>
 
-</section>
+  <section class="joining-card">
+
+    <h2>Application के बाद</h2>
+
+    <p class="note">
+      Application ID को सुरक्षित रखें। भविष्य में इसी ID का
+      उपयोग application status या संबंधित certificate process
+      के लिए किया जा सकता है।
+    </p>
+
+    <p class="note">
+      Approval मिलने के बाद certificate से संबंधित प्रक्रिया
+      उपलब्ध होने पर अलग certificate page से की जा सकेगी।
+    </p>
+
+  </section>
+
+
+  <section class="joining-card">
+
+    <h2>ARS Future Vision</h2>
+
+    <p class="note">
+      ARS में भविष्य में creative community, educational
+      channel और ARS AI जैसी सुविधाएँ जोड़ी जा सकती हैं।
+    </p>
+
+  </section>
 
 </main>
 
 
-<footer class="site-footer">
-
-  <div class="footer-inner">
-
-    <div class="footer-brand">
-
-      <img src="logo.png" alt="ARS Logo">
-
-      <div>
-
-        <h3>Adarsh Raj Shayar</h3>
-
-        <p>
-          ARS Official Community
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</footer>
-
-
 <script>
-
 (function () {
 
-  "use strict";
-
+  const STORAGE_KEY = "ARS_JOINING_APPLICATIONS";
 
   const form =
     document.getElementById("joiningForm");
-
 
   const result =
     document.getElementById("joinResult");
 
 
-  form.addEventListener(
-    "submit",
-    function (event) {
+  function getApplications() {
 
-      event.preventDefault();
+    try {
 
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      ) || [];
 
-      const request = {
+    } catch (error) {
 
-        id:
-          "ARS-JOIN-" +
-          Date.now(),
-
-        name:
-          document
-            .getElementById("joinName")
-            .value.trim(),
-
-        email:
-          document
-            .getElementById("joinEmail")
-            .value.trim(),
-
-        age:
-          document
-            .getElementById("joinAge")
-            .value,
-
-        interest:
-          document
-            .getElementById("joinInterest")
-            .value,
-
-        social:
-          document
-            .getElementById("joinSocial")
-            .value.trim(),
-
-        message:
-          document
-            .getElementById("joinMessage")
-            .value.trim(),
-
-        status:
-          "Pending",
-
-        createdAt:
-          new Date().toISOString()
-
-      };
-
-
-      if (window.ARSStorage) {
-
-        window.ARSStorage.saveJoinRequest(
-          request
-        );
-
-      }
-
-
-      result.innerHTML = `
-
-        <div class="empty-state">
-
-          <div>✅</div>
-
-          <h3>
-            Joining Request Submitted
-          </h3>
-
-          <p>
-            आपका ARS joining request successfully
-            submit हो गया है।
-          </p>
-
-          <p>
-            Request ID:
-            <strong>${request.id}</strong>
-          </p>
-
-        </div>
-
-      `;
-
-
-      form.reset();
+      return [];
 
     }
-  );
+  }
+
+
+  function saveApplications(applications) {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(applications)
+    );
+  }
+
+
+  function createApplicationId() {
+
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
+
+    return "ARS-JOIN-" +
+      Date.now() +
+      "-" +
+      random;
+  }
+
+
+  function showMessage(text, type) {
+
+    result.textContent = text;
+
+    result.className =
+      "message " + type;
+
+    result.style.display = "block";
+  }
+
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+
+    const name =
+      document.getElementById("joinName")
+        .value.trim();
+
+    const email =
+      document.getElementById("joinEmail")
+        .value.trim();
+
+    const age =
+      document.getElementById("joinAge")
+        .value.trim();
+
+    const interest =
+      document.getElementById("joinInterest")
+        .value;
+
+    const message =
+      document.getElementById("joinMessage")
+        .value.trim();
+
+
+    if (!name || !email || !age || !interest) {
+
+      showMessage(
+        "कृपया सभी जरूरी जानकारी भरें।",
+        "error"
+      );
+
+      return;
+    }
+
+
+    const application = {
+
+      applicationId:
+        createApplicationId(),
+
+      name: name,
+
+      email: email,
+
+      age: Number(age),
+
+      interest: interest,
+
+      message: message,
+
+      status: "Pending",
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    const applications =
+      getApplications();
+
+    applications.unshift(application);
+
+    saveApplications(applications);
+
+
+    form.reset();
+
+
+    showMessage(
+      "आपका ARS Joining Application सफलतापूर्वक submit हो गया है। Application ID: " +
+      application.applicationId,
+      "success"
+    );
+
+  });
 
 })();
-
 </script>
-
 
 </body>
 </html>
