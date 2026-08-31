@@ -3,492 +3,371 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
 
-  <title>ARS Certificate Verification</title>
+  <title>Verify Certificate | ARS</title>
 
   <link rel="stylesheet" href="style.css">
 
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-
   <style>
-    .verification-page {
-      width: min(900px, calc(100% - 30px));
-      margin: auto;
-      padding: 90px 0;
-    }
-
-    .page-heading {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .page-heading .eyebrow {
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 2px;
-    }
-
-    .page-heading h1 {
-      margin: 8px 0;
-      font-size: clamp(30px, 5vw, 46px);
-      color: var(--dark);
-    }
-
-    .page-heading p {
-      color: var(--muted);
+    body {
       margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef1f5;
+      color: #172033;
     }
 
-    .verification-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px;
-      box-shadow: var(--shadow-md);
+    .verify-page {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px 16px 60px;
     }
 
-    .verification-card label {
+    .back {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 10px 15px;
+      border-radius: 9px;
+      background: #111827;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .hero {
+      text-align: center;
+      color: #fff;
+      padding: 40px 20px;
+      border-radius: 23px;
+      background: linear-gradient(135deg, #111827, #374151);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 31px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 7px 24px rgba(0,0,0,.08);
+    }
+
+    label {
       display: block;
-      margin-bottom: 8px;
-      font-weight: 800;
+      font-weight: 700;
+      margin: 12px 0 7px;
     }
 
-    .verification-input-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .verification-input-row input {
-      flex: 1;
-      min-width: 0;
-      padding: 13px;
-      border: 1px solid #ddd;
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      border: 1px solid #d1d5db;
       border-radius: 10px;
-      outline: none;
+      font-size: 16px;
     }
 
-    .verification-input-row input:focus {
-      border-color: var(--primary);
-    }
-
-    .btn {
+    button {
+      margin-top: 17px;
+      padding: 13px 20px;
       border: 0;
       border-radius: 10px;
-      padding: 12px 20px;
-      background: var(--primary);
-      color: white;
-      font-weight: 800;
+      background: #111827;
+      color: #fff;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    .verification-result {
-      margin-top: 25px;
-    }
-
-    .verification-success,
-    .verification-error {
-      padding: 28px;
-      border-radius: 18px;
-      text-align: center;
-    }
-
-    .verification-success {
-      background: #f5fbf7;
-      border: 1px solid #d8eadf;
-    }
-
-    .verification-error {
-      background: #fff6f6;
-      border: 1px solid #f0d5d5;
-    }
-
-    .verification-icon,
-    .verification-error-icon {
-      width: 55px;
-      height: 55px;
-      margin: auto;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      font-size: 25px;
-      font-weight: 900;
-    }
-
-    .verification-icon {
-      background: #dff3e5;
-      color: #218642;
-    }
-
-    .verification-error-icon {
-      background: #f8dddd;
-      color: #a52c2c;
-    }
-
-    .verification-success h2,
-    .verification-error h2 {
-      margin: 15px 0 7px;
-    }
-
-    .verification-hindi {
-      color: #3d694b;
-    }
-
-    .verified-details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    .result {
+      display: none;
       margin-top: 22px;
-      text-align: left;
+      padding: 20px;
+      border-radius: 14px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
     }
 
-    .verified-details div {
-      padding: 15px;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    .invalid {
+      background: #fef2f2;
+      border-color: #fecaca;
+      color: #991b1b;
     }
 
-    .verified-details span {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      margin-bottom: 4px;
+    .verified {
+      color: #166534;
     }
 
-    .verified-details strong {
-      word-break: break-word;
+    .result p {
+      line-height: 1.7;
+      margin: 8px 0;
     }
 
-    .verified-badge {
-      display: inline-block;
-      margin-top: 22px;
-      padding: 9px 15px;
-      border-radius: 999px;
-      background: var(--primary);
-      color: white;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    @media (max-width: 600px) {
-      .verification-input-row {
-        flex-direction: column;
-      }
-
-      .verified-details {
-        grid-template-columns: 1fr;
-      }
+    .id {
+      word-break: break-all;
+      font-weight: 700;
     }
   </style>
 </head>
 
 <body>
 
-<header class="site-header">
-  <nav class="navbar">
+<main class="verify-page">
 
-    <a class="brand" href="index.html">
-      <img class="brand-logo" src="logo.png" alt="ARS Official Logo">
-      <span>
-        <strong>ARS Official</strong>
-        <small>Adarsh Raj Shayar</small>
-      </span>
-    </a>
+  <a href="index.html" class="back">
+    ← ARS Home
+  </a>
 
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="joining.html">Join ARS</a>
-      <a href="certificate.html">Certificate</a>
-      <a class="active" href="verify.html">Verify</a>
-      <a href="founder.html">Founder</a>
-    </div>
+  <header class="hero">
+    <h1>Verify Certificate</h1>
+    <p>ARS Certificate Verification System</p>
+  </header>
 
-  </nav>
-</header>
+  <section class="card">
 
-
-<main class="verification-page">
-
-  <section class="page-heading">
-
-    <span class="eyebrow">ARS OFFICIAL</span>
-
-    <h1>🔎 Certificate Verification</h1>
+    <h2>Certificate ID डालें</h2>
 
     <p>
-      अपने ARS Certificate की सत्यता जाँचें।
-      <br>
-      Verify an ARS Certificate using its unique ID.
+      अपने ARS certificate की authenticity check करने के लिए
+      Certificate ID दर्ज करें।
     </p>
 
-  </section>
+    <label for="certificateId">
+      Certificate ID
+    </label>
 
+    <input
+      type="text"
+      id="certificateId"
+      placeholder="ARS-CERT-..."
+      autocomplete="off"
+    >
 
-  <section class="verification-card">
+    <button onclick="verifyCertificate()">
+      Verify Certificate
+    </button>
 
-    <form id="verificationForm" autocomplete="off">
-
-      <label for="verificationID">
-        Certificate ID / प्रमाणपत्र ID
-      </label>
-
-      <div class="verification-input-row">
-
-        <input
-          type="text"
-          id="verificationID"
-          placeholder="ARS-CERT-2026-XXXXXX"
-          required
-        >
-
-        <button class="btn" type="submit">
-          🔎 Verify
-        </button>
-
-      </div>
-
-    </form>
-
-
-    <div
-      id="verificationResult"
-      class="verification-result"
-      aria-live="polite"
-    ></div>
+    <div id="result" class="result"></div>
 
   </section>
 
 </main>
 
-
-<footer class="site-footer">
-
-  <div class="footer-inner">
-
-    <div class="footer-brand">
-      <img src="logo.png" alt="ARS Logo">
-
-      <div>
-        <h3>Adarsh Raj Shayar</h3>
-        <p>ARS Official — Certificate Verification</p>
-      </div>
-    </div>
-
-  </div>
-
-</footer>
-
-
 <script>
 (function () {
 
-  "use strict";
+  const NORMAL_KEY =
+    "ARS_NORMAL_CERTIFICATES";
 
-  const form = document.getElementById("verificationForm");
-  const input = document.getElementById("verificationID");
-  const result = document.getElementById("verificationResult");
+  const JOINING_KEY =
+    "ARS_JOINING_APPLICATIONS";
 
 
-  function escapeHTML(value) {
+  function readStorage(key) {
 
-    const div = document.createElement("div");
+    try {
 
-    div.textContent = value ?? "";
+      return JSON.parse(
+        localStorage.getItem(key)
+      ) || [];
 
-    return div.innerHTML;
+    } catch (error) {
+
+      return [];
+
+    }
   }
 
 
-  function showError(message) {
+  function showResult(html, valid) {
 
-    result.innerHTML = `
-      <div class="verification-error">
+    const result =
+      document.getElementById("result");
 
-        <div class="verification-error-icon">!</div>
+    result.innerHTML = html;
 
-        <h2>Certificate Not Found</h2>
+    result.className =
+      valid
+        ? "result"
+        : "result invalid";
 
-        <p>${escapeHTML(message)}</p>
-
-        <small>
-          कृपया Certificate ID सही तरीके से दर्ज करें।
-        </small>
-
-      </div>
-    `;
+    result.style.display = "block";
   }
 
 
-  function verify(id) {
+  window.verifyCertificate = function () {
 
-    const cleanID = String(id || "").trim();
-
-    if (!cleanID) {
-
-      showError("कृपया Certificate ID दर्ज करें।");
-
-      return;
-    }
+    const input =
+      document
+        .getElementById("certificateId")
+        .value
+        .trim();
 
 
-    let certificate = null;
+    if (!input) {
 
-
-    if (
-      window.ARS_CERTIFICATE &&
-      typeof window.ARS_CERTIFICATE.find === "function"
-    ) {
-
-      certificate =
-        window.ARS_CERTIFICATE.find(cleanID);
-
-    }
-
-
-    if (!certificate) {
-
-      certificate =
-        window.ARSStorage?.findCertificate(cleanID);
-    }
-
-
-    if (!certificate) {
-
-      showError(
-        "यह Certificate ID ARS रिकॉर्ड में नहीं मिली।"
+      showResult(
+        "<strong>Certificate ID डालें।</strong>",
+        false
       );
 
       return;
     }
 
 
-    const date = new Date(certificate.issuedAt);
-
-    const formattedDate =
-      Number.isNaN(date.getTime())
-        ? "—"
-        : date.toLocaleDateString(
-            "en-IN",
-            {
-              day: "2-digit",
-              month: "long",
-              year: "numeric"
-            }
-          );
+    const id =
+      input.toUpperCase();
 
 
-    result.innerHTML = `
+    /* Normal certificates */
 
-      <div class="verification-success">
+    const certificates =
+      readStorage(NORMAL_KEY);
 
-        <div class="verification-icon">✓</div>
 
-        <h2>Certificate Verified</h2>
+    const normal =
+      certificates.find(
+        certificate =>
+          String(certificate.id).toUpperCase() === id
+      );
 
-        <p class="verification-hindi">
-          ✅ यह प्रमाणपत्र ARS Official के रिकॉर्ड में
-          सफलतापूर्वक सत्यापित है।
+
+    if (normal) {
+
+      showResult(
+        `
+        <h3 class="verified">
+          ✓ Certificate Verified
+        </h3>
+
+        <p>
+          <strong>Name:</strong>
+          ${escapeHTML(normal.name)}
         </p>
 
+        <p>
+          <strong>Certificate Type:</strong>
+          ${escapeHTML(normal.type)}
+        </p>
 
-        <div class="verified-details">
+        <p>
+          <strong>Certificate ID:</strong>
+          <span class="id">
+            ${escapeHTML(normal.id)}
+          </span>
+        </p>
 
-          <div>
-            <span>Name / नाम</span>
-            <strong>
-              ${escapeHTML(certificate.name)}
-            </strong>
-          </div>
+        <p>
+          <strong>Issued By:</strong>
+          Adarsh Raj Shayar Official
+        </p>
+        `,
+        true
+      );
 
-
-          <div>
-            <span>Certificate Type</span>
-            <strong>
-              ${escapeHTML(certificate.type)}
-            </strong>
-          </div>
-
-
-          <div>
-            <span>Certificate ID</span>
-            <strong>
-              ${escapeHTML(certificate.id)}
-            </strong>
-          </div>
+      return;
+    }
 
 
-          <div>
-            <span>Issue Date</span>
-            <strong>
-              ${formattedDate}
-            </strong>
-          </div>
+    /* Joining certificates */
+
+    const joining =
+      readStorage(JOINING_KEY);
 
 
-          <div>
-            <span>Issued By</span>
-            <strong>
-              Adarsh Raj — Founder, ARS Official
-            </strong>
-          </div>
+    const member =
+      joining.find(
+        application =>
+          String(application.applicationId)
+            .toUpperCase() === id
+      );
 
 
-          ${
-            certificate.type === "Business"
-              ? `
+    if (
+      member &&
+      String(member.status).toLowerCase() ===
+      "approved"
+    ) {
 
-                <div>
-                  <span>Business Name</span>
-                  <strong>
-                    ${escapeHTML(certificate.businessName)}
-                  </strong>
-                </div>
+      showResult(
+        `
+        <h3 class="verified">
+          ✓ ARS Joining Verified
+        </h3>
 
-                <div>
-                  <span>Owner / Founder</span>
-                  <strong>
-                    ${escapeHTML(certificate.businessOwner)}
-                  </strong>
-                </div>
+        <p>
+          <strong>Member Name:</strong>
+          ${escapeHTML(member.name)}
+        </p>
 
-              `
-              : ""
-          }
+        <p>
+          <strong>Role:</strong>
+          ${escapeHTML(member.interest || "Member")}
+        </p>
 
-        </div>
+        <p>
+          <strong>Application / Certificate ID:</strong>
+          <span class="id">
+            ${escapeHTML(member.applicationId)}
+          </span>
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          Approved
+        </p>
+
+        <p>
+          <strong>Issued By:</strong>
+          Adarsh Raj Shayar Official
+        </p>
+        `,
+        true
+      );
+
+      return;
+    }
 
 
-        <div class="verified-badge">
-          ✓ VERIFIED ARS CERTIFICATE
-        </div>
+    showResult(
+      `
+      <h3>✕ Certificate Not Found</h3>
+      <p>
+        यह Certificate ID ARS के इस browser storage
+        में नहीं मिली या certificate approved नहीं है।
+      </p>
+      `,
+      false
+    );
 
-      </div>
-    `;
+  };
+
+
+  function escapeHTML(value) {
+
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
   }
 
 
-  form.addEventListener("submit", function (event) {
+  document
+    .getElementById("certificateId")
+    .addEventListener(
+      "keydown",
+      function (event) {
 
-    event.preventDefault();
+        if (event.key === "Enter") {
+          window.verifyCertificate();
+        }
 
-    verify(input.value);
-
-  });
-
-
-  const urlID =
-    new URLSearchParams(window.location.search).get("id");
-
-
-  if (urlID) {
-
-    input.value = urlID;
-
-    verify(urlID);
-
-  }
+      }
+    );
 
 })();
 </script>
