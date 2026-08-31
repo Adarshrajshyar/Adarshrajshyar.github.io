@@ -806,3 +806,42 @@
   );
 
 })();
+/* =========================================================
+   ARS LOADER SAFETY FIX
+   ========================================================= */
+
+(function () {
+    function hideARSLoader() {
+        const loaders = document.querySelectorAll(
+            "#loader, .loader, .loading-screen, .preloader, .page-loader"
+        );
+
+        loaders.forEach(function (loader) {
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+            loader.style.pointerEvents = "none";
+
+            setTimeout(function () {
+                if (loader && loader.parentNode) {
+                    loader.remove();
+                }
+            }, 500);
+        });
+
+        document.body.classList.remove(
+            "loading",
+            "is-loading",
+            "loader-active"
+        );
+    }
+
+    /* Page पूरी तरह load होने पर */
+    window.addEventListener("load", function () {
+        setTimeout(hideARSLoader, 300);
+    });
+
+    /* अगर कोई external resource अटक जाए,
+       तो भी loader हमेशा के लिए नहीं घूमेगा */
+    setTimeout(hideARSLoader, 5000);
+
+})();
