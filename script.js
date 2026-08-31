@@ -807,41 +807,42 @@
 
 })();
 /* =========================================================
-   ARS LOADER SAFETY FIX
+   ARS PAGE LOADER FIX
    ========================================================= */
 
 (function () {
-    function hideARSLoader() {
-        const loaders = document.querySelectorAll(
-            "#loader, .loader, .loading-screen, .preloader, .page-loader"
-        );
 
-        loaders.forEach(function (loader) {
-            loader.style.opacity = "0";
-            loader.style.visibility = "hidden";
-            loader.style.pointerEvents = "none";
+  function hidePageLoader() {
 
-            setTimeout(function () {
-                if (loader && loader.parentNode) {
-                    loader.remove();
-                }
-            }, 500);
-        });
+    const loader = document.getElementById("pageLoader");
 
-        document.body.classList.remove(
-            "loading",
-            "is-loading",
-            "loader-active"
-        );
-    }
+    if (!loader) return;
 
-    /* Page पूरी तरह load होने पर */
-    window.addEventListener("load", function () {
-        setTimeout(hideARSLoader, 300);
-    });
+    loader.classList.add("loader-hidden");
 
-    /* अगर कोई external resource अटक जाए,
-       तो भी loader हमेशा के लिए नहीं घूमेगा */
-    setTimeout(hideARSLoader, 5000);
+    loader.style.opacity = "0";
+    loader.style.visibility = "hidden";
+    loader.style.pointerEvents = "none";
+
+    setTimeout(function () {
+      if (loader && loader.parentNode) {
+        loader.remove();
+      }
+    }, 500);
+  }
+
+
+  /* Page पूरी तरह load होने के बाद */
+  window.addEventListener("load", function () {
+
+    setTimeout(hidePageLoader, 300);
+
+  });
+
+
+  /* Safety fallback:
+     किसी resource की वजह से load event अटक जाए
+     तो भी loader 5 सेकंड से ज्यादा नहीं रहेगा */
+  setTimeout(hidePageLoader, 5000);
 
 })();
