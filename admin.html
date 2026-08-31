@@ -2,613 +2,700 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111827">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
   <title>ARS Admin Panel</title>
 
+  <meta name="description"
+        content="ARS Official Administration Panel">
+
+  <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef1f6;
-      color: #111827;
-    }
-
-    .admin-container {
+    .admin-wrap {
       max-width: 1100px;
-      margin: auto;
-      padding: 30px 18px 70px;
+      margin: 40px auto;
+      padding: 20px;
     }
 
-    .admin-hero {
-      background: linear-gradient(135deg, #111827, #1f2937);
-      color: white;
+    .admin-card {
+      background: var(--card-bg, #fff);
+      border: 1px solid rgba(128,128,128,.2);
       border-radius: 22px;
-      padding: 35px 25px;
+      padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.15);
+      box-shadow: 0 12px 35px rgba(0,0,0,.08);
     }
 
-    .admin-hero h1 {
-      margin: 0 0 8px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 7px 24px rgba(0,0,0,.07);
-    }
-
-    .card h2 {
-      margin-top: 0;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 14px 0 7px;
-    }
-
-    input,
-    select {
+    .admin-table {
       width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      border: 1px solid #d1d5db;
-      border-radius: 10px;
+      border-collapse: collapse;
+      margin-top: 20px;
     }
 
-    button {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 18px;
-      cursor: pointer;
-      font-weight: bold;
-      background: #111827;
-      color: white;
+    .admin-table th,
+    .admin-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(128,128,128,.2);
+      text-align: left;
     }
 
-    button:hover {
-      opacity: .88;
-    }
-
-    .danger {
-      background: #b91c1c;
-    }
-
-    .success {
-      background: #166534;
-    }
-
-    .gray {
-      background: #6b7280;
-    }
-
-    .row {
+    .admin-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+      gap: 8px;
+    }
+
+    .danger-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 13px;
+      cursor: pointer;
+      background: #b42318;
+      color: white;
+    }
+
+    .edit-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 13px;
+      cursor: pointer;
     }
 
     .hidden {
       display: none !important;
     }
 
-    .message {
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #eef2ff;
-    }
-
     .stat-grid {
       display: grid;
       grid-template-columns:
-        repeat(auto-fit, minmax(160px, 1fr));
+        repeat(auto-fit,minmax(180px,1fr));
       gap: 15px;
     }
 
-    .stat {
-      background: #f8fafc;
-      border: 1px solid #e5e7eb;
+    .stat-box {
       padding: 20px;
-      border-radius: 14px;
+      border-radius: 18px;
+      background: rgba(128,128,128,.08);
     }
 
-    .stat strong {
+    .stat-box strong {
       display: block;
-      font-size: 25px;
-      margin-top: 7px;
-    }
-
-    .data-item {
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 12px;
-      background: #fafafa;
-    }
-
-    .data-item small {
-      opacity: .7;
+      font-size: 28px;
+      margin-top: 5px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="admin-container">
+<header class="site-header">
+  <div class="header-inner">
 
-  <header class="admin-hero">
-    <h1>ARS Admin Panel</h1>
-    <p>Adarsh Raj Shayar Official Management System</p>
-  </header>
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="ARS Logo">
+      <span>ARS</span>
+    </a>
 
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="story.html">Story</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="joining.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html">Verify</a>
+      <a href="founder.html">Founder</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <button id="themeToggle"
+            class="theme-toggle"
+            type="button">
+      🌙
+    </button>
+
+  </div>
+</header>
+
+
+<main class="admin-wrap">
 
   <!-- LOGIN -->
-  <section id="adminLogin" class="card">
 
-    <h2>Admin Login</h2>
+  <section id="loginPanel"
+           class="admin-card">
 
-    <label for="adminPassword">
-      Admin Password
-    </label>
+    <p class="eyebrow">ARS ADMIN</p>
 
-    <input
-      type="password"
-      id="adminPassword"
-      placeholder="Password डालें"
-      autocomplete="current-password"
-    >
+    <h1>Admin Panel</h1>
 
-    <div class="row">
-      <button onclick="adminLogin()">
-        Login
+    <p>
+      Administration access के लिए password दर्ज करें।
+    </p>
+
+    <form id="adminLogin">
+
+      <div class="form-group">
+
+        <label for="adminPassword">
+          Admin Password
+        </label>
+
+        <input
+          id="adminPassword"
+          type="password"
+          autocomplete="current-password"
+          required>
+
+      </div>
+
+      <button class="primary-btn"
+              type="submit">
+        🔐 Login
       </button>
-    </div>
 
-    <div id="loginMessage" class="message hidden"></div>
+    </form>
+
+    <div id="loginMessage"
+         class="form-message"
+         aria-live="polite">
+    </div>
 
   </section>
 
 
-  <!-- ADMIN PANEL -->
-  <main id="adminPanel" class="hidden">
+  <!-- DASHBOARD -->
 
-    <section class="card">
+  <section id="dashboard"
+           class="hidden">
 
-      <h2>ARS Dashboard</h2>
+    <div class="admin-card">
+
+      <p class="eyebrow">DASHBOARD</p>
+
+      <h1>ARS Administration</h1>
 
       <div class="stat-grid">
 
-        <div class="stat">
+        <div class="stat-box">
+          Joining Records
+          <strong id="joiningCount">0</strong>
+        </div>
+
+        <div class="stat-box">
+          Certificates
+          <strong id="certificateCount">0</strong>
+        </div>
+
+        <div class="stat-box">
           Published Content
           <strong id="contentCount">0</strong>
         </div>
 
-        <div class="stat">
-          Shayari
-          <strong id="shayariCount">0</strong>
-        </div>
-
-        <div class="stat">
-          Stories
-          <strong id="storyCount">0</strong>
-        </div>
-
-        <div class="stat">
-          Updates
-          <strong id="updateCount">0</strong>
-        </div>
-
       </div>
 
-    </section>
+    </div>
 
 
-    <section class="card">
+    <!-- JOINING -->
 
-      <h2>Website Controls</h2>
+    <div class="admin-card">
 
-      <p>
-        यहाँ से local website data को manage किया जा सकता है।
+      <p class="eyebrow">
+        JOINING APPLICATIONS
       </p>
 
-      <div class="row">
+      <h2>Joining Records</h2>
 
-        <button onclick="refreshDashboard()">
-          Refresh Dashboard
-        </button>
+      <div id="joiningRecords"></div>
 
-        <button
-          class="danger"
-          onclick="clearPublishedContent()"
-        >
-          Delete All Published Content
-        </button>
-
-      </div>
-
-      <div id="adminMessage" class="message hidden"></div>
-
-    </section>
+    </div>
 
 
-    <section class="card">
+    <!-- CERTIFICATES -->
 
-      <h2>Published Content Management</h2>
+    <div class="admin-card">
 
-      <div id="adminContentList">
-        Loading...
-      </div>
+      <p class="eyebrow">
+        CERTIFICATES
+      </p>
 
-    </section>
+      <h2>Certificate Records</h2>
 
+      <div id="certificateRecords"></div>
 
-    <section class="card">
-
-      <h2>Website Information</h2>
-
-      <div class="data-item">
-        <strong>Website</strong>
-        <p>Adarsh Raj Shayar Official Website</p>
-      </div>
-
-      <div class="data-item">
-        <strong>AI System</strong>
-        <p>ARS AI — Future AI feature integration</p>
-      </div>
-
-      <div class="data-item">
-        <strong>Future Development</strong>
-        <p>
-          ARS Android App और Educational Channel
-          future development में शामिल किए जा सकते हैं।
-        </p>
-      </div>
-
-    </section>
+    </div>
 
 
-    <section class="card">
+    <!-- CONTENT -->
 
-      <h2>Session</h2>
+    <div class="admin-card">
 
-      <div class="row">
+      <p class="eyebrow">
+        CONTENT MANAGEMENT
+      </p>
 
-        <button
-          class="gray"
-          onclick="adminLogout()"
-        >
-          Logout
-        </button>
+      <h2>Published Content</h2>
 
-        <button
-          onclick="location.href='index.html'"
-        >
-          Back to Website
-        </button>
+      <div id="contentRecords"></div>
 
-      </div>
+    </div>
 
-    </section>
 
-  </main>
+    <div class="admin-card">
 
-</div>
+      <button
+        id="logoutButton"
+        type="button"
+        class="secondary-btn">
+        Logout
+      </button>
 
+    </div>
+
+  </section>
+
+</main>
+
+
+<a href="#"
+   id="backToTop"
+   class="back-to-top">
+  ↑
+</a>
+
+
+<script src="config.js"></script>
+<script src="storage.js"></script>
 
 <script>
 (function () {
 
-  const ADMIN_PASSWORD = "ARS 2026";
+  "use strict";
 
-  const STORAGE_KEY =
-    "ARS_PUBLISHED_CONTENT";
+  const loginPanel =
+    document.getElementById("loginPanel");
+
+  const dashboard =
+    document.getElementById("dashboard");
+
+  const loginForm =
+    document.getElementById("adminLogin");
+
+  const password =
+    document.getElementById("adminPassword");
+
+  const message =
+    document.getElementById("loginMessage");
+
+  const logout =
+    document.getElementById("logoutButton");
 
 
-  function getItems() {
+  const ADMIN_PASSWORD =
+    "ARS 2026";
+
+
+  function loggedIn() {
+    return sessionStorage.getItem(
+      "ARS_ADMIN_LOGIN"
+    ) === "true";
+  }
+
+
+  function showDashboard() {
+
+    loginPanel.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+
+    loadDashboard();
+
+  }
+
+
+  function showLogin() {
+
+    dashboard.classList.add("hidden");
+    loginPanel.classList.remove("hidden");
+
+  }
+
+
+  loginForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+      if (password.value === ADMIN_PASSWORD) {
+
+        sessionStorage.setItem(
+          "ARS_ADMIN_LOGIN",
+          "true"
+        );
+
+        message.textContent =
+          "Login successful.";
+
+        showDashboard();
+
+      } else {
+
+        message.textContent =
+          "गलत password।";
+
+        message.className =
+          "form-message error";
+
+      }
+
+    }
+  );
+
+
+  logout.addEventListener(
+    "click",
+    function () {
+
+      sessionStorage.removeItem(
+        "ARS_ADMIN_LOGIN"
+      );
+
+      showLogin();
+
+    }
+  );
+
+
+  function read(key) {
 
     try {
-      return JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-      ) || [];
+
+      const data =
+        JSON.parse(
+          localStorage.getItem(key) || "[]"
+        );
+
+      return Array.isArray(data)
+        ? data
+        : [];
 
     } catch {
+
       return [];
+
     }
-  }
-
-
-  function saveItems(items) {
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(items)
-    );
-  }
-
-
-  function escapeHTML(value) {
-
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-
-  window.adminLogin = function () {
-
-    const password =
-      document.getElementById("adminPassword").value;
-
-    const message =
-      document.getElementById("loginMessage");
-
-
-    if (password === ADMIN_PASSWORD) {
-
-      sessionStorage.setItem(
-        "ARS_ADMIN_LOGIN",
-        "true"
-      );
-
-      document
-        .getElementById("adminLogin")
-        .classList.add("hidden");
-
-      document
-        .getElementById("adminPanel")
-        .classList.remove("hidden");
-
-      refreshDashboard();
-
-    } else {
-
-      message.textContent =
-        "गलत Admin Password.";
-
-      message.classList.remove("hidden");
-    }
-  };
-
-
-  window.adminLogout = function () {
-
-    sessionStorage.removeItem(
-      "ARS_ADMIN_LOGIN"
-    );
-
-    location.reload();
-  };
-
-
-  window.refreshDashboard = function () {
-
-    const items = getItems();
-
-    const shayari =
-      items.filter(x => x.type === "shayari").length;
-
-    const stories =
-      items.filter(x => x.type === "story").length;
-
-    const updates =
-      items.filter(x => x.type === "update").length;
-
-
-    document.getElementById("contentCount")
-      .textContent = items.length;
-
-    document.getElementById("shayariCount")
-      .textContent = shayari;
-
-    document.getElementById("storyCount")
-      .textContent = stories;
-
-    document.getElementById("updateCount")
-      .textContent = updates;
-
-
-    renderContent(items);
-  };
-
-
-  function renderContent(items) {
-
-    const container =
-      document.getElementById(
-        "adminContentList"
-      );
-
-
-    if (!items.length) {
-
-      container.innerHTML =
-        "<p>कोई published content नहीं है.</p>";
-
-      return;
-    }
-
-
-    container.innerHTML = items.map(item => {
-
-      return `
-        <article class="data-item">
-
-          <strong>
-            ${escapeHTML(item.title)}
-          </strong>
-
-          <small>
-            ${escapeHTML(item.type)}
-            •
-            ${escapeHTML(item.category)}
-            •
-            ID: ${escapeHTML(item.id)}
-          </small>
-
-          <p>
-            ${escapeHTML(item.text)}
-          </p>
-
-          <div class="row">
-
-            <button
-              onclick="editAdminContent('${item.id}')"
-            >
-              Edit
-            </button>
-
-            <button
-              class="danger"
-              onclick="deleteAdminContent('${item.id}')"
-            >
-              Delete
-            </button>
-
-          </div>
-
-        </article>
-      `;
-
-    }).join("");
-  }
-
-
-  window.editAdminContent = function (id) {
-
-    const items = getItems();
-
-    const item =
-      items.find(x => x.id === id);
-
-    if (!item) return;
-
-
-    const title =
-      prompt(
-        "Title बदलें:",
-        item.title
-      );
-
-    if (title === null) return;
-
-
-    const text =
-      prompt(
-        "Content बदलें:",
-        item.text
-      );
-
-    if (text === null) return;
-
-
-    item.title =
-      title.trim() || item.title;
-
-    item.text =
-      text.trim() || item.text;
-
-
-    saveItems(items);
-
-    showMessage(
-      "Content successfully updated."
-    );
-
-    refreshDashboard();
-  };
-
-
-  window.deleteAdminContent = function (id) {
-
-    if (
-      !confirm(
-        "क्या आप इस content को delete करना चाहते हैं?"
-      )
-    ) {
-      return;
-    }
-
-
-    const items =
-      getItems().filter(
-        item => item.id !== id
-      );
-
-
-    saveItems(items);
-
-    showMessage(
-      "Content deleted successfully."
-    );
-
-    refreshDashboard();
-  };
-
-
-  window.clearPublishedContent = function () {
-
-    if (
-      !confirm(
-        "WARNING: क्या आप सभी published content delete करना चाहते हैं?"
-      )
-    ) {
-      return;
-    }
-
-
-    localStorage.removeItem(
-      STORAGE_KEY
-    );
-
-
-    showMessage(
-      "सभी published content delete कर दिए गए."
-    );
-
-    refreshDashboard();
-  };
-
-
-  function showMessage(text) {
-
-    const box =
-      document.getElementById(
-        "adminMessage"
-      );
-
-    box.textContent = text;
-    box.classList.remove("hidden");
 
   }
 
 
-  if (
-    sessionStorage.getItem(
-      "ARS_ADMIN_LOGIN"
-    ) === "true"
+  function esc(value) {
+
+    return String(value || "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+
+  }
+
+
+  function renderRecords(
+    container,
+    records,
+    type
   ) {
 
-    document
-      .getElementById("adminLogin")
-      .classList.add("hidden");
+    if (!records.length) {
 
-    document
-      .getElementById("adminPanel")
-      .classList.remove("hidden");
+      container.innerHTML =
+        "<p>अभी कोई record नहीं है।</p>";
 
-    refreshDashboard();
+      return;
+
+    }
+
+
+    container.innerHTML = records
+      .map(function (item,index) {
+
+        const id =
+          item.id ||
+          item.applicationNumber ||
+          item.certificateId ||
+          ("record-" + index);
+
+        const name =
+          item.name ||
+          item.fullName ||
+          "Unknown";
+
+        return `
+          <div class="info-card"
+               data-index="${index}">
+
+            <h3>
+              ${esc(name)}
+            </h3>
+
+            <p>
+              <strong>ID:</strong>
+              ${esc(id)}
+            </p>
+
+            ${
+              item.email
+              ? `<p>
+                   <strong>Email:</strong>
+                   ${esc(item.email)}
+                 </p>`
+              : ""
+            }
+
+            ${
+              item.status
+              ? `<p>
+                   <strong>Status:</strong>
+                   ${esc(item.status)}
+                 </p>`
+              : ""
+            }
+
+            <div class="admin-actions">
+
+              <button
+                class="edit-btn"
+                data-action="edit"
+                data-type="${type}"
+                data-index="${index}">
+                ✏️ Edit
+              </button>
+
+              <button
+                class="danger-btn"
+                data-action="delete"
+                data-type="${type}"
+                data-index="${index}">
+                🗑️ Delete
+              </button>
+
+            </div>
+
+          </div>
+        `;
+
+      })
+      .join("");
+
+  }
+
+
+  function loadDashboard() {
+
+    const joining =
+      read("ARS_JOINING_CERTIFICATES");
+
+    const certificates =
+      read("ARS_CERTIFICATES");
+
+    const content =
+      read("ARS_PUBLISHED_CONTENT");
+
+
+    document.getElementById(
+      "joiningCount"
+    ).textContent =
+      joining.length;
+
+
+    document.getElementById(
+      "certificateCount"
+    ).textContent =
+      certificates.length;
+
+
+    document.getElementById(
+      "contentCount"
+    ).textContent =
+      content.length;
+
+
+    renderRecords(
+      document.getElementById(
+        "joiningRecords"
+      ),
+      joining,
+      "joining"
+    );
+
+
+    renderRecords(
+      document.getElementById(
+        "certificateRecords"
+      ),
+      certificates,
+      "certificate"
+    );
+
+
+    renderRecords(
+      document.getElementById(
+        "contentRecords"
+      ),
+      content,
+      "content"
+    );
+
+  }
+
+
+  document.addEventListener(
+    "click",
+    function (event) {
+
+      const button =
+        event.target.closest(
+          "[data-action]"
+        );
+
+      if (!button) return;
+
+      const action =
+        button.dataset.action;
+
+      const type =
+        button.dataset.type;
+
+      const index =
+        Number(button.dataset.index);
+
+
+      const key =
+        type === "joining"
+          ? "ARS_JOINING_CERTIFICATES"
+          : type === "certificate"
+          ? "ARS_CERTIFICATES"
+          : "ARS_PUBLISHED_CONTENT";
+
+
+      const records =
+        read(key);
+
+
+      if (!records[index]) return;
+
+
+      if (action === "delete") {
+
+        const okay =
+          confirm(
+            "क्या आप इस record को delete करना चाहते हैं?"
+          );
+
+        if (!okay) return;
+
+        records.splice(index,1);
+
+        localStorage.setItem(
+          key,
+          JSON.stringify(records)
+        );
+
+        loadDashboard();
+
+      }
+
+
+      if (action === "edit") {
+
+        const current =
+          records[index];
+
+        const newName =
+          prompt(
+            "Name:",
+            current.name ||
+            current.fullName ||
+            ""
+          );
+
+        if (newName === null) return;
+
+        current.name =
+          newName.trim();
+
+        records[index] =
+          current;
+
+        localStorage.setItem(
+          key,
+          JSON.stringify(records)
+        );
+
+        loadDashboard();
+
+      }
+
+    }
+  );
+
+
+  /* Theme */
+
+  const themeToggle =
+    document.getElementById(
+      "themeToggle"
+    );
+
+
+  function applyTheme(theme) {
+
+    document.documentElement.dataset.theme =
+      theme;
+
+    localStorage.setItem(
+      "ars-theme",
+      theme
+    );
+
+    themeToggle.textContent =
+      theme === "dark"
+        ? "☀️"
+        : "🌙";
+
+  }
+
+
+  applyTheme(
+    localStorage.getItem(
+      "ars-theme"
+    ) || "light"
+  );
+
+
+  themeToggle.addEventListener(
+    "click",
+    function () {
+
+      const current =
+        document.documentElement.dataset.theme ||
+        "light";
+
+      applyTheme(
+        current === "dark"
+          ? "light"
+          : "dark"
+      );
+
+    }
+  );
+
+
+  if (loggedIn()) {
+    showDashboard();
   }
 
 })();
