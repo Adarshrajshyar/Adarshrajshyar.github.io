@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>GK Topic | ARS Education</title>
+  <meta name="description" content="ARS Education GK topic learning page.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .topic-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.15), transparent 32%),
+        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
+        var(--bg);
+    }
+
+    .topic-container {
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .topic-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .topic-badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .topic-header h1 {
+      margin: 18px 0 10px;
+      font-size: clamp(32px, 6vw, 55px);
+    }
+
+    .topic-header p {
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .topic-meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .topic-meta span {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.08);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .topic-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 25px 0;
+    }
+
+    .topic-actions button {
+      border: 0;
+      border-radius: 11px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .topic-card {
+      padding: 27px;
+      margin-bottom: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 14px 38px rgba(0,0,0,.06);
+    }
+
+    .topic-card h2 {
+      margin-top: 0;
+    }
+
+    .topic-card p,
+    .topic-card li {
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .fact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .fact {
+      padding: 17px;
+      border-radius: 15px;
+      background: rgba(124,58,237,.06);
+      border: 1px solid rgba(124,58,237,.10);
+    }
+
+    .fact strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .coming-soon {
+      text-align: center;
+      padding: 24px;
+      border: 1px dashed rgba(124,58,237,.25);
+      border-radius: 17px;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 600px) {
+      .fact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topic-card {
+        padding: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="topic-page">
+
+    <div class="topic-container">
+
+      <header class="topic-header">
+
+        <div class="topic-badge">
+          🌍 ARS EDUCATION • GK
+        </div>
+
+        <h1 id="topicTitle">
+          GK Topic
+        </h1>
+
+        <p id="topicDescription">
+          Important General Knowledge resources.
+        </p>
+
+        <div class="topic-meta">
+          <span id="classMeta">Class 6</span>
+          <span id="categoryMeta">Category</span>
+        </div>
+
+      </header>
+
+
+      <div class="topic-actions">
+
+        <button
+          id="backButton"
+          type="button"
+        >
+          ← Back
+        </button>
+
+        <button
+          id="copyButton"
+          type="button"
+        >
+          📋 Copy
+        </button>
+
+        <button
+          id="shareButton"
+          type="button"
+        >
+          ↗ Share
+        </button>
+
+        <button
+          id="saveButton"
+          type="button"
+        >
+          ♡ Save
+        </button>
+
+      </div>
+
+
+      <section class="topic-card">
+
+        <h2>📚 About This Topic</h2>
+
+        <p id="topicContent">
+          इस topic का detailed educational
+          content यहाँ उपलब्ध होगा।
+        </p>
+
+      </section>
+
+
+      <section class="topic-card">
+
+        <h2>⭐ Important Facts</h2>
+
+        <div
+          class="fact-grid"
+          id="factsContainer"
+        >
+
+          <div class="fact">
+            <strong>Fact 1</strong>
+            <span>Important information जल्द जोड़ी जाएगी।</span>
+          </div>
+
+          <div class="fact">
+            <strong>Fact 2</strong>
+            <span>Verified educational content यहाँ आएगा।</span>
+          </div>
+
+          <div class="fact">
+            <strong>Fact 3</strong>
+            <span>Topic-wise facts database से load होंगे।</span>
+          </div>
+
+          <div class="fact">
+            <strong>Fact 4</strong>
+            <span>Regularly updated learning material।</span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="topic-card">
+
+        <h2>🧠 Quick Revision</h2>
+
+        <ul id="revisionList">
+
+          <li>Topic को ध्यान से पढ़ें।</li>
+          <li>Important facts revise करें।</li>
+          <li>MCQ practice करें।</li>
+          <li>Exam से पहले quick revision करें।</li>
+
+        </ul>
+
+      </section>
+
+
+      <section class="topic-card">
+
+        <div class="coming-soon">
+
+          🚀 <strong>More Content Coming Soon</strong>
+
+          <p>
+            ARS Education Publisher द्वारा
+            content publish होने पर यह page
+            automatically और detailed हो सकेगा।
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const classNumber =
+        params.get("class") || "6";
+
+      const category =
+        params.get("category") || "india";
+
+
+      const categoryData = {
+
+        india: {
+          title: "India GK",
+          icon: "🇮🇳",
+          description:
+            "भारत से जुड़े महत्वपूर्ण General Knowledge facts।",
+          content:
+            "भारत के राज्यों, केंद्र शासित प्रदेशों, संविधान, इतिहास, संस्कृति, राष्ट्रीय प्रतीकों और महत्वपूर्ण स्थानों से जुड़ी जानकारी यहाँ व्यवस्थित की जाएगी."
+        },
+
+        science: {
+          title: "Science GK",
+          icon: "🔬",
+          description:
+            "Science और technology से जुड़े interesting facts।",
+          content:
+            "विज्ञान, अंतरिक्ष, मानव शरीर, inventions, discoveries और रोजमर्रा की science से जुड़े educational facts."
+        },
+
+        history: {
+          title: "History GK",
+          icon: "🏛️",
+          description:
+            "भारत और विश्व के महत्वपूर्ण historical facts।",
+          content:
+            "प्राचीन, मध्यकालीन और आधुनिक इतिहास के महत्वपूर्ण facts तथा प्रमुख घटनाओं का सरल अध्ययन."
+        },
+
+        geography: {
+          title: "Geography GK",
+          icon: "🌎",
+          description:
+            "पृथ्वी, देश, नदियाँ, पर्वत और प्राकृतिक संसाधनों की जानकारी।",
+          content:
+            "महाद्वीप, महासागर, पर्वत, नदियाँ, जलवायु, देश और पृथ्वी से जुड़े महत्वपूर्ण geographical facts."
+        },
+
+        sports: {
+          title: "Sports GK",
+          icon: "🏆",
+          description:
+            "Sports से जुड़े educational facts और knowledge।",
+          content:
+            "खेलों के नियम, प्रसिद्ध tournaments, खेलों से जुड़े सामान्य ज्ञान और महत्वपूर्ण sports facts."
+        },
+
+        world: {
+          title: "World GK",
+          icon: "🌐",
+          description:
+            "विश्व के देशों और महत्वपूर्ण global facts।",
+          content:
+            "विश्व के देश, राजधानी, महाद्वीप, landmarks और महत्वपूर्ण international facts."
+        }
+
+      };
+
+
+      const data =
+        categoryData[category] ||
+        categoryData.india;
+
+
+      document.getElementById(
+        "topicTitle"
+      ).textContent =
+        `${data.icon} ${data.title}`;
+
+
+      document.getElementById(
+        "topicDescription"
+      ).textContent =
+        data.description;
+
+
+      document.getElementById(
+        "topicContent"
+      ).textContent =
+        data.content;
+
+
+      document.getElementById(
+        "classMeta"
+      ).textContent =
+        `Class ${classNumber}`;
+
+
+      document.getElementById(
+        "categoryMeta"
+      ).textContent =
+        data.title;
+
+
+      /* BACK */
+
+      document.getElementById(
+        "backButton"
+      ).addEventListener(
+        "click",
+        () => {
+
+          if (document.referrer) {
+            history.back();
+          } else {
+            window.location.href =
+              `gk.html?class=${encodeURIComponent(classNumber)}`;
+          }
+
+        }
+      );
+
+
+      /* COPY */
+
+      document.getElementById(
+        "copyButton"
+      ).addEventListener(
+        "click",
+        async () => {
+
+          try {
+
+            await navigator.clipboard.writeText(
+              window.location.href
+            );
+
+            alert(
+              "GK topic link copied!"
+            );
+
+          } catch (_) {
+
+            alert(
+              "Copy नहीं हो पाया।"
+            );
+
+          }
+
+        }
+      );
+
+
+      /* SHARE */
+
+      document.getElementById(
+        "shareButton"
+      ).addEventListener(
+        "click",
+        async () => {
+
+          if (
+            navigator.share &&
+            typeof navigator.share === "function"
+          ) {
+
+            try {
+
+              await navigator.share({
+                title:
+                  `${data.title} | ARS Education`,
+                text:
+                  data.description,
+                url:
+                  window.location.href
+              });
+
+            } catch (_) {}
+
+          } else {
+
+            try {
+
+              await navigator.clipboard.writeText(
+                window.location.href
+              );
+
+              alert(
+                "Share link copied!"
+              );
+
+            } catch (_) {}
+
+          }
+
+        }
+      );
+
+
+      /* SAVE */
+
+      const saveKey =
+        `ARS_GK_SAVE_${classNumber}_${category}`;
+
+      const saveButton =
+        document.getElementById(
+          "saveButton"
+        );
+
+
+      function updateSaveButton() {
+
+        const saved =
+          localStorage.getItem(
+            saveKey
+          ) === "true";
+
+        saveButton.textContent =
+          saved
+            ? "♥ Saved"
+            : "♡ Save";
+
+      }
+
+
+      updateSaveButton();
+
+
+      saveButton.addEventListener(
+        "click",
+        () => {
+
+          const saved =
+            localStorage.getItem(
+              saveKey
+            ) === "true";
+
+          localStorage.setItem(
+            saveKey,
+            String(!saved)
+          );
+
+          updateSaveButton();
+
+        }
+      );
+
+    })();
+  </script>
+
+</body>
+</html>
