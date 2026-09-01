@@ -1,363 +1,617 @@
 /* =========================================================
-   ARS OFFICIAL
-   CERTIFICATE GENERATOR
+   ARS CERTIFICATE SYSTEM
+   File: certificate.js
    ========================================================= */
 
 (function () {
-
   "use strict";
 
-
-  /* =======================================================
-     HELPERS
-     ======================================================= */
-
-  const $ = (id) =>
-    document.getElementById(id);
+  const STORAGE_KEY = "ARS_CERTIFICATE_APPLICATIONS";
+  const CERT_PREFIX = "ARS-CERT-";
 
 
-  /* =======================================================
-     ELEMENTS
-     ======================================================= */
+  /* ---------------------------------------------------------
+     Helpers
+  --------------------------------------------------------- */
 
-  const typeSelect =
-    $("certificateType");
-
-  const businessFields =
-    $("businessFields");
-
-  const generateButton =
-    $("generateCertificate");
-
-  const printButton =
-    $("printCertificate");
-
-  const output =
-    $("certificateOutput");
-
-
-  /* =======================================================
-     STORAGE
-     ======================================================= */
-
-  const CERTIFICATE_KEY =
-    "ARS_CERTIFICATES";
-
-
-  function readCertificates() {
-
+  function getApplications() {
     try {
-
-      const data =
-        JSON.parse(
-          localStorage.getItem(
-            CERTIFICATE_KEY
-          ) || "[]"
-        );
-
-      return Array.isArray(data)
-        ? data
-        : [];
-
-    } catch (_) {
-
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY) || "[]"
+      );
+    } catch (error) {
       return [];
-
     }
   }
 
 
-  function saveCertificates(list) {
-
+  function saveApplications(applications) {
     localStorage.setItem(
-      CERTIFICATE_KEY,
-      JSON.stringify(list)
+      STORAGE_KEY,
+      JSON.stringify(applications)
     );
   }
 
 
-  /* =======================================================
-     CERTIFICATE ID
-     ======================================================= */
+  function createCertificateId() {
+    const time = Date.now().toString().slice(-8);
 
-  function generateCertificateId() {
+    const random = Math.random()
+      .toString(36)
+      .substring(2, 7)
+      .toUpperCase();
 
-    const now =
-      new Date();
-
-    const stamp =
-      now.getTime()
-        .toString(36)
-        .toUpperCase();
-
-    const random =
-      Math.random()
-        .toString(36)
-        .slice(2, 7)
-        .toUpperCase();
-
-    return (
-      "ARS-CERT-" +
-      stamp +
-      "-" +
-      random
-    );
+    return `${CERT_PREFIX}${time}-${random}`;
   }
 
 
-  /* =======================================================
-     BUSINESS FIELDS
-     ======================================================= */
+  function today() {
+    return new Date().toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    });
+  }
 
-  function updateBusinessFields() {
 
-    if (!typeSelect || !businessFields) {
-      return;
+  function typeTitle(type) {
+    switch (type) {
+      case "education":
+        return "CERTIFICATE OF EDUCATION";
+
+      case "achievement":
+        return "CERTIFICATE OF ACHIEVEMENT";
+
+      case "participation":
+        return "CERTIFICATE OF PARTICIPATION";
+
+      default:
+        return "ARS CERTIFICATE";
     }
-
-    const isBusiness =
-      typeSelect.value === "Business";
-
-    businessFields.classList.toggle(
-      "show",
-      isBusiness
-    );
-
   }
 
 
-  if (typeSelect) {
+  /* ---------------------------------------------------------
+     Create application
+  --------------------------------------------------------- */
 
-    typeSelect.addEventListener(
-      "change",
-      updateBusinessFields
-    );
+  function createApplication(data) {
 
-    updateBusinessFields();
+    const application = {
+      id: createCertificateId(),
 
-  }
+      name: String(data.name || "").trim(),
 
+      email: String(data.email || "").trim(),
 
-  /* =======================================================
-     GENERATE
-     ======================================================= */
+      type: data.type || "",
 
-  function generateCertificate() {
-
-    const name =
-      $("recipientName")?.value.trim();
-
-    const type =
-      typeSelect?.value || "Achievement";
-
-    const description =
-      $("certificateDescription")
-        ?.value.trim();
-
-
-    if (!name) {
-
-      if (window.ARS?.showToast) {
-
-        window.ARS.showToast(
-          "Please enter the recipient name."
-        );
-
-      } else {
-
-        alert(
-          "Please enter the recipient name."
-        );
-
-      }
-
-      return;
-
-    }
-
-
-    const id =
-      generateCertificateId();
-
-
-    const businessName =
-      $("businessName")
-        ?.value.trim() || "";
-
-    const ownerName =
-      $("ownerName")
-        ?.value.trim() || "";
-
-
-    $("outputName").textContent =
-      name;
-
-    $("outputType").textContent =
-      type.toUpperCase();
-
-    $("outputDescription").textContent =
-      description ||
-      "This certificate is proudly presented in recognition of excellence and achievement.";
-
-    $("outputId").textContent =
-      id;
-
-
-    const businessOutput =
-      $("outputBusiness");
-
-
-    if (type === "Business") {
-
-      businessOutput.style.display =
-        "block";
-
-      businessOutput.textContent =
-        businessName
-          ? "Business: " + businessName +
-            (ownerName
-              ? " | Owner / Founder: " +
-                ownerName
-              : "")
-          : ownerName
-            ? "Owner / Founder: " +
-              ownerName
-            : "";
-
-    } else {
-
-      businessOutput.style.display =
-        "none";
-
-      businessOutput.textContent =
-        "";
-
-    }
-
-
-    /* Save local verification record */
-
-    const certificates =
-      readCertificates();
-
-
-    certificates.push({
-
-      id: id,
-
-      name: name,
-
-      type: type,
+      activity: String(data.activity || "").trim(),
 
       description:
-        description || "",
+        String(data.description || "").trim(),
 
-      businessName:
-        businessName,
+      className:
+        String(data.className || "").trim(),
 
-      ownerName:
-        ownerName,
+      subject:
+        String(data.subject || "").trim(),
 
-      createdAt:
-        new Date().toISOString()
+      status: "pending",
 
-    });
+      approved: false,
 
+      certificateIssued: false,
 
-    saveCertificates(
-      certificates
-    );
+      joiningCertificateIssued: false,
 
+      createdAt: new Date().toISOString(),
 
-    output.classList.add(
-      "show"
-    );
+      approvedAt: null,
 
-
-    output.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+      approvedBy: null
+    };
 
 
-    if (window.ARS?.showToast) {
+    const applications = getApplications();
 
-      window.ARS.showToast(
-        "Certificate generated successfully."
-      );
+    applications.push(application);
 
-    }
+    saveApplications(applications);
 
+    return application;
   }
 
 
-  /* =======================================================
-     PRINT
-     ======================================================= */
+  /* ---------------------------------------------------------
+     Find certificate
+  --------------------------------------------------------- */
 
-  function printCertificate() {
+  function findCertificate(id) {
 
-    if (!output.classList.contains("show")) {
+    if (!id) return null;
 
-      if (window.ARS?.showToast) {
+    const applications = getApplications();
 
-        window.ARS.showToast(
-          "Generate a certificate first."
-        );
+    return applications.find(function (item) {
+      return item.id === id;
+    }) || null;
+  }
+
+
+  /* ---------------------------------------------------------
+     Approval
+     
+     Only authorized admin code should call this function.
+     Frontend approval is NOT treated as secure production
+     approval. Final approval belongs to backend/database.
+  --------------------------------------------------------- */
+
+  function approveCertificate(id, adminName) {
+
+    const applications = getApplications();
+
+    const index = applications.findIndex(
+      function (item) {
+        return item.id === id;
+      }
+    );
+
+
+    if (index === -1) {
+      return {
+        success: false,
+        message: "Certificate application not found."
+      };
+    }
+
+
+    applications[index].status = "approved";
+
+    applications[index].approved = true;
+
+    applications[index].approvedAt =
+      new Date().toISOString();
+
+    applications[index].approvedBy =
+      adminName || "ARS Admin";
+
+    applications[index].certificateIssued = true;
+
+
+    saveApplications(applications);
+
+
+    return {
+      success: true,
+      certificate: applications[index]
+    };
+  }
+
+
+  /* ---------------------------------------------------------
+     Reject application
+  --------------------------------------------------------- */
+
+  function rejectCertificate(id, adminName, reason) {
+
+    const applications = getApplications();
+
+    const index = applications.findIndex(
+      function (item) {
+        return item.id === id;
+      }
+    );
+
+
+    if (index === -1) {
+      return {
+        success: false,
+        message: "Certificate application not found."
+      };
+    }
+
+
+    applications[index].status = "rejected";
+
+    applications[index].approved = false;
+
+    applications[index].certificateIssued = false;
+
+    applications[index].approvedBy =
+      adminName || "ARS Admin";
+
+    applications[index].rejectionReason =
+      String(reason || "Not specified");
+
+
+    saveApplications(applications);
+
+
+    return {
+      success: true,
+      certificate: applications[index]
+    };
+  }
+
+
+  /* ---------------------------------------------------------
+     Joining Certificate
+     
+     IMPORTANT:
+     Joining Certificate can be issued ONLY after approval.
+  --------------------------------------------------------- */
+
+  function issueJoiningCertificate(id) {
+
+    const applications = getApplications();
+
+    const index = applications.findIndex(
+      function (item) {
+        return item.id === id;
+      }
+    );
+
+
+    if (index === -1) {
+      return {
+        success: false,
+        message: "Application not found."
+      };
+    }
+
+
+    const application = applications[index];
+
+
+    if (
+      application.status !== "approved" ||
+      application.approved !== true
+    ) {
+
+      return {
+        success: false,
+        message:
+          "Joining Certificate cannot be issued before approval."
+      };
+    }
+
+
+    application.joiningCertificateIssued = true;
+
+    application.joiningCertificateId =
+      "ARS-JOIN-" +
+      Date.now().toString().slice(-8) +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 6)
+        .toUpperCase();
+
+
+    application.joiningCertificateIssuedAt =
+      new Date().toISOString();
+
+
+    saveApplications(applications);
+
+
+    return {
+      success: true,
+      certificate: application
+    };
+  }
+
+
+  /* ---------------------------------------------------------
+     Generate certificate preview
+  --------------------------------------------------------- */
+
+  function renderCertificate(application) {
+
+    if (!application) return;
+
+
+    const paper =
+      document.getElementById("certificatePaper");
+
+    if (!paper) return;
+
+
+    const typeElement =
+      document.getElementById("previewType");
+
+    const nameElement =
+      document.getElementById("previewName");
+
+    const descriptionElement =
+      document.getElementById("previewDescription");
+
+    const idElement =
+      document.getElementById("previewId");
+
+    const dateElement =
+      document.getElementById("previewDate");
+
+
+    if (typeElement) {
+      typeElement.textContent =
+        typeTitle(application.type);
+    }
+
+
+    if (nameElement) {
+      nameElement.textContent =
+        application.name;
+    }
+
+
+    if (descriptionElement) {
+
+      let text =
+        application.description ||
+        application.activity ||
+        "For participation in ARS Education.";
+
+      if (
+        application.type === "education" &&
+        application.className
+      ) {
+
+        text +=
+          " | " + application.className;
 
       }
 
-      return;
+      if (
+        application.type === "education" &&
+        application.subject
+      ) {
+
+        text +=
+          " | Subject: " +
+          application.subject;
+
+      }
+
+
+      descriptionElement.textContent = text;
     }
 
 
-    window.print();
+    if (idElement) {
+      idElement.textContent =
+        application.id;
+    }
 
+
+    if (dateElement) {
+
+      dateElement.textContent =
+        application.approvedAt
+          ? new Date(
+              application.approvedAt
+            ).toLocaleDateString(
+              "en-IN",
+              {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+              }
+            )
+          : today();
+    }
+
+
+    paper.classList.add("show");
   }
 
 
-  /* =======================================================
-     EVENTS
-     ======================================================= */
+  /* ---------------------------------------------------------
+     Form integration
+  --------------------------------------------------------- */
 
-  if (generateButton) {
+  function connectForm() {
 
-    generateButton.addEventListener(
-      "click",
-      generateCertificate
+    const form =
+      document.getElementById("certificateForm");
+
+    if (!form) return;
+
+
+    form.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+
+        const data = {
+
+          type:
+            document.getElementById(
+              "certificateType"
+            )?.value,
+
+          name:
+            document.getElementById(
+              "studentName"
+            )?.value,
+
+          email:
+            document.getElementById(
+              "email"
+            )?.value,
+
+          activity:
+            document.getElementById(
+              "activity"
+            )?.value,
+
+          description:
+            document.getElementById(
+              "description"
+            )?.value,
+
+          className:
+            document.getElementById(
+              "className"
+            )?.value,
+
+          subject:
+            document.getElementById(
+              "subject"
+            )?.value
+        };
+
+
+        if (
+          !data.type ||
+          !data.name ||
+          !data.email ||
+          !data.activity
+        ) {
+
+          alert(
+            "Please fill all required fields."
+          );
+
+          return;
+        }
+
+
+        const application =
+          createApplication(data);
+
+
+        renderCertificate(application);
+
+
+        const statusBox =
+          document.getElementById(
+            "statusBox"
+          );
+
+
+        if (statusBox) {
+
+          statusBox.innerHTML = `
+            <strong>✅ Application Submitted</strong><br><br>
+
+            Application ID:
+            <strong>${application.id}</strong><br>
+
+            Status:
+            <strong>Pending Approval</strong><br><br>
+
+            आपका application admin approval के लिए भेज दिया गया है।
+            Approval के बाद ही official certificate और
+            joining certificate issue किया जाएगा।
+          `;
+
+          statusBox.classList.add("show");
+        }
+
+      }
     );
-
   }
 
 
-  if (printButton) {
+  /* ---------------------------------------------------------
+     Certificate verification helper
+  --------------------------------------------------------- */
 
-    printButton.addEventListener(
-      "click",
-      printCertificate
-    );
+  function verifyCertificate(id) {
 
+    const certificate =
+      findCertificate(id);
+
+
+    if (!certificate) {
+
+      return {
+        valid: false,
+        message: "Certificate not found."
+      };
+
+    }
+
+
+    if (
+      certificate.status !== "approved" ||
+      certificate.certificateIssued !== true
+    ) {
+
+      return {
+        valid: false,
+        pending: true,
+        message:
+          "Certificate is not approved yet.",
+        certificate: certificate
+      };
+
+    }
+
+
+    return {
+      valid: true,
+      message:
+        "Certificate verified successfully.",
+      certificate: certificate
+    };
   }
 
 
-  /* =======================================================
-     GLOBAL API
-     ======================================================= */
+  /* ---------------------------------------------------------
+     Public API
+  --------------------------------------------------------- */
 
-  window.ARS =
-    window.ARS || {};
+  window.ARS_Certificate = {
 
+    getApplications:
+      getApplications,
 
-  window.ARS.certificates = {
+    createApplication:
+      createApplication,
 
-    read: readCertificates,
+    findCertificate:
+      findCertificate,
 
-    save: saveCertificates,
+    approveCertificate:
+      approveCertificate,
 
-    generateId:
-      generateCertificateId
+    rejectCertificate:
+      rejectCertificate,
+
+    issueJoiningCertificate:
+      issueJoiningCertificate,
+
+    verifyCertificate:
+      verifyCertificate,
+
+    renderCertificate:
+      renderCertificate
 
   };
 
+
+  /* ---------------------------------------------------------
+     Start
+  --------------------------------------------------------- */
+
+  if (
+    document.readyState === "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      connectForm
+    );
+
+  } else {
+
+    connectForm();
+
+  }
 
 })();
