@@ -2,65 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-        content="ARS Official — Shayari, Stories, Kavita, ARS AI, Certificates, Joining, Founder and more.">
-  <meta name="author" content="Adarsh Raj">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <title>ARS Official — Adarsh Raj</title>
+  <meta
+    name="description"
+    content="ARS Official — Education, AI, Books, Stories, Shayari, Certificates and more."
+  >
 
-  <link rel="icon" href="logo.png">
+  <meta
+    name="theme-color"
+    content="#0b0b0d"
+  >
+
+  <title>ARS Official</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
   <!-- =====================================================
+       PAGE LOADER
+       ===================================================== -->
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-content">
+      <div class="loader-mark">ARS</div>
+      <div class="loader-spinner"></div>
+      <h3>ARS Official</h3>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       SCROLL PROGRESS
+       ===================================================== -->
+  <div id="progressBar"></div>
+
+
+  <!-- =====================================================
        HEADER
        ===================================================== -->
   <header class="site-header">
 
-    <div class="header-inner">
+    <div class="container nav-container">
 
-      <a href="index.html" class="brand">
-        <img src="logo.png" alt="ARS Official Logo">
-        <div>
+      <a href="index.html" class="brand" aria-label="ARS Official Home">
+
+        <span class="brand-logo">ARS</span>
+
+        <span class="brand-text">
           <strong>ARS Official</strong>
-          <span>Adarsh Raj</span>
-        </div>
+          <small>Learn • Create • Inspire</small>
+        </span>
+
       </a>
 
-      <button
-        id="themeToggle"
-        class="icon-btn"
-        type="button"
-        aria-label="Switch to dark mode">
-        🌙
-      </button>
 
       <button
         id="navToggle"
         class="nav-toggle"
         type="button"
+        aria-label="Open navigation"
         aria-expanded="false"
-        aria-controls="navLinks">
+      >
         ☰
       </button>
 
-      <nav id="navLinks" class="nav-links">
 
-        <a href="index.html">Home</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="story.html">Story</a>
-        <a href="kavita.html">Kavita</a>
+      <nav
+        id="navLinks"
+        class="nav-links"
+        aria-label="Main Navigation"
+      >
+
+        <a href="index.html" class="active">Home</a>
+
         <a href="ars-ai.html">ARS AI</a>
-        <a href="founder.html">Founder</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="joining-certificate.html">Joining Certificate</a>
-        <a href="joining.html">ARS Joining</a>
+
+        <a href="education.html">ARS Education</a>
+
+        <a href="books.html">Books</a>
+
+        <a href="stories.html">Stories</a>
+
+        <a href="shayari.html">Shayari</a>
+
+        <a href="certificate.html">Certificates</a>
+
+        <a href="joining.html">Joining ARS</a>
+
         <a href="verify.html">Verify</a>
-        <a href="contact.html">Contact</a>
 
         <div class="nav-more">
 
@@ -68,21 +104,42 @@
             id="navMoreButton"
             class="nav-more-button"
             type="button"
-            aria-expanded="false">
+            aria-expanded="false"
+          >
             More ▾
           </button>
 
           <div id="navMoreMenu" class="nav-more-menu">
 
-            <a href="publisher.html">📝 Publisher</a>
-            <a href="admin.html">🔐 Admin</a>
-            <a href="policy.html">📋 Policy</a>
-            <a href="#favorites">⭐ Favorites</a>
-            <a href="#links">🔗 Links</a>
+            <a href="founder.html">Founder</a>
+
+            <a href="publisher.html">Publisher</a>
+
+            <a href="education-publisher.html">
+              Education Publisher
+            </a>
+
+            <a href="updates.html">Updates</a>
+
+            <a href="links.html">Links</a>
+
+            <a href="contact.html">Contact</a>
+
+            <a href="admin.html">Admin</a>
 
           </div>
 
         </div>
+
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch to dark mode"
+          title="Dark Mode"
+        >
+          🌙
+        </button>
 
       </nav>
 
@@ -98,152 +155,245 @@
 
     <section class="hero-section">
 
-      <div class="hero-content">
+      <div class="container hero-grid">
 
-        <span class="eyebrow">✦ Welcome to ARS Official ✦</span>
+        <div class="hero-content">
 
-        <h1>
-          Welcome to
-          <span>ARS Official</span>
-        </h1>
+          <span class="eyebrow">
+            ✦ Welcome to ARS Official
+          </span>
 
-        <p>
-          A creative digital space for Shayari, Stories, Kavita,
-          ARS AI, Certificates, Joining, Founder information and
-          more.
-        </p>
+          <h1>
+            Learn.
+            <span>Create.</span>
+            Inspire.
+          </h1>
 
-        <div class="hero-actions">
+          <p class="hero-description">
+            A creative and educational platform for learning,
+            knowledge, stories, books, poetry, AI and more.
+          </p>
 
-          <a href="shayari.html" class="btn btn-primary">
-            ✍️ Explore Shayari
-          </a>
 
-          <a href="ars-ai.html" class="btn btn-outline">
-            🤖 Talk to ARS AI
-          </a>
+          <div class="hero-actions">
+
+            <a
+              href="education.html"
+              class="btn btn-primary"
+            >
+              Explore ARS Education
+            </a>
+
+            <a
+              href="ars-ai.html"
+              class="btn btn-secondary"
+            >
+              Ask ARS AI
+            </a>
+
+          </div>
+
+
+          <div class="hero-mini-stats">
+
+            <div>
+              <strong>5–8</strong>
+              <span>Classes</span>
+            </div>
+
+            <div>
+              <strong>AI</strong>
+              <span>Assistant</span>
+            </div>
+
+            <div>
+              <strong>∞</strong>
+              <span>Ideas</span>
+            </div>
+
+          </div>
 
         </div>
 
-      </div>
 
-      <div class="hero-card">
+        <!-- =================================================
+             HERO ARS CARD
+             ================================================= -->
 
-        <img src="logo.png" alt="ARS Official">
+        <div class="hero-visual">
 
-        <h2>ARS</h2>
+          <div class="ars-orbit orbit-one"></div>
+          <div class="ars-orbit orbit-two"></div>
 
-        <p>
-          Create • Inspire • Connect
-        </p>
+          <div class="ars-glow-card">
+
+            <div class="ars-symbol">
+              ARS
+            </div>
+
+            <span>ARS OFFICIAL</span>
+
+            <h2>
+              Knowledge<br>
+              Meets Creativity
+            </h2>
+
+            <p>
+              Education • AI • Books • Stories
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- ===================================================
+    <!-- =====================================================
          QUICK ACCESS
-         =================================================== -->
-    <section class="section">
+         ===================================================== -->
 
-      <div class="section-heading">
-        <span>EXPLORE</span>
-        <h2>ARS Official Universe</h2>
-        <p>
-          Everything important is available from dedicated
-          sections.
-        </p>
-      </div>
+    <section class="section quick-section">
 
-      <div class="feature-grid">
+      <div class="container">
 
-        <a href="shayari.html" class="feature-card">
-          <div class="feature-icon">✍️</div>
-          <h3>Shayari</h3>
-          <p>Love, Sad, Motivation, Attitude, Friendship and more.</p>
-        </a>
+        <div class="section-heading">
 
-        <a href="story.html" class="feature-card">
-          <div class="feature-icon">📖</div>
-          <h3>Stories</h3>
-          <p>Read stories organized by different categories.</p>
-        </a>
+          <span class="section-kicker">
+            QUICK ACCESS
+          </span>
 
-        <a href="kavita.html" class="feature-card">
-          <div class="feature-icon">📝</div>
-          <h3>Kavita</h3>
-          <p>Creative poems and meaningful writing.</p>
-        </a>
-
-        <a href="ars-ai.html" class="feature-card special-card">
-          <div class="feature-icon">🤖</div>
-          <h3>ARS AI</h3>
-          <p>Ask questions about ARS Official and its features.</p>
-        </a>
-
-        <a href="certificate.html" class="feature-card">
-          <div class="feature-icon">🏆</div>
-          <h3>Certificate</h3>
-          <p>Create and manage ARS certificates.</p>
-        </a>
-
-        <a href="joining-certificate.html" class="feature-card">
-          <div class="feature-icon">🎖️</div>
-          <h3>Joining Certificate</h3>
-          <p>Dedicated ARS joining certificate system.</p>
-        </a>
-
-        <a href="joining.html" class="feature-card">
-          <div class="feature-icon">🪪</div>
-          <h3>ARS Joining</h3>
-          <p>Joining information and application system.</p>
-        </a>
-
-        <a href="verify.html" class="feature-card">
-          <div class="feature-icon">🔎</div>
-          <h3>Verify</h3>
-          <p>Verify ARS certificates and joining records.</p>
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- ===================================================
-         FOUNDER
-         =================================================== -->
-    <section class="section founder-preview">
-
-      <div class="section-heading">
-        <span>ABOUT</span>
-        <h2>Meet the Founder</h2>
-      </div>
-
-      <div class="founder-card">
-
-        <div class="founder-image-wrap">
-          <img
-            src="photo.jpg1.jpeg"
-            alt="Founder of ARS Official"
-            class="founder-image">
-        </div>
-
-        <div class="founder-info">
-
-          <span class="eyebrow">Founder & Creator</span>
-
-          <h2>Adarsh Raj</h2>
+          <h2>Explore ARS</h2>
 
           <p>
-            Founder and creator of ARS Official — a creative
-            platform built around writing, ideas, technology
-            and digital creativity.
+            Everything important, organized in one place.
           </p>
 
-          <a href="founder.html" class="btn btn-primary">
-            View Founder Profile →
+        </div>
+
+
+        <div class="feature-grid">
+
+
+          <a href="ars-ai.html" class="feature-card ai-card">
+
+            <div class="feature-icon">🤖</div>
+
+            <div>
+              <span class="card-label">AI</span>
+
+              <h3>ARS AI</h3>
+
+              <p>
+                Ask questions about ARS, education,
+                study and the website.
+              </p>
+            </div>
+
+            <span class="card-arrow">→</span>
+
+          </a>
+
+
+          <a href="education.html" class="feature-card education-card">
+
+            <div class="feature-icon">📚</div>
+
+            <div>
+              <span class="card-label">LEARNING</span>
+
+              <h3>ARS Education</h3>
+
+              <p>
+                Class 5–8 learning, NCERT, Maths,
+                GK, Notes, MCQ and Practice.
+              </p>
+            </div>
+
+            <span class="card-arrow">→</span>
+
+          </a>
+
+
+          <a href="books.html" class="feature-card book-card">
+
+            <div class="feature-icon">📖</div>
+
+            <div>
+              <span class="card-label">LIBRARY</span>
+
+              <h3>ARS Books</h3>
+
+              <p>
+                Discover books and the upcoming
+                “पहली उड़ान” collection.
+              </p>
+            </div>
+
+            <span class="card-arrow">→</span>
+
+          </a>
+
+
+          <a href="stories.html" class="feature-card story-card">
+
+            <div class="feature-icon">✨</div>
+
+            <div>
+              <span class="card-label">CREATIVE</span>
+
+              <h3>Stories</h3>
+
+              <p>
+                Read and explore stories published
+                through ARS.
+              </p>
+            </div>
+
+            <span class="card-arrow">→</span>
+
+          </a>
+
+
+          <a href="shayari.html" class="feature-card shayari-card">
+
+            <div class="feature-icon">🪶</div>
+
+            <div>
+              <span class="card-label">POETRY</span>
+
+              <h3>Shayari</h3>
+
+              <p>
+                Poetry, shayari and creative writing
+                collections.
+              </p>
+            </div>
+
+            <span class="card-arrow">→</span>
+
+          </a>
+
+
+          <a href="certificate.html" class="feature-card certificate-card">
+
+            <div class="feature-icon">🏆</div>
+
+            <div>
+              <span class="card-label">RECOGNITION</span>
+
+              <h3>Certificates</h3>
+
+              <p>
+                Create, manage and verify ARS
+                certificates.
+              </p>
+            </div>
+
+            <span class="card-arrow">→</span>
+
           </a>
 
         </div>
@@ -253,27 +403,159 @@
     </section>
 
 
-    <!-- ===================================================
-         FAVORITES
-         =================================================== -->
-    <section id="favorites" class="section">
+    <!-- =====================================================
+         ARS EDUCATION PREVIEW
+         ===================================================== -->
 
-      <div class="section-heading">
-        <span>YOUR SPACE</span>
-        <h2>⭐ Favorites</h2>
-        <p>
-          Your favorite ARS content is stored on your device.
-        </p>
-      </div>
+    <section class="section education-preview">
 
-      <div id="favoritePreview" class="favorite-preview">
+      <div class="container">
 
-        <div class="empty-state">
-          <div>⭐</div>
-          <h3>Your Favorites</h3>
+        <div class="section-heading centered">
+
+          <span class="section-kicker">
+            ARS EDUCATION
+          </span>
+
+          <h2>
+            Your Learning Journey Starts Here
+          </h2>
+
           <p>
-            Favorite Shayari and Stories will appear here.
+            Choose your class and explore the material
+            designed for your learning journey.
           </p>
+
+        </div>
+
+
+        <div class="class-selector">
+
+          <button
+            class="class-pill"
+            data-class="5"
+          >
+            Class 5
+          </button>
+
+          <button
+            class="class-pill"
+            data-class="6"
+          >
+            Class 6
+          </button>
+
+          <button
+            class="class-pill"
+            data-class="7"
+          >
+            Class 7
+          </button>
+
+          <button
+            class="class-pill"
+            data-class="8"
+          >
+            Class 8
+          </button>
+
+        </div>
+
+
+        <div class="education-grid">
+
+          <a href="ncert.html" class="edu-tile">
+            <span>📘</span>
+            <strong>NCERT</strong>
+            <small>
+              Class → Book → Chapter → Content
+            </small>
+          </a>
+
+          <a href="maths.html" class="edu-tile">
+            <span>➗</span>
+            <strong>Mathematics</strong>
+            <small>
+              Concepts and problem solving
+            </small>
+          </a>
+
+          <a href="gk.html" class="edu-tile">
+            <span>🌍</span>
+            <strong>General Knowledge</strong>
+            <small>
+              GK and knowledge resources
+            </small>
+          </a>
+
+          <a href="notes.html" class="edu-tile">
+            <span>📝</span>
+            <strong>Notes</strong>
+            <small>
+              Topic-wise study notes
+            </small>
+          </a>
+
+          <a href="mcq.html" class="edu-tile">
+            <span>❓</span>
+            <strong>MCQ</strong>
+            <small>
+              Practice questions
+            </small>
+          </a>
+
+          <a href="practice.html" class="edu-tile">
+            <span>🎯</span>
+            <strong>Practice</strong>
+            <small>
+              Improve through practice
+            </small>
+          </a>
+
+          <a href="exam-tips.html" class="edu-tile">
+            <span>💡</span>
+            <strong>Exam Tips</strong>
+            <small>
+              Smart study guidance
+            </small>
+          </a>
+
+          <a href="navodaya.html" class="edu-tile competitive">
+            <span>🏫</span>
+            <strong>Navodaya</strong>
+            <small>
+              Class 6 preparation
+            </small>
+          </a>
+
+          <a href="sainik-school.html" class="edu-tile competitive">
+            <span>🎖️</span>
+            <strong>Sainik School</strong>
+            <small>
+              Class 6 preparation
+            </small>
+          </a>
+
+          <a href="rms.html" class="edu-tile competitive">
+            <span>🪖</span>
+            <strong>RMS</strong>
+            <small>
+              Class 6 preparation
+            </small>
+          </a>
+
+        </div>
+
+
+        <div class="center-action">
+
+          <a
+            href="education.html"
+            class="btn btn-primary"
+          >
+            Open ARS Education →
+          </a>
+
         </div>
 
       </div>
@@ -281,74 +563,231 @@
     </section>
 
 
-    <!-- ===================================================
-         LINKS
-         =================================================== -->
-    <section id="links" class="section">
+    <!-- =====================================================
+         FEATURED / SPECIAL
+         ===================================================== -->
 
-      <div class="section-heading">
-        <span>CONNECT</span>
-        <h2>🔗 Important Links</h2>
-        <p>Quick access to ARS Official sections.</p>
-      </div>
+    <section class="section special-section">
 
-      <div class="link-grid">
+      <div class="container special-grid">
 
-        <a href="ars-ai.html" class="link-card">
-          🤖 <span>ARS AI</span>
-        </a>
+        <div class="special-content">
 
-        <a href="certificate.html" class="link-card">
-          🏆 <span>Certificate</span>
-        </a>
+          <span class="section-kicker">
+            SPECIAL ARS
+          </span>
 
-        <a href="joining-certificate.html" class="link-card">
-          🎖️ <span>Joining Certificate</span>
-        </a>
+          <h2>
+            One Platform.
+            <span>Many Possibilities.</span>
+          </h2>
 
-        <a href="joining.html" class="link-card">
-          🪪 <span>ARS Joining</span>
-        </a>
+          <p>
+            Explore learning resources, creative content,
+            AI assistance, books, certificates and future
+            ARS initiatives from one central platform.
+          </p>
 
-        <a href="verify.html" class="link-card">
-          🔎 <span>Verification</span>
-        </a>
 
-        <a href="publisher.html" class="link-card">
-          📝 <span>Publisher</span>
-        </a>
+          <div class="special-list">
 
-        <a href="admin.html" class="link-card">
-          🔐 <span>Admin</span>
-        </a>
+            <div>
+              <span>✓</span>
+              <p>Education for Classes 5–8</p>
+            </div>
 
-        <a href="contact.html" class="link-card">
-          📩 <span>Contact</span>
-        </a>
+            <div>
+              <span>✓</span>
+              <p>AI-powered guidance</p>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <p>Creative books, stories and poetry</p>
+            </div>
+
+            <div>
+              <span>✓</span>
+              <p>Certificate and verification system</p>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="special-panel">
+
+          <div class="special-panel-top">
+            <span>ARS</span>
+            <span>OFFICIAL</span>
+          </div>
+
+          <div class="special-ring">
+            <strong>∞</strong>
+          </div>
+
+          <h3>
+            Learn Today.<br>
+            Build Tomorrow.
+          </h3>
+
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- ===================================================
-         CONTACT CTA
-         =================================================== -->
+    <!-- =====================================================
+         UPDATES
+         ===================================================== -->
+
+    <section class="section updates-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <span class="section-kicker">
+            LATEST
+          </span>
+
+          <h2>ARS Updates</h2>
+
+          <p>
+            New content, announcements and platform updates.
+          </p>
+
+        </div>
+
+
+        <div
+          id="updatesPreview"
+          class="updates-grid"
+        >
+
+          <article class="update-card">
+
+            <span class="update-badge">
+              ARS
+            </span>
+
+            <div>
+
+              <small>Latest</small>
+
+              <h3>
+                ARS Official is growing
+              </h3>
+
+              <p>
+                Education, AI, books and creative
+                content are being organized on ARS.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article class="update-card">
+
+            <span class="update-badge">
+              📚
+            </span>
+
+            <div>
+
+              <small>Education</small>
+
+              <h3>
+                ARS Education
+              </h3>
+
+              <p>
+                Class 5–8 learning structure is being
+                prepared.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article class="update-card">
+
+            <span class="update-badge">
+              📖
+            </span>
+
+            <div>
+
+              <small>Books</small>
+
+              <h3>
+                पहली उड़ान
+              </h3>
+
+              <p>
+                Book section is ready for the
+                completed edition.
+              </p>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <div class="center-action">
+
+          <a
+            href="updates.html"
+            class="btn btn-secondary"
+          >
+            View All Updates
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+         ===================================================== -->
+
     <section class="section cta-section">
 
-      <div class="cta-card">
+      <div class="container cta-box">
 
-        <span class="eyebrow">GET IN TOUCH</span>
+        <div>
 
-        <h2>Have something to say?</h2>
+          <span class="section-kicker">
+            ARS OFFICIAL
+          </span>
 
-        <p>
-          Send a message through the dedicated ARS Official
-          Contact page.
-        </p>
+          <h2>
+            Have a question?
+            Ask ARS AI.
+          </h2>
 
-        <a href="contact.html" class="btn btn-primary">
-          📩 Contact ARS Official
+          <p>
+            Get help navigating ARS and exploring
+            its educational and creative sections.
+          </p>
+
+        </div>
+
+        <a
+          href="ars-ai.html"
+          class="btn btn-primary"
+        >
+          Open ARS AI →
         </a>
 
       </div>
@@ -361,30 +800,83 @@
   <!-- =====================================================
        FOOTER
        ===================================================== -->
+
   <footer class="site-footer">
 
-    <div class="footer-inner">
+    <div class="container footer-grid">
 
-      <div>
-        <h3>ARS Official</h3>
+      <div class="footer-brand">
+
+        <div class="brand">
+
+          <span class="brand-logo">ARS</span>
+
+          <span class="brand-text">
+            <strong>ARS Official</strong>
+            <small>Learn • Create • Inspire</small>
+          </span>
+
+        </div>
+
         <p>
-          Create • Inspire • Connect
+          A creative, educational and knowledge-driven
+          digital platform.
         </p>
+
       </div>
 
-      <div class="footer-links">
+
+      <div class="footer-column">
+
+        <h3>Explore</h3>
+
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="education.html">ARS Education</a>
+        <a href="books.html">Books</a>
+        <a href="stories.html">Stories</a>
+        <a href="shayari.html">Shayari</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Services</h3>
+
+        <a href="certificate.html">Certificates</a>
+        <a href="joining.html">Joining ARS</a>
+        <a href="verify.html">Verify</a>
+        <a href="updates.html">Updates</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h3>Connect</h3>
 
         <a href="founder.html">Founder</a>
-        <a href="policy.html">Policy</a>
+        <a href="publisher.html">Publisher</a>
+        <a href="links.html">Links</a>
         <a href="contact.html">Contact</a>
-        <a href="verify.html">Verify</a>
 
       </div>
 
     </div>
 
-    <div class="footer-bottom">
-      © <span id="currentYear"></span> ARS Official · Adarsh Raj
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span>
+        ARS Official. All rights reserved.
+      </p>
+
+      <div class="footer-bottom-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+
     </div>
 
   </footer>
@@ -393,11 +885,13 @@
   <!-- =====================================================
        BACK TO TOP
        ===================================================== -->
+
   <button
     id="backToTop"
     class="back-to-top"
     type="button"
-    aria-label="Back to top">
+    aria-label="Back to top"
+  >
     ↑
   </button>
 
@@ -405,13 +899,14 @@
   <!-- =====================================================
        TOAST
        ===================================================== -->
-  <div id="arsToast" class="ars-toast"></div>
+
+  <div
+    id="arsToast"
+    class="ars-toast"
+    aria-live="polite"
+  ></div>
 
 
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-  <script src="shayari.js"></script>
-  <script src="story.js"></script>
   <script src="script.js"></script>
 
 </body>
