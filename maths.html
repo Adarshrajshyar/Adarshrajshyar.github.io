@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mathematics | ARS Education</title>
+  <meta name="description" content="ARS Education Mathematics resources for Class 5 to 8.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .maths-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
+        radial-gradient(circle at 92% 15%, rgba(59,130,246,.10), transparent 30%),
+        var(--bg);
+    }
+
+    .maths-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .maths-hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .maths-badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .maths-hero h1 {
+      margin: 17px 0 10px;
+      font-size: clamp(35px, 6vw, 58px);
+    }
+
+    .maths-hero h1 span {
+      color: var(--primary);
+    }
+
+    .maths-hero p {
+      max-width: 760px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .class-selector {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 25px 0;
+    }
+
+    .class-selector button {
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: 11px;
+      padding: 10px 17px;
+      background: transparent;
+      color: var(--text);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .class-selector button.active,
+    .class-selector button:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .maths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .math-card {
+      padding: 23px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 12px 35px rgba(0,0,0,.06);
+      transition: .2s ease;
+    }
+
+    .math-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .math-icon {
+      font-size: 31px;
+      margin-bottom: 10px;
+    }
+
+    .math-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .math-card p {
+      color: var(--text-soft);
+      line-height: 1.7;
+      font-size: 14px;
+      margin: 0 0 15px;
+    }
+
+    .math-card button {
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .math-info {
+      margin-top: 25px;
+      padding: 24px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+    }
+
+    .math-info h2 {
+      margin-top: 0;
+    }
+
+    .math-info p {
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .toolbar button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 15px;
+      background: rgba(124,58,237,.10);
+      color: var(--primary);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 850px) {
+      .maths-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .maths-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="maths-page">
+
+    <div class="maths-container">
+
+      <section class="maths-hero">
+
+        <div class="maths-badge">
+          🔢 ARS EDUCATION • MATHEMATICS
+        </div>
+
+        <h1>
+          Mathematics <span>Hub</span>
+        </h1>
+
+        <p>
+          Class 5 से Class 8 तक Mathematics के
+          notes, practice, MCQ और revision resources।
+        </p>
+
+      </section>
+
+
+      <div class="toolbar">
+
+        <button id="homeBtn">
+          🏠 Home
+        </button>
+
+        <button id="educationBtn">
+          🎓 ARS Education
+        </button>
+
+      </div>
+
+
+      <div class="class-selector">
+
+        <button data-class="5">Class 5</button>
+        <button data-class="6">Class 6</button>
+        <button data-class="7">Class 7</button>
+        <button data-class="8">Class 8</button>
+
+      </div>
+
+
+      <section class="maths-grid">
+
+        <article class="math-card">
+
+          <div class="math-icon">📚</div>
+
+          <h3>Chapter Notes</h3>
+
+          <p>
+            Chapter-wise concepts, formulas,
+            examples और important points।
+          </p>
+
+          <button data-content="notes">
+            Open Notes →
+          </button>
+
+        </article>
+
+
+        <article class="math-card">
+
+          <div class="math-icon">📝</div>
+
+          <h3>MCQ Practice</h3>
+
+          <p>
+            Mathematics के objective questions
+            solve करके अपनी तैयारी check करें।
+          </p>
+
+          <button data-content="mcq">
+            Start MCQ →
+          </button>
+
+        </article>
+
+
+        <article class="math-card">
+
+          <div class="math-icon">✏️</div>
+
+          <h3>Practice Questions</h3>
+
+          <p>
+            अलग-अलग difficulty level के
+            practice questions।
+          </p>
+
+          <button data-content="practice">
+            Practice Now →
+          </button>
+
+        </article>
+
+
+        <article class="math-card">
+
+          <div class="math-icon">🔄</div>
+
+          <h3>Quick Revision</h3>
+
+          <p>
+            परीक्षा से पहले formulas और
+            important concepts का quick revision।
+          </p>
+
+          <button data-content="revision">
+            Revise →
+          </button>
+
+        </article>
+
+
+        <article class="math-card">
+
+          <div class="math-icon">🎯</div>
+
+          <h3>Exam Preparation</h3>
+
+          <p>
+            Exam-focused preparation और
+            useful solving strategies।
+          </p>
+
+          <button data-content="tips">
+            View Tips →
+          </button>
+
+        </article>
+
+
+        <article class="math-card">
+
+          <div class="math-icon">🏆</div>
+
+          <h3>Challenge Zone</h3>
+
+          <p>
+            अपनी Mathematics skills को
+            challenging questions से test करें।
+          </p>
+
+          <button data-content="challenge">
+            Start Challenge →
+          </button>
+
+        </article>
+
+      </section>
+
+
+      <section class="math-info">
+
+        <h2>📐 ARS Mathematics</h2>
+
+        <p>
+          यहाँ selected class के अनुसार Mathematics
+          resources दिखाए जाएंगे। Content को आगे
+          publisher/admin system से व्यवस्थित किया जा सकता है।
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+      let selectedClass =
+        new URLSearchParams(
+          window.location.search
+        ).get("class") || "6";
+
+
+      const classButtons =
+        document.querySelectorAll(
+          "[data-class]"
+        );
+
+
+      function updateClassButtons() {
+
+        classButtons.forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.class === selectedClass
+          );
+
+        });
+
+      }
+
+
+      classButtons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedClass =
+              button.dataset.class;
+
+            const url =
+              new URL(
+                window.location.href
+              );
+
+            url.searchParams.set(
+              "class",
+              selectedClass
+            );
+
+            window.history.replaceState(
+              {},
+              "",
+              url
+            );
+
+            updateClassButtons();
+
+          }
+        );
+
+      });
+
+
+      document
+        .querySelectorAll("[data-content]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const content =
+                button.dataset.content;
+
+              const routes = {
+
+                notes:
+                  `notes.html?class=${selectedClass}&subject=maths`,
+
+                mcq:
+                  `mcq.html?class=${selectedClass}&subject=maths`,
+
+                practice:
+                  `practice.html?class=${selectedClass}&subject=maths`,
+
+                revision:
+                  `notes.html?class=${selectedClass}&subject=maths&content=revision`,
+
+                tips:
+                  `exam-tips.html?class=${selectedClass}&subject=maths`,
+
+                challenge:
+                  `practice.html?class=${selectedClass}&subject=maths&mode=challenge`
+
+              };
+
+
+              if (routes[content]) {
+                window.location.href =
+                  routes[content];
+              }
+
+            }
+          );
+
+        });
+
+
+      document
+        .getElementById("homeBtn")
+        .addEventListener(
+          "click",
+          () => {
+            window.location.href =
+              "index.html";
+          }
+        );
+
+
+      document
+        .getElementById("educationBtn")
+        .addEventListener(
+          "click",
+          () => {
+            window.location.href =
+              "index.html#ars-education";
+          }
+        );
+
+
+      updateClassButtons();
+
+    })();
+  </script>
+
+</body>
+</html>
