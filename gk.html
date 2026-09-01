@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS GK | General Knowledge</title>
+  <meta name="description" content="ARS Education General Knowledge for Class 5 to 8.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .gk-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,.14), transparent 32%),
+        radial-gradient(circle at 90% 20%, rgba(236,72,153,.12), transparent 30%),
+        var(--bg);
+    }
+
+    .gk-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .gk-hero {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .gk-badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .gk-hero h1 {
+      margin: 17px 0 10px;
+      font-size: clamp(34px, 6vw, 58px);
+    }
+
+    .gk-hero h1 span {
+      color: var(--primary);
+    }
+
+    .gk-hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .class-selector,
+    .category-selector {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 18px 0 30px;
+    }
+
+    .filter-btn {
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: 12px;
+      padding: 10px 15px;
+      background: rgba(124,58,237,.07);
+      color: var(--primary);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .gk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .gk-card {
+      padding: 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 12px 35px rgba(0,0,0,.06);
+    }
+
+    .gk-card .icon {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .gk-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .gk-card p {
+      color: var(--text-soft);
+      line-height: 1.65;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .gk-card button {
+      width: 100%;
+      padding: 10px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .daily-gk {
+      margin-top: 35px;
+      padding: 26px;
+      border-radius: 22px;
+      border: 1px solid rgba(212,175,55,.25);
+      background: linear-gradient(
+        135deg,
+        rgba(212,175,55,.09),
+        rgba(124,58,237,.08)
+      );
+    }
+
+    .daily-gk h2 {
+      margin-top: 0;
+    }
+
+    .question-box {
+      margin-top: 18px;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(124,58,237,.12);
+    }
+
+    .answer {
+      display: none;
+      margin-top: 12px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    @media (max-width: 850px) {
+      .gk-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .gk-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="gk-page">
+
+    <div class="gk-container">
+
+      <section class="gk-hero">
+
+        <div class="gk-badge">
+          🌍 ARS EDUCATION • GK
+        </div>
+
+        <h1>
+          General <span>Knowledge</span>
+        </h1>
+
+        <p>
+          Class 5 से Class 8 तक General Knowledge,
+          current learning topics, quizzes और practice
+          एक जगह।
+        </p>
+
+      </section>
+
+
+      <section>
+
+        <h2 style="text-align:center;">
+          अपनी Class चुनें
+        </h2>
+
+        <div class="class-selector">
+
+          <button class="filter-btn" data-class="5">
+            Class 5
+          </button>
+
+          <button class="filter-btn active" data-class="6">
+            Class 6
+          </button>
+
+          <button class="filter-btn" data-class="7">
+            Class 7
+          </button>
+
+          <button class="filter-btn" data-class="8">
+            Class 8
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <section>
+
+        <h2 style="text-align:center;">
+          GK Categories
+        </h2>
+
+        <div class="category-selector">
+
+          <button
+            class="filter-btn active"
+            data-category="all"
+          >
+            All
+          </button>
+
+          <button
+            class="filter-btn"
+            data-category="india"
+          >
+            🇮🇳 India
+          </button>
+
+          <button
+            class="filter-btn"
+            data-category="science"
+          >
+            🔬 Science
+          </button>
+
+          <button
+            class="filter-btn"
+            data-category="history"
+          >
+            🏛️ History
+          </button>
+
+          <button
+            class="filter-btn"
+            data-category="geography"
+          >
+            🌎 Geography
+          </button>
+
+          <button
+            class="filter-btn"
+            data-category="sports"
+          >
+            🏆 Sports
+          </button>
+
+          <button
+            class="filter-btn"
+            data-category="world"
+          >
+            🌐 World
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <section class="gk-grid">
+
+        <article
+          class="gk-card"
+          data-category="india"
+        >
+          <div class="icon">🇮🇳</div>
+          <h3>India GK</h3>
+          <p>
+            भारत के राज्यों, इतिहास, संविधान,
+            संस्कृति और महत्वपूर्ण facts।
+          </p>
+          <button data-open="india">
+            Explore →
+          </button>
+        </article>
+
+
+        <article
+          class="gk-card"
+          data-category="science"
+        >
+          <div class="icon">🔬</div>
+          <h3>Science GK</h3>
+          <p>
+            Science से जुड़े interesting और
+            educational facts।
+          </p>
+          <button data-open="science">
+            Explore →
+          </button>
+        </article>
+
+
+        <article
+          class="gk-card"
+          data-category="history"
+        >
+          <div class="icon">🏛️</div>
+          <h3>History GK</h3>
+          <p>
+            भारत और विश्व के महत्वपूर्ण
+            historical facts।
+          </p>
+          <button data-open="history">
+            Explore →
+          </button>
+        </article>
+
+
+        <article
+          class="gk-card"
+          data-category="geography"
+        >
+          <div class="icon">🌎</div>
+          <h3>Geography GK</h3>
+          <p>
+            पृथ्वी, देश, नदियाँ, पर्वत और
+            geographical facts।
+          </p>
+          <button data-open="geography">
+            Explore →
+          </button>
+        </article>
+
+
+        <article
+          class="gk-card"
+          data-category="sports"
+        >
+          <div class="icon">🏆</div>
+          <h3>Sports GK</h3>
+          <p>
+            Sports के important facts और
+            educational knowledge।
+          </p>
+          <button data-open="sports">
+            Explore →
+          </button>
+        </article>
+
+
+        <article
+          class="gk-card"
+          data-category="world"
+        >
+          <div class="icon">🌐</div>
+          <h3>World GK</h3>
+          <p>
+            दुनिया के देशों, landmarks और
+            important facts।
+          </p>
+          <button data-open="world">
+            Explore →
+          </button>
+        </article>
+
+      </section>
+
+
+      <section class="daily-gk">
+
+        <h2>🧠 GK Question of the Day</h2>
+
+        <p>
+          रोज़ एक GK question solve करें और
+          अपनी knowledge improve करें।
+        </p>
+
+        <div class="question-box">
+
+          <strong>
+            भारत की राजधानी क्या है?
+          </strong>
+
+          <div
+            class="answer"
+            id="answer"
+          >
+            उत्तर: नई दिल्ली
+          </div>
+
+          <button
+            id="showAnswer"
+            class="filter-btn"
+            style="margin-top:15px;"
+          >
+            Show Answer
+          </button>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      let selectedClass =
+        localStorage.getItem(
+          "ARS_GK_CLASS"
+        ) || "6";
+
+
+      const classButtons =
+        document.querySelectorAll(
+          "[data-class]"
+        );
+
+
+      classButtons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedClass =
+              button.dataset.class;
+
+            localStorage.setItem(
+              "ARS_GK_CLASS",
+              selectedClass
+            );
+
+            classButtons.forEach(
+              item =>
+                item.classList.toggle(
+                  "active",
+                  item.dataset.class ===
+                    selectedClass
+                )
+            );
+
+          }
+        );
+
+      });
+
+
+      /* CATEGORY FILTER */
+
+      const categoryButtons =
+        document.querySelectorAll(
+          "[data-category]"
+        );
+
+      const cards =
+        document.querySelectorAll(
+          ".gk-card"
+        );
+
+
+      categoryButtons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const category =
+              button.dataset.category;
+
+
+            categoryButtons.forEach(
+              item =>
+                item.classList.toggle(
+                  "active",
+                  item === button
+                )
+            );
+
+
+            cards.forEach(card => {
+
+              const match =
+                category === "all" ||
+                card.dataset.category ===
+                  category;
+
+              card.style.display =
+                match
+                  ? ""
+                  : "none";
+
+            });
+
+          }
+        );
+
+      });
+
+
+      /* CATEGORY OPEN */
+
+      document
+        .querySelectorAll(
+          "[data-open]"
+        )
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const category =
+                button.dataset.open;
+
+              window.location.href =
+                `gk-topic.html?class=${encodeURIComponent(selectedClass)}&category=${encodeURIComponent(category)}`;
+
+            }
+          );
+
+        });
+
+
+      /* DAILY ANSWER */
+
+      const showAnswer =
+        document.getElementById(
+          "showAnswer"
+        );
+
+      const answer =
+        document.getElementById(
+          "answer"
+        );
+
+
+      showAnswer.addEventListener(
+        "click",
+        () => {
+
+          const visible =
+            answer.style.display ===
+            "block";
+
+          answer.style.display =
+            visible
+              ? "none"
+              : "block";
+
+          showAnswer.textContent =
+            visible
+              ? "Show Answer"
+              : "Hide Answer";
+
+        }
+      );
+
+    })();
+  </script>
+
+</body>
+</html>
