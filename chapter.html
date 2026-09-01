@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Chapter | ARS Education</title>
+  <meta name="description" content="ARS Education chapter learning page.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .chapter-page {
+      min-height: 100vh;
+      padding: 105px 18px 60px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,.14), transparent 32%),
+        radial-gradient(circle at 90% 90%, rgba(236,72,153,.12), transparent 32%),
+        var(--bg);
+    }
+
+    .chapter-container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .chapter-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .chapter-label {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.12);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .chapter-header h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      margin: 0 0 12px;
+    }
+
+    .chapter-header p {
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .chapter-meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .chapter-meta span {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.09);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .chapter-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .chapter-actions button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .action-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .action-secondary {
+      background: rgba(124,58,237,.1);
+      color: var(--primary);
+    }
+
+    .lesson-card {
+      padding: 28px;
+      border-radius: 22px;
+      border: 1px solid rgba(124,58,237,.15);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 15px 40px rgba(0,0,0,.07);
+      margin-bottom: 20px;
+    }
+
+    .lesson-card h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .lesson-card p {
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .resource-card {
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid rgba(124,58,237,.13);
+      background: var(--card-bg, rgba(255,255,255,.05));
+    }
+
+    .resource-card h3 {
+      margin: 0 0 7px;
+    }
+
+    .resource-card p {
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .resource-card button {
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 13px;
+      background: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .coming-soon {
+      display: none;
+      text-align: center;
+      padding: 35px 20px;
+      border: 1px dashed rgba(124,58,237,.3);
+      border-radius: 18px;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 600px) {
+      .lesson-card {
+        padding: 20px;
+      }
+
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="chapter-page">
+
+    <div class="chapter-container">
+
+      <header class="chapter-header">
+
+        <div class="chapter-label">
+          📚 ARS EDUCATION
+        </div>
+
+        <h1 id="chapterTitle">
+          Chapter
+        </h1>
+
+        <p>
+          इस chapter को समझें, notes पढ़ें और practice करें।
+        </p>
+
+        <div class="chapter-meta">
+          <span id="classMeta">Class</span>
+          <span id="subjectMeta">Subject</span>
+          <span id="bookMeta">Book</span>
+          <span id="chapterMeta">Chapter</span>
+        </div>
+
+      </header>
+
+
+      <div class="chapter-actions">
+
+        <button
+          type="button"
+          class="action-secondary"
+          id="backButton"
+        >
+          ← Back
+        </button>
+
+        <button
+          type="button"
+          class="action-secondary"
+          id="copyButton"
+        >
+          📋 Copy Link
+        </button>
+
+        <button
+          type="button"
+          class="action-secondary"
+          id="shareButton"
+        >
+          ↗ Share
+        </button>
+
+        <button
+          type="button"
+          class="action-primary"
+          id="favoriteButton"
+        >
+          ♡ Favorite
+        </button>
+
+      </div>
+
+
+      <section class="lesson-card">
+
+        <h2>📖 Chapter Overview</h2>
+
+        <p id="overview">
+          इस chapter का detailed content जल्द उपलब्ध होगा।
+          Publisher द्वारा content जोड़ने के बाद यही page
+          automatically update किया जा सकेगा।
+        </p>
+
+      </section>
+
+
+      <section class="resource-grid">
+
+        <article class="resource-card">
+
+          <h3>📝 Notes</h3>
+
+          <p>
+            Chapter के आसान और exam-focused notes।
+          </p>
+
+          <button data-resource="notes">
+            Open Notes
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <h3>❓ MCQ</h3>
+
+          <p>
+            Chapter आधारित multiple-choice questions।
+          </p>
+
+          <button data-resource="mcq">
+            Start MCQ
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <h3>✍️ Practice</h3>
+
+          <p>
+            अपनी तैयारी check करने के लिए practice questions।
+          </p>
+
+          <button data-resource="practice">
+            Practice Now
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <h3>🎯 Exam Tips</h3>
+
+          <p>
+            Exam में बेहतर तैयारी के लिए important tips।
+          </p>
+
+          <button data-resource="tips">
+            View Tips
+          </button>
+
+        </article>
+
+      </section>
+
+
+      <div
+        id="comingSoon"
+        class="coming-soon"
+      >
+        <h2>🚀 Content Coming Soon</h2>
+        <p>
+          यह content Education Publisher / Database
+          से manage किया जाएगा।
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const classNumber =
+        params.get("class") || "6";
+
+      const subject =
+        params.get("subject") || "maths";
+
+      const book =
+        params.get("book") || "Mathematics";
+
+      const chapter =
+        params.get("chapter") || "Chapter";
+
+      const chapterNo =
+        params.get("chapterNo") || "1";
+
+
+      document.getElementById("chapterTitle")
+        .textContent =
+        chapter;
+
+      document.getElementById("classMeta")
+        .textContent =
+        `Class ${classNumber}`;
+
+      document.getElementById("subjectMeta")
+        .textContent =
+        subject;
+
+      document.getElementById("bookMeta")
+        .textContent =
+        book;
+
+      document.getElementById("chapterMeta")
+        .textContent =
+        `Chapter ${chapterNo}`;
+
+
+      /* BACK */
+
+      document
+        .getElementById("backButton")
+        .addEventListener(
+          "click",
+          () => {
+
+            if (document.referrer) {
+              history.back();
+            } else {
+              window.location.href =
+                `chapters.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(book)}`;
+            }
+
+          }
+        );
+
+
+      /* COPY */
+
+      document
+        .getElementById("copyButton")
+        .addEventListener(
+          "click",
+          async () => {
+
+            try {
+
+              await navigator.clipboard.writeText(
+                window.location.href
+              );
+
+              alert("Chapter link copied!");
+
+            } catch (error) {
+
+              alert(
+                "Link copy नहीं हो पाया।"
+              );
+
+            }
+
+          }
+        );
+
+
+      /* SHARE */
+
+      document
+        .getElementById("shareButton")
+        .addEventListener(
+          "click",
+          async () => {
+
+            if (
+              navigator.share &&
+              typeof navigator.share === "function"
+            ) {
+
+              try {
+
+                await navigator.share({
+                  title: chapter,
+                  text:
+                    `ARS Education - ${chapter}`,
+                  url:
+                    window.location.href
+                });
+
+              } catch (_) {}
+
+            } else {
+
+              try {
+
+                await navigator.clipboard.writeText(
+                  window.location.href
+                );
+
+                alert("Share link copied!");
+
+              } catch (_) {
+
+                alert(
+                  "Sharing इस device पर उपलब्ध नहीं है।"
+                );
+
+              }
+
+            }
+
+          }
+        );
+
+
+      /* FAVORITE */
+
+      const favoriteKey =
+        `ARS_EDU_FAVORITE_${classNumber}_${subject}_${book}_${chapterNo}`;
+
+      const favoriteButton =
+        document.getElementById(
+          "favoriteButton"
+        );
+
+
+      function updateFavorite() {
+
+        const saved =
+          localStorage.getItem(
+            favoriteKey
+          ) === "true";
+
+        favoriteButton.textContent =
+          saved
+            ? "♥ Favorited"
+            : "♡ Favorite";
+
+      }
+
+
+      updateFavorite();
+
+
+      favoriteButton.addEventListener(
+        "click",
+        () => {
+
+          const current =
+            localStorage.getItem(
+              favoriteKey
+            ) === "true";
+
+          localStorage.setItem(
+            favoriteKey,
+            String(!current)
+          );
+
+          updateFavorite();
+
+        }
+      );
+
+
+      /* RESOURCE BUTTONS */
+
+      document
+        .querySelectorAll(
+          "[data-resource]"
+        )
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const resource =
+                button.dataset.resource;
+
+              const url =
+                `resource.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&chapterNo=${encodeURIComponent(chapterNo)}&type=${encodeURIComponent(resource)}`;
+
+              window.location.href =
+                url;
+
+            }
+          );
+
+        });
+
+
+    })();
+  </script>
+
+</body>
+</html>
