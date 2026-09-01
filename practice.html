@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Practice | ARS Education</title>
+  <meta name="description" content="ARS Education practice section for Class 5 to 8.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .practice-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
+        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
+        var(--bg);
+    }
+
+    .practice-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .practice-hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .practice-badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .practice-hero h1 {
+      margin: 17px 0 10px;
+      font-size: clamp(34px, 6vw, 58px);
+    }
+
+    .practice-hero h1 span {
+      color: var(--primary);
+    }
+
+    .practice-hero p {
+      max-width: 720px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .filter-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 20px 0;
+    }
+
+    .filter-btn {
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: 11px;
+      padding: 10px 15px;
+      background: rgba(124,58,237,.07);
+      color: var(--primary);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+      margin-top: 28px;
+    }
+
+    .practice-card {
+      padding: 23px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 12px 35px rgba(0,0,0,.06);
+      transition: .2s ease;
+    }
+
+    .practice-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .practice-icon {
+      font-size: 31px;
+      margin-bottom: 12px;
+    }
+
+    .practice-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .practice-card p {
+      color: var(--text-soft);
+      line-height: 1.65;
+      font-size: 14px;
+      margin: 0 0 14px;
+    }
+
+    .practice-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .practice-tags span {
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: rgba(124,58,237,.08);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .practice-card button {
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 35px 20px;
+      margin-top: 25px;
+      border: 1px dashed rgba(124,58,237,.25);
+      border-radius: 18px;
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 850px) {
+      .practice-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .practice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="practice-page">
+
+    <div class="practice-container">
+
+      <section class="practice-hero">
+
+        <div class="practice-badge">
+          ✍️ ARS EDUCATION • PRACTICE
+        </div>
+
+        <h1>
+          Practice <span>Zone</span>
+        </h1>
+
+        <p>
+          Class 5 से Class 8 तक chapter-wise worksheets,
+          questions और practice activities।
+        </p>
+
+      </section>
+
+
+      <div class="filter-row">
+
+        <button class="filter-btn" data-class="5">
+          Class 5
+        </button>
+
+        <button class="filter-btn active" data-class="6">
+          Class 6
+        </button>
+
+        <button class="filter-btn" data-class="7">
+          Class 7
+        </button>
+
+        <button class="filter-btn" data-class="8">
+          Class 8
+        </button>
+
+      </div>
+
+
+      <div class="filter-row">
+
+        <button class="filter-btn active" data-subject="all">
+          All
+        </button>
+
+        <button class="filter-btn" data-subject="maths">
+          Maths
+        </button>
+
+        <button class="filter-btn" data-subject="science">
+          Science
+        </button>
+
+        <button class="filter-btn" data-subject="english">
+          English
+        </button>
+
+        <button class="filter-btn" data-subject="hindi">
+          Hindi
+        </button>
+
+        <button class="filter-btn" data-subject="gk">
+          GK
+        </button>
+
+      </div>
+
+
+      <section
+        class="practice-grid"
+        id="practiceGrid"
+      >
+
+        <article
+          class="practice-card"
+          data-class="6"
+          data-subject="maths"
+        >
+
+          <div class="practice-icon">➗</div>
+
+          <h3>Maths Practice</h3>
+
+          <p>
+            Class 6 Mathematics के concepts पर
+            chapter-wise practice questions।
+          </p>
+
+          <div class="practice-tags">
+            <span>Class 6</span>
+            <span>Maths</span>
+            <span>Worksheet</span>
+          </div>
+
+          <button
+            data-open="maths"
+          >
+            Start Practice →
+          </button>
+
+        </article>
+
+
+        <article
+          class="practice-card"
+          data-class="6"
+          data-subject="science"
+        >
+
+          <div class="practice-icon">🔬</div>
+
+          <h3>Science Practice</h3>
+
+          <p>
+            Science concepts को मजबूत करने के लिए
+            practice questions और revision activities।
+          </p>
+
+          <div class="practice-tags">
+            <span>Class 6</span>
+            <span>Science</span>
+            <span>Practice</span>
+          </div>
+
+          <button
+            data-open="science"
+          >
+            Start Practice →
+          </button>
+
+        </article>
+
+
+        <article
+          class="practice-card"
+          data-class="6"
+          data-subject="gk"
+        >
+
+          <div class="practice-icon">🌍</div>
+
+          <h3>GK Practice</h3>
+
+          <p>
+            General Knowledge के important
+            questions से अपनी तैयारी check करें।
+          </p>
+
+          <div class="practice-tags">
+            <span>Class 6</span>
+            <span>GK</span>
+            <span>Quiz</span>
+          </div>
+
+          <button
+            data-open="gk"
+          >
+            Start Practice →
+          </button>
+
+        </article>
+
+
+        <article
+          class="practice-card"
+          data-class="5"
+          data-subject="maths"
+        >
+
+          <div class="practice-icon">🔢</div>
+
+          <h3>Class 5 Maths</h3>
+
+          <p>
+            Class 5 के लिए basic और exam-oriented
+            Mathematics practice।
+          </p>
+
+          <div class="practice-tags">
+            <span>Class 5</span>
+            <span>Maths</span>
+          </div>
+
+          <button data-open="maths">
+            Start Practice →
+          </button>
+
+        </article>
+
+
+        <article
+          class="practice-card"
+          data-class="7"
+          data-subject="science"
+        >
+
+          <div class="practice-icon">🧪</div>
+
+          <h3>Class 7 Science</h3>
+
+          <p>
+            Class 7 Science के concepts और
+            chapter practice।
+          </p>
+
+          <div class="practice-tags">
+            <span>Class 7</span>
+            <span>Science</span>
+          </div>
+
+          <button data-open="science">
+            Start Practice →
+          </button>
+
+        </article>
+
+
+        <article
+          class="practice-card"
+          data-class="8"
+          data-subject="english"
+        >
+
+          <div class="practice-icon">📖</div>
+
+          <h3>Class 8 English</h3>
+
+          <p>
+            Grammar, vocabulary और reading
+            practice के लिए resources।
+          </p>
+
+          <div class="practice-tags">
+            <span>Class 8</span>
+            <span>English</span>
+          </div>
+
+          <button data-open="english">
+            Start Practice →
+          </button>
+
+        </article>
+
+      </section>
+
+
+      <div
+        class="empty-state"
+        id="emptyState"
+      >
+        <h3>📚 Practice अभी उपलब्ध नहीं है</h3>
+        <p>
+          दूसरे class या subject को चुनकर देखें।
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      let selectedClass =
+        localStorage.getItem(
+          "ARS_PRACTICE_CLASS"
+        ) || "6";
+
+      let selectedSubject = "all";
+
+
+      const cards =
+        document.querySelectorAll(
+          ".practice-card"
+        );
+
+      const classButtons =
+        document.querySelectorAll(
+          "[data-class]"
+        );
+
+      const subjectButtons =
+        document.querySelectorAll(
+          "[data-subject]"
+        );
+
+      const emptyState =
+        document.getElementById(
+          "emptyState"
+        );
+
+
+      function updateButtons() {
+
+        classButtons.forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.class ===
+              selectedClass
+          );
+
+        });
+
+
+        subjectButtons.forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.subject ===
+              selectedSubject
+          );
+
+        });
+
+      }
+
+
+      function filterCards() {
+
+        let visible = 0;
+
+
+        cards.forEach(card => {
+
+          const classMatch =
+            card.dataset.class ===
+            selectedClass;
+
+          const subjectMatch =
+            selectedSubject === "all" ||
+            card.dataset.subject ===
+            selectedSubject;
+
+
+          const show =
+            classMatch &&
+            subjectMatch;
+
+
+          card.style.display =
+            show ? "" : "none";
+
+
+          if (show) {
+            visible++;
+          }
+
+        });
+
+
+        emptyState.style.display =
+          visible === 0
+            ? "block"
+            : "none";
+
+      }
+
+
+      classButtons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedClass =
+              button.dataset.class;
+
+            localStorage.setItem(
+              "ARS_PRACTICE_CLASS",
+              selectedClass
+            );
+
+            updateButtons();
+            filterCards();
+
+          }
+        );
+
+      });
+
+
+      subjectButtons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedSubject =
+              button.dataset.subject;
+
+            updateButtons();
+            filterCards();
+
+          }
+        );
+
+      });
+
+
+      document
+        .querySelectorAll("[data-open]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const subject =
+                button.dataset.open;
+
+              /*
+               * Practice resources can later be
+               * connected directly to the backend.
+               */
+
+              window.location.href =
+                `resource.html?class=${encodeURIComponent(selectedClass)}&subject=${encodeURIComponent(subject)}&type=practice`;
+
+            }
+          );
+
+        });
+
+
+      updateButtons();
+      filterCards();
+
+    })();
+  </script>
+
+</body>
+</html>
