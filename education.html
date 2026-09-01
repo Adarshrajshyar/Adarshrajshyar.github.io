@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Education</title>
+  <meta name="description" content="ARS Education — Class 5 to 8 study resources, NCERT, GK, MCQ, Practice and exam preparation.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .education-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.16), transparent 30%),
+        radial-gradient(circle at 92% 20%, rgba(236,72,153,.13), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(212,175,55,.10), transparent 35%),
+        var(--bg);
+    }
+
+    .education-container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .education-hero {
+      text-align: center;
+      padding: 20px 0 35px;
+    }
+
+    .education-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.12);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .education-hero h1 {
+      margin: 18px 0 12px;
+      font-size: clamp(36px, 7vw, 65px);
+      line-height: 1.05;
+    }
+
+    .education-hero h1 span {
+      color: var(--primary);
+    }
+
+    .education-hero p {
+      max-width: 720px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .class-selector {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 25px 0 40px;
+    }
+
+    .class-btn {
+      min-width: 105px;
+      padding: 12px 17px;
+      border: 1px solid rgba(124,58,237,.2);
+      border-radius: 13px;
+      background: rgba(124,58,237,.07);
+      color: var(--primary);
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .class-btn:hover,
+    .class-btn.active {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 0 0 22px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 6px;
+      font-size: 30px;
+    }
+
+    .section-title p {
+      color: var(--text-soft);
+      margin: 0;
+    }
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .edu-card {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 14px 40px rgba(0,0,0,.07);
+      transition: .25s ease;
+    }
+
+    .edu-card::after {
+      content: "";
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      right: -45px;
+      top: -45px;
+      border-radius: 50%;
+      background: rgba(236,72,153,.09);
+    }
+
+    .edu-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .edu-icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: rgba(124,58,237,.11);
+      font-size: 27px;
+      margin-bottom: 16px;
+    }
+
+    .edu-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .edu-card p {
+      min-height: 48px;
+      margin: 0 0 17px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .edu-card button {
+      width: 100%;
+      padding: 11px 14px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .featured {
+      margin-top: 42px;
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(212,175,55,.25);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(212,175,55,.10),
+          rgba(124,58,237,.08)
+        );
+    }
+
+    .featured h2 {
+      margin-top: 0;
+    }
+
+    .featured p {
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .featured-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .featured-actions button {
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .education-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 570px) {
+      .education-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .class-btn {
+        flex: 1 1 40%;
+      }
+
+      .featured {
+        padding: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="education-page">
+
+    <div class="education-container">
+
+      <section class="education-hero">
+
+        <div class="education-badge">
+          🎓 ARS EDUCATION
+        </div>
+
+        <h1>
+          Learn Smart.<br>
+          <span>Grow Better.</span>
+        </h1>
+
+        <p>
+          Class 5 से Class 8 तक NCERT, Notes, MCQ,
+          Practice, GK और परीक्षा की तैयारी —
+          एक ही जगह।
+        </p>
+
+      </section>
+
+
+      <section>
+
+        <div class="section-title">
+          <h2>अपनी Class चुनें</h2>
+          <p>Class चुनने के बाद उसी के अनुसार resources दिखेंगे।</p>
+        </div>
+
+        <div class="class-selector">
+
+          <button class="class-btn" data-class="5">
+            Class 5
+          </button>
+
+          <button class="class-btn active" data-class="6">
+            Class 6
+          </button>
+
+          <button class="class-btn" data-class="7">
+            Class 7
+          </button>
+
+          <button class="class-btn" data-class="8">
+            Class 8
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <section>
+
+        <div class="section-title">
+          <h2 id="selectedClassTitle">
+            Class 6 Resources
+          </h2>
+
+          <p>
+            अपनी जरूरत के अनुसार section चुनें।
+          </p>
+        </div>
+
+
+        <div class="education-grid">
+
+          <article class="edu-card">
+
+            <div class="edu-icon">📚</div>
+
+            <h3>NCERT</h3>
+
+            <p>
+              Class के अनुसार NCERT books,
+              chapters और learning content।
+            </p>
+
+            <button data-page="ncert">
+              Open NCERT →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">➗</div>
+
+            <h3>Mathematics</h3>
+
+            <p>
+              Maths concepts, examples,
+              practice और revision।
+            </p>
+
+            <button data-page="maths">
+              Open Maths →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">🌍</div>
+
+            <h3>GK</h3>
+
+            <p>
+              General Knowledge और
+              useful educational facts।
+            </p>
+
+            <button data-page="gk">
+              Open GK →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">📝</div>
+
+            <h3>Notes</h3>
+
+            <p>
+              आसान भाषा में chapter-wise
+              और exam-focused notes।
+            </p>
+
+            <button data-page="notes">
+              Open Notes →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">❓</div>
+
+            <h3>MCQ</h3>
+
+            <p>
+              Topic और chapter आधारित
+              objective questions।
+            </p>
+
+            <button data-page="mcq">
+              Open MCQ →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">✍️</div>
+
+            <h3>Practice</h3>
+
+            <p>
+              तैयारी मजबूत करने के लिए
+              practice questions।
+            </p>
+
+            <button data-page="practice">
+              Practice →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">🎯</div>
+
+            <h3>Exam Tips</h3>
+
+            <p>
+              Revision, time management और
+              exam preparation tips।
+            </p>
+
+            <button data-page="exam-tips">
+              View Tips →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">🏫</div>
+
+            <h3>Navodaya</h3>
+
+            <p>
+              Class 6 Navodaya preparation,
+              practice और guidance।
+            </p>
+
+            <button data-page="navodaya">
+              Open Navodaya →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">🪖</div>
+
+            <h3>Sainik School</h3>
+
+            <p>
+              Class 6 Sainik School preparation
+              resources।
+            </p>
+
+            <button data-page="sainik">
+              Open Sainik →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">🎖️</div>
+
+            <h3>RMS</h3>
+
+            <p>
+              Class 6 RMS preparation,
+              practice और study guidance।
+            </p>
+
+            <button data-page="rms">
+              Open RMS →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">🧠</div>
+
+            <h3>Study Tips</h3>
+
+            <p>
+              Smart study methods और
+              daily preparation guidance।
+            </p>
+
+            <button data-page="study-tips">
+              Learn More →
+            </button>
+
+          </article>
+
+
+          <article class="edu-card">
+
+            <div class="edu-icon">📢</div>
+
+            <h3>Updates</h3>
+
+            <p>
+              ARS Education के नए
+              educational updates।
+            </p>
+
+            <button data-page="updates">
+              View Updates →
+            </button>
+
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <section class="featured">
+
+        <h2>🚀 ARS Education Mission</h2>
+
+        <p>
+          हमारा उद्देश्य बच्चों को पढ़ाई के लिए
+          सरल, व्यवस्थित और उपयोगी learning resources
+          एक जगह उपलब्ध कराना है। Content को
+          Education Publisher द्वारा manage और publish
+          किया जा सकेगा।
+        </p>
+
+        <div class="featured-actions">
+
+          <button id="saveEducation">
+            ♡ Save
+          </button>
+
+          <button id="shareEducation">
+            ↗ Share
+          </button>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      let selectedClass =
+        localStorage.getItem(
+          "ARS_EDUCATION_CLASS"
+        ) || "6";
+
+
+      const classButtons =
+        document.querySelectorAll(
+          ".class-btn"
+        );
+
+      const title =
+        document.getElementById(
+          "selectedClassTitle"
+        );
+
+
+      function updateClass() {
+
+        classButtons.forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.class === selectedClass
+          );
+
+        });
+
+        title.textContent =
+          `Class ${selectedClass} Resources`;
+
+      }
+
+
+      classButtons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedClass =
+              button.dataset.class;
+
+            localStorage.setItem(
+              "ARS_EDUCATION_CLASS",
+              selectedClass
+            );
+
+            updateClass();
+
+          }
+        );
+
+      });
+
+
+      updateClass();
+
+
+      /*
+       * Navigation map.
+       * Separate pages can be added later without
+       * changing the Education page structure.
+       */
+
+      const pageMap = {
+
+        ncert:
+          `ncert.html?class=${selectedClass}`,
+
+        maths:
+          `books.html?class=${selectedClass}&subject=maths`,
+
+        gk:
+          `gk.html?class=${selectedClass}`,
+
+        notes:
+          `notes.html?class=${selectedClass}`,
+
+        mcq:
+          `mcq.html?class=${selectedClass}`,
+
+        practice:
+          `practice.html?class=${selectedClass}`,
+
+        "exam-tips":
+          `exam-tips.html?class=${selectedClass}`,
+
+        navodaya:
+          "navodaya.html",
+
+        sainik:
+          "sainik.html",
+
+        rms:
+          "rms.html",
+
+        "study-tips":
+          `study-tips.html?class=${selectedClass}`,
+
+        updates:
+          "updates.html"
+
+      };
+
+
+      document
+        .querySelectorAll(
+          "[data-page]"
+        )
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const page =
+                button.dataset.page;
+
+              /*
+               * Class 6 is required for
+               * Navodaya / Sainik / RMS.
+               */
+
+              if (
+                ["navodaya", "sainik", "rms"]
+                  .includes(page)
+              ) {
+
+                window.location.href =
+                  pageMap[page];
+
+                return;
+              }
+
+
+              const destination =
+                pageMap[page];
+
+
+              if (destination) {
+
+                window.location.href =
+                  destination;
+
+              }
+
+            }
+          );
+
+        });
+
+
+      /* SAVE */
+
+      const saveButton =
+        document.getElementById(
+          "saveEducation"
+        );
+
+      const saveKey =
+        "ARS_EDUCATION_SAVED";
+
+
+      function updateSave() {
+
+        const saved =
+          localStorage.getItem(
+            saveKey
+          ) === "true";
+
+        saveButton.textContent =
+          saved
+            ? "♥ Saved"
+            : "♡ Save";
+
+      }
+
+
+      updateSave();
+
+
+      saveButton.addEventListener(
+        "click",
+        () => {
+
+          const saved =
+            localStorage.getItem(
+              saveKey
+            ) === "true";
+
+          localStorage.setItem(
+            saveKey,
+            String(!saved)
+          );
+
+          updateSave();
+
+        }
+      );
+
+
+      /* SHARE */
+
+      document
+        .getElementById("shareEducation")
+        .addEventListener(
+          "click",
+          async () => {
+
+            if (
+              navigator.share &&
+              typeof navigator.share === "function"
+            ) {
+
+              try {
+
+                await navigator.share({
+                  title:
+                    "ARS Education",
+                  text:
+                    "ARS Education — Class 5 to 8 learning resources.",
+                  url:
+                    window.location.href
+                });
+
+              } catch (_) {}
+
+            } else {
+
+              try {
+
+                await navigator.clipboard.writeText(
+                  window.location.href
+                );
+
+                alert(
+                  "ARS Education link copied!"
+                );
+
+              } catch (_) {
+
+                alert(
+                  "Share उपलब्ध नहीं है।"
+                );
+
+              }
+
+            }
+
+          }
+        );
+
+    })();
+  </script>
+
+</body>
+</html>
