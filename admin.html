@@ -3,154 +3,461 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex,nofollow">
+
   <title>ARS Admin Panel</title>
-  <link rel="icon" href="logo.png">
+  <meta name="description" content="ARS Website Admin Panel">
+
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .admin-page{
-      min-height:100vh;
-      padding:110px 18px 70px;
+    :root {
+      --admin-primary: #6d28d9;
+      --admin-secondary: #2563eb;
+      --admin-success: #059669;
+      --admin-danger: #dc2626;
+      --admin-warning: #d97706;
     }
 
-    .admin-wrap{
-      width:min(1150px,100%);
-      margin:auto;
+    body {
+      margin: 0;
     }
 
-    .admin-hero{
-      padding:35px 25px;
-      border-radius:28px;
-      color:#fff;
-      background:
-        radial-gradient(circle at 15% 20%,rgba(251,191,36,.22),transparent 32%),
-        radial-gradient(circle at 85% 80%,rgba(168,85,247,.25),transparent 35%),
-        linear-gradient(135deg,#090909,#25152f);
-      box-shadow:0 22px 60px rgba(0,0,0,.18);
-      margin-bottom:22px;
+    .admin-page {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
     }
 
-    .admin-hero h1{
-      margin:0 0 8px;
-      font-size:clamp(30px,5vw,48px);
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px 20px;
+      background: var(--card-bg, rgba(255,255,255,.96));
+      border-bottom: 1px solid rgba(109,40,217,.15);
+      backdrop-filter: blur(14px);
     }
 
-    .admin-hero p{
-      margin:0;
-      opacity:.78;
+    .admin-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .admin-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
+    .admin-brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      object-fit: cover;
     }
 
-    .admin-card{
-      padding:23px;
-      border-radius:22px;
-      background:var(--card,#fff);
-      border:1px solid var(--border,rgba(0,0,0,.08));
-      box-shadow:0 12px 35px rgba(0,0,0,.07);
+    .admin-brand h1 {
+      margin: 0;
+      font-size: 19px;
     }
 
-    .admin-card h2{
-      margin:0 0 8px;
-      font-size:19px;
+    .admin-brand p {
+      margin: 3px 0 0;
+      color: var(--text-soft);
+      font-size: 12px;
     }
 
-    .admin-card p{
-      color:var(--text-soft,#6b7280);
-      line-height:1.6;
-      font-size:14px;
+    .admin-header-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .admin-icon{
-      font-size:30px;
-      margin-bottom:12px;
+    .admin-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 800;
     }
 
-    .admin-form{
-      margin-top:22px;
-      padding:25px;
-      border-radius:24px;
-      background:var(--card,#fff);
-      border:1px solid var(--border,rgba(0,0,0,.08));
+    .admin-btn.primary {
+      background: var(--admin-primary);
+      color: #fff;
     }
 
-    .admin-form h2{
-      margin-top:0;
+    .admin-btn.secondary {
+      background: rgba(109,40,217,.1);
+      color: var(--admin-primary);
     }
 
-    .field{
-      margin-bottom:15px;
+    .admin-btn.danger {
+      background: rgba(220,38,38,.1);
+      color: var(--admin-danger);
     }
 
-    .field label{
-      display:block;
-      margin-bottom:6px;
-      font-weight:700;
-      font-size:14px;
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 245px 1fr;
+      min-height: calc(100vh - 75px);
     }
 
-    .field input,
-    .field textarea,
-    .field select{
-      width:100%;
-      box-sizing:border-box;
-      padding:12px 14px;
-      border-radius:12px;
-      border:1px solid var(--border,rgba(0,0,0,.12));
-      background:var(--input-bg,#fff);
-      color:var(--text,#111827);
-      font:inherit;
-      outline:none;
+    .admin-sidebar {
+      padding: 20px 14px;
+      border-right: 1px solid rgba(109,40,217,.12);
+      background: var(--card-bg, rgba(255,255,255,.5));
     }
 
-    .field textarea{
-      min-height:110px;
-      resize:vertical;
+    .admin-nav {
+      display: grid;
+      gap: 7px;
     }
 
-    .admin-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+    .admin-nav button {
+      width: 100%;
+      border: 0;
+      border-radius: 11px;
+      padding: 12px 13px;
+      text-align: left;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 750;
     }
 
-    .admin-btn{
-      border:0;
-      border-radius:12px;
-      padding:12px 17px;
-      cursor:pointer;
-      font-weight:800;
-      color:#fff;
-      background:linear-gradient(135deg,#7c3aed,#db2777);
+    .admin-nav button:hover,
+    .admin-nav button.active {
+      background: rgba(109,40,217,.11);
+      color: var(--admin-primary);
     }
 
-    .admin-btn.secondary{
-      color:var(--text,#111827);
-      background:var(--input-bg,#f3f4f6);
-      border:1px solid var(--border,rgba(0,0,0,.1));
+    .admin-main {
+      padding: 25px;
+      max-width: 1400px;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .admin-status{
-      margin-top:15px;
-      padding:12px 14px;
-      border-radius:12px;
-      display:none;
-      font-size:14px;
-      font-weight:700;
+    .admin-section {
+      display: none;
     }
 
-    .admin-status.show{
-      display:block;
+    .admin-section.active {
+      display: block;
     }
 
-    @media(max-width:800px){
-      .admin-grid{
-        grid-template-columns:1fr;
+    .section-heading {
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 6px;
+      font-size: 27px;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--text-soft);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      border-radius: 18px;
+      background: var(--card-bg, rgba(255,255,255,.7));
+      border: 1px solid rgba(109,40,217,.12);
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+    }
+
+    .stat-card .stat-icon {
+      font-size: 26px;
+    }
+
+    .stat-card h3 {
+      margin: 13px 0 4px;
+      font-size: 28px;
+    }
+
+    .stat-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13px;
+    }
+
+    .admin-card {
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 18px;
+      background: var(--card-bg, rgba(255,255,255,.7));
+      border: 1px solid rgba(109,40,217,.12);
+      box-shadow: 0 10px 30px rgba(0,0,0,.04);
+    }
+
+    .admin-card h3 {
+      margin-top: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .form-group {
+      display: grid;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(109,40,217,.18);
+      background: transparent;
+      color: var(--text);
+      outline: none;
+      font: inherit;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--admin-primary);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .approval-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .approval-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 15px;
+      border-radius: 13px;
+      border: 1px solid rgba(109,40,217,.1);
+    }
+
+    .approval-info strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .approval-info span {
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    .approval-actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .mini-btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .approve-btn {
+      background: rgba(5,150,105,.11);
+      color: var(--admin-success);
+    }
+
+    .reject-btn {
+      background: rgba(220,38,38,.11);
+      color: var(--admin-danger);
+    }
+
+    .delete-btn {
+      background: rgba(220,38,38,.11);
+      color: var(--admin-danger);
+    }
+
+    .empty-state {
+      padding: 30px;
+      text-align: center;
+      color: var(--text-soft);
+      border: 1px dashed rgba(109,40,217,.2);
+      border-radius: 14px;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .status.pending {
+      background: rgba(217,119,6,.1);
+      color: var(--admin-warning);
+    }
+
+    .status.approved {
+      background: rgba(5,150,105,.1);
+      color: var(--admin-success);
+    }
+
+    .status.rejected {
+      background: rgba(220,38,38,.1);
+      color: var(--admin-danger);
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(109,40,217,.1);
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .admin-table th {
+      font-weight: 850;
+    }
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--bg);
+    }
+
+    .login-box {
+      width: min(430px, 100%);
+      padding: 30px;
+      border-radius: 22px;
+      background: var(--card-bg, rgba(255,255,255,.9));
+      border: 1px solid rgba(109,40,217,.15);
+      box-shadow: 0 25px 70px rgba(0,0,0,.12);
+    }
+
+    .login-box h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .login-box p {
+      color: var(--text-soft);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .login-error {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 9px;
+      background: rgba(220,38,38,.1);
+      color: var(--admin-danger);
+      font-size: 13px;
+    }
+
+    .mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 750px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-sidebar {
+        display: none;
+      }
+
+      .admin-sidebar.mobile-open {
+        display: block;
+      }
+
+      .mobile-menu {
+        display: inline-block;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .approval-item {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .admin-main {
+        padding: 17px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-header {
+        padding: 12px;
+      }
+
+      .admin-brand p {
+        display: none;
       }
     }
   </style>
@@ -158,242 +465,1731 @@
 
 <body>
 
-<header class="site-header">
-  <nav class="navbar">
+  <!-- ADMIN LOGIN -->
+  <div class="login-overlay" id="loginOverlay">
 
-    <a href="index.html" class="brand">
-      <img src="logo.png" alt="ARS Official" width="42" height="42">
-      <span>ARS Official</span>
-    </a>
+    <div class="login-box">
 
-    <button
-      id="navToggle"
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-label="Open navigation"
-    >☰</button>
+      <h2>🔐 ARS Admin</h2>
 
-    <div id="navLinks" class="nav-links">
+      <p>
+        Authorized administration area.
+        Demo/local mode is used until the backend authentication
+        system is connected.
+      </p>
 
-      <a href="index.html">Home</a>
-      <a href="ars-ai.html">ARS AI</a>
-      <a href="shayari.html">Shayari</a>
-      <a href="story.html">Stories</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="joining-certificate.html">Joining Certificate</a>
-      <a href="verify.html">Verify</a>
-      <a href="founder.html">Founder</a>
-      <a href="publisher.html">Publisher</a>
-      <a href="policy.html">Policy</a>
-      <a href="contact.html">Contact</a>
+      <form id="loginForm">
 
-      <button id="themeToggle" type="button">🌙</button>
+        <div class="form-group">
+          <label for="adminUser">Username</label>
+          <input
+            id="adminUser"
+            type="text"
+            autocomplete="username"
+            required
+          >
+        </div>
+
+        <br>
+
+        <div class="form-group">
+          <label for="adminPass">Password</label>
+          <input
+            id="adminPass"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+
+        <div class="form-actions">
+
+          <button
+            class="admin-btn primary"
+            type="submit"
+            style="width:100%;"
+          >
+            Login
+          </button>
+
+        </div>
+
+        <div
+          class="login-error"
+          id="loginError"
+        >
+          Login failed. Check your credentials.
+        </div>
+
+      </form>
+
     </div>
 
-  </nav>
-</header>
+  </div>
 
 
-<main class="admin-page">
-  <div class="admin-wrap">
+  <div
+    class="admin-page"
+    id="adminApp"
+    style="display:none;"
+  >
 
-    <section class="admin-hero">
-      <h1>ARS Admin Panel</h1>
-      <p>
-        Manage ARS Official content, certificates,
-        verification data and website settings.
-      </p>
-    </section>
+    <!-- HEADER -->
+    <header class="admin-header">
 
+      <div class="admin-brand">
 
-    <section class="admin-grid">
-
-      <article class="admin-card">
-        <div class="admin-icon">📜</div>
-        <h2>Certificates</h2>
-        <p>
-          Certificate records और certificate IDs
-          को manage करने के लिए।
-        </p>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-icon">🤝</div>
-        <h2>Joining Certificates</h2>
-        <p>
-          Joining application और joining certificate
-          records के management के लिए।
-        </p>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-icon">🔎</div>
-        <h2>Verification</h2>
-        <p>
-          ARS verification system से जुड़े records
-          को check और manage करने के लिए।
-        </p>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-icon">✍️</div>
-        <h2>Shayari</h2>
-        <p>
-          Shayari content और categories को
-          manage करने के लिए।
-        </p>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-icon">📖</div>
-        <h2>Stories</h2>
-        <p>
-          Stories और उनकी categories को manage
-          करने के लिए।
-        </p>
-      </article>
-
-      <article class="admin-card">
-        <div class="admin-icon">⚙️</div>
-        <h2>Website Settings</h2>
-        <p>
-          ARS Official की local settings और
-          administrative information।
-        </p>
-      </article>
-
-    </section>
-
-
-    <section class="admin-form">
-
-      <h2>Admin Access</h2>
-
-      <div class="field">
-        <label for="adminName">Admin Name</label>
-        <input
-          id="adminName"
-          type="text"
-          placeholder="Enter admin name"
+        <img
+          src="logo.png"
+          alt="ARS"
+          class="admin-brand-logo"
+          onerror="this.style.display='none'"
         >
+
+        <div>
+          <h1>ARS Admin Panel</h1>
+          <p>ARS Website Management</p>
+        </div>
+
       </div>
 
-      <div class="field">
-        <label for="adminPassword">Password</label>
-        <input
-          id="adminPassword"
-          type="password"
-          placeholder="Enter password"
-        >
-      </div>
 
-      <div class="admin-actions">
+      <div class="admin-header-actions">
 
         <button
-          id="adminLogin"
-          class="admin-btn"
-          type="button"
+          class="admin-btn secondary mobile-menu"
+          id="mobileMenuBtn"
         >
-          Login
+          ☰ Menu
         </button>
 
         <button
-          id="adminLogout"
           class="admin-btn secondary"
-          type="button"
+          id="siteBtn"
         >
-          Clear
+          🌐 Website
+        </button>
+
+        <button
+          class="admin-btn danger"
+          id="logoutBtn"
+        >
+          Logout
         </button>
 
       </div>
 
-      <div
-        id="adminStatus"
-        class="admin-status"
-      ></div>
+    </header>
 
-    </section>
+
+    <div class="admin-layout">
+
+      <!-- SIDEBAR -->
+      <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+      >
+
+        <nav class="admin-nav">
+
+          <button
+            class="active"
+            data-section="dashboard"
+          >
+            📊 Dashboard
+          </button>
+
+          <button data-section="approvals">
+            ✅ Approvals
+          </button>
+
+          <button data-section="education">
+            🎓 Education
+          </button>
+
+          <button data-section="stories">
+            ✍️ Stories / Shayari
+          </button>
+
+          <button data-section="certificates">
+            🏆 Certificates
+          </button>
+
+          <button data-section="users">
+            👥 Users
+          </button>
+
+          <button data-section="settings">
+            ⚙️ Settings
+          </button>
+
+        </nav>
+
+      </aside>
+
+
+      <!-- MAIN -->
+      <main class="admin-main">
+
+
+        <!-- DASHBOARD -->
+        <section
+          class="admin-section active"
+          id="dashboard"
+        >
+
+          <div class="section-heading">
+
+            <h2>Dashboard</h2>
+
+            <p>
+              ARS website का मुख्य management overview।
+            </p>
+
+          </div>
+
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <div class="stat-icon">⏳</div>
+              <h3 id="pendingCount">0</h3>
+              <p>Pending Approvals</p>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🎓</div>
+              <h3 id="educationCount">0</h3>
+              <p>Education Content</p>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">✍️</div>
+              <h3 id="storyCount">0</h3>
+              <p>Stories</p>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">🏆</div>
+              <h3 id="certificateCount">0</h3>
+              <p>Certificates</p>
+            </div>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>⚡ Quick Actions</h3>
+
+            <div class="form-actions">
+
+              <button
+                class="admin-btn primary"
+                data-open-section="education"
+              >
+                + Add Education
+              </button>
+
+              <button
+                class="admin-btn secondary"
+                data-open-section="stories"
+              >
+                + Add Story
+              </button>
+
+              <button
+                class="admin-btn secondary"
+                data-open-section="approvals"
+              >
+                Review Approvals
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>🔔 System</h3>
+
+            <p id="systemMessage">
+              ARS Admin local management system ready.
+            </p>
+
+          </div>
+
+        </section>
+
+
+        <!-- APPROVALS -->
+        <section
+          class="admin-section"
+          id="approvals"
+        >
+
+          <div class="section-heading">
+
+            <h2>✅ Approvals</h2>
+
+            <p>
+              Publisher और submitted content की approval queue।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <div
+              class="approval-list"
+              id="approvalList"
+            ></div>
+
+          </div>
+
+        </section>
+
+
+        <!-- EDUCATION -->
+        <section
+          class="admin-section"
+          id="education"
+        >
+
+          <div class="section-heading">
+
+            <h2>🎓 ARS Education</h2>
+
+            <p>
+              Class 5–8 education content management।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>Add Education Content</h3>
+
+            <form id="educationForm">
+
+              <div class="form-grid">
+
+                <div class="form-group">
+
+                  <label for="eduClass">
+                    Class
+                  </label>
+
+                  <select id="eduClass" required>
+                    <option value="">Select Class</option>
+                    <option value="5">Class 5</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="eduSubject">
+                    Subject
+                  </label>
+
+                  <select id="eduSubject" required>
+
+                    <option value="">
+                      Select Subject
+                    </option>
+
+                    <option value="maths">
+                      Mathematics
+                    </option>
+
+                    <option value="science">
+                      Science
+                    </option>
+
+                    <option value="english">
+                      English
+                    </option>
+
+                    <option value="hindi">
+                      Hindi
+                    </option>
+
+                    <option value="social-science">
+                      Social Science
+                    </option>
+
+                    <option value="gk">
+                      General Knowledge
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="eduType">
+                    Content Type
+                  </label>
+
+                  <select id="eduType" required>
+
+                    <option value="">
+                      Select Type
+                    </option>
+
+                    <option value="notes">
+                      Notes
+                    </option>
+
+                    <option value="mcq">
+                      MCQ
+                    </option>
+
+                    <option value="practice">
+                      Practice
+                    </option>
+
+                    <option value="exam-tips">
+                      Exam Tips
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="eduTitle">
+                    Title
+                  </label>
+
+                  <input
+                    id="eduTitle"
+                    type="text"
+                    placeholder="Content title"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                  <label for="eduContent">
+                    Content
+                  </label>
+
+                  <textarea
+                    id="eduContent"
+                    placeholder="Education content..."
+                    required
+                  ></textarea>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <button
+                  type="submit"
+                  class="admin-btn primary"
+                >
+                  Save Education
+                </button>
+
+                <button
+                  type="reset"
+                  class="admin-btn secondary"
+                >
+                  Clear
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>Published Education</h3>
+
+            <div class="admin-table-wrap">
+
+              <table class="admin-table">
+
+                <thead>
+                  <tr>
+                    <th>Class</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody id="educationTable"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- STORIES -->
+        <section
+          class="admin-section"
+          id="stories"
+        >
+
+          <div class="section-heading">
+
+            <h2>✍️ Stories / Shayari</h2>
+
+            <p>
+              Story, कविता और शायरी content manage करें।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>Add Story</h3>
+
+            <form id="storyForm">
+
+              <div class="form-grid">
+
+                <div class="form-group">
+
+                  <label for="storyTitle">
+                    Title
+                  </label>
+
+                  <input
+                    id="storyTitle"
+                    type="text"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label for="storyCategory">
+                    Category
+                  </label>
+
+                  <select id="storyCategory">
+
+                    <option value="shayari">
+                      Shayari
+                    </option>
+
+                    <option value="poetry">
+                      Poetry
+                    </option>
+
+                    <option value="story">
+                      Story
+                    </option>
+
+                    <option value="book">
+                      Book
+                    </option>
+
+                  </select>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                  <label for="storyContent">
+                    Content
+                  </label>
+
+                  <textarea
+                    id="storyContent"
+                    required
+                  ></textarea>
+
+                </div>
+
+              </div>
+
+
+              <div class="form-actions">
+
+                <button
+                  type="submit"
+                  class="admin-btn primary"
+                >
+                  Save Story
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>Saved Stories</h3>
+
+            <div id="storyList"></div>
+
+          </div>
+
+        </section>
+
+
+        <!-- CERTIFICATES -->
+        <section
+          class="admin-section"
+          id="certificates"
+        >
+
+          <div class="section-heading">
+
+            <h2>🏆 Certificates</h2>
+
+            <p>
+              Certificate records और approval status।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <div class="approval-list">
+
+              <div class="approval-item">
+
+                <div class="approval-info">
+
+                  <strong>
+                    Joining Certificate
+                  </strong>
+
+                  <span>
+                    Approval के बाद eligible user को जारी किया जाएगा।
+                  </span>
+
+                </div>
+
+                <span class="status approved">
+                  APPROVAL REQUIRED
+                </span>
+
+              </div>
+
+
+              <div class="approval-item">
+
+                <div class="approval-info">
+
+                  <strong>
+                    Normal Certificate
+                  </strong>
+
+                  <span>
+                    Professional, Business, Achievement,
+                    Participation और Education categories।
+                  </span>
+
+                </div>
+
+                <span class="status approved">
+                  SYSTEM READY
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- USERS -->
+        <section
+          class="admin-section"
+          id="users"
+        >
+
+          <div class="section-heading">
+
+            <h2>👥 Users</h2>
+
+            <p>
+              Local user records का basic overview।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <div
+              id="userList"
+              class="empty-state"
+            >
+              अभी कोई user record उपलब्ध नहीं है।
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+        <section
+          class="admin-section"
+          id="settings"
+        >
+
+          <div class="section-heading">
+
+            <h2>⚙️ Settings</h2>
+
+            <p>
+              ARS Admin system settings।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>Website Navigation</h3>
+
+            <p>
+              Main navigation और page routing को
+              बाद में central configuration से manage किया जाएगा।
+            </p>
+
+          </div>
+
+
+          <div class="admin-card">
+
+            <h3>Local Storage</h3>
+
+            <p>
+              यह version browser/local storage के साथ काम कर सकता है।
+              वास्तविक multi-user approval और secure authentication
+              के लिए बाद में backend/database connection जोड़ा जाएगा।
+            </p>
+
+            <div class="form-actions">
+
+              <button
+                class="admin-btn danger"
+                id="clearLocalBtn"
+              >
+                Clear Local Admin Data
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+      </main>
+
+    </div>
 
   </div>
-</main>
 
 
-<footer class="site-footer">
-  <p>
-    © <span id="currentYear"></span>
-    ARS Official — Adarsh Raj Shayar
-  </p>
-</footer>
+  <script>
+
+    (() => {
+
+      "use strict";
 
 
-<script src="script.js"></script>
+      /*
+       * ARS ADMIN PANEL
+       * ----------------
+       * Frontend/local management layer.
+       *
+       * IMPORTANT:
+       * Real authentication, database and server-side
+       * authorization will be connected later.
+       */
 
-<script>
-(function(){
 
-  "use strict";
+      const KEYS = {
 
-  const nameInput =
-    document.getElementById("adminName");
+        education:
+          "ARS_ADMIN_EDUCATION",
 
-  const passwordInput =
-    document.getElementById("adminPassword");
+        stories:
+          "ARS_ADMIN_STORIES",
 
-  const loginButton =
-    document.getElementById("adminLogin");
+        approvals:
+          "ARS_ADMIN_APPROVALS",
 
-  const clearButton =
-    document.getElementById("adminLogout");
+        session:
+          "ARS_ADMIN_SESSION"
 
-  const status =
-    document.getElementById("adminStatus");
+      };
 
-  function showStatus(message){
-    status.textContent = message;
-    status.classList.add("show");
-  }
 
-  loginButton.addEventListener("click",function(){
+      const $ = id =>
+        document.getElementById(id);
 
-    const name = nameInput.value.trim();
-    const password = passwordInput.value;
 
-    if(!name || !password){
-      showStatus("Please enter admin name and password.");
-      return;
-    }
+      function read(key, fallback = []) {
 
-    /*
-      IMPORTANT:
-      Real administrator authentication must be handled
-      by a secure backend. Passwords should NOT be stored
-      directly in frontend JavaScript.
-    */
+        try {
 
-    showStatus(
-      "Admin interface is ready. Secure backend authentication can be connected through config.js."
-    );
+          const value =
+            localStorage.getItem(key);
 
-  });
+          return value
+            ? JSON.parse(value)
+            : fallback;
 
-  clearButton.addEventListener("click",function(){
-    nameInput.value = "";
-    passwordInput.value = "";
-    status.textContent = "";
-    status.classList.remove("show");
-  });
+        } catch {
 
-  const year =
-    document.getElementById("currentYear");
+          return fallback;
 
-  if(year){
-    year.textContent =
-      new Date().getFullYear();
-  }
+        }
 
-})();
-</script>
+      }
+
+
+      function write(key, value) {
+
+        localStorage.setItem(
+          key,
+          JSON.stringify(value)
+        );
+
+      }
+
+
+      function isLoggedIn() {
+
+        return (
+          localStorage.getItem(
+            KEYS.session
+          ) === "active"
+        );
+
+      }
+
+
+      function showApp() {
+
+        $("loginOverlay").style.display =
+          "none";
+
+        $("adminApp").style.display =
+          "block";
+
+        refreshAll();
+
+      }
+
+
+      function showLogin() {
+
+        $("loginOverlay").style.display =
+          "flex";
+
+        $("adminApp").style.display =
+          "none";
+
+      }
+
+
+      /*
+       * LOCAL LOGIN
+       *
+       * This is intentionally only a temporary
+       * frontend gate. Never treat frontend credentials
+       * as secure production authentication.
+       */
+
+      $("loginForm")
+        .addEventListener(
+          "submit",
+          event => {
+
+            event.preventDefault();
+
+            const username =
+              $("adminUser").value.trim();
+
+            const password =
+              $("adminPass").value;
+
+
+            /*
+             * Temporary local credentials.
+             * Replace with backend authentication
+             * when API/database is connected.
+             */
+
+            const valid =
+              username === "admin" &&
+              password === "ARS@2026";
+
+
+            if (!valid) {
+
+              $("loginError").style.display =
+                "block";
+
+              return;
+
+            }
+
+
+            $("loginError").style.display =
+              "none";
+
+            localStorage.setItem(
+              KEYS.session,
+              "active"
+            );
+
+            showApp();
+
+          }
+        );
+
+
+      $("logoutBtn")
+        .addEventListener(
+          "click",
+          () => {
+
+            localStorage.removeItem(
+              KEYS.session
+            );
+
+            showLogin();
+
+          }
+        );
+
+
+      $("siteBtn")
+        .addEventListener(
+          "click",
+          () => {
+
+            window.location.href =
+              "index.html";
+
+          }
+        );
+
+
+      $("mobileMenuBtn")
+        .addEventListener(
+          "click",
+          () => {
+
+            $("adminSidebar")
+              .classList.toggle(
+                "mobile-open"
+              );
+
+          }
+        );
+
+
+      /*
+       * SECTION NAVIGATION
+       */
+
+      document
+        .querySelectorAll(
+          ".admin-nav button[data-section]"
+        )
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const target =
+                button.dataset.section;
+
+
+              document
+                .querySelectorAll(
+                  ".admin-nav button"
+                )
+                .forEach(btn =>
+                  btn.classList.remove(
+                    "active"
+                  )
+                );
+
+
+              document
+                .querySelectorAll(
+                  ".admin-section"
+                )
+                .forEach(section =>
+                  section.classList.remove(
+                    "active"
+                  )
+                );
+
+
+              button.classList.add(
+                "active"
+              );
+
+
+              const section =
+                $(target);
+
+              if (section) {
+
+                section.classList.add(
+                  "active"
+                );
+
+              }
+
+
+              $("adminSidebar")
+                .classList.remove(
+                  "mobile-open"
+                );
+
+            }
+          );
+
+        });
+
+
+      /*
+       * QUICK ACTIONS
+       */
+
+      document
+        .querySelectorAll(
+          "[data-open-section]"
+        )
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const target =
+                button.dataset.openSection;
+
+              const navButton =
+                document.querySelector(
+                  `.admin-nav button[data-section="${target}"]`
+                );
+
+              if (navButton) {
+
+                navButton.click();
+
+              }
+
+            }
+          );
+
+        });
+
+
+      /*
+       * EDUCATION
+       */
+
+      $("educationForm")
+        .addEventListener(
+          "submit",
+          event => {
+
+            event.preventDefault();
+
+
+            const items =
+              read(
+                KEYS.education
+              );
+
+
+            const item = {
+
+              id:
+                "EDU-" +
+                Date.now(),
+
+              class:
+                $("eduClass").value,
+
+              subject:
+                $("eduSubject").value,
+
+              type:
+                $("eduType").value,
+
+              title:
+                $("eduTitle").value.trim(),
+
+              content:
+                $("eduContent").value.trim(),
+
+              status:
+                "approved",
+
+              createdAt:
+                new Date().toISOString()
+
+            };
+
+
+            items.unshift(item);
+
+            write(
+              KEYS.education,
+              items
+            );
+
+
+            event.target.reset();
+
+            refreshAll();
+
+            $("systemMessage").textContent =
+              "Education content saved successfully.";
+
+          }
+        );
+
+
+      function renderEducation() {
+
+        const items =
+          read(
+            KEYS.education
+          );
+
+
+        const table =
+          $("educationTable");
+
+
+        if (!items.length) {
+
+          table.innerHTML = `
+            <tr>
+              <td colspan="5">
+                <div class="empty-state">
+                  No education content yet.
+                </div>
+              </td>
+            </tr>
+          `;
+
+          return;
+
+        }
+
+
+        table.innerHTML =
+          items.map(item => `
+
+            <tr>
+
+              <td>
+                Class ${escapeHtml(item.class)}
+              </td>
+
+              <td>
+                ${escapeHtml(item.subject)}
+              </td>
+
+              <td>
+                ${escapeHtml(item.type)}
+              </td>
+
+              <td>
+                ${escapeHtml(item.title)}
+              </td>
+
+              <td>
+
+                <button
+                  class="mini-btn delete-btn"
+                  data-delete-education="${escapeHtml(item.id)}"
+                >
+                  Delete
+                </button>
+
+              </td>
+
+            </tr>
+
+          `).join("");
+
+
+        table
+          .querySelectorAll(
+            "[data-delete-education]"
+          )
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                const id =
+                  button.dataset.deleteEducation;
+
+                const updated =
+                  read(
+                    KEYS.education
+                  ).filter(
+                    item =>
+                      item.id !== id
+                  );
+
+
+                write(
+                  KEYS.education,
+                  updated
+                );
+
+                refreshAll();
+
+              }
+            );
+
+          });
+
+      }
+
+
+      /*
+       * STORIES
+       */
+
+      $("storyForm")
+        .addEventListener(
+          "submit",
+          event => {
+
+            event.preventDefault();
+
+
+            const stories =
+              read(
+                KEYS.stories
+              );
+
+
+            stories.unshift({
+
+              id:
+                "STORY-" +
+                Date.now(),
+
+              title:
+                $("storyTitle").value.trim(),
+
+              category:
+                $("storyCategory").value,
+
+              content:
+                $("storyContent").value.trim(),
+
+              status:
+                "approved",
+
+              createdAt:
+                new Date().toISOString()
+
+            });
+
+
+            write(
+              KEYS.stories,
+              stories
+            );
+
+
+            event.target.reset();
+
+            refreshAll();
+
+          }
+        );
+
+
+      function renderStories() {
+
+        const stories =
+          read(
+            KEYS.stories
+          );
+
+
+        const box =
+          $("storyList");
+
+
+        if (!stories.length) {
+
+          box.innerHTML = `
+            <div class="empty-state">
+              अभी कोई story/shayari नहीं है।
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        box.innerHTML =
+          stories.map(story => `
+
+            <div
+              class="approval-item"
+              style="margin-bottom:10px;"
+            >
+
+              <div class="approval-info">
+
+                <strong>
+                  ${escapeHtml(story.title)}
+                </strong>
+
+                <span>
+                  ${escapeHtml(story.category)}
+                </span>
+
+              </div>
+
+              <button
+                class="mini-btn delete-btn"
+                data-delete-story="${escapeHtml(story.id)}"
+              >
+                Delete
+              </button>
+
+            </div>
+
+          `).join("");
+
+
+        box
+          .querySelectorAll(
+            "[data-delete-story]"
+          )
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                const id =
+                  button.dataset.deleteStory;
+
+
+                const updated =
+                  read(
+                    KEYS.stories
+                  ).filter(
+                    story =>
+                      story.id !== id
+                  );
+
+
+                write(
+                  KEYS.stories,
+                  updated
+                );
+
+
+                refreshAll();
+
+              }
+            );
+
+          });
+
+      }
+
+
+      /*
+       * APPROVAL QUEUE
+       */
+
+      function renderApprovals() {
+
+        const approvals =
+          read(
+            KEYS.approvals
+          );
+
+
+        const box =
+          $("approvalList");
+
+
+        if (!approvals.length) {
+
+          box.innerHTML = `
+            <div class="empty-state">
+              कोई pending approval नहीं है।
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        box.innerHTML =
+          approvals.map(item => `
+
+            <div class="approval-item">
+
+              <div class="approval-info">
+
+                <strong>
+                  ${escapeHtml(item.title || "Untitled")}
+                </strong>
+
+                <span>
+                  ${escapeHtml(item.type || "Content")}
+                </span>
+
+              </div>
+
+
+              <div class="approval-actions">
+
+                <span class="status ${escapeHtml(item.status || "pending")}">
+                  ${escapeHtml(
+                    String(item.status || "pending").toUpperCase()
+                  )}
+                </span>
+
+                ${
+                  item.status === "pending"
+                  ? `
+                    <button
+                      class="mini-btn approve-btn"
+                      data-approve="${escapeHtml(item.id)}"
+                    >
+                      Approve
+                    </button>
+
+                    <button
+                      class="mini-btn reject-btn"
+                      data-reject="${escapeHtml(item.id)}"
+                    >
+                      Reject
+                    </button>
+                  `
+                  : ""
+                }
+
+              </div>
+
+            </div>
+
+          `).join("");
+
+
+        box
+          .querySelectorAll(
+            "[data-approve]"
+          )
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                updateApproval(
+                  button.dataset.approve,
+                  "approved"
+                );
+
+              }
+            );
+
+          });
+
+
+        box
+          .querySelectorAll(
+            "[data-reject]"
+          )
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                updateApproval(
+                  button.dataset.reject,
+                  "rejected"
+                );
+
+              }
+            );
+
+          });
+
+      }
+
+
+      function updateApproval(
+        id,
+        status
+      ) {
+
+        const approvals =
+          read(
+            KEYS.approvals
+          );
+
+
+        const updated =
+          approvals.map(item => {
+
+            if (item.id === id) {
+
+              return {
+                ...item,
+                status
+              };
+
+            }
+
+            return item;
+
+          });
+
+
+        write(
+          KEYS.approvals,
+          updated
+        );
+
+
+        refreshAll();
+
+      }
+
+
+      /*
+       * DASHBOARD
+       */
+
+      function refreshDashboard() {
+
+        const education =
+          read(
+            KEYS.education
+          );
+
+        const stories =
+          read(
+            KEYS.stories
+          );
+
+        const approvals =
+          read(
+            KEYS.approvals
+          );
+
+
+        $("educationCount").textContent =
+          education.length;
+
+
+        $("storyCount").textContent =
+          stories.length;
+
+
+        $("pendingCount").textContent =
+          approvals.filter(
+            item =>
+              item.status === "pending"
+          ).length;
+
+
+        let certificateCount = 0;
+
+
+        try {
+
+          const certs =
+            JSON.parse(
+              localStorage.getItem(
+                "ARS_CERTIFICATES"
+              ) || "[]"
+            );
+
+          certificateCount =
+            Array.isArray(certs)
+              ? certs.length
+              : 0;
+
+        } catch {
+
+          certificateCount = 0;
+
+        }
+
+
+        $("certificateCount")
+          .textContent =
+          certificateCount;
+
+      }
+
+
+      function refreshAll() {
+
+        refreshDashboard();
+
+        renderEducation();
+
+        renderStories();
+
+        renderApprovals();
+
+      }
+
+
+      /*
+       * SAFE TEXT OUTPUT
+       */
+
+      function escapeHtml(value) {
+
+        return String(value ?? "")
+          .replace(
+            /&/g,
+            "&amp;"
+          )
+          .replace(
+            /</g,
+            "&lt;"
+          )
+          .replace(
+            />/g,
+            "&gt;"
+          )
+          .replace(
+            /"/g,
+            "&quot;"
+          )
+          .replace(
+            /'/g,
+            "&#039;"
+          );
+
+      }
+
+
+      /*
+       * CLEAR LOCAL DATA
+       */
+
+      $("clearLocalBtn")
+        .addEventListener(
+          "click",
+          () => {
+
+            const confirmed =
+              window.confirm(
+                "क्या आप ARS Admin का local education, story और approval data हटाना चाहते हैं?"
+              );
+
+
+            if (!confirmed) {
+              return;
+            }
+
+
+            localStorage.removeItem(
+              KEYS.education
+            );
+
+            localStorage.removeItem(
+              KEYS.stories
+            );
+
+            localStorage.removeItem(
+              KEYS.approvals
+            );
+
+
+            refreshAll();
+
+            $("systemMessage").textContent =
+              "Local admin content cleared.";
+
+          }
+        );
+
+
+      /*
+       * START
+       */
+
+      if (isLoggedIn()) {
+
+        showApp();
+
+      } else {
+
+        showLogin();
+
+      }
+
+    })();
+
+  </script>
 
 </body>
 </html>
