@@ -4,315 +4,302 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="description"
-    content="ARS Official Certificate Generator"
-  >
+  <title>ARS Certificate Center</title>
+  <meta name="description" content="ARS Certificate Center – Apply, generate and verify ARS certificates.">
 
-  <title>ARS Certificate | ARS Official</title>
-
-  <link rel="icon" href="logo.png">
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .cert-page{
-      min-height:100vh;
-      padding:105px 15px 70px;
+    .cert-page {
+      max-width: 1150px;
+      margin: auto;
+      padding: 25px 16px 60px;
     }
 
-    .cert-wrap{
-      width:min(1100px,100%);
-      margin:auto;
+    .cert-hero {
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 26px;
+      color: #fff;
+      background: linear-gradient(135deg,#312e81,#4f46e5,#0891b2);
+      box-shadow: 0 14px 35px rgba(0,0,0,.16);
+      margin-bottom: 25px;
     }
 
-    .cert-heading{
-      text-align:center;
-      margin-bottom:25px;
+    .cert-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px,5vw,48px);
     }
 
-    .cert-heading h1{
-      margin:0 0 8px;
-      font-size:clamp(32px,5vw,52px);
+    .cert-hero p {
+      max-width: 750px;
+      margin: auto;
+      line-height: 1.6;
     }
 
-    .cert-heading p{
-      color:var(--text-soft,#6b7280);
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin-bottom: 25px;
     }
 
-    .cert-panel{
-      padding:24px;
-      border-radius:25px;
-      background:var(--card,#fff);
-      border:1px solid var(--border,rgba(0,0,0,.08));
-      box-shadow:0 15px 50px rgba(0,0,0,.08);
-      margin-bottom:25px;
+    .cert-card {
+      padding: 24px;
+      border-radius: 20px;
+      background: var(--card-bg,#fff);
+      border: 1px solid rgba(128,128,128,.2);
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+      transition: .2s;
     }
 
-    .cert-form-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:15px;
+    .cert-card:hover {
+      transform: translateY(-4px);
     }
 
-    .cert-field.full{
-      grid-column:1/-1;
+    .cert-icon {
+      font-size: 35px;
     }
 
-    .cert-field label{
-      display:block;
-      margin-bottom:6px;
-      font-weight:800;
-      font-size:14px;
+    .cert-card h3 {
+      margin: 12px 0 7px;
     }
 
-    .cert-field input,
-    .cert-field select,
-    .cert-field textarea{
-      width:100%;
-      box-sizing:border-box;
-      padding:12px 14px;
-      border-radius:12px;
-      border:1px solid var(--border,rgba(0,0,0,.12));
-      background:var(--input-bg,#fff);
-      color:var(--text,#111827);
-      font:inherit;
-      outline:none;
+    .cert-card p {
+      opacity: .75;
+      line-height: 1.5;
+      font-size: 14px;
     }
 
-    .cert-field textarea{
-      min-height:100px;
-      resize:vertical;
+    .cert-card button,
+    .primary-btn {
+      border: 0;
+      padding: 11px 17px;
+      border-radius: 11px;
+      cursor: pointer;
+      color: #fff;
+      background: #4f46e5;
+      font-weight: 700;
     }
 
-    .business-fields{
-      display:none;
-      grid-column:1/-1;
-      grid-template-columns:repeat(2,1fr);
-      gap:15px;
+    .cert-form-box,
+    .preview-box {
+      background: var(--card-bg,#fff);
+      border: 1px solid rgba(128,128,128,.2);
+      border-radius: 22px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
+      margin-bottom: 25px;
     }
 
-    .business-fields.show{
-      display:grid;
+    .cert-form-box h2,
+    .preview-box h2 {
+      margin-top: 0;
     }
 
-    .cert-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:20px;
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 15px;
     }
 
-    .cert-btn{
-      border:0;
-      border-radius:12px;
-      padding:12px 18px;
-      cursor:pointer;
-      font-weight:800;
-      color:#fff;
-      background:linear-gradient(135deg,#8b5cf6,#db2777);
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
-    .cert-btn.secondary{
-      color:var(--text,#111827);
-      background:var(--input-bg,#f3f4f6);
-      border:1px solid var(--border,rgba(0,0,0,.1));
+    .form-group.full {
+      grid-column: 1/-1;
     }
 
-    .certificate-output{
-      display:none;
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px;
+      border-radius: 11px;
+      border: 1px solid rgba(128,128,128,.3);
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      outline: none;
     }
 
-    .certificate-output.show{
-      display:block;
+    .form-group textarea {
+      min-height: 90px;
+      resize: vertical;
     }
 
-    .certificate{
-      position:relative;
-      overflow:hidden;
-      min-height:700px;
-      box-sizing:border-box;
-      padding:65px 70px;
-
-      background:
-        radial-gradient(circle at 8% 8%,rgba(212,175,55,.20),transparent 22%),
-        radial-gradient(circle at 92% 92%,rgba(212,175,55,.16),transparent 25%),
-        linear-gradient(135deg,#0a0a0a,#17130b 55%,#080808);
-
-      color:#f8e7a8;
-
-      border:9px double #c9a227;
-      box-shadow:
-        inset 0 0 0 3px #16110a,
-        0 25px 70px rgba(0,0,0,.25);
-
-      text-align:center;
+    .education-fields {
+      display: none;
+      grid-column: 1/-1;
+      padding: 15px;
+      border-radius: 15px;
+      background: rgba(79,70,229,.07);
     }
 
-    .certificate::before,
-    .certificate::after{
-      content:"✦";
-      position:absolute;
-      font-size:100px;
-      color:rgba(212,175,55,.18);
+    .education-fields.active {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 15px;
     }
 
-    .certificate::before{
-      left:20px;
-      top:10px;
+    .joining-info {
+      display: none;
+      grid-column: 1/-1;
+      padding: 14px;
+      border-radius: 13px;
+      background: rgba(234,179,8,.12);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
-    .certificate::after{
-      right:20px;
-      bottom:10px;
+    .joining-info.active {
+      display: block;
     }
 
-    .cert-brand{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:14px;
-      margin-bottom:25px;
+    .status-box {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 13px;
+      background: rgba(34,197,94,.1);
     }
 
-    .cert-brand img{
-      width:65px;
-      height:65px;
-      object-fit:contain;
-      border-radius:14px;
+    .status-box.show {
+      display: block;
     }
 
-    .cert-brand strong{
-      font-size:25px;
-      letter-spacing:2px;
+    .certificate-paper {
+      display: none;
+      position: relative;
+      overflow: hidden;
+      padding: 45px;
+      min-height: 500px;
+      border: 10px double #4f46e5;
+      background: #fff;
+      color: #111827;
+      text-align: center;
     }
 
-    .cert-title{
-      font-size:clamp(38px,6vw,65px);
-      letter-spacing:7px;
-      margin:25px 0 10px;
-      text-transform:uppercase;
-      font-family:Georgia,serif;
+    .certificate-paper.show {
+      display: block;
     }
 
-    .cert-subtitle{
-      color:#fff5c9;
-      font-size:17px;
-      margin-bottom:30px;
+    .certificate-paper:before {
+      content: "";
+      position: absolute;
+      inset: 15px;
+      border: 1px solid #aaa;
+      pointer-events: none;
     }
 
-    .cert-recipient{
-      font-family:Georgia,serif;
-      font-size:clamp(30px,5vw,48px);
-      font-weight:700;
-      color:#fff;
-      margin:15px 0;
-      border-bottom:2px solid #c9a227;
-      display:inline-block;
-      padding:0 30px 8px;
+    .cert-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 10px;
     }
 
-    .cert-description{
-      max-width:750px;
-      margin:25px auto;
-      color:#f1e7c5;
-      line-height:1.8;
-      font-size:16px;
+    .certificate-paper h1 {
+      font-size: 34px;
+      margin: 10px 0;
+      letter-spacing: 2px;
     }
 
-    .cert-meta{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      margin-top:60px;
-      text-align:left;
+    .certificate-paper h2 {
+      color: #4f46e5;
+      margin: 15px 0;
     }
 
-    .cert-meta-box{
-      min-width:150px;
+    .recipient {
+      font-size: 30px;
+      font-weight: 800;
+      margin: 20px 0;
     }
 
-    .cert-meta-box strong{
-      display:block;
-      color:#fff;
-      margin-bottom:5px;
+    .cert-description {
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
     }
 
-    .signature-area{
-      text-align:center;
-      min-width:190px;
+    .cert-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 55px;
+      position: relative;
+      z-index: 2;
     }
 
-    .signature-area img{
-      width:160px;
-      height:75px;
-      object-fit:contain;
-
-      /*
-        Signature image is rotated to the requested
-        square-style presentation.
-      */
-      transform:rotate(-90deg);
-      margin-bottom:8px;
+    .signature-img {
+      max-width: 120px;
+      max-height: 50px;
+      object-fit: contain;
     }
 
-    .signature-line{
-      border-top:1px solid #c9a227;
-      padding-top:7px;
-      color:#fff;
+    .cert-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
-    .cert-id{
-      margin-top:45px;
-      font-size:12px;
-      letter-spacing:1px;
-      color:#d9c77f;
+    .secondary-btn {
+      border: 1px solid #4f46e5;
+      color: #4f46e5;
+      background: transparent;
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
     }
 
-    @media(max-width:700px){
-
-      .cert-form-grid{
-        grid-template-columns:1fr;
+    @media(max-width:800px) {
+      .cert-grid {
+        grid-template-columns: 1fr;
       }
 
-      .business-fields{
-        grid-template-columns:1fr;
+      .form-grid,
+      .education-fields.active {
+        grid-template-columns: 1fr;
       }
 
-      .certificate{
-        min-height:auto;
-        padding:40px 22px;
+      .form-group.full {
+        grid-column: auto;
       }
 
-      .cert-meta{
-        flex-direction:column;
-        align-items:center;
-        text-align:center;
-        margin-top:35px;
+      .cert-meta {
+        flex-direction: column;
+        gap: 25px;
       }
 
-      .cert-title{
-        letter-spacing:3px;
+      .certificate-paper {
+        padding: 30px 18px;
       }
     }
 
-    @media print{
-
-      body *{
-        visibility:hidden;
+    @media print {
+      body * {
+        visibility: hidden;
       }
 
-      .certificate,
-      .certificate *{
-        visibility:visible;
+      #certificatePaper,
+      #certificatePaper * {
+        visibility: visible;
       }
 
-      .certificate{
-        position:absolute;
-        left:0;
-        top:0;
-        width:100%;
-        min-height:100vh;
-        box-shadow:none;
+      #certificatePaper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .cert-actions {
+        display: none;
       }
     }
   </style>
@@ -320,292 +307,573 @@
 
 <body>
 
-<header class="site-header">
-  <nav class="navbar">
-
-    <a href="index.html" class="brand">
-      <img src="logo.png" alt="ARS Official" width="42" height="42">
-      <span>ARS Official</span>
-    </a>
-
-    <button
-      id="navToggle"
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-    >☰</button>
-
-    <div id="navLinks" class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="ars-ai.html">ARS AI</a>
-      <a href="shayari.html">Shayari</a>
-      <a href="story.html">Stories</a>
-      <a href="certificate.html" class="active">Certificate</a>
-      <a href="joining-certificate.html">Joining Certificate</a>
-      <a href="verify.html">Verify</a>
-      <a href="founder.html">Founder</a>
-      <a href="publisher.html">Publisher</a>
-      <a href="policy.html">Policy</a>
-      <a href="contact.html">Contact</a>
-      <button id="themeToggle" type="button">🌙</button>
-    </div>
-
-  </nav>
-</header>
-
-
 <main class="cert-page">
 
-  <div class="cert-wrap">
+  <!-- HERO -->
+  <section class="cert-hero">
+    <h1>🏆 ARS Certificate Center</h1>
+    <p>
+      ARS Education, Achievement और Participation से जुड़े certificates
+      के लिए आवेदन और certificate management center.
+    </p>
+  </section>
 
-    <section class="cert-heading">
-      <h1>ARS Certificate</h1>
+
+  <!-- CERTIFICATE TYPES -->
+  <section class="cert-grid">
+
+    <article class="cert-card">
+      <div class="cert-icon">🎓</div>
+      <h3>Education Certificate</h3>
       <p>
-        Create a premium ARS Official certificate.
+        ARS Education के learning, quiz, practice और educational
+        activities के लिए।
       </p>
-    </section>
+      <button onclick="selectType('education')">
+        Select
+      </button>
+    </article>
+
+    <article class="cert-card">
+      <div class="cert-icon">🏅</div>
+      <h3>Achievement Certificate</h3>
+      <p>
+        Achievement, performance या विशेष उपलब्धि के लिए।
+      </p>
+      <button onclick="selectType('achievement')">
+        Select
+      </button>
+    </article>
+
+    <article class="cert-card">
+      <div class="cert-icon">🤝</div>
+      <h3>Participation Certificate</h3>
+      <p>
+        ARS activity, event, competition या participation के लिए।
+      </p>
+      <button onclick="selectType('participation')">
+        Select
+      </button>
+    </article>
+
+  </section>
 
 
-    <section class="cert-panel">
+  <!-- APPLICATION -->
+  <section class="cert-form-box">
 
-      <div class="cert-form-grid">
+    <h2>📝 Certificate Application</h2>
 
-        <div class="cert-field">
-          <label for="recipientName">
-            Name
-          </label>
+    <form id="certificateForm">
 
-          <input
-            id="recipientName"
-            type="text"
-            placeholder="Enter full name"
-          >
-        </div>
+      <div class="form-grid">
 
+        <div class="form-group">
+          <label for="certificateType">Certificate Type</label>
 
-        <div class="cert-field">
-          <label for="certificateType">
-            Certificate Type
-          </label>
-
-          <select id="certificateType">
-
-            <option value="Achievement">
-              Achievement
-            </option>
-
-            <option value="Participation">
-              Participation
-            </option>
-
-            <option value="Professional">
-              Professional
-            </option>
-
-            <option value="Business">
-              Business
-            </option>
-
+          <select id="certificateType" required>
+            <option value="">Select Type</option>
+            <option value="education">Education Certificate</option>
+            <option value="achievement">Achievement Certificate</option>
+            <option value="participation">Participation Certificate</option>
           </select>
         </div>
 
 
-        <div
-          id="businessFields"
-          class="business-fields"
-        >
+        <div class="form-group">
+          <label for="studentName">Name</label>
+          <input
+            id="studentName"
+            type="text"
+            placeholder="Enter full name"
+            required
+          >
+        </div>
 
-          <div class="cert-field">
-            <label for="businessName">
-              Business Name
-            </label>
 
-            <input
-              id="businessName"
-              type="text"
-              placeholder="Business name"
-            >
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="Enter email"
+            required
+          >
+        </div>
+
+
+        <div class="form-group">
+          <label for="activity">Activity / Program</label>
+          <input
+            id="activity"
+            type="text"
+            placeholder="Example: ARS Education Quiz"
+            required
+          >
+        </div>
+
+
+        <!-- EDUCATION ONLY -->
+        <div class="education-fields" id="educationFields">
+
+          <div class="form-group">
+            <label for="className">Class</label>
+
+            <select id="className">
+              <option value="">Select Class</option>
+              <option>Class 5</option>
+              <option>Class 6</option>
+              <option>Class 7</option>
+              <option>Class 8</option>
+            </select>
           </div>
 
-          <div class="cert-field">
-            <label for="ownerName">
-              Owner / Founder Name
-            </label>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
 
             <input
-              id="ownerName"
+              id="subject"
               type="text"
-              placeholder="Owner / Founder"
+              placeholder="Example: Mathematics"
             >
           </div>
 
         </div>
 
 
-        <div class="cert-field full">
-
-          <label for="certificateDescription">
-            Certificate Description
-          </label>
+        <div class="form-group full">
+          <label for="description">Description / Achievement</label>
 
           <textarea
-            id="certificateDescription"
-            placeholder="Enter certificate description"
-          >This certificate is proudly presented in recognition of excellence and achievement.</textarea>
+            id="description"
+            placeholder="Enter certificate details..."
+            required
+          ></textarea>
+        </div>
 
+
+        <div class="joining-info" id="joiningInfo">
+          ℹ️ <strong>Approval required:</strong>
+          Joining Certificate केवल approved applicant को उपलब्ध कराया जाएगा।
+          इस frontend version में approval status secure backend/database से
+          बाद में connect किया जाएगा।
+        </div>
+
+
+        <div class="form-group full">
+          <button class="primary-btn" type="submit">
+            Generate Certificate Request
+          </button>
         </div>
 
       </div>
 
-
-      <div class="cert-actions">
-
-        <button
-          id="generateCertificate"
-          class="cert-btn"
-          type="button"
-        >
-          Generate Certificate
-        </button>
-
-        <button
-          id="printCertificate"
-          class="cert-btn secondary"
-          type="button"
-        >
-          Print
-        </button>
-
-      </div>
-
-    </section>
+    </form>
 
 
-    <section
-      id="certificateOutput"
-      class="certificate-output"
-    >
+    <div class="status-box" id="statusBox"></div>
 
-      <div
-        id="certificate"
-        class="certificate"
+  </section>
+
+
+  <!-- CERTIFICATE PREVIEW -->
+  <section class="preview-box">
+
+    <h2>👁️ Certificate Preview</h2>
+
+    <div class="certificate-paper" id="certificatePaper">
+
+      <img
+        src="logo.png"
+        class="cert-logo"
+        alt="ARS Logo"
+        onerror="this.style.display='none'"
       >
 
-        <div class="cert-brand">
+      <div>ARS EDUCATION</div>
 
+      <h1>CERTIFICATE</h1>
+
+      <h2 id="previewType">
+        CERTIFICATE OF PARTICIPATION
+      </h2>
+
+      <p>This certificate is proudly presented to</p>
+
+      <div class="recipient" id="previewName">
+        Student Name
+      </div>
+
+      <p class="cert-description" id="previewDescription">
+        For successfully participating in ARS Education.
+      </p>
+
+      <p>
+        <strong>Certificate ID:</strong>
+        <span id="previewId"></span>
+      </p>
+
+      <p>
+        <strong>Date:</strong>
+        <span id="previewDate"></span>
+      </p>
+
+
+      <div class="cert-meta">
+
+        <div>
+          <strong>ARS Education</strong>
+          <br>
+          Authorized Section
+        </div>
+
+        <div>
           <img
-            src="logo.png"
-            alt="ARS Logo"
+            src="signature.jpg"
+            class="signature-img"
+            alt="Signature"
+            onerror="this.style.display='none'"
           >
-
-          <strong>
-            ARS OFFICIAL
-          </strong>
-
-        </div>
-
-
-        <div class="cert-subtitle">
-          OFFICIAL CERTIFICATE
-        </div>
-
-
-        <h2 class="cert-title">
-          Certificate
-        </h2>
-
-
-        <div
-          id="outputType"
-          class="cert-subtitle"
-        >
-          ACHIEVEMENT
-        </div>
-
-
-        <div
-          id="outputName"
-          class="cert-recipient"
-        >
-          Recipient Name
-        </div>
-
-
-        <p
-          id="outputDescription"
-          class="cert-description"
-        >
-          This certificate is proudly presented
-          in recognition of excellence and achievement.
-        </p>
-
-
-        <div
-          id="outputBusiness"
-          class="cert-description"
-          style="display:none;"
-        ></div>
-
-
-        <div class="cert-meta">
-
-          <div class="cert-meta-box">
-
-            <strong>
-              Certificate ID
-            </strong>
-
-            <span id="outputId">
-              ARS-CERT-
-            </span>
-
-          </div>
-
-
-          <div class="signature-area">
-
-            <img
-              src="signature.jpg"
-              alt="Adarsh Raj Signature"
-            >
-
-            <div class="signature-line">
-              Adarsh Raj
-            </div>
-
-            <small>
-              Authorized Signature
-            </small>
-
-          </div>
-
-        </div>
-
-
-        <div class="cert-id">
-          Verify this certificate through
-          the official ARS Verify page.
+          <br>
+          <strong>Authorized Signatory</strong>
         </div>
 
       </div>
 
-    </section>
+    </div>
 
-  </div>
+
+    <div class="cert-actions" id="certActions">
+
+      <button class="primary-btn" onclick="window.print()">
+        🖨️ Print / Save PDF
+      </button>
+
+      <button class="secondary-btn" onclick="copyCertificateId()">
+        📋 Copy ID
+      </button>
+
+      <button
+        class="secondary-btn"
+        onclick="location.href='verify.html'"
+      >
+        🔎 Verify Certificate
+      </button>
+
+    </div>
+
+  </section>
 
 </main>
 
 
-<footer class="site-footer">
-  <p>
-    © <span id="currentYear"></span>
-    ARS Official — Adarsh Raj Shayar
-  </p>
-</footer>
+<script>
+
+(function () {
+
+  const typeSelect =
+    document.getElementById("certificateType");
+
+  const educationFields =
+    document.getElementById("educationFields");
+
+  const joiningInfo =
+    document.getElementById("joiningInfo");
+
+  const form =
+    document.getElementById("certificateForm");
+
+  const statusBox =
+    document.getElementById("statusBox");
+
+  const paper =
+    document.getElementById("certificatePaper");
 
 
-<script src="script.js"></script>
-<script src="certificate.js"></script>
+  function updateType() {
+
+    const type = typeSelect.value;
+
+    educationFields.classList.toggle(
+      "active",
+      type === "education"
+    );
+
+    joiningInfo.classList.add("active");
+
+  }
+
+
+  typeSelect.addEventListener(
+    "change",
+    updateType
+  );
+
+
+  window.selectType = function (type) {
+
+    typeSelect.value = type;
+
+    updateType();
+
+    document
+      .querySelector(".cert-form-box")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  };
+
+
+  function makeId() {
+
+    const random =
+      Math.random()
+        .toString(36)
+        .substring(2, 8)
+        .toUpperCase();
+
+    return "ARS-CERT-" + Date.now().toString().slice(-6)
+      + "-" + random;
+
+  }
+
+
+  function certificateTitle(type) {
+
+    if (type === "education") {
+      return "CERTIFICATE OF EDUCATION";
+    }
+
+    if (type === "achievement") {
+      return "CERTIFICATE OF ACHIEVEMENT";
+    }
+
+    return "CERTIFICATE OF PARTICIPATION";
+
+  }
+
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    const type =
+      typeSelect.value;
+
+    const name =
+      document.getElementById("studentName")
+        .value.trim();
+
+    const email =
+      document.getElementById("email")
+        .value.trim();
+
+    const activity =
+      document.getElementById("activity")
+        .value.trim();
+
+    const description =
+      document.getElementById("description")
+        .value.trim();
+
+    const className =
+      document.getElementById("className")
+        .value;
+
+    const subject =
+      document.getElementById("subject")
+        .value.trim();
+
+
+    if (!type || !name || !email || !activity) {
+      alert("Please fill all required fields.");
+      return;
+    }
+
+
+    /*
+      IMPORTANT:
+      This ID is only a frontend/demo ID.
+
+      Final production certificate approval and ID validation
+      must be handled by the backend/database.
+    */
+
+    const certificateId = makeId();
+
+    const today =
+      new Date().toLocaleDateString(
+        "en-IN",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        }
+      );
+
+
+    const application = {
+
+      id: certificateId,
+
+      name: name,
+
+      email: email,
+
+      type: type,
+
+      activity: activity,
+
+      description: description,
+
+      className: className,
+
+      subject: subject,
+
+      status: "pending",
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    /*
+      Temporary local storage.
+
+      Later this exact data structure can be sent
+      to the secure backend/API.
+    */
+
+    const oldApplications =
+      JSON.parse(
+        localStorage.getItem(
+          "ARS_CERTIFICATE_APPLICATIONS"
+        ) || "[]"
+      );
+
+
+    oldApplications.push(application);
+
+
+    localStorage.setItem(
+      "ARS_CERTIFICATE_APPLICATIONS",
+      JSON.stringify(oldApplications)
+    );
+
+
+    /*
+      Preview is shown only as a local preview.
+      It does NOT mean the certificate has been approved.
+    */
+
+    document.getElementById(
+      "previewType"
+    ).textContent =
+      certificateTitle(type);
+
+
+    document.getElementById(
+      "previewName"
+    ).textContent =
+      name;
+
+
+    let finalDescription =
+      description;
+
+
+    if (type === "education" && className) {
+
+      finalDescription +=
+        " | " + className;
+
+      if (subject) {
+        finalDescription +=
+          " | Subject: " + subject;
+      }
+
+    }
+
+
+    document.getElementById(
+      "previewDescription"
+    ).textContent =
+      finalDescription;
+
+
+    document.getElementById(
+      "previewId"
+    ).textContent =
+      certificateId;
+
+
+    document.getElementById(
+      "previewDate"
+    ).textContent =
+      today;
+
+
+    paper.classList.add("show");
+
+
+    statusBox.innerHTML = `
+      <strong>✅ Application submitted.</strong><br><br>
+      Application ID: <strong>${certificateId}</strong><br>
+      Status: <strong>Pending Approval</strong><br><br>
+      यह preview है। Final certificate तभी valid होगा जब
+      authorized admin/backend से application approve होगी।
+    `;
+
+    statusBox.classList.add("show");
+
+
+    paper.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+  });
+
+
+  window.copyCertificateId = function () {
+
+    const id =
+      document.getElementById(
+        "previewId"
+      ).textContent;
+
+    if (!id) {
+      alert("Certificate ID not available.");
+      return;
+    }
+
+
+    navigator.clipboard
+      .writeText(id)
+      .then(function () {
+
+        alert(
+          "Certificate ID copied: " + id
+        );
+
+      })
+      .catch(function () {
+
+        alert(
+          "Certificate ID: " + id
+        );
+
+      });
+
+  };
+
+
+})();
+
+</script>
 
 </body>
 </html>
