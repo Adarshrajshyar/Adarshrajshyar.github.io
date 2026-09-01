@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sainik School Preparation | ARS Education</title>
+  <meta name="description" content="ARS Education Sainik School Class 6 preparation resources.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .sainik-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
+        radial-gradient(circle at 92% 15%, rgba(34,197,94,.10), transparent 30%),
+        var(--bg);
+    }
+
+    .sainik-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .sainik-hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .sainik-hero h1 {
+      margin: 17px 0 10px;
+      font-size: clamp(34px, 6vw, 58px);
+    }
+
+    .sainik-hero h1 span {
+      color: var(--primary);
+    }
+
+    .sainik-hero p {
+      max-width: 750px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .notice {
+      padding: 15px 18px;
+      margin-bottom: 25px;
+      border-radius: 15px;
+      text-align: center;
+      background: rgba(124,58,237,.07);
+      border: 1px solid rgba(124,58,237,.14);
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .resource-card {
+      padding: 23px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 12px 35px rgba(0,0,0,.06);
+      transition: .2s ease;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .resource-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .resource-card p {
+      margin: 0 0 15px;
+      color: var(--text-soft);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 15px;
+    }
+
+    .tags span {
+      padding: 5px 8px;
+      border-radius: 8px;
+      background: rgba(124,58,237,.08);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .resource-card button {
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .info-section {
+      margin-top: 25px;
+      padding: 25px;
+      border-radius: 21px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+    }
+
+    .info-section h2 {
+      margin-top: 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 17px;
+    }
+
+    .info-box {
+      padding: 15px;
+      border-radius: 13px;
+      background: rgba(124,58,237,.06);
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .info-box span {
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 850px) {
+      .resource-grid,
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .resource-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="sainik-page">
+
+    <div class="sainik-container">
+
+      <section class="sainik-hero">
+
+        <div class="badge">
+          🪖 ARS EDUCATION • SAINIK SCHOOL
+        </div>
+
+        <h1>
+          Sainik School <span>Preparation</span>
+        </h1>
+
+        <p>
+          Class 6 entrance preparation के लिए
+          subject-wise notes, practice, MCQ और
+          revision resources एक जगह।
+        </p>
+
+      </section>
+
+
+      <div class="notice">
+        📌 यह section केवल <strong>Class 6</strong>
+        Sainik School preparation के लिए है।
+      </div>
+
+
+      <section class="resource-grid">
+
+        <article class="resource-card">
+
+          <div class="icon">🔢</div>
+
+          <h3>Mathematics</h3>
+
+          <p>
+            Number system, arithmetic और
+            problem-solving questions की practice।
+          </p>
+
+          <div class="tags">
+            <span>Class 6</span>
+            <span>Maths</span>
+          </div>
+
+          <button data-type="maths">
+            Practice Now →
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <div class="icon">🧠</div>
+
+          <h3>Intelligence</h3>
+
+          <p>
+            Logical thinking, reasoning और
+            mental ability practice।
+          </p>
+
+          <div class="tags">
+            <span>Reasoning</span>
+            <span>Practice</span>
+          </div>
+
+          <button data-type="intelligence">
+            Practice Now →
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <div class="icon">📖</div>
+
+          <h3>Language</h3>
+
+          <p>
+            Language skills, comprehension और
+            vocabulary practice।
+          </p>
+
+          <div class="tags">
+            <span>Language</span>
+            <span>Class 6</span>
+          </div>
+
+          <button data-type="language">
+            Practice Now →
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <div class="icon">🌍</div>
+
+          <h3>General Knowledge</h3>
+
+          <p>
+            Important GK topics और objective
+            questions के साथ revision।
+          </p>
+
+          <div class="tags">
+            <span>GK</span>
+            <span>MCQ</span>
+          </div>
+
+          <button data-type="gk">
+            Start GK →
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <div class="icon">📝</div>
+
+          <h3>MCQ Practice</h3>
+
+          <p>
+            Exam-style objective questions solve
+            करके अपनी preparation check करें।
+          </p>
+
+          <div class="tags">
+            <span>MCQ</span>
+            <span>Test</span>
+          </div>
+
+          <button data-type="mcq">
+            Start MCQ →
+          </button>
+
+        </article>
+
+
+        <article class="resource-card">
+
+          <div class="icon">🎯</div>
+
+          <h3>Exam Tips</h3>
+
+          <p>
+            Revision, time management और
+            preparation strategy के useful tips।
+          </p>
+
+          <div class="tags">
+            <span>Tips</span>
+            <span>Strategy</span>
+          </div>
+
+          <button data-type="tips">
+            View Tips →
+          </button>
+
+        </article>
+
+      </section>
+
+
+      <section class="info-section">
+
+        <h2>📚 ARS Sainik School Study Areas</h2>
+
+        <div class="info-grid">
+
+          <div class="info-box">
+            <strong>🔢 Mathematics</strong>
+            <span>
+              Concepts, calculations और problem solving।
+            </span>
+          </div>
+
+          <div class="info-box">
+            <strong>🧩 Intelligence</strong>
+            <span>
+              Reasoning और logical thinking practice।
+            </span>
+          </div>
+
+          <div class="info-box">
+            <strong>📖 Language</strong>
+            <span>
+              Reading, comprehension और vocabulary।
+            </span>
+          </div>
+
+          <div class="info-box">
+            <strong>🌎 General Knowledge</strong>
+            <span>
+              Important educational और general facts।
+            </span>
+          </div>
+
+          <div class="info-box">
+            <strong>🔄 Revision</strong>
+            <span>
+              Regular revision और practice sets।
+            </span>
+          </div>
+
+          <div class="info-box">
+            <strong>🏆 Mock Practice</strong>
+            <span>
+              Test-style questions और self-assessment।
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+      document
+        .querySelectorAll("[data-type]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const type =
+                button.dataset.type;
+
+
+              if (type === "mcq") {
+                window.location.href = "mcq.html";
+                return;
+              }
+
+
+              if (type === "tips") {
+                window.location.href = "exam-tips.html";
+                return;
+              }
+
+
+              window.location.href =
+                `resource.html?class=6&category=sainik-school&type=${encodeURIComponent(type)}`;
+
+            }
+          );
+
+        });
+
+    })();
+  </script>
+
+</body>
+</html>
