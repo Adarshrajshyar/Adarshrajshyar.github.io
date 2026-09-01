@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NCERT | ARS Education</title>
+  <meta name="description" content="ARS Education NCERT learning portal for Classes 5 to 8.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .education-page {
+      min-height: 100vh;
+      padding: 110px 20px 60px;
+      background:
+        radial-gradient(circle at top left, rgba(124,58,237,.16), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(236,72,153,.13), transparent 35%),
+        var(--bg);
+    }
+
+    .education-container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .education-hero {
+      text-align: center;
+      padding: 35px 20px 45px;
+    }
+
+    .education-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.12);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .education-hero h1 {
+      font-size: clamp(32px, 6vw, 58px);
+      margin: 0 0 12px;
+    }
+
+    .education-hero h1 span {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .education-hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 15px 0 25px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 7px;
+    }
+
+    .section-title p {
+      color: var(--text-soft);
+      margin: 0;
+    }
+
+    .class-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 50px;
+    }
+
+    .class-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: 22px;
+      padding: 28px 20px;
+      text-align: center;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 15px 40px rgba(0,0,0,.07);
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .class-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 45px rgba(0,0,0,.13);
+    }
+
+    .class-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 15px;
+      border-radius: 18px;
+      font-size: 27px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .class-card h3 {
+      margin: 0 0 7px;
+    }
+
+    .class-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .subject-section {
+      display: none;
+      animation: educationFade .35s ease;
+    }
+
+    .subject-section.active {
+      display: block;
+    }
+
+    @keyframes educationFade {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .selected-class {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .selected-class strong {
+      color: var(--primary);
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .subject-card {
+      border: 1px solid rgba(124,58,237,.15);
+      border-radius: 18px;
+      padding: 22px;
+      background: var(--card-bg, rgba(255,255,255,.05));
+      transition: .25s ease;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .subject-card h3 {
+      margin-top: 0;
+    }
+
+    .subject-card p {
+      color: var(--text-soft);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .subject-card button,
+    .back-class-btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .subject-card button {
+      background: var(--primary);
+      color: white;
+    }
+
+    .back-class-btn {
+      margin: 0 auto 25px;
+      display: block;
+      background: rgba(124,58,237,.1);
+      color: var(--primary);
+    }
+
+    @media (max-width: 850px) {
+      .class-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .subject-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 550px) {
+      .education-page {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .class-grid,
+      .subject-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="education-page">
+
+    <div class="education-container">
+
+      <section class="education-hero">
+        <div class="education-badge">📚 ARS EDUCATION</div>
+
+        <h1>
+          NCERT <span>Learning Hub</span>
+        </h1>
+
+        <p>
+          अपनी कक्षा चुनें और NCERT के विषय, पुस्तकें,
+          अध्याय, Notes, MCQ, Practice और Exam Preparation
+          को एक ही जगह से एक्सेस करें।
+        </p>
+      </section>
+
+
+      <!-- CLASS SELECTION -->
+
+      <section id="classSelection">
+
+        <div class="section-title">
+          <h2>अपनी कक्षा चुनें</h2>
+          <p>Class 5 से Class 8 तक उपलब्ध</p>
+        </div>
+
+        <div class="class-grid">
+
+          <article class="class-card" data-class="5">
+            <div class="class-icon">5</div>
+            <h3>Class 5</h3>
+            <p>NCERT Study Material</p>
+          </article>
+
+          <article class="class-card" data-class="6">
+            <div class="class-icon">6</div>
+            <h3>Class 6</h3>
+            <p>NCERT Study Material</p>
+          </article>
+
+          <article class="class-card" data-class="7">
+            <div class="class-icon">7</div>
+            <h3>Class 7</h3>
+            <p>NCERT Study Material</p>
+          </article>
+
+          <article class="class-card" data-class="8">
+            <div class="class-icon">8</div>
+            <h3>Class 8</h3>
+            <p>NCERT Study Material</p>
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- SUBJECTS -->
+
+      <section id="subjectSection" class="subject-section">
+
+        <button
+          type="button"
+          class="back-class-btn"
+          id="backToClasses"
+        >
+          ← वापस Class Selection
+        </button>
+
+        <div class="selected-class">
+          <h2>
+            Class <strong id="selectedClass">6</strong>
+          </h2>
+          <p>
+            नीचे दिए गए subject से पढ़ाई शुरू करें।
+          </p>
+        </div>
+
+        <div class="subject-grid">
+
+          <article class="subject-card">
+            <h3>📘 Mathematics</h3>
+            <p>
+              NCERT Mathematics की Books और Chapters।
+            </p>
+            <button data-subject="maths">
+              Open Mathematics
+            </button>
+          </article>
+
+          <article class="subject-card">
+            <h3>🔬 Science</h3>
+            <p>
+              Science के chapters, concepts और study material।
+            </p>
+            <button data-subject="science">
+              Open Science
+            </button>
+          </article>
+
+          <article class="subject-card">
+            <h3>🌍 Social Science</h3>
+            <p>
+              History, Geography और Civics से संबंधित सामग्री।
+            </p>
+            <button data-subject="social-science">
+              Open Social Science
+            </button>
+          </article>
+
+          <article class="subject-card">
+            <h3>📖 Hindi</h3>
+            <p>
+              Hindi books, chapters और learning resources।
+            </p>
+            <button data-subject="hindi">
+              Open Hindi
+            </button>
+          </article>
+
+          <article class="subject-card">
+            <h3>🔤 English</h3>
+            <p>
+              English books, chapters और practice material।
+            </p>
+            <button data-subject="english">
+              Open English
+            </button>
+          </article>
+
+          <article class="subject-card">
+            <h3>📝 Notes & Practice</h3>
+            <p>
+              Notes, MCQ, Practice और Exam Tips।
+            </p>
+            <button data-subject="practice">
+              Open Practice
+            </button>
+          </article>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      const classSelection =
+        document.getElementById("classSelection");
+
+      const subjectSection =
+        document.getElementById("subjectSection");
+
+      const selectedClass =
+        document.getElementById("selectedClass");
+
+      const backButton =
+        document.getElementById("backToClasses");
+
+      document
+        .querySelectorAll(".class-card")
+        .forEach(card => {
+
+          card.addEventListener("click", () => {
+
+            const classNumber =
+              card.dataset.class;
+
+            selectedClass.textContent =
+              classNumber;
+
+            classSelection.style.display =
+              "none";
+
+            subjectSection.classList.add(
+              "active"
+            );
+
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+
+          });
+
+        });
+
+
+      backButton.addEventListener("click", () => {
+
+        subjectSection.classList.remove(
+          "active"
+        );
+
+        classSelection.style.display =
+          "block";
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+      });
+
+
+      document
+        .querySelectorAll("[data-subject]")
+        .forEach(button => {
+
+          button.addEventListener("click", () => {
+
+            const subject =
+              button.dataset.subject;
+
+            const classNumber =
+              selectedClass.textContent;
+
+            /*
+              Future backend/API connection:
+              यहाँ selected class + subject के आधार पर
+              database से books/chapters/notes/MCQ
+              लोड किए जाएंगे।
+            */
+
+            const target =
+              `books.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}`;
+
+            window.location.href = target;
+
+          });
+
+        });
+
+    })();
+  </script>
+
+</body>
+</html>
