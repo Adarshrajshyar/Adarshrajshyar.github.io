@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Chapters | ARS Education</title>
+  <meta name="description" content="ARS Education NCERT chapters and study resources.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .chapters-page {
+      min-height: 100vh;
+      padding: 110px 18px 60px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,.14), transparent 32%),
+        radial-gradient(circle at 90% 90%, rgba(236,72,153,.12), transparent 32%),
+        var(--bg);
+    }
+
+    .chapters-container {
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .chapters-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .chapters-header h1 {
+      font-size: clamp(30px, 5vw, 50px);
+      margin-bottom: 10px;
+    }
+
+    .chapters-header h1 span {
+      color: var(--primary);
+    }
+
+    .chapters-header p {
+      color: var(--text-soft);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .meta span {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 0 auto 28px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(124,58,237,.1);
+      color: var(--primary);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .chapter-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .chapter-card {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+      padding: 19px;
+      border-radius: 18px;
+      border: 1px solid rgba(124,58,237,.15);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      transition: .25s ease;
+      cursor: pointer;
+    }
+
+    .chapter-card:hover {
+      transform: translateX(5px);
+    }
+
+    .chapter-number {
+      flex: 0 0 48px;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+      );
+      color: white;
+      font-weight: 800;
+    }
+
+    .chapter-content {
+      flex: 1;
+    }
+
+    .chapter-content h2 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+
+    .chapter-content p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13px;
+    }
+
+    .chapter-arrow {
+      font-size: 22px;
+      color: var(--primary);
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 45px 20px;
+      border-radius: 20px;
+      border: 1px dashed rgba(124,58,237,.3);
+      color: var(--text-soft);
+    }
+
+    @media (max-width: 550px) {
+      .chapter-card {
+        padding: 15px;
+      }
+
+      .chapter-number {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+      }
+
+      .chapter-content h2 {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="chapters-page">
+
+    <div class="chapters-container">
+
+      <header class="chapters-header">
+
+        <h1>
+          <span>Chapters</span>
+        </h1>
+
+        <p>
+          पुस्तक का chapter चुनें और पढ़ाई शुरू करें।
+        </p>
+
+        <div class="meta">
+          <span id="classMeta">Class</span>
+          <span id="subjectMeta">Subject</span>
+          <span id="bookMeta">Book</span>
+        </div>
+
+      </header>
+
+
+      <button
+        type="button"
+        class="back-btn"
+        id="backButton"
+      >
+        ← वापस Books
+      </button>
+
+
+      <section
+        id="chapterList"
+        class="chapter-list"
+      ></section>
+
+
+      <div
+        id="emptyState"
+        class="empty-state"
+      >
+        <h2>📚 Chapters जल्द आएंगे</h2>
+
+        <p>
+          Chapters Publisher Panel / Database से
+          manage किए जाएंगे।
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const classNumber =
+        params.get("class") || "6";
+
+      const subject =
+        params.get("subject") || "maths";
+
+      const book =
+        params.get("book") || "Mathematics";
+
+
+      document.getElementById("classMeta")
+        .textContent =
+        `Class ${classNumber}`;
+
+      document.getElementById("subjectMeta")
+        .textContent =
+        subject;
+
+      document.getElementById("bookMeta")
+        .textContent =
+        book;
+
+
+      /*
+       * Temporary chapter structure.
+       *
+       * Future Backend/API:
+       * Database से class + subject + book के आधार पर
+       * chapters automatically load होंगे।
+       */
+
+      const chapterData = {
+
+        maths: [
+          "Knowing Our Numbers",
+          "Whole Numbers",
+          "Playing with Numbers",
+          "Basic Geometrical Ideas",
+          "Understanding Elementary Shapes",
+          "Integers",
+          "Fractions",
+          "Decimals",
+          "Data Handling",
+          "Mensuration",
+          "Algebra",
+          "Ratio and Proportion"
+        ],
+
+        science: [
+          "Food: Where Does It Come From?",
+          "Components of Food",
+          "Fibre to Fabric",
+          "Sorting Materials into Groups",
+          "Separation of Substances",
+          "Changes Around Us",
+          "Getting to Know Plants",
+          "Body Movements",
+          "The Living Organisms",
+          "Motion and Measurement",
+          "Light, Shadows and Reflections",
+          "Electricity and Circuits"
+        ],
+
+        hindi: [
+          "पाठ 1",
+          "पाठ 2",
+          "पाठ 3",
+          "पाठ 4",
+          "पाठ 5"
+        ],
+
+        english: [
+          "Chapter 1",
+          "Chapter 2",
+          "Chapter 3",
+          "Chapter 4",
+          "Chapter 5"
+        ],
+
+        "social-science": [
+          "History",
+          "Geography",
+          "Social and Political Life"
+        ],
+
+        practice: [
+          "Notes",
+          "MCQ",
+          "Practice Questions",
+          "Exam Tips"
+        ]
+
+      };
+
+
+      const chapters =
+        chapterData[subject] || [];
+
+
+      const list =
+        document.getElementById(
+          "chapterList"
+        );
+
+      const empty =
+        document.getElementById(
+          "emptyState"
+        );
+
+
+      if (!chapters.length) {
+
+        empty.style.display =
+          "block";
+
+        return;
+      }
+
+
+      chapters.forEach(
+        (chapterName, index) => {
+
+          const card =
+            document.createElement(
+              "article"
+            );
+
+          card.className =
+            "chapter-card";
+
+
+          card.innerHTML = `
+
+            <div class="chapter-number">
+              ${index + 1}
+            </div>
+
+            <div class="chapter-content">
+
+              <h2>
+                ${chapterName}
+              </h2>
+
+              <p>
+                Class ${classNumber}
+                • ${book}
+              </p>
+
+            </div>
+
+            <div class="chapter-arrow">
+              →
+            </div>
+
+          `;
+
+
+          card.addEventListener(
+            "click",
+            () => {
+
+              const url =
+                `chapter.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapterName)}&chapterNo=${index + 1}`;
+
+              window.location.href =
+                url;
+
+            }
+          );
+
+
+          list.appendChild(card);
+
+        }
+      );
+
+
+      document
+        .getElementById("backButton")
+        .addEventListener(
+          "click",
+          () => {
+
+            if (document.referrer) {
+              history.back();
+            } else {
+              window.location.href =
+                `books.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}`;
+            }
+
+          }
+        );
+
+    })();
+  </script>
+
+</body>
+</html>
