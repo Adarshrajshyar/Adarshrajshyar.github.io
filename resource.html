@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Learning Resource | ARS Education</title>
+  <meta name="description" content="ARS Education Notes, MCQ, Practice and Exam Tips.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .resource-page {
+      min-height: 100vh;
+      padding: 105px 18px 60px;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(124,58,237,.14), transparent 32%),
+        radial-gradient(circle at 90% 90%, rgba(236,72,153,.12), transparent 32%),
+        var(--bg);
+    }
+
+    .resource-container {
+      max-width: 950px;
+      margin: auto;
+    }
+
+    .resource-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .resource-header h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      margin: 12px 0;
+    }
+
+    .resource-header h1 span {
+      color: var(--primary);
+    }
+
+    .resource-header p {
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .resource-label {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.12);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .meta span {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.09);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .resource-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 25px 0;
+    }
+
+    .resource-actions button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .secondary {
+      background: rgba(124,58,237,.1);
+      color: var(--primary);
+    }
+
+    .content-card {
+      padding: 28px;
+      border-radius: 22px;
+      border: 1px solid rgba(124,58,237,.15);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 15px 40px rgba(0,0,0,.07);
+      margin-bottom: 20px;
+    }
+
+    .content-card h2 {
+      margin-top: 0;
+    }
+
+    .content-card p {
+      color: var(--text-soft);
+      line-height: 1.85;
+    }
+
+    .resource-content {
+      white-space: pre-wrap;
+      line-height: 1.9;
+      color: var(--text-soft);
+    }
+
+    .question {
+      padding: 17px;
+      margin: 12px 0;
+      border-radius: 14px;
+      background: rgba(124,58,237,.06);
+      border: 1px solid rgba(124,58,237,.1);
+    }
+
+    .question strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .coming-soon {
+      text-align: center;
+      padding: 30px 20px;
+      border: 1px dashed rgba(124,58,237,.3);
+      border-radius: 18px;
+      color: var(--text-soft);
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="resource-page">
+
+    <div class="resource-container">
+
+      <header class="resource-header">
+
+        <div class="resource-label">
+          🎓 ARS EDUCATION
+        </div>
+
+        <h1>
+          <span id="resourceTitle">Learning Resource</span>
+        </h1>
+
+        <p id="resourceDescription">
+          आपकी पढ़ाई के लिए ARS Education resource।
+        </p>
+
+        <div class="meta">
+          <span id="classMeta">Class</span>
+          <span id="subjectMeta">Subject</span>
+          <span id="bookMeta">Book</span>
+          <span id="chapterMeta">Chapter</span>
+        </div>
+
+      </header>
+
+
+      <div class="resource-actions">
+
+        <button
+          type="button"
+          class="secondary"
+          id="backButton"
+        >
+          ← Back
+        </button>
+
+        <button
+          type="button"
+          class="secondary"
+          id="copyButton"
+        >
+          📋 Copy
+        </button>
+
+        <button
+          type="button"
+          class="secondary"
+          id="shareButton"
+        >
+          ↗ Share
+        </button>
+
+        <button
+          type="button"
+          class="primary"
+          id="favoriteButton"
+        >
+          ♡ Save
+        </button>
+
+      </div>
+
+
+      <section class="content-card">
+
+        <h2 id="contentHeading">
+          📚 Content
+        </h2>
+
+        <div
+          id="resourceContent"
+          class="resource-content"
+        >
+          Content जल्द उपलब्ध होगा।
+        </div>
+
+      </section>
+
+
+      <section
+        id="mcqSection"
+        class="content-card"
+        style="display:none;"
+      >
+
+        <h2>❓ MCQ Practice</h2>
+
+        <div id="mcqContainer"></div>
+
+      </section>
+
+
+      <section class="content-card">
+
+        <h2>🎯 Study Tip</h2>
+
+        <p>
+          पहले concept समझें, फिर notes revise करें और
+          अंत में MCQ तथा practice questions हल करें।
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+
+      const classNumber =
+        params.get("class") || "6";
+
+      const subject =
+        params.get("subject") || "maths";
+
+      const book =
+        params.get("book") || "Mathematics";
+
+      const chapter =
+        params.get("chapter") || "Chapter";
+
+      const chapterNo =
+        params.get("chapterNo") || "1";
+
+      const type =
+        params.get("type") || "notes";
+
+
+      const typeInfo = {
+
+        notes: {
+          title: "📝 Notes",
+          description:
+            "Chapter के आसान और exam-focused notes।"
+        },
+
+        mcq: {
+          title: "❓ MCQ",
+          description:
+            "Chapter आधारित multiple-choice questions।"
+        },
+
+        practice: {
+          title: "✍️ Practice",
+          description:
+            "अपनी तैयारी check करने के लिए practice questions।"
+        },
+
+        tips: {
+          title: "🎯 Exam Tips",
+          description:
+            "Exam की तैयारी के लिए useful tips।"
+        }
+
+      };
+
+
+      const selected =
+        typeInfo[type] ||
+        typeInfo.notes;
+
+
+      document.getElementById("resourceTitle")
+        .textContent =
+        selected.title;
+
+      document.getElementById("resourceDescription")
+        .textContent =
+        selected.description;
+
+      document.getElementById("classMeta")
+        .textContent =
+        `Class ${classNumber}`;
+
+      document.getElementById("subjectMeta")
+        .textContent =
+        subject;
+
+      document.getElementById("bookMeta")
+        .textContent =
+        book;
+
+      document.getElementById("chapterMeta")
+        .textContent =
+        `Chapter ${chapterNo}: ${chapter}`;
+
+
+      /*
+       * Future Database/API:
+       * यही structure बाद में Backend से content
+       * automatically load करेगा।
+       */
+
+      const defaultContent = {
+
+        notes:
+          `इस chapter के Notes यहाँ दिखाई देंगे।
+
+Publisher Panel से publish होने के बाद:
+• Chapter Summary
+• Important Definitions
+• Important Concepts
+• Examples
+• Key Points
+• Revision Notes
+
+सारा content इसी page पर automatically दिखाया जा सकता है।`,
+
+        practice:
+          `इस chapter के Practice Questions यहाँ आएंगे।
+
+1. Concept आधारित प्रश्न
+2. Short Answer Questions
+3. Long Answer Questions
+4. Revision Questions
+5. परीक्षा अभ्यास`,
+
+        tips:
+          `Exam Tips:
+
+• Chapter को पहले पूरा समझें।
+• Important definitions याद करें।
+• Examples को दोबारा हल करें।
+• MCQ practice करें।
+• परीक्षा से पहले quick revision करें।`,
+
+        mcq:
+          `MCQ section नीचे उपलब्ध है।
+प्रश्न Publisher/Database से बाद में automatically load किए जा सकेंगे।`
+
+      };
+
+
+      document.getElementById("resourceContent")
+        .textContent =
+        defaultContent[type] ||
+        defaultContent.notes;
+
+
+      /* MCQ */
+
+      if (type === "mcq") {
+
+        const section =
+          document.getElementById(
+            "mcqSection"
+          );
+
+        const container =
+          document.getElementById(
+            "mcqContainer"
+          );
+
+        section.style.display =
+          "block";
+
+
+        const questions = [
+          {
+            q: "इस chapter का मुख्य concept क्या है?",
+            options: [
+              "Option A",
+              "Option B",
+              "Option C",
+              "Option D"
+            ]
+          },
+          {
+            q: "सही उत्तर चुनें।",
+            options: [
+              "Option A",
+              "Option B",
+              "Option C",
+              "Option D"
+            ]
+          }
+        ];
+
+
+        questions.forEach(
+          (item, index) => {
+
+            const div =
+              document.createElement(
+                "div"
+              );
+
+            div.className =
+              "question";
+
+            div.innerHTML = `
+              <strong>
+                Q${index + 1}. ${item.q}
+              </strong>
+
+              ${item.options.map(
+                option =>
+                  `<div>○ ${option}</div>`
+              ).join("")}
+            `;
+
+            container.appendChild(div);
+
+          }
+        );
+
+      }
+
+
+      /* BACK */
+
+      document
+        .getElementById("backButton")
+        .addEventListener(
+          "click",
+          () => {
+
+            if (document.referrer) {
+              history.back();
+            } else {
+              window.location.href =
+                `chapter.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&chapterNo=${encodeURIComponent(chapterNo)}`;
+            }
+
+          }
+        );
+
+
+      /* COPY */
+
+      document
+        .getElementById("copyButton")
+        .addEventListener(
+          "click",
+          async () => {
+
+            try {
+
+              await navigator.clipboard.writeText(
+                window.location.href
+              );
+
+              alert(
+                "Resource link copied!"
+              );
+
+            } catch (_) {
+
+              alert(
+                "Copy नहीं हो पाया।"
+              );
+
+            }
+
+          }
+        );
+
+
+      /* SHARE */
+
+      document
+        .getElementById("shareButton")
+        .addEventListener(
+          "click",
+          async () => {
+
+            if (
+              navigator.share &&
+              typeof navigator.share === "function"
+            ) {
+
+              try {
+
+                await navigator.share({
+                  title:
+                    selected.title,
+                  text:
+                    `${chapter} - ARS Education`,
+                  url:
+                    window.location.href
+                });
+
+              } catch (_) {}
+
+            } else {
+
+              try {
+
+                await navigator.clipboard.writeText(
+                  window.location.href
+                );
+
+                alert(
+                  "Share link copied!"
+                );
+
+              } catch (_) {}
+
+            }
+
+          }
+        );
+
+
+      /* SAVE / FAVORITE */
+
+      const saveKey =
+        `ARS_EDU_SAVE_${classNumber}_${subject}_${book}_${chapterNo}_${type}`;
+
+      const saveButton =
+        document.getElementById(
+          "favoriteButton"
+        );
+
+
+      function updateSave() {
+
+        const saved =
+          localStorage.getItem(
+            saveKey
+          ) === "true";
+
+        saveButton.textContent =
+          saved
+            ? "♥ Saved"
+            : "♡ Save";
+
+      }
+
+
+      updateSave();
+
+
+      saveButton.addEventListener(
+        "click",
+        () => {
+
+          const saved =
+            localStorage.getItem(
+              saveKey
+            ) === "true";
+
+          localStorage.setItem(
+            saveKey,
+            String(!saved)
+          );
+
+          updateSave();
+
+        }
+      );
+
+    })();
+  </script>
+
+</body>
+</html>
