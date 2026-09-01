@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exam Tips | ARS Education</title>
+  <meta name="description" content="ARS Education exam preparation tips for Class 5 to 8.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .exam-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
+        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
+        var(--bg);
+    }
+
+    .exam-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .exam-hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .exam-badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .exam-hero h1 {
+      margin: 17px 0 10px;
+      font-size: clamp(34px, 6vw, 58px);
+    }
+
+    .exam-hero h1 span {
+      color: var(--primary);
+    }
+
+    .exam-hero p {
+      max-width: 720px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .class-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 22px 0 30px;
+    }
+
+    .class-btn {
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: 11px;
+      padding: 10px 16px;
+      background: rgba(124,58,237,.07);
+      color: var(--primary);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .class-btn.active,
+    .class-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+    }
+
+    .tip-card {
+      padding: 23px;
+      border-radius: 20px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 12px 35px rgba(0,0,0,.06);
+      transition: .2s ease;
+    }
+
+    .tip-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .tip-icon {
+      font-size: 31px;
+      margin-bottom: 12px;
+    }
+
+    .tip-card h3 {
+      margin: 0 0 8px;
+    }
+
+    .tip-card p {
+      color: var(--text-soft);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .tip-card ol,
+    .tip-card ul {
+      padding-left: 20px;
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .tip-card li {
+      margin-bottom: 6px;
+    }
+
+    .study-plan {
+      margin-top: 22px;
+      padding: 25px;
+      border-radius: 21px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+    }
+
+    .study-plan h2 {
+      margin-top: 0;
+    }
+
+    .plan-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 17px;
+    }
+
+    .plan-item {
+      padding: 15px;
+      border-radius: 13px;
+      background: rgba(124,58,237,.06);
+    }
+
+    .plan-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .plan-item span {
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 30px;
+      margin-top: 20px;
+      color: var(--text-soft);
+      border: 1px dashed rgba(124,58,237,.25);
+      border-radius: 18px;
+    }
+
+    @media (max-width: 850px) {
+      .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .tips-grid,
+      .plan-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="exam-page">
+
+    <div class="exam-container">
+
+      <section class="exam-hero">
+
+        <div class="exam-badge">
+          🎯 ARS EDUCATION • EXAM PREPARATION
+        </div>
+
+        <h1>
+          Smart <span>Exam Tips</span>
+        </h1>
+
+        <p>
+          सही planning, revision, practice और
+          time management के साथ exam preparation को बेहतर बनाएं।
+        </p>
+
+      </section>
+
+
+      <div class="class-filters">
+
+        <button class="class-btn" data-class="5">
+          Class 5
+        </button>
+
+        <button class="class-btn active" data-class="6">
+          Class 6
+        </button>
+
+        <button class="class-btn" data-class="7">
+          Class 7
+        </button>
+
+        <button class="class-btn" data-class="8">
+          Class 8
+        </button>
+
+      </div>
+
+
+      <section class="tips-grid" id="tipsGrid">
+
+        <article class="tip-card" data-class="all">
+
+          <div class="tip-icon">📅</div>
+
+          <h3>Study Planning</h3>
+
+          <p>
+            रोज थोड़ा-थोड़ा पढ़कर पूरे syllabus को
+            समय पर complete करने की कोशिश करें।
+          </p>
+
+          <ol>
+            <li>Daily target बनाएं।</li>
+            <li>Important chapters mark करें।</li>
+            <li>Revision के लिए समय रखें।</li>
+          </ol>
+
+        </article>
+
+
+        <article class="tip-card" data-class="all">
+
+          <div class="tip-icon">📝</div>
+
+          <h3>Notes Revision</h3>
+
+          <p>
+            अपने notes को केवल पढ़ें नहीं,
+            बल्कि important points को दोबारा recall करें।
+          </p>
+
+          <ul>
+            <li>Definitions revise करें।</li>
+            <li>Formulas और facts देखें।</li>
+            <li>Weak topics दोबारा पढ़ें।</li>
+          </ul>
+
+        </article>
+
+
+        <article class="tip-card" data-class="all">
+
+          <div class="tip-icon">⏱️</div>
+
+          <h3>Time Management</h3>
+
+          <p>
+            Practice करते समय questions को
+            निर्धारित समय में solve करने की आदत बनाएं।
+          </p>
+
+          <ul>
+            <li>Easy questions पहले करें।</li>
+            <li>एक question पर बहुत समय न लगाएं।</li>
+            <li>अंत में answers check करें।</li>
+          </ul>
+
+        </article>
+
+
+        <article class="tip-card" data-class="6">
+
+          <div class="tip-icon">➗</div>
+
+          <h3>Class 6 Maths</h3>
+
+          <p>
+            Mathematics में concepts समझने के बाद
+            पर्याप्त questions practice करें।
+          </p>
+
+          <ul>
+            <li>Tables और basic calculations revise करें।</li>
+            <li>Steps के साथ solution लिखें।</li>
+            <li>गलत questions दोबारा solve करें।</li>
+          </ul>
+
+        </article>
+
+
+        <article class="tip-card" data-class="6">
+
+          <div class="tip-icon">🔬</div>
+
+          <h3>Class 6 Science</h3>
+
+          <p>
+            Science में concepts, examples,
+            diagrams और important terms पर ध्यान दें।
+          </p>
+
+          <ul>
+            <li>Chapter summary revise करें।</li>
+            <li>Important definitions याद करें।</li>
+            <li>NCERT exercises practice करें।</li>
+          </ul>
+
+        </article>
+
+
+        <article class="tip-card" data-class="6">
+
+          <div class="tip-icon">🌍</div>
+
+          <h3>Class 6 GK</h3>
+
+          <p>
+            GK में facts को topic-wise revise करें
+            और MCQ practice के साथ knowledge check करें।
+          </p>
+
+          <ul>
+            <li>Important facts की list बनाएं।</li>
+            <li>Regular revision करें।</li>
+            <li>Current educational facts पढ़ें।</li>
+          </ul>
+
+        </article>
+
+
+        <article class="tip-card" data-class="5">
+
+          <div class="tip-icon">📚</div>
+
+          <h3>Class 5 Preparation</h3>
+
+          <p>
+            Basic concepts मजबूत करें और
+            chapter-wise practice करते रहें।
+          </p>
+
+        </article>
+
+
+        <article class="tip-card" data-class="7">
+
+          <div class="tip-icon">🚀</div>
+
+          <h3>Class 7 Preparation</h3>
+
+          <p>
+            Concepts के साथ higher-level questions
+            और regular revision पर ध्यान दें।
+          </p>
+
+        </article>
+
+
+        <article class="tip-card" data-class="8">
+
+          <div class="tip-icon">🏆</div>
+
+          <h3>Class 8 Preparation</h3>
+
+          <p>
+            Syllabus completion के साथ sample papers,
+            revision और time management पर ध्यान दें।
+          </p>
+
+        </article>
+
+      </section>
+
+
+      <section class="study-plan">
+
+        <h2>📖 Simple Daily Study Formula</h2>
+
+        <div class="plan-list">
+
+          <div class="plan-item">
+            <strong>1. Learn</strong>
+            <span>
+              नया chapter या concept समझें।
+            </span>
+          </div>
+
+          <div class="plan-item">
+            <strong>2. Revise</strong>
+            <span>
+              उसी दिन पढ़े हुए points को दोहराएं।
+            </span>
+          </div>
+
+          <div class="plan-item">
+            <strong>3. Practice</strong>
+            <span>
+              Questions, MCQ और exercises solve करें।
+            </span>
+          </div>
+
+          <div class="plan-item">
+            <strong>4. Check</strong>
+            <span>
+              अपनी गलतियों को पहचानकर उन्हें सुधारें।
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <div
+        class="empty-state"
+        id="emptyState"
+      >
+        इस class के लिए content जल्द उपलब्ध होगा।
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      let selectedClass =
+        localStorage.getItem(
+          "ARS_EXAM_TIPS_CLASS"
+        ) || "6";
+
+
+      const buttons =
+        document.querySelectorAll(
+          ".class-btn"
+        );
+
+      const cards =
+        document.querySelectorAll(
+          ".tip-card"
+        );
+
+      const emptyState =
+        document.getElementById(
+          "emptyState"
+        );
+
+
+      function update() {
+
+        let visible = 0;
+
+
+        buttons.forEach(button => {
+
+          button.classList.toggle(
+            "active",
+            button.dataset.class ===
+              selectedClass
+          );
+
+        });
+
+
+        cards.forEach(card => {
+
+          const cardClass =
+            card.dataset.class;
+
+          const show =
+            cardClass === "all" ||
+            cardClass === selectedClass;
+
+
+          card.style.display =
+            show ? "" : "none";
+
+
+          if (show) {
+            visible++;
+          }
+
+        });
+
+
+        emptyState.style.display =
+          visible === 0
+            ? "block"
+            : "none";
+
+      }
+
+
+      buttons.forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            selectedClass =
+              button.dataset.class;
+
+            localStorage.setItem(
+              "ARS_EXAM_TIPS_CLASS",
+              selectedClass
+            );
+
+            update();
+
+          }
+        );
+
+      });
+
+
+      update();
+
+    })();
+  </script>
+
+</body>
+</html>
