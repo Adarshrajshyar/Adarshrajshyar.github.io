@@ -2,83 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-        content="ARS AI — intelligent assistant for ARS Official.">
-
-  <title>ARS AI | ARS Official</title>
+  <title>ARS AI – Educational Assistant</title>
+  <meta name="description" content="ARS AI – Educational AI Assistant for students, NCERT, GK, Maths, Science, Navodaya, Sainik School and RMS preparation.">
 
   <link rel="stylesheet" href="style.css">
 
   <style>
     .ai-page {
-      min-height: 100vh;
-      padding: 115px 20px 70px;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(124,58,237,.20), transparent 30%),
-        radial-gradient(circle at 85% 15%, rgba(236,72,153,.16), transparent 30%),
-        radial-gradient(circle at 50% 100%, rgba(212,175,55,.10), transparent 35%),
-        var(--bg);
-    }
-
-    .ai-container {
-      max-width: 1050px;
+      max-width: 1100px;
       margin: auto;
+      padding: 25px 16px 50px;
     }
 
     .ai-hero {
       text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .ai-logo {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      margin-bottom: 12px;
-      border-radius: 22px;
+      padding: 35px 20px;
+      border-radius: 24px;
+      margin-bottom: 22px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed, #0891b2);
+      color: white;
+      box-shadow: 0 12px 35px rgba(0,0,0,.15);
     }
 
     .ai-hero h1 {
-      font-size: clamp(42px, 7vw, 70px);
-      margin-bottom: 8px;
-    }
-
-    .ai-gradient {
-      background:
-        linear-gradient(
-          90deg,
-          #d4af37,
-          #a855f7,
-          #ec4899
-        );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      margin: 0 0 10px;
+      font-size: clamp(30px, 5vw, 48px);
     }
 
     .ai-hero p {
-      color: var(--text-soft);
-    }
-
-    .ai-shell {
-      overflow: hidden;
-      border-radius: 24px;
-      border: 1px solid rgba(212,175,55,.30);
-      background: var(--card-bg, rgba(255,255,255,.05));
-      box-shadow: 0 25px 75px rgba(0,0,0,.16);
+      margin: 0 auto;
+      max-width: 720px;
+      line-height: 1.6;
     }
 
     .ai-status {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 18px;
-      border-bottom: 1px solid rgba(128,128,128,.16);
-      font-size: 13px;
-      color: var(--text-soft);
+      gap: 7px;
+      margin-top: 16px;
+      padding: 7px 13px;
+      border-radius: 50px;
+      background: rgba(255,255,255,.18);
+      font-size: 14px;
     }
 
     .ai-dot {
@@ -86,99 +53,187 @@
       height: 9px;
       border-radius: 50%;
       background: #22c55e;
-      box-shadow: 0 0 12px rgba(34,197,94,.7);
     }
 
-    .ai-messages {
-      height: 430px;
-      overflow-y: auto;
-      padding: 22px;
+    .ai-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 18px;
+    }
+
+    .ai-panel,
+    .chat-box {
+      border-radius: 20px;
+      border: 1px solid rgba(128,128,128,.2);
+      background: var(--card-bg, #fff);
+      box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    }
+
+    .ai-panel {
+      padding: 18px;
+      height: fit-content;
+    }
+
+    .ai-panel h3 {
+      margin-top: 0;
+    }
+
+    .ai-topic {
+      width: 100%;
+      border: 0;
+      padding: 11px 12px;
+      margin: 5px 0;
+      border-radius: 12px;
+      text-align: left;
+      cursor: pointer;
+      background: rgba(128,128,128,.09);
+      color: inherit;
+      transition: .2s;
+    }
+
+    .ai-topic:hover {
+      transform: translateX(3px);
+      background: rgba(79,70,229,.12);
+    }
+
+    .chat-box {
+      min-height: 650px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      overflow: hidden;
     }
 
-    .ai-message {
-      max-width: 82%;
-      padding: 13px 16px;
-      border-radius: 16px;
-      line-height: 1.65;
-      white-space: pre-wrap;
-    }
-
-    .ai-message.bot {
-      align-self: flex-start;
-      background: rgba(124,58,237,.10);
-      border: 1px solid rgba(124,58,237,.20);
-    }
-
-    .ai-message.user {
-      align-self: flex-end;
-      background: linear-gradient(135deg,#d4af37,#f5d76e);
-      color: #111;
-      font-weight: 600;
-    }
-
-    .ai-input-area {
+    .chat-header {
+      padding: 17px 20px;
+      border-bottom: 1px solid rgba(128,128,128,.2);
       display: flex;
-      gap: 10px;
-      padding: 16px;
-      border-top: 1px solid rgba(128,128,128,.16);
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .ai-input {
-      flex: 1;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(128,128,128,.28);
-      background: transparent;
-      color: var(--text);
-      outline: none;
-    }
-
-    .ai-send {
-      min-width: 100px;
-      border: 0;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 900;
-      background: linear-gradient(135deg,#d4af37,#f5d76e);
-      color: #111;
-    }
-
-    .ai-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-
-    .ai-tool {
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(128,128,128,.22);
-      background: rgba(128,128,128,.07);
-      color: var(--text);
-      cursor: pointer;
+    .chat-title {
       font-weight: 700;
     }
 
-    @media (max-width: 600px) {
-      .ai-messages {
-        height: 380px;
+    .clear-chat {
+      border: 0;
+      border-radius: 9px;
+      padding: 8px 12px;
+      cursor: pointer;
+      background: rgba(220,38,38,.1);
+      color: #dc2626;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      min-height: 450px;
+      max-height: 520px;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 15px;
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      max-width: 80%;
+      padding: 12px 15px;
+      border-radius: 16px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+    }
+
+    .message.ai .bubble {
+      background: rgba(79,70,229,.09);
+      border-bottom-left-radius: 5px;
+    }
+
+    .message.user .bubble {
+      background: #4f46e5;
+      color: white;
+      border-bottom-right-radius: 5px;
+    }
+
+    .suggestions {
+      padding: 10px 18px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(128,128,128,.12);
+    }
+
+    .suggestion {
+      border: 1px solid rgba(79,70,229,.25);
+      background: transparent;
+      color: inherit;
+      padding: 8px 11px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .input-area {
+      padding: 15px;
+      border-top: 1px solid rgba(128,128,128,.2);
+      display: flex;
+      gap: 10px;
+    }
+
+    #aiInput {
+      flex: 1;
+      min-width: 0;
+      resize: none;
+      border: 1px solid rgba(128,128,128,.3);
+      border-radius: 14px;
+      padding: 13px;
+      background: transparent;
+      color: inherit;
+      outline: none;
+      font: inherit;
+    }
+
+    #sendAI {
+      border: 0;
+      border-radius: 14px;
+      padding: 0 20px;
+      cursor: pointer;
+      color: white;
+      background: #4f46e5;
+      font-weight: 700;
+    }
+
+    #sendAI:hover {
+      opacity: .9;
+    }
+
+    .ai-note {
+      font-size: 12px;
+      opacity: .65;
+      padding: 0 18px 15px;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .ai-layout {
+        grid-template-columns: 1fr;
       }
 
-      .ai-input-area {
-        flex-direction: column;
+      .ai-panel {
+        order: 2;
       }
 
-      .ai-send {
-        padding: 13px;
+      .chat-box {
+        min-height: 600px;
       }
 
-      .ai-message {
-        max-width: 92%;
+      .bubble {
+        max-width: 90%;
       }
     }
   </style>
@@ -186,291 +241,256 @@
 
 <body>
 
-<header class="site-header">
-  <nav class="navbar">
-
-    <a href="index.html" class="brand">
-      <img src="logo.png" alt="ARS Official">
-      <span>ARS Official</span>
-    </a>
-
-    <button id="navToggle"
-            class="nav-toggle"
-            type="button"
-            aria-expanded="false">☰</button>
-
-    <div id="navLinks" class="nav-links">
-
-      <a href="index.html">Home</a>
-
-      <a href="ars-ai.html"
-         class="active">
-        ARS AI
-      </a>
-
-      <a href="founder.html">Founder</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="joining-certificate.html">
-        Joining Certificate
-      </a>
-      <a href="verify.html">Verify</a>
-
-      <div class="nav-more">
-
-        <button id="navMoreButton"
-                type="button"
-                aria-expanded="false">
-          More ▾
-        </button>
-
-        <div id="navMoreMenu" class="nav-more-menu">
-          <a href="joining.html">Joining ARS</a>
-          <a href="publisher.html">Publisher</a>
-          <a href="policy.html">Policy</a>
-          <a href="contact.html">Contact</a>
-          <a href="admin.html">Admin</a>
-        </div>
-
-      </div>
-
-      <button id="themeToggle"
-              type="button">
-        🌙
-      </button>
-
-    </div>
-  </nav>
-</header>
-
-<main class="ai-page">
-
-  <div class="ai-container">
+  <main class="ai-page">
 
     <section class="ai-hero">
-
-      <img
-        src="logo.png"
-        alt="ARS AI"
-        class="ai-logo">
-
-      <h1>
-        <span class="ai-gradient">ARS AI</span>
-      </h1>
-
+      <h1>🤖 ARS AI</h1>
       <p>
-        Your ARS Official digital assistant.
+        आपका Educational Assistant — NCERT, Maths, Science, GK,
+        Notes, MCQ, Practice, Exam Tips, Navodaya, Sainik School और RMS
+        की पढ़ाई में सहायता के लिए।
       </p>
-
-    </section>
-
-    <section class="ai-shell">
 
       <div class="ai-status">
         <span class="ai-dot"></span>
-        <span>ARS AI is ready</span>
+        ARS AI Educational Mode
       </div>
+    </section>
 
-      <div id="aiMessages"
-           class="ai-messages">
+    <section class="ai-layout">
 
-        <div class="ai-message bot">
-          Namaste! 👋
-          I am ARS AI, the digital assistant of ARS Official.
+      <!-- LEFT TOPICS -->
+      <aside class="ai-panel">
+        <h3>📚 Study Topics</h3>
 
-          I can help you understand the website, certificates,
-          joining, publisher section, founder information,
-          verification and other ARS Official features.
-        </div>
-
-      </div>
-
-      <form id="aiForm"
-            class="ai-input-area">
-
-        <input
-          id="aiInput"
-          class="ai-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Ask ARS AI something..."
-          required>
-
-        <button
-          class="ai-send"
-          type="submit">
-          Send
+        <button class="ai-topic" data-question="NCERT Class 6 की पढ़ाई में मेरी मदद करो।">
+          📘 NCERT
         </button>
 
-      </form>
+        <button class="ai-topic" data-question="Class 6 Maths की तैयारी कैसे करूँ?">
+          ➗ Maths
+        </button>
+
+        <button class="ai-topic" data-question="Class 6 Science पढ़ने में मेरी मदद करो।">
+          🔬 Science
+        </button>
+
+        <button class="ai-topic" data-question="मुझे General Knowledge के प्रश्न पूछो।">
+          🌍 GK
+        </button>
+
+        <button class="ai-topic" data-question="मेरे लिए Class 6 के MCQ बनाओ।">
+          📝 MCQ
+        </button>
+
+        <button class="ai-topic" data-question="मेरे लिए practice questions बनाओ।">
+          ✍️ Practice
+        </button>
+
+        <button class="ai-topic" data-question="Exam की तैयारी के लिए important tips बताओ।">
+          🎯 Exam Tips
+        </button>
+
+        <button class="ai-topic" data-question="Navodaya Class 6 की तैयारी में मेरी मदद करो।">
+          🏫 Navodaya
+        </button>
+
+        <button class="ai-topic" data-question="Sainik School Class 6 की तैयारी में मेरी मदद करो।">
+          🎖️ Sainik School
+        </button>
+
+        <button class="ai-topic" data-question="RMS Class 6 की तैयारी में मेरी मदद करो।">
+          🏅 RMS
+        </button>
+      </aside>
+
+
+      <!-- CHAT -->
+      <section class="chat-box">
+
+        <header class="chat-header">
+          <div>
+            <div class="chat-title">ARS AI Assistant</div>
+            <small>Study • Learn • Practice</small>
+          </div>
+
+          <button class="clear-chat" id="clearChat">
+            Clear
+          </button>
+        </header>
+
+
+        <div class="messages" id="messages">
+
+          <div class="message ai">
+            <div class="bubble">
+नमस्ते! 👋
+
+मैं ARS AI हूँ।
+
+मैं आपको पढ़ाई से जुड़े सवालों में मदद कर सकता हूँ।
+
+आप NCERT, Maths, Science, GK, MCQ, Practice,
+Exam Tips, Navodaya, Sainik School या RMS के बारे में पूछ सकते हैं।
+
+अपना सवाल नीचे लिखें। 😊
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="suggestions">
+
+          <button class="suggestion">
+            Class 6 Maths
+          </button>
+
+          <button class="suggestion">
+            MCQ बनाओ
+          </button>
+
+          <button class="suggestion">
+            GK Quiz
+          </button>
+
+          <button class="suggestion">
+            Exam Tips
+          </button>
+
+        </div>
+
+
+        <div class="input-area">
+
+          <textarea
+            id="aiInput"
+            rows="2"
+            placeholder="ARS AI से अपना सवाल पूछें..."
+          ></textarea>
+
+          <button id="sendAI">
+            Send
+          </button>
+
+        </div>
+
+        <div class="ai-note">
+          ARS AI का यह frontend बाद में secure backend/API AI service से जोड़ा जा सकता है।
+        </div>
+
+      </section>
 
     </section>
 
-    <div class="ai-tools">
+  </main>
 
-      <button class="ai-tool"
-              data-question="What is ARS Official?">
-        What is ARS?
-      </button>
-
-      <button class="ai-tool"
-              data-question="How can I verify a certificate?">
-        Verify Certificate
-      </button>
-
-      <button class="ai-tool"
-              data-question="How can I join ARS Official?">
-        Joining
-      </button>
-
-      <button class="ai-tool"
-              data-question="Who is the founder of ARS Official?">
-        Founder
-      </button>
-
-    </div>
-
-  </div>
-
-</main>
-
-<script src="config.js"></script>
-<script src="script.js"></script>
 
 <script>
 (function () {
 
-  "use strict";
-
-  const form =
-    document.getElementById("aiForm");
-
-  const input =
-    document.getElementById("aiInput");
-
-  const messages =
-    document.getElementById("aiMessages");
-
-  if (!form || !input || !messages) return;
+  const input = document.getElementById("aiInput");
+  const sendBtn = document.getElementById("sendAI");
+  const messages = document.getElementById("messages");
+  const clearBtn = document.getElementById("clearChat");
 
   function addMessage(text, type) {
 
-    const div =
-      document.createElement("div");
+    const wrapper = document.createElement("div");
+    wrapper.className = "message " + type;
 
-    div.className =
-      "ai-message " + type;
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = text;
 
-    div.textContent = text;
+    wrapper.appendChild(bubble);
+    messages.appendChild(wrapper);
 
-    messages.appendChild(div);
-
-    messages.scrollTop =
-      messages.scrollHeight;
+    messages.scrollTop = messages.scrollHeight;
   }
 
-  function getResponse(question) {
 
-    const q =
-      question.toLowerCase();
+  function getAIResponse(question) {
+
+    const q = question.toLowerCase();
 
     if (
-      q.includes("what is ars") ||
-      q.includes("ars official")
+      q.includes("hello") ||
+      q.includes("hi") ||
+      q.includes("नमस्ते")
     ) {
-      return (
-        "ARS Official is a digital platform created by " +
-        "Adarsh Raj. It brings together creative content, " +
-        "ARS AI, certificates, joining, publishing, stories, " +
-        "shayari and certificate verification."
-      );
+      return "नमस्ते! 👋 ARS AI में आपका स्वागत है। पढ़ाई से जुड़ा कोई भी सवाल पूछिए।";
+    }
+
+    if (q.includes("math") || q.includes("गणित")) {
+      return "बिल्कुल! ➗ Maths में मैं concept समझाने, examples देने और practice questions बनाने में मदद कर सकता हूँ। अपना Class और Chapter बताइए।";
+    }
+
+    if (q.includes("science") || q.includes("विज्ञान")) {
+      return "🔬 Science के लिए अपना Class, Chapter या Topic बताइए। मैं उसे आसान भाषा में समझाने की कोशिश करूँगा।";
     }
 
     if (
-      q.includes("founder") ||
-      q.includes("adarsh")
+      q.includes("gk") ||
+      q.includes("general knowledge") ||
+      q.includes("सामान्य ज्ञान")
     ) {
-      return (
-        "The founder and creator of ARS Official is " +
-        "Adarsh Raj. You can visit the dedicated Founder " +
-        "section for more information."
-      );
+      return "🌍 GK Quiz शुरू करते हैं! मैं आपके level के अनुसार प्रश्न दे सकता हूँ। आप चाहें तो Class 5, 6, 7 या 8 का level चुन सकते हैं।";
+    }
+
+    if (q.includes("mcq")) {
+      return "📝 MCQ के लिए Subject और Class बताइए। उदाहरण: “Class 6 Science के 10 MCQ बनाओ।”";
     }
 
     if (
-      q.includes("verify") ||
-      q.includes("certificate id")
+      q.includes("navodaya") ||
+      q.includes("नवोदय")
     ) {
-      return (
-        "You can use the Verify section to enter a supported " +
-        "ARS certificate ID. The verification page is designed " +
-        "to handle certificate and joining-certificate records."
-      );
+      return "🏫 Navodaya Class 6 preparation में Maths, Mental Ability और Language जैसे क्षेत्रों की practice में मदद की जा सकती है। अपना topic बताइए।";
     }
 
     if (
-      q.includes("join") ||
-      q.includes("joining")
+      q.includes("sainik") ||
+      q.includes("सैनिक")
     ) {
-      return (
-        "You can join ARS Official through the Joining ARS " +
-        "section. After submitting a joining request, the " +
-        "website can generate a local joining reference ID."
-      );
+      return "🎖️ Sainik School Class 6 preparation के लिए Maths, Intelligence, Language और General Knowledge की practice कर सकते हैं।";
     }
 
     if (
-      q.includes("publisher") ||
-      q.includes("publish")
+      q.includes("rms") ||
+      q.includes("military school")
     ) {
-      return (
-        "The Publisher section is designed for preparing and " +
-        "managing publication drafts."
-      );
+      return "🏅 RMS Class 6 preparation के लिए subject-wise practice, MCQ और revision plan बनाया जा सकता है।";
     }
 
     if (
-      q.includes("contact") ||
-      q.includes("email")
+      q.includes("exam") ||
+      q.includes("परीक्षा")
     ) {
-      return (
-        "Use the separate Contact page to send a message. " +
-        "The contact email can be configured through config.js."
-      );
+      return "🎯 Exam preparation का अच्छा तरीका है: syllabus → concepts → notes → MCQ → practice → revision → mock test। अपना Class और Subject बताइए।";
     }
 
     if (
-      q.includes("dark") ||
-      q.includes("light") ||
-      q.includes("theme")
+      q.includes("practice") ||
+      q.includes("प्रैक्टिस")
     ) {
-      return (
-        "ARS Official supports both dark and light modes. " +
-        "Use the theme button in the navigation bar to switch."
-      );
+      return "✍️ Practice शुरू करते हैं। Class + Subject + Chapter लिखिए, जैसे: “Class 6 Maths Chapter 3 practice।”";
     }
 
     if (
-      q.includes("help") ||
-      q.includes("feature")
+      q.includes("ncert") ||
+      q.includes("एनसीईआरटी")
     ) {
-      return (
-        "I can explain ARS Official, ARS AI, Founder, " +
-        "Certificates, Joining Certificate, Joining ARS, " +
-        "Publisher, Policy, Contact, Admin and Verification."
-      );
+      return "📘 NCERT के लिए पहले Class चुनें, फिर Subject → Book → Chapter। उसके बाद उसी chapter के notes, explanation, MCQ और practice की मदद ली जा सकती है।";
     }
 
-    return (
-      "I am the ARS Official website assistant. " +
-      "Try asking about ARS Official, the founder, certificates, " +
-      "verification, joining, publisher, contact or website features."
-    );
+    return "मैं आपकी मदद कर सकता हूँ। 😊 कृपया अपना Class, Subject और Topic लिखें। उदाहरण: “Class 6 Maths में Fractions समझाओ” या “Class 6 GK के 10 MCQ दो।”";
   }
 
-  function ask(question) {
 
-    const text =
-      question.trim();
+  function sendMessage(text) {
+
+    text = (text || input.value).trim();
 
     if (!text) return;
 
@@ -479,33 +499,66 @@
     input.value = "";
 
     setTimeout(function () {
-      addMessage(
-        getResponse(text),
-        "bot"
-      );
-    }, 250);
+      addMessage(getAIResponse(text), "ai");
+    }, 350);
   }
 
-  form.addEventListener("submit", function (event) {
 
-    event.preventDefault();
+  sendBtn.addEventListener("click", function () {
+    sendMessage();
+  });
 
-    ask(input.value);
+
+  input.addEventListener("keydown", function (event) {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
 
   });
 
-  document.querySelectorAll(".ai-tool")
-    .forEach(function (button) {
 
-      button.addEventListener("click", function () {
+  document.querySelectorAll(".suggestion").forEach(function (button) {
 
-        ask(
-          button.dataset.question || ""
-        );
+    button.addEventListener("click", function () {
 
-      });
+      input.value = button.textContent.trim();
+      input.focus();
 
     });
+
+  });
+
+
+  document.querySelectorAll(".ai-topic").forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+      sendMessage(button.dataset.question);
+
+    });
+
+  });
+
+
+  clearBtn.addEventListener("click", function () {
+
+    messages.innerHTML = `
+      <div class="message ai">
+        <div class="bubble">
+नमस्ते! 👋
+
+मैं ARS AI हूँ।
+
+मैं आपको पढ़ाई से जुड़े सवालों में मदद कर सकता हूँ।
+
+अपना सवाल नीचे लिखें। 😊
+        </div>
+      </div>
+    `;
+
+  });
 
 })();
 </script>
