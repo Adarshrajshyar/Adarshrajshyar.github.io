@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS MCQ | ARS Education</title>
+  <meta name="description" content="ARS Education MCQ practice for Class 5 to 8.">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .mcq-page {
+      min-height: 100vh;
+      padding: 110px 18px 70px;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
+        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
+        var(--bg);
+    }
+
+    .mcq-container {
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .mcq-hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(124,58,237,.11);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .mcq-hero h1 {
+      margin: 17px 0 10px;
+      font-size: clamp(34px, 6vw, 58px);
+    }
+
+    .mcq-hero h1 span {
+      color: var(--primary);
+    }
+
+    .mcq-hero p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 22px 0;
+    }
+
+    .filter-btn {
+      border: 1px solid rgba(124,58,237,.18);
+      border-radius: 11px;
+      padding: 10px 15px;
+      background: rgba(124,58,237,.07);
+      color: var(--primary);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .quiz-card {
+      padding: 27px;
+      border-radius: 23px;
+      border: 1px solid rgba(124,58,237,.14);
+      background: var(--card-bg, rgba(255,255,255,.06));
+      box-shadow: 0 14px 40px rgba(0,0,0,.07);
+    }
+
+    .progress {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(124,58,237,.10);
+      margin-bottom: 25px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width .25s ease;
+    }
+
+    .question-number {
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    #questionText {
+      line-height: 1.6;
+      margin-top: 0;
+    }
+
+    .options {
+      display: grid;
+      gap: 11px;
+      margin-top: 22px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      padding: 14px 16px;
+      border-radius: 13px;
+      border: 1px solid rgba(124,58,237,.15);
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .option:hover {
+      transform: translateX(3px);
+      border-color: var(--primary);
+    }
+
+    .option.correct {
+      border-color: #198754;
+      background: rgba(25,135,84,.10);
+    }
+
+    .option.wrong {
+      border-color: #dc3545;
+      background: rgba(220,53,69,.10);
+    }
+
+    .option:disabled {
+      cursor: default;
+    }
+
+    .quiz-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .quiz-actions button {
+      padding: 11px 17px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .quiz-actions button:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    .result {
+      display: none;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .score {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .result button {
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .quiz-card {
+        padding: 21px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="mcq-page">
+
+    <div class="mcq-container">
+
+      <section class="mcq-hero">
+
+        <div class="badge">
+          🧠 ARS EDUCATION • MCQ
+        </div>
+
+        <h1>
+          Test Your <span>Knowledge</span>
+        </h1>
+
+        <p>
+          Class 5 से Class 8 तक objective questions
+          solve करें और अपनी preparation check करें।
+        </p>
+
+      </section>
+
+
+      <section>
+
+        <div class="filters">
+
+          <button class="filter-btn" data-class="5">
+            Class 5
+          </button>
+
+          <button class="filter-btn active" data-class="6">
+            Class 6
+          </button>
+
+          <button class="filter-btn" data-class="7">
+            Class 7
+          </button>
+
+          <button class="filter-btn" data-class="8">
+            Class 8
+          </button>
+
+        </div>
+
+
+        <div class="filters">
+
+          <button class="filter-btn active" data-subject="maths">
+            Maths
+          </button>
+
+          <button class="filter-btn" data-subject="science">
+            Science
+          </button>
+
+          <button class="filter-btn" data-subject="gk">
+            GK
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <section class="quiz-card">
+
+        <div class="progress">
+          <div
+            class="progress-bar"
+            id="progressBar"
+          ></div>
+        </div>
+
+
+        <div id="quizArea">
+
+          <div
+            class="question-number"
+            id="questionNumber"
+          >
+            Question 1
+          </div>
+
+          <h2 id="questionText">
+            Loading question...
+          </h2>
+
+          <div
+            class="options"
+            id="options"
+          ></div>
+
+          <div class="quiz-actions">
+
+            <button
+              id="nextButton"
+              disabled
+            >
+              Next →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="result"
+          id="result"
+        >
+
+          <div>🎉 Quiz Complete!</div>
+
+          <div
+            class="score"
+            id="score"
+          >
+            0/0
+          </div>
+
+          <p id="resultMessage"></p>
+
+          <button id="restartButton">
+            Try Again
+          </button>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <script>
+    (() => {
+
+      "use strict";
+
+
+      let selectedClass = "6";
+      let selectedSubject = "maths";
+
+      let currentQuestion = 0;
+      let score = 0;
+      let answered = false;
+
+
+      /*
+       * Temporary sample questions.
+       * Later these can be loaded from the
+       * ARS Education backend/database.
+       */
+
+      const questionBank = {
+
+        maths: [
+          {
+            q: "Which number is a prime number?",
+            options: ["21", "29", "35", "39"],
+            answer: 1
+          },
+          {
+            q: "What is 12 × 5?",
+            options: ["50", "55", "60", "65"],
+            answer: 2
+          },
+          {
+            q: "What is the smallest whole number?",
+            options: ["0", "1", "2", "10"],
+            answer: 0
+          }
+        ],
+
+        science: [
+          {
+            q: "Which organ helps humans to breathe?",
+            options: ["Heart", "Lungs", "Stomach", "Kidney"],
+            answer: 1
+          },
+          {
+            q: "Which gas is needed for breathing?",
+            options: ["Oxygen", "Nitrogen", "Hydrogen", "Helium"],
+            answer: 0
+          },
+          {
+            q: "Which is a natural source of light?",
+            options: ["Bulb", "Torch", "Sun", "Candle"],
+            answer: 2
+          }
+        ],
+
+        gk: [
+          {
+            q: "What is the capital of India?",
+            options: [
+              "Mumbai",
+              "New Delhi",
+              "Kolkata",
+              "Chennai"
+            ],
+            answer: 1
+          },
+          {
+            q: "How many continents are there?",
+            options: ["5", "6", "7", "8"],
+            answer: 2
+          },
+          {
+            q: "Which is the largest ocean?",
+            options: [
+              "Indian Ocean",
+              "Atlantic Ocean",
+              "Arctic Ocean",
+              "Pacific Ocean"
+            ],
+            answer: 3
+          }
+        ]
+
+      };
+
+
+      const questionNumber =
+        document.getElementById(
+          "questionNumber"
+        );
+
+      const questionText =
+        document.getElementById(
+          "questionText"
+        );
+
+      const optionsContainer =
+        document.getElementById(
+          "options"
+        );
+
+      const nextButton =
+        document.getElementById(
+          "nextButton"
+        );
+
+      const progressBar =
+        document.getElementById(
+          "progressBar"
+        );
+
+      const quizArea =
+        document.getElementById(
+          "quizArea"
+        );
+
+      const result =
+        document.getElementById(
+          "result"
+        );
+
+      const scoreElement =
+        document.getElementById(
+          "score"
+        );
+
+      const resultMessage =
+        document.getElementById(
+          "resultMessage"
+        );
+
+
+      function questions() {
+
+        return (
+          questionBank[selectedSubject] ||
+          questionBank.maths
+        );
+
+      }
+
+
+      function loadQuestion() {
+
+        const list =
+          questions();
+
+        const item =
+          list[currentQuestion];
+
+        answered = false;
+
+        questionNumber.textContent =
+          `Question ${currentQuestion + 1} of ${list.length}`;
+
+        questionText.textContent =
+          item.q;
+
+        optionsContainer.innerHTML = "";
+
+        nextButton.disabled = true;
+
+
+        const percentage =
+          ((currentQuestion) / list.length) * 100;
+
+        progressBar.style.width =
+          `${percentage}%`;
+
+
+        item.options.forEach(
+          (optionText, index) => {
+
+            const button =
+              document.createElement(
+                "button"
+              );
+
+            button.className =
+              "option";
+
+            button.textContent =
+              `${String.fromCharCode(65 + index)}. ${optionText}`;
+
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                if (answered) return;
+
+                answered = true;
+
+                const allOptions =
+                  optionsContainer
+                    .querySelectorAll(
+                      ".option"
+                    );
+
+
+                allOptions.forEach(
+                  (option, optionIndex) => {
+
+                    option.disabled = true;
+
+                    if (
+                      optionIndex ===
+                      item.answer
+                    ) {
+
+                      option.classList.add(
+                        "correct"
+                      );
+
+                    }
+
+                  }
+                );
+
+
+                if (
+                  index ===
+                  item.answer
+                ) {
+
+                  score++;
+
+                } else {
+
+                  button.classList.add(
+                    "wrong"
+                  );
+
+                }
+
+
+                nextButton.disabled =
+                  false;
+
+              }
+            );
+
+
+            optionsContainer.appendChild(
+              button
+            );
+
+          }
+        );
+
+      }
+
+
+      nextButton.addEventListener(
+        "click",
+        () => {
+
+          const list =
+            questions();
+
+          currentQuestion++;
+
+
+          if (
+            currentQuestion >=
+            list.length
+          ) {
+
+            showResult();
+
+          } else {
+
+            loadQuestion();
+
+          }
+
+        }
+      );
+
+
+      function showResult() {
+
+        quizArea.style.display =
+          "none";
+
+        result.style.display =
+          "block";
+
+        progressBar.style.width =
+          "100%";
+
+
+        const total =
+          questions().length;
+
+        scoreElement.textContent =
+          `${score}/${total}`;
+
+
+        const percentage =
+          Math.round(
+            (score / total) * 100
+          );
+
+
+        if (percentage >= 80) {
+
+          resultMessage.textContent =
+            "Excellent! आपकी तैयारी बहुत अच्छी है।";
+
+        } else if (percentage >= 50) {
+
+          resultMessage.textContent =
+            "Good job! थोड़ा और practice करें।";
+
+        } else {
+
+          resultMessage.textContent =
+            "Practice जारी रखें और concepts को दोबारा revise करें।";
+
+        }
+
+      }
+
+
+      function restartQuiz() {
+
+        currentQuestion = 0;
+        score = 0;
+
+        result.style.display =
+          "none";
+
+        quizArea.style.display =
+          "block";
+
+        loadQuestion();
+
+      }
+
+
+      document
+        .getElementById("restartButton")
+        .addEventListener(
+          "click",
+          restartQuiz
+        );
+
+
+      /* CLASS FILTER */
+
+      document
+        .querySelectorAll("[data-class]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              selectedClass =
+                button.dataset.class;
+
+              document
+                .querySelectorAll(
+                  "[data-class]"
+                )
+                .forEach(item => {
+
+                  item.classList.toggle(
+                    "active",
+                    item.dataset.class ===
+                      selectedClass
+                  );
+
+                });
+
+              restartQuiz();
+
+            }
+          );
+
+        });
+
+
+      /* SUBJECT FILTER */
+
+      document
+        .querySelectorAll("[data-subject]")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              selectedSubject =
+                button.dataset.subject;
+
+              document
+                .querySelectorAll(
+                  "[data-subject]"
+                )
+                .forEach(item => {
+
+                  item.classList.toggle(
+                    "active",
+                    item.dataset.subject ===
+                      selectedSubject
+                  );
+
+                });
+
+              restartQuiz();
+
+            }
+          );
+
+        });
+
+
+      loadQuestion();
+
+    })();
+  </script>
+
+</body>
+</html>
