@@ -4,129 +4,177 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description"
-    content="Contact ARS Official for questions, suggestions, collaborations and support.">
+  <title>Contact ARS | ARS Education</title>
 
-  <title>Contact | ARS Official</title>
+  <meta
+    name="description"
+    content="Contact ARS Education and Adarsh Raj Shayar."
+  >
 
   <link rel="stylesheet" href="style.css">
 
   <style>
     .contact-page {
-      min-height: 100vh;
-      padding: 120px 20px 70px;
-      background:
-        radial-gradient(circle at top left, rgba(124,58,237,.13), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(236,72,153,.12), transparent 35%),
-        var(--bg);
-    }
-
-    .contact-container {
-      max-width: 1050px;
+      max-width: 1100px;
       margin: auto;
+      padding: 25px 16px 60px;
     }
 
-    .contact-heading {
+    .contact-hero {
       text-align: center;
-      margin-bottom: 35px;
+      padding: 42px 20px;
+      border-radius: 26px;
+      color: #fff;
+      background: linear-gradient(
+        135deg,
+        #312e81,
+        #4f46e5,
+        #0891b2
+      );
+      box-shadow: 0 14px 35px rgba(0,0,0,.15);
+      margin-bottom: 25px;
     }
 
-    .contact-heading h1 {
-      font-size: clamp(34px, 6vw, 55px);
-      margin-bottom: 10px;
+    .contact-hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px,5vw,48px);
     }
 
-    .contact-heading p {
-      color: var(--text-soft);
+    .contact-hero p {
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
     }
 
-    .contact-layout {
+    .contact-grid {
       display: grid;
-      grid-template-columns: .85fr 1.15fr;
-      gap: 24px;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 20px;
     }
 
-    .contact-card {
-      padding: 28px;
+    .contact-card,
+    .contact-form {
+      padding: 25px;
       border-radius: 22px;
-      border: 1px solid rgba(212,175,55,.30);
-      background: var(--card-bg, rgba(255,255,255,.05));
-      box-shadow: 0 20px 55px rgba(0,0,0,.12);
+      background: var(--card-bg,#fff);
+      border: 1px solid rgba(128,128,128,.2);
+      box-shadow: 0 8px 25px rgba(0,0,0,.07);
     }
 
-    .contact-card h2 {
-      margin-bottom: 10px;
-    }
-
-    .contact-info {
-      display: grid;
-      gap: 13px;
-      margin-top: 22px;
+    .contact-card h2,
+    .contact-form h2 {
+      margin-top: 0;
     }
 
     .contact-item {
-      padding: 16px;
-      border-radius: 13px;
-      background: rgba(128,128,128,.08);
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(128,128,128,.15);
     }
 
-    .contact-item small {
+    .contact-item:last-child {
+      border-bottom: 0;
+    }
+
+    .contact-icon {
+      font-size: 24px;
+    }
+
+    .contact-item strong {
       display: block;
-      color: var(--text-soft);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
-    .contact-form {
+    .contact-item a {
+      color: #4f46e5;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .contact-form-grid {
       display: grid;
-      gap: 15px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
-    .contact-form label {
-      font-weight: 700;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
-    .contact-form input,
-    .contact-form textarea,
-    .contact-form select {
-      width: 100%;
-      padding: 14px;
+    .form-group.full {
+      grid-column: 1/-1;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 12px;
       border-radius: 11px;
-      border: 1px solid rgba(128,128,128,.30);
+      border: 1px solid rgba(128,128,128,.3);
       background: transparent;
-      color: var(--text);
+      color: inherit;
+      font: inherit;
       outline: none;
     }
 
-    .contact-form textarea {
-      min-height: 150px;
+    .form-group textarea {
+      min-height: 130px;
       resize: vertical;
     }
 
-    .contact-form input:focus,
-    .contact-form textarea:focus,
-    .contact-form select:focus {
-      border-color: #d4af37;
-    }
-
-    .contact-submit {
+    .send-btn {
       border: 0;
+      padding: 12px 20px;
       border-radius: 11px;
-      padding: 14px 22px;
       cursor: pointer;
-      font-weight: 800;
-      background: linear-gradient(135deg, #d4af37, #f5d76e);
-      color: #111;
+      color: #fff;
+      background: #4f46e5;
+      font-weight: 700;
     }
 
-    .contact-note {
-      margin-top: 13px;
-      color: var(--text-soft);
-      font-size: 13px;
+    .success-message {
+      display: none;
+      margin-top: 15px;
+      padding: 13px;
+      border-radius: 12px;
+      background: rgba(34,197,94,.1);
     }
 
-    @media (max-width: 760px) {
-      .contact-layout {
+    .success-message.show {
+      display: block;
+    }
+
+    .quick-links {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .quick-links a {
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(79,70,229,.1);
+      color: #4f46e5;
+      font-weight: 700;
+    }
+
+    @media(max-width:750px) {
+      .contact-grid {
         grid-template-columns: 1fr;
+      }
+
+      .contact-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
       }
     }
   </style>
@@ -134,240 +182,534 @@
 
 <body>
 
-<header class="site-header">
-  <nav class="navbar">
-
-    <a href="index.html" class="brand">
-      <img src="logo.png" alt="ARS Official">
-      <span>ARS Official</span>
-    </a>
-
-    <button id="navToggle"
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false">☰</button>
-
-    <div id="navLinks" class="nav-links">
-
-      <a href="index.html">Home</a>
-      <a href="ars-ai.html">ARS AI</a>
-      <a href="founder.html">Founder</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="joining-certificate.html">Joining Certificate</a>
-      <a href="verify.html">Verify</a>
-
-      <div class="nav-more">
-        <button id="navMoreButton"
-          type="button"
-          aria-expanded="false">More ▾</button>
-
-        <div id="navMoreMenu" class="nav-more-menu">
-          <a href="joining.html">Joining ARS</a>
-          <a href="publisher.html">Publisher</a>
-          <a href="policy.html">Policy</a>
-          <a href="contact.html" class="active">Contact</a>
-          <a href="admin.html">Admin</a>
-        </div>
-      </div>
-
-      <button id="themeToggle"
-        type="button"
-        aria-label="Switch to dark mode">🌙</button>
-
-    </div>
-  </nav>
-</header>
-
 <main class="contact-page">
 
-  <div class="contact-container">
+  <!-- HERO -->
+  <section class="contact-hero">
+    <h1>📩 Contact ARS</h1>
 
-    <div class="contact-heading">
-      <h1>Contact ARS Official</h1>
-      <p>
-        Questions, suggestions, collaboration or support —
-        send us a message.
-      </p>
-    </div>
+    <p>
+      ARS Education, ARS AI, Stories, Shayari, Certificates
+      और website से जुड़े सवाल या सुझाव हमें भेजें।
+    </p>
+  </section>
 
-    <div class="contact-layout">
 
-      <section class="contact-card">
+  <section class="contact-grid">
 
-        <h2>Let's Connect</h2>
+    <!-- CONTACT INFORMATION -->
+    <section class="contact-card">
 
-        <p>
-          ARS Official welcomes genuine questions,
-          suggestions, ideas and collaboration requests.
-        </p>
+      <h2>🤝 Get in Touch</h2>
 
-        <div class="contact-info">
+      <div class="contact-item">
 
-          <div class="contact-item">
-            <small>Website</small>
-            <strong>ARS Official</strong>
-          </div>
+        <div class="contact-icon">🏠</div>
 
-          <div class="contact-item">
-            <small>Founder</small>
-            <strong>Adarsh Raj</strong>
-          </div>
-
-          <div class="contact-item">
-            <small>GitHub</small>
-            <strong>Adarshrajshyar</strong>
-          </div>
-
-          <div class="contact-item">
-            <small>Email</small>
-            <strong id="contactEmail">
-              Email contact
-            </strong>
-          </div>
-
+        <div>
+          <strong>ARS</strong>
+          <span>
+            Adarsh Raj Shayar / ARS Education
+          </span>
         </div>
 
-      </section>
+      </div>
 
-      <section class="contact-card">
 
-        <h2>Send a Message</h2>
+      <div class="contact-item">
 
-        <form id="contactForm" class="contact-form">
+        <div class="contact-icon">📧</div>
 
-          <div>
-            <label for="contactName">Name</label>
+        <div>
+          <strong>Email</strong>
+
+          <a
+            id="emailLink"
+            href="#"
+          >
+            Email support
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">💬</div>
+
+        <div>
+          <strong>WhatsApp</strong>
+
+          <a
+            id="whatsappLink"
+            href="#"
+            target="_blank"
+            rel="noopener"
+          >
+            WhatsApp Contact
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">📸</div>
+
+        <div>
+          <strong>Instagram</strong>
+
+          <a
+            id="instagramLink"
+            href="#"
+            target="_blank"
+            rel="noopener"
+          >
+            Instagram
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="contact-item">
+
+        <div class="contact-icon">▶️</div>
+
+        <div>
+          <strong>YouTube</strong>
+
+          <a
+            id="youtubeLink"
+            href="#"
+            target="_blank"
+            rel="noopener"
+          >
+            ARS Education
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="quick-links">
+
+        <a href="ars-ai.html">
+          🤖 ARS AI
+        </a>
+
+        <a href="certificate.html">
+          🏆 Certificates
+        </a>
+
+        <a href="ncert.html">
+          📚 ARS Education
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT FORM -->
+    <section class="contact-form">
+
+      <h2>📝 Send a Message</h2>
+
+      <form id="contactForm">
+
+        <div class="contact-form-grid">
+
+          <div class="form-group">
+
+            <label for="contactName">
+              Name
+            </label>
+
             <input
               id="contactName"
-              name="name"
               type="text"
               placeholder="Your name"
-              required>
+              required
+            >
+
           </div>
 
-          <div>
-            <label for="contactEmailInput">Email</label>
+
+          <div class="form-group">
+
+            <label for="contactEmail">
+              Email
+            </label>
+
             <input
-              id="contactEmailInput"
-              name="email"
+              id="contactEmail"
               type="email"
               placeholder="Your email"
-              required>
+              required
+            >
+
           </div>
 
-          <div>
-            <label for="contactSubject">Subject</label>
 
-            <select id="contactSubject"
-              name="subject">
+          <div class="form-group full">
 
-              <option>General Query</option>
-              <option>Certificate</option>
-              <option>Joining ARS</option>
-              <option>Publisher</option>
-              <option>Collaboration</option>
-              <option>Website Feedback</option>
-              <option>Other</option>
+            <label for="contactSubject">
+              Subject
+            </label>
+
+            <select id="contactSubject">
+
+              <option value="general">
+                General Query
+              </option>
+
+              <option value="education">
+                ARS Education
+              </option>
+
+              <option value="ai">
+                ARS AI
+              </option>
+
+              <option value="certificate">
+                Certificate
+              </option>
+
+              <option value="joining">
+                Joining / ARS
+              </option>
+
+              <option value="story">
+                Story / Shayari
+              </option>
+
+              <option value="website">
+                Website
+              </option>
+
+              <option value="suggestion">
+                Suggestion
+              </option>
 
             </select>
+
           </div>
 
-          <div>
-            <label for="contactMessage">Message</label>
+
+          <div class="form-group full">
+
+            <label for="contactMessage">
+              Message
+            </label>
 
             <textarea
               id="contactMessage"
-              name="message"
               placeholder="Write your message..."
-              required></textarea>
+              required
+            ></textarea>
+
           </div>
 
-          <button
-            class="contact-submit"
-            type="submit">
-            Send Message
-          </button>
 
-        </form>
+          <div class="form-group full">
 
-        <p class="contact-note">
-          Your email application will open with the message
-          prepared for sending.
-        </p>
+            <button
+              class="send-btn"
+              type="submit"
+            >
+              📤 Send Message
+            </button>
 
-      </section>
+          </div>
 
-    </div>
+        </div>
 
-  </div>
+      </form>
+
+
+      <div
+        class="success-message"
+        id="contactSuccess"
+      ></div>
+
+    </section>
+
+  </section>
 
 </main>
 
-<script src="config.js"></script>
-<script src="script.js"></script>
 
 <script>
+
+/* =========================================================
+   ARS CONTACT PAGE
+   ========================================================= */
+
 (function () {
+
   "use strict";
 
+
+  /* ---------------------------------------------------------
+     Config
+  --------------------------------------------------------- */
+
+  const config =
+    window.ARS_CONFIG || null;
+
+
+  const site =
+    config?.site || {};
+
+
+  const social =
+    config?.social || {};
+
+
+  /* ---------------------------------------------------------
+     Safe link helper
+  --------------------------------------------------------- */
+
+  function setLink(id, url, fallbackText) {
+
+    const element =
+      document.getElementById(id);
+
+    if (!element) return;
+
+
+    if (url) {
+
+      element.href = url;
+
+      element.style.display =
+        "inline";
+
+    } else {
+
+      element.removeAttribute("href");
+
+      element.textContent =
+        fallbackText +
+        " — link not configured";
+
+      element.style.opacity =
+        "0.6";
+
+    }
+
+  }
+
+
+  /* ---------------------------------------------------------
+     Email
+  --------------------------------------------------------- */
+
+  const email =
+    site.email || "";
+
+
+  const emailLink =
+    document.getElementById(
+      "emailLink"
+    );
+
+
+  if (emailLink) {
+
+    if (email) {
+
+      emailLink.href =
+        "mailto:" + email;
+
+      emailLink.textContent =
+        email;
+
+    } else {
+
+      emailLink.textContent =
+        "Email will be added soon";
+
+      emailLink.removeAttribute(
+        "href"
+      );
+
+    }
+
+  }
+
+
+  /* ---------------------------------------------------------
+     Social Links
+  --------------------------------------------------------- */
+
+  setLink(
+    "whatsappLink",
+    social.whatsapp,
+    "WhatsApp"
+  );
+
+
+  setLink(
+    "instagramLink",
+    social.instagram,
+    "Instagram"
+  );
+
+
+  setLink(
+    "youtubeLink",
+    social.youtube,
+    "YouTube"
+  );
+
+
+  /* ---------------------------------------------------------
+     Contact Form
+  --------------------------------------------------------- */
+
   const form =
-    document.getElementById("contactForm");
+    document.getElementById(
+      "contactForm"
+    );
+
+
+  const success =
+    document.getElementById(
+      "contactSuccess"
+    );
+
 
   if (!form) return;
 
-  form.addEventListener("submit", function (event) {
 
-    event.preventDefault();
+  form.addEventListener(
+    "submit",
+    function (event) {
 
-    const name =
-      document.getElementById("contactName").value.trim();
+      event.preventDefault();
 
-    const email =
-      document.getElementById("contactEmailInput").value.trim();
 
-    const subject =
-      document.getElementById("contactSubject").value;
+      const name =
+        document.getElementById(
+          "contactName"
+        ).value.trim();
 
-    const message =
-      document.getElementById("contactMessage").value.trim();
 
-    const configuredEmail =
-      window.ARS_CONFIG &&
-      window.ARS_CONFIG.contact &&
-      window.ARS_CONFIG.contact.email;
+      const email =
+        document.getElementById(
+          "contactEmail"
+        ).value.trim();
 
-    if (!configuredEmail) {
 
-      if (window.ARS && window.ARS.showToast) {
-        window.ARS.showToast(
-          "Contact email is not configured yet."
+      const subject =
+        document.getElementById(
+          "contactSubject"
+        ).value;
+
+
+      const message =
+        document.getElementById(
+          "contactMessage"
+        ).value.trim();
+
+
+      if (
+        !name ||
+        !email ||
+        !message
+      ) {
+
+        alert(
+          "Please fill all required fields."
         );
+
+        return;
+
       }
 
-      alert(
-        "Contact email is not configured in config.js yet."
+
+      /*
+        Temporary local storage.
+
+        Final production version:
+        Contact form → Backend API → Database
+      */
+
+      const contactData = {
+
+        id:
+          "ARS-MSG-" +
+          Date.now(),
+
+        name: name,
+
+        email: email,
+
+        subject: subject,
+
+        message: message,
+
+        createdAt:
+          new Date().toISOString(),
+
+        status: "new"
+
+      };
+
+
+      let messages = [];
+
+
+      try {
+
+        messages =
+          JSON.parse(
+            localStorage.getItem(
+              "ARS_CONTACT_MESSAGES"
+            ) || "[]"
+          );
+
+      } catch (error) {
+
+        messages = [];
+
+      }
+
+
+      messages.push(contactData);
+
+
+      localStorage.setItem(
+        "ARS_CONTACT_MESSAGES",
+        JSON.stringify(messages)
       );
 
-      return;
+
+      success.innerHTML = `
+        <strong>✅ Message saved successfully.</strong><br>
+        Thank you, ${name}. Your message has been recorded.
+        <br><br>
+        Message ID:
+        <strong>${contactData.id}</strong>
+      `;
+
+
+      success.classList.add(
+        "show"
+      );
+
+
+      form.reset();
+
     }
-
-    const body =
-      `Name: ${name}\n` +
-      `Email: ${email}\n\n` +
-      `Message:\n${message}`;
-
-    const mailto =
-      `mailto:${configuredEmail}` +
-      `?subject=${encodeURIComponent(
-        "[ARS Official] " + subject
-      )}` +
-      `&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-
-  });
+  );
 
 })();
+
 </script>
 
 </body>
