@@ -1,472 +1,431 @@
 /* =========================================================
-   ARS OFFICIAL — VERIFY STORAGE
-   Handles certificate + joining certificate verification
+   ARS OFFICIAL
+   VERIFY STORAGE ENGINE
+   Version: 5.0.0
    ========================================================= */
 
 (function () {
   "use strict";
 
-  const STORAGE_PREFIX = "ARS_";
+  const CERT_KEY = "ARS_CERTIFICATE_APPLICATIONS";
+  const JOIN_KEY = "ARS_JOINING_APPLICATIONS";
 
   /* ---------------------------------------------------------
-     STORAGE HELPERS
+     Safe JSON helpers
      --------------------------------------------------------- */
 
-  function makeKey(id) {
-    return STORAGE_PREFIX + String(id).trim();
-  }
-
-  function getStoredRecord(id) {
-    if (!id) return null;
-
-    const cleanId = String(id).trim();
-
-    /* Direct ARS key */
+  function read(key, fallback = []) {
     try {
-      const direct =
-        localStorage.getItem(makeKey(cleanId));
+      const value = localStorage.getItem(key);
 
-      if (direct) {
-        return parseRecord(direct);
-      }
-    } catch (_) {}
+      if (!value) return fallback;
 
-    /* Search all ARS records */
-    try {
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
+      const parsed = JSON.parse(value);
 
-        if (!key || !key.startsWith(STORAGE_PREFIX)) {
-          continue;
-        }
-
-        const raw = localStorage.getItem(key);
-        const record = parseRecord(raw);
-
-        if (!record) continue;
-
-        const possibleIds = [
-          record.id,
-          record.certificateId,
-          record.certificateID,
-          record.certificate_id,
-          record.joiningId,
-          record.joiningID,
-          record.joining_id,
-          record.uniqueId,
-          record.uniqueID
-        ];
-
-        if (
-          possibleIds.some(
-            value =>
-              value &&
-              String(value).trim().toLowerCase() ===
-                cleanId.toLowerCase()
-          )
-        ) {
-          return record;
-        }
-      }
-    } catch (_) {}
-
-    return null;
-  }
-
-  function parseRecord(raw) {
-    if (!raw) return null;
-
-    try {
-      const parsed = JSON.parse(raw);
-
-      if (
-        parsed &&
-        typeof parsed === "object"
-      ) {
-        return parsed;
-      }
-
-      return null;
-
-    } catch (_) {
-      return null;
+      return parsed ?? fallback;
+    } catch (error) {
+      console.error("ARS Storage Read Error:", error);
+      return fallback;
     }
   }
 
+  function write(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      console.error("ARS Storage Write Error:", error);
+      return false;
+    }
+  }
+
+
   /* ---------------------------------------------------------
-     NORMALIZE RECORD
+     Normalize ID
      --------------------------------------------------------- */
 
-  function normalizeRecord(record, searchedId) {
-    if (!record) return null;
+  function normalizeId(id) {
+    return String(id || "")
+      .trim()
+      .toUpperCase();
+  }
 
-    const typeText = String(
-      record.type ||
-      record.certificateType ||
-      record.documentType ||
-      record.kind ||
-      ""
+
+  /* ---------------------------------------------------------
+     Get Certificate Applications
+     --------------------------------------------------------- */
+
+  function getCertificates() {
+    const data = read(CERT_KEY, []);
+
+    return Array.isArray(data) ? data : [];
+  }
+
+
+  /* ---------------------------------------------------------
+     Get Joining Applications
+     --------------------------------------------------------- */
+
+  function getJoiningApplications() {
+    const data = read(JOIN_KEY, []);
+
+    return Array.isArray(data) ? data : [];
+  }
+
+
+  /* ---------------------------------------------------------
+     Find Normal Certificate
+     --------------------------------------------------------- */
+
+  function findNormalCertificate(id) {
+
+    const searchId = normalizeId(id);
+
+    if (!searchId) return null;
+
+    const certificates = getCertificates();
+
+    return certificates.find(item => {
+
+      const certificateId = normalizeId(
+        item.certificateId ||
+        item.certificateID ||
+        item.id ||
+        item.verifyId
+      );
+
+      return certificateId === searchId;
+
+    }) || null;
+  }
+
+
+  /* ---------------------------------------------------------
+     Find Joining Application
+     --------------------------------------------------------- */
+
+  function findJoiningApplication(id) {
+
+    const searchId = normalizeId(id);
+
+    if (!searchId) return null;
+
+    const applications = getJoiningApplications();
+
+    return applications.find(item => {
+
+      const joiningId = normalizeId(
+        item.joiningId ||
+        item.joiningID ||
+        item.applicationId ||
+        item.id ||
+        item.verifyId
+      );
+
+      return joiningId === searchId;
+
+    }) || null;
+  }
+
+
+  /* ---------------------------------------------------------
+     Certificate Status
+     --------------------------------------------------------- */
+
+  function isCertificateApproved(certificate) {
+
+    if (!certificate) return false;
+
+    const status = String(
+      certificate.status || ""
     ).toLowerCase();
 
-    const isJoining =
-      typeText.includes("joining") ||
-      typeText.includes("join");
+    /*
+      Normal certificates should be immediately valid.
+      Older records with approved/issued status are also valid.
+    */
 
-    return {
-      id:
-        record.id ||
-        record.certificateId ||
-        record.certificateID ||
-        record.joiningId ||
-        record.joiningID ||
-        searchedId,
+    if (
+      status === "approved" ||
+      status === "issued" ||
+      status === "valid" ||
+      status === "active"
+    ) {
+      return true;
+    }
 
-      name:
-        record.name ||
-        record.fullName ||
-        record.recipientName ||
-        record.studentName ||
-        record.ownerName ||
-        "—",
+    /*
+      If certificate is a normal certificate and has no
+      explicit pending/rejected status, treat it as issued.
+    */
 
-      type:
-        isJoining
-          ? "Joining Certificate"
-          : (
-              record.type ||
-              record.certificateType ||
-              "Certificate"
-            ),
+    const type = String(
+      certificate.type ||
+      certificate.certificateType ||
+      "normal"
+    ).toLowerCase();
 
-      category:
-        record.category ||
-        record.certificateCategory ||
-        record.position ||
-        "—",
+    if (
+      type !== "joining" &&
+      type !== "joining certificate"
+    ) {
+      if (
+        status !== "pending" &&
+        status !== "rejected" &&
+        status !== "declined"
+      ) {
+        return true;
+      }
+    }
 
-      issuer:
-        record.issuer ||
-        record.issuedBy ||
-        record.organization ||
-        "ARS Official",
-
-      issueDate:
-        record.issueDate ||
-        record.date ||
-        record.issuedOn ||
-        record.createdAt ||
-        "—",
-
-      status:
-        record.status ||
-        "VALID",
-
-      message:
-        record.message ||
-        record.description ||
-        "",
-
-      raw: record
-    };
+    return false;
   }
 
+
   /* ---------------------------------------------------------
-     VERIFY
+     Joining Status
      --------------------------------------------------------- */
 
-  function verify(id) {
-    const cleanId =
-      String(id || "").trim();
+  function isJoiningApproved(application) {
 
-    if (!cleanId) {
+    if (!application) return false;
+
+    const status = String(
+      application.status || ""
+    ).toLowerCase();
+
+    return (
+      status === "approved" ||
+      status === "issued" ||
+      status === "valid" ||
+      status === "active"
+    );
+  }
+
+
+  /* ---------------------------------------------------------
+     Verify Normal Certificate
+     --------------------------------------------------------- */
+
+  function verifyNormalCertificate(id) {
+
+    const certificate = findNormalCertificate(id);
+
+    if (!certificate) {
+
       return {
         success: false,
-        valid: false,
-        message: "Please enter a valid ID."
+        found: false,
+        type: "normal",
+        message: "Certificate not found."
       };
+
     }
 
-    const record =
-      getStoredRecord(cleanId);
+    if (!isCertificateApproved(certificate)) {
 
-    if (!record) {
       return {
-        success: true,
-        valid: false,
-        id: cleanId,
-        message:
-          "No certificate or joining certificate found for this ID."
+        success: false,
+        found: true,
+        type: "normal",
+        status: certificate.status || "pending",
+        data: certificate,
+        message: "Certificate is not currently valid."
       };
-    }
 
-    const normalized =
-      normalizeRecord(
-        record,
-        cleanId
-      );
+    }
 
     return {
       success: true,
-      valid: true,
-      id: cleanId,
-      data: normalized,
-      message:
-        "Document verified successfully."
+      found: true,
+      verified: true,
+      type: "normal",
+      status: certificate.status || "issued",
+      data: certificate,
+      message: "Certificate verified successfully."
     };
   }
 
+
   /* ---------------------------------------------------------
-     DISPLAY RESULT
+     Verify Joining Certificate
      --------------------------------------------------------- */
 
-  function displayResult(result, container) {
-    if (!container) return;
+  function verifyJoiningCertificate(id) {
 
-    if (!result.valid) {
+    const application = findJoiningApplication(id);
 
-      container.innerHTML = `
-        <div class="verify-result verify-invalid">
-          <div class="verify-icon">✕</div>
+    if (!application) {
 
-          <h3>Verification Failed</h3>
+      return {
+        success: false,
+        found: false,
+        type: "joining",
+        message: "Joining certificate not found."
+      };
 
-          <p>
-            ${escapeHTML(result.message)}
-          </p>
-
-          ${
-            result.id
-              ? `
-                <small>
-                  ID: ${escapeHTML(result.id)}
-                </small>
-              `
-              : ""
-          }
-        </div>
-      `;
-
-      return;
     }
 
-    const data = result.data;
+    /*
+      Joining certificates require admin approval.
+    */
 
-    container.innerHTML = `
-      <div class="verify-result verify-valid">
+    if (!isJoiningApproved(application)) {
 
-        <div class="verify-icon">✓</div>
+      return {
+        success: false,
+        found: true,
+        verified: false,
+        type: "joining",
+        status: application.status || "pending",
+        data: application,
+        message:
+          "Joining certificate is awaiting approval."
+      };
 
-        <h3>Verified Successfully</h3>
+    }
 
-        <p class="verify-status">
-          This document is registered with ARS Official.
-        </p>
-
-        <div class="verify-details">
-
-          <div class="verify-row">
-            <span>Document ID</span>
-            <strong>
-              ${escapeHTML(data.id)}
-            </strong>
-          </div>
-
-          <div class="verify-row">
-            <span>Name</span>
-            <strong>
-              ${escapeHTML(data.name)}
-            </strong>
-          </div>
-
-          <div class="verify-row">
-            <span>Document Type</span>
-            <strong>
-              ${escapeHTML(data.type)}
-            </strong>
-          </div>
-
-          <div class="verify-row">
-            <span>Category</span>
-            <strong>
-              ${escapeHTML(data.category)}
-            </strong>
-          </div>
-
-          <div class="verify-row">
-            <span>Issued By</span>
-            <strong>
-              ${escapeHTML(data.issuer)}
-            </strong>
-          </div>
-
-          <div class="verify-row">
-            <span>Issue Date</span>
-            <strong>
-              ${escapeHTML(data.issueDate)}
-            </strong>
-          </div>
-
-          <div class="verify-row">
-            <span>Status</span>
-            <strong class="verify-valid-text">
-              ${escapeHTML(data.status)}
-            </strong>
-          </div>
-
-        </div>
-
-        ${
-          data.message
-            ? `
-              <p class="verify-message">
-                ${escapeHTML(data.message)}
-              </p>
-            `
-            : ""
-        }
-
-      </div>
-    `;
+    return {
+      success: true,
+      found: true,
+      verified: true,
+      type: "joining",
+      status: application.status || "approved",
+      data: application,
+      message:
+        "Joining certificate verified successfully."
+    };
   }
 
+
   /* ---------------------------------------------------------
-     FORM INITIALIZATION
+     AUTO VERIFY
      --------------------------------------------------------- */
 
-  function initVerification() {
+  function verifyAny(id) {
 
-    const form =
-      document.querySelector(
-        "[data-verify-form]"
-      ) ||
-      document.getElementById(
-        "verifyForm"
-      );
+    const searchId = normalizeId(id);
 
-    const input =
-      document.querySelector(
-        "[data-verify-id]"
-      ) ||
-      document.getElementById(
-        "verifyId"
-      ) ||
-      document.getElementById(
-        "certificateId"
-      );
+    if (!searchId) {
 
-    const resultBox =
-      document.querySelector(
-        "[data-verify-result]"
-      ) ||
-      document.getElementById(
-        "verifyResult"
-      );
+      return {
+        success: false,
+        found: false,
+        message: "Please enter a certificate ID."
+      };
 
-    if (!form || !input) return;
+    }
 
-    form.addEventListener(
-      "submit",
-      function (event) {
 
-        event.preventDefault();
+    /* First: Normal Certificate */
 
-        const id =
-          input.value.trim();
+    const normal = verifyNormalCertificate(searchId);
 
-        const result =
-          verify(id);
+    if (normal.found) {
+      return normal;
+    }
 
-        if (resultBox) {
-          displayResult(
-            result,
-            resultBox
-          );
-        }
 
-        if (window.ARS?.showToast) {
-          window.ARS.showToast(
-            result.valid
-              ? "Document verified ✓"
-              : "Document not found"
-          );
-        }
-      }
-    );
+    /* Second: Joining Certificate */
 
-    /* -------------------------------------------------------
-       Auto verify from URL:
-       verify.html?id=ARS-CERT-XXXX
-       ------------------------------------------------------- */
+    const joining = verifyJoiningCertificate(searchId);
+
+    if (joining.found) {
+      return joining;
+    }
+
+
+    /* Nothing found */
+
+    return {
+      success: false,
+      found: false,
+      verified: false,
+      type: "unknown",
+      message:
+        "No certificate or joining record was found for this ID."
+    };
+  }
+
+
+  /* ---------------------------------------------------------
+     Format Date
+     --------------------------------------------------------- */
+
+  function formatDate(value) {
+
+    if (!value) return "—";
 
     try {
 
-      const params =
-        new URLSearchParams(
-          window.location.search
-        );
+      const date = new Date(value);
 
-      const urlId =
-        params.get("id") ||
-        params.get("certificate") ||
-        params.get("certificateId");
-
-      if (urlId) {
-
-        input.value = urlId;
-
-        const result =
-          verify(urlId);
-
-        if (resultBox) {
-          displayResult(
-            result,
-            resultBox
-          );
-        }
+      if (Number.isNaN(date.getTime())) {
+        return String(value);
       }
 
-    } catch (_) {}
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      });
+
+    } catch (error) {
+      return String(value);
+    }
   }
 
-  /* ---------------------------------------------------------
-     ESCAPE HTML
-     --------------------------------------------------------- */
-
-  function escapeHTML(value) {
-    return String(value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
 
   /* ---------------------------------------------------------
-     GLOBAL ARS API
+     Public API
      --------------------------------------------------------- */
 
-  window.ARS = window.ARS || {};
+  window.ARS_VERIFY_STORAGE = {
 
-  window.ARS.verifyStorage = {
-    verify,
-    find: getStoredRecord,
-    normalize: normalizeRecord,
-    display: displayResult
+    read,
+
+    write,
+
+    normalizeId,
+
+    getCertificates,
+
+    getJoiningApplications,
+
+    findNormalCertificate,
+
+    findJoiningApplication,
+
+    verifyNormalCertificate,
+
+    verifyJoiningCertificate,
+
+    verifyAny,
+
+    formatDate
+
   };
 
+
   /* ---------------------------------------------------------
-     START
+     Compatibility API
      --------------------------------------------------------- */
 
-  if (
-    document.readyState === "loading"
-  ) {
-    document.addEventListener(
-      "DOMContentLoaded",
-      initVerification
-    );
-  } else {
-    initVerification();
-  }
+  window.ARS_VERIFY = {
+
+    verify: verifyAny,
+
+    verifyAny: verifyAny,
+
+    normal: verifyNormalCertificate,
+
+    joining: verifyJoiningCertificate,
+
+    findCertificate: findNormalCertificate,
+
+    findJoining: findJoiningApplication
+
+  };
+
 
 })();
