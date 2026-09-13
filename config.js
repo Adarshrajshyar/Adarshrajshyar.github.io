@@ -1,475 +1,322 @@
 /* =========================================================
-   ARS WEBSITE CONFIGURATION
-   File: config.js
-
-   IMPORTANT:
-   - यहां कोई password, API secret या private key मत डालना।
-   - Public frontend में केवल safe configuration रखें।
-   - Real AI/API/database keys बाद में secure backend में रहेंगी।
+   ARS OFFICIAL — MASTER CONFIGURATION
+   Founder: Adarsh Raj
+   Website: Adarsh Raj Shayar
    ========================================================= */
 
 const ARS_CONFIG = {
+  VERSION: "6.0.0",
 
-  /* -----------------------------
-     Website
-  ----------------------------- */
-
-  site: {
-    name: "ARS",
-    fullName: "ARS Education",
-    founder: "Adarsh Raj",
-    website:
-      "https://adarshrajshyar.github.io/",
-
-    email: "",
-
-    language: "hi",
-
-    defaultTheme: "system"
+  BRAND: {
+    NAME: "ARS Official",
+    SHORT_NAME: "ARS",
+    FOUNDER: "Adarsh Raj",
+    TITLE: "Adarsh Raj Shayar",
+    TAGLINE: "शब्दों से पहचान, ज्ञान से उड़ान।",
+    DESCRIPTION:
+      "ARS Official — Shayari, Stories, Poetry, Education, Certificates and more.",
   },
 
-
-  /* -----------------------------
-     Education
-  ----------------------------- */
-
-  education: {
-
-    classes: [
-      5,
-      6,
-      7,
-      8
-    ],
-
-    subjects: [
-      "Mathematics",
-      "Science",
-      "Hindi",
-      "English",
-      "Social Science",
-      "GK"
-    ],
-
-    sections: [
-      "NCERT",
-      "Maths",
-      "GK",
-      "Notes",
-      "MCQ",
-      "Practice",
-      "Exam Tips",
-      "Navodaya",
-      "Sainik School",
-      "RMS",
-      "Resources"
-    ],
-
-    entranceExams: [
-      "Navodaya Class 6",
-      "Sainik School Class 6",
-      "RMS Class 6"
-    ]
-
+  WEBSITE: {
+    NAME: "ARS Official",
+    URL: "https://adarshrajshyar.github.io/",
+    LANGUAGE: "hi",
+    TIMEZONE: "Asia/Kolkata",
   },
 
-
-  /* -----------------------------
-     ARS Education limits
-  ----------------------------- */
-
-  contentRules: {
-
-    ncertClasses: [
-      5,
-      6,
-      7,
-      8
-    ],
-
-    entrancePreparationClass: 6,
-
-    firstFlightBookEnabled: false
-
+  FOUNDER: {
+    NAME: "Adarsh Raj",
+    ROLE: "Founder of ARS Official",
+    PHOTO: "photo.jpg1.jpeg",
+    SIGNATURE: "signature.jpg",
   },
 
+  SOCIAL: {
+    WHATSAPP_GK:
+      "https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e",
+  },
 
-  /* -----------------------------
-     Certificate
-  ----------------------------- */
+  STORAGE: {
+    PREFIX: "ARS_",
+    VERSION: "1",
+  },
 
-  certificate: {
+  NAVIGATION: {
+    HOME: "index.html",
+    FOUNDER: "founder.html",
+    SHAYARI: "shayari.html",
+    STORIES: "stories.html",
+    EDUCATION: "education.html",
+    FIRST_FLIGHT: "first-flight.html",
+    ARS_AI: "ars-ai.html",
+    JOINING: "joining.html",
+    JOINING_CERTIFICATE: "joining-certificate.html",
+    CERTIFICATE: "certificate.html",
+    VERIFY: "verify.html",
+    CONTACT: "contact.html",
+    PUBLISHER: "publisher.html",
+    EDUCATION_PUBLISHER: "education-publisher.html",
+    ADMIN: "admin.html",
+    POLICY: "policy.html",
+  },
 
-    enabled: true,
+  SHAYARI: {
+    CATEGORIES: [
+      {
+        id: "love",
+        name: "Love",
+        hindi: "प्रेम",
+      },
+      {
+        id: "sad",
+        name: "Sad",
+        hindi: "दर्द",
+      },
+      {
+        id: "motivational",
+        name: "Motivational",
+        hindi: "प्रेरणादायक",
+      },
+      {
+        id: "friendship",
+        name: "Friendship",
+        hindi: "दोस्ती",
+      },
+      {
+        id: "attitude",
+        name: "Attitude",
+        hindi: "एटीट्यूड",
+      },
+    ],
+  },
 
-    types: [
+  STORIES: {
+    CATEGORIES: [
+      {
+        id: "mystery",
+        name: "Mystery",
+        hindi: "रहस्य",
+      },
+      {
+        id: "horror",
+        name: "Horror",
+        hindi: "हॉरर",
+      },
+      {
+        id: "biography",
+        name: "Biography",
+        hindi: "जीवनी",
+      },
+      {
+        id: "life",
+        name: "Life",
+        hindi: "जीवन",
+      },
+      {
+        id: "inspiration",
+        name: "Inspiration",
+        hindi: "प्रेरणा",
+      },
+      {
+        id: "motivation",
+        name: "Motivation",
+        hindi: "प्रेरक",
+      },
+      {
+        id: "friendship",
+        name: "Friendship",
+        hindi: "दोस्ती",
+      },
+      {
+        id: "dream",
+        name: "Dream",
+        hindi: "सपने",
+      },
+      {
+        id: "education",
+        name: "Education",
+        hindi: "शिक्षा",
+      },
+      {
+        id: "general",
+        name: "General",
+        hindi: "सामान्य",
+      },
+    ],
+  },
+
+  EDUCATION: {
+    CLASSES: [5, 6, 7, 8],
+
+    ENTRANCE_EXAMS: [
+      {
+        id: "navodaya",
+        name: "Jawahar Navodaya Vidyalaya",
+        shortName: "Navodaya",
+        classLevel: 6,
+        page: "navodaya.html",
+      },
+      {
+        id: "sainik-school",
+        name: "Sainik School",
+        shortName: "Sainik School",
+        classLevel: 6,
+        page: "sainik-school.html",
+      },
+      {
+        id: "rms",
+        name: "Rashtriya Military Schools",
+        shortName: "RMS",
+        classLevel: 6,
+        page: "rms.html",
+      },
+    ],
+  },
+
+  CERTIFICATE: {
+    TYPES: [
+      {
+        id: "education",
+        name: "Education Certificate",
+      },
+      {
+        id: "achievement",
+        name: "Achievement Certificate",
+      },
+      {
+        id: "participation",
+        name: "Participation Certificate",
+      },
+      {
+        id: "appreciation",
+        name: "Appreciation Certificate",
+      },
+      {
+        id: "other",
+        name: "Other",
+      },
+    ],
+
+    ID_PREFIX: "ARS-CERT",
+    JOINING_ID_PREFIX: "ARS-JOIN",
+  },
+
+  JOINING: {
+    STATUS: {
+      PENDING: "pending",
+      APPROVED: "approved",
+      REJECTED: "rejected",
+    },
+  },
+
+  PUBLISHER: {
+    CONTENT_TYPES: [
+      "shayari",
+      "story",
+      "poetry",
       "education",
-      "achievement",
-      "participation"
     ],
 
-    prefix: "ARS-CERT-",
-
-    joiningPrefix: "ARS-JOIN-",
-
-    approvalRequired: true,
-
-    joiningCertificateAfterApproval: true,
-
-    verificationPage:
-      "verify.html"
-
-  },
-
-
-  /* -----------------------------
-     ARS AI
-  ----------------------------- */
-
-  ai: {
-
-    enabled: true,
-
-    name: "ARS AI",
-
-    mode: "education",
-
-    supportedClasses: [
-      5,
-      6,
-      7,
-      8
-    ],
-
-    topics: [
-      "NCERT",
-      "Mathematics",
-      "Science",
-      "GK",
-      "MCQ",
-      "Practice",
-      "Exam Tips",
-      "Navodaya",
-      "Sainik School",
-      "RMS"
-    ],
-
-    /*
-      अभी frontend demo/local mode.
-      Production AI API बाद में backend से connect होगी.
-    */
-
-    useBackend: false,
-
-    apiEndpoint: "/api/ai"
-
-  },
-
-
-  /* -----------------------------
-     Backend
-  ----------------------------- */
-
-  backend: {
-
-    enabled: false,
-
-    baseURL: "",
-
-    apiVersion: "v1",
-
-    endpoints: {
-
-      health:
-        "/api/health",
-
-      ai:
-        "/api/ai",
-
-      certificates:
-        "/api/certificates",
-
-      certificateVerify:
-        "/api/certificates/verify",
-
-      joiningCertificates:
-        "/api/joining-certificates",
-
-      stories:
-        "/api/stories",
-
-      education:
-        "/api/education",
-
-      resources:
-        "/api/resources"
-
-    }
-
-  },
-
-
-  /* -----------------------------
-     Database
-  ----------------------------- */
-
-  database: {
-
-    enabled: false,
-
-    mode: "local",
-
-    /*
-      localStorage अभी development/testing के लिए है.
-
-      Final production website में database credentials
-      frontend में नहीं रखे जाएंगे.
-    */
-
-    storageKeyPrefix:
-      "ARS_"
-
-  },
-
-
-  /* -----------------------------
-     Publisher
-  ----------------------------- */
-
-  publisher: {
-
-    enabled: true,
-
-    features: [
-      "create",
-      "edit",
-      "delete",
-      "publish",
-      "unpublish",
+    STATUS: [
       "draft",
-      "search"
+      "published",
+      "unpublished",
     ],
-
-    contentTypes: [
-      "stories",
-      "education",
-      "notes",
-      "mcq",
-      "practice",
-      "resources"
-    ]
-
   },
 
-
-  /* -----------------------------
-     Admin
-  ----------------------------- */
-
-  admin: {
-
-    enabled: true,
-
-    approvalFeatures: [
-      "certificate",
-      "joining_certificate",
-      "publisher_content"
-    ],
-
-    /*
-      Admin password यहां कभी भी hard-code नहीं करना.
-      Authentication backend पर होगी.
-    */
-
-    authentication:
-      "backend"
-
+  FEATURES: {
+    LIKES: true,
+    FAVORITES: true,
+    COPY: true,
+    SHARE: true,
+    SEARCH: true,
+    DARK_MODE: true,
+    CERTIFICATE_QR: true,
+    CERTIFICATE_VERIFY: true,
+    JOINING_APPROVAL: true,
+    EDUCATION_PORTAL: true,
+    ARS_AI: true,
   },
 
-
-  /* -----------------------------
-     Navigation
-  ----------------------------- */
-
-  navigation: {
-
-    main: [
-      {
-        name: "Home",
-        page: "index.html"
-      },
-
-      {
-        name: "ARS Education",
-        page: "ncert.html"
-      },
-
-      {
-        name: "ARS AI",
-        page: "ars-ai.html"
-      },
-
-      {
-        name: "Stories",
-        page: "stories.html"
-      },
-
-      {
-        name: "Certificates",
-        page: "certificate.html"
-      },
-
-      {
-        name: "About",
-        page: "founder.html"
-      },
-
-      {
-        name: "Contact",
-        page: "contact.html"
-      }
-    ]
-
+  MESSAGES: {
+    WELCOME: "ARS Official में आपका स्वागत है।",
+    SAVED: "सफलतापूर्वक सेव किया गया।",
+    COPIED: "कॉपी हो गया।",
+    SHARED: "शेयर किया जा रहा है।",
+    ERROR: "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
   },
-
-
-  /* -----------------------------
-     First Flight
-  ----------------------------- */
-
-  firstFlight: {
-
-    enabled: true,
-
-    title: "मेरी पहली उड़ान",
-
-    page:
-      "first-flight.html",
-
-    status:
-      "coming-soon",
-
-    /*
-      Book पूरा होने के बाद इसे true किया जा सकता है.
-    */
-
-    published: false
-
-  },
-
-
-  /* -----------------------------
-     Social / External Links
-  ----------------------------- */
-
-  social: {
-
-    whatsapp: "",
-
-    youtube: "",
-
-    instagram: "",
-
-    facebook: "",
-
-    telegram: ""
-
-  },
-
-
-  /* -----------------------------
-     Feature flags
-  ----------------------------- */
-
-  features: {
-
-    darkMode: true,
-
-    favorites: true,
-
-    save: true,
-
-    share: true,
-
-    copy: true,
-
-    search: true,
-
-    bookmarks: true,
-
-    notifications: false,
-
-    offlineMode: true
-
-  }
-
 };
 
 
-/* =========================================================
+/* ---------------------------------------------------------
+   Backward-compatible global aliases
+   --------------------------------------------------------- */
+
+const CONFIG = ARS_CONFIG;
+
+const ARS = ARS_CONFIG;
+
+
+/* ---------------------------------------------------------
    Safe global access
-   ========================================================= */
+   --------------------------------------------------------- */
 
-window.ARS_CONFIG = ARS_CONFIG;
-
-
-/* =========================================================
-   Helper functions
-   ========================================================= */
-
-window.ARS_CONFIG_HELPER = {
-
-  getSiteName: function () {
-    return ARS_CONFIG.site.fullName;
-  },
+if (typeof window !== "undefined") {
+  window.ARS_CONFIG = ARS_CONFIG;
+  window.CONFIG = ARS_CONFIG;
+  window.ARS = ARS_CONFIG;
+}
 
 
-  getClasses: function () {
-    return ARS_CONFIG.education.classes;
-  },
+/* ---------------------------------------------------------
+   Utility helpers
+   --------------------------------------------------------- */
 
+function arsGetConfig(path, fallback = null) {
+  try {
+    if (!path) return ARS_CONFIG;
 
-  getSubjects: function () {
-    return ARS_CONFIG.education.subjects;
-  },
+    const parts = path.split(".");
+    let value = ARS_CONFIG;
 
+    for (const part of parts) {
+      if (value == null || !(part in value)) {
+        return fallback;
+      }
 
-  isFeatureEnabled: function (feature) {
-    return Boolean(
-      ARS_CONFIG.features[feature]
-    );
-  },
-
-
-  isCertificateApprovalRequired: function () {
-    return Boolean(
-      ARS_CONFIG.certificate.approvalRequired
-    );
-  },
-
-
-  isJoiningCertificateAllowed: function () {
-    return Boolean(
-      ARS_CONFIG.certificate.approvalRequired &&
-      ARS_CONFIG.certificate.joiningCertificateAfterApproval
-    );
-  },
-
-
-  getAPI: function (name) {
-
-    if (
-      !ARS_CONFIG.backend ||
-      !ARS_CONFIG.backend.endpoints
-    ) {
-      return "";
+      value = value[part];
     }
 
-    return (
-      ARS_CONFIG.backend.baseURL +
-      ARS_CONFIG.backend.endpoints[name]
-    );
-
+    return value;
+  } catch (error) {
+    console.error("ARS Config Error:", error);
+    return fallback;
   }
+}
 
-};
+
+function arsGetYear() {
+  return new Date().getFullYear();
+}
+
+
+function arsGetFounderName() {
+  return ARS_CONFIG.FOUNDER.NAME;
+}
+
+
+function arsGetWebsiteUrl() {
+  return ARS_CONFIG.WEBSITE.URL;
+}
+
+
+/* ---------------------------------------------------------
+   Export helpers
+   --------------------------------------------------------- */
+
+if (typeof window !== "undefined") {
+  window.arsGetConfig = arsGetConfig;
+  window.arsGetYear = arsGetYear;
+  window.arsGetFounderName = arsGetFounderName;
+  window.arsGetWebsiteUrl = arsGetWebsiteUrl;
+}
