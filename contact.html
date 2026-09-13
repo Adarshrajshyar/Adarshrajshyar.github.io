@@ -1,716 +1,753 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Contact ARS | ARS Education</title>
+  <title>Contact | ARS Official</title>
 
   <meta
     name="description"
-    content="Contact ARS Education and Adarsh Raj Shayar."
+    content="ARS Official से संपर्क करें — सुझाव, प्रश्न, सहयोग और अन्य जानकारी के लिए।"
   >
 
+  <meta name="author" content="Adarsh Raj">
+  <meta name="theme-color" content="#111827">
+
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .contact-page {
-      max-width: 1100px;
-      margin: auto;
-      padding: 25px 16px 60px;
-    }
-
-    .contact-hero {
-      text-align: center;
-      padding: 42px 20px;
-      border-radius: 26px;
-      color: #fff;
-      background: linear-gradient(
-        135deg,
-        #312e81,
-        #4f46e5,
-        #0891b2
-      );
-      box-shadow: 0 14px 35px rgba(0,0,0,.15);
-      margin-bottom: 25px;
-    }
-
-    .contact-hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(30px,5vw,48px);
-    }
-
-    .contact-hero p {
-      max-width: 700px;
-      margin: auto;
-      line-height: 1.6;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 20px;
-    }
-
-    .contact-card,
-    .contact-form {
-      padding: 25px;
-      border-radius: 22px;
-      background: var(--card-bg,#fff);
-      border: 1px solid rgba(128,128,128,.2);
-      box-shadow: 0 8px 25px rgba(0,0,0,.07);
-    }
-
-    .contact-card h2,
-    .contact-form h2 {
-      margin-top: 0;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 13px;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(128,128,128,.15);
-    }
-
-    .contact-item:last-child {
-      border-bottom: 0;
-    }
-
-    .contact-icon {
-      font-size: 24px;
-    }
-
-    .contact-item strong {
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .contact-item a {
-      color: #4f46e5;
-      text-decoration: none;
-      word-break: break-word;
-    }
-
-    .contact-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .form-group.full {
-      grid-column: 1/-1;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 12px;
-      border-radius: 11px;
-      border: 1px solid rgba(128,128,128,.3);
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      outline: none;
-    }
-
-    .form-group textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    .send-btn {
-      border: 0;
-      padding: 12px 20px;
-      border-radius: 11px;
-      cursor: pointer;
-      color: #fff;
-      background: #4f46e5;
-      font-weight: 700;
-    }
-
-    .success-message {
-      display: none;
-      margin-top: 15px;
-      padding: 13px;
-      border-radius: 12px;
-      background: rgba(34,197,94,.1);
-    }
-
-    .success-message.show {
-      display: block;
-    }
-
-    .quick-links {
-      margin-top: 22px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .quick-links a {
-      text-decoration: none;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background: rgba(79,70,229,.1);
-      color: #4f46e5;
-      font-weight: 700;
-    }
-
-    @media(max-width:750px) {
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-group.full {
-        grid-column: auto;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-<main class="contact-page">
-
-  <!-- HERO -->
-  <section class="contact-hero">
-    <h1>📩 Contact ARS</h1>
-
-    <p>
-      ARS Education, ARS AI, Stories, Shayari, Certificates
-      और website से जुड़े सवाल या सुझाव हमें भेजें।
-    </p>
-  </section>
+  <!-- PAGE LOADER -->
+  <div id="pageLoader" class="page-loader" aria-label="Loading">
+    <div class="loader-spinner"></div>
+    <p>ARS Official</p>
+  </div>
 
 
-  <section class="contact-grid">
+  <!-- HEADER -->
+  <header class="site-header">
 
-    <!-- CONTACT INFORMATION -->
-    <section class="contact-card">
+    <div class="container header-inner">
 
-      <h2>🤝 Get in Touch</h2>
+      <a href="index.html" class="brand" aria-label="ARS Official Home">
 
-      <div class="contact-item">
+        <img
+          src="logo.png"
+          alt="ARS Official Logo"
+          class="brand-logo"
+        >
 
-        <div class="contact-icon">🏠</div>
+        <div class="brand-text">
+          <strong>ARS Official</strong>
+          <span>Adarsh Raj Shayar</span>
+        </div>
 
-        <div>
-          <strong>ARS</strong>
-          <span>
-            Adarsh Raj Shayar / ARS Education
+      </a>
+
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open Menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+
+      <nav class="main-nav" aria-label="Main Navigation">
+
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories & Poetry</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-content reveal">
+
+          <span class="eyebrow">
+            CONTACT ARS
           </span>
+
+          <h1>
+            हमसे
+            <span>संपर्क करें</span>
+          </h1>
+
+          <p>
+            आपके सुझाव, प्रश्न और विचार ARS को और बेहतर बनाने में मदद करते हैं।
+          </p>
+
         </div>
-
-      </div>
-
-
-      <div class="contact-item">
-
-        <div class="contact-icon">📧</div>
-
-        <div>
-          <strong>Email</strong>
-
-          <a
-            id="emailLink"
-            href="#"
-          >
-            Email support
-          </a>
-        </div>
-
-      </div>
-
-
-      <div class="contact-item">
-
-        <div class="contact-icon">💬</div>
-
-        <div>
-          <strong>WhatsApp</strong>
-
-          <a
-            id="whatsappLink"
-            href="#"
-            target="_blank"
-            rel="noopener"
-          >
-            WhatsApp Contact
-          </a>
-        </div>
-
-      </div>
-
-
-      <div class="contact-item">
-
-        <div class="contact-icon">📸</div>
-
-        <div>
-          <strong>Instagram</strong>
-
-          <a
-            id="instagramLink"
-            href="#"
-            target="_blank"
-            rel="noopener"
-          >
-            Instagram
-          </a>
-        </div>
-
-      </div>
-
-
-      <div class="contact-item">
-
-        <div class="contact-icon">▶️</div>
-
-        <div>
-          <strong>YouTube</strong>
-
-          <a
-            id="youtubeLink"
-            href="#"
-            target="_blank"
-            rel="noopener"
-          >
-            ARS Education
-          </a>
-        </div>
-
-      </div>
-
-
-      <div class="quick-links">
-
-        <a href="ars-ai.html">
-          🤖 ARS AI
-        </a>
-
-        <a href="certificate.html">
-          🏆 Certificates
-        </a>
-
-        <a href="ncert.html">
-          📚 ARS Education
-        </a>
 
       </div>
 
     </section>
 
 
-    <!-- CONTACT FORM -->
-    <section class="contact-form">
+    <!-- CONTACT SECTION -->
+    <section class="contact-section section">
 
-      <h2>📝 Send a Message</h2>
+      <div class="container">
 
-      <form id="contactForm">
+        <div class="section-heading reveal">
 
-        <div class="contact-form-grid">
+          <span class="eyebrow">
+            GET IN TOUCH
+          </span>
 
-          <div class="form-group">
+          <h2>
+            ARS से जुड़िए
+          </h2>
 
-            <label for="contactName">
-              Name
-            </label>
+          <p>
+            किसी प्रश्न, सुझाव, सहयोग या वेबसाइट से संबंधित जानकारी के लिए
+            नीचे दिए गए माध्यमों का उपयोग करें।
+          </p>
 
-            <input
-              id="contactName"
-              type="text"
-              placeholder="Your name"
-              required
+        </div>
+
+
+        <div class="contact-grid">
+
+          <!-- CONTACT INFO -->
+          <div class="contact-info">
+
+            <article class="contact-card reveal">
+
+              <div class="service-icon">
+                💬
+              </div>
+
+              <h3>
+                General Enquiry
+              </h3>
+
+              <p>
+                ARS Official से संबंधित सामान्य प्रश्न या सुझाव
+                भेज सकते हैं।
+              </p>
+
+            </article>
+
+
+            <article class="contact-card reveal">
+
+              <div class="service-icon">
+                📚
+              </div>
+
+              <h3>
+                Education
+              </h3>
+
+              <p>
+                ARS Education, study material, chapters,
+                MCQ और practice से संबंधित सुझाव साझा करें।
+              </p>
+
+            </article>
+
+
+            <article class="contact-card reveal">
+
+              <div class="service-icon">
+                ✍️
+              </div>
+
+              <h3>
+                Content & Publishing
+              </h3>
+
+              <p>
+                Shayari, Stories, Poetry और अन्य content
+                से संबंधित जानकारी के लिए संपर्क करें।
+              </p>
+
+            </article>
+
+
+            <article class="contact-card reveal">
+
+              <div class="service-icon">
+                🤝
+              </div>
+
+              <h3>
+                Collaboration
+              </h3>
+
+              <p>
+                ARS के साथ किसी project या creative initiative
+                पर काम करने के लिए संपर्क किया जा सकता है।
+              </p>
+
+            </article>
+
+          </div>
+
+
+          <!-- FORM -->
+          <div class="contact-form-card reveal">
+
+            <div class="form-heading">
+
+              <span class="eyebrow">
+                SEND A MESSAGE
+              </span>
+
+              <h2>
+                अपना संदेश भेजें
+              </h2>
+
+              <p>
+                जरूरी जानकारी भरकर अपना संदेश submit करें।
+              </p>
+
+            </div>
+
+
+            <form
+              id="contactForm"
+              data-ars-form
+              novalidate
             >
 
-          </div>
+              <div class="form-group">
+
+                <label for="contactName">
+                  आपका नाम
+                </label>
+
+                <input
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  placeholder="अपना नाम लिखें"
+                  autocomplete="name"
+                  required
+                >
+
+              </div>
 
 
-          <div class="form-group">
+              <div class="form-group">
 
-            <label for="contactEmail">
-              Email
-            </label>
+                <label for="contactEmail">
+                  ईमेल
+                </label>
 
-            <input
-              id="contactEmail"
-              type="email"
-              placeholder="Your email"
-              required
-            >
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  placeholder="example@email.com"
+                  autocomplete="email"
+                  required
+                >
 
-          </div>
-
-
-          <div class="form-group full">
-
-            <label for="contactSubject">
-              Subject
-            </label>
-
-            <select id="contactSubject">
-
-              <option value="general">
-                General Query
-              </option>
-
-              <option value="education">
-                ARS Education
-              </option>
-
-              <option value="ai">
-                ARS AI
-              </option>
-
-              <option value="certificate">
-                Certificate
-              </option>
-
-              <option value="joining">
-                Joining / ARS
-              </option>
-
-              <option value="story">
-                Story / Shayari
-              </option>
-
-              <option value="website">
-                Website
-              </option>
-
-              <option value="suggestion">
-                Suggestion
-              </option>
-
-            </select>
-
-          </div>
+              </div>
 
 
-          <div class="form-group full">
+              <div class="form-group">
 
-            <label for="contactMessage">
-              Message
-            </label>
+                <label for="contactSubject">
+                  विषय
+                </label>
 
-            <textarea
-              id="contactMessage"
-              placeholder="Write your message..."
-              required
-            ></textarea>
+                <select
+                  id="contactSubject"
+                  name="subject"
+                  required
+                >
 
-          </div>
+                  <option value="">
+                    विषय चुनें
+                  </option>
+
+                  <option value="general">
+                    General Enquiry
+                  </option>
+
+                  <option value="education">
+                    ARS Education
+                  </option>
+
+                  <option value="content">
+                    Content / Publishing
+                  </option>
+
+                  <option value="joining">
+                    Join ARS
+                  </option>
+
+                  <option value="certificate">
+                    Certificate
+                  </option>
+
+                  <option value="collaboration">
+                    Collaboration
+                  </option>
+
+                  <option value="suggestion">
+                    Suggestion
+                  </option>
+
+                  <option value="other">
+                    Other
+                  </option>
+
+                </select>
+
+              </div>
 
 
-          <div class="form-group full">
+              <div class="form-group">
 
-            <button
-              class="send-btn"
-              type="submit"
-            >
-              📤 Send Message
-            </button>
+                <label for="contactMessage">
+                  संदेश
+                </label>
+
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  rows="7"
+                  placeholder="अपना संदेश यहाँ लिखें..."
+                  required
+                ></textarea>
+
+              </div>
+
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+              >
+                संदेश भेजें
+              </button>
+
+              <p
+                id="contactStatus"
+                class="form-status"
+                aria-live="polite"
+              ></p>
+
+            </form>
 
           </div>
 
         </div>
 
-      </form>
-
-
-      <div
-        class="success-message"
-        id="contactSuccess"
-      ></div>
+      </div>
 
     </section>
 
-  </section>
 
-</main>
+    <!-- WHATSAPP -->
+    <section class="education-banner section">
 
+      <div class="container">
 
-<script>
+        <div class="education-banner-inner reveal">
 
-/* =========================================================
-   ARS CONTACT PAGE
-   ========================================================= */
+          <div>
 
-(function () {
+            <span class="eyebrow">
+              ARS EDUCATION • GK
+            </span>
 
-  "use strict";
+            <h2>
+              General Knowledge से जुड़े रहें।
+            </h2>
 
+            <p>
+              ARS का GK WhatsApp Channel follow करके
+              educational updates और knowledge content प्राप्त करें।
+            </p>
 
-  /* ---------------------------------------------------------
-     Config
-  --------------------------------------------------------- */
+          </div>
 
-  const config =
-    window.ARS_CONFIG || null;
 
+          <a
+            href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp Channel
+          </a>
 
-  const site =
-    config?.site || {};
+        </div>
 
+      </div>
 
-  const social =
-    config?.social || {};
+    </section>
 
 
-  /* ---------------------------------------------------------
-     Safe link helper
-  --------------------------------------------------------- */
+    <!-- FAQ -->
+    <section class="services-section section">
 
-  function setLink(id, url, fallbackText) {
+      <div class="container">
 
-    const element =
-      document.getElementById(id);
+        <div class="section-heading reveal">
 
-    if (!element) return;
+          <span class="eyebrow">
+            QUICK HELP
+          </span>
 
+          <h2>
+            कुछ सामान्य जानकारी
+          </h2>
 
-    if (url) {
+        </div>
 
-      element.href = url;
 
-      element.style.display =
-        "inline";
+        <div class="services-grid">
 
-    } else {
+          <article class="service-card reveal">
 
-      element.removeAttribute("href");
+            <div class="service-icon">
+              ❓
+            </div>
 
-      element.textContent =
-        fallbackText +
-        " — link not configured";
+            <h3>
+              Joining से संबंधित प्रश्न
+            </h3>
 
-      element.style.opacity =
-        "0.6";
+            <p>
+              Join ARS page पर application submit करने के बाद
+              application admin review के लिए जाती है।
+            </p>
 
-    }
+            <a href="joining.html" class="btn btn-secondary">
+              Join ARS
+            </a>
 
-  }
+          </article>
 
 
-  /* ---------------------------------------------------------
-     Email
-  --------------------------------------------------------- */
+          <article class="service-card reveal">
 
-  const email =
-    site.email || "";
+            <div class="service-icon">
+              🏆
+            </div>
 
+            <h3>
+              Certificate
+            </h3>
 
-  const emailLink =
-    document.getElementById(
-      "emailLink"
-    );
+            <p>
+              ARS Certificate page से उपलब्ध certificate
+              options और generation process देख सकते हैं।
+            </p>
 
+            <a href="certificate.html" class="btn btn-secondary">
+              Certificate
+            </a>
 
-  if (emailLink) {
+          </article>
 
-    if (email) {
 
-      emailLink.href =
-        "mailto:" + email;
+          <article class="service-card reveal">
 
-      emailLink.textContent =
-        email;
+            <div class="service-icon">
+              🔎
+            </div>
 
-    } else {
+            <h3>
+              Certificate Verification
+            </h3>
 
-      emailLink.textContent =
-        "Email will be added soon";
+            <p>
+              किसी ARS certificate की authenticity check करने के लिए
+              Verify page का उपयोग करें।
+            </p>
 
-      emailLink.removeAttribute(
-        "href"
-      );
+            <a href="verify.html" class="btn btn-secondary">
+              Verify
+            </a>
 
-    }
+          </article>
 
-  }
+        </div>
 
+      </div>
 
-  /* ---------------------------------------------------------
-     Social Links
-  --------------------------------------------------------- */
+    </section>
 
-  setLink(
-    "whatsappLink",
-    social.whatsapp,
-    "WhatsApp"
-  );
 
+    <!-- CTA -->
+    <section class="join-section section">
 
-  setLink(
-    "instagramLink",
-    social.instagram,
-    "Instagram"
-  );
+      <div class="container">
 
+        <div class="join-card reveal">
 
-  setLink(
-    "youtubeLink",
-    social.youtube,
-    "YouTube"
-  );
+          <div>
 
+            <span class="eyebrow">
+              ARS OFFICIAL
+            </span>
 
-  /* ---------------------------------------------------------
-     Contact Form
-  --------------------------------------------------------- */
+            <h2>
+              आपके विचार हमारे लिए महत्वपूर्ण हैं।
+            </h2>
 
-  const form =
-    document.getElementById(
-      "contactForm"
-    );
+            <p>
+              ARS को बेहतर बनाने के लिए अपने सुझाव जरूर साझा करें।
+            </p>
 
+          </div>
 
-  const success =
-    document.getElementById(
-      "contactSuccess"
-    );
+          <a
+            href="founder.html"
+            class="btn btn-primary"
+          >
+            Founder के बारे में
+          </a>
 
+        </div>
 
-  if (!form) return;
+      </div>
 
+    </section>
 
-  form.addEventListener(
-    "submit",
-    function (event) {
+  </main>
 
-      event.preventDefault();
 
+  <!-- FOOTER -->
+  <footer class="site-footer">
 
-      const name =
-        document.getElementById(
-          "contactName"
-        ).value.trim();
+    <div class="container">
 
+      <div class="footer-grid">
 
-      const email =
-        document.getElementById(
-          "contactEmail"
-        ).value.trim();
+        <div class="footer-brand">
 
+          <a href="index.html" class="brand">
 
-      const subject =
-        document.getElementById(
-          "contactSubject"
-        ).value;
+            <img
+              src="logo.png"
+              alt="ARS Official"
+              class="brand-logo"
+            >
 
+            <div class="brand-text">
+              <strong>ARS Official</strong>
+              <span>Adarsh Raj Shayar</span>
+            </div>
 
-      const message =
-        document.getElementById(
-          "contactMessage"
-        ).value.trim();
+          </a>
 
+          <p>
+            शब्दों से पहचान, ज्ञान से उड़ान।
+          </p>
 
-      if (
-        !name ||
-        !email ||
-        !message
-      ) {
+        </div>
 
-        alert(
-          "Please fill all required fields."
-        );
 
-        return;
+        <div>
 
-      }
+          <h3>
+            Quick Links
+          </h3>
 
+          <a href="index.html">Home</a>
+          <a href="founder.html">Founder</a>
+          <a href="shayari.html">Shayari</a>
+          <a href="stories.html">Stories & Poetry</a>
 
-      /*
-        Temporary local storage.
+        </div>
 
-        Final production version:
-        Contact form → Backend API → Database
-      */
 
-      const contactData = {
+        <div>
 
-        id:
-          "ARS-MSG-" +
-          Date.now(),
+          <h3>
+            Education
+          </h3>
 
-        name: name,
+          <a href="education.html">ARS Education</a>
+          <a href="navodaya.html">Navodaya</a>
+          <a href="sainik-school.html">Sainik School</a>
+          <a href="rms.html">RMS</a>
 
-        email: email,
+        </div>
 
-        subject: subject,
 
-        message: message,
+        <div>
 
-        createdAt:
-          new Date().toISOString(),
+          <h3>
+            Support
+          </h3>
 
-        status: "new"
+          <a href="contact.html">Contact</a>
+          <a href="verify.html">Certificate Verify</a>
+          <a href="policy.html">Policy</a>
 
-      };
+        </div>
 
+      </div>
 
-      let messages = [];
 
+      <div class="footer-bottom">
 
-      try {
+        <p>
+          © <span data-year></span>
+          ARS Official. All Rights Reserved.
+        </p>
 
-        messages =
-          JSON.parse(
-            localStorage.getItem(
-              "ARS_CONTACT_MESSAGES"
-            ) || "[]"
+        <p>
+          Founded by Adarsh Raj
+        </p>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- BACK TO TOP -->
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >
+    ↑
+  </button>
+
+
+  <!-- SCRIPTS -->
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+
+
+  <!-- CONTACT FORM HANDLER -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const form = document.getElementById("contactForm");
+      const status = document.getElementById("contactStatus");
+
+      if (!form) return;
+
+      form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById("contactName").value.trim();
+
+        const email =
+          document.getElementById("contactEmail").value.trim();
+
+        const subject =
+          document.getElementById("contactSubject").value;
+
+        const message =
+          document.getElementById("contactMessage").value.trim();
+
+        if (!name || !email || !subject || !message) {
+
+          status.textContent =
+            "कृपया सभी जरूरी जानकारी भरें।";
+
+          status.className =
+            "form-status error";
+
+          return;
+        }
+
+        const emailPattern =
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(email)) {
+
+          status.textContent =
+            "कृपया सही ईमेल दर्ज करें।";
+
+          status.className =
+            "form-status error";
+
+          return;
+        }
+
+        /*
+          Frontend-only version:
+          message is saved locally for development.
+          A secure backend/email service can be connected later.
+        */
+
+        const contactMessage = {
+          id:
+            window.ARS_STORAGE?.generateId?.("ARS-CONTACT") ||
+            `ARS-CONTACT-${Date.now()}`,
+
+          name,
+          email,
+          subject,
+          message,
+
+          createdAt:
+            new Date().toISOString()
+        };
+
+        if (window.ARS_STORAGE) {
+
+          const messages =
+            window.ARS_STORAGE.getArray("CONTACT_MESSAGES");
+
+          messages.push(contactMessage);
+
+          window.ARS_STORAGE.saveArray(
+            "CONTACT_MESSAGES",
+            messages
           );
+        }
 
-      } catch (error) {
+        status.textContent =
+          "आपका संदेश सफलतापूर्वक submit हो गया। धन्यवाद!";
 
-        messages = [];
+        status.className =
+          "form-status success";
 
-      }
+        if (window.arsToast) {
+          window.arsToast(
+            "Message successfully submitted.",
+            "success"
+          );
+        }
 
+        form.reset();
 
-      messages.push(contactData);
+      });
 
-
-      localStorage.setItem(
-        "ARS_CONTACT_MESSAGES",
-        JSON.stringify(messages)
-      );
-
-
-      success.innerHTML = `
-        <strong>✅ Message saved successfully.</strong><br>
-        Thank you, ${name}. Your message has been recorded.
-        <br><br>
-        Message ID:
-        <strong>${contactData.id}</strong>
-      `;
-
-
-      success.classList.add(
-        "show"
-      );
-
-
-      form.reset();
-
-    }
-  );
-
-})();
-
-</script>
+    });
+  </script>
 
 </body>
 </html>
