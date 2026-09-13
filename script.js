@@ -1,695 +1,894 @@
 /* =========================================================
-   ARS OFFICIAL — MAIN WEBSITE SCRIPT
-   Founder: Adarsh Raj
-   Website: Adarsh Raj Shayar
-   Version: 5.0.0
+   ARS OFFICIAL — MASTER SCRIPT
+   Version: 6.0.0
    ========================================================= */
 
-"use strict";
+(function () {
+  "use strict";
 
-/* =========================================================
-   1. GLOBAL CONFIG
-   ========================================================= */
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
 
-const ARS_APP = {
-    name: "ARS Official",
-    founder: "Adarsh Raj",
-    shortName: "ARS",
-    version: "5.0.0",
+  const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
-    storage: {
-        theme: "ARS_THEME",
-        favorites: "ARS_FAVORITES",
-        likes: "ARS_LIKES",
-        saves: "ARS_SAVES",
-        certificates: "ARS_CERTIFICATES",
-        joining: "ARS_JOINING_APPLICATIONS",
-        education: "ARS_EDUCATION_CONTENT",
-        firstFlight: "ARS_FIRST_FLIGHT"
+  const storage =
+    window.ARS_STORAGE ||
+    window.ARSStorage ||
+    null;
+
+  /* -------------------------------------------------------
+     Toast
+     ------------------------------------------------------- */
+
+  function toast(message, type = "info") {
+    let box = $("#arsToast");
+
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "arsToast";
+      box.className = "ars-toast";
+      document.body.appendChild(box);
     }
-};
 
+    box.textContent = message;
+    box.dataset.type = type;
+    box.classList.add("show");
 
-/* =========================================================
-   2. SAFE LOCAL STORAGE
-   ========================================================= */
+    clearTimeout(box._timer);
 
-function arsGet(key, fallback = null) {
-    try {
-        const value = localStorage.getItem(key);
+    box._timer = setTimeout(() => {
+      box.classList.remove("show");
+    }, 2600);
+  }
 
-        if (value === null) {
-            return fallback;
-        }
+  window.arsToast = toast;
 
-        return JSON.parse(value);
-    } catch (error) {
-        return fallback;
-    }
-}
+  /* -------------------------------------------------------
+     Page Loader
+     ------------------------------------------------------- */
 
-
-function arsSet(key, value) {
-    try {
-        localStorage.setItem(key, JSON.stringify(value));
-        return true;
-    } catch (error) {
-        console.error("ARS Storage Error:", error);
-        return false;
-    }
-}
-
-
-function arsRemove(key) {
-    try {
-        localStorage.removeItem(key);
-    } catch (error) {
-        console.error("ARS Remove Error:", error);
-    }
-}
-
-
-/* =========================================================
-   3. PAGE LOADER
-   ========================================================= */
-
-function arsPageLoader() {
-
-    const loader = document.querySelector(".page-loader");
+  function hideLoader() {
+    const loader = $("#pageLoader");
 
     if (!loader) return;
 
-    window.addEventListener("load", () => {
+    loader.classList.add("hidden");
 
-        setTimeout(() => {
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 500);
+  }
 
-            loader.classList.add("hide");
+  /* -------------------------------------------------------
+     Mobile Navigation
+     ------------------------------------------------------- */
 
-            setTimeout(() => {
-                loader.remove();
-            }, 500);
+  function initNavigation() {
+    const toggle = $(".menu-toggle");
+    const nav = $(".main-nav");
 
-        }, 300);
+    if (!toggle || !nav) return;
 
+    toggle.addEventListener("click", () => {
+      const opened = nav.classList.toggle("open");
+
+      toggle.setAttribute(
+        "aria-expanded",
+        opened ? "true" : "false"
+      );
     });
-}
 
+    $$(".main-nav a").forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 
-/* =========================================================
-   4. TOAST MESSAGE
-   ========================================================= */
+  /* -------------------------------------------------------
+     Active Navigation
+     ------------------------------------------------------- */
 
-function arsToast(message, type = "success") {
+  function initActiveNavigation() {
+    const current =
+      location.pathname.split("/").pop() || "index.html";
 
-    let toast = document.getElementById("arsToast");
+    $$(".main-nav a, .mobile-nav a").forEach((link) => {
+      const href = link.getAttribute("href");
 
-    if (!toast) {
+      if (!href) return;
 
-        toast = document.createElement("div");
+      const cleanHref = href.split("#")[0];
 
-        toast.id = "arsToast";
-        toast.className = "ars-toast";
+      if (
+        cleanHref === current ||
+        (current === "" && cleanHref === "index.html")
+      ) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      }
+    });
+  }
 
-        document.body.appendChild(toast);
+  /* -------------------------------------------------------
+     Theme
+     ------------------------------------------------------- */
+
+  function initTheme() {
+    const saved =
+      localStorage.getItem("ARS_THEME") ||
+      storage?.getPreferences?.().theme;
+
+    if (saved === "dark") {
+      document.documentElement.classList.add("dark");
     }
 
-    toast.className = `ars-toast ${type}`;
-    toast.textContent = message;
-
-    requestAnimationFrame(() => {
-        toast.classList.add("show");
-    });
-
-    clearTimeout(window.arsToastTimer);
-
-    window.arsToastTimer = setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    }, 2500);
-}
-
-
-/* =========================================================
-   5. THEME — LIGHT / DARK
-   ========================================================= */
-
-function arsApplyTheme(theme) {
-
-    if (theme === "dark") {
-        document.documentElement.classList.add("dark");
-        document.body.classList.add("dark");
-    } else {
-        document.documentElement.classList.remove("dark");
-        document.body.classList.remove("dark");
+    if (saved === "light") {
+      document.documentElement.classList.remove("dark");
     }
 
-    const buttons = document.querySelectorAll(
-        "[data-theme-toggle], #themeToggle, .theme-toggle"
-    );
+    $$("[data-theme-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const dark =
+          document.documentElement.classList.toggle("dark");
 
-    buttons.forEach(button => {
+        const theme = dark ? "dark" : "light";
 
-        button.setAttribute(
-            "aria-label",
-            theme === "dark"
-                ? "Switch to light mode"
-                : "Switch to dark mode"
-        );
+        localStorage.setItem("ARS_THEME", theme);
 
-        button.innerHTML =
-            theme === "dark" ? "☀️" : "🌙";
-
-    });
-}
-
-
-function arsInitTheme() {
-
-    let savedTheme = localStorage.getItem(
-        ARS_APP.storage.theme
-    );
-
-    if (!savedTheme) {
-
-        savedTheme =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-                ? "dark"
-                : "light";
-    }
-
-    arsApplyTheme(savedTheme);
-
-    document.addEventListener("click", event => {
-
-        const button = event.target.closest(
-            "[data-theme-toggle], #themeToggle, .theme-toggle"
-        );
-
-        if (!button) return;
-
-        const current =
-            document.documentElement.classList.contains("dark")
-                ? "dark"
-                : "light";
-
-        const next =
-            current === "dark" ? "light" : "dark";
-
-        localStorage.setItem(
-            ARS_APP.storage.theme,
-            next
-        );
-
-        arsApplyTheme(next);
-    });
-}
-
-
-/* =========================================================
-   6. MOBILE NAVIGATION
-   ========================================================= */
-
-function arsInitNavigation() {
-
-    const menuButton =
-        document.querySelector(
-            "#menuToggle, .menu-toggle, [data-menu-toggle]"
-        );
-
-    const nav =
-        document.querySelector(
-            "#mainNav, .main-nav, nav"
-        );
-
-    if (!menuButton || !nav) return;
-
-    menuButton.addEventListener("click", () => {
-
-        nav.classList.toggle("active");
-        menuButton.classList.toggle("active");
-
-        const expanded =
-            menuButton.classList.contains("active");
-
-        menuButton.setAttribute(
-            "aria-expanded",
-            expanded ? "true" : "false"
-        );
-    });
-
-
-    document.addEventListener("click", event => {
-
-        if (
-            !nav.contains(event.target) &&
-            !menuButton.contains(event.target)
-        ) {
-            nav.classList.remove("active");
-            menuButton.classList.remove("active");
-        }
-
-    });
-
-
-    nav.querySelectorAll("a").forEach(link => {
-
-        link.addEventListener("click", () => {
-
-            nav.classList.remove("active");
-            menuButton.classList.remove("active");
-
+        storage?.savePreferences?.({
+          theme,
         });
 
-    });
-}
-
-
-/* =========================================================
-   7. ACTIVE NAV LINK
-   ========================================================= */
-
-function arsSetActiveNavigation() {
-
-    const currentPage =
-        window.location.pathname
-            .split("/")
-            .pop()
-            .toLowerCase();
-
-    document.querySelectorAll("nav a, .nav-link").forEach(link => {
-
-        const href =
-            link.getAttribute("href");
-
-        if (!href) return;
-
-        const page =
-            href.split("/")
-                .pop()
-                .split("#")[0]
-                .toLowerCase();
-
-        if (
-            page === currentPage ||
-            (
-                currentPage === "" &&
-                page === "index.html"
-            )
-        ) {
-            link.classList.add("active");
-        }
-
-    });
-}
-
-
-/* =========================================================
-   8. SCROLL EFFECT
-   ========================================================= */
-
-function arsScrollEffect() {
-
-    const header =
-        document.querySelector(
-            "header, .header, .site-header"
+        toast(
+          dark
+            ? "Dark mode चालू हो गया।"
+            : "Light mode चालू हो गया।"
         );
-
-    if (!header) return;
-
-    const checkScroll = () => {
-
-        if (window.scrollY > 30) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-    };
-
-    window.addEventListener(
-        "scroll",
-        checkScroll,
-        { passive: true }
-    );
-
-    checkScroll();
-}
-
-
-/* =========================================================
-   9. BACK TO TOP
-   ========================================================= */
-
-function arsBackToTop() {
-
-    let button =
-        document.querySelector(
-            "#backToTop, .back-to-top"
-        );
-
-    if (!button) {
-
-        button = document.createElement("button");
-
-        button.id = "backToTop";
-        button.className = "back-to-top";
-        button.innerHTML = "↑";
-        button.setAttribute(
-            "aria-label",
-            "Back to top"
-        );
-
-        document.body.appendChild(button);
-    }
-
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY > 400) {
-            button.classList.add("show");
-        } else {
-            button.classList.remove("show");
-        }
-
-    }, { passive: true });
-
-
-    button.addEventListener("click", () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
+      });
     });
-}
+  }
 
+  /* -------------------------------------------------------
+     Smooth Scroll
+     ------------------------------------------------------- */
 
-/* =========================================================
-   10. SMOOTH ANCHOR SCROLL
-   ========================================================= */
-
-function arsSmoothScroll() {
-
-    document.addEventListener("click", event => {
-
-        const link =
-            event.target.closest('a[href^="#"]');
-
-        if (!link) return;
-
-        const id =
-            link.getAttribute("href");
+  function initSmoothScroll() {
+    $$('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const id = link.getAttribute("href");
 
         if (!id || id === "#") return;
 
-        const target =
-            document.querySelector(id);
+        const target = $(id);
 
         if (!target) return;
 
         event.preventDefault();
 
         target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+          behavior: "smooth",
+          block: "start",
         });
-
+      });
     });
-}
+  }
 
+  /* -------------------------------------------------------
+     Back To Top
+     ------------------------------------------------------- */
 
-/* =========================================================
-   11. FAVORITES
-   ========================================================= */
+  function initBackToTop() {
+    const button = $("#backToTop");
 
-function getFavorites() {
+    if (!button) return;
 
-    return arsGet(
-        ARS_APP.storage.favorites,
-        []
-    );
-}
-
-
-function isFavorite(id) {
-
-    if (!id) return false;
-
-    return getFavorites()
-        .map(String)
-        .includes(String(id));
-}
-
-
-function toggleFavorite(id) {
-
-    if (!id) return false;
-
-    let favorites = getFavorites();
-
-    const value = String(id);
-
-    const index =
-        favorites.map(String).indexOf(value);
-
-    if (index >= 0) {
-
-        favorites.splice(index, 1);
-
-        arsSet(
-            ARS_APP.storage.favorites,
-            favorites
-        );
-
-        arsUpdateFavoriteButtons();
-
-        arsToast(
-            "Removed from Favorites",
-            "info"
-        );
-
-        return false;
-
-    } else {
-
-        favorites.push(id);
-
-        arsSet(
-            ARS_APP.storage.favorites,
-            favorites
-        );
-
-        arsUpdateFavoriteButtons();
-
-        arsToast(
-            "Added to Favorites ❤️",
-            "success"
-        );
-
-        return true;
-    }
-}
-
-
-function arsUpdateFavoriteButtons() {
-
-    document.querySelectorAll(
-        "[data-favorite], .favorite-btn"
-    ).forEach(button => {
-
-        const id =
-            button.dataset.favorite ||
-            button.dataset.id;
-
-        if (!id) return;
-
-        const active =
-            isFavorite(id);
-
+    window.addEventListener(
+      "scroll",
+      () => {
         button.classList.toggle(
-            "active",
-            active
+          "show",
+          window.scrollY > 500
         );
+      },
+      { passive: true }
+    );
 
-        button.setAttribute(
-            "aria-pressed",
-            active ? "true" : "false"
-        );
+    button.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
 
-        const icon =
-            button.querySelector(
-                ".favorite-icon"
-            );
+  /* -------------------------------------------------------
+     Reveal Animation
+     ------------------------------------------------------- */
 
-        if (icon) {
-            icon.textContent =
-                active ? "❤️" : "🤍";
+  function initReveal() {
+    const elements = $$(".reveal");
+
+    if (!elements.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      elements.forEach((el) =>
+        el.classList.add("visible")
+      );
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.12,
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  /* -------------------------------------------------------
+     Footer Year
+     ------------------------------------------------------- */
+
+  function setYear() {
+    const year =
+      window.arsGetYear?.() ||
+      new Date().getFullYear();
+
+    $$("[data-year]").forEach((element) => {
+      element.textContent = year;
+    });
+  }
+
+  /* -------------------------------------------------------
+     Copy Button
+     ------------------------------------------------------- */
+
+  async function copyText(text) {
+    if (!text) return false;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      toast("कॉपी हो गया।", "success");
+      return true;
+    } catch (error) {
+      const area = document.createElement("textarea");
+
+      area.value = text;
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+
+      document.body.appendChild(area);
+      area.select();
+
+      try {
+        document.execCommand("copy");
+        toast("कॉपी हो गया।", "success");
+      } catch {
+        toast("कॉपी नहीं हो पाया।", "error");
+      }
+
+      area.remove();
+
+      return true;
+    }
+  }
+
+  window.arsCopy = copyText;
+
+  function initCopyButtons() {
+    $$("[data-copy]").forEach((button) => {
+      button.addEventListener("click", () => {
+        let text = button.dataset.copy;
+
+        if (!text && button.dataset.copyTarget) {
+          const target = $(
+            button.dataset.copyTarget
+          );
+
+          text = target?.textContent || "";
         }
 
+        copyText(text);
+      });
     });
-}
+  }
 
+  /* -------------------------------------------------------
+     Share
+     ------------------------------------------------------- */
 
-/* =========================================================
-   12. LIKES
-   ========================================================= */
+  async function shareContent(data = {}) {
+    const title =
+      data.title ||
+      document.title ||
+      "ARS Official";
 
-function getLikes() {
+    const text =
+      data.text ||
+      "ARS Official";
 
-    return arsGet(
-        ARS_APP.storage.likes,
-        {}
-    );
-}
+    const url =
+      data.url ||
+      location.href;
 
-
-function hasLiked(id) {
-
-    if (!id) return false;
-
-    const likes = getLikes();
-
-    return !!likes[String(id)];
-}
-
-
-function toggleLike(id) {
-
-    if (!id) return false;
-
-    const likes = getLikes();
-    const key = String(id);
-
-    likes[key] = !likes[key];
-
-    arsSet(
-        ARS_APP.storage.likes,
-        likes
-    );
-
-    arsUpdateLikeButtons();
-
-    if (likes[key]) {
-        arsToast("Liked ❤️", "success");
-    } else {
-        arsToast("Like removed", "info");
-    }
-
-    return likes[key];
-}
-
-
-function arsUpdateLikeButtons() {
-
-    const likes = getLikes();
-
-    document.querySelectorAll(
-        "[data-like], .like-btn"
-    ).forEach(button => {
-
-        const id =
-            button.dataset.like ||
-            button.dataset.id;
-
-        if (!id) return;
-
-        const active =
-            !!likes[String(id)];
-
-        button.classList.toggle(
-            "active",
-            active
-        );
-
-        button.setAttribute(
-            "aria-pressed",
-            active ? "true" : "false"
-        );
-
-    });
-}
-
-
-/* =========================================================
-   13. SAVES
-   ========================================================= */
-
-function getSaves() {
-
-    return arsGet(
-        ARS_APP.storage.saves,
-        []
-    );
-}
-
-
-function isSaved(id) {
-
-    return getSaves()
-        .map(String)
-        .includes(String(id));
-}
-
-
-function toggleSave(id) {
-
-    if (!id) return false;
-
-    let saves = getSaves();
-
-    const value = String(id);
-
-    const index =
-        saves.map(String).indexOf(value);
-
-    if (index >= 0) {
-
-        saves.splice(index, 1);
-
-        arsToast(
-            "Removed from Saved",
-            "info"
-        );
-
-        arsSet(
-            ARS_APP.storage.saves,
-            saves
-        );
-
-        return false;
-
-    } else {
-
-        saves.push(id);
-
-        arsSet(
-            ARS_APP.storage.saves,
-            saves
-        );
-
-        arsToast(
-            "Saved successfully 🔖",
-            "success"
-        );
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text,
+          url,
+        });
 
         return true;
+      } catch (error) {
+        return false;
+      }
     }
-}
 
+    return copyText(url);
+  }
 
-/* =========================================================
-   14. GLOBAL LIKE/FAVORITE/SAVE CLICK HANDLER
-   ========================================================= */
+  window.arsShare = shareContent;
 
-function arsInitContentActions() {
+  function initShareButtons() {
+    $$("[data-share]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target =
+          button.dataset.shareTarget
+            ? $(button.dataset.shareTarget)
+            : null;
 
-    document.addEventListener("click", event => {
+        shareContent({
+          title:
+            button.dataset.shareTitle ||
+            document.title,
 
-        const favorite =
-            event.target.closest(
-                "[data-favorite], .favorite-btn"
-            );
+          text:
+            button.dataset.shareText ||
+            target?.textContent ||
+            document.title,
 
-        if (favorite)
+          url:
+            button.dataset.shareUrl ||
+            location.href,
+        });
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Like / Favorite / Save
+     ------------------------------------------------------- */
+
+  function refreshActionButton(
+    button,
+    active,
+    activeText,
+    normalText
+  ) {
+    button.classList.toggle("active", active);
+
+    if (activeText || normalText) {
+      button.textContent =
+        active ? activeText : normalText;
+    }
+
+    button.setAttribute(
+      "aria-pressed",
+      active ? "true" : "false"
+    );
+  }
+
+  function initContentActions() {
+    if (!storage) return;
+
+    $$("[data-like-id]").forEach((button) => {
+      const id = button.dataset.likeId;
+
+      const active = storage.hasLiked?.(id);
+
+      refreshActionButton(
+        button,
+        active,
+        button.dataset.activeText || "Liked",
+        button.dataset.normalText || "Like"
+      );
+
+      button.addEventListener("click", () => {
+        const result =
+          storage.toggleLike?.(
+            id,
+            button.dataset.contentType || "content"
+          );
+
+        refreshActionButton(
+          button,
+          result,
+          button.dataset.activeText || "Liked",
+          button.dataset.normalText || "Like"
+        );
+      });
+    });
+
+    $$("[data-favorite-id]").forEach((button) => {
+      const id = button.dataset.favoriteId;
+
+      const active =
+        storage.isFavorite?.(id);
+
+      refreshActionButton(
+        button,
+        active,
+        button.dataset.activeText || "Favorited",
+        button.dataset.normalText || "Favorite"
+      );
+
+      button.addEventListener("click", () => {
+        const result =
+          storage.toggleFavorite?.(
+            id,
+            button.dataset.contentType || "content"
+          );
+
+        refreshActionButton(
+          button,
+          result,
+          button.dataset.activeText || "Favorited",
+          button.dataset.normalText || "Favorite"
+        );
+      });
+    });
+
+    $$("[data-save-id]").forEach((button) => {
+      const id = button.dataset.saveId;
+
+      const active =
+        storage.isSaved?.(id);
+
+      refreshActionButton(
+        button,
+        active,
+        button.dataset.activeText || "Saved",
+        button.dataset.normalText || "Save"
+      );
+
+      button.addEventListener("click", () => {
+        const result =
+          storage.toggleSaved?.(
+            id,
+            button.dataset.contentType || "content"
+          );
+
+        refreshActionButton(
+          button,
+          result,
+          button.dataset.activeText || "Saved",
+          button.dataset.normalText || "Save"
+        );
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Search
+     ------------------------------------------------------- */
+
+  function initSearch() {
+    $$("[data-search-input]").forEach((input) => {
+      const targetSelector =
+        input.dataset.searchTarget;
+
+      if (!targetSelector) return;
+
+      const items = $$(targetSelector);
+
+      input.addEventListener("input", () => {
+        const query =
+          input.value.trim().toLowerCase();
+
+        items.forEach((item) => {
+          const text =
+            item.textContent.toLowerCase();
+
+          item.style.display =
+            !query || text.includes(query)
+              ? ""
+              : "none";
+        });
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Category Filters
+     ------------------------------------------------------- */
+
+  function initFilters() {
+    $$("[data-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const value =
+          button.dataset.filter;
+
+        const target =
+          button.dataset.filterTarget ||
+          "[data-category-item]";
+
+        $$(target).forEach((item) => {
+          const category =
+            item.dataset.category;
+
+          item.style.display =
+            value === "all" ||
+            value === category
+              ? ""
+              : "none";
+        });
+
+        const parent =
+          button.parentElement;
+
+        if (parent) {
+          $$("[data-filter]", parent).forEach(
+            (item) => {
+              item.classList.remove("active");
+            }
+          );
+        }
+
+        button.classList.add("active");
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Form Validation
+     ------------------------------------------------------- */
+
+  function initForms() {
+    $$("form[data-ars-form]").forEach((form) => {
+      form.addEventListener("submit", (event) => {
+        const required = $$(
+          "[required]",
+          form
+        );
+
+        let valid = true;
+
+        required.forEach((field) => {
+          if (!field.value.trim()) {
+            field.classList.add("error");
+            valid = false;
+          } else {
+            field.classList.remove("error");
+          }
+        });
+
+        if (!valid) {
+          event.preventDefault();
+
+          toast(
+            "कृपया सभी जरूरी जानकारी भरें।",
+            "error"
+          );
+        }
+      });
+
+      $$("input, textarea, select", form).forEach(
+        (field) => {
+          field.addEventListener("input", () => {
+            if (field.value.trim()) {
+              field.classList.remove("error");
+            }
+          });
+        }
+      );
+    });
+  }
+
+  /* -------------------------------------------------------
+     Joining Application
+     ------------------------------------------------------- */
+
+  function initJoiningForm() {
+    const form = $("#joiningForm");
+
+    if (!form || !storage) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const formData =
+        new FormData(form);
+
+      const application = {
+        name:
+          formData.get("name")?.trim() || "",
+
+        email:
+          formData.get("email")?.trim() || "",
+
+        phone:
+          formData.get("phone")?.trim() || "",
+
+        city:
+          formData.get("city")?.trim() || "",
+
+        state:
+          formData.get("state")?.trim() || "",
+
+        message:
+          formData.get("message")?.trim() || "",
+      };
+
+      if (!application.name) {
+        toast("नाम दर्ज करें।", "error");
+        return;
+      }
+
+      const saved =
+        storage.saveJoiningApplication(
+          application
+        );
+
+      if (!saved) {
+        toast(
+          "Application save नहीं हो पाया।",
+          "error"
+        );
+        return;
+      }
+
+      toast(
+        "Joining application submit हो गया।",
+        "success"
+      );
+
+      form.reset();
+
+      setTimeout(() => {
+        if (
+          location.pathname.includes(
+            "joining.html"
+          )
+        ) {
+          location.href =
+            "joining-certificate.html";
+        }
+      }, 700);
+    });
+  }
+
+  /* -------------------------------------------------------
+     URL Parameters
+     ------------------------------------------------------- */
+
+  function getParam(name) {
+    return new URLSearchParams(
+      location.search
+    ).get(name);
+  }
+
+  window.arsGetParam = getParam;
+
+  function applyUrlParams() {
+    const params =
+      new URLSearchParams(location.search);
+
+    params.forEach((value, key) => {
+      $$(`[data-param="${key}"]`).forEach(
+        (element) => {
+          if (
+            element.tagName === "INPUT" ||
+            element.tagName === "TEXTAREA" ||
+            element.tagName === "SELECT"
+          ) {
+            element.value = value;
+          } else {
+            element.textContent = value;
+          }
+        }
+      );
+    });
+  }
+
+  /* -------------------------------------------------------
+     External Links
+     ------------------------------------------------------- */
+
+  function initExternalLinks() {
+    $$("a[href^='http']").forEach((link) => {
+      try {
+        const url = new URL(
+          link.href,
+          location.href
+        );
+
+        if (url.origin !== location.origin) {
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+        }
+      } catch {
+        // Ignore malformed links.
+      }
+    });
+  }
+
+  /* -------------------------------------------------------
+     Image Error Handling
+     ------------------------------------------------------- */
+
+  function initImages() {
+    $$("img").forEach((image) => {
+      image.addEventListener("error", () => {
+        image.classList.add("image-error");
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Print
+     ------------------------------------------------------- */
+
+  function initPrint() {
+    $$("[data-print]").forEach((button) => {
+      button.addEventListener("click", () => {
+        window.print();
+      });
+    });
+  }
+
+  /* -------------------------------------------------------
+     Certificate Verify Shortcut
+     ------------------------------------------------------- */
+
+  function initCertificateLinks() {
+    $$("[data-certificate-id]").forEach(
+      (element) => {
+        element.addEventListener("click", () => {
+          const id =
+            element.dataset.certificateId;
+
+          if (!id) return;
+
+          location.href =
+            `verify.html?id=${encodeURIComponent(id)}`;
+        });
+      }
+    );
+  }
+
+  /* -------------------------------------------------------
+     First Flight
+     ------------------------------------------------------- */
+
+  function initFirstFlight() {
+    const form = $("#firstFlightForm");
+
+    if (!form || !storage) return;
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const data =
+        Object.fromEntries(
+          new FormData(form).entries()
+        );
+
+      storage.set("FIRST_FLIGHT_PROGRESS", {
+        ...data,
+        updatedAt: new Date().toISOString(),
+      });
+
+      toast(
+        "आपकी progress सेव हो गई।",
+        "success"
+      );
+    });
+  }
+
+  /* -------------------------------------------------------
+     Accessibility
+     ------------------------------------------------------- */
+
+  function initAccessibility() {
+    $$("button").forEach((button) => {
+      if (
+        !button.getAttribute("aria-label") &&
+        !button.textContent.trim()
+      ) {
+        button.setAttribute(
+          "aria-label",
+          "Button"
+        );
+      }
+    });
+  }
+
+  /* -------------------------------------------------------
+     Global Error Handling
+     ------------------------------------------------------- */
+
+  window.addEventListener(
+    "error",
+    (event) => {
+      console.error(
+        "ARS Runtime Error:",
+        event.error || event.message
+      );
+    }
+  );
+
+  window.addEventListener(
+    "unhandledrejection",
+    (event) => {
+      console.error(
+        "ARS Promise Error:",
+        event.reason
+      );
+    }
+  );
+
+  /* -------------------------------------------------------
+     Initialize
+     ------------------------------------------------------- */
+
+  function init() {
+    initNavigation();
+    initActiveNavigation();
+    initTheme();
+    initSmoothScroll();
+    initBackToTop();
+    initReveal();
+    initCopyButtons();
+    initShareButtons();
+    initContentActions();
+    initSearch();
+    initFilters();
+    initForms();
+    initJoiningForm();
+    initImages();
+    initExternalLinks();
+    initPrint();
+    initCertificateLinks();
+    initFirstFlight();
+    initAccessibility();
+
+    applyUrlParams();
+    setYear();
+
+    setTimeout(hideLoader, 250);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      init
+    );
+  } else {
+    init();
+  }
+
+  /* -------------------------------------------------------
+     Public API
+     ------------------------------------------------------- */
+
+  window.ARS_APP = {
+    version: "6.0.0",
+    toast,
+    copy: copyText,
+    share: shareContent,
+    getParam,
+  };
+})();
