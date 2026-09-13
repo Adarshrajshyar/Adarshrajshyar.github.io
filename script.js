@@ -1,949 +1,695 @@
 /* =========================================================
-   ARS OFFICIAL — MASTER SCRIPT
+   ARS OFFICIAL — MAIN WEBSITE SCRIPT
+   Founder: Adarsh Raj
+   Website: Adarsh Raj Shayar
+   Version: 5.0.0
    ========================================================= */
 
-(function () {
+"use strict";
 
-  "use strict";
+/* =========================================================
+   1. GLOBAL CONFIG
+   ========================================================= */
 
+const ARS_APP = {
+    name: "ARS Official",
+    founder: "Adarsh Raj",
+    shortName: "ARS",
+    version: "5.0.0",
 
-  /* =======================================================
-     SHORTCUTS
-     ======================================================= */
-
-  const $ = (selector, parent = document) =>
-    parent.querySelector(selector);
-
-  const $$ = (selector, parent = document) =>
-    [...parent.querySelectorAll(selector)];
-
-
-  /* =======================================================
-     THEME
-     ======================================================= */
-
-  const THEME_KEY = "ARS_THEME";
-
-  function getTheme() {
-
-    const saved =
-      localStorage.getItem(THEME_KEY);
-
-    if (saved === "dark" || saved === "light") {
-      return saved;
+    storage: {
+        theme: "ARS_THEME",
+        favorites: "ARS_FAVORITES",
+        likes: "ARS_LIKES",
+        saves: "ARS_SAVES",
+        certificates: "ARS_CERTIFICATES",
+        joining: "ARS_JOINING_APPLICATIONS",
+        education: "ARS_EDUCATION_CONTENT",
+        firstFlight: "ARS_FIRST_FLIGHT"
     }
-
-    return window.matchMedia &&
-      window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches
-      ? "dark"
-      : "light";
-  }
+};
 
 
-  function applyTheme(theme) {
+/* =========================================================
+   2. SAFE LOCAL STORAGE
+   ========================================================= */
 
-    document.documentElement.dataset.theme =
-      theme;
+function arsGet(key, fallback = null) {
+    try {
+        const value = localStorage.getItem(key);
 
-    localStorage.setItem(
-      THEME_KEY,
-      theme
-    );
-
-    const button =
-      $("#themeToggle");
-
-    if (!button) return;
-
-    button.textContent =
-      theme === "dark"
-        ? "☀️"
-        : "🌙";
-
-    button.setAttribute(
-      "aria-label",
-      theme === "dark"
-        ? "Switch to light mode"
-        : "Switch to dark mode"
-    );
-
-    button.title =
-      theme === "dark"
-        ? "Light Mode"
-        : "Dark Mode";
-  }
-
-
-  function initTheme() {
-
-    applyTheme(getTheme());
-
-    const button =
-      $("#themeToggle");
-
-    if (!button) return;
-
-    button.addEventListener(
-      "click",
-      function () {
-
-        const current =
-          document.documentElement.dataset.theme ||
-          "light";
-
-        applyTheme(
-          current === "dark"
-            ? "light"
-            : "dark"
-        );
-
-      }
-    );
-  }
-
-
-  /* =======================================================
-     MOBILE NAVIGATION
-     ======================================================= */
-
-  function initMobileNavigation() {
-
-    const toggle =
-      $("#navToggle");
-
-    const links =
-      $("#navLinks");
-
-    if (!toggle || !links) return;
-
-
-    toggle.addEventListener(
-      "click",
-      function (event) {
-
-        event.stopPropagation();
-
-        const opened =
-          links.classList.toggle("open");
-
-        toggle.setAttribute(
-          "aria-expanded",
-          String(opened)
-        );
-
-        toggle.textContent =
-          opened
-            ? "✕"
-            : "☰";
-
-      }
-    );
-
-
-    $$("a", links).forEach(
-      function (link) {
-
-        link.addEventListener(
-          "click",
-          function () {
-
-            if (window.innerWidth <= 780) {
-
-              links.classList.remove("open");
-
-              toggle.setAttribute(
-                "aria-expanded",
-                "false"
-              );
-
-              toggle.textContent = "☰";
-            }
-
-          }
-        );
-
-      }
-    );
-
-
-    document.addEventListener(
-      "click",
-      function (event) {
-
-        if (
-          window.innerWidth <= 780 &&
-          !links.contains(event.target) &&
-          !toggle.contains(event.target)
-        ) {
-
-          links.classList.remove("open");
-
-          toggle.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-          toggle.textContent = "☰";
+        if (value === null) {
+            return fallback;
         }
 
-      }
+        return JSON.parse(value);
+    } catch (error) {
+        return fallback;
+    }
+}
+
+
+function arsSet(key, value) {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+    } catch (error) {
+        console.error("ARS Storage Error:", error);
+        return false;
+    }
+}
+
+
+function arsRemove(key) {
+    try {
+        localStorage.removeItem(key);
+    } catch (error) {
+        console.error("ARS Remove Error:", error);
+    }
+}
+
+
+/* =========================================================
+   3. PAGE LOADER
+   ========================================================= */
+
+function arsPageLoader() {
+
+    const loader = document.querySelector(".page-loader");
+
+    if (!loader) return;
+
+    window.addEventListener("load", () => {
+
+        setTimeout(() => {
+
+            loader.classList.add("hide");
+
+            setTimeout(() => {
+                loader.remove();
+            }, 500);
+
+        }, 300);
+
+    });
+}
+
+
+/* =========================================================
+   4. TOAST MESSAGE
+   ========================================================= */
+
+function arsToast(message, type = "success") {
+
+    let toast = document.getElementById("arsToast");
+
+    if (!toast) {
+
+        toast = document.createElement("div");
+
+        toast.id = "arsToast";
+        toast.className = "ars-toast";
+
+        document.body.appendChild(toast);
+    }
+
+    toast.className = `ars-toast ${type}`;
+    toast.textContent = message;
+
+    requestAnimationFrame(() => {
+        toast.classList.add("show");
+    });
+
+    clearTimeout(window.arsToastTimer);
+
+    window.arsToastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+}
+
+
+/* =========================================================
+   5. THEME — LIGHT / DARK
+   ========================================================= */
+
+function arsApplyTheme(theme) {
+
+    if (theme === "dark") {
+        document.documentElement.classList.add("dark");
+        document.body.classList.add("dark");
+    } else {
+        document.documentElement.classList.remove("dark");
+        document.body.classList.remove("dark");
+    }
+
+    const buttons = document.querySelectorAll(
+        "[data-theme-toggle], #themeToggle, .theme-toggle"
     );
 
-  }
-
-
-  /* =======================================================
-     MORE MENU
-     ======================================================= */
-
-  function initMoreMenu() {
-
-    const button =
-      $("#navMoreButton");
-
-    const menu =
-      $("#navMoreMenu");
-
-    const wrapper =
-      $(".nav-more");
-
-    if (!button || !menu || !wrapper) return;
-
-
-    button.addEventListener(
-      "click",
-      function (event) {
-
-        event.stopPropagation();
-
-        const opened =
-          wrapper.classList.toggle("open");
+    buttons.forEach(button => {
 
         button.setAttribute(
-          "aria-expanded",
-          String(opened)
+            "aria-label",
+            theme === "dark"
+                ? "Switch to light mode"
+                : "Switch to dark mode"
         );
 
-      }
+        button.innerHTML =
+            theme === "dark" ? "☀️" : "🌙";
+
+    });
+}
+
+
+function arsInitTheme() {
+
+    let savedTheme = localStorage.getItem(
+        ARS_APP.storage.theme
     );
 
+    if (!savedTheme) {
 
-    document.addEventListener(
-      "click",
-      function (event) {
-
-        if (!wrapper.contains(event.target)) {
-
-          wrapper.classList.remove("open");
-
-          button.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-        }
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     SCROLL PROGRESS
-     ======================================================= */
-
-  function updateScrollProgress() {
-
-    const progress =
-      $("#progressBar");
-
-    if (!progress) return;
-
-    const scrollTop =
-      window.scrollY ||
-      document.documentElement.scrollTop;
-
-    const documentHeight =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight;
-
-    const percentage =
-      documentHeight > 0
-        ? (scrollTop / documentHeight) * 100
-        : 0;
-
-    progress.style.width =
-      `${Math.min(
-        100,
-        Math.max(0, percentage)
-      )}%`;
-  }
-
-
-  /* =======================================================
-     BACK TO TOP
-     ======================================================= */
-
-  function initBackToTop() {
-
-    let button =
-      $("#backToTop");
-
-    if (!button) return;
-
-
-    button.addEventListener(
-      "click",
-      function () {
-
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-
-      }
-    );
-
-
-    function update() {
-
-      button.classList.toggle(
-        "show",
-        window.scrollY > 350
-      );
-
+        savedTheme =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
     }
 
+    arsApplyTheme(savedTheme);
 
-    update();
+    document.addEventListener("click", event => {
 
-    window.addEventListener(
-      "scroll",
-      update,
-      { passive: true }
-    );
+        const button = event.target.closest(
+            "[data-theme-toggle], #themeToggle, .theme-toggle"
+        );
 
-  }
+        if (!button) return;
+
+        const current =
+            document.documentElement.classList.contains("dark")
+                ? "dark"
+                : "light";
+
+        const next =
+            current === "dark" ? "light" : "dark";
+
+        localStorage.setItem(
+            ARS_APP.storage.theme,
+            next
+        );
+
+        arsApplyTheme(next);
+    });
+}
 
 
-  /* =======================================================
-     ACTIVE NAVIGATION
-     ======================================================= */
+/* =========================================================
+   6. MOBILE NAVIGATION
+   ========================================================= */
 
-  function initActiveNavigation() {
+function arsInitNavigation() {
 
-    const current =
-      (
-        window.location.pathname
-          .split("/")
-          .pop()
-          .toLowerCase()
-      ) || "index.html";
+    const menuButton =
+        document.querySelector(
+            "#menuToggle, .menu-toggle, [data-menu-toggle]"
+        );
+
+    const nav =
+        document.querySelector(
+            "#mainNav, .main-nav, nav"
+        );
+
+    if (!menuButton || !nav) return;
+
+    menuButton.addEventListener("click", () => {
+
+        nav.classList.toggle("active");
+        menuButton.classList.toggle("active");
+
+        const expanded =
+            menuButton.classList.contains("active");
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            expanded ? "true" : "false"
+        );
+    });
 
 
-    $$(".nav-links > a").forEach(
-      function (link) {
-
-        const href =
-          link.getAttribute("href");
+    document.addEventListener("click", event => {
 
         if (
-          !href ||
-          href.startsWith("#")
+            !nav.contains(event.target) &&
+            !menuButton.contains(event.target)
         ) {
-          return;
+            nav.classList.remove("active");
+            menuButton.classList.remove("active");
         }
 
-        const file =
-          href
+    });
+
+
+    nav.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            nav.classList.remove("active");
+            menuButton.classList.remove("active");
+
+        });
+
+    });
+}
+
+
+/* =========================================================
+   7. ACTIVE NAV LINK
+   ========================================================= */
+
+function arsSetActiveNavigation() {
+
+    const currentPage =
+        window.location.pathname
             .split("/")
             .pop()
             .toLowerCase();
 
-        link.classList.toggle(
-          "active",
-          file === current
-        );
+    document.querySelectorAll("nav a, .nav-link").forEach(link => {
 
-      }
-    );
+        const href =
+            link.getAttribute("href");
 
-  }
+        if (!href) return;
 
-
-  /* =======================================================
-     INTERNAL ANCHOR LINKS
-     ======================================================= */
-
-  function initSmoothLinks() {
-
-    $$('a[href^="#"]').forEach(
-      function (link) {
-
-        link.addEventListener(
-          "click",
-          function (event) {
-
-            const id =
-              link.getAttribute("href");
-
-            if (
-              !id ||
-              id === "#"
-            ) {
-              return;
-            }
-
-            const target =
-              document.querySelector(id);
-
-            if (!target) return;
-
-            event.preventDefault();
-
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-
-          }
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     COPY
-     ======================================================= */
-
-  async function copyText(text) {
-
-    if (!text) return false;
-
-
-    try {
-
-      if (
-        navigator.clipboard &&
-        window.isSecureContext
-      ) {
-
-        await navigator.clipboard.writeText(
-          text
-        );
-
-        return true;
-      }
-
-    } catch (_) {}
-
-
-    try {
-
-      const textarea =
-        document.createElement("textarea");
-
-      textarea.value = text;
-
-      textarea.style.position = "fixed";
-      textarea.style.left = "-9999px";
-
-      document.body.appendChild(
-        textarea
-      );
-
-      textarea.select();
-
-      const copied =
-        document.execCommand("copy");
-
-      textarea.remove();
-
-      return copied;
-
-    } catch (_) {
-
-      return false;
-    }
-
-  }
-
-
-  function initCopyButtons() {
-
-    $$("[data-copy]").forEach(
-      function (button) {
-
-        button.addEventListener(
-          "click",
-          async function () {
-
-            let text = "";
-
-            const selector =
-              button.dataset.copy;
-
-            if (selector) {
-
-              const target =
-                document.querySelector(
-                  selector
-                );
-
-              if (target) {
-
-                text =
-                  target.value ??
-                  target.textContent ??
-                  "";
-              }
-
-            }
-
-
-            if (!text) {
-
-              text =
-                button.dataset.copyText ||
-                "";
-
-            }
-
-
-            const success =
-              await copyText(text);
-
-
-            const original =
-              button.textContent;
-
-
-            button.textContent =
-              success
-                ? "✓ Copied"
-                : "Copy Failed";
-
-
-            setTimeout(
-              function () {
-
-                button.textContent =
-                  original;
-
-              },
-              1600
-            );
-
-          }
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =======================================================
-     SHARE
-     ======================================================= */
-
-  async function shareContent({
-    title = "ARS Official",
-    text = "",
-    url = window.location.href
-  } = {}) {
-
-    if (
-      navigator.share &&
-      typeof navigator.share === "function"
-    ) {
-
-      try {
-
-        await navigator.share({
-          title,
-          text,
-          url
-        });
-
-        return true;
-
-      } catch (error) {
+        const page =
+            href.split("/")
+                .pop()
+                .split("#")[0]
+                .toLowerCase();
 
         if (
-          error &&
-          error.name === "AbortError"
+            page === currentPage ||
+            (
+                currentPage === "" &&
+                page === "index.html"
+            )
         ) {
-          return false;
+            link.classList.add("active");
         }
 
-      }
-
-    }
-
-
-    const copied =
-      await copyText(url);
-
-    if (copied) {
-
-      showToast(
-        "Share link copied!"
-      );
-
-    }
-
-    return copied;
-  }
+    });
+}
 
 
-  function initShareButtons() {
+/* =========================================================
+   8. SCROLL EFFECT
+   ========================================================= */
 
-    $$("[data-share]").forEach(
-      function (button) {
+function arsScrollEffect() {
 
-        button.addEventListener(
-          "click",
-          async function () {
-
-            await shareContent({
-
-              title:
-                button.dataset.title ||
-                document.title,
-
-              text:
-                button.dataset.text ||
-                "",
-
-              url:
-                button.dataset.url ||
-                window.location.href
-
-            });
-
-          }
+    const header =
+        document.querySelector(
+            "header, .header, .site-header"
         );
 
-      }
+    if (!header) return;
+
+    const checkScroll = () => {
+
+        if (window.scrollY > 30) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+
+    };
+
+    window.addEventListener(
+        "scroll",
+        checkScroll,
+        { passive: true }
     );
 
-  }
+    checkScroll();
+}
 
 
-  /* =======================================================
-     TOAST
-     ======================================================= */
+/* =========================================================
+   9. BACK TO TOP
+   ========================================================= */
 
-  function showToast(message) {
+function arsBackToTop() {
 
-    let toast =
-      $("#arsToast");
-
-    if (!toast) return;
-
-    toast.textContent =
-      message;
-
-    toast.style.opacity =
-      "1";
-
-    toast.style.transform =
-      "translateX(-50%) translateY(0)";
-
-
-    clearTimeout(
-      toast._timer
-    );
-
-
-    toast._timer =
-      setTimeout(
-        function () {
-
-          toast.style.opacity =
-            "0";
-
-          toast.style.transform =
-            "translateX(-50%) translateY(20px)";
-
-        },
-        1800
-      );
-
-  }
-
-
-  /* =======================================================
-     FAVORITES / LIKES
-     ======================================================= */
-
-  const FAVORITE_KEY =
-    "ARS_FAVORITES";
-
-  const LIKE_KEY =
-    "ARS_LIKES";
-
-
-  function readArray(key) {
-
-    try {
-
-      const value =
-        JSON.parse(
-          localStorage.getItem(key) ||
-          "[]"
+    let button =
+        document.querySelector(
+            "#backToTop, .back-to-top"
         );
 
-      return Array.isArray(value)
-        ? value
-        : [];
+    if (!button) {
 
-    } catch (_) {
+        button = document.createElement("button");
 
-      return [];
+        button.id = "backToTop";
+        button.className = "back-to-top";
+        button.innerHTML = "↑";
+        button.setAttribute(
+            "aria-label",
+            "Back to top"
+        );
+
+        document.body.appendChild(button);
     }
 
-  }
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 400) {
+            button.classList.add("show");
+        } else {
+            button.classList.remove("show");
+        }
+
+    }, { passive: true });
 
 
-  function writeArray(key, value) {
+    button.addEventListener("click", () => {
 
-    localStorage.setItem(
-      key,
-      JSON.stringify(value)
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+}
+
+
+/* =========================================================
+   10. SMOOTH ANCHOR SCROLL
+   ========================================================= */
+
+function arsSmoothScroll() {
+
+    document.addEventListener("click", event => {
+
+        const link =
+            event.target.closest('a[href^="#"]');
+
+        if (!link) return;
+
+        const id =
+            link.getAttribute("href");
+
+        if (!id || id === "#") return;
+
+        const target =
+            document.querySelector(id);
+
+        if (!target) return;
+
+        event.preventDefault();
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    });
+}
+
+
+/* =========================================================
+   11. FAVORITES
+   ========================================================= */
+
+function getFavorites() {
+
+    return arsGet(
+        ARS_APP.storage.favorites,
+        []
     );
+}
 
-  }
 
-
-  function toggleStoredItem(
-    key,
-    id
-  ) {
+function isFavorite(id) {
 
     if (!id) return false;
 
-    const list =
-      readArray(key);
+    return getFavorites()
+        .map(String)
+        .includes(String(id));
+}
+
+
+function toggleFavorite(id) {
+
+    if (!id) return false;
+
+    let favorites = getFavorites();
+
+    const value = String(id);
 
     const index =
-      list.indexOf(id);
+        favorites.map(String).indexOf(value);
 
+    if (index >= 0) {
 
-    if (index === -1) {
+        favorites.splice(index, 1);
 
-      list.push(id);
+        arsSet(
+            ARS_APP.storage.favorites,
+            favorites
+        );
 
-      writeArray(
-        key,
-        list
-      );
+        arsUpdateFavoriteButtons();
 
-      return true;
+        arsToast(
+            "Removed from Favorites",
+            "info"
+        );
+
+        return false;
+
+    } else {
+
+        favorites.push(id);
+
+        arsSet(
+            ARS_APP.storage.favorites,
+            favorites
+        );
+
+        arsUpdateFavoriteButtons();
+
+        arsToast(
+            "Added to Favorites ❤️",
+            "success"
+        );
+
+        return true;
     }
+}
 
 
-    list.splice(
-      index,
-      1
-    );
+function arsUpdateFavoriteButtons() {
 
-    writeArray(
-      key,
-      list
-    );
-
-    return false;
-  }
-
-
-  function initReactionButtons() {
-
-    $$("[data-reaction]").forEach(
-      function (button) {
-
-        const type =
-          button.dataset.reaction;
+    document.querySelectorAll(
+        "[data-favorite], .favorite-btn"
+    ).forEach(button => {
 
         const id =
-          button.dataset.id;
+            button.dataset.favorite ||
+            button.dataset.id;
 
-        if (!type || !id) return;
-
-
-        const key =
-          type === "favorite"
-            ? FAVORITE_KEY
-            : LIKE_KEY;
-
+        if (!id) return;
 
         const active =
-          readArray(key)
-            .includes(id);
-
+            isFavorite(id);
 
         button.classList.toggle(
-          "active",
-          active
+            "active",
+            active
         );
 
         button.setAttribute(
-          "aria-pressed",
-          String(active)
+            "aria-pressed",
+            active ? "true" : "false"
         );
 
-
-        button.addEventListener(
-          "click",
-          function () {
-
-            const nowActive =
-              toggleStoredItem(
-                key,
-                id
-              );
-
-
-            button.classList.toggle(
-              "active",
-              nowActive
+        const icon =
+            button.querySelector(
+                ".favorite-icon"
             );
 
-            button.setAttribute(
-              "aria-pressed",
-              String(nowActive)
-            );
+        if (icon) {
+            icon.textContent =
+                active ? "❤️" : "🤍";
+        }
+
+    });
+}
 
 
-            if (type === "favorite") {
+/* =========================================================
+   12. LIKES
+   ========================================================= */
 
-              showToast(
-                nowActive
-                  ? "Added to Favorites ❤️"
-                  : "Removed from Favorites"
-              );
+function getLikes() {
 
-            } else {
+    return arsGet(
+        ARS_APP.storage.likes,
+        {}
+    );
+}
 
-              showToast(
-                nowActive
-                  ? "Liked 👍"
-                  : "Unliked"
-              );
 
-            }
+function hasLiked(id) {
 
-          }
+    if (!id) return false;
+
+    const likes = getLikes();
+
+    return !!likes[String(id)];
+}
+
+
+function toggleLike(id) {
+
+    if (!id) return false;
+
+    const likes = getLikes();
+    const key = String(id);
+
+    likes[key] = !likes[key];
+
+    arsSet(
+        ARS_APP.storage.likes,
+        likes
+    );
+
+    arsUpdateLikeButtons();
+
+    if (likes[key]) {
+        arsToast("Liked ❤️", "success");
+    } else {
+        arsToast("Like removed", "info");
+    }
+
+    return likes[key];
+}
+
+
+function arsUpdateLikeButtons() {
+
+    const likes = getLikes();
+
+    document.querySelectorAll(
+        "[data-like], .like-btn"
+    ).forEach(button => {
+
+        const id =
+            button.dataset.like ||
+            button.dataset.id;
+
+        if (!id) return;
+
+        const active =
+            !!likes[String(id)];
+
+        button.classList.toggle(
+            "active",
+            active
         );
 
-      }
+        button.setAttribute(
+            "aria-pressed",
+            active ? "true" : "false"
+        );
+
+    });
+}
+
+
+/* =========================================================
+   13. SAVES
+   ========================================================= */
+
+function getSaves() {
+
+    return arsGet(
+        ARS_APP.storage.saves,
+        []
     );
-
-  }
-
-
-  /* =======================================================
-     YEAR
-     ======================================================= */
-
-  function setYear() {
-
-    const year =
-      $("#currentYear");
-
-    if (!year) return;
-
-    year.textContent =
-      new Date().getFullYear();
-
-  }
+}
 
 
-  /* =======================================================
-     GLOBAL API
-     ======================================================= */
+function isSaved(id) {
 
-  window.ARS =
-    window.ARS || {};
-
-  window.ARS.copyText =
-    copyText;
-
-  window.ARS.shareContent =
-    shareContent;
-
-  window.ARS.showToast =
-    showToast;
-
-  window.ARS.readArray =
-    readArray;
-
-  window.ARS.writeArray =
-    writeArray;
-
-  window.ARS.toggleStoredItem =
-    toggleStoredItem;
+    return getSaves()
+        .map(String)
+        .includes(String(id));
+}
 
 
-  /* =======================================================
-     INITIALIZATION
-     ======================================================= */
+function toggleSave(id) {
 
-  function init() {
+    if (!id) return false;
 
-    initTheme();
+    let saves = getSaves();
 
-    initMobileNavigation();
+    const value = String(id);
 
-    initMoreMenu();
+    const index =
+        saves.map(String).indexOf(value);
 
-    initBackToTop();
+    if (index >= 0) {
 
-    initActiveNavigation();
+        saves.splice(index, 1);
 
-    initSmoothLinks();
+        arsToast(
+            "Removed from Saved",
+            "info"
+        );
 
-    initCopyButtons();
+        arsSet(
+            ARS_APP.storage.saves,
+            saves
+        );
 
-    initShareButtons();
+        return false;
 
-    initReactionButtons();
+    } else {
 
-    setYear();
+        saves.push(id);
 
-    updateScrollProgress();
+        arsSet(
+            ARS_APP.storage.saves,
+            saves
+        );
 
-  }
+        arsToast(
+            "Saved successfully 🔖",
+            "success"
+        );
 
-
-  if (
-    document.readyState ===
-    "loading"
-  ) {
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      init,
-      { once: true }
-    );
-
-  } else {
-
-    init();
-
-  }
+        return true;
+    }
+}
 
 
-  window.addEventListener(
-    "scroll",
-    updateScrollProgress,
-    { passive: true }
-  );
+/* =========================================================
+   14. GLOBAL LIKE/FAVORITE/SAVE CLICK HANDLER
+   ========================================================= */
 
-})();
+function arsInitContentActions() {
+
+    document.addEventListener("click", event => {
+
+        const favorite =
+            event.target.closest(
+                "[data-favorite], .favorite-btn"
+            );
+
+        if (favorite)
