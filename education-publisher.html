@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Education Publisher</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .edu-publisher {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .publisher-hero {
+      padding: 28px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+      background: var(--card-bg, #ffffff);
+      box-shadow: 0 8px 30px rgba(0,0,0,.10);
+    }
+
+    .publisher-hero h1 {
+      margin: 0 0 8px;
+    }
+
+    .publisher-hero p {
+      margin: 0;
+      opacity: .8;
+    }
+
+    .publisher-grid {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 22px;
+    }
+
+    .publisher-card {
+      background: var(--card-bg, #ffffff);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    }
+
+    .publisher-card h2 {
+      margin-top: 0;
+    }
+
+    .edu-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .edu-form label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .edu-form input,
+    .edu-form select,
+    .edu-form textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+    }
+
+    .edu-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .edu-btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .edu-btn.primary {
+      background: #111;
+      color: #fff;
+    }
+
+    .edu-btn.secondary {
+      background: #ddd;
+      color: #111;
+    }
+
+    .edu-btn.danger {
+      background: #b00020;
+      color: #fff;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 160px 160px;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background: transparent;
+      color: inherit;
+    }
+
+    .content-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .content-item {
+      border: 1px solid rgba(128,128,128,.25);
+      border-radius: 15px;
+      padding: 16px;
+    }
+
+    .content-item h3 {
+      margin: 0 0 7px;
+    }
+
+    .content-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 8px 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: rgba(128,128,128,.15);
+    }
+
+    .status-published {
+      font-weight: 700;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .item-actions button {
+      border: 0;
+      padding: 8px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 35px 10px;
+      opacity: .7;
+    }
+
+    .top-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .top-links a {
+      text-decoration: none;
+      padding: 9px 13px;
+      border-radius: 9px;
+      background: rgba(128,128,128,.12);
+      color: inherit;
+    }
+
+    @media (max-width: 850px) {
+      .publisher-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .edu-publisher {
+        margin: 15px auto;
+        padding: 12px;
+      }
+
+      .publisher-hero,
+      .publisher-card {
+        padding: 15px;
+      }
+
+      .form-actions,
+      .item-actions {
+        flex-direction: column;
+      }
+
+      .edu-btn,
+      .item-actions button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="edu-publisher">
+
+    <section class="publisher-hero">
+      <h1>📚 ARS Education Publisher</h1>
+      <p>
+        Manage Classes 5–8 educational content from one place.
+      </p>
+
+      <div class="top-links">
+        <a href="education.html">Education</a>
+        <a href="publisher.html">Main Publisher</a>
+        <a href="admin.html">Admin</a>
+        <a href="index.html">Home</a>
+      </div>
+    </section>
+
+
+    <section class="publisher-grid">
+
+      <!-- FORM -->
+      <div class="publisher-card">
+
+        <h2 id="formTitle">➕ Add Content</h2>
+
+        <form id="educationForm" class="edu-form">
+
+          <input type="hidden" id="editId">
+
+          <div>
+            <label for="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter content title"
+              required
+            >
+          </div>
+
+
+          <div>
+            <label for="type">Content Type</label>
+
+            <select id="type" required>
+              <option value="notes">Notes</option>
+              <option value="mcq">MCQ</option>
+              <option value="practice">Practice</option>
+              <option value="exam-tips">Exam Tips</option>
+              <option value="resources">Resources</option>
+            </select>
+          </div>
+
+
+          <div>
+            <label for="className">Class</label>
+
+            <select id="className" required>
+              <option value="5">Class 5</option>
+              <option value="6">Class 6</option>
+              <option value="7">Class 7</option>
+              <option value="8">Class 8</option>
+            </select>
+          </div>
+
+
+          <div>
+            <label for="subject">Subject</label>
+
+            <select id="subject">
+              <option value="Maths">Maths</option>
+              <option value="Science">Science</option>
+              <option value="Hindi">Hindi</option>
+              <option value="English">English</option>
+              <option value="SST">Social Science</option>
+              <option value="GK">GK</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+
+
+          <div>
+            <label for="topic">Topic / Chapter</label>
+
+            <input
+              type="text"
+              id="topic"
+              placeholder="Chapter or topic"
+            >
+          </div>
+
+
+          <div>
+            <label for="content">Content</label>
+
+            <textarea
+              id="content"
+              placeholder="Write educational content here..."
+              required
+            ></textarea>
+          </div>
+
+
+          <div>
+            <label for="status">Status</label>
+
+            <select id="status">
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              type="submit"
+              class="edu-btn primary"
+              id="saveBtn"
+            >
+              Save Content
+            </button>
+
+            <button
+              type="button"
+              class="edu-btn secondary"
+              id="resetBtn"
+            >
+              Clear
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+
+      <!-- CONTENT LIST -->
+      <div class="publisher-card">
+
+        <h2>📖 Education Content</h2>
+
+        <div class="toolbar">
+
+          <input
+            type="search"
+            id="search"
+            placeholder="Search title, topic, subject..."
+          >
+
+          <select id="filterClass">
+            <option value="all">All Classes</option>
+            <option value="5">Class 5</option>
+            <option value="6">Class 6</option>
+            <option value="7">Class 7</option>
+            <option value="8">Class 8</option>
+          </select>
+
+          <select id="filterType">
+            <option value="all">All Types</option>
+            <option value="notes">Notes</option>
+            <option value="mcq">MCQ</option>
+            <option value="practice">Practice</option>
+            <option value="exam-tips">Exam Tips</option>
+            <option value="resources">Resources</option>
+          </select>
+
+        </div>
+
+
+        <div id="contentList" class="content-list"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+<script>
+(function () {
+
+  "use strict";
+
+  const STORAGE_KEY = "ARS_EDUCATION_CONTENT";
+
+  const form = document.getElementById("educationForm");
+  const editId = document.getElementById("editId");
+  const title = document.getElementById("title");
+  const type = document.getElementById("type");
+  const className = document.getElementById("className");
+  const subject = document.getElementById("subject");
+  const topic = document.getElementById("topic");
+  const content = document.getElementById("content");
+  const status = document.getElementById("status");
+
+  const search = document.getElementById("search");
+  const filterClass = document.getElementById("filterClass");
+  const filterType = document.getElementById("filterType");
+
+  const contentList = document.getElementById("contentList");
+  const resetBtn = document.getElementById("resetBtn");
+  const formTitle = document.getElementById("formTitle");
+  const saveBtn = document.getElementById("saveBtn");
+
+
+  function getItems() {
+
+    try {
+      return JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      ) || [];
+    } catch (error) {
+      return [];
+    }
+
+  }
+
+
+  function saveItems(items) {
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(items)
+    );
+
+  }
+
+
+  function makeId() {
+
+    return (
+      "EDU-" +
+      Date.now() +
+      "-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 7)
+        .toUpperCase()
+    );
+
+  }
+
+
+  function escapeHTML(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  function typeLabel(value) {
+
+    const labels = {
+      "notes": "Notes",
+      "mcq": "MCQ",
+      "practice": "Practice",
+      "exam-tips": "Exam Tips",
+      "resources": "Resources"
+    };
+
+    return labels[value] || value;
+
+  }
+
+
+  function render() {
+
+    const items = getItems();
+
+    const q = search.value
+      .trim()
+      .toLowerCase();
+
+    const selectedClass = filterClass.value;
+    const selectedType = filterType.value;
+
+
+    const filtered = items
+      .filter(item => {
+
+        const text = [
+          item.title,
+          item.subject,
+          item.topic,
+          item.content
+        ]
+        .join(" ")
+        .toLowerCase();
+
+        return !q || text.includes(q);
+
+      })
+      .filter(item => {
+
+        return (
+          selectedClass === "all" ||
+          item.className === selectedClass
+        );
+
+      })
+      .filter(item => {
+
+        return (
+          selectedType === "all" ||
+          item.type === selectedType
+        );
+
+      })
+      .sort((a, b) => {
+
+        return new Date(b.updatedAt) -
+               new Date(a.updatedAt);
+
+      });
+
+
+    if (!filtered.length) {
+
+      contentList.innerHTML = `
+        <div class="empty-state">
+          <h3>No education content found</h3>
+          <p>Add your first Notes, MCQ, Practice or other content.</p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    contentList.innerHTML = filtered
+      .map(item => {
+
+        return `
+          <article class="content-item">
+
+            <h3>
+              ${escapeHTML(item.title)}
+            </h3>
+
+            <div class="content-meta">
+
+              <span class="tag">
+                Class ${escapeHTML(item.className)}
+              </span>
+
+              <span class="tag">
+                ${escapeHTML(item.subject)}
+              </span>
+
+              <span class="tag">
+                ${escapeHTML(typeLabel(item.type))}
+              </span>
+
+              ${
+                item.topic
+                ? `
+                  <span class="tag">
+                    ${escapeHTML(item.topic)}
+                  </span>
+                `
+                : ""
+              }
+
+              <span class="tag status-published">
+                ${item.status === "published"
+                  ? "Published"
+                  : "Draft"}
+              </span>
+
+            </div>
+
+
+            <p>
+              ${escapeHTML(
+                item.content.substring(0, 220)
+              )}
+              ${item.content.length > 220 ? "..." : ""}
+            </p>
+
+
+            <div class="item-actions">
+
+              <button
+                onclick="ARS_EDU_EDIT('${item.id}')"
+              >
+                ✏️ Edit
+              </button>
+
+              <button
+                onclick="ARS_EDU_TOGGLE('${item.id}')"
+              >
+                ${
+                  item.status === "published"
+                  ? "↩️ Unpublish"
+                  : "🚀 Publish"
+                }
+              </button>
+
+              <button
+                onclick="ARS_EDU_DELETE('${item.id}')"
+              >
+                🗑️ Delete
+              </button>
+
+            </div>
+
+          </article>
+        `;
+
+      })
+      .join("");
+
+  }
+
+
+  form.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+
+    const items = getItems();
+
+    const data = {
+
+      title: title.value.trim(),
+
+      type: type.value,
+
+      className: className.value,
+
+      subject: subject.value,
+
+      topic: topic.value.trim(),
+
+      content: content.value.trim(),
+
+      status: status.value
+
+    };
+
+
+    if (!data.title || !data.content) {
+
+      alert("Title and Content are required.");
+
+      return;
+
+    }
+
+
+    const existingId = editId.value;
+
+
+    if (existingId) {
+
+      const index = items.findIndex(
+        item => item.id === existingId
+      );
+
+
+      if (index !== -1) {
+
+        items[index] = {
+
+          ...items[index],
+
+          ...data,
+
+          updatedAt: new Date().toISOString()
+
+        };
+
+      }
+
+    } else {
+
+      items.push({
+
+        id: makeId(),
+
+        ...data,
+
+        createdAt: new Date().toISOString(),
+
+        updatedAt: new Date().toISOString()
+
+      });
+
+    }
+
+
+    saveItems(items);
+
+    resetForm();
+
+    render();
+
+    alert(
+      existingId
+        ? "Education content updated."
+        : "Education content saved."
+    );
+
+  });
+
+
+  window.ARS_EDU_EDIT = function (id) {
+
+    const item = getItems()
+      .find(entry => entry.id === id);
+
+    if (!item) return;
+
+
+    editId.value = item.id;
+
+    title.value = item.title || "";
+
+    type.value = item.type || "notes";
+
+    className.value = item.className || "5";
+
+    subject.value = item.subject || "General";
+
+    topic.value = item.topic || "";
+
+    content.value = item.content || "";
+
+    status.value = item.status || "draft";
+
+
+    formTitle.textContent = "✏️ Edit Content";
+
+    saveBtn.textContent = "Update Content";
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  };
+
+
+  window.ARS_EDU_TOGGLE = function (id) {
+
+    const items = getItems();
+
+    const index = items.findIndex(
+      item => item.id === id
+    );
+
+    if (index === -1) return;
+
+
+    items[index].status =
+      items[index].status === "published"
+        ? "draft"
+        : "published";
+
+
+    items[index].updatedAt =
+      new Date().toISOString();
+
+
+    saveItems(items);
+
+    render();
+
+  };
+
+
+  window.ARS_EDU_DELETE = function (id) {
+
+    const items = getItems();
+
+    const item = items.find(
+      entry => entry.id === id
+    );
+
+    if (!item) return;
+
+
+    const confirmed = confirm(
+      `Delete "${item.title}"?`
+    );
+
+    if (!confirmed) return;
+
+
+    saveItems(
+      items.filter(entry => entry.id !== id)
+    );
+
+    render();
+
+  };
+
+
+  function resetForm() {
+
+    form.reset();
+
+    editId.value = "";
+
+    className.value = "5";
+
+    type.value = "notes";
+
+    subject.value = "Maths";
+
+    status.value = "draft";
+
+    formTitle.textContent = "➕ Add Content";
+
+    saveBtn.textContent = "Save Content";
+
+  }
+
+
+  resetBtn.addEventListener(
+    "click",
+    resetForm
+  );
+
+
+  search.addEventListener(
+    "input",
+    render
+  );
+
+  filterClass.addEventListener(
+    "change",
+    render
+  );
+
+  filterType.addEventListener(
+    "change",
+    render
+  );
+
+
+  render();
+
+})();
+</script>
+
+</body>
+</html>
