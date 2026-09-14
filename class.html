@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Class | ARS Education</title>
+  <meta
+    name="description"
+    content="ARS Education — Class 5 to 8 learning portal with subjects, books, chapters, notes, MCQs and practice."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .class-page {
+      padding: 110px 0 70px;
+    }
+
+    .class-hero {
+      text-align: center;
+      max-width: 850px;
+      margin: 0 auto 45px;
+    }
+
+    .class-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 14px;
+    }
+
+    .class-hero p {
+      max-width: 720px;
+      margin: auto;
+      opacity: .82;
+      line-height: 1.8;
+    }
+
+    .class-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--primary-soft, rgba(0,0,0,.06));
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .subject-card {
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.75));
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 35px rgba(0,0,0,.08);
+    }
+
+    .subject-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-size: 25px;
+      margin-bottom: 16px;
+      background: var(--primary-soft, rgba(0,0,0,.06));
+    }
+
+    .subject-card h3 {
+      margin: 0 0 9px;
+    }
+
+    .subject-card p {
+      margin: 0 0 18px;
+      line-height: 1.65;
+      opacity: .78;
+      font-size: .94rem;
+    }
+
+    .subject-card .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .learning-flow {
+      margin-top: 65px;
+      padding: 35px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.7));
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .flow-item {
+      padding: 18px;
+      border-radius: 16px;
+      text-align: center;
+      background: var(--primary-soft, rgba(0,0,0,.05));
+      font-weight: 700;
+    }
+
+    .flow-number {
+      display: block;
+      font-size: .8rem;
+      opacity: .6;
+      margin-bottom: 5px;
+    }
+
+    .entrance-section {
+      margin-top: 65px;
+    }
+
+    .entrance-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .entrance-card {
+      padding: 26px;
+      border-radius: 22px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.75));
+    }
+
+    .entrance-card h3 {
+      margin: 12px 0 8px;
+    }
+
+    .entrance-card p {
+      line-height: 1.7;
+      opacity: .78;
+    }
+
+    .entrance-class {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+      background: var(--primary-soft, rgba(0,0,0,.06));
+    }
+
+    .empty-class {
+      text-align: center;
+      padding: 45px 20px;
+      border-radius: 22px;
+      border: 1px dashed var(--border-color, rgba(0,0,0,.15));
+      margin-top: 25px;
+      display: none;
+    }
+
+    @media (max-width: 900px) {
+      .subject-grid,
+      .entrance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .flow-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .class-page {
+        padding-top: 90px;
+      }
+
+      .subject-grid,
+      .entrance-grid,
+      .flow-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .learning-flow {
+        padding: 24px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-container">
+
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <span>ARS Official</span>
+      </a>
+
+      <button
+        class="mobile-menu-toggle"
+        id="mobileMenuToggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="publisher.html">Publisher</a>
+        <a href="admin.html">Admin</a>
+        <a href="policy.html">Policy</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main class="class-page">
+
+    <section class="class-hero container">
+
+      <div class="class-badge" id="classBadge">
+        📚 ARS Education
+      </div>
+
+      <h1 id="classTitle">Class Learning</h1>
+
+      <p id="classDescription">
+        Choose a subject to continue your learning journey.
+        Explore books, chapters, explanations, notes, MCQs,
+        practice and revision resources.
+      </p>
+
+    </section>
+
+
+    <section class="container">
+
+      <div class="section-heading">
+        <span class="section-eyebrow">SUBJECTS</span>
+        <h2 id="subjectHeading">Subjects</h2>
+        <p>
+          पहले अपना Subject चुनें। इसके बाद आप Book/Course,
+          Chapter और आगे की learning सामग्री तक जा सकते हैं।
+        </p>
+      </div>
+
+
+      <div class="subject-grid" id="subjectGrid"></div>
+
+      <div class="empty-class" id="emptyClass">
+        <h3>Class information unavailable</h3>
+        <p>
+          कृपया Education page से Class चुनकर दोबारा प्रयास करें।
+        </p>
+        <a href="education.html" class="btn btn-primary">
+          Back to Education
+        </a>
+      </div>
+
+    </section>
+
+
+    <section class="container learning-flow">
+
+      <div class="section-heading">
+        <span class="section-eyebrow">LEARNING FLOW</span>
+        <h2>ARS Learning Journey</h2>
+        <p>
+          हर class में learning को आसान और structured रखने के लिए
+          यह basic flow follow किया जाएगा।
+        </p>
+      </div>
+
+      <div class="flow-grid">
+
+        <div class="flow-item">
+          <span class="flow-number">01</span>
+          Class
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">02</span>
+          Subject
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">03</span>
+          Book / Course
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">04</span>
+          Chapter
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">05</span>
+          Explanation
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">06</span>
+          Notes
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">07</span>
+          MCQ / Practice
+        </div>
+
+        <div class="flow-item">
+          <span class="flow-number">08</span>
+          Revision
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="container entrance-section">
+
+      <div class="section-heading">
+        <span class="section-eyebrow">ENTRANCE PREPARATION</span>
+        <h2>Class 6 Entrance Preparation</h2>
+        <p>
+          ARS पर Navodaya, Sainik School और RMS के लिए
+          अलग-अलग preparation portals उपलब्ध होंगे।
+        </p>
+      </div>
+
+
+      <div class="entrance-grid">
+
+        <article class="entrance-card">
+
+          <span class="entrance-class">
+            Class 6 Entrance
+          </span>
+
+          <div class="subject-icon">🏫</div>
+
+          <h3>Navodaya Preparation</h3>
+
+          <p>
+            Exam introduction, eligibility, admission process,
+            syllabus, study material, practice, mock tests,
+            revision और exam strategy।
+          </p>
+
+          <a href="navodaya.html" class="btn btn-primary">
+            Open Navodaya Portal
+          </a>
+
+        </article>
+
+
+        <article class="entrance-card">
+
+          <span class="entrance-class">
+            Class 6 Entrance
+          </span>
+
+          <div class="subject-icon">🎖️</div>
+
+          <h3>Sainik School Preparation</h3>
+
+          <p>
+            Complete preparation structure जिसमें syllabus,
+            concepts, notes, MCQs, practice, mock tests,
+            revision और exam strategy शामिल होगी।
+          </p>
+
+          <a href="sainik-school.html" class="btn btn-primary">
+            Open Sainik Portal
+          </a>
+
+        </article>
+
+
+        <article class="entrance-card">
+
+          <span class="entrance-class">
+            Class 6 Entrance
+          </span>
+
+          <div class="subject-icon">📘</div>
+
+          <h3>RMS Preparation</h3>
+
+          <p>
+            RMS Class 6 entrance के लिए exam information,
+            preparation material, practice, revision,
+            mock tests और strategy।
+          </p>
+
+          <a href="rms.html" class="btn btn-primary">
+            Open RMS Portal
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <section class="container cta-section" style="margin-top:65px;">
+      <div class="cta-card">
+
+        <div>
+          <span class="section-eyebrow">ARS EDUCATION</span>
+          <h2>Keep Learning. Keep Growing.</h2>
+          <p>
+            अपनी class और subject चुनें और अपनी learning journey
+            को step-by-step आगे बढ़ाएँ।
+          </p>
+        </div>
+
+        <a href="education.html" class="btn btn-primary">
+          Education Home
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <h3>ARS Official</h3>
+        <p>
+          Learning, creativity and digital growth —
+          together with ARS.
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>Education</h4>
+        <a href="class.html?class=5">Class 5</a>
+        <a href="class.html?class=6">Class 6</a>
+        <a href="class.html?class=7">Class 7</a>
+        <a href="class.html?class=8">Class 8</a>
+      </div>
+
+      <div class="footer-links">
+        <h4>More</h4>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+    </div>
+
+    <div class="container footer-bottom">
+
+      <div>
+        © <span data-current-year></span> ARS Official.
+        All rights reserved.
+      </div>
+
+      <div class="footer-signature">
+        <span>Adarsh Raj</span>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const params = new URLSearchParams(window.location.search);
+      const classNumber = params.get("class");
+
+      const subjectGrid = document.getElementById("subjectGrid");
+      const emptyClass = document.getElementById("emptyClass");
+      const classTitle = document.getElementById("classTitle");
+      const classBadge = document.getElementById("classBadge");
+      const subjectHeading = document.getElementById("subjectHeading");
+      const classDescription = document.getElementById("classDescription");
+
+      /*
+       * These are ARS's learning categories.
+       * They are intentionally not presented as an official
+       * board/NCERT subject list.
+       *
+       * The exact subject structure can be refined class-wise
+       * when the corresponding official/current curriculum is checked.
+       */
+
+      const classSubjects = {
+
+        "5": [
+          {
+            name: "Mathematics",
+            icon: "🔢",
+            description: "Numbers, calculations, concepts and problem solving.",
+            key: "mathematics"
+          },
+          {
+            name: "Science",
+            icon: "🔬",
+            description: "Science concepts, observations and everyday applications.",
+            key: "science"
+          },
+          {
+            name: "English",
+            icon: "📖",
+            description: "Reading, grammar, vocabulary and writing practice.",
+            key: "english"
+          },
+          {
+            name: "Hindi",
+            icon: "📝",
+            description: "पठन, लेखन, व्याकरण और भाषा अभ्यास।",
+            key: "hindi"
+          },
+          {
+            name: "Social Studies",
+            icon: "🌍",
+            description: "Society, surroundings, history, geography and civics-based learning.",
+            key: "social-studies"
+          },
+          {
+            name: "General Knowledge",
+            icon: "🧠",
+            description: "Useful general awareness and knowledge-building resources.",
+            key: "general-knowledge"
+          }
+        ],
+
+        "6": [
+          {
+            name: "Mathematics",
+            icon: "🔢",
+            description: "Concepts, examples, problem solving and practice.",
+            key: "mathematics"
+          },
+          {
+            name: "Science",
+            icon: "🔬",
+            description: "Concept explanations, activities, notes and practice.",
+            key: "science"
+          },
+          {
+            name: "English",
+            icon: "📖",
+            description: "Language, grammar, reading and writing skills.",
+            key: "english"
+          },
+          {
+            name: "Hindi",
+            icon: "📝",
+            description: "भाषा, व्याकरण, पठन और लेखन अभ्यास।",
+            key: "hindi"
+          },
+          {
+            name: "Social Science",
+            icon: "🌍",
+            description: "History, geography, society and civics-based learning.",
+            key: "social-science"
+          },
+          {
+            name: "General Knowledge",
+            icon: "🧠",
+            description: "General awareness and additional knowledge resources.",
+            key: "general-knowledge"
+          }
+        ],
+
+        "7": [
+          {
+            name: "Mathematics",
+            icon: "🔢",
+            description: "Concepts, examples, exercises and problem solving.",
+            key: "mathematics"
+          },
+          {
+            name: "Science",
+            icon: "🔬",
+            description: "Science concepts, explanations, notes and practice.",
+            key: "science"
+          },
+          {
+            name: "English",
+            icon: "📖",
+            description: "Reading, grammar, vocabulary and communication skills.",
+            key: "english"
+          },
+          {
+            name: "Hindi",
+            icon: "📝",
+            description: "हिंदी भाषा, व्याकरण और लेखन अभ्यास।",
+            key: "hindi"
+          },
+          {
+            name: "Social Science",
+            icon: "🌍",
+            description: "History, geography, civics and social understanding.",
+            key: "social-science"
+          },
+          {
+            name: "General Knowledge",
+            icon: "🧠",
+            description: "Knowledge-building and general awareness resources.",
+            key: "general-knowledge"
+          }
+        ],
+
+        "8": [
+          {
+            name: "Mathematics",
+            icon: "🔢",
+            description: "Advanced concepts, examples, exercises and practice.",
+            key: "mathematics"
+          },
+          {
+            name: "Science",
+            icon: "🔬",
+            description: "Conceptual learning, explanations, notes and practice.",
+            key: "science"
+          },
+          {
+            name: "English",
+            icon: "📖",
+            description: "Grammar, reading, writing and language development.",
+            key: "english"
+          },
+          {
+            name: "Hindi",
+            icon: "📝",
+            description: "हिंदी भाषा, व्याकरण, साहित्य और लेखन अभ्यास।",
+            key: "hindi"
+          },
+          {
+            name: "Social Science",
+            icon: "🌍",
+            description: "History, geography, civics and social studies.",
+            key: "social-science"
+          },
+          {
+            name: "General Knowledge",
+            icon: "🧠",
+            description: "General awareness and supplementary learning resources.",
+            key: "general-knowledge"
+          }
+        ]
+
+      };
+
+
+      if (!classNumber || !classSubjects[classNumber]) {
+
+        classTitle.textContent = "Choose Your Class";
+        classBadge.textContent = "📚 ARS Education";
+        subjectHeading.textContent = "Class not selected";
+        classDescription.textContent =
+          "Please select a class from the ARS Education page to continue.";
+
+        subjectGrid.style.display = "none";
+        emptyClass.style.display = "block";
+
+        return;
+      }
+
+
+      classTitle.textContent = "Class " + classNumber;
+      classBadge.textContent = "📚 ARS Education • Class " + classNumber;
+
+      subjectHeading.textContent =
+        "Class " + classNumber + " Subjects";
+
+      classDescription.textContent =
+        "Explore the ARS learning structure for Class " +
+        classNumber +
+        ". Choose a subject to continue to books, chapters, notes, MCQs and practice.";
+
+
+      const subjects = classSubjects[classNumber];
+
+      subjectGrid.innerHTML = subjects.map(function (subject) {
+
+        const url =
+          "subject.html?class=" +
+          encodeURIComponent(classNumber) +
+          "&subject=" +
+          encodeURIComponent(subject.key);
+
+        return `
+          <article class="subject-card reveal">
+
+            <div class="subject-icon">
+              ${subject.icon}
+            </div>
+
+            <h3>${subject.name}</h3>
+
+            <p>
+              ${subject.description}
+            </p>
+
+            <a
+              href="${url}"
+              class="btn btn-secondary"
+              aria-label="Open ${subject.name} for Class ${classNumber}"
+            >
+              Open Subject →
+            </a>
+
+          </article>
+        `;
+
+      }).join("");
+
+
+      /*
+       * Make sure newly generated reveal elements are visible
+       * even if the global reveal observer initialized earlier.
+       */
+      requestAnimationFrame(function () {
+        document
+          .querySelectorAll(".subject-card.reveal")
+          .forEach(function (element) {
+            element.classList.add("visible");
+          });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
