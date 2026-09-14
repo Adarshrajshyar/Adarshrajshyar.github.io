@@ -1,186 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Exam Tips | ARS Education</title>
-  <meta name="description" content="ARS Education exam preparation tips for Class 5 to 8.">
+  <title>Exam & Revision Tips | ARS Education</title>
+  <meta name="description" content="ARS Education exam preparation, revision and study tips.">
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .exam-page {
+    .tips-page {
       min-height: 100vh;
-      padding: 110px 18px 70px;
-      background:
-        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
-        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
-        var(--bg);
+      padding: 110px 0 70px;
     }
 
-    .exam-container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .exam-hero {
+    .tips-hero {
+      max-width: 900px;
+      margin: 0 auto 35px;
       text-align: center;
-      margin-bottom: 30px;
     }
 
-    .exam-badge {
-      display: inline-block;
-      padding: 8px 15px;
-      border-radius: 999px;
-      background: rgba(124,58,237,.11);
+    .breadcrumb {
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-size: .92rem;
+    }
+
+    .breadcrumb a {
       color: var(--primary);
-      font-size: 13px;
-      font-weight: 800;
+      text-decoration: none;
     }
 
-    .exam-hero h1 {
-      margin: 17px 0 10px;
-      font-size: clamp(34px, 6vw, 58px);
-    }
-
-    .exam-hero h1 span {
-      color: var(--primary);
-    }
-
-    .exam-hero p {
-      max-width: 720px;
-      margin: auto;
-      color: var(--text-soft);
-      line-height: 1.8;
-    }
-
-    .class-filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin: 22px 0 30px;
-    }
-
-    .class-btn {
-      border: 1px solid rgba(124,58,237,.18);
-      border-radius: 11px;
-      padding: 10px 16px;
-      background: rgba(124,58,237,.07);
-      color: var(--primary);
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .class-btn.active,
-    .class-btn:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .tips-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
-    }
-
-    .tip-card {
-      padding: 23px;
-      border-radius: 20px;
-      border: 1px solid rgba(124,58,237,.14);
-      background: var(--card-bg, rgba(255,255,255,.06));
-      box-shadow: 0 12px 35px rgba(0,0,0,.06);
-      transition: .2s ease;
-    }
-
-    .tip-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .tip-icon {
-      font-size: 31px;
+    .tips-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
       margin-bottom: 12px;
     }
 
-    .tip-card h3 {
-      margin: 0 0 8px;
-    }
-
-    .tip-card p {
-      color: var(--text-soft);
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    .tip-card ol,
-    .tip-card ul {
-      padding-left: 20px;
-      color: var(--text-soft);
+    .tips-hero p {
+      color: var(--text-muted);
       line-height: 1.8;
-      font-size: 14px;
     }
 
-    .tip-card li {
-      margin-bottom: 6px;
-    }
-
-    .study-plan {
-      margin-top: 22px;
-      padding: 25px;
-      border-radius: 21px;
-      border: 1px solid rgba(124,58,237,.14);
-      background: var(--card-bg, rgba(255,255,255,.06));
-    }
-
-    .study-plan h2 {
-      margin-top: 0;
-    }
-
-    .plan-list {
+    .course-info {
+      max-width: 950px;
+      margin: 0 auto 30px;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 17px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
 
-    .plan-item {
-      padding: 15px;
-      border-radius: 13px;
-      background: rgba(124,58,237,.06);
+    .info-card {
+      padding: 18px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
     }
 
-    .plan-item strong {
+    .info-card strong {
       display: block;
       margin-bottom: 5px;
     }
 
-    .plan-item span {
-      color: var(--text-soft);
-      font-size: 13px;
+    .info-card span {
+      color: var(--text-muted);
+      font-size: .85rem;
+    }
+
+    .tips-grid {
+      max-width: 950px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .tip-card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: 21px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+      transition: .25s ease;
+    }
+
+    .tip-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+
+    .tip-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: var(--primary-soft);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .tip-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .tip-card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .tip-list {
+      padding-left: 20px;
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    .schedule-card {
+      max-width: 950px;
+      margin: 22px auto 0;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+    }
+
+    .schedule-card h2 {
+      margin-bottom: 12px;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: 13px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .schedule-table th {
+      font-weight: 800;
+    }
+
+    .schedule-table td {
+      color: var(--text-muted);
+    }
+
+    .mistakes {
+      max-width: 950px;
+      margin: 22px auto 0;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+    }
+
+    .mistakes h2 {
+      margin-bottom: 15px;
+    }
+
+    .mistake-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .mistake-item {
+      padding: 15px;
+      border-radius: 13px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
       line-height: 1.6;
     }
 
-    .empty-state {
-      display: none;
-      text-align: center;
+    .final-plan {
+      max-width: 950px;
+      margin: 22px auto 0;
       padding: 30px;
-      margin-top: 20px;
-      color: var(--text-soft);
-      border: 1px dashed rgba(124,58,237,.25);
-      border-radius: 18px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
     }
 
-    @media (max-width: 850px) {
-      .tips-grid {
+    .final-plan h2 {
+      margin-bottom: 10px;
+    }
+
+    .final-plan p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .tips-btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--bg);
+      margin: 4px;
+    }
+
+    .tips-btn.primary {
+      color: #fff;
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .navigation-row {
+      max-width: 950px;
+      margin: 25px auto 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .course-info {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tips-grid,
+      .mistake-grid {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 560px) {
-      .tips-grid,
-      .plan-list {
+    @media (max-width: 520px) {
+      .tips-page {
+        padding-top: 90px;
+      }
+
+      .course-info {
         grid-template-columns: 1fr;
+      }
+
+      .tip-card,
+      .schedule-card,
+      .mistakes,
+      .final-plan {
+        padding: 21px;
+      }
+
+      .schedule-table {
+        font-size: .85rem;
+      }
+
+      .schedule-table th,
+      .schedule-table td {
+        padding: 10px 7px;
+      }
+
+      .navigation-row {
+        flex-direction: column;
+      }
+
+      .navigation-row .tips-btn {
+        text-align: center;
+        width: 100%;
       }
     }
   </style>
@@ -188,362 +281,423 @@
 
 <body>
 
-  <main class="exam-page">
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div class="exam-container">
+  <header class="site-header">
+    <div class="container nav-container">
 
-      <section class="exam-hero">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Logo">
+        <span>ARS Official</span>
+      </a>
 
-        <div class="exam-badge">
-          🎯 ARS EDUCATION • EXAM PREPARATION
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="tips-page">
+
+    <div class="container">
+
+      <section class="tips-hero">
+
+        <div class="breadcrumb">
+          <a href="education.html">ARS Education</a>
+          <span> / </span>
+          <a id="classLink" href="class.html">Class</a>
+          <span> / </span>
+          <a id="subjectLink" href="subject.html">Subject</a>
+          <span> / </span>
+          Exam & Revision Tips
         </div>
 
-        <h1>
-          Smart <span>Exam Tips</span>
-        </h1>
+        <h1>Exam & Revision Tips</h1>
 
         <p>
-          सही planning, revision, practice और
-          time management के साथ exam preparation को बेहतर बनाएं।
+          सही planning, नियमित revision और practice के साथ अपनी preparation
+          को बेहतर और व्यवस्थित बनाएं।
         </p>
 
       </section>
 
+      <section class="course-info">
 
-      <div class="class-filters">
+        <div class="info-card">
+          <strong id="classInfo">Class</strong>
+          <span>Learning Level</span>
+        </div>
 
-        <button class="class-btn" data-class="5">
-          Class 5
-        </button>
+        <div class="info-card">
+          <strong id="subjectInfo">Subject</strong>
+          <span>Selected Subject</span>
+        </div>
 
-        <button class="class-btn active" data-class="6">
-          Class 6
-        </button>
+        <div class="info-card">
+          <strong id="bookInfo">Course</strong>
+          <span>Learning Material</span>
+        </div>
 
-        <button class="class-btn" data-class="7">
-          Class 7
-        </button>
+        <div class="info-card">
+          <strong id="chapterInfo">Chapter</strong>
+          <span>Current Chapter</span>
+        </div>
 
-        <button class="class-btn" data-class="8">
-          Class 8
-        </button>
+      </section>
 
-      </div>
+      <section class="tips-grid">
 
+        <article class="tip-card">
+          <div class="tip-icon">📖</div>
 
-      <section class="tips-grid" id="tipsGrid">
-
-        <article class="tip-card" data-class="all">
-
-          <div class="tip-icon">📅</div>
-
-          <h3>Study Planning</h3>
+          <h2>1. Chapter को पहले समझें</h2>
 
           <p>
-            रोज थोड़ा-थोड़ा पढ़कर पूरे syllabus को
-            समय पर complete करने की कोशिश करें।
+            केवल याद करने के बजाय पहले concept और chapter की basic idea को
+            समझने की कोशिश करें।
           </p>
 
-          <ol>
-            <li>Daily target बनाएं।</li>
-            <li>Important chapters mark करें।</li>
-            <li>Revision के लिए समय रखें।</li>
-          </ol>
-
+          <ul class="tip-list">
+            <li>Chapter explanation पढ़ें</li>
+            <li>Important terms पहचानें</li>
+            <li>Examples को समझें</li>
+            <li>जहाँ doubt हो वहाँ दोबारा पढ़ें</li>
+          </ul>
         </article>
 
-
-        <article class="tip-card" data-class="all">
-
+        <article class="tip-card">
           <div class="tip-icon">📝</div>
 
-          <h3>Notes Revision</h3>
+          <h2>2. Notes बनाएं</h2>
 
           <p>
-            अपने notes को केवल पढ़ें नहीं,
-            बल्कि important points को दोबारा recall करें।
+            छोटे और clear notes revision के समय बहुत उपयोगी होते हैं।
           </p>
 
-          <ul>
-            <li>Definitions revise करें।</li>
-            <li>Formulas और facts देखें।</li>
-            <li>Weak topics दोबारा पढ़ें।</li>
+          <ul class="tip-list">
+            <li>Important definitions लिखें</li>
+            <li>Formulas या facts अलग रखें</li>
+            <li>मुख्य concepts को highlight करें</li>
+            <li>अपने शब्दों में summary बनाएं</li>
           </ul>
-
         </article>
 
+        <article class="tip-card">
+          <div class="tip-icon">🧠</div>
 
-        <article class="tip-card" data-class="all">
+          <h2>3. Active Recall</h2>
 
+          <p>
+            Notes बंद करके खुद से answer याद करने की कोशिश करें।
+          </p>
+
+          <ul class="tip-list">
+            <li>Topic को बिना देखे explain करें</li>
+            <li>Important points याद करें</li>
+            <li>खुद से questions पूछें</li>
+            <li>गलतियाँ note करें</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <div class="tip-icon">🔄</div>
+
+          <h2>4. नियमित Revision</h2>
+
+          <p>
+            Revision को केवल exam से पहले के लिए न छोड़ें।
+          </p>
+
+          <ul class="tip-list">
+            <li>पहला revision — उसी दिन</li>
+            <li>दूसरा revision — कुछ दिनों बाद</li>
+            <li>तीसरा revision — test से पहले</li>
+            <li>Weak topics पर extra ध्यान दें</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <div class="tip-icon">🎯</div>
+
+          <h2>5. MCQ Practice</h2>
+
+          <p>
+            Questions solve करने से concepts की समझ और exam readiness
+            दोनों improve होती हैं।
+          </p>
+
+          <ul class="tip-list">
+            <li>Chapter MCQs attempt करें</li>
+            <li>गलत answers check करें</li>
+            <li>गलती का कारण समझें</li>
+            <li>कुछ समय बाद फिर attempt करें</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
           <div class="tip-icon">⏱️</div>
 
-          <h3>Time Management</h3>
+          <h2>6. Time Management</h2>
 
           <p>
-            Practice करते समय questions को
-            निर्धारित समय में solve करने की आदत बनाएं।
+            Study time को छोटे और manageable sessions में divide करें।
           </p>
 
-          <ul>
-            <li>Easy questions पहले करें।</li>
-            <li>एक question पर बहुत समय न लगाएं।</li>
-            <li>अंत में answers check करें।</li>
+          <ul class="tip-list">
+            <li>Daily study target बनाएं</li>
+            <li>Breaks रखें</li>
+            <li>Easy और difficult topics balance करें</li>
+            <li>Last moment cramming से बचें</li>
           </ul>
-
-        </article>
-
-
-        <article class="tip-card" data-class="6">
-
-          <div class="tip-icon">➗</div>
-
-          <h3>Class 6 Maths</h3>
-
-          <p>
-            Mathematics में concepts समझने के बाद
-            पर्याप्त questions practice करें।
-          </p>
-
-          <ul>
-            <li>Tables और basic calculations revise करें।</li>
-            <li>Steps के साथ solution लिखें।</li>
-            <li>गलत questions दोबारा solve करें।</li>
-          </ul>
-
-        </article>
-
-
-        <article class="tip-card" data-class="6">
-
-          <div class="tip-icon">🔬</div>
-
-          <h3>Class 6 Science</h3>
-
-          <p>
-            Science में concepts, examples,
-            diagrams और important terms पर ध्यान दें।
-          </p>
-
-          <ul>
-            <li>Chapter summary revise करें।</li>
-            <li>Important definitions याद करें।</li>
-            <li>NCERT exercises practice करें।</li>
-          </ul>
-
-        </article>
-
-
-        <article class="tip-card" data-class="6">
-
-          <div class="tip-icon">🌍</div>
-
-          <h3>Class 6 GK</h3>
-
-          <p>
-            GK में facts को topic-wise revise करें
-            और MCQ practice के साथ knowledge check करें।
-          </p>
-
-          <ul>
-            <li>Important facts की list बनाएं।</li>
-            <li>Regular revision करें।</li>
-            <li>Current educational facts पढ़ें।</li>
-          </ul>
-
-        </article>
-
-
-        <article class="tip-card" data-class="5">
-
-          <div class="tip-icon">📚</div>
-
-          <h3>Class 5 Preparation</h3>
-
-          <p>
-            Basic concepts मजबूत करें और
-            chapter-wise practice करते रहें।
-          </p>
-
-        </article>
-
-
-        <article class="tip-card" data-class="7">
-
-          <div class="tip-icon">🚀</div>
-
-          <h3>Class 7 Preparation</h3>
-
-          <p>
-            Concepts के साथ higher-level questions
-            और regular revision पर ध्यान दें।
-          </p>
-
-        </article>
-
-
-        <article class="tip-card" data-class="8">
-
-          <div class="tip-icon">🏆</div>
-
-          <h3>Class 8 Preparation</h3>
-
-          <p>
-            Syllabus completion के साथ sample papers,
-            revision और time management पर ध्यान दें।
-          </p>
-
         </article>
 
       </section>
 
+      <section class="schedule-card">
 
-      <section class="study-plan">
+        <h2>📅 Simple Revision Plan</h2>
 
-        <h2>📖 Simple Daily Study Formula</h2>
+        <p>
+          यह एक सामान्य example है। अपनी जरूरत और available study time के
+          अनुसार इसे बदल सकते हैं।
+        </p>
 
-        <div class="plan-list">
+        <table class="schedule-table">
 
-          <div class="plan-item">
-            <strong>1. Learn</strong>
-            <span>
-              नया chapter या concept समझें।
-            </span>
+          <thead>
+            <tr>
+              <th>Stage</th>
+              <th>क्या करें?</th>
+              <th>Goal</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Learn</td>
+              <td>Chapter explanation पढ़ें</td>
+              <td>Concept समझना</td>
+            </tr>
+
+            <tr>
+              <td>Note</td>
+              <td>Important points लिखें</td>
+              <td>Quick revision material</td>
+            </tr>
+
+            <tr>
+              <td>Recall</td>
+              <td>बिना देखे याद करें</td>
+              <td>Memory मजबूत करना</td>
+            </tr>
+
+            <tr>
+              <td>Practice</td>
+              <td>Questions और MCQs solve करें</td>
+              <td>Application improve करना</td>
+            </tr>
+
+            <tr>
+              <td>Revise</td>
+              <td>Weak topics दोबारा पढ़ें</td>
+              <td>Mistakes कम करना</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </section>
+
+      <section class="mistakes">
+
+        <h2>⚠️ Common Preparation Mistakes</h2>
+
+        <div class="mistake-grid">
+
+          <div class="mistake-item">
+            ❌ केवल answers याद करना और concept न समझना।
           </div>
 
-          <div class="plan-item">
-            <strong>2. Revise</strong>
-            <span>
-              उसी दिन पढ़े हुए points को दोहराएं।
-            </span>
+          <div class="mistake-item">
+            ❌ Revision को exam के बिल्कुल पहले तक टालना।
           </div>
 
-          <div class="plan-item">
-            <strong>3. Practice</strong>
-            <span>
-              Questions, MCQ और exercises solve करें।
-            </span>
+          <div class="mistake-item">
+            ❌ गलत answers की वजह check न करना।
           </div>
 
-          <div class="plan-item">
-            <strong>4. Check</strong>
-            <span>
-              अपनी गलतियों को पहचानकर उन्हें सुधारें।
-            </span>
+          <div class="mistake-item">
+            ❌ एक ही topic पर बहुत अधिक समय लगाना।
+          </div>
+
+          <div class="mistake-item">
+            ❌ बिना break के लगातार पढ़ते रहना।
+          </div>
+
+          <div class="mistake-item">
+            ❌ अपनी progress को regularly check न करना।
           </div>
 
         </div>
 
       </section>
 
+      <section class="final-plan">
 
-      <div
-        class="empty-state"
-        id="emptyState"
-      >
-        इस class के लिए content जल्द उपलब्ध होगा।
+        <h2>🚀 Your ARS Learning Flow</h2>
+
+        <p>
+          <strong>Learn → Notes → Recall → MCQ → Practice → Revision</strong>
+          <br>
+          इस flow को chapter-wise follow करके अपनी preparation को structured
+          रखें।
+        </p>
+
+        <a class="tips-btn primary" id="notesBtn" href="notes.html">
+          Review Notes
+        </a>
+
+        <a class="tips-btn primary" id="mcqBtn" href="mcq.html">
+          Take MCQ
+        </a>
+
+        <a class="tips-btn" id="practiceBtn" href="practice.html">
+          Practice Zone
+        </a>
+
+      </section>
+
+      <div class="navigation-row">
+
+        <a class="tips-btn" id="backChapter" href="chapter.html">
+          ← Back to Chapter
+        </a>
+
+        <a class="tips-btn primary" href="education.html">
+          ARS Education →
+        </a>
+
       </div>
 
     </div>
 
   </main>
 
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>ARS Official</h3>
+        <p>
+          Learning, creativity and knowledge — together in one platform.
+        </p>
+      </div>
+
+      <div>
+        <h4>Education</h4>
+        <a href="education.html">ARS Education</a>
+        <a href="navodaya.html">Navodaya Prep</a>
+        <a href="sainik-school.html">Sainik School Prep</a>
+        <a href="rms.html">RMS Prep</a>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © <span class="current-year"></span> ARS Official. All Rights Reserved.
+      </p>
+    </div>
+
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
 
   <script>
     (() => {
 
-      "use strict";
+      const params = new URLSearchParams(window.location.search);
 
+      const classNo = params.get("class") || "5";
+      const subject = params.get("subject") || "General";
+      const book = params.get("book") || "main";
+      const chapter = params.get("chapter") || "1";
 
-      let selectedClass =
-        localStorage.getItem(
-          "ARS_EXAM_TIPS_CLASS"
-        ) || "6";
+      document.getElementById("classInfo").textContent =
+        `Class ${classNo}`;
 
+      document.getElementById("subjectInfo").textContent =
+        subject;
 
-      const buttons =
-        document.querySelectorAll(
-          ".class-btn"
-        );
+      document.getElementById("bookInfo").textContent =
+        book === "practice"
+          ? "Practice Course"
+          : book === "revision"
+            ? "Revision Course"
+            : "Main Course";
 
-      const cards =
-        document.querySelectorAll(
-          ".tip-card"
-        );
+      document.getElementById("chapterInfo").textContent =
+        `Chapter ${chapter}`;
 
-      const emptyState =
-        document.getElementById(
-          "emptyState"
-        );
+      const query =
+        `?class=${encodeURIComponent(classNo)}` +
+        `&subject=${encodeURIComponent(subject)}` +
+        `&book=${encodeURIComponent(book)}` +
+        `&chapter=${encodeURIComponent(chapter)}`;
 
+      const classQuery =
+        `?class=${encodeURIComponent(classNo)}`;
 
-      function update() {
+      const subjectQuery =
+        `?class=${encodeURIComponent(classNo)}` +
+        `&subject=${encodeURIComponent(subject)}`;
 
-        let visible = 0;
+      document.getElementById("classLink").href =
+        `class.html${classQuery}`;
 
+      document.getElementById("subjectLink").href =
+        `subject.html${subjectQuery}`;
 
-        buttons.forEach(button => {
+      document.getElementById("notesBtn").href =
+        `notes.html${query}`;
 
-          button.classList.toggle(
-            "active",
-            button.dataset.class ===
-              selectedClass
-          );
+      document.getElementById("mcqBtn").href =
+        `mcq.html${query}`;
 
-        });
+      document.getElementById("practiceBtn").href =
+        `practice.html${query}`;
 
-
-        cards.forEach(card => {
-
-          const cardClass =
-            card.dataset.class;
-
-          const show =
-            cardClass === "all" ||
-            cardClass === selectedClass;
-
-
-          card.style.display =
-            show ? "" : "none";
-
-
-          if (show) {
-            visible++;
-          }
-
-        });
-
-
-        emptyState.style.display =
-          visible === 0
-            ? "block"
-            : "none";
-
-      }
-
-
-      buttons.forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            selectedClass =
-              button.dataset.class;
-
-            localStorage.setItem(
-              "ARS_EXAM_TIPS_CLASS",
-              selectedClass
-            );
-
-            update();
-
-          }
-        );
-
-      });
-
-
-      update();
+      document.getElementById("backChapter").href =
+        `chapter.html${query}`;
 
     })();
   </script>
