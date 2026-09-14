@@ -1,202 +1,307 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS MCQ | ARS Education</title>
-  <meta name="description" content="ARS Education MCQ practice for Class 5 to 8.">
+  <title>MCQ Practice | ARS Education</title>
+  <meta name="description" content="ARS Education chapter-wise MCQ practice and self assessment.">
 
   <link rel="stylesheet" href="style.css">
 
   <style>
     .mcq-page {
+      padding: 110px 0 70px;
       min-height: 100vh;
-      padding: 110px 18px 70px;
-      background:
-        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
-        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
-        var(--bg);
-    }
-
-    .mcq-container {
-      max-width: 1050px;
-      margin: auto;
     }
 
     .mcq-hero {
       text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 15px;
-      border-radius: 999px;
-      background: rgba(124,58,237,.11);
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 800;
+      max-width: 850px;
+      margin: 0 auto 35px;
     }
 
     .mcq-hero h1 {
-      margin: 17px 0 10px;
-      font-size: clamp(34px, 6vw, 58px);
-    }
-
-    .mcq-hero h1 span {
-      color: var(--primary);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      margin-bottom: 12px;
     }
 
     .mcq-hero p {
-      max-width: 700px;
-      margin: auto;
-      color: var(--text-soft);
+      color: var(--text-muted);
       line-height: 1.8;
     }
 
-    .filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin: 22px 0;
+    .mcq-breadcrumb {
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-size: .92rem;
     }
 
-    .filter-btn {
-      border: 1px solid rgba(124,58,237,.18);
-      border-radius: 11px;
-      padding: 10px 15px;
-      background: rgba(124,58,237,.07);
+    .mcq-breadcrumb a {
       color: var(--primary);
-      font-weight: 800;
-      cursor: pointer;
+      text-decoration: none;
     }
 
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: var(--primary);
-      color: #fff;
+    .mcq-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 25px auto 35px;
+      max-width: 900px;
     }
 
-    .quiz-card {
-      padding: 27px;
-      border-radius: 23px;
-      border: 1px solid rgba(124,58,237,.14);
-      background: var(--card-bg, rgba(255,255,255,.06));
-      box-shadow: 0 14px 40px rgba(0,0,0,.07);
+    .mcq-info-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card-bg);
+      text-align: center;
+      box-shadow: var(--shadow);
     }
 
-    .progress {
-      height: 8px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(124,58,237,.10);
-      margin-bottom: 25px;
+    .mcq-info-card strong {
+      display: block;
+      font-size: 1.25rem;
+      margin-bottom: 5px;
     }
 
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: var(--primary);
-      transition: width .25s ease;
+    .mcq-info-card span {
+      color: var(--text-muted);
+      font-size: .9rem;
+    }
+
+    .mcq-container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .mcq-card {
+      display: none;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+    }
+
+    .mcq-card.active {
+      display: block;
+      animation: mcqFade .3s ease;
+    }
+
+    @keyframes mcqFade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .question-number {
+      display: inline-block;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: var(--primary-soft);
       color: var(--primary);
-      font-weight: 800;
-      margin-bottom: 10px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      font-size: .85rem;
     }
 
-    #questionText {
-      line-height: 1.6;
-      margin-top: 0;
+    .question-text {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      margin-bottom: 22px;
+      font-weight: 700;
     }
 
     .options {
       display: grid;
-      gap: 11px;
-      margin-top: 22px;
+      gap: 12px;
     }
 
     .option {
-      width: 100%;
-      text-align: left;
-      padding: 14px 16px;
-      border-radius: 13px;
-      border: 1px solid rgba(124,58,237,.15);
-      background: transparent;
-      color: inherit;
+      position: relative;
+    }
+
+    .option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option label {
+      display: block;
+      padding: 15px 17px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       cursor: pointer;
-      transition: .18s ease;
+      transition: .2s ease;
+      line-height: 1.5;
+      background: var(--bg);
     }
 
-    .option:hover {
-      transform: translateX(3px);
+    .option label:hover {
       border-color: var(--primary);
+      transform: translateY(-1px);
     }
 
-    .option.correct {
-      border-color: #198754;
-      background: rgba(25,135,84,.10);
+    .option input:checked + label {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
     }
 
-    .option.wrong {
-      border-color: #dc3545;
-      background: rgba(220,53,69,.10);
-    }
-
-    .option:disabled {
-      cursor: default;
-    }
-
-    .quiz-actions {
+    .mcq-navigation {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      margin-top: 24px;
+      gap: 12px;
+      margin-top: 25px;
+      flex-wrap: wrap;
     }
 
-    .quiz-actions button {
-      padding: 11px 17px;
+    .mcq-btn {
       border: 0;
-      border-radius: 11px;
+      cursor: pointer;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+
+    .mcq-btn.primary {
       background: var(--primary);
       color: #fff;
-      font-weight: 800;
-      cursor: pointer;
     }
 
-    .quiz-actions button:disabled {
-      opacity: .45;
-      cursor: not-allowed;
+    .mcq-btn.secondary {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .result {
+    .mcq-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .progress-wrap {
+      margin-bottom: 22px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-size: .9rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      border-radius: inherit;
+      transition: width .3s ease;
+    }
+
+    .result-card {
       display: none;
       text-align: center;
-      padding: 30px 20px;
+      padding: 40px 25px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow);
+    }
+
+    .result-card.show {
+      display: block;
+      animation: mcqFade .35s ease;
+    }
+
+    .result-icon {
+      width: 75px;
+      height: 75px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 2rem;
+    }
+
+    .result-card h2 {
+      margin-bottom: 10px;
     }
 
     .score {
-      font-size: 42px;
-      font-weight: 900;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 15px 0;
       color: var(--primary);
     }
 
-    .result button {
-      padding: 11px 18px;
-      border: 0;
-      border-radius: 11px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 800;
-      cursor: pointer;
+    .result-message {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 25px;
     }
 
-    @media (max-width: 600px) {
-      .quiz-card {
+    .result-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .notice {
+      margin: 25px auto 0;
+      max-width: 900px;
+      padding: 15px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: var(--card-bg);
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .mcq-page {
+        padding-top: 90px;
+      }
+
+      .mcq-info {
+        grid-template-columns: 1fr;
+      }
+
+      .mcq-card {
         padding: 21px;
+      }
+
+      .question-text {
+        font-size: 1.05rem;
+      }
+
+      .mcq-navigation {
+        flex-direction: column;
+      }
+
+      .mcq-navigation .mcq-btn {
+        width: 100%;
       }
     }
   </style>
@@ -204,564 +309,790 @@
 
 <body>
 
+  <!-- Page Loader -->
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Logo">
+        <span>ARS Official</span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
   <main class="mcq-page">
 
-    <div class="mcq-container">
+    <div class="container">
 
       <section class="mcq-hero">
 
-        <div class="badge">
-          🧠 ARS EDUCATION • MCQ
+        <div class="mcq-breadcrumb">
+          <a href="education.html">ARS Education</a>
+          <span> / </span>
+          <a href="class.html">Class</a>
+          <span> / </span>
+          <a href="subject.html">Subject</a>
+          <span> / </span>
+          MCQ
         </div>
 
-        <h1>
-          Test Your <span>Knowledge</span>
-        </h1>
+        <h1>MCQ Practice</h1>
 
-        <p>
-          Class 5 से Class 8 तक objective questions
-          solve करें और अपनी preparation check करें।
+        <p id="pageSubtitle">
+          Test your understanding with chapter-wise sample practice questions.
         </p>
 
       </section>
 
+      <!-- Info -->
+      <section class="mcq-info">
 
-      <section>
-
-        <div class="filters">
-
-          <button class="filter-btn" data-class="5">
-            Class 5
-          </button>
-
-          <button class="filter-btn active" data-class="6">
-            Class 6
-          </button>
-
-          <button class="filter-btn" data-class="7">
-            Class 7
-          </button>
-
-          <button class="filter-btn" data-class="8">
-            Class 8
-          </button>
-
+        <div class="mcq-info-card">
+          <strong id="classInfo">Class —</strong>
+          <span>Learning Level</span>
         </div>
 
+        <div class="mcq-info-card">
+          <strong id="subjectInfo">Subject —</strong>
+          <span>Selected Subject</span>
+        </div>
 
-        <div class="filters">
-
-          <button class="filter-btn active" data-subject="maths">
-            Maths
-          </button>
-
-          <button class="filter-btn" data-subject="science">
-            Science
-          </button>
-
-          <button class="filter-btn" data-subject="gk">
-            GK
-          </button>
-
+        <div class="mcq-info-card">
+          <strong id="chapterInfo">Chapter —</strong>
+          <span>Practice Chapter</span>
         </div>
 
       </section>
 
+      <section class="mcq-container">
 
-      <section class="quiz-card">
+        <!-- Progress -->
+        <div class="progress-wrap" id="progressWrap">
 
-        <div class="progress">
-          <div
-            class="progress-bar"
-            id="progressBar"
-          ></div>
-        </div>
-
-
-        <div id="quizArea">
-
-          <div
-            class="question-number"
-            id="questionNumber"
-          >
-            Question 1
+          <div class="progress-top">
+            <span id="progressText">Question 1 of 5</span>
+            <span id="progressPercent">20%</span>
           </div>
 
-          <h2 id="questionText">
-            Loading question...
-          </h2>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
 
-          <div
-            class="options"
-            id="options"
-          ></div>
+        </div>
 
-          <div class="quiz-actions">
+        <!-- MCQ Area -->
+        <div id="mcqArea"></div>
 
-            <button
-              id="nextButton"
-              disabled
-            >
-              Next →
+        <!-- Result -->
+        <div class="result-card" id="resultCard">
+
+          <div class="result-icon">✓</div>
+
+          <h2>Practice Completed!</h2>
+
+          <div class="score" id="scoreText">0 / 5</div>
+
+          <p class="result-message" id="resultMessage">
+            Keep practicing and improve your understanding step by step.
+          </p>
+
+          <div class="result-actions">
+
+            <button class="mcq-btn primary" id="retryBtn">
+              Try Again
             </button>
 
+            <a class="mcq-btn secondary" id="notesBtn" href="notes.html">
+              Review Notes
+            </a>
+
+            <a class="mcq-btn secondary" id="practiceBtn" href="practice.html">
+              More Practice
+            </a>
+
           </div>
-
-        </div>
-
-
-        <div
-          class="result"
-          id="result"
-        >
-
-          <div>🎉 Quiz Complete!</div>
-
-          <div
-            class="score"
-            id="score"
-          >
-            0/0
-          </div>
-
-          <p id="resultMessage"></p>
-
-          <button id="restartButton">
-            Try Again
-          </button>
 
         </div>
 
       </section>
+
+      <div class="notice">
+        <strong>Note:</strong>
+        These are ARS sample practice MCQs for learning and self-assessment.
+        They should not be treated as official examination questions.
+      </div>
 
     </div>
 
   </main>
 
+  <!-- Footer -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div>
+        <h3>ARS Official</h3>
+        <p>
+          Learning, creativity and knowledge — together in one platform.
+        </p>
+      </div>
+
+      <div>
+        <h4>Education</h4>
+        <a href="education.html">ARS Education</a>
+        <a href="navodaya.html">Navodaya Prep</a>
+        <a href="sainik-school.html">Sainik School Prep</a>
+        <a href="rms.html">RMS Prep</a>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        © <span class="current-year"></span> ARS Official. All Rights Reserved.
+      </p>
+    </div>
+
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
 
   <script>
     (() => {
 
-      "use strict";
+      const params = new URLSearchParams(window.location.search);
 
+      const classNo = params.get("class") || "5";
+      const subject = params.get("subject") || "General";
+      const book = params.get("book") || "main";
+      const chapter = params.get("chapter") || "1";
 
-      let selectedClass = "6";
-      let selectedSubject = "maths";
+      const classInfo = document.getElementById("classInfo");
+      const subjectInfo = document.getElementById("subjectInfo");
+      const chapterInfo = document.getElementById("chapterInfo");
+      const pageSubtitle = document.getElementById("pageSubtitle");
 
-      let currentQuestion = 0;
-      let score = 0;
-      let answered = false;
+      classInfo.textContent = `Class ${classNo}`;
+      subjectInfo.textContent = subject;
+      chapterInfo.textContent = `Chapter ${chapter}`;
 
+      pageSubtitle.textContent =
+        `${subject} — Chapter ${chapter} | Sample MCQ Practice`;
+
+      const mcqArea = document.getElementById("mcqArea");
+      const progressWrap = document.getElementById("progressWrap");
+      const progressText = document.getElementById("progressText");
+      const progressPercent = document.getElementById("progressPercent");
+      const progressFill = document.getElementById("progressFill");
+
+      const resultCard = document.getElementById("resultCard");
+      const scoreText = document.getElementById("scoreText");
+      const resultMessage = document.getElementById("resultMessage");
+
+      const retryBtn = document.getElementById("retryBtn");
+      const notesBtn = document.getElementById("notesBtn");
+      const practiceBtn = document.getElementById("practiceBtn");
 
       /*
-       * Temporary sample questions.
-       * Later these can be loaded from the
-       * ARS Education backend/database.
+       * Sample MCQs
+       * These are intentionally generic starter questions.
+       * Publisher/Admin can later replace or add chapter-specific content.
        */
 
       const questionBank = {
 
-        maths: [
+        mathematics: [
           {
-            q: "Which number is a prime number?",
-            options: ["21", "29", "35", "39"],
-            answer: 1
-          },
-          {
-            q: "What is 12 × 5?",
-            options: ["50", "55", "60", "65"],
+            q: "यदि 5 + 7 = ?, तो सही उत्तर क्या होगा?",
+            options: ["10", "11", "12", "13"],
             answer: 2
           },
           {
-            q: "What is the smallest whole number?",
-            options: ["0", "1", "2", "10"],
-            answer: 0
+            q: "10 का आधा कितना होगा?",
+            options: ["2", "5", "8", "10"],
+            answer: 1
+          },
+          {
+            q: "एक दर्जन में कितनी वस्तुएँ होती हैं?",
+            options: ["10", "11", "12", "15"],
+            answer: 2
+          },
+          {
+            q: "100 में कितने दहाई होते हैं?",
+            options: ["5", "10", "20", "100"],
+            answer: 1
+          },
+          {
+            q: "यदि एक त्रिभुज की तीन भुजाएँ हैं, तो उसके कितने कोण होंगे?",
+            options: ["2", "3", "4", "5"],
+            answer: 1
           }
         ],
 
         science: [
           {
-            q: "Which organ helps humans to breathe?",
-            options: ["Heart", "Lungs", "Stomach", "Kidney"],
+            q: "पौधे अपना भोजन बनाने के लिए मुख्य रूप से किस प्रक्रिया का उपयोग करते हैं?",
+            options: ["पाचन", "प्रकाश संश्लेषण", "वाष्पीकरण", "गलन"],
             answer: 1
           },
           {
-            q: "Which gas is needed for breathing?",
-            options: ["Oxygen", "Nitrogen", "Hydrogen", "Helium"],
+            q: "हमारे शरीर को साँस लेने के लिए किस गैस की आवश्यकता होती है?",
+            options: ["ऑक्सीजन", "नाइट्रोजन", "कार्बन डाइऑक्साइड", "हीलियम"],
             answer: 0
           },
           {
-            q: "Which is a natural source of light?",
-            options: ["Bulb", "Torch", "Sun", "Candle"],
+            q: "जल का ठोस रूप क्या कहलाता है?",
+            options: ["भाप", "बर्फ", "वर्षा", "ओस"],
+            answer: 1
+          },
+          {
+            q: "सूर्य हमें मुख्य रूप से क्या प्रदान करता है?",
+            options: ["प्रकाश और ऊष्मा", "केवल पानी", "मिट्टी", "हवा"],
+            answer: 0
+          },
+          {
+            q: "पौधों में पानी का परिवहन मुख्य रूप से किससे होता है?",
+            options: ["जड़ और संवहनी ऊतक", "फूल", "फल", "बीज"],
+            answer: 0
+          }
+        ],
+
+        english: [
+          {
+            q: "Which word is a noun?",
+            options: ["Run", "Beautiful", "School", "Quickly"],
+            answer: 2
+          },
+          {
+            q: "What is the plural form of 'book'?",
+            options: ["Bookes", "Books", "Book's", "Book"],
+            answer: 1
+          },
+          {
+            q: "Choose the correct article: ___ apple.",
+            options: ["A", "An", "Thee", "No article"],
+            answer: 1
+          },
+          {
+            q: "Which word is an adjective?",
+            options: ["Beautiful", "Run", "School", "Slowly"],
+            answer: 0
+          },
+          {
+            q: "What is the opposite of 'hot'?",
+            options: ["Warm", "Cold", "High", "Bright"],
+            answer: 1
+          }
+        ],
+
+        hindi: [
+          {
+            q: "‘विद्यालय’ शब्द का अर्थ क्या है?",
+            options: ["खेल का स्थान", "पढ़ने का स्थान", "बाजार", "अस्पताल"],
+            answer: 1
+          },
+          {
+            q: "‘जल’ का पर्यायवाची शब्द कौन-सा है?",
+            options: ["अग्नि", "नीर", "वायु", "धरती"],
+            answer: 1
+          },
+          {
+            q: "‘दिन’ का विलोम शब्द क्या है?",
+            options: ["सुबह", "शाम", "रात", "प्रकाश"],
+            answer: 2
+          },
+          {
+            q: "‘सुंदर’ किस प्रकार का शब्द है?",
+            options: ["संज्ञा", "सर्वनाम", "विशेषण", "क्रिया"],
+            answer: 2
+          },
+          {
+            q: "‘राम स्कूल जाता है।’ वाक्य में क्रिया कौन-सी है?",
+            options: ["राम", "स्कूल", "जाता है", "है"],
             answer: 2
           }
         ],
 
         gk: [
           {
-            q: "What is the capital of India?",
-            options: [
-              "Mumbai",
-              "New Delhi",
-              "Kolkata",
-              "Chennai"
-            ],
+            q: "भारत की राजधानी क्या है?",
+            options: ["मुंबई", "नई दिल्ली", "पटना", "कोलकाता"],
             answer: 1
           },
           {
-            q: "How many continents are there?",
+            q: "भारत का राष्ट्रीय पशु कौन है?",
+            options: ["सिंह", "हाथी", "बाघ", "घोड़ा"],
+            answer: 2
+          },
+          {
+            q: "भारत का राष्ट्रीय पक्षी कौन है?",
+            options: ["मोर", "तोता", "कबूतर", "गरुड़"],
+            answer: 0
+          },
+          {
+            q: "भारत का राष्ट्रीय फूल कौन-सा है?",
+            options: ["गुलाब", "कमल", "सूरजमुखी", "गेंदा"],
+            answer: 1
+          },
+          {
+            q: "भारत में कितने राज्य हैं?",
+            options: ["26", "28", "30", "32"],
+            answer: 1
+          }
+        ],
+
+        general: [
+          {
+            q: "सूर्य किस दिशा से उगता है?",
+            options: ["उत्तर", "दक्षिण", "पूर्व", "पश्चिम"],
+            answer: 2
+          },
+          {
+            q: "एक सप्ताह में कितने दिन होते हैं?",
             options: ["5", "6", "7", "8"],
             answer: 2
           },
           {
-            q: "Which is the largest ocean?",
-            options: [
-              "Indian Ocean",
-              "Atlantic Ocean",
-              "Arctic Ocean",
-              "Pacific Ocean"
-            ],
-            answer: 3
+            q: "पानी का रासायनिक सूत्र क्या है?",
+            options: ["CO₂", "H₂O", "O₂", "N₂"],
+            answer: 1
+          },
+          {
+            q: "हम जिस ग्रह पर रहते हैं उसका नाम क्या है?",
+            options: ["मंगल", "शुक्र", "पृथ्वी", "बृहस्पति"],
+            answer: 2
+          },
+          {
+            q: "एक वर्ष में सामान्यतः कितने महीने होते हैं?",
+            options: ["10", "11", "12", "13"],
+            answer: 2
           }
         ]
 
       };
 
+      function normalizeSubject(value) {
+        return String(value)
+          .toLowerCase()
+          .trim()
+          .replace(/\s+/g, "-");
+      }
 
-      const questionNumber =
-        document.getElementById(
-          "questionNumber"
-        );
+      function getQuestions() {
 
-      const questionText =
-        document.getElementById(
-          "questionText"
-        );
+        const key = normalizeSubject(subject);
 
-      const optionsContainer =
-        document.getElementById(
-          "options"
-        );
+        if (
+          key.includes("math") ||
+          key.includes("गणित")
+        ) {
+          return questionBank.mathematics;
+        }
 
-      const nextButton =
-        document.getElementById(
-          "nextButton"
-        );
+        if (
+          key.includes("science") ||
+          key.includes("विज्ञान")
+        ) {
+          return questionBank.science;
+        }
 
-      const progressBar =
-        document.getElementById(
-          "progressBar"
-        );
+        if (
+          key.includes("english") ||
+          key.includes("अंग्रेज")
+        ) {
+          return questionBank.english;
+        }
 
-      const quizArea =
-        document.getElementById(
-          "quizArea"
-        );
+        if (
+          key.includes("hindi") ||
+          key.includes("हिंदी")
+        ) {
+          return questionBank.hindi;
+        }
 
-      const result =
-        document.getElementById(
-          "result"
-        );
+        if (
+          key.includes("gk") ||
+          key.includes("general-knowledge") ||
+          key.includes("सामान्य")
+        ) {
+          return questionBank.gk;
+        }
 
-      const scoreElement =
-        document.getElementById(
-          "score"
-        );
+        return questionBank.general;
+      }
 
-      const resultMessage =
-        document.getElementById(
-          "resultMessage"
-        );
+      const questions = getQuestions();
 
+      let currentQuestion = 0;
+      let score = 0;
+      let answers = [];
 
-      function questions() {
+      function createQuestionCard(question, index) {
 
-        return (
-          questionBank[selectedSubject] ||
-          questionBank.maths
-        );
+        const card = document.createElement("div");
+
+        card.className =
+          "mcq-card" + (index === 0 ? " active" : "");
+
+        card.dataset.index = index;
+
+        const optionsHTML = question.options.map((option, i) => {
+
+          const id = `q${index}_option${i}`;
+
+          return `
+            <div class="option">
+              <input
+                type="radio"
+                name="question${index}"
+                id="${id}"
+                value="${i}"
+              >
+
+              <label for="${id}">
+                <strong>${String.fromCharCode(65 + i)}.</strong>
+                ${option}
+              </label>
+            </div>
+          `;
+
+        }).join("");
+
+        card.innerHTML = `
+          <span class="question-number">
+            Question ${index + 1}
+          </span>
+
+          <div class="question-text">
+            ${question.q}
+          </div>
+
+          <div class="options">
+            ${optionsHTML}
+          </div>
+
+          <div class="mcq-navigation">
+
+            <button
+              type="button"
+              class="mcq-btn secondary prev-btn"
+              ${index === 0 ? "disabled" : ""}
+            >
+              ← Previous
+            </button>
+
+            <button
+              type="button"
+              class="mcq-btn primary next-btn"
+            >
+              ${index === questions.length - 1 ? "Submit Test" : "Next →"}
+            </button>
+
+          </div>
+        `;
+
+        return card;
+      }
+
+      function renderQuestions() {
+
+        mcqArea.innerHTML = "";
+
+        questions.forEach((question, index) => {
+          mcqArea.appendChild(
+            createQuestionCard(question, index)
+          );
+        });
+
+        attachQuestionEvents();
+        updateProgress();
 
       }
 
+      function attachQuestionEvents() {
 
-      function loadQuestion() {
+        document.querySelectorAll(".next-btn").forEach(button => {
 
-        const list =
-          questions();
+          button.addEventListener("click", () => {
 
-        const item =
-          list[currentQuestion];
-
-        answered = false;
-
-        questionNumber.textContent =
-          `Question ${currentQuestion + 1} of ${list.length}`;
-
-        questionText.textContent =
-          item.q;
-
-        optionsContainer.innerHTML = "";
-
-        nextButton.disabled = true;
-
-
-        const percentage =
-          ((currentQuestion) / list.length) * 100;
-
-        progressBar.style.width =
-          `${percentage}%`;
-
-
-        item.options.forEach(
-          (optionText, index) => {
-
-            const button =
-              document.createElement(
-                "button"
+            const selected =
+              document.querySelector(
+                `input[name="question${currentQuestion}"]:checked`
               );
 
-            button.className =
-              "option";
+            if (!selected) {
 
-            button.textContent =
-              `${String.fromCharCode(65 + index)}. ${optionText}`;
-
-
-            button.addEventListener(
-              "click",
-              () => {
-
-                if (answered) return;
-
-                answered = true;
-
-                const allOptions =
-                  optionsContainer
-                    .querySelectorAll(
-                      ".option"
-                    );
-
-
-                allOptions.forEach(
-                  (option, optionIndex) => {
-
-                    option.disabled = true;
-
-                    if (
-                      optionIndex ===
-                      item.answer
-                    ) {
-
-                      option.classList.add(
-                        "correct"
-                      );
-
-                    }
-
-                  }
+              if (window.arsToast) {
+                window.arsToast(
+                  "Please select an answer first."
                 );
-
-
-                if (
-                  index ===
-                  item.answer
-                ) {
-
-                  score++;
-
-                } else {
-
-                  button.classList.add(
-                    "wrong"
-                  );
-
-                }
-
-
-                nextButton.disabled =
-                  false;
-
+              } else {
+                alert("Please select an answer first.");
               }
-            );
 
+              return;
+            }
 
-            optionsContainer.appendChild(
-              button
-            );
+            answers[currentQuestion] =
+              Number(selected.value);
 
-          }
-        );
+            if (currentQuestion === questions.length - 1) {
+
+              calculateResult();
+
+              return;
+            }
+
+            currentQuestion++;
+
+            showQuestion(currentQuestion);
+
+          });
+
+        });
+
+        document.querySelectorAll(".prev-btn").forEach(button => {
+
+          button.addEventListener("click", () => {
+
+            if (currentQuestion <= 0) return;
+
+            const selected =
+              document.querySelector(
+                `input[name="question${currentQuestion}"]:checked`
+              );
+
+            if (selected) {
+              answers[currentQuestion] =
+                Number(selected.value);
+            }
+
+            currentQuestion--;
+
+            showQuestion(currentQuestion);
+
+          });
+
+        });
 
       }
 
+      function showQuestion(index) {
 
-      nextButton.addEventListener(
-        "click",
-        () => {
+        document.querySelectorAll(".mcq-card").forEach(card => {
+          card.classList.remove("active");
+        });
 
-          const list =
-            questions();
+        const target =
+          document.querySelector(
+            `.mcq-card[data-index="${index}"]`
+          );
 
-          currentQuestion++;
+        if (target) {
 
+          target.classList.add("active");
 
           if (
-            currentQuestion >=
-            list.length
+            typeof answers[index] !== "undefined"
           ) {
 
-            showResult();
+            const input =
+              target.querySelector(
+                `input[value="${answers[index]}"]`
+              );
 
-          } else {
-
-            loadQuestion();
+            if (input) input.checked = true;
 
           }
 
         }
-      );
 
+        updateProgress();
 
-      function showResult() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
-        quizArea.style.display =
-          "none";
+      }
 
-        result.style.display =
-          "block";
+      function updateProgress() {
 
-        progressBar.style.width =
-          "100%";
+        const total = questions.length;
+        const number = currentQuestion + 1;
+        const percent =
+          Math.round((number / total) * 100);
 
+        progressText.textContent =
+          `Question ${number} of ${total}`;
 
-        const total =
-          questions().length;
+        progressPercent.textContent =
+          `${percent}%`;
 
-        scoreElement.textContent =
-          `${score}/${total}`;
+        progressFill.style.width =
+          `${percent}%`;
 
+      }
+
+      function calculateResult() {
+
+        score = 0;
+
+        answers.forEach((answer, index) => {
+
+          if (
+            typeof answer !== "undefined" &&
+            answer === questions[index].answer
+          ) {
+            score++;
+          }
+
+        });
+
+        mcqArea.style.display = "none";
+        progressWrap.style.display = "none";
+        resultCard.classList.add("show");
+
+        scoreText.textContent =
+          `${score} / ${questions.length}`;
 
         const percentage =
           Math.round(
-            (score / total) * 100
+            (score / questions.length) * 100
           );
 
-
-        if (percentage >= 80) {
-
-          resultMessage.textContent =
-            "Excellent! आपकी तैयारी बहुत अच्छी है।";
-
-        } else if (percentage >= 50) {
+        if (percentage === 100) {
 
           resultMessage.textContent =
-            "Good job! थोड़ा और practice करें।";
+            "Excellent! आपने सभी प्रश्न सही किए। आपकी तैयारी बहुत अच्छी है।";
+
+        } else if (percentage >= 70) {
+
+          resultMessage.textContent =
+            "Great work! आपकी तैयारी अच्छी है। थोड़ी और practice आपको और बेहतर बनाएगी।";
+
+        } else if (percentage >= 40) {
+
+          resultMessage.textContent =
+            "Good effort! Notes को दोबारा पढ़ें और फिर से practice करें।";
 
         } else {
 
           resultMessage.textContent =
-            "Practice जारी रखें और concepts को दोबारा revise करें।";
+            "Keep learning! पहले chapter notes को revise करें और फिर MCQ दोबारा attempt करें।";
 
+        }
+
+        /*
+         * Save latest practice result locally.
+         */
+        try {
+
+          if (window.ARS_STORAGE) {
+
+            const result = {
+              class: classNo,
+              subject,
+              book,
+              chapter,
+              score,
+              total: questions.length,
+              percentage,
+              date: new Date().toISOString()
+            };
+
+            ARS_STORAGE.set(
+              "LAST_MCQ_RESULT",
+              result
+            );
+
+          }
+
+        } catch (error) {
+          console.warn(
+            "MCQ result could not be saved.",
+            error
+          );
         }
 
       }
 
-
-      function restartQuiz() {
+      function retryTest() {
 
         currentQuestion = 0;
         score = 0;
+        answers = [];
 
-        result.style.display =
-          "none";
+        resultCard.classList.remove("show");
 
-        quizArea.style.display =
-          "block";
+        mcqArea.style.display = "";
+        progressWrap.style.display = "";
 
-        loadQuestion();
+        renderQuestions();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
       }
 
+      retryBtn.addEventListener(
+        "click",
+        retryTest
+      );
 
-      document
-        .getElementById("restartButton")
-        .addEventListener(
-          "click",
-          restartQuiz
-        );
+      /*
+       * Keep the current education path in navigation links.
+       */
+      const query =
+        `?class=${encodeURIComponent(classNo)}` +
+        `&subject=${encodeURIComponent(subject)}` +
+        `&book=${encodeURIComponent(book)}` +
+        `&chapter=${encodeURIComponent(chapter)}`;
 
+      notesBtn.href =
+        `notes.html${query}`;
 
-      /* CLASS FILTER */
+      practiceBtn.href =
+        `practice.html${query}`;
 
-      document
-        .querySelectorAll("[data-class]")
-        .forEach(button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              selectedClass =
-                button.dataset.class;
-
-              document
-                .querySelectorAll(
-                  "[data-class]"
-                )
-                .forEach(item => {
-
-                  item.classList.toggle(
-                    "active",
-                    item.dataset.class ===
-                      selectedClass
-                  );
-
-                });
-
-              restartQuiz();
-
-            }
-          );
-
-        });
-
-
-      /* SUBJECT FILTER */
-
-      document
-        .querySelectorAll("[data-subject]")
-        .forEach(button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              selectedSubject =
-                button.dataset.subject;
-
-              document
-                .querySelectorAll(
-                  "[data-subject]"
-                )
-                .forEach(item => {
-
-                  item.classList.toggle(
-                    "active",
-                    item.dataset.subject ===
-                      selectedSubject
-                  );
-
-                });
-
-              restartQuiz();
-
-            }
-          );
-
-        });
-
-
-      loadQuestion();
+      renderQuestions();
 
     })();
   </script>
