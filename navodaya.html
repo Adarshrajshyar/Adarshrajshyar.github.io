@@ -4,177 +4,385 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Navodaya Preparation | ARS Education</title>
-  <meta name="description" content="ARS Education Jawahar Navodaya Vidyalaya Class 6 preparation resources.">
+  <title>Navodaya Class 6 Preparation | ARS Education</title>
+  <meta
+    name="description"
+    content="ARS Education Class 6 Navodaya entrance preparation portal with exam guide, subjects, study material, practice, revision and strategy."
+  >
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .navodaya-page {
-      min-height: 100vh;
-      padding: 110px 18px 70px;
+    /* ================================
+       NAVODAYA PAGE
+    ================================= */
+
+    .exam-hero {
+      padding: 80px 0 55px;
       background:
-        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
-        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
-        var(--bg);
+        radial-gradient(circle at top right, rgba(120, 120, 255, .12), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(0, 180, 160, .10), transparent 35%);
     }
 
-    .nav-container {
-      max-width: 1100px;
+    .exam-hero-content {
+      max-width: 920px;
       margin: auto;
-    }
-
-    .nav-hero {
       text-align: center;
-      margin-bottom: 32px;
     }
 
-    .nav-badge {
-      display: inline-block;
-      padding: 8px 15px;
+    .exam-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
       border-radius: 999px;
-      background: rgba(124,58,237,.11);
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 800;
+      background: var(--card-bg, rgba(255,255,255,.08));
+      border: 1px solid var(--border-color, rgba(255,255,255,.15));
+      font-weight: 700;
+      font-size: .88rem;
+      margin-bottom: 18px;
     }
 
-    .nav-hero h1 {
-      margin: 17px 0 10px;
-      font-size: clamp(34px, 6vw, 58px);
+    .exam-hero h1 {
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 1.08;
+      margin-bottom: 18px;
     }
 
-    .nav-hero h1 span {
-      color: var(--primary);
-    }
-
-    .nav-hero p {
-      max-width: 750px;
+    .exam-hero p {
+      max-width: 760px;
       margin: auto;
-      color: var(--text-soft);
       line-height: 1.8;
+      opacity: .86;
     }
 
-    .notice {
-      padding: 15px 18px;
-      margin-bottom: 25px;
-      border-radius: 15px;
-      background: rgba(124,58,237,.07);
-      border: 1px solid rgba(124,58,237,.14);
-      color: var(--text-soft);
+    .exam-note {
+      max-width: 850px;
+      margin: 30px auto 0;
+      padding: 18px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color, rgba(255,255,255,.15));
+      background: var(--card-bg, rgba(255,255,255,.06));
+      text-align: left;
       line-height: 1.7;
+    }
+
+    .exam-section {
+      padding: 65px 0;
+    }
+
+    .section-heading {
+      max-width: 780px;
+      margin: 0 auto 35px;
       text-align: center;
     }
 
-    .resource-grid {
+    .section-heading h2 {
+      font-size: clamp(1.7rem, 4vw, 2.5rem);
+      margin-bottom: 10px;
+    }
+
+    .section-heading p {
+      opacity: .78;
+      line-height: 1.7;
+    }
+
+    .exam-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
+      gap: 20px;
     }
 
-    .resource-card {
-      padding: 23px;
+    .exam-card {
+      padding: 25px;
       border-radius: 20px;
-      border: 1px solid rgba(124,58,237,.14);
       background: var(--card-bg, rgba(255,255,255,.06));
-      box-shadow: 0 12px 35px rgba(0,0,0,.06);
-      transition: .2s ease;
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+      transition: transform .25s ease, box-shadow .25s ease;
     }
 
-    .resource-card:hover {
+    .exam-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 16px 35px rgba(0,0,0,.10);
     }
 
-    .resource-icon {
-      font-size: 32px;
-      margin-bottom: 12px;
+    .exam-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(120,120,255,.12);
+      font-size: 1.35rem;
+      margin-bottom: 17px;
     }
 
-    .resource-card h3 {
-      margin: 0 0 8px;
+    .exam-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.15rem;
     }
 
-    .resource-card p {
-      margin: 0 0 15px;
-      color: var(--text-soft);
+    .exam-card p,
+    .exam-card li {
       line-height: 1.7;
-      font-size: 14px;
+      opacity: .82;
     }
 
-    .tags {
+    .exam-card ul {
+      padding-left: 19px;
+      margin: 12px 0 0;
+    }
+
+    .timeline {
+      max-width: 900px;
+      margin: auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 55px 1fr;
+      gap: 17px;
+      align-items: start;
+      padding: 20px;
+      border-radius: 18px;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+    }
+
+    .timeline-number {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-weight: 800;
+      background: rgba(120,120,255,.14);
+    }
+
+    .timeline-item h3 {
+      margin-bottom: 6px;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      line-height: 1.7;
+      opacity: .82;
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .subject-card {
+      padding: 27px;
+      border-radius: 22px;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+    }
+
+    .subject-card .subject-number {
+      font-size: .78rem;
+      font-weight: 800;
+      opacity: .55;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .subject-card h3 {
+      margin: 9px 0 10px;
+    }
+
+    .subject-card p {
+      line-height: 1.7;
+      opacity: .8;
+    }
+
+    .topic-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 15px;
-    }
-
-    .tags span {
-      padding: 5px 8px;
-      border-radius: 8px;
-      background: rgba(124,58,237,.08);
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .resource-card button {
-      width: 100%;
-      padding: 11px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .syllabus {
-      margin-top: 25px;
-      padding: 25px;
-      border-radius: 21px;
-      border: 1px solid rgba(124,58,237,.14);
-      background: var(--card-bg, rgba(255,255,255,.06));
-    }
-
-    .syllabus h2 {
-      margin-top: 0;
-    }
-
-    .syllabus-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap: 8px;
       margin-top: 17px;
     }
 
-    .syllabus-item {
-      padding: 15px;
-      border-radius: 13px;
-      background: rgba(124,58,237,.06);
+    .topic {
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: .78rem;
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+      background: rgba(120,120,255,.06);
     }
 
-    .syllabus-item strong {
+    .study-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .study-card {
+      padding: 22px;
+      text-align: center;
+      border-radius: 18px;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+    }
+
+    .study-card strong {
       display: block;
-      margin-bottom: 5px;
+      margin: 10px 0 7px;
     }
 
-    .syllabus-item span {
-      color: var(--text-soft);
-      font-size: 13px;
+    .study-card span {
+      font-size: .88rem;
+      line-height: 1.6;
+      opacity: .75;
+    }
+
+    .plan-table-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+    }
+
+    .plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 680px;
+      background: var(--card-bg, rgba(255,255,255,.05));
+    }
+
+    .plan-table th,
+    .plan-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color, rgba(255,255,255,.10));
       line-height: 1.6;
     }
 
-    @media (max-width: 850px) {
-      .resource-grid,
-      .syllabus-grid {
+    .plan-table th {
+      font-weight: 800;
+    }
+
+    .strategy-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 22px;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+    }
+
+    .strategy-box ol {
+      padding-left: 22px;
+    }
+
+    .strategy-box li {
+      margin-bottom: 15px;
+      line-height: 1.7;
+    }
+
+    .mistake-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .mistake {
+      padding: 22px;
+      border-radius: 18px;
+      background: var(--card-bg, rgba(255,255,255,.06));
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+    }
+
+    .mistake h3 {
+      margin-bottom: 8px;
+    }
+
+    .mistake p {
+      margin: 0;
+      line-height: 1.7;
+      opacity: .8;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .action-card {
+      text-decoration: none;
+      color: inherit;
+      padding: 22px;
+      border-radius: 18px;
+      text-align: center;
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+      background: var(--card-bg, rgba(255,255,255,.06));
+      transition: transform .2s ease;
+    }
+
+    .action-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .action-card strong {
+      display: block;
+      margin-top: 9px;
+    }
+
+    .official-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 28px;
+      border-radius: 22px;
+      text-align: center;
+      border: 1px solid var(--border-color, rgba(255,255,255,.14));
+      background: var(--card-bg, rgba(255,255,255,.06));
+    }
+
+    .official-box p {
+      line-height: 1.75;
+      opacity: .82;
+    }
+
+    @media (max-width: 1000px) {
+      .exam-grid,
+      .subject-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .study-grid,
+      .action-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 560px) {
-      .resource-grid,
-      .syllabus-grid {
+    @media (max-width: 650px) {
+      .exam-hero {
+        padding: 55px 0 40px;
+      }
+
+      .exam-section {
+        padding: 45px 0;
+      }
+
+      .exam-grid,
+      .subject-grid,
+      .mistake-grid,
+      .study-grid,
+      .action-grid {
         grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 45px 1fr;
+      }
+
+      .strategy-box {
+        padding: 22px;
       }
     }
   </style>
@@ -182,292 +390,908 @@
 
 <body>
 
-  <main class="navodaya-page">
+  <!-- ================================
+       PAGE LOADER
+  ================================= -->
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div class="nav-container">
+  <!-- ================================
+       HEADER
+  ================================= -->
+  <header class="site-header">
+    <div class="container nav-container">
 
-      <section class="nav-hero">
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <span>ARS Official</span>
+      </a>
 
-        <div class="nav-badge">
-          🏫 ARS EDUCATION • NAVODAYA
+      <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        aria-label="Open menu"
+        type="button"
+      >
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories & Poetry</a>
+        <a href="education.html" class="active">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+
+        <div class="mobile-only-nav">
+          <a href="publisher.html">Publisher</a>
+          <a href="admin.html">Admin</a>
+          <a href="policy.html">Policy</a>
         </div>
-
-        <h1>
-          Navodaya <span>Preparation</span>
-        </h1>
-
-        <p>
-          Jawahar Navodaya Vidyalaya Selection Test
-          के लिए Class 6 preparation resources,
-          practice और revision material।
-        </p>
-
-      </section>
-
-
-      <div class="notice">
-        📌 यह section केवल <strong>Class 6</strong> Navodaya
-        preparation के लिए बनाया गया है।
-      </div>
-
-
-      <section class="resource-grid">
-
-        <article class="resource-card">
-
-          <div class="resource-icon">🧠</div>
-
-          <h3>Mental Ability</h3>
-
-          <p>
-            Reasoning, patterns, classification,
-            analogy और logical thinking की practice।
-          </p>
-
-          <div class="tags">
-            <span>Class 6</span>
-            <span>Reasoning</span>
-          </div>
-
-          <button data-type="mental-ability">
-            Practice Now →
-          </button>
-
-        </article>
-
-
-        <article class="resource-card">
-
-          <div class="resource-icon">➗</div>
-
-          <h3>Arithmetic</h3>
-
-          <p>
-            Basic arithmetic concepts और
-            objective questions की practice।
-          </p>
-
-          <div class="tags">
-            <span>Class 6</span>
-            <span>Maths</span>
-          </div>
-
-          <button data-type="arithmetic">
-            Practice Now →
-          </button>
-
-        </article>
-
-
-        <article class="resource-card">
-
-          <div class="resource-icon">📖</div>
-
-          <h3>Language</h3>
-
-          <p>
-            Reading comprehension और language
-            practice के लिए useful questions।
-          </p>
-
-          <div class="tags">
-            <span>Class 6</span>
-            <span>Language</span>
-          </div>
-
-          <button data-type="language">
-            Practice Now →
-          </button>
-
-        </article>
-
-
-        <article class="resource-card">
-
-          <div class="resource-icon">📝</div>
-
-          <h3>MCQ Practice</h3>
-
-          <p>
-            Objective questions के जरिए अपनी
-            preparation को check करें।
-          </p>
-
-          <div class="tags">
-            <span>MCQ</span>
-            <span>Practice</span>
-          </div>
-
-          <button data-type="mcq">
-            Start MCQ →
-          </button>
-
-        </article>
-
-
-        <article class="resource-card">
-
-          <div class="resource-icon">📚</div>
-
-          <h3>Notes & Revision</h3>
-
-          <p>
-            Important concepts और quick revision
-            points को व्यवस्थित रूप से पढ़ें।
-          </p>
-
-          <div class="tags">
-            <span>Notes</span>
-            <span>Revision</span>
-          </div>
-
-          <button data-type="notes">
-            Open Notes →
-          </button>
-
-        </article>
-
-
-        <article class="resource-card">
-
-          <div class="resource-icon">🎯</div>
-
-          <h3>Exam Strategy</h3>
-
-          <p>
-            Time management, revision और
-            practice के लिए useful preparation tips।
-          </p>
-
-          <div class="tags">
-            <span>Tips</span>
-            <span>Strategy</span>
-          </div>
-
-          <button data-type="tips">
-            View Tips →
-          </button>
-
-        </article>
-
-      </section>
-
-
-      <section class="syllabus">
-
-        <h2>📋 Preparation Areas</h2>
-
-        <div class="syllabus-grid">
-
-          <div class="syllabus-item">
-            <strong>🧩 Reasoning</strong>
-            <span>
-              Patterns, analogy, classification और logical questions।
-            </span>
-          </div>
-
-          <div class="syllabus-item">
-            <strong>🔢 Arithmetic</strong>
-            <span>
-              Numbers और basic mathematical problem solving।
-            </span>
-          </div>
-
-          <div class="syllabus-item">
-            <strong>📖 Language</strong>
-            <span>
-              Reading comprehension और language skills।
-            </span>
-          </div>
-
-          <div class="syllabus-item">
-            <strong>📝 Mock Practice</strong>
-            <span>
-              Exam-style practice sets और self-check।
-            </span>
-          </div>
-
-          <div class="syllabus-item">
-            <strong>🔄 Revision</strong>
-            <span>
-              Important concepts का regular revision।
-            </span>
-          </div>
-
-          <div class="syllabus-item">
-            <strong>🏆 Preparation</strong>
-            <span>
-              Consistent practice और बेहतर exam planning।
-            </span>
-          </div>
-
-        </div>
-
-      </section>
+      </nav>
 
     </div>
+  </header>
+
+  <main>
+
+    <!-- ================================
+         HERO
+    ================================= -->
+    <section class="exam-hero">
+      <div class="container">
+        <div class="exam-hero-content">
+
+          <div class="exam-badge">
+            🎓 ARS Education • Class 6 Only
+          </div>
+
+          <h1>Navodaya Class 6<br>Preparation Portal</h1>
+
+          <p>
+            जवाहर नवोदय विद्यालय की कक्षा 6 प्रवेश परीक्षा की तैयारी के लिए
+            एक structured learning guide — exam understanding, subjects,
+            concepts, practice, revision और preparation strategy के साथ।
+          </p>
+
+          <div class="hero-actions" style="justify-content:center; margin-top:25px;">
+            <a href="#subjects" class="btn btn-primary">
+              Start Preparation
+            </a>
+
+            <a href="#process" class="btn btn-secondary">
+              Exam Guide
+            </a>
+          </div>
+
+          <div class="exam-note">
+            <strong>Important:</strong>
+            Navodaya की eligibility, age/date criteria, application dates,
+            notification, documents और अन्य नियम समय के साथ बदल सकते हैं।
+            इसलिए admission से जुड़ी latest जानकारी के लिए हमेशा
+            official notification को प्राथमिकता दें।
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         INTRODUCTION
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Navodaya Entrance Exam क्या है?</h2>
+          <p>
+            यह section विद्यार्थी और अभिभावक को परीक्षा को शुरुआत से समझने
+            में मदद करता है।
+          </p>
+        </div>
+
+        <div class="exam-grid">
+
+          <div class="exam-card">
+            <div class="exam-icon">🏫</div>
+            <h3>JNV Admission</h3>
+            <p>
+              Jawahar Navodaya Vidyalaya (JNV) में प्रवेश के लिए
+              Class 6 स्तर की चयन परीक्षा आयोजित की जाती है।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">🎯</div>
+            <h3>किस कक्षा के लिए?</h3>
+            <p>
+              यह ARS preparation portal विशेष रूप से
+              <strong>Class 6 entrance preparation</strong> के लिए बनाया गया है।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">📋</div>
+            <h3>Eligibility</h3>
+            <p>
+              विद्यार्थी की eligibility, जन्मतिथि, school/class और अन्य
+              conditions के लिए संबंधित वर्ष की official notification देखें।
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         ADMISSION PROCESS
+    ================================= -->
+    <section class="exam-section" id="process">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Admission & Exam Process</h2>
+          <p>
+            सामान्य प्रक्रिया को आसान steps में समझें। वास्तविक dates और
+            requirements संबंधित official notification से verify करें।
+          </p>
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-number">1</div>
+            <div>
+              <h3>Official Notification देखें</h3>
+              <p>
+                संबंधित admission session की official सूचना में
+                eligibility, important dates और instructions पढ़ें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">2</div>
+            <div>
+              <h3>Registration / Application</h3>
+              <p>
+                Official application process के अनुसार आवश्यक details
+                भरें और form में दी गई जानकारी को ध्यान से check करें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">3</div>
+            <div>
+              <h3>Documents & Details</h3>
+              <p>
+                जन्मतिथि, school information और अन्य required documents/details
+                official instructions के अनुसार तैयार रखें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">4</div>
+            <div>
+              <h3>Application Submit करें</h3>
+              <p>
+                Final submission से पहले सभी information दोबारा verify करें
+                और application status/confirmation सुरक्षित रखें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">5</div>
+            <div>
+              <h3>Admit Card / Exam Information</h3>
+              <p>
+                परीक्षा से संबंधित official instructions और admit card
+                information को समय पर check करें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">6</div>
+            <div>
+              <h3>Entrance Examination</h3>
+              <p>
+                निर्धारित केंद्र पर exam instructions के अनुसार परीक्षा दें।
+                समय management और question selection का अभ्यास पहले से करें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">7</div>
+            <div>
+              <h3>Result & Selection</h3>
+              <p>
+                Result और selection से संबंधित latest information official
+                source से check करें।
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-number">8</div>
+            <div>
+              <h3>Next Admission Stage</h3>
+              <p>
+                Selection के बाद document verification और admission से
+                जुड़े अगले steps संबंधित instructions के अनुसार पूरे करें।
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         SUBJECTS
+    ================================= -->
+    <section class="exam-section" id="subjects">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Class 6 Exam Subjects</h2>
+          <p>
+            Preparation को मुख्यतः तीन क्षेत्रों में व्यवस्थित करें।
+            Exact pattern/question details के लिए संबंधित वर्ष की official
+            notification को देखें।
+          </p>
+        </div>
+
+        <div class="subject-grid">
+
+          <div class="subject-card">
+            <div class="subject-number">Subject 01</div>
+            <h3>🧠 Mental Ability Test</h3>
+            <p>
+              Reasoning और visual thinking से जुड़े प्रश्नों के लिए
+              observation, pattern और logical thinking मजबूत करें।
+            </p>
+
+            <div class="topic-list">
+              <span class="topic">Patterns</span>
+              <span class="topic">Classification</span>
+              <span class="topic">Analogy</span>
+              <span class="topic">Figure Reasoning</span>
+              <span class="topic">Series</span>
+              <span class="topic">Spatial Thinking</span>
+            </div>
+          </div>
+
+          <div class="subject-card">
+            <div class="subject-number">Subject 02</div>
+            <h3>➗ Arithmetic Test</h3>
+            <p>
+              Basic mathematics और problem-solving concepts पर लगातार
+              practice करें।
+            </p>
+
+            <div class="topic-list">
+              <span class="topic">Number System</span>
+              <span class="topic">Four Operations</span>
+              <span class="topic">Fractions</span>
+              <span class="topic">Decimals</span>
+              <span class="topic">Measurement</span>
+              <span class="topic">Word Problems</span>
+            </div>
+          </div>
+
+          <div class="subject-card">
+            <div class="subject-number">Subject 03</div>
+            <h3>📖 Language Test</h3>
+            <p>
+              Reading comprehension, vocabulary और passage understanding
+              को मजबूत करने पर ध्यान दें।
+            </p>
+
+            <div class="topic-list">
+              <span class="topic">Reading</span>
+              <span class="topic">Comprehension</span>
+              <span class="topic">Vocabulary</span>
+              <span class="topic">Meaning</span>
+              <span class="topic">Sentence Understanding</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         PREPARATION ORDER
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Preparation किस क्रम में करें?</h2>
+          <p>
+            शुरुआत में हर topic को एक साथ पढ़ने के बजाय foundation से
+            practice और फिर mock test की तरफ बढ़ें।
+          </p>
+        </div>
+
+        <div class="exam-grid">
+
+          <div class="exam-card">
+            <div class="exam-icon">1️⃣</div>
+            <h3>Foundation</h3>
+            <p>
+              पहले basic concepts और question types को समझें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">2️⃣</div>
+            <h3>Concept Practice</h3>
+            <p>
+              हर concept के examples और छोटे practice questions हल करें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">3️⃣</div>
+            <h3>Mixed Practice</h3>
+            <p>
+              अलग-अलग topics को मिलाकर timed practice करें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">4️⃣</div>
+            <h3>Mock Tests</h3>
+            <p>
+              परीक्षा जैसे environment में complete practice tests दें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">5️⃣</div>
+            <h3>Error Analysis</h3>
+            <p>
+              गलत questions को दोबारा देखें और गलती का कारण समझें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">6️⃣</div>
+            <h3>Revision</h3>
+            <p>
+              Important concepts, formulas और weak areas को बार-बार revise करें।
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         STUDY MATERIAL
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>ARS Study Material</h2>
+          <p>
+            Preparation portal में सीखने का पूरा flow concept से revision तक
+            रखा गया है।
+          </p>
+        </div>
+
+        <div class="study-grid">
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">📘</div>
+            <strong>Chapter Explanation</strong>
+            <span>Concept को आसान भाषा में समझें।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">📝</div>
+            <strong>Quick Notes</strong>
+            <span>Revision के लिए short notes देखें।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">💡</div>
+            <strong>Important Concepts</strong>
+            <span>बार-बार पूछे जाने वाले concept areas पर focus करें।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">🔢</div>
+            <strong>Examples</strong>
+            <span>Concept को solved examples से समझें।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">❓</div>
+            <strong>MCQ Practice</strong>
+            <span>Question solving speed और accuracy बढ़ाएँ।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">✍️</div>
+            <strong>Practice Zone</strong>
+            <span>Short answer और concept-based practice करें।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">⏱️</div>
+            <strong>Mock Tests</strong>
+            <span>Timed examination practice करें।</span>
+          </div>
+
+          <div class="study-card">
+            <div style="font-size:1.8rem;">🔄</div>
+            <strong>Revision</strong>
+            <span>Weak topics को identify करके revise करें।</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         DAILY PLAN
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Daily Preparation Plan</h2>
+          <p>
+            नीचे एक sample routine है। विद्यार्थी अपनी school timing और
+            individual study needs के अनुसार इसे बदल सकता है।
+          </p>
+        </div>
+
+        <div class="plan-table-wrap">
+
+          <table class="plan-table">
+            <thead>
+              <tr>
+                <th>Study Block</th>
+                <th>Focus Area</th>
+                <th>क्या करें?</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Block 1</td>
+                <td>Mental Ability</td>
+                <td>Reasoning concepts + timed questions</td>
+              </tr>
+
+              <tr>
+                <td>Block 2</td>
+                <td>Arithmetic</td>
+                <td>Concept + examples + practice</td>
+              </tr>
+
+              <tr>
+                <td>Block 3</td>
+                <td>Language</td>
+                <td>Reading + comprehension + vocabulary</td>
+              </tr>
+
+              <tr>
+                <td>Block 4</td>
+                <td>Revision</td>
+                <td>आज पढ़े गए concepts की quick revision</td>
+              </tr>
+
+              <tr>
+                <td>Weekly</td>
+                <td>Mock / Mixed Test</td>
+                <td>Time-bound test + error analysis</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         STRATEGY
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Smart Preparation Strategy</h2>
+          <p>
+            सिर्फ ज्यादा questions करना पर्याप्त नहीं है। सही तरीके से
+            concepts, speed और accuracy तीनों पर काम करें।
+          </p>
+        </div>
+
+        <div class="strategy-box">
+
+          <ol>
+
+            <li>
+              <strong>पहले अपना current level check करें:</strong>
+              कुछ basic questions हल करके पता करें कि कौन से topics मजबूत
+              और कौन से weak हैं।
+            </li>
+
+            <li>
+              <strong>Concept → Example → Practice:</strong>
+              किसी topic को पढ़ने के बाद example देखें और तुरंत practice करें।
+            </li>
+
+            <li>
+              <strong>Time management:</strong>
+              धीरे-धीरे timed practice शुरू करें ताकि questions solve करने
+              की speed और accuracy दोनों improve हों।
+            </li>
+
+            <li>
+              <strong>गलत questions की notebook बनाएं:</strong>
+              जिस question में गलती हुई, उसे सिर्फ answer देखकर छोड़ें नहीं।
+              गलती का कारण समझें।
+            </li>
+
+            <li>
+              <strong>Regular revision:</strong>
+              पुराने topics को भी schedule में वापस लाते रहें।
+            </li>
+
+            <li>
+              <strong>Mock test के बाद analysis:</strong>
+              केवल score न देखें। यह भी देखें कि गलतियाँ concept,
+              calculation, reading या time management की वजह से हुईं।
+            </li>
+
+            <li>
+              <strong>Exam में instructions पढ़ें:</strong>
+              actual examination में दिए गए instructions और marking rules
+              को carefully follow करें।
+            </li>
+
+          </ol>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         COMMON MISTAKES
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Common Preparation Mistakes</h2>
+          <p>
+            इन गलतियों से बचना preparation को अधिक effective बना सकता है।
+          </p>
+        </div>
+
+        <div class="mistake-grid">
+
+          <div class="mistake">
+            <h3>❌ केवल answers याद करना</h3>
+            <p>
+              सही तरीका है concept समझना ताकि नए प्रकार के questions भी
+              solve किए जा सकें।
+            </p>
+          </div>
+
+          <div class="mistake">
+            <h3>❌ सिर्फ एक subject पढ़ना</h3>
+            <p>
+              सभी प्रमुख exam areas को balanced preparation दें।
+            </p>
+          </div>
+
+          <div class="mistake">
+            <h3>❌ Mock test बिना analysis के</h3>
+            <p>
+              Test देने के बाद mistakes और weak topics की review जरूर करें।
+            </p>
+          </div>
+
+          <div class="mistake">
+            <h3>❌ Revision को आखिरी समय तक छोड़ना</h3>
+            <p>
+              छोटे-छोटे revision sessions पूरे preparation period में रखें।
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         AFTER EXAM
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Exam के बाद क्या करें?</h2>
+          <p>
+            परीक्षा के बाद भी official updates को नियमित रूप से check करना
+            जरूरी है।
+          </p>
+        </div>
+
+        <div class="exam-grid">
+
+          <div class="exam-card">
+            <div class="exam-icon">📢</div>
+            <h3>Official Result</h3>
+            <p>
+              Result और selection information official source से check करें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">📑</div>
+            <h3>Document Process</h3>
+            <p>
+              Selection होने पर required documents और verification instructions
+              तैयार रखें।
+            </p>
+          </div>
+
+          <div class="exam-card">
+            <div class="exam-icon">🏫</div>
+            <h3>Admission Stage</h3>
+            <p>
+              आगे की admission process संबंधित official instructions के
+              अनुसार पूरी करें।
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================================
+         QUICK ACTIONS
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="section-heading">
+          <h2>Start Learning</h2>
+          <p>
+            ARS Education के learning tools से अपनी preparation आगे बढ़ाएँ।
+          </p>
+        </div>
+
+        <div class="action-grid">
+
+          <a
+            class="action-card"
+            href="mcq.html?class=6&subject=Mental%20Ability&book=practice&chapter=1"
+          >
+            🧠
+            <strong>MCQ Practice</strong>
+          </a>
+
+          <a
+            class="action-card"
+            href="practice.html?class=6&subject=Arithmetic&book=practice&chapter=1"
+          >
+            ✍️
+            <strong>Practice Zone</strong>
+          </a>
+
+          <a
+            class="action-card"
+            href="exam-tips.html?class=6&subject=Navodaya&book=revision&chapter=1"
+          >
+            🎯
+            <strong>Exam Strategy</strong>
+          </a>
+
+          <a
+            class="action-card"
+            href="resources.html?class=6&subject=Navodaya&book=main&chapter=1"
+          >
+            📚
+            <strong>Resources</strong>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================
+         OFFICIAL SOURCE
+    ================================= -->
+    <section class="exam-section">
+      <div class="container">
+
+        <div class="official-box">
+
+          <h2>Latest Official Information</h2>
+
+          <p>
+            Admission dates, application process, eligibility, age criteria,
+            official syllabus/pattern, admit card, result और अन्य महत्वपूर्ण
+            जानकारी के लिए संबंधित वर्ष की official Navodaya notification
+            को ही final reference मानें।
+          </p>
+
+          <a
+            href="https://navodaya.gov.in/"
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Official Navodaya Website ↗
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================================
+         CTA
+    ================================= -->
+    <section class="join-section">
+      <div class="container">
+
+        <div class="join-box">
+
+          <div>
+            <span class="eyebrow">ARS EDUCATION</span>
+
+            <h2>
+              तैयारी आज से शुरू करें।
+            </h2>
+
+            <p>
+              Concept समझें, practice करें, mistakes सुधारें और नियमित
+              revision के साथ अपने लक्ष्य की ओर बढ़ें।
+            </p>
+          </div>
+
+          <div class="join-actions">
+
+            <a href="education.html" class="btn btn-primary">
+              Back to ARS Education
+            </a>
+
+            <a href="contact.html" class="btn btn-secondary">
+              Contact ARS
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
 
   </main>
 
 
-  <script>
-    (() => {
+  <!-- ================================
+       FOOTER
+  ================================= -->
+  <footer class="site-footer">
 
-      "use strict";
+    <div class="container footer-grid">
 
+      <div class="footer-brand">
 
-      document
-        .querySelectorAll("[data-type]")
-        .forEach(button => {
+        <a href="index.html" class="brand">
+          <img src="logo.png" alt="ARS Official Logo">
+          <span>ARS Official</span>
+        </a>
 
-          button.addEventListener(
-            "click",
-            () => {
+        <p>
+          ARS Official — Education, Shayari, Stories, Creativity और
+          Digital Learning को एक साथ जोड़ने का प्रयास।
+        </p>
 
-              const type =
-                button.dataset.type;
+        <div class="signature-box">
+          <span>Founded by</span>
+          <strong>Adarsh Raj</strong>
+        </div>
 
-
-              if (type === "mcq") {
-
-                window.location.href =
-                  "mcq.html";
-
-                return;
-
-              }
-
-
-              if (type === "notes") {
-
-                window.location.href =
-                  "notes.html";
-
-                return;
-
-              }
+      </div>
 
 
-              if (type === "tips") {
+      <div class="footer-links">
 
-                window.location.href =
-                  "exam-tips.html";
+        <h3>Explore</h3>
 
-                return;
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories & Poetry</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
 
-              }
+      </div>
 
 
-              window.location.href =
-                `resource.html?class=6&category=navodaya&type=${encodeURIComponent(type)}`;
+      <div class="footer-links">
 
-            }
-          );
+        <h3>Education</h3>
 
-        });
+        <a href="navodaya.html">Navodaya</a>
+        <a href="sainik-school.html">Sainik School</a>
+        <a href="rms.html">RMS</a>
+        <a href="resources.html">Resources</a>
+        <a href="exam-tips.html">Exam Tips</a>
 
-    })();
-  </script>
+      </div>
+
+
+      <div class="footer-links">
+
+        <h3>Support</h3>
+
+        <a href="contact.html">Contact</a>
+        <a href="verify.html">Verify Certificate</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="policy.html">Policy</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span> ARS Official. All rights reserved.
+      </p>
+
+      <p>
+        Made with ❤️ for learning & creativity.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ================================
+       SCRIPTS
+  ================================= -->
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
