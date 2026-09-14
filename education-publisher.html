@@ -4,227 +4,349 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS Education Publisher</title>
+  <title>ARS Education Publisher | ARS Official</title>
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .edu-publisher {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 20px;
-    }
-
-    .publisher-hero {
-      padding: 28px;
-      border-radius: 20px;
-      margin-bottom: 25px;
+    .edu-pub-hero {
+      padding: 75px 20px 60px;
       text-align: center;
-      background: var(--card-bg, #ffffff);
-      box-shadow: 0 8px 30px rgba(0,0,0,.10);
+      color: #fff;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.13), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,.10), transparent 30%),
+        linear-gradient(135deg, var(--primary), var(--primary-dark));
     }
 
-    .publisher-hero h1 {
-      margin: 0 0 8px;
+    .edu-pub-hero-inner {
+      max-width: 850px;
+      margin: auto;
     }
 
-    .publisher-hero p {
-      margin: 0;
-      opacity: .8;
+    .edu-pub-badge {
+      display: inline-flex;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.22);
+      font-weight: 700;
+      margin-bottom: 16px;
     }
 
-    .publisher-grid {
+    .edu-pub-hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.1rem, 5vw, 3.6rem);
+    }
+
+    .edu-pub-hero p {
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.8;
+      opacity: .92;
+    }
+
+    .edu-pub-section {
+      padding: 60px 20px;
+    }
+
+    .edu-pub-container {
+      max-width: 1180px;
+      margin: auto;
+    }
+
+    .edu-pub-warning {
+      margin-bottom: 25px;
+      padding: 17px 20px;
+      border-radius: 16px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .edu-pub-grid {
       display: grid;
-      grid-template-columns: 340px 1fr;
+      grid-template-columns: 290px 1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .edu-pub-sidebar,
+    .edu-pub-editor,
+    .edu-pub-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .edu-pub-sidebar {
+      padding: 20px;
+      position: sticky;
+      top: 90px;
+    }
+
+    .edu-pub-sidebar h3 {
+      margin: 5px 8px 15px;
+    }
+
+    .pub-step {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 12px 10px;
+      border-radius: 11px;
+      margin-bottom: 5px;
+      color: var(--text-muted);
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .pub-step-number {
+      width: 27px;
+      height: 27px;
+      flex: 0 0 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      font-size: .75rem;
+    }
+
+    .pub-step.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .pub-step.active .pub-step-number {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .edu-pub-main {
+      display: grid;
       gap: 22px;
     }
 
-    .publisher-card {
-      background: var(--card-bg, #ffffff);
-      border-radius: 18px;
-      padding: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    .edu-pub-editor {
+      padding: 28px;
     }
 
-    .publisher-card h2 {
+    .edu-pub-editor h2 {
       margin-top: 0;
     }
 
+    .editor-note {
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
     .edu-form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      display: grid;
+      gap: 17px;
     }
 
-    .edu-form label {
-      font-weight: 600;
-      font-size: 14px;
+    .edu-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
     }
 
-    .edu-form input,
-    .edu-form select,
-    .edu-form textarea {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 11px 12px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: transparent;
-      color: inherit;
-      font: inherit;
+    .edu-field {
+      display: grid;
+      gap: 7px;
     }
 
-    .edu-form textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 5px;
-    }
-
-    .edu-btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 11px 16px;
-      cursor: pointer;
+    .edu-field label {
+      font-size: .9rem;
       font-weight: 700;
     }
 
-    .edu-btn.primary {
-      background: #111;
-      color: #fff;
+    .edu-field input,
+    .edu-field select,
+    .edu-field textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px 13px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+      outline: none;
     }
 
-    .edu-btn.secondary {
-      background: #ddd;
-      color: #111;
+    .edu-field textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.6;
     }
 
-    .edu-btn.danger {
-      background: #b00020;
-      color: #fff;
+    .edu-field input:focus,
+    .edu-field select:focus,
+    .edu-field textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
     }
 
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr 160px 160px;
+    .edu-actions {
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
+    }
+
+    .edu-pub-content {
+      padding: 25px;
+    }
+
+    .content-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
       margin-bottom: 18px;
     }
 
-    .toolbar input,
-    .toolbar select {
-      padding: 11px;
+    .content-heading h2 {
+      margin: 0;
+    }
+
+    .edu-search {
+      max-width: 260px;
+      width: 100%;
+      padding: 10px 12px;
       border-radius: 10px;
-      border: 1px solid #ccc;
-      background: transparent;
-      color: inherit;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
     }
 
-    .content-list {
+    .edu-content-list {
       display: grid;
-      gap: 14px;
+      gap: 12px;
     }
 
-    .content-item {
-      border: 1px solid rgba(128,128,128,.25);
+    .edu-content-item {
+      padding: 17px;
+      border: 1px solid var(--border);
       border-radius: 15px;
-      padding: 16px;
+      background: var(--surface-alt);
     }
 
-    .content-item h3 {
+    .edu-content-item h3 {
       margin: 0 0 7px;
+      font-size: 1rem;
     }
 
-    .content-meta {
+    .edu-content-item p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+
+    .edu-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 7px;
-      margin: 8px 0;
+      margin-top: 10px;
     }
 
-    .tag {
-      display: inline-block;
-      padding: 4px 9px;
-      border-radius: 20px;
-      font-size: 12px;
-      background: rgba(128,128,128,.15);
+    .edu-tag {
+      display: inline-flex;
+      padding: 5px 8px;
+      border-radius: 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--text-muted);
     }
 
-    .status-published {
+    .edu-item-actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-top: 13px;
+    }
+
+    .edu-small-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 8px 11px;
+      cursor: pointer;
+      font: inherit;
+      font-size: .77rem;
       font-weight: 700;
     }
 
-    .item-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
+    .edu-small-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
-    .item-actions button {
-      border: 0;
-      padding: 8px 11px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .empty-state {
+    .edu-empty {
       text-align: center;
-      padding: 35px 10px;
-      opacity: .7;
+      padding: 35px 15px;
+      color: var(--text-muted);
     }
 
-    .top-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+    .flow-card {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 17px;
+      background: var(--primary-soft);
+      border: 1px solid var(--border);
     }
 
-    .top-links a {
-      text-decoration: none;
-      padding: 9px 13px;
-      border-radius: 9px;
-      background: rgba(128,128,128,.12);
-      color: inherit;
+    .flow-card h3 {
+      margin-top: 0;
     }
 
-    @media (max-width: 850px) {
-      .publisher-grid {
+    .flow-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 900px) {
+      .edu-pub-grid {
         grid-template-columns: 1fr;
       }
 
-      .toolbar {
-        grid-template-columns: 1fr;
+      .edu-pub-sidebar {
+        position: static;
       }
     }
 
-    @media (max-width: 600px) {
-      .edu-publisher {
-        margin: 15px auto;
-        padding: 12px;
+    @media (max-width: 650px) {
+      .edu-pub-section {
+        padding: 45px 14px;
       }
 
-      .publisher-hero,
-      .publisher-card {
-        padding: 15px;
+      .edu-pub-editor,
+      .edu-pub-content {
+        padding: 20px;
       }
 
-      .form-actions,
-      .item-actions {
+      .edu-row {
+        grid-template-columns: 1fr;
+      }
+
+      .content-heading {
         flex-direction: column;
+        align-items: stretch;
       }
 
-      .edu-btn,
-      .item-actions button {
-        width: 100%;
+      .edu-search {
+        max-width: none;
       }
     }
   </style>
@@ -232,176 +354,474 @@
 
 <body>
 
-  <main class="edu-publisher">
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <section class="publisher-hero">
-      <h1>📚 ARS Education Publisher</h1>
-      <p>
-        Manage Classes 5–8 educational content from one place.
-      </p>
 
-      <div class="top-links">
-        <a href="education.html">Education</a>
-        <a href="publisher.html">Main Publisher</a>
-        <a href="admin.html">Admin</a>
+  <header class="site-header">
+
+    <div class="container nav-wrap">
+
+      <a href="index.html" class="brand">
+
+        <img
+          src="logo.png"
+          alt="ARS Official Logo"
+        >
+
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+
+      </a>
+
+
+      <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+
+      <nav class="main-nav" id="mainNav">
+
         <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="publisher.html">Publisher</a>
+
+        <div class="nav-mobile-extra">
+          <a href="education-publisher.html" class="active">
+            Education Publisher
+          </a>
+          <a href="admin.html">Admin</a>
+          <a href="policy.html">Policy</a>
+        </div>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <section class="edu-pub-hero">
+
+      <div class="edu-pub-hero-inner">
+
+        <div class="edu-pub-badge">
+          🎓 ARS Education Publisher
+        </div>
+
+        <h1>Education Content Manager</h1>
+
+        <p>
+          Manage class-wise, subject-wise and chapter-wise
+          educational content including explanations, notes,
+          MCQs and practice material.
+        </p>
+
       </div>
+
     </section>
 
 
-    <section class="publisher-grid">
+    <section class="edu-pub-section">
 
-      <!-- FORM -->
-      <div class="publisher-card">
+      <div class="edu-pub-container">
 
-        <h2 id="formTitle">➕ Add Content</h2>
+        <div class="edu-pub-warning">
 
-        <form id="educationForm" class="edu-form">
-
-          <input type="hidden" id="editId">
-
-          <div>
-            <label for="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              placeholder="Enter content title"
-              required
-            >
-          </div>
-
-
-          <div>
-            <label for="type">Content Type</label>
-
-            <select id="type" required>
-              <option value="notes">Notes</option>
-              <option value="mcq">MCQ</option>
-              <option value="practice">Practice</option>
-              <option value="exam-tips">Exam Tips</option>
-              <option value="resources">Resources</option>
-            </select>
-          </div>
-
-
-          <div>
-            <label for="className">Class</label>
-
-            <select id="className" required>
-              <option value="5">Class 5</option>
-              <option value="6">Class 6</option>
-              <option value="7">Class 7</option>
-              <option value="8">Class 8</option>
-            </select>
-          </div>
-
-
-          <div>
-            <label for="subject">Subject</label>
-
-            <select id="subject">
-              <option value="Maths">Maths</option>
-              <option value="Science">Science</option>
-              <option value="Hindi">Hindi</option>
-              <option value="English">English</option>
-              <option value="SST">Social Science</option>
-              <option value="GK">GK</option>
-              <option value="General">General</option>
-            </select>
-          </div>
-
-
-          <div>
-            <label for="topic">Topic / Chapter</label>
-
-            <input
-              type="text"
-              id="topic"
-              placeholder="Chapter or topic"
-            >
-          </div>
-
-
-          <div>
-            <label for="content">Content</label>
-
-            <textarea
-              id="content"
-              placeholder="Write educational content here..."
-              required
-            ></textarea>
-          </div>
-
-
-          <div>
-            <label for="status">Status</label>
-
-            <select id="status">
-              <option value="draft">Draft</option>
-              <option value="published">Published</option>
-            </select>
-          </div>
-
-
-          <div class="form-actions">
-
-            <button
-              type="submit"
-              class="edu-btn primary"
-              id="saveBtn"
-            >
-              Save Content
-            </button>
-
-            <button
-              type="button"
-              class="edu-btn secondary"
-              id="resetBtn"
-            >
-              Clear
-            </button>
-
-          </div>
-
-        </form>
-
-      </div>
-
-
-      <!-- CONTENT LIST -->
-      <div class="publisher-card">
-
-        <h2>📖 Education Content</h2>
-
-        <div class="toolbar">
-
-          <input
-            type="search"
-            id="search"
-            placeholder="Search title, topic, subject..."
-          >
-
-          <select id="filterClass">
-            <option value="all">All Classes</option>
-            <option value="5">Class 5</option>
-            <option value="6">Class 6</option>
-            <option value="7">Class 7</option>
-            <option value="8">Class 8</option>
-          </select>
-
-          <select id="filterType">
-            <option value="all">All Types</option>
-            <option value="notes">Notes</option>
-            <option value="mcq">MCQ</option>
-            <option value="practice">Practice</option>
-            <option value="exam-tips">Exam Tips</option>
-            <option value="resources">Resources</option>
-          </select>
+          <strong>Development mode:</strong>
+          Educational content is currently stored in browser
+          local storage. Before production use, connect this panel
+          to a secure authenticated backend and database.
 
         </div>
 
 
-        <div id="contentList" class="content-list"></div>
+        <div class="edu-pub-grid">
+
+          <!-- SIDEBAR -->
+
+          <aside class="edu-pub-sidebar">
+
+            <h3>Publishing Flow</h3>
+
+            <div
+              class="pub-step active"
+              data-step="1"
+            >
+              <span class="pub-step-number">1</span>
+              <span>Class</span>
+            </div>
+
+            <div
+              class="pub-step"
+              data-step="2"
+            >
+              <span class="pub-step-number">2</span>
+              <span>Subject</span>
+            </div>
+
+            <div
+              class="pub-step"
+              data-step="3"
+            >
+              <span class="pub-step-number">3</span>
+              <span>Book / Course</span>
+            </div>
+
+            <div
+              class="pub-step"
+              data-step="4"
+            >
+              <span class="pub-step-number">4</span>
+              <span>Chapter</span>
+            </div>
+
+            <div
+              class="pub-step"
+              data-step="5"
+            >
+              <span class="pub-step-number">5</span>
+              <span>Content</span>
+            </div>
+
+            <div
+              class="pub-step"
+              data-step="6"
+            >
+              <span class="pub-step-number">6</span>
+              <span>Publish</span>
+            </div>
+
+
+            <div class="flow-card">
+
+              <h3>📚 Content Structure</h3>
+
+              <p>
+                Class → Subject → Book → Chapter →
+                Explanation / Notes / MCQ / Practice
+              </p>
+
+            </div>
+
+          </aside>
+
+
+          <!-- MAIN -->
+
+          <div class="edu-pub-main">
+
+            <section class="edu-pub-editor">
+
+              <h2>
+                Add Education Content
+              </h2>
+
+              <p class="editor-note">
+                Select the learning location and enter original
+                educational content. This structure is designed
+                to match the ARS Education learning flow.
+              </p>
+
+
+              <form
+                id="educationForm"
+                class="edu-form"
+              >
+
+                <input
+                  type="hidden"
+                  id="editingId"
+                  value=""
+                >
+
+
+                <div class="edu-row">
+
+                  <div class="edu-field">
+
+                    <label for="classSelect">
+                      Class *
+                    </label>
+
+                    <select
+                      id="classSelect"
+                      required
+                    >
+
+                      <option value="">
+                        Select Class
+                      </option>
+
+                      <option value="5">
+                        Class 5
+                      </option>
+
+                      <option value="6">
+                        Class 6
+                      </option>
+
+                      <option value="7">
+                        Class 7
+                      </option>
+
+                      <option value="8">
+                        Class 8
+                      </option>
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="edu-field">
+
+                    <label for="subjectSelect">
+                      Subject *
+                    </label>
+
+                    <select
+                      id="subjectSelect"
+                      required
+                    >
+
+                      <option value="">
+                        Select Subject
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="edu-row">
+
+                  <div class="edu-field">
+
+                    <label for="bookSelect">
+                      Book / Course *
+                    </label>
+
+                    <select
+                      id="bookSelect"
+                      required
+                    >
+
+                      <option value="">
+                        Select Book / Course
+                      </option>
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="edu-field">
+
+                    <label for="chapterSelect">
+                      Chapter *
+                    </label>
+
+                    <select
+                      id="chapterSelect"
+                      required
+                    >
+
+                      <option value="">
+                        Select Chapter
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="edu-row">
+
+                  <div class="edu-field">
+
+                    <label for="contentType">
+                      Content Type *
+                    </label>
+
+                    <select
+                      id="contentType"
+                      required
+                    >
+
+                      <option value="explanation">
+                        Chapter Explanation
+                      </option>
+
+                      <option value="notes">
+                        Notes
+                      </option>
+
+                      <option value="mcq">
+                        MCQ
+                      </option>
+
+                      <option value="practice">
+                        Practice
+                      </option>
+
+                      <option value="revision">
+                        Revision / Exam Tips
+                      </option>
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="edu-field">
+
+                    <label for="contentStatus">
+                      Status
+                    </label>
+
+                    <select id="contentStatus">
+
+                      <option value="draft">
+                        Draft
+                      </option>
+
+                      <option value="published">
+                        Published
+                      </option>
+
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="edu-field">
+
+                  <label for="contentTitle">
+                    Content Title *
+                  </label>
+
+                  <input
+                    type="text"
+                    id="contentTitle"
+                    maxlength="180"
+                    placeholder="Example: Introduction to Fractions"
+                    required
+                  >
+
+                </div>
+
+
+                <div class="edu-field">
+
+                  <label for="contentBody">
+                    Content *
+                  </label>
+
+                  <textarea
+                    id="contentBody"
+                    maxlength="10000"
+                    placeholder="Write the original educational content here..."
+                    required
+                  ></textarea>
+
+                </div>
+
+
+                <div class="edu-field">
+
+                  <label for="contentAuthor">
+                    Author / Publisher
+                  </label>
+
+                  <input
+                    type="text"
+                    id="contentAuthor"
+                    value="ARS Official"
+                    maxlength="100"
+                  >
+
+                </div>
+
+
+                <div class="edu-actions">
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    💾 Save Education Content
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="clearEducation"
+                  >
+                    Clear
+                  </button>
+
+                </div>
+
+              </form>
+
+            </section>
+
+
+            <section class="edu-pub-content">
+
+              <div class="content-heading">
+
+                <h2>
+                  Education Content
+                </h2>
+
+                <input
+                  type="search"
+                  id="educationSearch"
+                  class="edu-search"
+                  placeholder="Search content..."
+                >
+
+              </div>
+
+
+              <div
+                id="educationContentList"
+                class="edu-content-list"
+              ></div>
+
+            </section>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -410,480 +830,1323 @@
   </main>
 
 
-<script>
-(function () {
+  <footer class="site-footer">
 
-  "use strict";
+    <div class="container footer-grid">
 
-  const STORAGE_KEY = "ARS_EDUCATION_CONTENT";
+      <div class="footer-brand">
 
-  const form = document.getElementById("educationForm");
-  const editId = document.getElementById("editId");
-  const title = document.getElementById("title");
-  const type = document.getElementById("type");
-  const className = document.getElementById("className");
-  const subject = document.getElementById("subject");
-  const topic = document.getElementById("topic");
-  const content = document.getElementById("content");
-  const status = document.getElementById("status");
+        <a href="index.html" class="brand">
 
-  const search = document.getElementById("search");
-  const filterClass = document.getElementById("filterClass");
-  const filterType = document.getElementById("filterType");
+          <img
+            src="logo.png"
+            alt="ARS Official Logo"
+          >
 
-  const contentList = document.getElementById("contentList");
-  const resetBtn = document.getElementById("resetBtn");
-  const formTitle = document.getElementById("formTitle");
-  const saveBtn = document.getElementById("saveBtn");
+          <span>
+            <strong>ARS Official</strong>
+            <small>Adarsh Raj Shayar</small>
+          </span>
 
+        </a>
 
-  function getItems() {
+        <p>
+          A creative and educational platform by Adarsh Raj Shayar,
+          bringing literature, learning and digital creativity together.
+        </p>
 
-    try {
-      return JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-      ) || [];
-    } catch (error) {
-      return [];
-    }
-
-  }
+      </div>
 
 
-  function saveItems(items) {
+      <div class="footer-links">
 
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(items)
-    );
+        <h3>Quick Links</h3>
 
-  }
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories & Poetry</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
 
-
-  function makeId() {
-
-    return (
-      "EDU-" +
-      Date.now() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .substring(2, 7)
-        .toUpperCase()
-    );
-
-  }
+      </div>
 
 
-  function escapeHTML(value) {
+      <div class="footer-links">
 
-    return String(value || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+        <h3>Important</h3>
 
-  }
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify Certificate</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
 
-
-  function typeLabel(value) {
-
-    const labels = {
-      "notes": "Notes",
-      "mcq": "MCQ",
-      "practice": "Practice",
-      "exam-tips": "Exam Tips",
-      "resources": "Resources"
-    };
-
-    return labels[value] || value;
-
-  }
+      </div>
 
 
-  function render() {
+      <div class="footer-founder">
 
-    const items = getItems();
+        <h3>Founder</h3>
 
-    const q = search.value
-      .trim()
-      .toLowerCase();
+        <div class="footer-signature">
 
-    const selectedClass = filterClass.value;
-    const selectedType = filterType.value;
+          <span>Adarsh Raj</span>
 
+          <small>
+            Founder of ARS Official
+          </small>
 
-    const filtered = items
-      .filter(item => {
-
-        const text = [
-          item.title,
-          item.subject,
-          item.topic,
-          item.content
-        ]
-        .join(" ")
-        .toLowerCase();
-
-        return !q || text.includes(q);
-
-      })
-      .filter(item => {
-
-        return (
-          selectedClass === "all" ||
-          item.className === selectedClass
-        );
-
-      })
-      .filter(item => {
-
-        return (
-          selectedType === "all" ||
-          item.type === selectedType
-        );
-
-      })
-      .sort((a, b) => {
-
-        return new Date(b.updatedAt) -
-               new Date(a.updatedAt);
-
-      });
-
-
-    if (!filtered.length) {
-
-      contentList.innerHTML = `
-        <div class="empty-state">
-          <h3>No education content found</h3>
-          <p>Add your first Notes, MCQ, Practice or other content.</p>
         </div>
-      `;
 
-      return;
+        <a
+          href="founder.html"
+          class="btn btn-outline"
+        >
+          About Founder
+        </a>
 
-    }
+      </div>
 
-
-    contentList.innerHTML = filtered
-      .map(item => {
-
-        return `
-          <article class="content-item">
-
-            <h3>
-              ${escapeHTML(item.title)}
-            </h3>
-
-            <div class="content-meta">
-
-              <span class="tag">
-                Class ${escapeHTML(item.className)}
-              </span>
-
-              <span class="tag">
-                ${escapeHTML(item.subject)}
-              </span>
-
-              <span class="tag">
-                ${escapeHTML(typeLabel(item.type))}
-              </span>
-
-              ${
-                item.topic
-                ? `
-                  <span class="tag">
-                    ${escapeHTML(item.topic)}
-                  </span>
-                `
-                : ""
-              }
-
-              <span class="tag status-published">
-                ${item.status === "published"
-                  ? "Published"
-                  : "Draft"}
-              </span>
-
-            </div>
+    </div>
 
 
-            <p>
-              ${escapeHTML(
-                item.content.substring(0, 220)
-              )}
-              ${item.content.length > 220 ? "..." : ""}
-            </p>
+    <div class="footer-bottom">
+
+      <div class="container">
+
+        <span>
+          © <span id="footerYear"></span> ARS Official.
+          All rights reserved.
+        </span>
+
+        <span>
+          Built with ❤️ by ARS
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
 
 
-            <div class="item-actions">
-
-              <button
-                onclick="ARS_EDU_EDIT('${item.id}')"
-              >
-                ✏️ Edit
-              </button>
-
-              <button
-                onclick="ARS_EDU_TOGGLE('${item.id}')"
-              >
-                ${
-                  item.status === "published"
-                  ? "↩️ Unpublish"
-                  : "🚀 Publish"
-                }
-              </button>
-
-              <button
-                onclick="ARS_EDU_DELETE('${item.id}')"
-              >
-                🗑️ Delete
-              </button>
-
-            </div>
-
-          </article>
-        `;
-
-      })
-      .join("");
-
-  }
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >
+    ↑
+  </button>
 
 
-  form.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-
-    const items = getItems();
-
-    const data = {
-
-      title: title.value.trim(),
-
-      type: type.value,
-
-      className: className.value,
-
-      subject: subject.value,
-
-      topic: topic.value.trim(),
-
-      content: content.value.trim(),
-
-      status: status.value
-
-    };
+  <div
+    id="arsToast"
+    class="ars-toast"
+    role="status"
+    aria-live="polite"
+  ></div>
 
 
-    if (!data.title || !data.content) {
-
-      alert("Title and Content are required.");
-
-      return;
-
-    }
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
 
 
-    const existingId = editId.value;
+  <script>
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        const form =
+          document.getElementById(
+            "educationForm"
+          );
+
+        const classSelect =
+          document.getElementById(
+            "classSelect"
+          );
+
+        const subjectSelect =
+          document.getElementById(
+            "subjectSelect"
+          );
+
+        const bookSelect =
+          document.getElementById(
+            "bookSelect"
+          );
+
+        const chapterSelect =
+          document.getElementById(
+            "chapterSelect"
+          );
+
+        const contentType =
+          document.getElementById(
+            "contentType"
+          );
+
+        const contentStatus =
+          document.getElementById(
+            "contentStatus"
+          );
+
+        const contentTitle =
+          document.getElementById(
+            "contentTitle"
+          );
+
+        const contentBody =
+          document.getElementById(
+            "contentBody"
+          );
+
+        const contentAuthor =
+          document.getElementById(
+            "contentAuthor"
+          );
+
+        const editingId =
+          document.getElementById(
+            "editingId"
+          );
+
+        const list =
+          document.getElementById(
+            "educationContentList"
+          );
+
+        const search =
+          document.getElementById(
+            "educationSearch"
+          );
+
+        const clearBtn =
+          document.getElementById(
+            "clearEducation"
+          );
+
+        const steps =
+          document.querySelectorAll(
+            ".pub-step"
+          );
 
 
-    if (existingId) {
+        const subjectData = {
 
-      const index = items.findIndex(
-        item => item.id === existingId
-      );
+          "5": [
+            "Mathematics",
+            "English",
+            "Hindi",
+            "Science",
+            "Social Studies",
+            "General Knowledge"
+          ],
 
+          "6": [
+            "Mathematics",
+            "Science",
+            "English",
+            "Hindi",
+            "Social Science",
+            "General Knowledge",
+            "Computer"
+          ],
 
-      if (index !== -1) {
+          "7": [
+            "Mathematics",
+            "Science",
+            "English",
+            "Hindi",
+            "Social Science",
+            "General Knowledge",
+            "Computer"
+          ],
 
-        items[index] = {
-
-          ...items[index],
-
-          ...data,
-
-          updatedAt: new Date().toISOString()
+          "8": [
+            "Mathematics",
+            "Science",
+            "English",
+            "Hindi",
+            "Social Science",
+            "General Knowledge",
+            "Computer"
+          ]
 
         };
 
+
+        const chapterData = {
+
+          "Introduction & Basic Concepts": [
+            "Introduction",
+            "Basic Concepts",
+            "Key Terms",
+            "Examples",
+            "Practice"
+          ],
+
+          "Understanding the Core Ideas": [
+            "Core Ideas",
+            "Concept Explanation",
+            "Worked Examples",
+            "Important Points",
+            "Practice"
+          ],
+
+          "Concepts Through Examples": [
+            "Concept Overview",
+            "Solved Examples",
+            "Application",
+            "Important Questions",
+            "Practice"
+          ],
+
+          "Application & Problem Solving": [
+            "Problem Types",
+            "Problem Solving",
+            "Methods",
+            "Examples",
+            "Practice"
+          ],
+
+          "Practice & Important Concepts": [
+            "Important Concepts",
+            "Quick Revision",
+            "Practice Questions",
+            "Challenge Questions",
+            "Self Check"
+          ],
+
+          "Revision & Self Assessment": [
+            "Revision",
+            "Important Questions",
+            "Quick Test",
+            "Self Assessment",
+            "Final Revision"
+          ]
+
+        };
+
+
+        const defaultBooks = [
+          "Main Course",
+          "Practice Course",
+          "Revision Course"
+        ];
+
+
+        function toast(message) {
+
+          if (
+            typeof arsToast === "function"
+          ) {
+
+            arsToast(message);
+
+          } else {
+
+            alert(message);
+
+          }
+
+        }
+
+
+        function escapeHTML(value) {
+
+          return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+        }
+
+
+        function storageKey() {
+
+          return "ARS_EDUCATION_PUBLISHER_CONTENT";
+
+        }
+
+
+        function getContent() {
+
+          try {
+
+            return JSON.parse(
+              localStorage.getItem(
+                storageKey()
+              ) || "[]"
+            );
+
+          } catch (error) {
+
+            return [];
+
+          }
+
+        }
+
+
+        function saveContent(data) {
+
+          localStorage.setItem(
+            storageKey(),
+            JSON.stringify(data)
+          );
+
+        }
+
+
+        function fillSubjects() {
+
+          subjectSelect.innerHTML = `
+            <option value="">
+              Select Subject
+            </option>
+          `;
+
+          const subjects =
+            subjectData[
+              classSelect.value
+            ] || [];
+
+
+          subjects.forEach(
+            function (subject) {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+              option.value =
+                subject;
+
+              option.textContent =
+                subject;
+
+              subjectSelect.appendChild(
+                option
+              );
+
+            }
+          );
+
+          bookSelect.innerHTML = `
+            <option value="">
+              Select Book / Course
+            </option>
+          `;
+
+          chapterSelect.innerHTML = `
+            <option value="">
+              Select Chapter
+            </option>
+          `;
+
+        }
+
+
+        function fillBooks() {
+
+          bookSelect.innerHTML = `
+            <option value="">
+              Select Book / Course
+            </option>
+          `;
+
+
+          if (!subjectSelect.value) {
+            return;
+          }
+
+
+          defaultBooks.forEach(
+            function (book) {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+              option.value =
+                book;
+
+              option.textContent =
+                book;
+
+              bookSelect.appendChild(
+                option
+              );
+
+            }
+          );
+
+        }
+
+
+        function fillChapters() {
+
+          chapterSelect.innerHTML = `
+            <option value="">
+              Select Chapter
+            </option>
+          `;
+
+
+          if (!bookSelect.value) {
+            return;
+          }
+
+
+          const chapters =
+            Object.values(
+              chapterData
+            );
+
+
+          const merged =
+            chapters.flat();
+
+
+          const unique =
+            [...new Set(merged)];
+
+
+          /*
+           * The normal ARS Book page currently
+           * uses six standard chapter positions.
+           */
+
+          const standardChapters = [
+            "Introduction & Basic Concepts",
+            "Understanding the Core Ideas",
+            "Concepts Through Examples",
+            "Application & Problem Solving",
+            "Practice & Important Concepts",
+            "Revision & Self Assessment"
+          ];
+
+
+          standardChapters.forEach(
+            function (chapter, index) {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+              option.value =
+                String(index + 1);
+
+              option.textContent =
+                "Chapter " +
+                (index + 1) +
+                " — " +
+                chapter;
+
+              chapterSelect.appendChild(
+                option
+              );
+
+            }
+          );
+
+        }
+
+
+        function updateSteps() {
+
+          let step = 1;
+
+          if (classSelect.value) {
+            step = 2;
+          }
+
+          if (subjectSelect.value) {
+            step = 3;
+          }
+
+          if (bookSelect.value) {
+            step = 4;
+          }
+
+          if (chapterSelect.value) {
+            step = 5;
+          }
+
+          if (
+            contentTitle.value.trim() &&
+            contentBody.value.trim()
+          ) {
+            step = 6;
+          }
+
+
+          steps.forEach(
+            function (item) {
+
+              const itemStep =
+                Number(
+                  item.dataset.step
+                );
+
+              item.classList.toggle(
+                "active",
+                itemStep <= step
+              );
+
+            }
+          );
+
+        }
+
+
+        function resetEditor() {
+
+          form.reset();
+
+          editingId.value = "";
+
+          contentAuthor.value =
+            "ARS Official";
+
+          contentStatus.value =
+            "draft";
+
+          subjectSelect.innerHTML = `
+            <option value="">
+              Select Subject
+            </option>
+          `;
+
+          bookSelect.innerHTML = `
+            <option value="">
+              Select Book / Course
+            </option>
+          `;
+
+          chapterSelect.innerHTML = `
+            <option value="">
+              Select Chapter
+            </option>
+          `;
+
+          updateSteps();
+
+        }
+
+
+        function createId() {
+
+          return (
+            "ARS-EDU-" +
+            Date.now()
+              .toString(36)
+              .toUpperCase()
+          );
+
+        }
+
+
+        function saveRecord(event) {
+
+          event.preventDefault();
+
+
+          const classValue =
+            classSelect.value;
+
+          const subject =
+            subjectSelect.value;
+
+          const book =
+            bookSelect.value;
+
+          const chapter =
+            chapterSelect.value;
+
+          const type =
+            contentType.value;
+
+          const title =
+            contentTitle.value.trim();
+
+          const body =
+            contentBody.value.trim();
+
+          const status =
+            contentStatus.value;
+
+          const author =
+            contentAuthor.value.trim() ||
+            "ARS Official";
+
+
+          if (
+            !classValue ||
+            !subject ||
+            !book ||
+            !chapter ||
+            !type ||
+            !title ||
+            !body
+          ) {
+
+            toast(
+              "Please complete all required fields."
+            );
+
+            return;
+
+          }
+
+
+          const records =
+            getContent();
+
+
+          if (editingId.value) {
+
+            const index =
+              records.findIndex(
+                item =>
+                  item.id ===
+                  editingId.value
+              );
+
+
+            if (index !== -1) {
+
+              records[index] = {
+                ...records[index],
+
+                class:
+                  classValue,
+
+                subject,
+                book,
+                chapter,
+                contentType:
+                  type,
+
+                title,
+                body,
+                status,
+                author,
+
+                updatedAt:
+                  new Date().toISOString()
+
+              };
+
+              saveContent(records);
+
+              toast(
+                "Education content updated."
+              );
+
+            }
+
+          } else {
+
+            const record = {
+
+              id:
+                createId(),
+
+              class:
+                classValue,
+
+              subject,
+              book,
+              chapter,
+
+              contentType:
+                type,
+
+              title,
+              body,
+              status,
+              author,
+
+              createdAt:
+                new Date().toISOString(),
+
+              updatedAt:
+                new Date().toISOString()
+
+            };
+
+
+            records.unshift(
+              record
+            );
+
+            saveContent(
+              records
+            );
+
+
+            toast(
+              status === "published"
+                ? "Education content published."
+                : "Education content saved as draft."
+            );
+
+          }
+
+
+          resetEditor();
+
+          renderList();
+
+        }
+
+
+        function editRecord(id) {
+
+          const records =
+            getContent();
+
+
+          const item =
+            records.find(
+              record =>
+                record.id === id
+            );
+
+
+          if (!item) {
+            return;
+          }
+
+
+          editingId.value =
+            item.id;
+
+          classSelect.value =
+            item.class;
+
+          fillSubjects();
+
+          subjectSelect.value =
+            item.subject;
+
+          fillBooks();
+
+          bookSelect.value =
+            item.book;
+
+          fillChapters();
+
+          chapterSelect.value =
+            item.chapter;
+
+          contentType.value =
+            item.contentType ||
+            "explanation";
+
+          contentTitle.value =
+            item.title || "";
+
+          contentBody.value =
+            item.body || "";
+
+          contentStatus.value =
+            item.status || "draft";
+
+          contentAuthor.value =
+            item.author ||
+            "ARS Official";
+
+
+          updateSteps();
+
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+
+          toast(
+            "Education content loaded into editor."
+          );
+
+        }
+
+
+        function deleteRecord(id) {
+
+          const records =
+            getContent();
+
+
+          const filtered =
+            records.filter(
+              item =>
+                item.id !== id
+            );
+
+
+          saveContent(
+            filtered
+          );
+
+
+          if (
+            editingId.value === id
+          ) {
+            resetEditor();
+          }
+
+
+          renderList();
+
+
+          toast(
+            "Education content deleted."
+          );
+
+        }
+
+
+        function toggleStatus(id) {
+
+          const records =
+            getContent();
+
+
+          const item =
+            records.find(
+              record =>
+                record.id === id
+            );
+
+
+          if (!item) {
+            return;
+          }
+
+
+          item.status =
+            item.status === "published"
+              ? "draft"
+              : "published";
+
+
+          item.updatedAt =
+            new Date().toISOString();
+
+
+          saveContent(
+            records
+          );
+
+
+          renderList();
+
+
+          toast(
+            item.status === "published"
+              ? "Content published."
+              : "Content moved to draft."
+          );
+
+        }
+
+
+        function typeLabel(type) {
+
+          const labels = {
+
+            explanation:
+              "Chapter Explanation",
+
+            notes:
+              "Notes",
+
+            mcq:
+              "MCQ",
+
+            practice:
+              "Practice",
+
+            revision:
+              "Revision / Exam Tips"
+
+          };
+
+          return (
+            labels[type] ||
+            type
+          );
+
+        }
+
+
+        function renderList() {
+
+          const records =
+            getContent();
+
+
+          const query =
+            search.value
+              .trim()
+              .toLowerCase();
+
+
+          const filtered =
+            records.filter(
+              function (item) {
+
+                if (!query) {
+                  return true;
+                }
+
+
+                return (
+
+                  String(
+                    item.title || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+
+                  ||
+
+                  String(
+                    item.subject || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+
+                  ||
+
+                  String(
+                    item.book || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+
+                  ||
+
+                  String(
+                    item.body || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+
+                );
+
+              }
+            );
+
+
+          if (!filtered.length) {
+
+            list.innerHTML = `
+              <div class="edu-empty">
+
+                <div style="font-size:2rem;">
+                  📚
+                </div>
+
+                <h3>
+                  No education content found
+                </h3>
+
+                <p>
+                  Add your first class-wise,
+                  subject-wise or chapter-wise
+                  educational resource.
+                </p>
+
+              </div>
+            `;
+
+            return;
+
+          }
+
+
+          list.innerHTML =
+            filtered.map(
+              function (item) {
+
+                const status =
+                  item.status === "published"
+                    ? "Published"
+                    : "Draft";
+
+
+                return `
+                  <article
+                    class="edu-content-item"
+                  >
+
+                    <h3>
+                      ${escapeHTML(
+                        item.title
+                      )}
+                    </h3>
+
+                    <p>
+                      ${escapeHTML(
+                        String(
+                          item.body || ""
+                        ).substring(
+                          0,
+                          220
+                        )
+                      )}
+                      ${
+                        String(
+                          item.body || ""
+                        ).length > 220
+                          ? "…"
+                          : ""
+                      }
+                    </p>
+
+
+                    <div class="edu-meta">
+
+                      <span class="edu-tag">
+                        Class ${escapeHTML(
+                          item.class
+                        )}
+                      </span>
+
+                      <span class="edu-tag">
+                        ${escapeHTML(
+                          item.subject
+                        )}
+                      </span>
+
+                      <span class="edu-tag">
+                        ${escapeHTML(
+                          item.book
+                        )}
+                      </span>
+
+                      <span class="edu-tag">
+                        Chapter ${escapeHTML(
+                          item.chapter
+                        )}
+                      </span>
+
+                      <span class="edu-tag">
+                        ${escapeHTML(
+                          typeLabel(
+                            item.contentType
+                          )
+                        )}
+                      </span>
+
+                      <span class="edu-tag">
+                        ${escapeHTML(
+                          status
+                        )}
+                      </span>
+
+                    </div>
+
+
+                    <div class="edu-item-actions">
+
+                      <button
+                        type="button"
+                        class="edu-small-btn"
+                        data-action="edit"
+                        data-id="${escapeHTML(
+                          item.id
+                        )}"
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        class="edu-small-btn"
+                        data-action="status"
+                        data-id="${escapeHTML(
+                          item.id
+                        )}"
+                      >
+                        ${
+                          item.status ===
+                          "published"
+                            ? "Move to Draft"
+                            : "Publish"
+                        }
+                      </button>
+
+                      <button
+                        type="button"
+                        class="edu-small-btn"
+                        data-action="delete"
+                        data-id="${escapeHTML(
+                          item.id
+                        )}"
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+
+                  </article>
+                `;
+
+              }
+            ).join("");
+
+        }
+
+
+        classSelect.addEventListener(
+          "change",
+          function () {
+
+            fillSubjects();
+            updateSteps();
+
+          }
+        );
+
+
+        subjectSelect.addEventListener(
+          "change",
+          function () {
+
+            fillBooks();
+            updateSteps();
+
+          }
+        );
+
+
+        bookSelect.addEventListener(
+          "change",
+          function () {
+
+            fillChapters();
+            updateSteps();
+
+          }
+        );
+
+
+        chapterSelect.addEventListener(
+          "change",
+          updateSteps
+        );
+
+
+        contentTitle.addEventListener(
+          "input",
+          updateSteps
+        );
+
+
+        contentBody.addEventListener(
+          "input",
+          updateSteps
+        );
+
+
+        form.addEventListener(
+          "submit",
+          saveRecord
+        );
+
+
+        clearBtn.addEventListener(
+          "click",
+          function () {
+
+            resetEditor();
+
+            toast(
+              "Education editor cleared."
+            );
+
+          }
+        );
+
+
+        search.addEventListener(
+          "input",
+          renderList
+        );
+
+
+        list.addEventListener(
+          "click",
+          function (event) {
+
+            const button =
+              event.target.closest(
+                "[data-action]"
+              );
+
+
+            if (!button) {
+              return;
+            }
+
+
+            const action =
+              button.dataset.action;
+
+            const id =
+              button.dataset.id;
+
+
+            if (
+              action === "edit"
+            ) {
+
+              editRecord(id);
+
+            }
+
+
+            if (
+              action === "status"
+            ) {
+
+              toggleStatus(id);
+
+            }
+
+
+            if (
+              action === "delete"
+            ) {
+
+              deleteRecord(id);
+
+            }
+
+          }
+        );
+
+
+        renderList();
+        updateSteps();
+
       }
-
-    } else {
-
-      items.push({
-
-        id: makeId(),
-
-        ...data,
-
-        createdAt: new Date().toISOString(),
-
-        updatedAt: new Date().toISOString()
-
-      });
-
-    }
-
-
-    saveItems(items);
-
-    resetForm();
-
-    render();
-
-    alert(
-      existingId
-        ? "Education content updated."
-        : "Education content saved."
     );
-
-  });
-
-
-  window.ARS_EDU_EDIT = function (id) {
-
-    const item = getItems()
-      .find(entry => entry.id === id);
-
-    if (!item) return;
-
-
-    editId.value = item.id;
-
-    title.value = item.title || "";
-
-    type.value = item.type || "notes";
-
-    className.value = item.className || "5";
-
-    subject.value = item.subject || "General";
-
-    topic.value = item.topic || "";
-
-    content.value = item.content || "";
-
-    status.value = item.status || "draft";
-
-
-    formTitle.textContent = "✏️ Edit Content";
-
-    saveBtn.textContent = "Update Content";
-
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-
-  };
-
-
-  window.ARS_EDU_TOGGLE = function (id) {
-
-    const items = getItems();
-
-    const index = items.findIndex(
-      item => item.id === id
-    );
-
-    if (index === -1) return;
-
-
-    items[index].status =
-      items[index].status === "published"
-        ? "draft"
-        : "published";
-
-
-    items[index].updatedAt =
-      new Date().toISOString();
-
-
-    saveItems(items);
-
-    render();
-
-  };
-
-
-  window.ARS_EDU_DELETE = function (id) {
-
-    const items = getItems();
-
-    const item = items.find(
-      entry => entry.id === id
-    );
-
-    if (!item) return;
-
-
-    const confirmed = confirm(
-      `Delete "${item.title}"?`
-    );
-
-    if (!confirmed) return;
-
-
-    saveItems(
-      items.filter(entry => entry.id !== id)
-    );
-
-    render();
-
-  };
-
-
-  function resetForm() {
-
-    form.reset();
-
-    editId.value = "";
-
-    className.value = "5";
-
-    type.value = "notes";
-
-    subject.value = "Maths";
-
-    status.value = "draft";
-
-    formTitle.textContent = "➕ Add Content";
-
-    saveBtn.textContent = "Save Content";
-
-  }
-
-
-  resetBtn.addEventListener(
-    "click",
-    resetForm
-  );
-
-
-  search.addEventListener(
-    "input",
-    render
-  );
-
-  filterClass.addEventListener(
-    "change",
-    render
-  );
-
-  filterType.addEventListener(
-    "change",
-    render
-  );
-
-
-  render();
-
-})();
-</script>
+  </script>
 
 </body>
 </html>
