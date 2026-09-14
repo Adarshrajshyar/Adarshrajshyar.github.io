@@ -1,163 +1,175 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Chapter | ARS Education</title>
-  <meta name="description" content="ARS Education chapter learning page.">
 
   <link rel="stylesheet" href="style.css">
 
   <style>
     .chapter-page {
-      min-height: 100vh;
-      padding: 105px 18px 60px;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(124,58,237,.14), transparent 32%),
-        radial-gradient(circle at 90% 90%, rgba(236,72,153,.12), transparent 32%),
-        var(--bg);
+      padding: 110px 0 70px;
     }
 
-    .chapter-container {
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .chapter-header {
+    .chapter-hero {
       text-align: center;
-      margin-bottom: 30px;
+      max-width: 850px;
+      margin: 0 auto 45px;
     }
 
-    .chapter-label {
-      display: inline-block;
-      padding: 8px 15px;
+    .chapter-badge {
+      display: inline-flex;
+      padding: 8px 16px;
       border-radius: 999px;
-      background: rgba(124,58,237,.12);
-      color: var(--primary);
-      font-size: 13px;
+      background: var(--primary-soft, rgba(0,0,0,.06));
       font-weight: 700;
       margin-bottom: 15px;
     }
 
-    .chapter-header h1 {
-      font-size: clamp(28px, 5vw, 48px);
-      margin: 0 0 12px;
+    .chapter-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      margin-bottom: 14px;
     }
 
-    .chapter-header p {
-      color: var(--text-soft);
-      line-height: 1.7;
-    }
-
-    .chapter-meta {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .chapter-meta span {
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(124,58,237,.09);
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 700;
+    .chapter-hero p {
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.8;
+      opacity: .82;
     }
 
     .chapter-actions {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 25px 0;
+      margin-bottom: 30px;
     }
 
-    .chapter-actions button {
-      border: 0;
-      border-radius: 12px;
-      padding: 10px 15px;
-      cursor: pointer;
-      font-weight: 700;
+    .chapter-content {
+      max-width: 950px;
+      margin: auto;
     }
 
-    .action-primary {
-      background: var(--primary);
-      color: #fff;
+    .content-card {
+      padding: 32px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.75));
+      margin-bottom: 24px;
     }
 
-    .action-secondary {
-      background: rgba(124,58,237,.1);
-      color: var(--primary);
-    }
-
-    .lesson-card {
-      padding: 28px;
-      border-radius: 22px;
-      border: 1px solid rgba(124,58,237,.15);
-      background: var(--card-bg, rgba(255,255,255,.06));
-      box-shadow: 0 15px 40px rgba(0,0,0,.07);
-      margin-bottom: 20px;
-    }
-
-    .lesson-card h2 {
+    .content-card h2 {
       margin-top: 0;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
-    .lesson-card p {
-      color: var(--text-soft);
-      line-height: 1.8;
+    .content-card h3 {
+      margin-top: 25px;
+    }
+
+    .content-card p {
+      line-height: 1.9;
+      opacity: .86;
+    }
+
+    .content-card ul {
+      line-height: 1.9;
+      padding-left: 22px;
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .topic-card {
+      padding: 20px;
+      border-radius: 17px;
+      background: var(--primary-soft, rgba(0,0,0,.05));
+    }
+
+    .topic-card strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .topic-card span {
+      font-size: .88rem;
+      opacity: .7;
     }
 
     .resource-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 15px;
+      margin-top: 20px;
     }
 
     .resource-card {
-      padding: 20px;
-      border-radius: 18px;
-      border: 1px solid rgba(124,58,237,.13);
-      background: var(--card-bg, rgba(255,255,255,.05));
+      padding: 20px 15px;
+      text-align: center;
+      border-radius: 17px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.08));
+      background: var(--card-bg, rgba(255,255,255,.6));
     }
 
-    .resource-card h3 {
-      margin: 0 0 7px;
+    .resource-card .icon {
+      font-size: 25px;
+      margin-bottom: 8px;
     }
 
-    .resource-card p {
-      font-size: 14px;
-      margin-bottom: 14px;
+    .resource-card strong {
+      display: block;
+      margin-bottom: 5px;
     }
 
-    .resource-card button {
-      border: 0;
-      border-radius: 10px;
-      padding: 9px 13px;
-      background: var(--primary);
-      color: white;
-      cursor: pointer;
-      font-weight: 700;
+    .resource-card span {
+      font-size: .8rem;
+      opacity: .65;
     }
 
-    .coming-soon {
+    .bottom-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .empty-state {
       display: none;
       text-align: center;
-      padding: 35px 20px;
-      border: 1px dashed rgba(124,58,237,.3);
-      border-radius: 18px;
-      color: var(--text-soft);
+      padding: 45px 20px;
+      border-radius: 22px;
+      border: 1px dashed var(--border-color, rgba(0,0,0,.15));
     }
 
-    @media (max-width: 600px) {
-      .lesson-card {
-        padding: 20px;
+    @media (max-width: 900px) {
+      .topic-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
 
+      .resource-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+    }
+
+    @media (max-width: 620px) {
+      .chapter-page {
+        padding-top: 90px;
+      }
+
+      .content-card {
+        padding: 24px 18px;
+      }
+
+      .topic-grid,
       .resource-grid {
         grid-template-columns: 1fr;
       }
@@ -167,386 +179,608 @@
 
 <body>
 
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+
+  <header class="site-header">
+
+    <div class="container nav-container">
+
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <span>ARS Official</span>
+      </a>
+
+      <button
+        class="mobile-menu-toggle"
+        id="mobileMenuToggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="publisher.html">Publisher</a>
+        <a href="admin.html">Admin</a>
+        <a href="policy.html">Policy</a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
   <main class="chapter-page">
 
-    <div class="chapter-container">
+    <section class="chapter-hero container">
 
-      <header class="chapter-header">
+      <div class="chapter-badge" id="chapterBadge">
+        📖 ARS Education
+      </div>
 
-        <div class="chapter-label">
-          📚 ARS EDUCATION
-        </div>
+      <h1 id="chapterTitle">
+        Chapter
+      </h1>
 
-        <h1 id="chapterTitle">
-          Chapter
-        </h1>
+      <p id="chapterDescription">
+        Learn the chapter step by step with explanations,
+        notes, MCQs and practice.
+      </p>
 
-        <p>
-          इस chapter को समझें, notes पढ़ें और practice करें।
-        </p>
+    </section>
 
-        <div class="chapter-meta">
-          <span id="classMeta">Class</span>
-          <span id="subjectMeta">Subject</span>
-          <span id="bookMeta">Book</span>
-          <span id="chapterMeta">Chapter</span>
-        </div>
 
-      </header>
-
+    <section class="container">
 
       <div class="chapter-actions">
 
-        <button
-          type="button"
-          class="action-secondary"
-          id="backButton"
-        >
-          ← Back
-        </button>
+        <a href="#" id="backToBook" class="btn btn-secondary">
+          ← Back to Book
+        </a>
 
-        <button
-          type="button"
-          class="action-secondary"
-          id="copyButton"
-        >
-          📋 Copy Link
-        </button>
-
-        <button
-          type="button"
-          class="action-secondary"
-          id="shareButton"
-        >
-          ↗ Share
-        </button>
-
-        <button
-          type="button"
-          class="action-primary"
-          id="favoriteButton"
-        >
-          ♡ Favorite
-        </button>
+        <a href="#" id="nextLearning" class="btn btn-primary">
+          Continue Learning →
+        </a>
 
       </div>
 
 
-      <section class="lesson-card">
+      <div class="chapter-content" id="chapterContent">
 
-        <h2>📖 Chapter Overview</h2>
+        <article class="content-card">
 
-        <p id="overview">
-          इस chapter का detailed content जल्द उपलब्ध होगा।
-          Publisher द्वारा content जोड़ने के बाद यही page
-          automatically update किया जा सकेगा।
-        </p>
+          <h2>📚 Chapter Overview</h2>
 
-      </section>
-
-
-      <section class="resource-grid">
-
-        <article class="resource-card">
-
-          <h3>📝 Notes</h3>
-
-          <p>
-            Chapter के आसान और exam-focused notes।
+          <p id="overviewText">
+            This chapter is part of the ARS Education learning
+            structure. Detailed educational content can be added
+            and managed through the Education Publisher.
           </p>
 
-          <button data-resource="notes">
-            Open Notes
-          </button>
+          <h3>What You Will Learn</h3>
+
+          <div class="topic-grid">
+
+            <div class="topic-card">
+              <strong>💡 Concepts</strong>
+              <span>Understand the important ideas.</span>
+            </div>
+
+            <div class="topic-card">
+              <strong>📖 Explanation</strong>
+              <span>Learn concepts step by step.</span>
+            </div>
+
+            <div class="topic-card">
+              <strong>🧩 Examples</strong>
+              <span>Connect concepts with examples.</span>
+            </div>
+
+          </div>
 
         </article>
 
 
-        <article class="resource-card">
+        <article class="content-card">
 
-          <h3>❓ MCQ</h3>
+          <h2>📝 Chapter Content</h2>
 
           <p>
-            Chapter आधारित multiple-choice questions।
+            इस section में chapter का मुख्य explanation,
+            definitions, examples, important points और
+            learning material उपलब्ध कराया जाएगा।
           </p>
 
-          <button data-resource="mcq">
-            Start MCQ
-          </button>
+          <p>
+            Education Publisher के माध्यम से future में
+            chapter-wise original content आसानी से add,
+            edit, draft, publish और unpublish किया जा सकेगा।
+          </p>
+
+          <h3>Important Points</h3>
+
+          <ul>
+            <li>मुख्य concepts को ध्यान से समझें।</li>
+            <li>Examples को स्वयं solve करने का प्रयास करें।</li>
+            <li>Important points को notes में रखें।</li>
+            <li>Chapter पूरा करने के बाद MCQ practice करें।</li>
+            <li>अंत में revision और self-test करें।</li>
+          </ul>
 
         </article>
 
 
-        <article class="resource-card">
+        <article class="content-card">
 
-          <h3>✍️ Practice</h3>
+          <h2>🎯 Chapter Resources</h2>
 
           <p>
-            अपनी तैयारी check करने के लिए practice questions।
+            Chapter पढ़ने के बाद नीचे दिए गए learning resources
+            से अपनी तैयारी आगे बढ़ाएँ।
           </p>
 
-          <button data-resource="practice">
-            Practice Now
-          </button>
+          <div class="resource-grid">
+
+            <a href="#" id="notesLink" class="resource-card">
+              <div class="icon">📝</div>
+              <strong>Notes</strong>
+              <span>Quick revision notes</span>
+            </a>
+
+            <a href="#" id="mcqLink" class="resource-card">
+              <div class="icon">❓</div>
+              <strong>MCQ</strong>
+              <span>Objective questions</span>
+            </a>
+
+            <a href="#" id="practiceLink" class="resource-card">
+              <div class="icon">✍️</div>
+              <strong>Practice</strong>
+              <span>Practice questions</span>
+            </a>
+
+            <a href="#" id="tipsLink" class="resource-card">
+              <div class="icon">🎯</div>
+              <strong>Exam Tips</strong>
+              <span>Preparation guidance</span>
+            </a>
+
+          </div>
 
         </article>
 
 
-        <article class="resource-card">
+        <div class="bottom-actions">
 
-          <h3>🎯 Exam Tips</h3>
+          <a href="#" id="previousChapter" class="btn btn-secondary">
+            ← Previous Chapter
+          </a>
 
-          <p>
-            Exam में बेहतर तैयारी के लिए important tips।
-          </p>
+          <a href="#" id="nextChapter" class="btn btn-primary">
+            Next Chapter →
+          </a>
 
-          <button data-resource="tips">
-            View Tips
-          </button>
+        </div>
 
-        </article>
-
-      </section>
+      </div>
 
 
-      <div
-        id="comingSoon"
-        class="coming-soon"
-      >
-        <h2>🚀 Content Coming Soon</h2>
+      <div class="empty-state" id="emptyState">
+
+        <h3>Chapter information unavailable</h3>
+
         <p>
-          यह content Education Publisher / Database
-          से manage किया जाएगा।
+          Please select a valid class, subject, book and chapter
+          from the ARS Education portal.
         </p>
+
+        <a href="education.html" class="btn btn-primary">
+          Back to Education
+        </a>
+
       </div>
 
-    </div>
+    </section>
 
   </main>
 
 
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <img src="logo.png" alt="ARS Official Logo">
+
+        <h3>ARS Official</h3>
+
+        <p>
+          Learning, creativity and digital growth —
+          together with ARS.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Education</h4>
+
+        <a href="class.html?class=5">Class 5</a>
+        <a href="class.html?class=6">Class 6</a>
+        <a href="class.html?class=7">Class 7</a>
+        <a href="class.html?class=8">Class 8</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>More</h4>
+
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <div>
+        © <span data-current-year></span>
+        ARS Official. All rights reserved.
+      </div>
+
+      <div class="footer-signature">
+        <span>Adarsh Raj</span>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+
+
   <script>
-    (() => {
+    document.addEventListener("DOMContentLoaded", function () {
 
-      "use strict";
+      const params = new URLSearchParams(window.location.search);
+
+      const classNumber = params.get("class");
+      const subjectKey = params.get("subject");
+      const bookKey = params.get("book");
+      const chapterNumber = parseInt(params.get("chapter"), 10);
 
 
-      const params =
-        new URLSearchParams(
-          window.location.search
-        );
+      const chapterBadge =
+        document.getElementById("chapterBadge");
+
+      const chapterTitle =
+        document.getElementById("chapterTitle");
+
+      const chapterDescription =
+        document.getElementById("chapterDescription");
+
+      const overviewText =
+        document.getElementById("overviewText");
+
+      const chapterContent =
+        document.getElementById("chapterContent");
+
+      const emptyState =
+        document.getElementById("emptyState");
+
+      const backToBook =
+        document.getElementById("backToBook");
+
+      const nextLearning =
+        document.getElementById("nextLearning");
+
+      const notesLink =
+        document.getElementById("notesLink");
+
+      const mcqLink =
+        document.getElementById("mcqLink");
+
+      const practiceLink =
+        document.getElementById("practiceLink");
+
+      const tipsLink =
+        document.getElementById("tipsLink");
+
+      const previousChapter =
+        document.getElementById("previousChapter");
+
+      const nextChapter =
+        document.getElementById("nextChapter");
 
 
-      const classNumber =
-        params.get("class") || "6";
+      const subjects = {
+
+        mathematics: {
+          name: "Mathematics",
+          icon: "🔢"
+        },
+
+        science: {
+          name: "Science",
+          icon: "🔬"
+        },
+
+        english: {
+          name: "English",
+          icon: "📖"
+        },
+
+        hindi: {
+          name: "Hindi",
+          icon: "📝"
+        },
+
+        "social-studies": {
+          name: "Social Studies",
+          icon: "🌍"
+        },
+
+        "social-science": {
+          name: "Social Science",
+          icon: "🌍"
+        },
+
+        "general-knowledge": {
+          name: "General Knowledge",
+          icon: "🧠"
+        }
+
+      };
+
+
+      const books = {
+
+        main: {
+          name: "Main Course",
+          description:
+            "Core chapter-wise learning course."
+        },
+
+        practice: {
+          name: "Practice",
+          description:
+            "Practice-focused learning course."
+        },
+
+        revision: {
+          name: "Revision",
+          description:
+            "Quick revision and exam preparation course."
+        }
+
+      };
+
+
+      const validChapter =
+        Number.isInteger(chapterNumber) &&
+        chapterNumber >= 1 &&
+        chapterNumber <= 6;
+
+
+      if (
+        !classNumber ||
+        !subjectKey ||
+        !bookKey ||
+        !subjects[subjectKey] ||
+        !books[bookKey] ||
+        !validChapter
+      ) {
+
+        chapterBadge.textContent =
+          "📖 ARS Education";
+
+        chapterTitle.textContent =
+          "Chapter Not Found";
+
+        chapterDescription.textContent =
+          "Please select a valid chapter from the ARS Education portal.";
+
+        chapterContent.style.display = "none";
+        emptyState.style.display = "block";
+
+        return;
+      }
+
 
       const subject =
-        params.get("subject") || "maths";
+        subjects[subjectKey];
 
       const book =
-        params.get("book") || "Mathematics";
-
-      const chapter =
-        params.get("chapter") || "Chapter";
-
-      const chapterNo =
-        params.get("chapterNo") || "1";
+        books[bookKey];
 
 
-      document.getElementById("chapterTitle")
-        .textContent =
-        chapter;
+      const chapterNames = {
 
-      document.getElementById("classMeta")
-        .textContent =
-        `Class ${classNumber}`;
+        1: "Introduction & Basic Concepts",
+        2: "Understanding the Core Ideas",
+        3: "Concepts Through Examples",
+        4: "Application & Problem Solving",
+        5: "Practice & Important Concepts",
+        6: "Revision & Self Assessment"
 
-      document.getElementById("subjectMeta")
-        .textContent =
-        subject;
-
-      document.getElementById("bookMeta")
-        .textContent =
-        book;
-
-      document.getElementById("chapterMeta")
-        .textContent =
-        `Chapter ${chapterNo}`;
+      };
 
 
-      /* BACK */
-
-      document
-        .getElementById("backButton")
-        .addEventListener(
-          "click",
-          () => {
-
-            if (document.referrer) {
-              history.back();
-            } else {
-              window.location.href =
-                `chapters.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(book)}`;
-            }
-
-          }
-        );
+      const chapterName =
+        chapterNames[chapterNumber];
 
 
-      /* COPY */
-
-      document
-        .getElementById("copyButton")
-        .addEventListener(
-          "click",
-          async () => {
-
-            try {
-
-              await navigator.clipboard.writeText(
-                window.location.href
-              );
-
-              alert("Chapter link copied!");
-
-            } catch (error) {
-
-              alert(
-                "Link copy नहीं हो पाया।"
-              );
-
-            }
-
-          }
-        );
+      chapterBadge.textContent =
+        subject.icon +
+        " Class " +
+        classNumber +
+        " • " +
+        subject.name;
 
 
-      /* SHARE */
-
-      document
-        .getElementById("shareButton")
-        .addEventListener(
-          "click",
-          async () => {
-
-            if (
-              navigator.share &&
-              typeof navigator.share === "function"
-            ) {
-
-              try {
-
-                await navigator.share({
-                  title: chapter,
-                  text:
-                    `ARS Education - ${chapter}`,
-                  url:
-                    window.location.href
-                });
-
-              } catch (_) {}
-
-            } else {
-
-              try {
-
-                await navigator.clipboard.writeText(
-                  window.location.href
-                );
-
-                alert("Share link copied!");
-
-              } catch (_) {
-
-                alert(
-                  "Sharing इस device पर उपलब्ध नहीं है।"
-                );
-
-              }
-
-            }
-
-          }
-        );
+      chapterTitle.textContent =
+        "Chapter " +
+        chapterNumber +
+        " — " +
+        chapterName;
 
 
-      /* FAVORITE */
-
-      const favoriteKey =
-        `ARS_EDU_FAVORITE_${classNumber}_${subject}_${book}_${chapterNo}`;
-
-      const favoriteButton =
-        document.getElementById(
-          "favoriteButton"
-        );
+      chapterDescription.textContent =
+        "Learn " +
+        chapterName.toLowerCase() +
+        " through the ARS " +
+        book.name.toLowerCase() +
+        " learning structure.";
 
 
-      function updateFavorite() {
+      overviewText.textContent =
+        "This is Chapter " +
+        chapterNumber +
+        " of the " +
+        subject.name +
+        " " +
+        book.name +
+        " course for Class " +
+        classNumber +
+        ". Detailed original chapter content, explanations, examples, notes, MCQs and practice material can be published through the ARS Education Publisher.";
 
-        const saved =
-          localStorage.getItem(
-            favoriteKey
-          ) === "true";
 
-        favoriteButton.textContent =
-          saved
-            ? "♥ Favorited"
-            : "♡ Favorite";
+      const baseParams =
+        "?class=" +
+        encodeURIComponent(classNumber) +
+        "&subject=" +
+        encodeURIComponent(subjectKey) +
+        "&book=" +
+        encodeURIComponent(bookKey) +
+        "&chapter=" +
+        encodeURIComponent(chapterNumber);
+
+
+      backToBook.href =
+        "book.html?class=" +
+        encodeURIComponent(classNumber) +
+        "&subject=" +
+        encodeURIComponent(subjectKey) +
+        "&book=" +
+        encodeURIComponent(bookKey);
+
+
+      notesLink.href =
+        "notes.html" +
+        baseParams;
+
+
+      mcqLink.href =
+        "mcq.html" +
+        baseParams;
+
+
+      practiceLink.href =
+        "practice.html" +
+        baseParams;
+
+
+      tipsLink.href =
+        "exam-tips.html" +
+        baseParams;
+
+
+      nextLearning.href =
+        "notes.html" +
+        baseParams;
+
+
+      if (chapterNumber > 1) {
+
+        previousChapter.href =
+          "chapter.html?class=" +
+          encodeURIComponent(classNumber) +
+          "&subject=" +
+          encodeURIComponent(subjectKey) +
+          "&book=" +
+          encodeURIComponent(bookKey) +
+          "&chapter=" +
+          encodeURIComponent(chapterNumber - 1);
+
+      } else {
+
+        previousChapter.href =
+          "book.html?class=" +
+          encodeURIComponent(classNumber) +
+          "&subject=" +
+          encodeURIComponent(subjectKey) +
+          "&book=" +
+          encodeURIComponent(bookKey);
+
+        previousChapter.textContent =
+          "← Back to Book";
 
       }
 
 
-      updateFavorite();
+      if (chapterNumber < 6) {
 
+        nextChapter.href =
+          "chapter.html?class=" +
+          encodeURIComponent(classNumber) +
+          "&subject=" +
+          encodeURIComponent(subjectKey) +
+          "&book=" +
+          encodeURIComponent(bookKey) +
+          "&chapter=" +
+          encodeURIComponent(chapterNumber + 1);
 
-      favoriteButton.addEventListener(
-        "click",
-        () => {
+      } else {
 
-          const current =
-            localStorage.getItem(
-              favoriteKey
-            ) === "true";
+        nextChapter.href =
+          "notes.html" +
+          baseParams;
 
-          localStorage.setItem(
-            favoriteKey,
-            String(!current)
-          );
+        nextChapter.textContent =
+          "Continue to Notes →";
 
-          updateFavorite();
+      }
 
-        }
-      );
-
-
-      /* RESOURCE BUTTONS */
-
-      document
-        .querySelectorAll(
-          "[data-resource]"
-        )
-        .forEach(button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              const resource =
-                button.dataset.resource;
-
-              const url =
-                `resource.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(book)}&chapter=${encodeURIComponent(chapter)}&chapterNo=${encodeURIComponent(chapterNo)}&type=${encodeURIComponent(resource)}`;
-
-              window.location.href =
-                url;
-
-            }
-          );
-
-        });
-
-
-    })();
+    });
   </script>
 
 </body>
