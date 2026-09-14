@@ -3,146 +3,332 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ARS Official Publisher — publish and manage creative content.">
-  <title>Publisher | ARS Official</title>
+
+  <title>ARS Publisher | ARS Official</title>
+  <meta
+    name="description"
+    content="ARS Publisher Panel for managing Shayari, Stories, Poetry and ARS Education content."
+  >
+
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .publisher-page {
-      min-height: 100vh;
-      padding: 120px 20px 80px;
+    .publisher-hero {
+      padding: 75px 20px 60px;
+      text-align: center;
+      color: #fff;
       background:
-        radial-gradient(circle at 10% 10%, rgba(212,175,55,.13), transparent 32%),
-        radial-gradient(circle at 90% 20%, rgba(124,58,237,.13), transparent 30%),
-        var(--bg);
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.13), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,.10), transparent 30%),
+        linear-gradient(135deg, var(--primary), var(--primary-dark));
     }
 
-    .publisher-container {
-      max-width: 1100px;
+    .publisher-hero-inner {
+      max-width: 850px;
       margin: auto;
     }
 
-    .publisher-hero {
-      text-align: center;
-      margin-bottom: 35px;
+    .publisher-badge {
+      display: inline-flex;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.22);
+      font-weight: 700;
+      margin-bottom: 16px;
     }
 
     .publisher-hero h1 {
-      font-size: clamp(38px, 6vw, 62px);
-      margin-bottom: 10px;
+      margin: 0 0 12px;
+      font-size: clamp(2.1rem, 5vw, 3.6rem);
     }
 
     .publisher-hero p {
-      color: var(--text-soft);
-      max-width: 720px;
+      max-width: 700px;
       margin: auto;
-      line-height: 1.7;
+      line-height: 1.8;
+      opacity: .92;
+    }
+
+    .publisher-section {
+      padding: 60px 20px;
+    }
+
+    .publisher-container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    .publisher-warning {
+      margin-bottom: 25px;
+      padding: 17px 20px;
+      border-radius: 16px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      line-height: 1.65;
     }
 
     .publisher-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 280px 1fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .publisher-sidebar,
+    .publisher-editor,
+    .publisher-list-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .publisher-sidebar {
+      padding: 18px;
+    }
+
+    .publisher-sidebar h3 {
+      margin: 5px 10px 15px;
+    }
+
+    .publisher-tab {
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      padding: 13px 14px;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 5px;
+    }
+
+    .publisher-tab:hover,
+    .publisher-tab.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .publisher-main {
+      display: grid;
       gap: 22px;
     }
 
-    .publisher-card {
+    .publisher-editor {
       padding: 28px;
-      border-radius: 22px;
-      border: 1px solid rgba(212,175,55,.28);
-      background: var(--card-bg, rgba(255,255,255,.05));
-      box-shadow: 0 18px 50px rgba(0,0,0,.12);
     }
 
-    .publisher-card h2 {
-      margin-bottom: 10px;
+    .publisher-editor h2 {
+      margin-top: 0;
     }
 
-    .publisher-card p {
-      color: var(--text-soft);
-      line-height: 1.7;
+    .editor-note {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
     }
 
     .publisher-form {
       display: grid;
+      gap: 17px;
+    }
+
+    .publisher-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 15px;
-      margin-top: 20px;
     }
 
-    .publisher-form label {
-      font-weight: 800;
-      margin-bottom: -8px;
+    .publisher-field {
+      display: grid;
+      gap: 7px;
     }
 
-    .publisher-form input,
-    .publisher-form textarea,
-    .publisher-form select {
+    .publisher-field label {
+      font-size: .9rem;
+      font-weight: 700;
+    }
+
+    .publisher-field input,
+    .publisher-field select,
+    .publisher-field textarea {
       width: 100%;
-      padding: 13px 14px;
+      box-sizing: border-box;
+      padding: 12px 13px;
       border-radius: 11px;
-      border: 1px solid rgba(128,128,128,.30);
-      background: transparent;
+      border: 1px solid var(--border);
+      background: var(--surface);
       color: var(--text);
+      font: inherit;
       outline: none;
     }
 
-    .publisher-form textarea {
-      min-height: 170px;
+    .publisher-field textarea {
+      min-height: 145px;
       resize: vertical;
+      line-height: 1.6;
     }
 
-    .publisher-form input:focus,
-    .publisher-form textarea:focus,
-    .publisher-form select:focus {
-      border-color: #d4af37;
+    .publisher-field input:focus,
+    .publisher-field select:focus,
+    .publisher-field textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
     }
 
-    .publisher-btn {
-      border: 0;
-      padding: 14px 20px;
-      border-radius: 11px;
+    .publisher-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .publisher-list-box {
+      padding: 25px;
+    }
+
+    .publisher-list-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .publisher-list-header h2 {
+      margin: 0;
+    }
+
+    .publisher-search {
+      max-width: 260px;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .content-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .content-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 15px;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--surface-alt);
+    }
+
+    .content-item h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .content-item p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: .88rem;
+      line-height: 1.5;
+    }
+
+    .content-meta {
+      margin-top: 7px;
+      font-size: .76rem;
+      color: var(--text-muted);
+    }
+
+    .content-actions {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .small-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 8px 10px;
       cursor: pointer;
-      font-weight: 900;
-      background: linear-gradient(135deg,#d4af37,#f5d76e);
-      color: #111;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 700;
     }
 
-    .publisher-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 20px;
+    .small-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
-    .publisher-item {
-      padding: 16px;
-      border-radius: 13px;
-      background: rgba(128,128,128,.08);
-      border: 1px solid rgba(128,128,128,.13);
+    .publisher-empty {
+      text-align: center;
+      padding: 35px 15px;
+      color: var(--text-muted);
     }
 
-    .publisher-item strong {
-      display: block;
-      margin-bottom: 5px;
+    .education-publisher-link {
+      margin-top: 22px;
+      padding: 20px;
+      border-radius: 17px;
+      background: var(--primary-soft);
+      border: 1px solid var(--border);
     }
 
-    .publisher-item small {
-      color: var(--text-soft);
+    .education-publisher-link h3 {
+      margin-top: 0;
     }
 
-    .publisher-info {
-      margin-top: 25px;
-      display: grid;
-      gap: 12px;
+    .education-publisher-link p {
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
-    .publisher-info div {
-      padding: 16px;
-      border-radius: 13px;
-      background: rgba(128,128,128,.08);
-    }
-
-    @media (max-width: 780px) {
+    @media (max-width: 850px) {
       .publisher-grid {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .publisher-section {
+        padding: 45px 14px;
+      }
+
+      .publisher-editor,
+      .publisher-list-box {
+        padding: 20px;
+      }
+
+      .publisher-row {
+        grid-template-columns: 1fr;
+      }
+
+      .publisher-list-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .publisher-search {
+        max-width: none;
+      }
+
+      .content-item {
+        grid-template-columns: 1fr;
+      }
+
+      .content-actions {
+        justify-content: flex-start;
       }
     }
   </style>
@@ -150,282 +336,1339 @@
 
 <body>
 
-<header class="site-header">
-  <nav class="navbar">
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <a href="index.html" class="brand">
-      <img src="logo.png" alt="ARS Official">
-      <span>ARS Official</span>
-    </a>
 
-    <button id="navToggle"
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false">☰</button>
+  <header class="site-header">
 
-    <div id="navLinks" class="nav-links">
+    <div class="container nav-wrap">
 
-      <a href="index.html">Home</a>
-      <a href="ars-ai.html">ARS AI</a>
-      <a href="founder.html">Founder</a>
-      <a href="certificate.html">Certificate</a>
-      <a href="joining-certificate.html">Joining Certificate</a>
-      <a href="verify.html">Verify</a>
+      <a href="index.html" class="brand">
 
-      <div class="nav-more">
+        <img
+          src="logo.png"
+          alt="ARS Official Logo"
+        >
 
-        <button id="navMoreButton"
-          type="button"
-          aria-expanded="false">
-          More ▾
-        </button>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
 
-        <div id="navMoreMenu" class="nav-more-menu">
-          <a href="joining.html">Joining ARS</a>
-          <a href="publisher.html" class="active">Publisher</a>
-          <a href="policy.html">Policy</a>
-          <a href="contact.html">Contact</a>
+      </a>
+
+
+      <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+
+      <nav class="main-nav" id="mainNav">
+
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="publisher.html" class="active">Publisher</a>
+
+        <div class="nav-mobile-extra">
           <a href="admin.html">Admin</a>
+          <a href="policy.html">Policy</a>
+        </div>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <section class="publisher-hero">
+
+      <div class="publisher-hero-inner">
+
+        <div class="publisher-badge">
+          ✍️ ARS Publisher
+        </div>
+
+        <h1>Content Publishing Panel</h1>
+
+        <p>
+          Manage ARS Shayari, Stories and Poetry content from one
+          simple publishing workspace.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="publisher-section">
+
+      <div class="publisher-container">
+
+        <div class="publisher-warning">
+          <strong>Development mode:</strong>
+          This publisher panel currently stores content in the
+          browser's local storage. A secure login, database and
+          server-side publishing system should be connected before
+          production use.
+        </div>
+
+
+        <div class="publisher-grid">
+
+          <!-- SIDEBAR -->
+
+          <aside class="publisher-sidebar">
+
+            <h3>Content Type</h3>
+
+            <button
+              type="button"
+              class="publisher-tab active"
+              data-type="shayari"
+            >
+              📝 Shayari
+            </button>
+
+            <button
+              type="button"
+              class="publisher-tab"
+              data-type="story"
+            >
+              📖 Stories
+            </button>
+
+            <button
+              type="button"
+              class="publisher-tab"
+              data-type="poem"
+            >
+              ✒️ Poetry
+            </button>
+
+            <div class="education-publisher-link">
+
+              <h3>🎓 ARS Education</h3>
+
+              <p>
+                Education content has a dedicated publisher/editor
+                flow for class, subject, book, chapter, notes, MCQ
+                and practice material.
+              </p>
+
+              <a
+                href="education-publisher.html"
+                class="btn btn-primary"
+              >
+                Education Publisher
+              </a>
+
+            </div>
+
+          </aside>
+
+
+          <!-- MAIN -->
+
+          <div class="publisher-main">
+
+            <section class="publisher-editor">
+
+              <h2 id="editorHeading">
+                Publish Shayari
+              </h2>
+
+              <p class="editor-note">
+                Add original content to the ARS publishing workspace.
+                Select a category and choose whether the content
+                should remain a draft or be published.
+              </p>
+
+
+              <form
+                id="publisherForm"
+                class="publisher-form"
+              >
+
+                <input
+                  type="hidden"
+                  id="editingId"
+                  value=""
+                >
+
+
+                <div class="publisher-row">
+
+                  <div class="publisher-field">
+
+                    <label for="contentTitle">
+                      Title *
+                    </label>
+
+                    <input
+                      type="text"
+                      id="contentTitle"
+                      maxlength="160"
+                      placeholder="Enter title"
+                      required
+                    >
+
+                  </div>
+
+
+                  <div class="publisher-field">
+
+                    <label for="contentCategory">
+                      Category *
+                    </label>
+
+                    <select
+                      id="contentCategory"
+                      required
+                    >
+                    </select>
+
+                  </div>
+
+                </div>
+
+
+                <div class="publisher-field">
+
+                  <label for="contentText">
+                    Content *
+                  </label>
+
+                  <textarea
+                    id="contentText"
+                    maxlength="5000"
+                    placeholder="Write original content here..."
+                    required
+                  ></textarea>
+
+                </div>
+
+
+                <div class="publisher-row">
+
+                  <div class="publisher-field">
+
+                    <label for="contentStatus">
+                      Status
+                    </label>
+
+                    <select id="contentStatus">
+
+                      <option value="draft">
+                        Draft
+                      </option>
+
+                      <option value="published">
+                        Published
+                      </option>
+
+                    </select>
+
+                  </div>
+
+
+                  <div class="publisher-field">
+
+                    <label for="contentAuthor">
+                      Author
+                    </label>
+
+                    <input
+                      type="text"
+                      id="contentAuthor"
+                      value="Adarsh Raj"
+                      maxlength="100"
+                    >
+
+                  </div>
+
+                </div>
+
+
+                <div class="publisher-actions">
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    💾 Save Content
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="clearEditor"
+                  >
+                    Clear
+                  </button>
+
+                </div>
+
+              </form>
+
+            </section>
+
+
+            <section class="publisher-list-box">
+
+              <div class="publisher-list-header">
+
+                <h2>
+                  Your Content
+                </h2>
+
+                <input
+                  type="search"
+                  id="contentSearch"
+                  class="publisher-search"
+                  placeholder="Search content..."
+                >
+
+              </div>
+
+
+              <div
+                id="contentList"
+                class="content-list"
+              ></div>
+
+            </section>
+
+          </div>
+
         </div>
 
       </div>
 
-      <button id="themeToggle"
-        type="button"
-        aria-label="Switch to dark mode">🌙</button>
-
-    </div>
-  </nav>
-</header>
-
-<main class="publisher-page">
-
-  <div class="publisher-container">
-
-    <section class="publisher-hero">
-      <h1>Publisher</h1>
-      <p>
-        A dedicated ARS Official space for preparing and
-        managing creative publications.
-      </p>
     </section>
 
-    <div class="publisher-grid">
+  </main>
 
-      <section class="publisher-card">
 
-        <h2>📝 Create Publication</h2>
+  <footer class="site-footer">
 
-        <p>
-          Prepare your content below. Saved drafts remain
-          available in this browser.
-        </p>
+    <div class="container footer-grid">
 
-        <form id="publisherForm"
-              class="publisher-form">
+      <div class="footer-brand">
 
-          <label for="publisherTitle">
-            Title
-          </label>
+        <a href="index.html" class="brand">
 
-          <input
-            id="publisherTitle"
-            type="text"
-            placeholder="Publication title"
-            required>
+          <img
+            src="logo.png"
+            alt="ARS Official Logo"
+          >
 
-          <label for="publisherAuthor">
-            Author
-          </label>
+          <span>
+            <strong>ARS Official</strong>
+            <small>Adarsh Raj Shayar</small>
+          </span>
 
-          <input
-            id="publisherAuthor"
-            type="text"
-            placeholder="Author name"
-            required>
-
-          <label for="publisherCategory">
-            Category
-          </label>
-
-          <select id="publisherCategory">
-            <option>Article</option>
-            <option>Story</option>
-            <option>Shayari</option>
-            <option>Poem</option>
-            <option>Technology</option>
-            <option>Other</option>
-          </select>
-
-          <label for="publisherContent">
-            Content
-          </label>
-
-          <textarea
-            id="publisherContent"
-            placeholder="Write your content..."
-            required></textarea>
-
-          <button
-            class="publisher-btn"
-            type="submit">
-            Save Draft
-          </button>
-
-        </form>
-
-      </section>
-
-      <section class="publisher-card">
-
-        <h2>📚 Publisher Workspace</h2>
+        </a>
 
         <p>
-          Your locally saved publication drafts are shown here.
+          A creative and educational platform by Adarsh Raj Shayar,
+          bringing literature, learning and digital creativity together.
         </p>
 
-        <div id="publisherList"
-             class="publisher-list">
-        </div>
+      </div>
 
-        <div class="publisher-info">
 
-          <div>
-            <strong>Publisher Role</strong>
-            <br>
-            <span>
-              Content preparation and publication management.
-            </span>
-          </div>
+      <div class="footer-links">
 
-          <div>
-            <strong>Storage</strong>
-            <br>
-            <span>
-              Drafts are stored locally in this browser.
-            </span>
-          </div>
+        <h3>Quick Links</h3>
+
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories & Poetry</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h3>Important</h3>
+
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify Certificate</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
+
+      </div>
+
+
+      <div class="footer-founder">
+
+        <h3>Founder</h3>
+
+        <div class="footer-signature">
+
+          <span>Adarsh Raj</span>
+
+          <small>
+            Founder of ARS Official
+          </small>
 
         </div>
 
-      </section>
+        <a
+          href="founder.html"
+          class="btn btn-outline"
+        >
+          About Founder
+        </a>
+
+      </div>
 
     </div>
 
-  </div>
 
-</main>
+    <div class="footer-bottom">
 
-<script src="config.js"></script>
-<script src="storage.js"></script>
-<script src="script.js"></script>
+      <div class="container">
 
-<script>
-(function () {
-  "use strict";
+        <span>
+          © <span id="footerYear"></span> ARS Official.
+          All rights reserved.
+        </span>
 
-  const form = document.getElementById("publisherForm");
-  const list = document.getElementById("publisherList");
+        <span>
+          Built with ❤️ by ARS
+        </span>
 
-  const KEY = "ARS_PUBLISHER_DRAFTS";
+      </div>
 
-  function getDrafts() {
-    try {
-      const data =
-        JSON.parse(localStorage.getItem(KEY) || "[]");
+    </div>
 
-      return Array.isArray(data) ? data : [];
-    } catch (_) {
-      return [];
-    }
-  }
+  </footer>
 
-  function saveDrafts(data) {
-    localStorage.setItem(KEY, JSON.stringify(data));
-  }
 
-  function renderDrafts() {
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >
+    ↑
+  </button>
 
-    const drafts = getDrafts();
 
-    if (!drafts.length) {
-      list.innerHTML =
-        '<div class="publisher-item">' +
-        '<small>No drafts saved yet.</small>' +
-        '</div>';
-      return;
-    }
+  <div
+    id="arsToast"
+    class="ars-toast"
+    role="status"
+    aria-live="polite"
+  ></div>
 
-    list.innerHTML = drafts.map(function (draft) {
 
-      return `
-        <div class="publisher-item">
-          <strong>${escapeHTML(draft.title)}</strong>
-          <small>
-            ${escapeHTML(draft.author)}
-            · ${escapeHTML(draft.category)}
-          </small>
-        </div>
-      `;
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+  <script src="shayari.js"></script>
+  <script src="story.js"></script>
 
-    }).join("");
-  }
 
-  function escapeHTML(value) {
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+  <script>
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
 
-  form.addEventListener("submit", function (event) {
+        const tabs =
+          document.querySelectorAll(
+            ".publisher-tab"
+          );
 
-    event.preventDefault();
+        const form =
+          document.getElementById(
+            "publisherForm"
+          );
 
-    const draft = {
-      id:
-        "ARS-PUB-" +
-        Date.now().toString(36).toUpperCase(),
+        const heading =
+          document.getElementById(
+            "editorHeading"
+          );
 
-      title:
-        document.getElementById("publisherTitle").value.trim(),
+        const titleInput =
+          document.getElementById(
+            "contentTitle"
+          );
 
-      author:
-        document.getElementById("publisherAuthor").value.trim(),
+        const categoryInput =
+          document.getElementById(
+            "contentCategory"
+          );
 
-      category:
-        document.getElementById("publisherCategory").value,
+        const textInput =
+          document.getElementById(
+            "contentText"
+          );
 
-      content:
-        document.getElementById("publisherContent").value.trim(),
+        const statusInput =
+          document.getElementById(
+            "contentStatus"
+          );
 
-      createdAt:
-        new Date().toISOString(),
+        const authorInput =
+          document.getElementById(
+            "contentAuthor"
+          );
 
-      status: "draft"
-    };
+        const editingId =
+          document.getElementById(
+            "editingId"
+          );
 
-    const drafts = getDrafts();
+        const contentList =
+          document.getElementById(
+            "contentList"
+          );
 
-    drafts.unshift(draft);
+        const searchInput =
+          document.getElementById(
+            "contentSearch"
+          );
 
-    saveDrafts(drafts);
+        const clearEditor =
+          document.getElementById(
+            "clearEditor"
+          );
 
-    form.reset();
 
-    renderDrafts();
+        let currentType =
+          "shayari";
 
-    if (window.ARS && window.ARS.showToast) {
-      window.ARS.showToast("Publication draft saved ✓");
-    }
-  });
 
-  renderDrafts();
+        function toast(message) {
 
-})();
-</script>
+          if (
+            typeof arsToast === "function"
+          ) {
+            arsToast(message);
+          } else {
+            alert(message);
+          }
+
+        }
+
+
+        function escapeHTML(value) {
+
+          return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+        }
+
+
+        function getKey(type) {
+
+          if (type === "shayari") {
+            return "ARS_PUBLISHER_SHAYARI";
+          }
+
+          if (type === "story") {
+            return "ARS_PUBLISHER_STORIES";
+          }
+
+          return "ARS_PUBLISHER_POETRY";
+
+        }
+
+
+        function getData(type) {
+
+          try {
+
+            return JSON.parse(
+              localStorage.getItem(
+                getKey(type)
+              ) || "[]"
+            );
+
+          } catch (error) {
+
+            return [];
+
+          }
+
+        }
+
+
+        function saveData(type, data) {
+
+          localStorage.setItem(
+            getKey(type),
+            JSON.stringify(data)
+          );
+
+        }
+
+
+        function getCategories(type) {
+
+          if (
+            type === "shayari" &&
+            window.ARS_SHAYARI
+          ) {
+
+            const source =
+              window.ARS_SHAYARI_CATEGORIES ||
+              null;
+
+            if (Array.isArray(source)) {
+              return source;
+            }
+
+          }
+
+
+          if (
+            window.ARS_CONFIG &&
+            Array.isArray(
+              window.ARS_CONFIG.stories?.categories
+            )
+          ) {
+
+            return window.ARS_CONFIG
+              .stories
+              .categories;
+
+          }
+
+
+          if (type === "shayari") {
+
+            return [
+              "love",
+              "sad",
+              "motivational",
+              "friendship",
+              "attitude"
+            ];
+
+          }
+
+
+          return [
+            "mystery",
+            "horror",
+            "biography",
+            "life",
+            "inspiration",
+            "motivation",
+            "friendship",
+            "dream",
+            "education",
+            "general"
+          ];
+
+        }
+
+
+        function categoryLabel(value) {
+
+          const labels = {
+
+            love: "Love",
+            sad: "Sad",
+            motivational: "Motivational",
+            friendship: "Friendship",
+            attitude: "Attitude",
+
+            mystery: "Mystery",
+            horror: "Horror",
+            biography: "Biography",
+            life: "Life",
+            inspiration: "Inspiration",
+            motivation: "Motivation",
+            dream: "Dream",
+            education: "Education",
+            general: "General"
+
+          };
+
+          return labels[value] ||
+            String(value)
+              .replace(/[-_]/g, " ")
+              .replace(/\b\w/g, c =>
+                c.toUpperCase()
+              );
+
+        }
+
+
+        function loadCategories() {
+
+          const categories =
+            getCategories(currentType);
+
+          categoryInput.innerHTML = "";
+
+          categories.forEach(
+            function (category) {
+
+              const option =
+                document.createElement(
+                  "option"
+                );
+
+              const value =
+                typeof category === "object"
+                  ? (
+                      category.value ||
+                      category.id ||
+                      category.name
+                    )
+                  : category;
+
+              option.value =
+                value;
+
+              option.textContent =
+                typeof category === "object"
+                  ? (
+                      category.label ||
+                      category.title ||
+                      category.name ||
+                      categoryLabel(value)
+                    )
+                  : categoryLabel(value);
+
+              categoryInput.appendChild(
+                option
+              );
+
+            }
+          );
+
+        }
+
+
+        function updateEditor() {
+
+          const names = {
+
+            shayari:
+              "Publish Shayari",
+
+            story:
+              "Publish Story",
+
+            poem:
+              "Publish Poetry"
+
+          };
+
+          heading.textContent =
+            names[currentType] ||
+            "Publish Content";
+
+          loadCategories();
+
+          resetEditor(false);
+
+          renderList();
+
+        }
+
+
+        function resetEditor(showMessage) {
+
+          form.reset();
+
+          editingId.value = "";
+
+          authorInput.value =
+            "Adarsh Raj";
+
+          statusInput.value =
+            "draft";
+
+          if (categoryInput.options.length) {
+            categoryInput.selectedIndex = 0;
+          }
+
+          if (showMessage) {
+            toast("Editor cleared.");
+          }
+
+        }
+
+
+        function createId() {
+
+          return (
+            "ARS-" +
+            currentType
+              .substring(0, 3)
+              .toUpperCase() +
+            "-" +
+            Date.now()
+              .toString(36)
+              .toUpperCase()
+          );
+
+        }
+
+
+        function saveContent(event) {
+
+          event.preventDefault();
+
+
+          const title =
+            titleInput.value.trim();
+
+          const category =
+            categoryInput.value;
+
+          const content =
+            textInput.value.trim();
+
+          const status =
+            statusInput.value;
+
+          const author =
+            authorInput.value.trim() ||
+            "Adarsh Raj";
+
+
+          if (
+            !title ||
+            !category ||
+            !content
+          ) {
+
+            toast(
+              "Please complete all required fields."
+            );
+
+            return;
+
+          }
+
+
+          const data =
+            getData(currentType);
+
+
+          const existingId =
+            editingId.value;
+
+
+          if (existingId) {
+
+            const index =
+              data.findIndex(
+                item =>
+                  item.id === existingId
+              );
+
+
+            if (index !== -1) {
+
+              data[index] = {
+                ...data[index],
+
+                title,
+                category,
+                content,
+                status,
+                author,
+
+                updatedAt:
+                  new Date().toISOString()
+
+              };
+
+              saveData(
+                currentType,
+                data
+              );
+
+              toast(
+                "Content updated successfully."
+              );
+
+            }
+
+          } else {
+
+            const record = {
+
+              id: createId(),
+
+              type:
+                currentType,
+
+              title,
+              category,
+              content,
+              status,
+              author,
+
+              createdAt:
+                new Date().toISOString(),
+
+              updatedAt:
+                new Date().toISOString()
+
+            };
+
+
+            data.unshift(record);
+
+            saveData(
+              currentType,
+              data
+            );
+
+            toast(
+              status === "published"
+                ? "Content published successfully."
+                : "Content saved as draft."
+            );
+
+          }
+
+
+          resetEditor(false);
+
+          renderList();
+
+        }
+
+
+        function editContent(id) {
+
+          const data =
+            getData(currentType);
+
+          const item =
+            data.find(
+              record =>
+                record.id === id
+            );
+
+
+          if (!item) {
+            return;
+          }
+
+
+          editingId.value =
+            item.id;
+
+          titleInput.value =
+            item.title || "";
+
+          categoryInput.value =
+            item.category || "";
+
+          textInput.value =
+            item.content || "";
+
+          statusInput.value =
+            item.status || "draft";
+
+          authorInput.value =
+            item.author || "Adarsh Raj";
+
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+
+          toast(
+            "Content loaded into editor."
+          );
+
+        }
+
+
+        function deleteContent(id) {
+
+          const data =
+            getData(currentType);
+
+
+          const filtered =
+            data.filter(
+              item =>
+                item.id !== id
+            );
+
+
+          if (
+            filtered.length !==
+            data.length
+          ) {
+
+            saveData(
+              currentType,
+              filtered
+            );
+
+            if (
+              editingId.value === id
+            ) {
+              resetEditor(false);
+            }
+
+            renderList();
+
+            toast(
+              "Content deleted."
+            );
+
+          }
+
+        }
+
+
+        function toggleStatus(id) {
+
+          const data =
+            getData(currentType);
+
+
+          const item =
+            data.find(
+              record =>
+                record.id === id
+            );
+
+
+          if (!item) {
+            return;
+          }
+
+
+          item.status =
+            item.status === "published"
+              ? "draft"
+              : "published";
+
+
+          item.updatedAt =
+            new Date().toISOString();
+
+
+          saveData(
+            currentType,
+            data
+          );
+
+
+          renderList();
+
+
+          toast(
+            item.status === "published"
+              ? "Content published."
+              : "Content moved to draft."
+          );
+
+        }
+
+
+        function renderList() {
+
+          const data =
+            getData(currentType);
+
+
+          const query =
+            searchInput.value
+              .trim()
+              .toLowerCase();
+
+
+          const filtered =
+            data.filter(
+              function (item) {
+
+                if (!query) {
+                  return true;
+                }
+
+                return (
+                  String(
+                    item.title || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+                  ||
+                  String(
+                    item.content || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+                  ||
+                  String(
+                    item.category || ""
+                  )
+                    .toLowerCase()
+                    .includes(query)
+                );
+
+              }
+            );
+
+
+          if (!filtered.length) {
+
+            contentList.innerHTML = `
+              <div class="publisher-empty">
+                <div style="font-size:2rem;">📭</div>
+                <h3>No content found</h3>
+                <p>
+                  Start by adding your first
+                  ${escapeHTML(currentType)} content.
+                </p>
+              </div>
+            `;
+
+            return;
+
+          }
+
+
+          contentList.innerHTML =
+            filtered.map(
+              function (item) {
+
+                const statusText =
+                  item.status === "published"
+                    ? "Published"
+                    : "Draft";
+
+
+                return `
+                  <article class="content-item">
+
+                    <div>
+
+                      <h3>
+                        ${escapeHTML(item.title)}
+                      </h3>
+
+                      <p>
+                        ${escapeHTML(
+                          String(
+                            item.content || ""
+                          ).substring(0, 180)
+                        )}
+                        ${
+                          String(
+                            item.content || ""
+                          ).length > 180
+                            ? "…"
+                            : ""
+                        }
+                      </p>
+
+                      <div class="content-meta">
+                        ${escapeHTML(
+                          categoryLabel(
+                            item.category
+                          )
+                        )}
+                        ·
+                        ${escapeHTML(statusText)}
+                        ·
+                        ${escapeHTML(
+                          item.author ||
+                          "Adarsh Raj"
+                        )}
+                      </div>
+
+                    </div>
+
+
+                    <div class="content-actions">
+
+                      <button
+                        type="button"
+                        class="small-btn"
+                        data-action="edit"
+                        data-id="${escapeHTML(item.id)}"
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        class="small-btn"
+                        data-action="status"
+                        data-id="${escapeHTML(item.id)}"
+                      >
+                        ${
+                          item.status === "published"
+                            ? "Draft"
+                            : "Publish"
+                        }
+                      </button>
+
+                      <button
+                        type="button"
+                        class="small-btn"
+                        data-action="delete"
+                        data-id="${escapeHTML(item.id)}"
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+
+                  </article>
+                `;
+
+              }
+            ).join("");
+
+        }
+
+
+        tabs.forEach(
+          function (tab) {
+
+            tab.addEventListener(
+              "click",
+              function () {
+
+                tabs.forEach(
+                  t =>
+                    t.classList.remove(
+                      "active"
+                    )
+                );
+
+                tab.classList.add(
+                  "active"
+                );
+
+                currentType =
+                  tab.dataset.type ||
+                  "shayari";
+
+                updateEditor();
+
+              }
+            );
+
+          }
+        );
+
+
+        form.addEventListener(
+          "submit",
+          saveContent
+        );
+
+
+        clearEditor.addEventListener(
+          "click",
+          function () {
+            resetEditor(true);
+          }
+        );
+
+
+        searchInput.addEventListener(
+          "input",
+          renderList
+        );
+
+
+        contentList.addEventListener(
+          "click",
+          function (event) {
+
+            const button =
+              event.target.closest(
+                "[data-action]"
+              );
+
+
+            if (!button) {
+              return;
+            }
+
+
+            const action =
+              button.dataset.action;
+
+            const id =
+              button.dataset.id;
+
+
+            if (
+              action === "edit"
+            ) {
+
+              editContent(id);
+
+            }
+
+
+            if (
+              action === "status"
+            ) {
+
+              toggleStatus(id);
+
+            }
+
+
+            if (
+              action === "delete"
+            ) {
+
+              deleteContent(id);
+
+            }
+
+          }
+        );
+
+
+        updateEditor();
+
+      }
+    );
+  </script>
 
 </body>
 </html>
