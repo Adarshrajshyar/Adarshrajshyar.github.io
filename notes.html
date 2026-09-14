@@ -1,179 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS Notes | ARS Education</title>
-  <meta name="description" content="Class 5 to 8 chapter-wise notes by ARS Education.">
+  <title>Notes | ARS Education</title>
+  <meta
+    name="description"
+    content="ARS Education chapter notes and quick revision resources."
+  >
 
   <link rel="stylesheet" href="style.css">
 
   <style>
     .notes-page {
-      min-height: 100vh;
-      padding: 110px 18px 70px;
-      background:
-        radial-gradient(circle at 8% 10%, rgba(124,58,237,.14), transparent 30%),
-        radial-gradient(circle at 92% 15%, rgba(236,72,153,.12), transparent 30%),
-        var(--bg);
-    }
-
-    .notes-container {
-      max-width: 1100px;
-      margin: auto;
+      padding: 110px 0 70px;
     }
 
     .notes-hero {
       text-align: center;
-      margin-bottom: 32px;
+      max-width: 850px;
+      margin: 0 auto 45px;
     }
 
     .notes-badge {
-      display: inline-block;
-      padding: 8px 15px;
+      display: inline-flex;
+      padding: 8px 16px;
       border-radius: 999px;
-      background: rgba(124,58,237,.11);
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 800;
+      background: var(--primary-soft, rgba(0,0,0,.06));
+      font-weight: 700;
+      margin-bottom: 15px;
     }
 
     .notes-hero h1 {
-      margin: 17px 0 10px;
-      font-size: clamp(34px, 6vw, 58px);
-    }
-
-    .notes-hero h1 span {
-      color: var(--primary);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      margin-bottom: 14px;
     }
 
     .notes-hero p {
       max-width: 720px;
       margin: auto;
-      color: var(--text-soft);
       line-height: 1.8;
+      opacity: .82;
     }
 
-    .controls {
+    .notes-actions {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
       flex-wrap: wrap;
-      gap: 10px;
-      margin: 25px 0 30px;
+      margin-bottom: 30px;
     }
 
-    .filter-btn {
-      border: 1px solid rgba(124,58,237,.18);
-      border-radius: 12px;
-      padding: 10px 15px;
-      background: rgba(124,58,237,.07);
-      color: var(--primary);
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .search-box {
-      width: 100%;
-      max-width: 650px;
-      display: block;
-      margin: 0 auto 30px;
-      padding: 14px 17px;
-      border-radius: 13px;
-      border: 1px solid rgba(124,58,237,.18);
-      outline: none;
-      background: var(--card-bg, rgba(255,255,255,.06));
-      color: var(--text);
-      font-size: 15px;
-      box-sizing: border-box;
-    }
-
-    .notes-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 17px;
+    .notes-content {
+      max-width: 950px;
+      margin: auto;
     }
 
     .note-card {
-      padding: 22px;
-      border-radius: 20px;
-      border: 1px solid rgba(124,58,237,.14);
-      background: var(--card-bg, rgba(255,255,255,.06));
-      box-shadow: 0 12px 35px rgba(0,0,0,.06);
-      transition: .22s ease;
+      padding: 32px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.75));
+      margin-bottom: 24px;
     }
 
-    .note-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .note-icon {
-      font-size: 30px;
-      margin-bottom: 12px;
+    .note-card h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
     }
 
     .note-card h3 {
-      margin: 0 0 7px;
+      margin-top: 25px;
     }
 
-    .note-card p {
-      color: var(--text-soft);
-      line-height: 1.65;
-      font-size: 14px;
-      margin: 0 0 15px;
+    .note-card p,
+    .note-card li {
+      line-height: 1.9;
     }
 
-    .note-info {
+    .note-card ul {
+      padding-left: 22px;
+    }
+
+    .important-box {
+      padding: 22px;
+      border-radius: 18px;
+      background: var(--primary-soft, rgba(0,0,0,.05));
+      margin-top: 20px;
+    }
+
+    .important-box strong {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .revision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .revision-card {
+      padding: 20px;
+      border-radius: 17px;
+      text-align: center;
+      background: var(--primary-soft, rgba(0,0,0,.05));
+    }
+
+    .revision-card .icon {
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .revision-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .revision-card span {
+      font-size: .82rem;
+      opacity: .68;
+    }
+
+    .bottom-actions {
       display: flex;
+      justify-content: center;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 15px;
-    }
-
-    .note-info span {
-      padding: 5px 8px;
-      border-radius: 8px;
-      background: rgba(124,58,237,.08);
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .note-card button {
-      width: 100%;
-      padding: 10px;
-      border: 0;
-      border-radius: 10px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 800;
-      cursor: pointer;
+      margin-top: 30px;
     }
 
     .empty-state {
       display: none;
       text-align: center;
-      padding: 35px 20px;
-      margin-top: 20px;
-      border: 1px dashed rgba(124,58,237,.25);
-      border-radius: 18px;
-      color: var(--text-soft);
+      padding: 45px 20px;
+      border-radius: 22px;
+      border: 1px dashed var(--border-color, rgba(0,0,0,.15));
     }
 
-    @media (max-width: 850px) {
-      .notes-grid {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 900px) {
+      .revision-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
       }
     }
 
-    @media (max-width: 560px) {
-      .notes-grid {
+    @media (max-width: 620px) {
+      .notes-page {
+        padding-top: 90px;
+      }
+
+      .note-card {
+        padding: 24px 18px;
+      }
+
+      .revision-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -182,534 +165,607 @@
 
 <body>
 
-  <main class="notes-page">
-
-    <div class="notes-container">
-
-      <section class="notes-hero">
-
-        <div class="notes-badge">
-          📝 ARS EDUCATION • NOTES
-        </div>
-
-        <h1>
-          Easy <span>Notes</span>
-        </h1>
-
-        <p>
-          Class 5 से Class 8 तक subject और chapter-wise
-          आसान, व्यवस्थित और exam-focused notes।
-        </p>
-
-      </section>
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
 
-      <section>
+  <header class="site-header">
 
-        <div class="controls">
+    <div class="container nav-container">
 
-          <button
-            class="filter-btn"
-            data-class="5"
-          >
-            Class 5
-          </button>
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <span>ARS Official</span>
+      </a>
 
-          <button
-            class="filter-btn active"
-            data-class="6"
-          >
-            Class 6
-          </button>
-
-          <button
-            class="filter-btn"
-            data-class="7"
-          >
-            Class 7
-          </button>
-
-          <button
-            class="filter-btn"
-            data-class="8"
-          >
-            Class 8
-          </button>
-
-        </div>
-
-
-        <div class="controls">
-
-          <button
-            class="filter-btn active"
-            data-subject="all"
-          >
-            All Subjects
-          </button>
-
-          <button
-            class="filter-btn"
-            data-subject="maths"
-          >
-            Mathematics
-          </button>
-
-          <button
-            class="filter-btn"
-            data-subject="science"
-          >
-            Science
-          </button>
-
-          <button
-            class="filter-btn"
-            data-subject="english"
-          >
-            English
-          </button>
-
-          <button
-            class="filter-btn"
-            data-subject="hindi"
-          >
-            Hindi
-          </button>
-
-          <button
-            class="filter-btn"
-            data-subject="social-science"
-          >
-            Social Science
-          </button>
-
-        </div>
-
-
-        <input
-          id="searchInput"
-          class="search-box"
-          type="search"
-          placeholder="🔎 Search notes, subject or chapter..."
-          autocomplete="off"
-        >
-
-      </section>
-
-
-      <section
-        class="notes-grid"
-        id="notesGrid"
+      <button
+        class="mobile-menu-toggle"
+        id="mobileMenuToggle"
+        aria-label="Open menu"
+        aria-expanded="false"
       >
+        ☰
+      </button>
 
-        <article
-          class="note-card"
-          data-class="6"
-          data-subject="maths"
-          data-title="maths knowing our numbers"
-        >
+      <nav class="main-nav" id="mainNav">
 
-          <div class="note-icon">➗</div>
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="publisher.html">Publisher</a>
+        <a href="admin.html">Admin</a>
+        <a href="policy.html">Policy</a>
 
-          <h3>Knowing Our Numbers</h3>
-
-          <p>
-            Numbers और place value के important concepts
-            को आसान तरीके से समझें।
-          </p>
-
-          <div class="note-info">
-            <span>Class 6</span>
-            <span>Maths</span>
-          </div>
-
-          <button
-            data-open="Knowing Our Numbers"
-            data-subject="maths"
-          >
-            Read Notes →
-          </button>
-
-        </article>
-
-
-        <article
-          class="note-card"
-          data-class="6"
-          data-subject="science"
-          data-title="science components of food"
-        >
-
-          <div class="note-icon">🔬</div>
-
-          <h3>Components of Food</h3>
-
-          <p>
-            Food और nutrients से जुड़े basic concepts
-            तथा important points।
-          </p>
-
-          <div class="note-info">
-            <span>Class 6</span>
-            <span>Science</span>
-          </div>
-
-          <button
-            data-open="Components of Food"
-            data-subject="science"
-          >
-            Read Notes →
-          </button>
-
-        </article>
-
-
-        <article
-          class="note-card"
-          data-class="6"
-          data-subject="social-science"
-          data-title="social science history"
-        >
-
-          <div class="note-icon">🏛️</div>
-
-          <h3>History Notes</h3>
-
-          <p>
-            History के important concepts और
-            revision points।
-          </p>
-
-          <div class="note-info">
-            <span>Class 6</span>
-            <span>Social Science</span>
-          </div>
-
-          <button
-            data-open="History"
-            data-subject="social-science"
-          >
-            Read Notes →
-          </button>
-
-        </article>
-
-
-        <article
-          class="note-card"
-          data-class="5"
-          data-subject="maths"
-          data-title="class 5 maths"
-        >
-
-          <div class="note-icon">🔢</div>
-
-          <h3>Class 5 Maths</h3>
-
-          <p>
-            Class 5 Mathematics के chapter-wise
-            notes यहाँ उपलब्ध होंगे।
-          </p>
-
-          <div class="note-info">
-            <span>Class 5</span>
-            <span>Maths</span>
-          </div>
-
-          <button
-            data-open="Class 5 Maths"
-            data-subject="maths"
-          >
-            Read Notes →
-          </button>
-
-        </article>
-
-
-        <article
-          class="note-card"
-          data-class="7"
-          data-subject="science"
-          data-title="class 7 science"
-        >
-
-          <div class="note-icon">🧪</div>
-
-          <h3>Class 7 Science</h3>
-
-          <p>
-            Class 7 Science के concepts,
-            definitions और revision notes।
-          </p>
-
-          <div class="note-info">
-            <span>Class 7</span>
-            <span>Science</span>
-          </div>
-
-          <button
-            data-open="Class 7 Science"
-            data-subject="science"
-          >
-            Read Notes →
-          </button>
-
-        </article>
-
-
-        <article
-          class="note-card"
-          data-class="8"
-          data-subject="english"
-          data-title="class 8 english"
-        >
-
-          <div class="note-icon">📖</div>
-
-          <h3>Class 8 English</h3>
-
-          <p>
-            Class 8 English के useful notes,
-            concepts और revision material।
-          </p>
-
-          <div class="note-info">
-            <span>Class 8</span>
-            <span>English</span>
-          </div>
-
-          <button
-            data-open="Class 8 English"
-            data-subject="english"
-          >
-            Read Notes →
-          </button>
-
-        </article>
-
-      </section>
-
-
-      <div
-        id="emptyState"
-        class="empty-state"
-      >
-        <h3>📚 Notes नहीं मिले</h3>
-        <p>
-          दूसरे class, subject या search term से कोशिश करें।
-        </p>
-      </div>
+      </nav>
 
     </div>
+
+  </header>
+
+
+  <main class="notes-page">
+
+    <section class="notes-hero container">
+
+      <div class="notes-badge" id="notesBadge">
+        📝 ARS Education
+      </div>
+
+      <h1 id="notesTitle">
+        Chapter Notes
+      </h1>
+
+      <p id="notesDescription">
+        Quick and structured notes to help you understand
+        and revise the chapter.
+      </p>
+
+    </section>
+
+
+    <section class="container">
+
+      <div class="notes-actions">
+
+        <a href="#" id="backToChapter" class="btn btn-secondary">
+          ← Back to Chapter
+        </a>
+
+        <a href="#" id="openMcq" class="btn btn-primary">
+          Practice MCQs →
+        </a>
+
+      </div>
+
+
+      <div class="notes-content" id="notesContent">
+
+        <article class="note-card">
+
+          <h2>📌 Quick Notes</h2>
+
+          <p id="quickIntro">
+            These notes are designed to provide a quick overview
+            of the important learning points of the chapter.
+          </p>
+
+          <div class="important-box">
+
+            <strong>💡 Important</strong>
+
+            <span>
+              पहले concept को समझें, फिर notes से revision करें।
+              केवल notes याद करने के बजाय examples और practice
+              questions भी जरूर करें।
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <article class="note-card">
+
+          <h2>📚 Important Points</h2>
+
+          <ul id="importantPoints">
+
+            <li>
+              Chapter के मुख्य concepts को ध्यान से समझें।
+            </li>
+
+            <li>
+              Important definitions और formulas को revise करें।
+            </li>
+
+            <li>
+              Examples को देखकर स्वयं questions solve करें।
+            </li>
+
+            <li>
+              कठिन topics को दोबारा पढ़ें और short notes बनाएं।
+            </li>
+
+            <li>
+              Revision के बाद MCQ और practice questions attempt करें।
+            </li>
+
+          </ul>
+
+        </article>
+
+
+        <article class="note-card">
+
+          <h2>🧠 Remember These</h2>
+
+          <div class="revision-grid">
+
+            <div class="revision-card">
+              <div class="icon">💡</div>
+              <strong>Concept</strong>
+              <span>Understand first</span>
+            </div>
+
+            <div class="revision-card">
+              <div class="icon">📖</div>
+              <strong>Example</strong>
+              <span>Learn with examples</span>
+            </div>
+
+            <div class="revision-card">
+              <div class="icon">📝</div>
+              <strong>Notes</strong>
+              <span>Revise important points</span>
+            </div>
+
+            <div class="revision-card">
+              <div class="icon">❓</div>
+              <strong>MCQ</strong>
+              <span>Test your understanding</span>
+            </div>
+
+            <div class="revision-card">
+              <div class="icon">✍️</div>
+              <strong>Practice</strong>
+              <span>Apply what you learned</span>
+            </div>
+
+            <div class="revision-card">
+              <div class="icon">🔄</div>
+              <strong>Revision</strong>
+              <span>Repeat before exam</span>
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <article class="note-card">
+
+          <h2>🎯 Self-Check</h2>
+
+          <p>
+            खुद से इन सवालों के जवाब देने की कोशिश करें:
+          </p>
+
+          <ul>
+
+            <li>
+              क्या मैंने chapter के मुख्य concept को समझ लिया है?
+            </li>
+
+            <li>
+              क्या मैं important terms को अपने शब्दों में समझा सकता/सकती हूँ?
+            </li>
+
+            <li>
+              क्या मैं basic questions स्वयं solve कर सकता/सकती हूँ?
+            </li>
+
+            <li>
+              क्या मैंने गलत questions को दोबारा revise किया है?
+            </li>
+
+          </ul>
+
+        </article>
+
+
+        <div class="bottom-actions">
+
+          <a href="#" id="practiceButton" class="btn btn-secondary">
+            ✍️ Practice
+          </a>
+
+          <a href="#" id="mcqButton" class="btn btn-primary">
+            ❓ Start MCQ
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="empty-state" id="emptyState">
+
+        <h3>Notes information unavailable</h3>
+
+        <p>
+          Please select a valid class, subject, book and chapter
+          from the ARS Education portal.
+        </p>
+
+        <a href="education.html" class="btn btn-primary">
+          Back to Education
+        </a>
+
+      </div>
+
+    </section>
 
   </main>
 
 
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <img src="logo.png" alt="ARS Official Logo">
+
+        <h3>ARS Official</h3>
+
+        <p>
+          Learning, creativity and digital growth —
+          together with ARS.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Education</h4>
+
+        <a href="class.html?class=5">Class 5</a>
+        <a href="class.html?class=6">Class 6</a>
+        <a href="class.html?class=7">Class 7</a>
+        <a href="class.html?class=8">Class 8</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>More</h4>
+
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <div>
+        © <span data-current-year></span>
+        ARS Official. All rights reserved.
+      </div>
+
+      <div class="footer-signature">
+        <span>Adarsh Raj</span>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+
+
   <script>
-    (() => {
+    document.addEventListener("DOMContentLoaded", function () {
 
-      "use strict";
+      const params = new URLSearchParams(window.location.search);
 
-
-      let selectedClass =
-        localStorage.getItem(
-          "ARS_NOTES_CLASS"
-        ) || "6";
-
-      let selectedSubject = "all";
+      const classNumber = params.get("class");
+      const subjectKey = params.get("subject");
+      const bookKey = params.get("book");
+      const chapterNumber = parseInt(params.get("chapter"), 10);
 
 
-      const classButtons =
-        document.querySelectorAll(
-          "[data-class]"
-        );
+      const notesBadge =
+        document.getElementById("notesBadge");
 
-      const subjectButtons =
-        document.querySelectorAll(
-          "[data-subject]"
-        );
+      const notesTitle =
+        document.getElementById("notesTitle");
 
-      const cards =
-        document.querySelectorAll(
-          ".note-card"
-        );
+      const notesDescription =
+        document.getElementById("notesDescription");
 
-      const searchInput =
-        document.getElementById(
-          "searchInput"
-        );
+      const quickIntro =
+        document.getElementById("quickIntro");
+
+      const notesContent =
+        document.getElementById("notesContent");
 
       const emptyState =
-        document.getElementById(
-          "emptyState"
-        );
+        document.getElementById("emptyState");
+
+      const backToChapter =
+        document.getElementById("backToChapter");
+
+      const openMcq =
+        document.getElementById("openMcq");
+
+      const practiceButton =
+        document.getElementById("practiceButton");
+
+      const mcqButton =
+        document.getElementById("mcqButton");
 
 
-      function updateActiveButtons() {
+      const subjects = {
 
-        classButtons.forEach(button => {
+        mathematics: {
+          name: "Mathematics",
+          icon: "🔢"
+        },
 
-          button.classList.toggle(
-            "active",
-            button.dataset.class ===
-              selectedClass
-          );
+        science: {
+          name: "Science",
+          icon: "🔬"
+        },
 
-        });
+        english: {
+          name: "English",
+          icon: "📖"
+        },
+
+        hindi: {
+          name: "Hindi",
+          icon: "📝"
+        },
+
+        "social-studies": {
+          name: "Social Studies",
+          icon: "🌍"
+        },
+
+        "social-science": {
+          name: "Social Science",
+          icon: "🌍"
+        },
+
+        "general-knowledge": {
+          name: "General Knowledge",
+          icon: "🧠"
+        }
+
+      };
 
 
-        subjectButtons.forEach(button => {
+      const books = {
 
-          button.classList.toggle(
-            "active",
-            button.dataset.subject ===
-              selectedSubject
-          );
+        main: "Main Course",
+        practice: "Practice",
+        revision: "Revision"
 
-        });
+      };
 
+
+      const chapterNames = {
+
+        1: "Introduction & Basic Concepts",
+        2: "Understanding the Core Ideas",
+        3: "Concepts Through Examples",
+        4: "Application & Problem Solving",
+        5: "Practice & Important Concepts",
+        6: "Revision & Self Assessment"
+
+      };
+
+
+      if (
+        !classNumber ||
+        !subjectKey ||
+        !bookKey ||
+        !subjects[subjectKey] ||
+        !books[bookKey] ||
+        !Number.isInteger(chapterNumber) ||
+        chapterNumber < 1 ||
+        chapterNumber > 6
+      ) {
+
+        notesBadge.textContent =
+          "📝 ARS Education";
+
+        notesTitle.textContent =
+          "Notes Not Found";
+
+        notesDescription.textContent =
+          "Please select a valid chapter from the ARS Education portal.";
+
+        notesContent.style.display = "none";
+        emptyState.style.display = "block";
+
+        return;
       }
 
 
-      function filterNotes() {
+      const subject =
+        subjects[subjectKey];
 
-        const search =
-          searchInput.value
-            .trim()
-            .toLowerCase();
+      const bookName =
+        books[bookKey];
 
-        let visibleCount = 0;
-
-
-        cards.forEach(card => {
-
-          const cardClass =
-            card.dataset.class;
-
-          const cardSubject =
-            card.dataset.subject;
-
-          const cardTitle =
-            card.dataset.title || "";
+      const chapterName =
+        chapterNames[chapterNumber];
 
 
-          const classMatch =
-            cardClass === selectedClass;
-
-          const subjectMatch =
-            selectedSubject === "all" ||
-            cardSubject === selectedSubject;
-
-          const searchMatch =
-            !search ||
-            cardTitle.includes(search) ||
-            cardSubject.includes(search) ||
-            cardClass.includes(search);
+      notesBadge.textContent =
+        subject.icon +
+        " Class " +
+        classNumber +
+        " • " +
+        subject.name;
 
 
-          const visible =
-            classMatch &&
-            subjectMatch &&
-            searchMatch;
+      notesTitle.textContent =
+        "Notes — Chapter " +
+        chapterNumber;
 
 
-          card.style.display =
-            visible
-              ? ""
-              : "none";
+      notesDescription.textContent =
+        chapterName +
+        " • " +
+        subject.name +
+        " • " +
+        bookName;
 
 
-          if (visible) {
-            visibleCount++;
-          }
+      quickIntro.textContent =
+        "These quick notes belong to Chapter " +
+        chapterNumber +
+        " — " +
+        chapterName +
+        " of " +
+        subject.name +
+        " for Class " +
+        classNumber +
+        ". Detailed original notes can be published and updated through the ARS Education Publisher.";
 
-        });
+
+      const commonParams =
+        "?class=" +
+        encodeURIComponent(classNumber) +
+        "&subject=" +
+        encodeURIComponent(subjectKey) +
+        "&book=" +
+        encodeURIComponent(bookKey) +
+        "&chapter=" +
+        encodeURIComponent(chapterNumber);
 
 
-        emptyState.style.display =
-          visibleCount === 0
-            ? "block"
-            : "none";
+      backToChapter.href =
+        "chapter.html" +
+        commonParams;
+
+
+      openMcq.href =
+        "mcq.html" +
+        commonParams;
+
+
+      mcqButton.href =
+        "mcq.html" +
+        commonParams;
+
+
+      practiceButton.href =
+        "practice.html" +
+        commonParams;
+
+
+      /*
+       * Small subject-aware hints.
+       * These are learning guidance, not official syllabus claims.
+       */
+
+      const points =
+        document.getElementById("importantPoints");
+
+
+      if (subjectKey === "mathematics") {
+
+        points.innerHTML = `
+          <li>Definitions, rules और formulas को समझें।</li>
+          <li>हर solved example को step-by-step देखें।</li>
+          <li>Calculation में units और signs का ध्यान रखें।</li>
+          <li>Questions को बिना solution देखे दोबारा solve करें।</li>
+          <li>गलत हुए questions की अलग से revision करें।</li>
+        `;
+
+      } else if (subjectKey === "science") {
+
+        points.innerHTML = `
+          <li>Scientific terms और definitions को समझें।</li>
+          <li>Processes और concepts को sequence में समझें।</li>
+          <li>Diagrams और examples को ध्यान से देखें।</li>
+          <li>Important observations और facts को revise करें।</li>
+          <li>MCQs के साथ conceptual questions भी practice करें।</li>
+        `;
+
+      } else if (
+        subjectKey === "english" ||
+        subjectKey === "hindi"
+      ) {
+
+        points.innerHTML = `
+          <li>नए शब्दों और उनके अर्थ को revise करें।</li>
+          <li>Grammar rules को examples के साथ समझें।</li>
+          <li>Reading passage को ध्यान से पढ़ें।</li>
+          <li>Writing practice नियमित रूप से करें।</li>
+          <li>गलतियों को पहचानकर दोबारा practice करें।</li>
+        `;
+
+      } else if (
+        subjectKey === "social-science" ||
+        subjectKey === "social-studies"
+      ) {
+
+        points.innerHTML = `
+          <li>Important terms और key facts को समझें।</li>
+          <li>Events और concepts के बीच connection समझें।</li>
+          <li>Maps, timelines और examples को revise करें।</li>
+          <li>Short-answer और objective questions practice करें।</li>
+          <li>Chapter के अंत में complete revision करें।</li>
+        `;
+
+      } else {
+
+        points.innerHTML = `
+          <li>Important facts को समझकर याद करें।</li>
+          <li>New terms और concepts को revise करें।</li>
+          <li>Examples और practice questions देखें।</li>
+          <li>गलत answers को identify करके दोबारा पढ़ें।</li>
+          <li>Regular revision से retention मजबूत करें।</li>
+        `;
 
       }
 
-
-      classButtons.forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            selectedClass =
-              button.dataset.class;
-
-            localStorage.setItem(
-              "ARS_NOTES_CLASS",
-              selectedClass
-            );
-
-            updateActiveButtons();
-            filterNotes();
-
-          }
-        );
-
-      });
-
-
-      subjectButtons.forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            selectedSubject =
-              button.dataset.subject;
-
-            updateActiveButtons();
-            filterNotes();
-
-          }
-        );
-
-      });
-
-
-      searchInput.addEventListener(
-        "input",
-        filterNotes
-      );
-
-
-      document
-        .querySelectorAll(
-          "[data-open]"
-        )
-        .forEach(button => {
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              const note =
-                button.dataset.open;
-
-              const subject =
-                button.dataset.subject;
-
-              window.location.href =
-                `resource.html?class=${encodeURIComponent(selectedClass)}&subject=${encodeURIComponent(subject)}&book=Notes&chapter=${encodeURIComponent(note)}&chapterNo=1&type=notes`;
-
-            }
-          );
-
-        });
-
-
-      updateActiveButtons();
-      filterNotes();
-
-    })();
+    });
   </script>
 
 </body>
