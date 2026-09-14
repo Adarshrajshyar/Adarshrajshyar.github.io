@@ -4,236 +4,269 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>ARS AI – Educational Assistant</title>
-  <meta name="description" content="ARS AI – Educational AI Assistant for students, NCERT, GK, Maths, Science, Navodaya, Sainik School and RMS preparation.">
+  <title>ARS AI | ARS Official</title>
+  <meta
+    name="description"
+    content="ARS AI — an upcoming AI learning and creative assistant by ARS Official."
+  >
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .ai-page {
-      max-width: 1100px;
-      margin: auto;
-      padding: 25px 16px 50px;
-    }
-
     .ai-hero {
+      padding: 90px 20px 75px;
+      color: #fff;
       text-align: center;
-      padding: 35px 20px;
-      border-radius: 24px;
-      margin-bottom: 22px;
-      background: linear-gradient(135deg, #4f46e5, #7c3aed, #0891b2);
-      color: white;
-      box-shadow: 0 12px 35px rgba(0,0,0,.15);
-    }
-
-    .ai-hero h1 {
-      margin: 0 0 10px;
-      font-size: clamp(30px, 5vw, 48px);
-    }
-
-    .ai-hero p {
-      margin: 0 auto;
-      max-width: 720px;
-      line-height: 1.6;
-    }
-
-    .ai-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 16px;
-      padding: 7px 13px;
-      border-radius: 50px;
-      background: rgba(255,255,255,.18);
-      font-size: 14px;
-    }
-
-    .ai-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #22c55e;
-    }
-
-    .ai-layout {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 18px;
-    }
-
-    .ai-panel,
-    .chat-box {
-      border-radius: 20px;
-      border: 1px solid rgba(128,128,128,.2);
-      background: var(--card-bg, #fff);
-      box-shadow: 0 8px 25px rgba(0,0,0,.08);
-    }
-
-    .ai-panel {
-      padding: 18px;
-      height: fit-content;
-    }
-
-    .ai-panel h3 {
-      margin-top: 0;
-    }
-
-    .ai-topic {
-      width: 100%;
-      border: 0;
-      padding: 11px 12px;
-      margin: 5px 0;
-      border-radius: 12px;
-      text-align: left;
-      cursor: pointer;
-      background: rgba(128,128,128,.09);
-      color: inherit;
-      transition: .2s;
-    }
-
-    .ai-topic:hover {
-      transform: translateX(3px);
-      background: rgba(79,70,229,.12);
-    }
-
-    .chat-box {
-      min-height: 650px;
-      display: flex;
-      flex-direction: column;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.13), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,.10), transparent 30%),
+        linear-gradient(135deg, var(--primary), var(--primary-dark));
+      position: relative;
       overflow: hidden;
     }
 
-    .chat-header {
-      padding: 17px 20px;
-      border-bottom: 1px solid rgba(128,128,128,.2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .ai-hero-inner {
+      max-width: 900px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
     }
 
-    .chat-title {
+    .ai-badge {
+      display: inline-flex;
+      padding: 9px 17px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.22);
       font-weight: 700;
+      margin-bottom: 18px;
     }
 
-    .clear-chat {
-      border: 0;
-      border-radius: 9px;
-      padding: 8px 12px;
-      cursor: pointer;
-      background: rgba(220,38,38,.1);
-      color: #dc2626;
+    .ai-hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.3rem);
+      margin: 0 0 15px;
+      line-height: 1.05;
     }
 
-    .messages {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      min-height: 450px;
-      max-height: 520px;
+    .ai-hero p {
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.8;
+      opacity: .92;
     }
 
-    .message {
-      display: flex;
-      margin-bottom: 15px;
+    .ai-section {
+      padding: 70px 20px;
     }
 
-    .message.user {
-      justify-content: flex-end;
+    .ai-container {
+      max-width: 1150px;
+      margin: auto;
     }
 
-    .bubble {
-      max-width: 80%;
-      padding: 12px 15px;
-      border-radius: 16px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-    }
-
-    .message.ai .bubble {
-      background: rgba(79,70,229,.09);
-      border-bottom-left-radius: 5px;
-    }
-
-    .message.user .bubble {
-      background: #4f46e5;
-      color: white;
-      border-bottom-right-radius: 5px;
-    }
-
-    .suggestions {
-      padding: 10px 18px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(128,128,128,.12);
-    }
-
-    .suggestion {
-      border: 1px solid rgba(79,70,229,.25);
-      background: transparent;
-      color: inherit;
-      padding: 8px 11px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .input-area {
-      padding: 15px;
-      border-top: 1px solid rgba(128,128,128,.2);
-      display: flex;
-      gap: 10px;
-    }
-
-    #aiInput {
-      flex: 1;
-      min-width: 0;
-      resize: none;
-      border: 1px solid rgba(128,128,128,.3);
-      border-radius: 14px;
-      padding: 13px;
-      background: transparent;
-      color: inherit;
-      outline: none;
-      font: inherit;
-    }
-
-    #sendAI {
-      border: 0;
-      border-radius: 14px;
-      padding: 0 20px;
-      cursor: pointer;
-      color: white;
-      background: #4f46e5;
-      font-weight: 700;
-    }
-
-    #sendAI:hover {
-      opacity: .9;
-    }
-
-    .ai-note {
-      font-size: 12px;
-      opacity: .65;
-      padding: 0 18px 15px;
+    .ai-heading {
+      max-width: 750px;
+      margin: 0 auto 38px;
       text-align: center;
     }
 
-    @media (max-width: 760px) {
-      .ai-layout {
+    .ai-heading h2 {
+      margin-bottom: 12px;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+    }
+
+    .ai-heading p {
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .ai-status {
+      max-width: 900px;
+      margin: -30px auto 55px;
+      position: relative;
+      z-index: 2;
+      padding: 25px;
+      border-radius: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .ai-status-icon {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--primary-soft);
+      font-size: 1.6rem;
+    }
+
+    .ai-status h3 {
+      margin: 0 0 6px;
+    }
+
+    .ai-status p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .ai-card {
+      padding: 27px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 21px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .ai-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .ai-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--primary-soft);
+      font-size: 1.45rem;
+      margin-bottom: 17px;
+    }
+
+    .ai-card h3 {
+      margin: 0 0 10px;
+    }
+
+    .ai-card p {
+      margin: 0;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .ai-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .ai-step {
+      padding: 24px 17px;
+      text-align: center;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .ai-step-number {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .ai-step strong {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .ai-step span {
+      color: var(--text-muted);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .ai-note {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 17px;
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .ai-cta {
+      padding: 65px 20px;
+      background: var(--surface-alt);
+    }
+
+    .ai-cta-box {
+      max-width: 900px;
+      margin: auto;
+      padding: 45px 25px;
+      text-align: center;
+      border-radius: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ai-cta-box h2 {
+      margin: 0 0 12px;
+    }
+
+    .ai-cta-box p {
+      max-width: 680px;
+      margin: 0 auto 24px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .ai-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .ai-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ai-flow {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .ai-grid,
+      .ai-flow {
         grid-template-columns: 1fr;
       }
 
-      .ai-panel {
-        order: 2;
+      .ai-status {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .ai-section {
+        padding: 55px 16px;
       }
 
-      .chat-box {
-        min-height: 600px;
-      }
-
-      .bubble {
-        max-width: 90%;
+      .ai-status {
+        flex-direction: column;
       }
     }
   </style>
@@ -241,327 +274,448 @@
 
 <body>
 
-  <main class="ai-page">
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
+  <header class="site-header">
+    <div class="container nav-wrap">
+
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html" class="active">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+
+        <div class="nav-mobile-extra">
+          <a href="publisher.html">Publisher</a>
+          <a href="admin.html">Admin</a>
+          <a href="policy.html">Policy</a>
+        </div>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
     <section class="ai-hero">
-      <h1>🤖 ARS AI</h1>
-      <p>
-        आपका Educational Assistant — NCERT, Maths, Science, GK,
-        Notes, MCQ, Practice, Exam Tips, Navodaya, Sainik School और RMS
-        की पढ़ाई में सहायता के लिए।
-      </p>
+      <div class="ai-hero-inner">
 
-      <div class="ai-status">
-        <span class="ai-dot"></span>
-        ARS AI Educational Mode
+        <div class="ai-badge">
+          🤖 ARS Official • AI Project
+        </div>
+
+        <h1>ARS AI</h1>
+
+        <p>
+          An upcoming AI-powered learning and creative assistant
+          designed to become a part of the ARS ecosystem.
+        </p>
+
       </div>
     </section>
 
-    <section class="ai-layout">
 
-      <!-- LEFT TOPICS -->
-      <aside class="ai-panel">
-        <h3>📚 Study Topics</h3>
+    <!-- STATUS -->
+    <div class="ai-status">
 
-        <button class="ai-topic" data-question="NCERT Class 6 की पढ़ाई में मेरी मदद करो।">
-          📘 NCERT
-        </button>
+      <div class="ai-status-icon">🚀</div>
 
-        <button class="ai-topic" data-question="Class 6 Maths की तैयारी कैसे करूँ?">
-          ➗ Maths
-        </button>
+      <div>
+        <h3>ARS AI is an Upcoming Feature</h3>
+        <p>
+          The AI system is being planned separately from the current
+          static website. The website interface can be prepared now,
+          while secure AI services and backend integration can be added
+          later.
+        </p>
+      </div>
 
-        <button class="ai-topic" data-question="Class 6 Science पढ़ने में मेरी मदद करो।">
-          🔬 Science
-        </button>
-
-        <button class="ai-topic" data-question="मुझे General Knowledge के प्रश्न पूछो।">
-          🌍 GK
-        </button>
-
-        <button class="ai-topic" data-question="मेरे लिए Class 6 के MCQ बनाओ।">
-          📝 MCQ
-        </button>
-
-        <button class="ai-topic" data-question="मेरे लिए practice questions बनाओ।">
-          ✍️ Practice
-        </button>
-
-        <button class="ai-topic" data-question="Exam की तैयारी के लिए important tips बताओ।">
-          🎯 Exam Tips
-        </button>
-
-        <button class="ai-topic" data-question="Navodaya Class 6 की तैयारी में मेरी मदद करो।">
-          🏫 Navodaya
-        </button>
-
-        <button class="ai-topic" data-question="Sainik School Class 6 की तैयारी में मेरी मदद करो।">
-          🎖️ Sainik School
-        </button>
-
-        <button class="ai-topic" data-question="RMS Class 6 की तैयारी में मेरी मदद करो।">
-          🏅 RMS
-        </button>
-      </aside>
+    </div>
 
 
-      <!-- CHAT -->
-      <section class="chat-box">
+    <!-- FEATURES -->
+    <section class="ai-section">
+      <div class="ai-container">
 
-        <header class="chat-header">
-          <div>
-            <div class="chat-title">ARS AI Assistant</div>
-            <small>Study • Learn • Practice</small>
-          </div>
+        <div class="ai-heading">
+          <h2>What ARS AI Can Become</h2>
+          <p>
+            The final capabilities will depend on the future ARS AI
+            system, but the platform is planned around learning,
+            creativity and useful assistance.
+          </p>
+        </div>
 
-          <button class="clear-chat" id="clearChat">
-            Clear
-          </button>
-        </header>
+        <div class="ai-grid">
 
+          <article class="ai-card">
+            <div class="ai-icon">📚</div>
+            <h3>Study Assistant</h3>
+            <p>
+              Help students understand concepts, organise revision
+              and practise questions in a simple way.
+            </p>
+          </article>
 
-        <div class="messages" id="messages">
+          <article class="ai-card">
+            <div class="ai-icon">🧠</div>
+            <h3>Concept Explanation</h3>
+            <p>
+              Explain difficult topics using simpler language,
+              examples and step-by-step learning.
+            </p>
+          </article>
 
-          <div class="message ai">
-            <div class="bubble">
-नमस्ते! 👋
+          <article class="ai-card">
+            <div class="ai-icon">✍️</div>
+            <h3>Writing Assistant</h3>
+            <p>
+              Support original writing, brainstorming, drafting
+              and improvement of ideas.
+            </p>
+          </article>
 
-मैं ARS AI हूँ।
+          <article class="ai-card">
+            <div class="ai-icon">🔎</div>
+            <h3>Question Helper</h3>
+            <p>
+              Help learners analyse questions and understand what
+              a problem is asking.
+            </p>
+          </article>
 
-मैं आपको पढ़ाई से जुड़े सवालों में मदद कर सकता हूँ।
+          <article class="ai-card">
+            <div class="ai-icon">📝</div>
+            <h3>Revision Support</h3>
+            <p>
+              Create structured revision plans and help students
+              review important concepts.
+            </p>
+          </article>
 
-आप NCERT, Maths, Science, GK, MCQ, Practice,
-Exam Tips, Navodaya, Sainik School या RMS के बारे में पूछ सकते हैं।
-
-अपना सवाल नीचे लिखें। 😊
-            </div>
-          </div>
+          <article class="ai-card">
+            <div class="ai-icon">💡</div>
+            <h3>Creative Ideas</h3>
+            <p>
+              Assist with ideas for poems, stories, projects and
+              other original creative work.
+            </p>
+          </article>
 
         </div>
 
+      </div>
+    </section>
 
-        <div class="suggestions">
 
-          <button class="suggestion">
-            Class 6 Maths
-          </button>
+    <!-- LEARNING FLOW -->
+    <section class="ai-section" style="background:var(--surface-alt);">
+      <div class="ai-container">
 
-          <button class="suggestion">
-            MCQ बनाओ
-          </button>
-
-          <button class="suggestion">
-            GK Quiz
-          </button>
-
-          <button class="suggestion">
-            Exam Tips
-          </button>
-
+        <div class="ai-heading">
+          <h2>🎯 ARS AI Learning Flow</h2>
+          <p>
+            The planned experience is focused on understanding instead
+            of simply giving an answer.
+          </p>
         </div>
 
+        <div class="ai-flow">
 
-        <div class="input-area">
+          <div class="ai-step">
+            <div class="ai-step-number">1</div>
+            <strong>Ask</strong>
+            <span>Enter a question or learning problem.</span>
+          </div>
 
-          <textarea
-            id="aiInput"
-            rows="2"
-            placeholder="ARS AI से अपना सवाल पूछें..."
-          ></textarea>
+          <div class="ai-step">
+            <div class="ai-step-number">2</div>
+            <strong>Understand</strong>
+            <span>Get a clear explanation suited to the topic.</span>
+          </div>
 
-          <button id="sendAI">
-            Send
-          </button>
+          <div class="ai-step">
+            <div class="ai-step-number">3</div>
+            <strong>Practise</strong>
+            <span>Try examples or related practice questions.</span>
+          </div>
+
+          <div class="ai-step">
+            <div class="ai-step-number">4</div>
+            <strong>Improve</strong>
+            <span>Review mistakes and strengthen understanding.</span>
+          </div>
 
         </div>
 
         <div class="ai-note">
-          ARS AI का यह frontend बाद में secure backend/API AI service से जोड़ा जा सकता है।
+          💡 ARS AI should be used as a learning assistant, not as a
+          replacement for teachers, textbooks or responsible study.
         </div>
 
-      </section>
+      </div>
+    </section>
 
+
+    <!-- ARS ECOSYSTEM -->
+    <section class="ai-section">
+      <div class="ai-container">
+
+        <div class="ai-heading">
+          <h2>🌐 ARS AI + ARS Ecosystem</h2>
+          <p>
+            ARS AI is planned to work as one part of the wider ARS
+            platform rather than replacing its existing sections.
+          </p>
+        </div>
+
+        <div class="ai-grid">
+
+          <article class="ai-card">
+            <div class="ai-icon">🎓</div>
+            <h3>ARS Education</h3>
+            <p>
+              Connect learning support with classes, subjects,
+              chapters, notes and practice.
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="ai-icon">📖</div>
+            <h3>First Flight</h3>
+            <p>
+              Support English learning through literature concepts,
+              vocabulary and revision.
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="ai-icon">🌹</div>
+            <h3>Creative ARS</h3>
+            <p>
+              Support original shayari, stories, poems and other
+              creative projects.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- SAFETY / PRIVACY -->
+    <section class="ai-section" style="background:var(--surface-alt);">
+      <div class="ai-container">
+
+        <div class="ai-heading">
+          <h2>🔐 Responsible AI</h2>
+          <p>
+            Security and responsible use will be important when the
+            real AI service is connected.
+          </p>
+        </div>
+
+        <div class="ai-grid">
+
+          <article class="ai-card">
+            <div class="ai-icon">🔑</div>
+            <h3>Secure API</h3>
+            <p>
+              Any production AI API credentials should be kept on a
+              secure server rather than exposed in frontend code.
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="ai-icon">🛡️</div>
+            <h3>Privacy</h3>
+            <p>
+              The future system should follow clear privacy practices
+              for user data and conversations.
+            </p>
+          </article>
+
+          <article class="ai-card">
+            <div class="ai-icon">✅</div>
+            <h3>Human Guidance</h3>
+            <p>
+              Important academic, personal or professional decisions
+              should be checked with appropriate trusted people.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="ai-cta">
+      <div class="ai-cta-box">
+
+        <h2>🚀 ARS AI — Coming to the ARS Ecosystem</h2>
+
+        <p>
+          The current page establishes the ARS AI section of the website.
+          The actual AI interface and secure backend can be integrated
+          when the ARS AI development phase begins.
+        </p>
+
+        <div class="ai-buttons">
+
+          <a href="education.html" class="btn btn-primary">
+            Explore ARS Education
+          </a>
+
+          <a href="index.html" class="btn btn-outline">
+            Back to Home
+          </a>
+
+        </div>
+
+      </div>
     </section>
 
   </main>
 
 
-<script>
-(function () {
+  <footer class="site-footer">
 
-  const input = document.getElementById("aiInput");
-  const sendBtn = document.getElementById("sendAI");
-  const messages = document.getElementById("messages");
-  const clearBtn = document.getElementById("clearChat");
+    <div class="container footer-grid">
 
-  function addMessage(text, type) {
+      <div class="footer-brand">
 
-    const wrapper = document.createElement("div");
-    wrapper.className = "message " + type;
+        <a href="index.html" class="brand">
+          <img src="logo.png" alt="ARS Official Logo">
+          <span>
+            <strong>ARS Official</strong>
+            <small>Adarsh Raj Shayar</small>
+          </span>
+        </a>
 
-    const bubble = document.createElement("div");
-    bubble.className = "bubble";
-    bubble.textContent = text;
+        <p>
+          A creative and educational platform by Adarsh Raj Shayar,
+          bringing literature, learning and digital creativity together.
+        </p>
 
-    wrapper.appendChild(bubble);
-    messages.appendChild(wrapper);
-
-    messages.scrollTop = messages.scrollHeight;
-  }
-
-
-  function getAIResponse(question) {
-
-    const q = question.toLowerCase();
-
-    if (
-      q.includes("hello") ||
-      q.includes("hi") ||
-      q.includes("नमस्ते")
-    ) {
-      return "नमस्ते! 👋 ARS AI में आपका स्वागत है। पढ़ाई से जुड़ा कोई भी सवाल पूछिए।";
-    }
-
-    if (q.includes("math") || q.includes("गणित")) {
-      return "बिल्कुल! ➗ Maths में मैं concept समझाने, examples देने और practice questions बनाने में मदद कर सकता हूँ। अपना Class और Chapter बताइए।";
-    }
-
-    if (q.includes("science") || q.includes("विज्ञान")) {
-      return "🔬 Science के लिए अपना Class, Chapter या Topic बताइए। मैं उसे आसान भाषा में समझाने की कोशिश करूँगा।";
-    }
-
-    if (
-      q.includes("gk") ||
-      q.includes("general knowledge") ||
-      q.includes("सामान्य ज्ञान")
-    ) {
-      return "🌍 GK Quiz शुरू करते हैं! मैं आपके level के अनुसार प्रश्न दे सकता हूँ। आप चाहें तो Class 5, 6, 7 या 8 का level चुन सकते हैं।";
-    }
-
-    if (q.includes("mcq")) {
-      return "📝 MCQ के लिए Subject और Class बताइए। उदाहरण: “Class 6 Science के 10 MCQ बनाओ।”";
-    }
-
-    if (
-      q.includes("navodaya") ||
-      q.includes("नवोदय")
-    ) {
-      return "🏫 Navodaya Class 6 preparation में Maths, Mental Ability और Language जैसे क्षेत्रों की practice में मदद की जा सकती है। अपना topic बताइए।";
-    }
-
-    if (
-      q.includes("sainik") ||
-      q.includes("सैनिक")
-    ) {
-      return "🎖️ Sainik School Class 6 preparation के लिए Maths, Intelligence, Language और General Knowledge की practice कर सकते हैं।";
-    }
-
-    if (
-      q.includes("rms") ||
-      q.includes("military school")
-    ) {
-      return "🏅 RMS Class 6 preparation के लिए subject-wise practice, MCQ और revision plan बनाया जा सकता है।";
-    }
-
-    if (
-      q.includes("exam") ||
-      q.includes("परीक्षा")
-    ) {
-      return "🎯 Exam preparation का अच्छा तरीका है: syllabus → concepts → notes → MCQ → practice → revision → mock test। अपना Class और Subject बताइए।";
-    }
-
-    if (
-      q.includes("practice") ||
-      q.includes("प्रैक्टिस")
-    ) {
-      return "✍️ Practice शुरू करते हैं। Class + Subject + Chapter लिखिए, जैसे: “Class 6 Maths Chapter 3 practice।”";
-    }
-
-    if (
-      q.includes("ncert") ||
-      q.includes("एनसीईआरटी")
-    ) {
-      return "📘 NCERT के लिए पहले Class चुनें, फिर Subject → Book → Chapter। उसके बाद उसी chapter के notes, explanation, MCQ और practice की मदद ली जा सकती है।";
-    }
-
-    return "मैं आपकी मदद कर सकता हूँ। 😊 कृपया अपना Class, Subject और Topic लिखें। उदाहरण: “Class 6 Maths में Fractions समझाओ” या “Class 6 GK के 10 MCQ दो।”";
-  }
-
-
-  function sendMessage(text) {
-
-    text = (text || input.value).trim();
-
-    if (!text) return;
-
-    addMessage(text, "user");
-
-    input.value = "";
-
-    setTimeout(function () {
-      addMessage(getAIResponse(text), "ai");
-    }, 350);
-  }
-
-
-  sendBtn.addEventListener("click", function () {
-    sendMessage();
-  });
-
-
-  input.addEventListener("keydown", function (event) {
-
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      sendMessage();
-    }
-
-  });
-
-
-  document.querySelectorAll(".suggestion").forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-      input.value = button.textContent.trim();
-      input.focus();
-
-    });
-
-  });
-
-
-  document.querySelectorAll(".ai-topic").forEach(function (button) {
-
-    button.addEventListener("click", function () {
-
-      sendMessage(button.dataset.question);
-
-    });
-
-  });
-
-
-  clearBtn.addEventListener("click", function () {
-
-    messages.innerHTML = `
-      <div class="message ai">
-        <div class="bubble">
-नमस्ते! 👋
-
-मैं ARS AI हूँ।
-
-मैं आपको पढ़ाई से जुड़े सवालों में मदद कर सकता हूँ।
-
-अपना सवाल नीचे लिखें। 😊
-        </div>
       </div>
-    `;
 
-  });
 
-})();
-</script>
+      <div class="footer-links">
+
+        <h3>Quick Links</h3>
+
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories & Poetry</a>
+        <a href="education.html">ARS Education</a>
+        <a href="first-flight.html">First Flight</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h3>Important</h3>
+
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify Certificate</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
+
+      </div>
+
+
+      <div class="footer-founder">
+
+        <h3>Founder</h3>
+
+        <div class="footer-signature">
+          <span>Adarsh Raj</span>
+          <small>Founder of ARS Official</small>
+        </div>
+
+        <a href="founder.html" class="btn btn-outline">
+          About Founder
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <div class="container">
+
+        <span>
+          © <span id="footerYear"></span> ARS Official. All rights reserved.
+        </span>
+
+        <span>
+          Built with ❤️ by ARS
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Back to top"
+  >
+    ↑
+  </button>
+
+
+  <div
+    id="arsToast"
+    class="ars-toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
