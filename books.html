@@ -1,142 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Books | ARS Education</title>
-  <meta name="description" content="ARS Education NCERT books and chapters.">
+  <title>Book | ARS Education</title>
+  <meta
+    name="description"
+    content="ARS Education — Book and course chapter portal."
+  >
 
   <link rel="stylesheet" href="style.css">
 
   <style>
-    .books-page {
-      min-height: 100vh;
-      padding: 110px 18px 60px;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(124,58,237,.14), transparent 32%),
-        radial-gradient(circle at 90% 90%, rgba(236,72,153,.12), transparent 32%),
-        var(--bg);
+    .book-page {
+      padding: 110px 0 70px;
     }
 
-    .books-container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .books-header {
+    .book-hero {
       text-align: center;
-      margin-bottom: 35px;
+      max-width: 850px;
+      margin: 0 auto 45px;
     }
 
-    .books-header h1 {
-      font-size: clamp(30px, 5vw, 52px);
-      margin-bottom: 10px;
-    }
-
-    .books-header span {
-      color: var(--primary);
-    }
-
-    .books-header p {
-      color: var(--text-soft);
-    }
-
-    .book-info {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .book-tag {
-      padding: 8px 14px;
+    .book-badge {
+      display: inline-flex;
+      padding: 8px 16px;
       border-radius: 999px;
-      background: rgba(124,58,237,.12);
-      color: var(--primary);
-      font-size: 13px;
+      background: var(--primary-soft, rgba(0,0,0,.06));
       font-weight: 700;
+      margin-bottom: 15px;
     }
 
-    .books-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .book-card {
-      padding: 25px;
-      border-radius: 20px;
-      border: 1px solid rgba(124,58,237,.16);
-      background: var(--card-bg, rgba(255,255,255,.06));
-      box-shadow: 0 12px 35px rgba(0,0,0,.07);
-      transition: .25s ease;
-    }
-
-    .book-card:hover {
-      transform: translateY(-6px);
-    }
-
-    .book-icon {
-      font-size: 34px;
+    .book-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
       margin-bottom: 14px;
     }
 
-    .book-card h2 {
-      font-size: 20px;
-      margin: 0 0 8px;
+    .book-hero p {
+      max-width: 720px;
+      margin: auto;
+      line-height: 1.8;
+      opacity: .82;
     }
 
-    .book-card p {
-      color: var(--text-soft);
-      font-size: 14px;
-      line-height: 1.6;
-      min-height: 45px;
+    .book-tools {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
     }
 
-    .book-card button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 11px 15px;
-      border: 0;
-      border-radius: 12px;
-      background: var(--primary);
-      color: #fff;
+    .chapter-count {
       font-weight: 700;
-      cursor: pointer;
+      opacity: .75;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .chapter-card {
+      padding: 25px;
+      border-radius: 22px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.75));
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 35px rgba(0,0,0,.08);
+    }
+
+    .chapter-number {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--primary-soft, rgba(0,0,0,.06));
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .chapter-card h3 {
+      margin: 0 0 10px;
+    }
+
+    .chapter-card p {
+      line-height: 1.7;
+      opacity: .78;
+      margin-bottom: 20px;
+      font-size: .94rem;
+    }
+
+    .chapter-card .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    .book-info {
+      margin-top: 60px;
+      padding: 35px;
+      border-radius: 24px;
+      border: 1px solid var(--border-color, rgba(0,0,0,.1));
+      background: var(--card-bg, rgba(255,255,255,.7));
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .info-item {
+      padding: 20px 15px;
+      border-radius: 17px;
+      text-align: center;
+      background: var(--primary-soft, rgba(0,0,0,.05));
+    }
+
+    .info-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .info-item span {
+      font-size: .85rem;
+      opacity: .68;
     }
 
     .empty-state {
       display: none;
       text-align: center;
       padding: 45px 20px;
-      border-radius: 20px;
-      border: 1px dashed rgba(124,58,237,.3);
-      color: var(--text-soft);
+      border-radius: 22px;
+      border: 1px dashed var(--border-color, rgba(0,0,0,.15));
     }
 
-    .back-btn {
-      display: block;
-      margin: 0 auto 28px;
-      padding: 10px 16px;
-      border: 0;
-      border-radius: 12px;
-      cursor: pointer;
-      background: rgba(124,58,237,.1);
-      color: var(--primary);
-      font-weight: 700;
-    }
+    @media (max-width: 900px) {
+      .chapter-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
 
-    @media (max-width: 850px) {
-      .books-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 550px) {
-      .books-grid {
+    @media (max-width: 620px) {
+      .book-page {
+        padding-top: 90px;
+      }
+
+      .chapter-grid,
+      .info-grid {
         grid-template-columns: 1fr;
+      }
+
+      .book-info {
+        padding: 25px 18px;
       }
     }
   </style>
@@ -144,243 +173,588 @@
 
 <body>
 
-  <main class="books-page">
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
 
-    <div class="books-container">
 
-      <header class="books-header">
+  <header class="site-header">
 
-        <h1>
-          NCERT <span>Books</span>
-        </h1>
+    <div class="container nav-container">
 
-        <p>
-          अपनी कक्षा और विषय की पुस्तक चुनें।
-        </p>
-
-        <div class="book-info">
-          <div class="book-tag" id="classTag">
-            Class
-          </div>
-
-          <div class="book-tag" id="subjectTag">
-            Subject
-          </div>
-        </div>
-
-      </header>
-
+      <a href="index.html" class="brand">
+        <img src="logo.png" alt="ARS Official Logo">
+        <span>ARS Official</span>
+      </a>
 
       <button
-        type="button"
-        class="back-btn"
-        onclick="goBack()"
+        class="mobile-menu-toggle"
+        id="mobileMenuToggle"
+        aria-label="Open menu"
+        aria-expanded="false"
       >
-        ← वापस
+        ☰
       </button>
 
+      <nav class="main-nav" id="mainNav">
 
-      <section id="booksGrid" class="books-grid"></section>
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="publisher.html">Publisher</a>
+        <a href="admin.html">Admin</a>
+        <a href="policy.html">Policy</a>
 
-
-      <div id="emptyState" class="empty-state">
-        <h2>📚 Content जल्द आएगा</h2>
-        <p>
-          इस subject के books और chapters Publisher Panel
-          से जोड़ दिए जाएंगे।
-        </p>
-      </div>
+      </nav>
 
     </div>
+
+  </header>
+
+
+  <main class="book-page">
+
+    <section class="book-hero container">
+
+      <div class="book-badge" id="bookBadge">
+        📘 ARS Education
+      </div>
+
+      <h1 id="bookTitle">
+        Book / Course
+      </h1>
+
+      <p id="bookDescription">
+        Select a chapter to begin learning.
+      </p>
+
+    </section>
+
+
+    <section class="container">
+
+      <div class="book-tools">
+
+        <a href="#" id="backToSubject" class="btn btn-secondary">
+          ← Back to Subject
+        </a>
+
+        <div class="chapter-count" id="chapterCount">
+          Chapters
+        </div>
+
+      </div>
+
+
+      <div class="chapter-grid" id="chapterGrid"></div>
+
+
+      <div class="empty-state" id="emptyState">
+
+        <h3>Book information unavailable</h3>
+
+        <p>
+          Please select a valid class, subject and book
+          from the ARS Education portal.
+        </p>
+
+        <a href="education.html" class="btn btn-primary">
+          Back to Education
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <section class="container book-info">
+
+      <div class="section-heading">
+
+        <span class="section-eyebrow">
+          COURSE STRUCTURE
+        </span>
+
+        <h2>Inside This Learning Portal</h2>
+
+        <p>
+          हर chapter के अंदर explanation से लेकर practice और
+          revision तक learning resources उपलब्ध कराए जा सकते हैं।
+        </p>
+
+      </div>
+
+
+      <div class="info-grid">
+
+        <div class="info-item">
+          <strong>💡 Explanation</strong>
+          <span>Concept clarity</span>
+        </div>
+
+        <div class="info-item">
+          <strong>📝 Notes</strong>
+          <span>Quick revision</span>
+        </div>
+
+        <div class="info-item">
+          <strong>❓ MCQ</strong>
+          <span>Objective practice</span>
+        </div>
+
+        <div class="info-item">
+          <strong>✍️ Practice</strong>
+          <span>Question practice</span>
+        </div>
+
+        <div class="info-item">
+          <strong>🔄 Revision</strong>
+          <span>Chapter revision</span>
+        </div>
+
+        <div class="info-item">
+          <strong>🎯 Exam Tips</strong>
+          <span>Preparation guidance</span>
+        </div>
+
+        <div class="info-item">
+          <strong>📚 Resources</strong>
+          <span>Additional material</span>
+        </div>
+
+        <div class="info-item">
+          <strong>🏆 Progress</strong>
+          <span>Learning journey</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="container cta-section" style="margin-top:60px;">
+
+      <div class="cta-card">
+
+        <div>
+
+          <span class="section-eyebrow">
+            ARS EDUCATION
+          </span>
+
+          <h2>Learn Chapter by Chapter.</h2>
+
+          <p>
+            अपना chapter चुनें और structured learning शुरू करें।
+          </p>
+
+        </div>
+
+        <a href="education.html" class="btn btn-primary">
+          Education Home
+        </a>
+
+      </div>
+
+    </section>
 
   </main>
 
 
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <img src="logo.png" alt="ARS Official Logo">
+
+        <h3>ARS Official</h3>
+
+        <p>
+          Learning, creativity and digital growth —
+          together with ARS.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Quick Links</h4>
+
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>Education</h4>
+
+        <a href="class.html?class=5">Class 5</a>
+        <a href="class.html?class=6">Class 6</a>
+        <a href="class.html?class=7">Class 7</a>
+        <a href="class.html?class=8">Class 8</a>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <h4>More</h4>
+
+        <a href="first-flight.html">First Flight</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <div>
+        © <span data-current-year></span>
+        ARS Official. All rights reserved.
+      </div>
+
+      <div class="footer-signature">
+        <span>Adarsh Raj</span>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+
+
   <script>
-    (() => {
-      "use strict";
+    document.addEventListener("DOMContentLoaded", function () {
 
-      const params =
-        new URLSearchParams(window.location.search);
+      const params = new URLSearchParams(window.location.search);
 
-      const classNumber =
-        params.get("class") || "6";
-
-      const subject =
-        params.get("subject") || "maths";
+      const classNumber = params.get("class");
+      const subjectKey = params.get("subject");
+      const bookKey = params.get("book");
 
 
-      const classTag =
-        document.getElementById("classTag");
+      const bookBadge =
+        document.getElementById("bookBadge");
 
-      const subjectTag =
-        document.getElementById("subjectTag");
+      const bookTitle =
+        document.getElementById("bookTitle");
 
-      const booksGrid =
-        document.getElementById("booksGrid");
+      const bookDescription =
+        document.getElementById("bookDescription");
+
+      const chapterGrid =
+        document.getElementById("chapterGrid");
+
+      const chapterCount =
+        document.getElementById("chapterCount");
 
       const emptyState =
         document.getElementById("emptyState");
 
+      const backToSubject =
+        document.getElementById("backToSubject");
 
-      const subjectNames = {
-        maths: "Mathematics",
-        science: "Science",
-        "social-science": "Social Science",
-        hindi: "Hindi",
-        english: "English",
-        practice: "Notes & Practice"
+
+      const subjects = {
+
+        mathematics: {
+          name: "Mathematics",
+          icon: "🔢"
+        },
+
+        science: {
+          name: "Science",
+          icon: "🔬"
+        },
+
+        english: {
+          name: "English",
+          icon: "📖"
+        },
+
+        hindi: {
+          name: "Hindi",
+          icon: "📝"
+        },
+
+        "social-studies": {
+          name: "Social Studies",
+          icon: "🌍"
+        },
+
+        "social-science": {
+          name: "Social Science",
+          icon: "🌍"
+        },
+
+        "general-knowledge": {
+          name: "General Knowledge",
+          icon: "🧠"
+        }
+
       };
 
-
-      classTag.textContent =
-        `Class ${classNumber}`;
-
-      subjectTag.textContent =
-        subjectNames[subject] || subject;
-
-
-      /*
-       * अभी sample structure रखा गया है।
-       * बाद में इसी जगह Backend/API/Database से
-       * वास्तविक Books automatically आएंगी।
-       */
 
       const books = {
 
-        maths: [
-          {
-            title: "Mathematics",
-            icon: "📐",
-            description:
-              "NCERT Mathematics textbook और chapters।"
-          }
-        ],
+        main: {
+          name: "Main Course",
+          icon: "📘",
+          description:
+            "Core chapter-wise learning course with explanations, notes and practice."
+        },
 
-        science: [
-          {
-            title: "Science",
-            icon: "🔬",
-            description:
-              "NCERT Science textbook और chapters।"
-          }
-        ],
+        practice: {
+          name: "Practice",
+          icon: "✍️",
+          description:
+            "Practice-focused course with questions, MCQs and revision activities."
+        },
 
-        "social-science": [
-          {
-            title: "Social Science",
-            icon: "🌍",
-            description:
-              "History, Geography और Civics।"
-          }
-        ],
-
-        hindi: [
-          {
-            title: "Hindi",
-            icon: "📖",
-            description:
-              "NCERT Hindi textbook और chapters।"
-          }
-        ],
-
-        english: [
-          {
-            title: "English",
-            icon: "🔤",
-            description:
-              "NCERT English textbook और chapters।"
-          }
-        ],
-
-        practice: [
-          {
-            title: "Notes & Practice",
-            icon: "📝",
-            description:
-              "Notes, MCQ, Practice और Exam Tips।"
-          }
-        ]
+        revision: {
+          name: "Revision",
+          icon: "🔄",
+          description:
+            "Quick revision course for important concepts and exam preparation."
+        }
 
       };
 
 
-      const selectedBooks =
-        books[subject] || [];
+      if (
+        !classNumber ||
+        !subjectKey ||
+        !bookKey ||
+        !subjects[subjectKey] ||
+        !books[bookKey]
+      ) {
 
+        bookTitle.textContent =
+          "Book Not Found";
 
-      if (!selectedBooks.length) {
+        bookBadge.textContent =
+          "📘 ARS Education";
 
-        emptyState.style.display =
-          "block";
+        bookDescription.textContent =
+          "Please select a valid class, subject and book.";
+
+        chapterGrid.style.display = "none";
+        chapterCount.style.display = "none";
+        backToSubject.style.display = "none";
+        emptyState.style.display = "block";
 
         return;
       }
 
 
-      selectedBooks.forEach(book => {
+      const subject =
+        subjects[subjectKey];
 
-        const card =
-          document.createElement("article");
+      const book =
+        books[bookKey];
 
-        card.className =
-          "book-card";
 
-        card.innerHTML = `
-          <div class="book-icon">
-            ${book.icon}
-          </div>
+      bookBadge.textContent =
+        book.icon +
+        " Class " +
+        classNumber +
+        " • " +
+        subject.name;
 
-          <h2>${book.title}</h2>
 
-          <p>
-            ${book.description}
-          </p>
+      bookTitle.textContent =
+        subject.name +
+        " — " +
+        book.name;
 
-          <button
-            type="button"
-            data-book="${encodeURIComponent(book.title)}"
-          >
-            Chapters →
-          </button>
-        `;
 
-        const button =
-          card.querySelector("button");
+      bookDescription.textContent =
+        book.description;
 
-        button.addEventListener("click", () => {
 
-          const bookName =
-            decodeURIComponent(
-              button.dataset.book
-            );
+      backToSubject.href =
+        "subject.html?class=" +
+        encodeURIComponent(classNumber) +
+        "&subject=" +
+        encodeURIComponent(subjectKey);
 
-          const url =
-            `chapters.html?class=${encodeURIComponent(classNumber)}&subject=${encodeURIComponent(subject)}&book=${encodeURIComponent(bookName)}`;
 
-          window.location.href =
-            url;
+      /*
+       * Initial chapter structure.
+       *
+       * These chapter containers allow the portal to work
+       * immediately. Detailed content can later be managed
+       * through Education Publisher/Admin.
+       */
+
+      const chapters = [
+
+        {
+          id: 1,
+          title: "Chapter 1",
+          description:
+            "Introduction and basic concepts of the subject.",
+          icon: "1️⃣"
+        },
+
+        {
+          id: 2,
+          title: "Chapter 2",
+          description:
+            "Build understanding through examples and explanations.",
+          icon: "2️⃣"
+        },
+
+        {
+          id: 3,
+          title: "Chapter 3",
+          description:
+            "Develop concepts and apply them to questions.",
+          icon: "3️⃣"
+        },
+
+        {
+          id: 4,
+          title: "Chapter 4",
+          description:
+            "Practice important concepts with structured learning.",
+          icon: "4️⃣"
+        },
+
+        {
+          id: 5,
+          title: "Chapter 5",
+          description:
+            "Strengthen understanding with examples and activities.",
+          icon: "5️⃣"
+        },
+
+        {
+          id: 6,
+          title: "Chapter 6",
+          description:
+            "Revision-oriented chapter with important concepts.",
+          icon: "6️⃣"
+        }
+
+      ];
+
+
+      /*
+       * Different resource books can have slightly different
+       * chapter purposes while keeping the same portal flow.
+       */
+
+      if (bookKey === "practice") {
+
+        chapters.forEach(function (chapter) {
+
+          chapter.description =
+            "Practice questions, MCQs and application-based activities for " +
+            subject.name +
+            ".";
 
         });
 
+      }
 
-        booksGrid.appendChild(card);
+
+      if (bookKey === "revision") {
+
+        chapters.forEach(function (chapter) {
+
+          chapter.description =
+            "Important concepts, quick notes and revision practice for " +
+            subject.name +
+            ".";
+
+        });
+
+      }
+
+
+      chapterCount.textContent =
+        chapters.length +
+        " chapters";
+
+
+      chapterGrid.innerHTML =
+        chapters.map(function (chapter) {
+
+          const url =
+            "chapter.html?class=" +
+            encodeURIComponent(classNumber) +
+            "&subject=" +
+            encodeURIComponent(subjectKey) +
+            "&book=" +
+            encodeURIComponent(bookKey) +
+            "&chapter=" +
+            encodeURIComponent(chapter.id);
+
+          return `
+            <article class="chapter-card reveal">
+
+              <div class="chapter-number">
+                ${chapter.icon}
+              </div>
+
+              <h3>
+                ${chapter.title}
+              </h3>
+
+              <p>
+                ${chapter.description}
+              </p>
+
+              <a
+                href="${url}"
+                class="btn btn-primary"
+              >
+                Open Chapter →
+              </a>
+
+            </article>
+          `;
+
+        }).join("");
+
+
+      requestAnimationFrame(function () {
+
+        document
+          .querySelectorAll(".chapter-card.reveal")
+          .forEach(function (card) {
+
+            card.classList.add("visible");
+
+          });
 
       });
 
-
-      window.goBack = function () {
-
-        if (document.referrer) {
-          history.back();
-        } else {
-          window.location.href =
-            "ncert.html";
-        }
-
-      };
-
-    })();
+    });
   </script>
 
 </body>
