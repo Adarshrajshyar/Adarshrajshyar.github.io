@@ -2,41 +2,63 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Founder | Adarsh Raj Shayar</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
-    content="Adarsh Raj — Founder of ARS Official. जानिए ARS की शुरुआत, उद्देश्य और संस्थापक के बारे में।"
+    content="Adarsh Raj Shayar — Founder of ARS Official."
   >
 
-  <meta name="author" content="Adarsh Raj">
-  <meta name="theme-color" content="#111827">
+  <meta
+    name="author"
+    content="Adarsh Raj"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <title>Founder | Adarsh Raj Shayar</title>
+
+  <link
+    rel="canonical"
+    href="https://adarshrajshyar.github.io/founder.html"
+  >
 
   <link rel="stylesheet" href="style.css">
+
+  <script src="config.js" defer></script>
+  <script src="storage.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 
 <body>
 
   <!-- PAGE LOADER -->
-  <div id="pageLoader" class="page-loader" aria-label="Loading">
+  <div
+    id="pageLoader"
+    class="page-loader"
+    aria-label="Loading"
+  >
     <div class="loader-spinner"></div>
-    <p>ARS Official</p>
   </div>
 
 
   <!-- HEADER -->
   <header class="site-header">
-
     <div class="container header-inner">
 
-      <a href="index.html" class="brand" aria-label="ARS Official Home">
-        <img
-          src="logo.png"
-          alt="ARS Official Logo"
-          class="brand-logo"
-        >
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="ARS Official Home"
+      >
+        <div class="brand-mark">ARS</div>
 
         <div class="brand-text">
           <strong>ARS Official</strong>
@@ -46,61 +68,60 @@
 
 
       <button
+        id="menuToggle"
         class="menu-toggle"
         type="button"
-        aria-label="Open Menu"
+        aria-label="Open navigation"
+        aria-controls="mainNav"
         aria-expanded="false"
       >
         ☰
       </button>
 
 
-      <nav class="main-nav" aria-label="Main Navigation">
-
+      <nav
+        id="mainNav"
+        class="main-nav"
+        aria-label="Main Navigation"
+      >
         <a href="index.html">Home</a>
         <a href="founder.html">Founder</a>
         <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories & Poetry</a>
+        <a href="stories.html">Stories</a>
         <a href="education.html">ARS Education</a>
         <a href="first-flight.html">First Flight</a>
         <a href="ars-ai.html">ARS AI</a>
+        <a href="book.html">ARS Book</a>
         <a href="joining.html">Join ARS</a>
         <a href="certificate.html">Certificate</a>
         <a href="verify.html">Verify</a>
-        <a href="contact.html">Contact</a>
-
       </nav>
 
     </div>
-
   </header>
 
 
   <main>
 
     <!-- HERO -->
-    <section class="hero">
-
+    <section class="hero section">
       <div class="container">
 
         <div class="hero-content reveal">
 
           <span class="eyebrow">
-            FOUNDER • ARS OFFICIAL
+            FOUNDER OF ARS
           </span>
 
           <h1>
-            Adarsh Raj
-            <span>Shayar</span>
+            Adarsh Raj Shayar
           </h1>
 
           <p>
-            शब्दों से शुरू हुई एक छोटी-सी उड़ान,
-            आज ARS Official के रूप में एक बड़े सपने की ओर बढ़ रही है।
+            शब्दों से सपनों तक की एक नई उड़ान।
           </p>
 
           <div class="hero-actions">
-
             <a
               href="#about-founder"
               class="btn btn-primary"
@@ -109,10 +130,299 @@
             </a>
 
             <a
-              href="contact.html"
-              class="btn btn-secondary"
+              href="index.html"
+              class="btn btn-outline"
             >
-              संपर्क करें
+              ARS Home
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FOUNDER PROFILE -->
+    <section
+      id="about-founder"
+      class="section"
+    >
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">
+            ABOUT THE FOUNDER
+          </span>
+
+          <h2>
+            Adarsh Raj
+          </h2>
+
+          <p>
+            ARS Official के संस्थापक और रचनात्मक यात्रा के पीछे की कहानी।
+          </p>
+        </div>
+
+
+        <div class="founder-grid">
+
+          <!-- PHOTO -->
+          <div class="founder-photo-card reveal">
+
+            <div class="founder-photo-wrap">
+              <img
+                src="photo.jpg1.jpeg"
+                alt="Adarsh Raj"
+                class="founder-photo"
+                loading="lazy"
+              >
+            </div>
+
+            <div class="founder-photo-caption">
+              <strong>Adarsh Raj</strong>
+              <span>Founder — ARS Official</span>
+            </div>
+
+          </div>
+
+
+          <!-- BIO -->
+          <div class="founder-content reveal">
+
+            <span class="card-kicker">
+              मेरी कहानी
+            </span>
+
+            <h3>
+              एक छोटे से गाँव से शब्दों की एक नई उड़ान
+            </h3>
+
+            <p>
+              मेरा नाम <strong>Adarsh Raj</strong> है।
+              मैं बिहार के एक छोटे से गाँव
+              <strong>मनोकपुर</strong> से हूँ।
+            </p>
+
+            <p>
+              लेखन और शायरी की मेरी यात्रा
+              <strong>जून 2026</strong> से शुरू हुई।
+              शुरुआत में यह केवल अपने विचारों और भावनाओं
+              को शब्दों में लिखने की एक कोशिश थी, लेकिन
+              धीरे-धीरे यही कोशिश एक रचनात्मक यात्रा में
+              बदलती गई।
+            </p>
+
+            <p>
+              इसी यात्रा में शायरी, कविता और कहानियों के
+              माध्यम से अपने विचारों को लोगों तक पहुँचाने
+              का विचार आया और इसी सोच से
+              <strong>ARS Official</strong> की शुरुआत हुई।
+            </p>
+
+            <p>
+              ARS का उद्देश्य केवल रचनाएँ प्रकाशित करना
+              नहीं है, बल्कि साहित्य, शिक्षा, रचनात्मकता
+              और सीखने के लिए एक उपयोगी डिजिटल मंच
+              तैयार करना भी है।
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ARS JOURNEY -->
+    <section class="section section-alt">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">
+            ARS JOURNEY
+          </span>
+
+          <h2>
+            ARS की यात्रा
+          </h2>
+
+          <p>
+            एक छोटे विचार से एक बड़े डिजिटल सपने तक।
+          </p>
+        </div>
+
+
+        <div class="cards-grid">
+
+          <article class="info-card reveal">
+            <span class="card-icon">✍️</span>
+
+            <h3>
+              लेखन की शुरुआत
+            </h3>
+
+            <p>
+              जून 2026 से शायरी, कविता और कहानी लिखने
+              की शुरुआत हुई।
+            </p>
+          </article>
+
+
+          <article class="info-card reveal">
+            <span class="card-icon">🌹</span>
+
+            <h3>
+              ARS की पहचान
+            </h3>
+
+            <p>
+              लेखन को एक पहचान देने के उद्देश्य से
+              ARS नाम के creative platform की कल्पना हुई।
+            </p>
+          </article>
+
+
+          <article class="info-card reveal">
+            <span class="card-icon">📚</span>
+
+            <h3>
+              शिक्षा की ओर
+            </h3>
+
+            <p>
+              साहित्य के साथ विद्यार्थियों के लिए
+              education और preparation resources को
+              भी ARS का हिस्सा बनाया गया।
+            </p>
+          </article>
+
+
+          <article class="info-card reveal">
+            <span class="card-icon">🚀</span>
+
+            <h3>
+              आगे की उड़ान
+            </h3>
+
+            <p>
+              ARS Book, ARS AI, Dictionary, Exams और
+              अन्य digital features के माध्यम से
+              platform को आगे बढ़ाने की योजना है।
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- VISION -->
+    <section class="section">
+      <div class="container">
+
+        <div class="section-heading reveal">
+          <span class="eyebrow">
+            VISION
+          </span>
+
+          <h2>
+            ARS का उद्देश्य
+          </h2>
+        </div>
+
+
+        <div class="feature-grid">
+
+          <article class="feature-card reveal">
+            <h3>
+              ✍️ साहित्य
+            </h3>
+
+            <p>
+              मौलिक शायरी, कविता और कहानियों के लिए
+              एक व्यवस्थित digital space तैयार करना।
+            </p>
+          </article>
+
+
+          <article class="feature-card reveal">
+            <h3>
+              📖 शिक्षा
+            </h3>
+
+            <p>
+              विद्यार्थियों के लिए सरल, व्यवस्थित और
+              उपयोगी learning resources उपलब्ध कराना।
+            </p>
+          </article>
+
+
+          <article class="feature-card reveal">
+            <h3>
+              💡 रचनात्मकता
+            </h3>
+
+            <p>
+              युवाओं को अपनी creativity और ideas को
+              बेहतर तरीके से व्यक्त करने का अवसर देना।
+            </p>
+          </article>
+
+
+          <article class="feature-card reveal">
+            <h3>
+              🌱 सीखना
+            </h3>
+
+            <p>
+              लगातार सीखने, लिखने और आगे बढ़ने की
+              संस्कृति को प्रोत्साहित करना।
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- MERI PEHLI UDAAN -->
+    <section class="section section-alt">
+      <div class="container">
+
+        <div class="book-showcase reveal">
+
+          <div class="book-content">
+
+            <span class="eyebrow">
+              ARS BOOK
+            </span>
+
+            <h2>
+              मेरी पहली उड़ान
+            </h2>
+
+            <p>
+              <strong>“मेरी पहली उड़ान”</strong> केवल एक
+              पुस्तक का नाम नहीं, बल्कि लेखन की उस पहली
+              कोशिश का प्रतीक है जिसने आगे बढ़ने का
+              रास्ता दिखाया।
+            </p>
+
+            <p>
+              इसमें शायरी, कविता, कहानी और जीवन से जुड़े
+              रचनात्मक विचारों को एक साथ प्रस्तुत करने
+              की परिकल्पना की गई है।
+            </p>
+
+            <a
+              href="book.html"
+              class="btn btn-primary"
+            >
+              ARS Book देखें
             </a>
 
           </div>
@@ -120,404 +430,79 @@
         </div>
 
       </div>
-
-    </section>
-
-
-    <!-- FOUNDER PROFILE -->
-    <section
-      id="about-founder"
-      class="about-section section"
-    >
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <span class="eyebrow">
-            ABOUT THE FOUNDER
-          </span>
-
-          <h2>
-            ARS के संस्थापक
-          </h2>
-
-          <p>
-            एक लेखक, शायर और सपने देखने वाले युवा की कहानी।
-          </p>
-
-        </div>
-
-
-        <div class="about-grid">
-
-          <div class="about-image-card reveal">
-
-            <div class="about-image-wrap">
-
-              <img
-                src="photo.jpg1.jpeg"
-                alt="Adarsh Raj"
-                loading="lazy"
-              >
-
-            </div>
-
-          </div>
-
-
-          <div class="about-content reveal">
-
-            <span class="eyebrow">
-              ADARSH RAJ
-            </span>
-
-            <h2>
-              सपने छोटे हो सकते हैं,
-              <span>सोच नहीं।</span>
-            </h2>
-
-            <p>
-              Adarsh Raj, जिन्हें लेखन की दुनिया में
-              <strong>Adarsh Raj Shayar</strong> के नाम से जाना जाता है,
-              ARS Official के Founder हैं।
-            </p>
-
-            <p>
-              ARS का उद्देश्य केवल शायरी या साहित्य तक सीमित नहीं है।
-              इसका लक्ष्य रचनात्मकता, शिक्षा, ज्ञान और डिजिटल
-              प्लेटफ़ॉर्म को एक साथ जोड़कर एक उपयोगी और सकारात्मक
-              मंच तैयार करना है।
-            </p>
-
-            <p>
-              ARS Official में Shayari, Stories & Poetry,
-              ARS Education, Certificates और आने वाले नए
-              digital projects को एक ही जगह पर प्रस्तुत किया जा रहा है।
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- JOURNEY -->
-    <section class="services-section section">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <span class="eyebrow">
-            THE JOURNEY
-          </span>
-
-          <h2>
-            शुरुआत से ARS तक
-          </h2>
-
-          <p>
-            हर बड़े सफर की शुरुआत एक छोटे कदम से होती है।
-          </p>
-
-        </div>
-
-
-        <div class="services-grid">
-
-          <article class="service-card reveal">
-
-            <div class="service-icon">
-              ✍️
-            </div>
-
-            <h3>
-              लेखन की शुरुआत
-            </h3>
-
-            <p>
-              शब्दों और भावनाओं को लिखने की इच्छा से
-              शायरी, कविता और कहानियों की यात्रा शुरू हुई।
-            </p>
-
-          </article>
-
-
-          <article class="service-card reveal">
-
-            <div class="service-icon">
-              🌱
-            </div>
-
-            <h3>
-              विचार से निर्माण
-            </h3>
-
-            <p>
-              लेखन को एक बेहतर मंच देने के विचार ने
-              ARS Official की नींव रखने की प्रेरणा दी।
-            </p>
-
-          </article>
-
-
-          <article class="service-card reveal">
-
-            <div class="service-icon">
-              🚀
-            </div>
-
-            <h3>
-              ARS की उड़ान
-            </h3>
-
-            <p>
-              साहित्य, शिक्षा और technology को साथ लेकर
-              ARS को लगातार विकसित करने का प्रयास जारी है।
-            </p>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- VISION -->
-    <section class="education-banner section">
-
-      <div class="container">
-
-        <div class="education-banner-inner reveal">
-
-          <div>
-
-            <span class="eyebrow">
-              VISION
-            </span>
-
-            <h2>
-              ARS केवल एक वेबसाइट नहीं,
-              एक सोच है।
-            </h2>
-
-            <p>
-              ज्ञान को सरल बनाना, रचनात्मकता को मंच देना
-              और युवाओं को आगे बढ़ने के लिए प्रेरित करना।
-            </p>
-
-          </div>
-
-          <a
-            href="education.html"
-            class="btn btn-primary"
-          >
-            ARS Education देखें
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- VALUES -->
-    <section class="values-section section">
-
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <span class="eyebrow">
-            OUR VALUES
-          </span>
-
-          <h2>
-            ARS की सोच
-          </h2>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <div class="quick-card reveal">
-
-            <span class="quick-number">
-              01
-            </span>
-
-            <h3>
-              Creativity
-            </h3>
-
-            <p>
-              नए विचारों और मौलिक रचनाओं को महत्व देना।
-            </p>
-
-          </div>
-
-
-          <div class="quick-card reveal">
-
-            <span class="quick-number">
-              02
-            </span>
-
-            <h3>
-              Education
-            </h3>
-
-            <p>
-              शिक्षा और ज्ञान को सरल एवं उपयोगी बनाना।
-            </p>
-
-          </div>
-
-
-          <div class="quick-card reveal">
-
-            <span class="quick-number">
-              03
-            </span>
-
-            <h3>
-              Growth
-            </h3>
-
-            <p>
-              सीखते रहना और हर दिन बेहतर बनने की कोशिश करना।
-            </p>
-
-          </div>
-
-
-          <div class="quick-card reveal">
-
-            <span class="quick-number">
-              04
-            </span>
-
-            <h3>
-              Originality
-            </h3>
-
-            <p>
-              अपनी सोच, अपनी आवाज़ और अपनी रचनात्मक पहचान बनाए रखना।
-            </p>
-
-          </div>
-
-        </div>
-
-      </div>
-
     </section>
 
 
     <!-- FOUNDER MESSAGE -->
-    <section class="about-section section">
-
+    <section class="section">
       <div class="container">
 
-        <div class="section-heading reveal">
+        <div class="quote-card reveal">
 
-          <span class="eyebrow">
-            FOUNDER'S MESSAGE
+          <span class="quote-mark">
+            “
           </span>
 
-          <h2>
-            एक संदेश
-          </h2>
-
-        </div>
-
-
-        <div class="about-content reveal">
-
           <blockquote>
-            “हर सपना पहले एक विचार होता है,
-            फिर मेहनत उसे रास्ता देती है,
-            और लगातार प्रयास उसे पहचान बनाता है।”
+            हर बड़ी उड़ान की शुरुआत एक छोटे से कदम
+            से होती है। ARS मेरे लिए उसी छोटे कदम से
+            शुरू हुई एक यात्रा है।
           </blockquote>
 
-          <p>
-            ARS Official को आगे बढ़ाने का उद्देश्य है कि
-            यहाँ आने वाला हर व्यक्ति कुछ पढ़े, कुछ सीखे,
-            कुछ नया सोचे और अपने सपनों की ओर एक कदम आगे बढ़े।
+          <p class="quote-author">
+            — Adarsh Raj
           </p>
-
-          <p>
-            यह सफर अभी जारी है।
-            आने वाले समय में ARS में साहित्य, शिक्षा,
-            technology और कई नए projects को जोड़ा जाएगा।
-          </p>
-
-
-          <div class="signature-box">
-
-            <span>
-              With Regards
-            </span>
-
-            <strong>
-              Adarsh Raj
-            </strong>
-
-            <small>
-              Founder — ARS Official
-            </small>
-
-          </div>
 
         </div>
 
       </div>
-
     </section>
 
 
-    <!-- CTA -->
-    <section class="join-section section">
-
+    <!-- CONTACT CTA -->
+    <section class="section section-alt">
       <div class="container">
 
-        <div class="join-card reveal">
+        <div class="cta-card reveal">
 
           <div>
-
             <span class="eyebrow">
-              JOIN THE JOURNEY
+              CONNECT WITH ARS
             </span>
 
             <h2>
-              ARS के सफर का हिस्सा बनिए।
+              ARS से जुड़े रहें
             </h2>
 
             <p>
-              साहित्य, शिक्षा और नए विचारों के इस सफर से जुड़ें।
+              ARS की नई रचनाओं, educational content और
+              updates के लिए official channels देखें।
             </p>
-
           </div>
 
-          <a
-            href="joining.html"
-            class="btn btn-primary"
-          >
-            Join ARS
-          </a>
+          <div class="cta-actions">
+
+            <a
+              href="contact.html"
+              class="btn btn-primary"
+            >
+              Contact ARS
+            </a>
+
+            <a
+              href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-outline"
+            >
+              ARS GK WhatsApp
+            </a>
+
+          </div>
 
         </div>
 
       </div>
-
     </section>
 
   </main>
@@ -526,92 +511,72 @@
   <!-- FOOTER -->
   <footer class="site-footer">
 
-    <div class="container">
+    <div class="container footer-grid">
 
-      <div class="footer-grid">
+      <div class="footer-brand">
 
-        <div class="footer-brand">
-
-          <a
-            href="index.html"
-            class="brand"
-          >
-
-            <img
-              src="logo.png"
-              alt="ARS Official"
-              class="brand-logo"
-            >
-
-            <div class="brand-text">
-              <strong>ARS Official</strong>
-              <span>Adarsh Raj Shayar</span>
-            </div>
-
-          </a>
-
-          <p>
-            शब्दों से पहचान, ज्ञान से उड़ान।
-          </p>
-
+        <div class="brand-mark">
+          ARS
         </div>
 
+        <h3>
+          ARS Official
+        </h3>
 
-        <div>
+        <p>
+          Adarsh Raj Shayar
+        </p>
 
-          <h3>
-            Quick Links
-          </h3>
+        <p>
+          शब्दों से सपनों तक की एक नई उड़ान।
+        </p>
 
-          <a href="index.html">Home</a>
-          <a href="founder.html">Founder</a>
-          <a href="shayari.html">Shayari</a>
-          <a href="stories.html">Stories & Poetry</a>
-
-        </div>
-
-
-        <div>
-
-          <h3>
-            Education
-          </h3>
-
-          <a href="education.html">ARS Education</a>
-          <a href="navodaya.html">Navodaya</a>
-          <a href="sainik-school.html">Sainik School</a>
-          <a href="rms.html">RMS</a>
-
-        </div>
+      </div>
 
 
-        <div>
+      <div class="footer-links">
 
-          <h3>
-            Support
-          </h3>
+        <h4>
+          Quick Links
+        </h4>
 
-          <a href="contact.html">Contact</a>
-          <a href="verify.html">Certificate Verify</a>
-          <a href="policy.html">Policy</a>
-
-        </div>
+        <a href="index.html">Home</a>
+        <a href="founder.html">Founder</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">Education</a>
+        <a href="book.html">ARS Book</a>
 
       </div>
 
 
-      <div class="footer-bottom">
+      <div class="footer-links">
 
-        <p>
-          © <span data-year></span>
-          ARS Official. All Rights Reserved.
-        </p>
+        <h4>
+          Important
+        </h4>
 
-        <p>
-          Founded by Adarsh Raj
-        </p>
+        <a href="joining.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+        <a href="verify.html">Verify</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
 
       </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="footerYear"></span>
+        ARS Official. All rights reserved.
+      </p>
+
+      <p>
+        Founded by Adarsh Raj
+      </p>
 
     </div>
 
@@ -629,10 +594,13 @@
   </button>
 
 
-  <!-- SCRIPTS -->
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-  <script src="script.js"></script>
+  <!-- TOAST -->
+  <div
+    id="arsToast"
+    class="ars-toast"
+    role="status"
+    aria-live="polite"
+  ></div>
 
 </body>
 </html>
