@@ -1,1074 +1,1249 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-    <title>ARS Official | Adarsh Raj Shayar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description"
-          content="ARS Official — साहित्य, शिक्षा, ज्ञान और रचनात्मकता का डिजिटल मंच।">
+  <title>ARS Official | Adarsh Raj Shayar</title>
 
-    <meta name="author" content="Adarsh Raj">
+  <meta
+    name="description"
+    content="ARS Official — Adarsh Raj Shayar का रचनात्मक और शैक्षणिक मंच। Shayari, Stories, Poetry, Education, ARS AI, ARS Book, Exams और Certificates."
+  >
 
-    <meta name="theme-color" content="#111827">
+  <meta
+    name="keywords"
+    content="ARS Official, Adarsh Raj Shayar, Shayari, Stories, Poetry, ARS Education, ARS AI, ARS Book, ARS Exam"
+  >
 
-    <link rel="icon" type="image/png" href="logo.png">
-    <link rel="stylesheet" href="style.css">
+  <meta name="author" content="Adarsh Raj Shayar">
+
+  <meta name="robots" content="index, follow">
+
+  <meta name="theme-color" content="#0b0b0d">
+
+  <link rel="canonical" href="https://adarshrajshyar.github.io/">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Brand configuration -->
+  <script src="config.js" defer></script>
+
+  <!-- Local storage layer -->
+  <script src="storage.js" defer></script>
+
+  <!-- Main application -->
+  <script src="script.js" defer></script>
 </head>
 
 <body>
 
-<!-- PAGE LOADER -->
-<div id="pageLoader" class="page-loader">
-    <div class="loader-box">
-        <img src="logo.png" alt="ARS Official">
-        <div class="loader-spinner"></div>
-        <strong>ARS Official</strong>
-        <span>Preparing your experience...</span>
+  <!-- ==============================
+       PAGE LOADER
+  =============================== -->
+  <div id="pageLoader" class="page-loader" aria-hidden="true">
+    <div class="loader-content">
+      <div class="loader-logo">ARS</div>
+      <div class="loader-spinner"></div>
+      <p>ARS Official</p>
     </div>
-</div>
+  </div>
 
 
-<!-- HEADER -->
-<header class="site-header" id="siteHeader">
+  <!-- ==============================
+       HEADER
+  =============================== -->
+  <header class="site-header" id="siteHeader">
 
     <div class="container header-inner">
 
-        <a href="index.html" class="brand">
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="ARS Official Home"
+      >
+        <span class="brand-mark">ARS</span>
 
-            <div class="brand-logo">
-                <img src="logo.png" alt="ARS Official Logo">
-            </div>
+        <span class="brand-text">
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
 
-            <div class="brand-info">
-                <strong>ARS Official</strong>
-                <span>Adarsh Raj Shayar</span>
-            </div>
 
+      <!-- Desktop / Mobile Navigation -->
+      <nav
+        class="main-nav"
+        id="mainNav"
+        aria-label="Main Navigation"
+      >
+
+        <a href="index.html" class="nav-link active">
+          Home
         </a>
 
+        <a href="founder.html" class="nav-link">
+          Founder
+        </a>
 
-        <nav class="main-nav" id="mainNav">
+        <a href="shayari.html" class="nav-link">
+          Shayari
+        </a>
 
-            <a href="index.html" class="active">Home</a>
-            <a href="founder.html">Founder</a>
-            <a href="shayari.html">Shayari</a>
-            <a href="stories.html">Stories</a>
-            <a href="education.html">ARS Education</a>
-            <a href="first-flight.html">First Flight</a>
-            <a href="ars-ai.html">ARS AI</a>
-            <a href="joining.html">Join ARS</a>
-            <a href="certificate.html">Certificate</a>
-            <a href="verify.html">Verify</a>
-            <a href="contact.html">Contact</a>
+        <a href="stories.html" class="nav-link">
+          Stories
+        </a>
 
-        </nav>
+        <a href="education.html" class="nav-link">
+          ARS Education
+        </a>
+
+        <a href="first-flight.html" class="nav-link">
+          First Flight
+        </a>
+
+        <a href="ars-ai.html" class="nav-link">
+          ARS AI
+        </a>
+
+        <a href="book.html" class="nav-link">
+          ARS Book
+        </a>
+
+        <a href="joining.html" class="nav-link">
+          Join ARS
+        </a>
+
+        <a href="certificate.html" class="nav-link">
+          Certificate
+        </a>
+
+        <a href="verify.html" class="nav-link">
+          Verify
+        </a>
+
+      </nav>
 
 
-        <div class="header-actions">
-
-            <button
-                type="button"
-                id="themeToggle"
-                class="icon-button"
-                aria-label="Change theme">
-                ☾
-            </button>
-
-            <button
-                type="button"
-                id="menuToggle"
-                class="menu-button"
-                aria-label="Open menu"
-                aria-expanded="false">
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </button>
-
-        </div>
+      <!-- Mobile menu button -->
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mainNav"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
     </div>
 
-</header>
+  </header>
 
 
-<!-- MOBILE MENU -->
-<div id="mobileOverlay" class="mobile-overlay"></div>
-
-<aside id="mobileMenu" class="mobile-menu">
-
-    <div class="mobile-menu-top">
-
-        <a href="index.html" class="mobile-brand">
-
-            <img src="logo.png" alt="ARS Official">
-
-            <div>
-                <strong>ARS Official</strong>
-                <span>Adarsh Raj Shayar</span>
-            </div>
-
-        </a>
-
-        <button
-            type="button"
-            id="mobileMenuClose"
-            class="mobile-close">
-            ×
-        </button>
-
-    </div>
+  <!-- ==============================
+       MAIN CONTENT
+  =============================== -->
+  <main id="mainContent">
 
 
-    <nav class="mobile-nav">
+    <!-- ==============================
+         HERO
+    =============================== -->
+    <section class="hero-section" id="home">
 
-        <a href="index.html">Home</a>
-        <a href="founder.html">Founder</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories & Poetry</a>
-        <a href="education.html">ARS Education</a>
-        <a href="first-flight.html">First Flight</a>
-        <a href="ars-ai.html">ARS AI</a>
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify Certificate</a>
-        <a href="contact.html">Contact</a>
-        <a href="publisher.html">Publisher</a>
-        <a href="admin.html">Admin</a>
-        <a href="policy.html">Policy</a>
-
-    </nav>
-
-</aside>
-
-
-<main>
-
-<!-- HERO -->
-<section class="hero">
-
-    <div class="hero-bg"></div>
-
-    <div class="container hero-grid">
+      <div class="container hero-grid">
 
         <div class="hero-content reveal">
 
-            <span class="hero-tag">
-                ✦ WELCOME TO ARS OFFICIAL
-            </span>
+          <span class="section-badge">
+            🌹 Welcome to ARS Official
+          </span>
 
-            <h1>
-                सीखिए,
-                <span>लिखिए,</span>
-                और अपनी पहचान बनाइए।
-            </h1>
+          <h1>
+            शब्दों से
+            <span>सपनों तक</span>
+            की एक नई उड़ान।
+          </h1>
 
-            <p>
-                ARS Official एक ऐसा digital platform है जहाँ
-                education, literature, knowledge और creativity
-                एक ही जगह पर मिलते हैं।
-            </p>
+          <p class="hero-description">
+            ARS Official एक ऐसा मंच है जहाँ साहित्य, शिक्षा,
+            रचनात्मकता और तकनीक एक साथ मिलकर सीखने और
+            आगे बढ़ने का अवसर देते हैं।
+          </p>
 
+          <div class="hero-actions">
 
-            <div class="hero-buttons">
-
-                <a href="education.html"
-                   class="btn btn-primary">
-                    Explore Education
-                    <span>→</span>
-                </a>
-
-                <a href="shayari.html"
-                   class="btn btn-outline">
-                    Explore Shayari
-                    <span>→</span>
-                </a>
-
-            </div>
-
-
-            <div class="hero-stats">
-
-                <div>
-                    <strong>5–8</strong>
-                    <span>Classes</span>
-                </div>
-
-                <div>
-                    <strong>3</strong>
-                    <span>Entrance Guides</span>
-                </div>
-
-                <div>
-                    <strong>ARS</strong>
-                    <span>Official</span>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-art reveal">
-
-            <div class="hero-main-card">
-
-                <div class="hero-card-top">
-                    <span>ARS</span>
-                    <span>OFFICIAL</span>
-                </div>
-
-                <div class="hero-logo">
-                    <img src="logo.png" alt="ARS">
-                </div>
-
-                <span class="hero-small-title">
-                    ADARSH RAJ SHAYAR
-                </span>
-
-                <h2>
-                    CREATE<br>
-                    LEARN<br>
-                    INSPIRE
-                </h2>
-
-                <div class="hero-card-line"></div>
-
-                <p>
-                    Creativity • Education • Knowledge
-                </p>
-
-            </div>
-
-
-            <div class="floating-card card-education">
-
-                <span>📚</span>
-
-                <div>
-                    <strong>ARS Education</strong>
-                    <small>Class 5–8</small>
-                </div>
-
-            </div>
-
-
-            <div class="floating-card card-writing">
-
-                <span>✍️</span>
-
-                <div>
-                    <strong>Creative World</strong>
-                    <small>Shayari & Stories</small>
-                </div>
-
-            </div>
-
-
-            <div class="floating-card card-certificate">
-
-                <span>🏆</span>
-
-                <div>
-                    <strong>Certificates</strong>
-                    <small>Generate & Verify</small>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- QUICK ACCESS -->
-<section class="quick-section">
-
-    <div class="container">
-
-        <div class="quick-grid">
-
-            <a href="education.html" class="quick-card reveal">
-                <span class="quick-icon">📚</span>
-                <div>
-                    <h3>ARS Education</h3>
-                    <p>Class 5–8 structured learning</p>
-                </div>
-                <b>→</b>
+            <a
+              href="shayari.html"
+              class="btn btn-primary"
+            >
+              Explore Shayari
             </a>
 
-
-            <a href="shayari.html" class="quick-card reveal">
-                <span class="quick-icon">✍️</span>
-                <div>
-                    <h3>Shayari</h3>
-                    <p>Read and explore creative writing</p>
-                </div>
-                <b>→</b>
+            <a
+              href="education.html"
+              class="btn btn-secondary"
+            >
+              Explore Education
             </a>
 
-
-            <a href="stories.html" class="quick-card reveal">
-                <span class="quick-icon">📖</span>
-                <div>
-                    <h3>Stories & Poetry</h3>
-                    <p>Stories, poems and inspiration</p>
-                </div>
-                <b>→</b>
-            </a>
+          </div>
 
 
-            <a href="certificate.html" class="quick-card reveal">
-                <span class="quick-icon">🏆</span>
-                <div>
-                    <h3>Certificates</h3>
-                    <p>Create your digital certificate</p>
-                </div>
-                <b>→</b>
-            </a>
+          <div class="hero-highlights">
 
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ABOUT -->
-<section class="section about-section">
-
-    <div class="container split-layout">
-
-        <div class="section-text reveal">
-
-            <span class="section-label">
-                ABOUT ARS
-            </span>
-
-            <h2>
-                सिर्फ एक website नहीं,
-                <span>एक digital identity.</span>
-            </h2>
-
-            <p>
-                ARS Official का उद्देश्य education,
-                literature, knowledge और creativity को
-                एक organized digital experience में
-                प्रस्तुत करना है।
-            </p>
-
-            <p>
-                यहाँ विद्यार्थी सीख सकते हैं, readers
-                पढ़ सकते हैं और creators अपनी सोच को
-                शब्दों में व्यक्त कर सकते हैं।
-            </p>
-
-            <a href="founder.html" class="text-link">
-                Founder की कहानी पढ़ें →
-            </a>
-
-        </div>
-
-
-        <div class="about-card-wrap reveal">
-
-            <div class="about-card">
-
-                <div class="about-card-header">
-                    <span>ARS</span>
-                    <span>OFFICIAL</span>
-                </div>
-
-                <div class="about-card-logo">
-                    <img src="logo.png" alt="ARS Logo">
-                </div>
-
-                <h3>Adarsh Raj</h3>
-
-                <p>Founder • Writer • Creator</p>
-
-                <div class="about-divider"></div>
-
-                <span>
-                    Creativity • Education • Knowledge
-                </span>
-
+            <div class="highlight-item">
+              <strong>ARS</strong>
+              <span>Creative Platform</span>
             </div>
 
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- MAIN SERVICES -->
-<section class="section services-section">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-label">
-                EXPLORE ARS
-            </span>
-
-            <h2>
-                एक जगह,
-                <span>कई possibilities.</span>
-            </h2>
-
-            <p>
-                ARS platform के अलग-अलग sections को explore करें।
-            </p>
-
-        </div>
-
-
-        <div class="service-grid">
-
-            <article class="service-card reveal">
-
-                <span class="service-number">01</span>
-                <span class="service-icon">📚</span>
-
-                <h3>ARS Education</h3>
-
-                <p>
-                    Class 5 से Class 8 तक subject-wise
-                    learning और practice।
-                </p>
-
-                <a href="education.html">
-                    Explore →
-                </a>
-
-            </article>
-
-
-            <article class="service-card reveal">
-
-                <span class="service-number">02</span>
-                <span class="service-icon">✒️</span>
-
-                <h3>Shayari</h3>
-
-                <p>
-                    Love, Sad, Motivation, Friendship,
-                    Attitude और अन्य categories।
-                </p>
-
-                <a href="shayari.html">
-                    Read Shayari →
-                </a>
-
-            </article>
-
-
-            <article class="service-card reveal">
-
-                <span class="service-number">03</span>
-                <span class="service-icon">📖</span>
-
-                <h3>Stories & Poetry</h3>
-
-                <p>
-                    Stories, poems और inspirational
-                    creative content।
-                </p>
-
-                <a href="stories.html">
-                    Explore →
-                </a>
-
-            </article>
-
-
-            <article class="service-card reveal">
-
-                <span class="service-number">04</span>
-                <span class="service-icon">🤖</span>
-
-                <h3>ARS AI</h3>
-
-                <p>
-                    ARS ecosystem का intelligent
-                    digital assistant experience।
-                </p>
-
-                <a href="ars-ai.html">
-                    Open ARS AI →
-                </a>
-
-            </article>
-
-
-            <article class="service-card reveal">
-
-                <span class="service-number">05</span>
-                <span class="service-icon">🏆</span>
-
-                <h3>Certificate</h3>
-
-                <p>
-                    Achievement, participation और
-                    education certificates।
-                </p>
-
-                <a href="certificate.html">
-                    Create →
-                </a>
-
-            </article>
-
-
-            <article class="service-card reveal">
-
-                <span class="service-number">06</span>
-                <span class="service-icon">🔎</span>
-
-                <h3>Verify</h3>
-
-                <p>
-                    Certificate ID या QR से certificate
-                    verification।
-                </p>
-
-                <a href="verify.html">
-                    Verify →
-                </a>
-
-            </article>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- EDUCATION -->
-<section class="education-banner">
-
-    <div class="container">
-
-        <div class="education-banner-inner reveal">
-
-            <div class="education-content">
-
-                <span class="section-label">
-                    ARS EDUCATION
-                </span>
-
-                <h2>
-                    पढ़ाई को
-                    <span>simple और engaging</span>
-                    बनाइए।
-                </h2>
-
-                <p>
-                    Class 5, 6, 7 और 8 के लिए:
-                    Class → Subject → Book → Chapter →
-                    Explanation → Notes → MCQ → Practice।
-                </p>
-
-                <a href="education.html"
-                   class="btn btn-primary">
-                    Start Learning →
-                </a>
-
+            <div class="highlight-item">
+              <strong>Learn</strong>
+              <span>Grow & Create</span>
             </div>
 
-
-            <div class="education-visual">
-
-                <div class="education-ring ring-one"></div>
-                <div class="education-ring ring-two"></div>
-
-                <div class="education-core">
-
-                    <span>ARS</span>
-                    <strong>EDUCATION</strong>
-                    <small>LEARN • PRACTICE • GROW</small>
-
-                </div>
-
+            <div class="highlight-item">
+              <strong>Dream</strong>
+              <span>Make It Real</span>
             </div>
 
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ENTRANCE PREPARATION -->
-<section class="section entrance-section">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-label">
-                ENTRANCE PREPARATION
-            </span>
-
-            <h2>
-                Class 6 के लिए
-                <span>Entrance Guidance</span>
-            </h2>
-
-            <p>
-                Exam से form, syllabus, preparation,
-                result और आगे की process तक complete guidance।
-            </p>
+          </div>
 
         </div>
 
 
-        <div class="entrance-grid">
+        <div class="hero-visual reveal">
 
-            <a href="navodaya.html"
-               class="entrance-card reveal">
+          <div class="hero-card">
 
-                <span>🎓</span>
-
-                <h3>Navodaya</h3>
-
-                <p>
-                    Exam overview, eligibility,
-                    syllabus, preparation और admission flow।
-                </p>
-
-                <strong>
-                    View Guide →
-                </strong>
-
-            </a>
-
-
-            <a href="sainik-school.html"
-               class="entrance-card reveal">
-
-                <span>🏫</span>
-
-                <h3>Sainik School</h3>
-
-                <p>
-                    Form से लेकर exam, result और
-                    admission process तक complete guide।
-                </p>
-
-                <strong>
-                    View Guide →
-                </strong>
-
-            </a>
-
-
-            <a href="rms.html"
-               class="entrance-card reveal">
-
-                <span>📘</span>
-
-                <h3>RMS</h3>
-
-                <p>
-                    RMS entrance की eligibility,
-                    syllabus, preparation और process।
-                </p>
-
-                <strong>
-                    View Guide →
-                </strong>
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FIRST FLIGHT -->
-<section class="section first-flight-section">
-
-    <div class="container">
-
-        <div class="first-flight reveal">
-
-            <div>
-
-                <span class="section-label">
-                    ARS BOOK
-                </span>
-
-                <h2>Meri Pehli Udaan</h2>
-
-                <p>
-                    शब्दों की दुनिया में एक शुरुआत,
-                    एक अनुभव और एक नई उड़ान।
-                </p>
-
-                <a href="first-flight.html"
-                   class="btn btn-outline">
-                    Explore First Flight →
-                </a>
-
+            <div class="hero-card-top">
+              <span>ARS</span>
+              <span>Official</span>
             </div>
 
+            <div class="hero-card-center">
 
-            <div class="first-flight-mark">
-                ✦
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FOUNDER -->
-<section class="section founder-section">
-
-    <div class="container split-layout">
-
-        <div class="founder-image reveal">
-
-            <div class="founder-frame">
-
-                <img src="photo.jpg1.jpeg"
-                     alt="Adarsh Raj"
-                     loading="lazy">
-
-            </div>
-
-        </div>
-
-
-        <div class="section-text reveal">
-
-            <span class="section-label">
-                FOUNDER
-            </span>
-
-            <h2>
-                Adarsh Raj
-                <span>Shayar</span>
-            </h2>
-
-            <p>
-                ARS Official के founder की creative journey,
-                vision और ARS के पीछे की कहानी जानिए।
-            </p>
-
-            <a href="founder.html"
-               class="btn btn-primary">
-                Meet the Founder →
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- VALUES -->
-<section class="section values-section">
-
-    <div class="container">
-
-        <div class="section-heading reveal">
-
-            <span class="section-label">
-                ARS VALUES
-            </span>
-
-            <h2>
-                Experience जो
-                <span>याद रहे।</span>
-            </h2>
-
-        </div>
-
-
-        <div class="values-grid">
-
-            <div class="value-card reveal">
-
-                <span>✓</span>
-
-                <h3>Simple</h3>
-
-                <p>
-                    जरूरी information तक आसान access।
-                </p>
-
-            </div>
-
-
-            <div class="value-card reveal">
-
-                <span>✦</span>
-
-                <h3>Creative</h3>
-
-                <p>
-                    हर section में ARS की unique identity।
-                </p>
-
-            </div>
-
-
-            <div class="value-card reveal">
-
-                <span>◈</span>
-
-                <h3>Useful</h3>
-
-                <p>
-                    Learning और creative दोनों के लिए useful।
-                </p>
-
-            </div>
-
-
-            <div class="value-card reveal">
-
-                <span>✓</span>
-
-                <h3>Organized</h3>
-
-                <p>
-                    Content और services clear structure में।
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- JOIN -->
-<section class="join-section">
-
-    <div class="container">
-
-        <div class="join-card reveal">
-
-            <div>
-
-                <span class="section-label">
-                    JOIN ARS
-                </span>
-
-                <h2>
-                    ARS journey का
-                    <span>हिस्सा बनिए।</span>
-                </h2>
-
-                <p>
-                    Joining application submit करें।
-                    Approval के बाद joining certificate
-                    generate किया जा सकेगा।
-                </p>
-
-                <a href="joining.html"
-                   class="btn btn-primary">
-                    Join ARS →
-                </a>
-
-            </div>
-
-
-            <div class="join-symbol">
+              <div class="hero-emblem">
                 ARS
+              </div>
+
+              <h2>
+                Adarsh Raj Shayar
+              </h2>
+
+              <p>
+                Creativity • Education • Inspiration
+              </p>
+
             </div>
+
+            <div class="hero-card-bottom">
+              <span>Write</span>
+              <span>Learn</span>
+              <span>Inspire</span>
+            </div>
+
+          </div>
 
         </div>
 
-    </div>
+      </div>
 
-</section>
+    </section>
 
 
-<!-- CONTACT -->
-<section class="section contact-section">
+    <!-- ==============================
+         ABOUT ARS
+    =============================== -->
+    <section class="section" id="about">
 
-    <div class="container">
+      <div class="container">
 
-        <div class="contact-box reveal">
+        <div class="section-heading reveal">
 
-            <div>
+          <span class="section-badge">
+            About ARS
+          </span>
 
-                <span class="section-label">
-                    CONTACT ARS
-                </span>
+          <h2>
+            ARS केवल एक नाम नहीं,
+            <span>एक शुरुआत है।</span>
+          </h2>
 
-                <h2>
-                    कुछ पूछना है?
-                    <span>हमसे जुड़िए।</span>
-                </h2>
+          <p>
+            विचारों को शब्द देने, शिक्षा को सरल बनाने और
+            युवाओं को अपनी प्रतिभा पहचानने के लिए बनाया गया
+            एक रचनात्मक मंच।
+          </p>
 
-                <p>
-                    ARS Official से जुड़ी जानकारी,
-                    suggestions या queries के लिए contact करें।
-                </p>
+        </div>
 
+
+        <div class="cards-grid three-columns">
+
+          <article class="info-card reveal">
+
+            <div class="card-icon">
+              ✍️
             </div>
 
-            <a href="contact.html"
-               class="btn btn-outline">
-                Contact ARS →
+            <h3>
+              Creativity
+            </h3>
+
+            <p>
+              Shayari, Poetry, Stories और अन्य मौलिक
+              रचनात्मक सामग्री के माध्यम से अभिव्यक्ति।
+            </p>
+
+            <a href="shayari.html" class="card-link">
+              Explore Shayari →
             </a>
 
+          </article>
+
+
+          <article class="info-card reveal">
+
+            <div class="card-icon">
+              📚
+            </div>
+
+            <h3>
+              Education
+            </h3>
+
+            <p>
+              विद्यार्थियों के लिए सरल explanations,
+              notes, MCQs, practice और preparation resources।
+            </p>
+
+            <a href="education.html" class="card-link">
+              Start Learning →
+            </a>
+
+          </article>
+
+
+          <article class="info-card reveal">
+
+            <div class="card-icon">
+              🤖
+            </div>
+
+            <h3>
+              ARS AI
+            </h3>
+
+            <p>
+              भविष्य में सुरक्षित और personalized
+              AI-based learning तथा creative assistance।
+            </p>
+
+            <a href="ars-ai.html" class="card-link">
+              Explore ARS AI →
+            </a>
+
+          </article>
+
         </div>
 
-    </div>
+      </div>
 
-</section>
-
-</main>
+    </section>
 
 
-<!-- FOOTER -->
-<footer class="site-footer">
+    <!-- ==============================
+         ARS FEATURES
+    =============================== -->
+    <section class="section section-dark" id="features">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <span class="section-badge">
+            ARS Platform
+          </span>
+
+          <h2>
+            Explore the
+            <span>ARS World</span>
+          </h2>
+
+          <p>
+            अलग-अलग क्षेत्रों में सीखने, पढ़ने और
+            अपनी creativity को आगे बढ़ाने के लिए ARS के
+            प्रमुख sections।
+          </p>
+
+        </div>
+
+
+        <div class="cards-grid four-columns">
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              01
+            </div>
+
+            <div class="card-icon">
+              🌹
+            </div>
+
+            <h3>
+              Shayari
+            </h3>
+
+            <p>
+              Love, Sad, Motivational, Friendship,
+              Attitude और अन्य categories।
+            </p>
+
+            <a href="shayari.html" class="card-link">
+              Open Shayari →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              02
+            </div>
+
+            <div class="card-icon">
+              📖
+            </div>
+
+            <h3>
+              Stories & Poetry
+            </h3>
+
+            <p>
+              Stories, poems और meaningful
+              creative content।
+            </p>
+
+            <a href="stories.html" class="card-link">
+              Read Stories →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              03
+            </div>
+
+            <div class="card-icon">
+              🎓
+            </div>
+
+            <h3>
+              ARS Education
+            </h3>
+
+            <p>
+              Classes 5–8 के लिए structured
+              learning resources।
+            </p>
+
+            <a href="education.html" class="card-link">
+              Learn Now →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              04
+            </div>
+
+            <div class="card-icon">
+              🚀
+            </div>
+
+            <h3>
+              First Flight
+            </h3>
+
+            <p>
+              Reading, vocabulary, grammar और
+              practice-based learning।
+            </p>
+
+            <a href="first-flight.html" class="card-link">
+              Explore →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              05
+            </div>
+
+            <div class="card-icon">
+              📕
+            </div>
+
+            <h3>
+              ARS Book
+            </h3>
+
+            <p>
+              “Meri Pehli Udaan” और ARS की
+              literary journey।
+            </p>
+
+            <a href="book.html" class="card-link">
+              Open ARS Book →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              06
+            </div>
+
+            <div class="card-icon">
+              🧠
+            </div>
+
+            <h3>
+              ARS Dictionary
+            </h3>
+
+            <p>
+              शब्द, meaning, pronunciation,
+              examples और vocabulary learning।
+            </p>
+
+            <a href="dictionary.html" class="card-link">
+              Open Dictionary →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              07
+            </div>
+
+            <div class="card-icon">
+              📝
+            </div>
+
+            <h3>
+              ARS Exam
+            </h3>
+
+            <p>
+              ARS Education & Talent Exam के लिए
+              preparation और assessment system।
+            </p>
+
+            <a href="ars-exams.html" class="card-link">
+              Explore Exam →
+            </a>
+
+          </article>
+
+
+          <article class="feature-card reveal">
+
+            <div class="feature-number">
+              08
+            </div>
+
+            <div class="card-icon">
+              🏅
+            </div>
+
+            <h3>
+              Certificates
+            </h3>
+
+            <p>
+              ARS certificates और secure
+              verification system।
+            </p>
+
+            <a href="certificate.html" class="card-link">
+              Certificates →
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         EDUCATION
+    =============================== -->
+    <section class="section" id="education">
+
+      <div class="container">
+
+        <div class="split-section">
+
+          <div class="split-content reveal">
+
+            <span class="section-badge">
+              ARS Education
+            </span>
+
+            <h2>
+              पढ़ाई को
+              <span>सरल और व्यवस्थित</span>
+              बनाना।
+            </h2>
+
+            <p>
+              ARS Education में students को class-wise और
+              topic-wise learning experience देने का लक्ष्य है।
+            </p>
+
+            <ul class="check-list">
+
+              <li>
+                <span>✓</span>
+                Chapter-wise explanation
+              </li>
+
+              <li>
+                <span>✓</span>
+                Notes & important points
+              </li>
+
+              <li>
+                <span>✓</span>
+                MCQs & practice
+              </li>
+
+              <li>
+                <span>✓</span>
+                Revision & exam preparation
+              </li>
+
+            </ul>
+
+            <a
+              href="education.html"
+              class="btn btn-primary"
+            >
+              Explore ARS Education
+            </a>
+
+          </div>
+
+
+          <div class="split-visual reveal">
+
+            <div class="education-showcase">
+
+              <div class="education-box">
+                <span>CLASS</span>
+                <strong>5–8</strong>
+              </div>
+
+              <div class="education-box">
+                <span>LEARN</span>
+                <strong>READ</strong>
+              </div>
+
+              <div class="education-box">
+                <span>PRACTICE</span>
+                <strong>GROW</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         ARS AI
+    =============================== -->
+    <section class="section ai-section" id="ars-ai">
+
+      <div class="container">
+
+        <div class="ai-banner reveal">
+
+          <div class="ai-content">
+
+            <span class="section-badge">
+              ARS AI
+            </span>
+
+            <h2>
+              Create.
+              <span>Learn.</span>
+              Ask.
+            </h2>
+
+            <p>
+              Personalized Shayari generation और future
+              learning assistance के लिए ARS AI।
+            </p>
+
+            <a
+              href="ars-ai.html"
+              class="btn btn-primary"
+            >
+              Explore ARS AI
+            </a>
+
+          </div>
+
+
+          <div class="ai-symbol" aria-hidden="true">
+            AI
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         FIRST FLIGHT / ARS BOOK
+    =============================== -->
+    <section class="section" id="book">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <span class="section-badge">
+            ARS Book
+          </span>
+
+          <h2>
+            <span>Meri Pehli Udaan</span>
+          </h2>
+
+          <p>
+            लेखन की शुरुआत से लेकर ARS की creative journey
+            तक की एक विशेष पहल।
+          </p>
+
+        </div>
+
+
+        <div class="book-showcase reveal">
+
+          <div class="book-cover">
+
+            <span class="book-brand">
+              ARS
+            </span>
+
+            <h3>
+              मेरी पहली उड़ान
+            </h3>
+
+            <p>
+              Meri Pehli Udaan
+            </p>
+
+            <span class="book-author">
+              Adarsh Raj Shayar
+            </span>
+
+          </div>
+
+
+          <div class="book-content">
+
+            <span class="section-badge">
+              A Beginning
+            </span>
+
+            <h3>
+              हर उड़ान एक शुरुआत से होती है।
+            </h3>
+
+            <p>
+              “Meri Pehli Udaan” ARS की साहित्यिक यात्रा
+              और creativity की शुरुआत से जुड़ा एक विशेष
+              project है।
+            </p>
+
+            <a
+              href="book.html"
+              class="btn btn-secondary"
+            >
+              Explore ARS Book
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         JOIN ARS
+    =============================== -->
+    <section class="section section-dark" id="join">
+
+      <div class="container">
+
+        <div class="join-banner reveal">
+
+          <div>
+
+            <span class="section-badge">
+              Join ARS
+            </span>
+
+            <h2>
+              ARS का हिस्सा
+              <span>बनें।</span>
+            </h2>
+
+            <p>
+              ARS community और future initiatives से
+              जुड़ने के लिए joining process शुरू करें।
+            </p>
+
+          </div>
+
+
+          <a
+            href="joining.html"
+            class="btn btn-primary"
+          >
+            Join ARS
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         CERTIFICATE / VERIFY
+    =============================== -->
+    <section class="section" id="certificate">
+
+      <div class="container">
+
+        <div class="cards-grid two-columns">
+
+          <article class="action-card reveal">
+
+            <div class="card-icon">
+              🏆
+            </div>
+
+            <span class="section-badge">
+              Certificate
+            </span>
+
+            <h3>
+              Generate Certificate
+            </h3>
+
+            <p>
+              ARS certificate system के माध्यम से
+              उपलब्ध certificate options देखें।
+            </p>
+
+            <a
+              href="certificate.html"
+              class="btn btn-primary"
+            >
+              Open Certificate
+            </a>
+
+          </article>
+
+
+          <article class="action-card reveal">
+
+            <div class="card-icon">
+              🔎
+            </div>
+
+            <span class="section-badge">
+              Verification
+            </span>
+
+            <h3>
+              Verify Certificate
+            </h3>
+
+            <p>
+              Certificate ID या verification system के
+              माध्यम से certificate की जानकारी जाँचें।
+            </p>
+
+            <a
+              href="verify.html"
+              class="btn btn-secondary"
+            >
+              Verify Now
+            </a>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         FOUNDER
+    =============================== -->
+    <section class="section founder-preview" id="founder">
+
+      <div class="container">
+
+        <div class="split-section reverse">
+
+          <div class="split-content reveal">
+
+            <span class="section-badge">
+              Founder
+            </span>
+
+            <h2>
+              Meet
+              <span>Adarsh Raj</span>
+            </h2>
+
+            <p>
+              Adarsh Raj Shayar के creative vision से
+              ARS की journey शुरू हुई — writing, learning,
+              creativity और नई possibilities के साथ।
+            </p>
+
+            <a
+              href="founder.html"
+              class="btn btn-primary"
+            >
+              Know More
+            </a>
+
+          </div>
+
+
+          <div class="split-visual reveal">
+
+            <div class="founder-placeholder">
+
+              <div class="founder-initial">
+                ARS
+              </div>
+
+              <span>
+                Founder of ARS
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         CONTACT
+    =============================== -->
+    <section class="section section-dark" id="contact">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <span class="section-badge">
+            Contact
+          </span>
+
+          <h2>
+            Connect with
+            <span>ARS</span>
+          </h2>
+
+          <p>
+            ARS से जुड़े updates और official communication
+            के लिए contact section देखें।
+          </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+          <a
+            href="contact.html"
+            class="contact-card reveal"
+          >
+
+            <div class="card-icon">
+              💬
+            </div>
+
+            <h3>
+              Contact ARS
+            </h3>
+
+            <p>
+              Official contact और support information।
+            </p>
+
+            <span class="card-link">
+              Open Contact →
+            </span>
+
+          </a>
+
+
+          <a
+            href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card reveal"
+          >
+
+            <div class="card-icon">
+              📢
+            </div>
+
+            <h3>
+              ARS GK Channel
+            </h3>
+
+            <p>
+              Official ARS GK WhatsApp Channel से जुड़ें।
+            </p>
+
+            <span class="card-link">
+              Open Channel →
+            </span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ==============================
+       FOOTER
+  =============================== -->
+  <footer class="site-footer">
 
     <div class="container">
 
-        <div class="footer-grid">
-
-            <div class="footer-about">
-
-                <a href="index.html"
-                   class="footer-brand">
-
-                    <img src="logo.png"
-                         alt="ARS Official">
-
-                    <div>
-                        <strong>ARS Official</strong>
-                        <span>Adarsh Raj Shayar</span>
-                    </div>
-
-                </a>
+      <div class="footer-grid">
 
 
-                <p>
-                    Education, literature, knowledge और
-                    creativity को एक साथ लाने वाला digital platform।
-                </p>
+        <div class="footer-brand">
 
+          <a
+            href="index.html"
+            class="brand"
+          >
 
-                <div class="signature-box">
+            <span class="brand-mark">
+              ARS
+            </span>
 
-                    <span>Founder</span>
+            <span class="brand-text">
+              <strong>ARS Official</strong>
+              <small>Adarsh Raj Shayar</small>
+            </span>
 
-                    <div class="signature-text">
-                        Adarsh Raj
-                    </div>
+          </a>
 
-                </div>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h3>Explore</h3>
-
-                <a href="education.html">Education</a>
-                <a href="shayari.html">Shayari</a>
-                <a href="stories.html">Stories</a>
-                <a href="first-flight.html">First Flight</a>
-                <a href="ars-ai.html">ARS AI</a>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h3>Certificates</h3>
-
-                <a href="certificate.html">Create Certificate</a>
-                <a href="verify.html">Verify Certificate</a>
-                <a href="joining.html">Join ARS</a>
-
-            </div>
-
-
-            <div class="footer-column">
-
-                <h3>Portal</h3>
-
-                <a href="founder.html">Founder</a>
-                <a href="contact.html">Contact</a>
-                <a href="publisher.html">Publisher</a>
-                <a href="admin.html">Admin</a>
-                <a href="policy.html">Policy</a>
-
-            </div>
+          <p>
+            Creativity, Education और Inspiration को
+            एक साथ जोड़ने की एक पहल।
+          </p>
 
         </div>
 
 
-        <div class="footer-bottom">
+        <div class="footer-links">
 
-            <p>
-                © <span id="currentYear"></span>
-                ARS Official. All rights reserved.
-            </p>
+          <h3>
+            Explore
+          </h3>
 
-            <p>
-                Created by <strong>Adarsh Raj</strong>
-            </p>
+          <a href="shayari.html">
+            Shayari
+          </a>
+
+          <a href="stories.html">
+            Stories
+          </a>
+
+          <a href="education.html">
+            Education
+          </a>
+
+          <a href="book.html">
+            ARS Book
+          </a>
+
+          <a href="ars-ai.html">
+            ARS AI
+          </a>
 
         </div>
+
+
+        <div class="footer-links">
+
+          <h3>
+            Services
+          </h3>
+
+          <a href="joining.html">
+            Join ARS
+          </a>
+
+          <a href="certificate.html">
+            Certificate
+          </a>
+
+          <a href="verify.html">
+            Verify
+          </a>
+
+          <a href="contact.html">
+            Contact
+          </a>
+
+          <a href="publisher.html">
+            Publisher
+          </a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+          <h3>
+            Legal
+          </h3>
+
+          <a href="policy.html">
+            Policy
+          </a>
+
+          <a href="policy.html#privacy">
+            Privacy
+          </a>
+
+          <a href="policy.html#terms">
+            Terms
+          </a>
+
+          <a href="policy.html#disclaimer">
+            Disclaimer
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <p>
+          © <span id="footerYear">2026</span>
+          ARS Official. All Rights Reserved.
+        </p>
+
+        <p>
+          Founded by
+          <strong>Adarsh Raj</strong>
+        </p>
+
+      </div>
 
     </div>
 
-</footer>
+  </footer>
 
 
-<!-- BACK TO TOP -->
-<button
-    type="button"
+  <!-- ==============================
+       BACK TO TOP
+  =============================== -->
+  <button
     id="backToTop"
     class="back-to-top"
-    aria-label="Back to top">
+    type="button"
+    aria-label="Back to top"
+    title="Back to top"
+  >
     ↑
-</button>
+  </button>
 
 
-<!-- TOAST -->
-<div
+  <!-- ==============================
+       TOAST
+  =============================== -->
+  <div
     id="arsToast"
     class="ars-toast"
     role="status"
-    aria-live="polite">
+    aria-live="polite"
+    aria-atomic="true"
+  ></div>
 
-    <span class="toast-icon">✓</span>
-    <span class="toast-message"></span>
-
-</div>
-
-
-<!-- SCRIPTS -->
-<script src="config.js"></script>
-<script src="storage.js"></script>
-<script src="script.js"></script>
 
 </body>
 </html>
