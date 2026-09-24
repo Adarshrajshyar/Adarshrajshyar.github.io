@@ -2,610 +2,446 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="Contact ARS Official — Adarsh Raj Shayar."
-  >
-
-  <meta
-    name="author"
-    content="Adarsh Raj"
-  >
-
-  <meta
-    name="robots"
-    content="index, follow"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Contact | ARS Official</title>
-
-  <link
-    rel="canonical"
-    href="https://adarshrajshyar.github.io/contact.html"
+  <meta
+    name="description"
+    content="Contact ARS Official for support, suggestions and website queries."
   >
 
   <link rel="stylesheet" href="style.css">
-
-  <script src="config.js" defer></script>
-  <script src="storage.js" defer></script>
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
   <script src="script.js" defer></script>
+
+  <style>
+    .contact-page {
+      min-height: calc(100vh - 80px);
+      padding: 55px 20px 75px;
+      background:
+        radial-gradient(circle at top left, rgba(110,168,254,.13), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(255,120,160,.12), transparent 32%);
+    }
+
+    .contact-header {
+      max-width: 760px;
+      margin: 0 auto 35px;
+      text-align: center;
+    }
+
+    .contact-header .eyebrow {
+      color: #635bff;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .contact-header h1 {
+      margin-bottom: 12px;
+    }
+
+    .contact-header p {
+      color: #667085;
+      line-height: 1.7;
+    }
+
+    .contact-layout {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 25px;
+    }
+
+    .contact-card {
+      background: #fff;
+      border: 1px solid #edf0f5;
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 14px 40px rgba(50,70,120,.07);
+    }
+
+    .contact-card h2 {
+      margin-bottom: 20px;
+    }
+
+    .contact-options {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-option {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #edf0f5;
+    }
+
+    .contact-option .icon {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #eaf5ff, #ffeaf2);
+      font-size: 21px;
+    }
+
+    .contact-option strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contact-option span,
+    .contact-option a {
+      color: #667085;
+      font-size: 13px;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .contact-option a {
+      text-decoration: none;
+    }
+
+    .contact-option a:hover {
+      color: #635bff;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 15px;
+    }
+
+    .contact-form label {
+      font-weight: 700;
+      margin-bottom: -7px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 15px;
+      border: 1px solid #d9dfeb;
+      border-radius: 13px;
+      outline: none;
+      background: #fff;
+      font: inherit;
+      transition: .2s ease;
+    }
+
+    .contact-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus,
+    .contact-form select:focus {
+      border-color: #6ea8fe;
+      box-shadow: 0 0 0 4px rgba(110,168,254,.12);
+    }
+
+    .contact-submit {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 20px;
+      color: #fff;
+      background: linear-gradient(135deg, #4776e6, #c44cff);
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .contact-submit:hover {
+      box-shadow: 0 10px 25px rgba(90,90,200,.20);
+    }
+
+    .contact-message {
+      display: none;
+      padding: 13px 15px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .contact-message.show {
+      display: block;
+    }
+
+    .contact-message.info {
+      background: #eef6ff;
+      color: #175cd3;
+    }
+
+    .contact-note {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 13px;
+      background: #fff8e8;
+      color: #8a5a00;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 800px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .contact-card {
+        padding: 22px;
+        border-radius: 21px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- PAGE LOADER -->
-  <div
-    id="pageLoader"
-    class="page-loader"
-    aria-label="Loading"
-  >
+  <div id="pageLoader" class="page-loader">
     <div class="loader-spinner"></div>
   </div>
 
-
-  <!-- HEADER -->
   <header class="site-header">
     <div class="container header-inner">
 
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="ARS Official Home"
-      >
-        <div class="brand-mark">ARS</div>
-
-        <div class="brand-text">
-          <strong>ARS Official</strong>
-          <span>Adarsh Raj Shayar</span>
-        </div>
+      <a href="index.html" class="brand">
+        <span class="brand-mark">🌹</span>
+        <span>
+          <strong>ARS</strong>
+          <small>Official</small>
+        </span>
       </a>
 
-
-      <button
-        id="menuToggle"
-        class="menu-toggle"
-        type="button"
-        aria-label="Open navigation"
-        aria-controls="mainNav"
-        aria-expanded="false"
-      >
-        ☰
-      </button>
-
-
-      <nav
-        id="mainNav"
-        class="main-nav"
-        aria-label="Main Navigation"
-      >
+      <nav class="main-nav">
         <a href="index.html">Home</a>
-        <a href="founder.html">Founder</a>
         <a href="shayari.html">Shayari</a>
         <a href="stories.html">Stories</a>
-        <a href="education.html">ARS Education</a>
-        <a href="first-flight.html">First Flight</a>
-        <a href="ars-ai.html">ARS AI</a>
-        <a href="book.html">ARS Book</a>
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify</a>
+        <a href="education.html">Education</a>
+        <a href="ars-book.html">ARS Book</a>
       </nav>
+
+      <div class="header-actions">
+        <a href="dashboard.html" class="btn btn-primary">
+          Dashboard
+        </a>
+      </div>
 
     </div>
   </header>
 
+  <main class="contact-page">
 
-  <main>
+    <div class="contact-header">
 
-    <!-- HERO -->
-    <section class="hero section">
-      <div class="container">
-
-        <div class="hero-content reveal">
-
-          <span class="eyebrow">
-            CONTACT ARS
-          </span>
-
-          <h1>
-            हमसे जुड़ें
-          </h1>
-
-          <p>
-            ARS Official से संबंधित सामान्य जानकारी,
-            सुझाव और सहायता के लिए संपर्क करें।
-          </p>
-
-        </div>
-
+      <div class="eyebrow">
+        Get In Touch
       </div>
-    </section>
 
+      <h1>Contact ARS</h1>
 
-    <!-- CONTACT OPTIONS -->
-    <section class="section">
-      <div class="container">
+      <p>
+        Website, account, education, certificate या किसी technical
+        समस्या से संबंधित सहायता के लिए ARS से संपर्क करें।
+      </p>
 
-        <div class="section-heading reveal">
+    </div>
 
-          <span class="eyebrow">
-            OFFICIAL CHANNELS
-          </span>
+    <div class="contact-layout">
 
-          <h2>
-            संपर्क के माध्यम
-          </h2>
+      <section class="contact-card">
 
-          <p>
-            केवल official ARS channels का उपयोग करें।
-          </p>
+        <h2>Contact Information</h2>
 
-        </div>
+        <div class="contact-options">
 
+          <div class="contact-option">
 
-        <div class="cards-grid">
+            <div class="icon">💬</div>
 
-          <article class="info-card reveal">
+            <div>
+              <strong>ARS WhatsApp Channel</strong>
 
-            <span class="card-icon">
-              💬
-            </span>
+              <a
+                href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Official ARS Channel
+              </a>
+            </div>
 
-            <h3>
-              ARS GK WhatsApp Channel
-            </h3>
+          </div>
 
-            <p>
-              ARS के educational updates और सामान्य
-              जानकारी के लिए official WhatsApp channel।
-            </p>
+          <div class="contact-option">
 
-            <a
-              href="https://whatsapp.com/channel/0029VbDYBoZHFxPB8BmjHq3e"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-primary"
-            >
-              WhatsApp Channel
-            </a>
+            <div class="icon">🛠️</div>
 
-          </article>
+            <div>
+              <strong>Technical Support</strong>
 
+              <span>
+                Login, registration, certificate और website
+                technical issues के लिए support request भेजें।
+              </span>
+            </div>
 
-          <article class="info-card reveal">
+          </div>
 
-            <span class="card-icon">
-              📷
-            </span>
+          <div class="contact-option">
 
-            <h3>
-              ARS Instagram
-            </h3>
+            <div class="icon">📚</div>
 
-            <p>
-              ARS की creative activities और updates
-              के लिए official Instagram profile।
-            </p>
+            <div>
+              <strong>Education Support</strong>
 
-            <a
-              href="https://www.instagram.com/adarshrajshyar/"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn btn-outline"
-            >
-              Instagram
-            </a>
+              <span>
+                Education content, exam और learning resources से
+                संबंधित queries के लिए contact करें।
+              </span>
+            </div>
 
-          </article>
+          </div>
 
+          <div class="contact-option">
 
-          <article class="info-card reveal">
+            <div class="icon">✍️</div>
 
-            <span class="card-icon">
-              🌐
-            </span>
+            <div>
+              <strong>Content & Suggestions</strong>
 
-            <h3>
-              ARS Website
-            </h3>
+              <span>
+                Shayari, stories, books और ARS projects के लिए
+                suggestions भेज सकते हैं।
+              </span>
+            </div>
 
-            <p>
-              ARS के सभी sections, educational resources,
-              certificates और अन्य features एक ही जगह।
-            </p>
-
-            <a
-              href="index.html"
-              class="btn btn-outline"
-            >
-              Website Home
-            </a>
-
-          </article>
+          </div>
 
         </div>
 
-      </div>
-    </section>
-
-
-    <!-- SUPPORT -->
-    <section class="section section-alt">
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <span class="eyebrow">
-            HELP & SUPPORT
-          </span>
-
-          <h2>
-            सहायता चाहिए?
-          </h2>
-
-          <p>
-            ARS में login, registration, certificate,
-            exam या technical समस्या के लिए support
-            system का उपयोग किया जा सकता है।
-          </p>
-
+        <div class="contact-note">
+          🔒 Personal या sensitive information message में share न करें।
+          Account-related सहायता के लिए केवल आवश्यक information दें।
         </div>
 
+      </section>
 
-        <div class="feature-grid">
+      <section class="contact-card">
 
-          <article class="feature-card reveal">
-            <h3>
-              🔐 Login
-            </h3>
+        <h2>Send a Message</h2>
 
-            <p>
-              Account या login से संबंधित समस्या।
-            </p>
-          </article>
+        <div id="contactMessage" class="contact-message"></div>
 
+        <form id="contactForm" class="contact-form">
 
-          <article class="feature-card reveal">
-            <h3>
-              📝 Registration
-            </h3>
+          <label for="contactName">Name</label>
 
-            <p>
-              Joining, exam या अन्य registration से
-              संबंधित समस्या।
-            </p>
-          </article>
-
-
-          <article class="feature-card reveal">
-            <h3>
-              📜 Certificate
-            </h3>
-
-            <p>
-              Certificate और verification से संबंधित
-              सहायता।
-            </p>
-          </article>
-
-
-          <article class="feature-card reveal">
-            <h3>
-              ⚙️ Technical
-            </h3>
-
-            <p>
-              Website या technical feature में समस्या।
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- CONTACT FORM -->
-    <section class="section">
-      <div class="container">
-
-        <div class="section-heading reveal">
-
-          <span class="eyebrow">
-            SEND A MESSAGE
-          </span>
-
-          <h2>
-            संदेश भेजें
-          </h2>
-
-          <p>
-            यह form आगे secure backend support system
-            से connect किया जाएगा।
-          </p>
-
-        </div>
-
-
-        <div class="form-card reveal">
-
-          <form
-            id="contactForm"
-            autocomplete="on"
+          <input
+            type="text"
+            id="contactName"
+            name="name"
+            placeholder="अपना नाम"
+            maxlength="80"
+            required
           >
 
-            <div class="form-grid">
+          <label for="contactEmail">Email</label>
 
-              <div class="form-group">
+          <input
+            type="email"
+            id="contactEmail"
+            name="email"
+            placeholder="your@email.com"
+            maxlength="120"
+            required
+          >
 
-                <label for="contactName">
-                  नाम
-                </label>
+          <label for="contactSubject">Subject</label>
 
-                <input
-                  id="contactName"
-                  name="name"
-                  type="text"
-                  maxlength="80"
-                  autocomplete="name"
-                  placeholder="अपना नाम लिखें"
-                  required
-                >
+          <select id="contactSubject" name="subject" required>
 
-              </div>
+            <option value="">
+              Select a subject
+            </option>
 
+            <option value="account">
+              Account / Login
+            </option>
 
-              <div class="form-group">
+            <option value="education">
+              Education
+            </option>
 
-                <label for="contactEmail">
-                  Email
-                </label>
+            <option value="exam">
+              ARS Exam
+            </option>
 
-                <input
-                  id="contactEmail"
-                  name="email"
-                  type="email"
-                  maxlength="120"
-                  autocomplete="email"
-                  placeholder="अपना email लिखें"
-                >
+            <option value="certificate">
+              Certificate
+            </option>
 
-              </div>
+            <option value="technical">
+              Technical Issue
+            </option>
 
+            <option value="content">
+              Content / Suggestion
+            </option>
 
-              <div class="form-group">
+            <option value="other">
+              Other
+            </option>
 
-                <label for="contactSubject">
-                  विषय
-                </label>
+          </select>
 
-                <select
-                  id="contactSubject"
-                  name="subject"
-                  required
-                >
-                  <option value="">
-                    विषय चुनें
-                  </option>
+          <label for="contactMessageText">Message</label>
 
-                  <option value="general">
-                    General Query
-                  </option>
+          <textarea
+            id="contactMessageText"
+            name="message"
+            placeholder="अपना message लिखें..."
+            maxlength="2000"
+            required
+          ></textarea>
 
-                  <option value="joining">
-                    Join ARS
-                  </option>
+          <button
+            type="submit"
+            class="contact-submit"
+            id="contactSubmit"
+          >
+            Send Message
+          </button>
 
-                  <option value="certificate">
-                    Certificate
-                  </option>
+        </form>
 
-                  <option value="exam">
-                    ARS Exam
-                  </option>
+      </section>
 
-                  <option value="education">
-                    Education
-                  </option>
-
-                  <option value="technical">
-                    Technical Issue
-                  </option>
-
-                  <option value="other">
-                    Other
-                  </option>
-                </select>
-
-              </div>
-
-
-              <div class="form-group">
-
-                <label for="contactMessage">
-                  संदेश
-                </label>
-
-                <textarea
-                  id="contactMessage"
-                  name="message"
-                  rows="7"
-                  maxlength="1000"
-                  placeholder="अपना संदेश लिखें..."
-                  required
-                ></textarea>
-
-              </div>
-
-            </div>
-
-
-            <div class="form-actions">
-
-              <button
-                type="submit"
-                class="btn btn-primary"
-              >
-                संदेश भेजें
-              </button>
-
-              <button
-                type="reset"
-                class="btn btn-outline"
-              >
-                Clear
-              </button>
-
-            </div>
-
-
-            <p
-              id="contactFormMessage"
-              class="form-message"
-              role="status"
-              aria-live="polite"
-            ></p>
-
-          </form>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- SAFETY NOTE -->
-    <section class="section section-alt">
-      <div class="container">
-
-        <div class="notice-card reveal">
-
-          <h3>
-            महत्वपूर्ण सूचना
-          </h3>
-
-          <p>
-            किसी भी संवेदनशील जानकारी, password,
-            OTP, authentication code या अन्य private
-            security information को सामान्य contact
-            message में साझा न करें।
-          </p>
-
-          <p>
-            ARS की ओर से official communication के लिए
-            केवल verified/official channels का उपयोग करें।
-          </p>
-
-        </div>
-
-      </div>
-    </section>
+    </div>
 
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <div class="footer-brand">
-
-        <div class="brand-mark">
-          ARS
-        </div>
-
-        <h3>
-          ARS Official
-        </h3>
-
-        <p>
-          Adarsh Raj Shayar
-        </p>
-
-        <p>
-          शब्दों से सपनों तक की एक नई उड़ान।
-        </p>
-
-      </div>
-
-
-      <div class="footer-links">
-
-        <h4>
-          Quick Links
-        </h4>
-
-        <a href="index.html">Home</a>
-        <a href="founder.html">Founder</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories</a>
-        <a href="education.html">Education</a>
-        <a href="book.html">ARS Book</a>
-
-      </div>
-
-
-      <div class="footer-links">
-
-        <h4>
-          Important
-        </h4>
-
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify</a>
-        <a href="contact.html">Contact</a>
-        <a href="policy.html">Policy</a>
-
-      </div>
-
-    </div>
-
-
-    <div class="container footer-bottom">
-
+    <div class="container">
       <p>
         © <span id="footerYear"></span>
-        ARS Official. All rights reserved.
+        ARS Official. All Rights Reserved.
       </p>
-
-      <p>
-        Founded by Adarsh Raj
-      </p>
-
     </div>
-
   </footer>
 
-
-  <!-- BACK TO TOP -->
-  <button
-    id="backToTop"
-    class="back-to-top"
-    type="button"
-    aria-label="Back to top"
-  >
-    ↑
-  </button>
-
-
-  <!-- TOAST -->
-  <div
-    id="arsToast"
-    class="ars-toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-
-  <!-- CONTACT FORM SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
 
@@ -613,24 +449,117 @@
         document.getElementById("contactForm");
 
       const message =
-        document.getElementById("contactFormMessage");
+        document.getElementById("contactMessage");
 
-      if (!form || !message) return;
+      const button =
+        document.getElementById("contactSubmit");
 
-      form.addEventListener("submit", event => {
+      const apiBase =
+        window.ARS?.backend?.baseUrl ||
+        window.CONFIG?.backend?.baseUrl ||
+        "https://ars-backend-hbbk.onrender.com";
+
+      document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+
+      function showMessage(text) {
+
+        message.textContent = text;
+        message.className =
+          "contact-message show info";
+
+      }
+
+      form.addEventListener("submit", async event => {
+
         event.preventDefault();
 
-        message.textContent =
-          "Contact support system अभी secure backend integration के लिए तैयार किया जा रहा है।";
+        const name =
+          document.getElementById("contactName")
+            .value.trim();
 
-        message.classList.add("show");
+        const email =
+          document.getElementById("contactEmail")
+            .value.trim();
 
-        if (typeof showToast === "function") {
-          showToast(
-            "Message system जल्द उपलब्ध होगा।",
-            "info"
+        const subject =
+          document.getElementById("contactSubject")
+            .value;
+
+        const messageText =
+          document.getElementById("contactMessageText")
+            .value.trim();
+
+        if (!name || !email || !subject || !messageText) {
+
+          showMessage(
+            "कृपया सभी required fields भरें।"
           );
+
+          return;
         }
+
+        button.disabled = true;
+        button.textContent = "Sending...";
+
+        try {
+
+          const response = await fetch(
+            `${apiBase}/api/support/contact`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json"
+              },
+
+              credentials: "include",
+
+              body: JSON.stringify({
+                name,
+                email,
+                subject,
+                message: messageText
+              })
+            }
+          );
+
+          const data =
+            await response.json().catch(() => ({}));
+
+          if (!response.ok || !data.success) {
+
+            throw new Error(
+              data.message ||
+              "Message send नहीं हो पाया।"
+            );
+
+          }
+
+          showMessage(
+            "आपका message successfully submit हो गया। धन्यवाद!"
+          );
+
+          form.reset();
+
+        } catch (error) {
+
+          console.error(
+            "Contact form error:",
+            error
+          );
+
+          showMessage(
+            "Contact service अभी backend में setup नहीं हुई है। बाद में फिर कोशिश करें।"
+          );
+
+        } finally {
+
+          button.disabled = false;
+          button.textContent = "Send Message";
+
+        }
+
       });
 
     });
