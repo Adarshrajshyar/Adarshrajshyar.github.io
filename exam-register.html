@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exam Registration | ARS Official</title>
+
+  <meta
+    name="description"
+    content="ARS Education & Talent Exam registration page."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    .register-page {
+      padding: 42px 0 80px;
+    }
+
+    .register-box {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 26px;
+      box-shadow: 0 14px 38px rgba(15,23,42,.07);
+      overflow: hidden;
+    }
+
+    .register-head {
+      padding: 38px 25px;
+      text-align: center;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,99,235,.10),
+          rgba(236,72,153,.10)
+        );
+    }
+
+    .register-head .icon {
+      font-size: 3rem;
+    }
+
+    .register-head h1 {
+      margin: 10px 0;
+      color: #172554;
+    }
+
+    .register-head p {
+      margin: 0;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    .register-form {
+      padding: 30px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        2,
+        minmax(0,1fr)
+      );
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-weight: 800;
+      color: #334155;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px 14px;
+      border: 1px solid #dbe4f0;
+      border-radius: 12px;
+      background: #fff;
+      color: #1e293b;
+      outline: none;
+      font: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99,102,241,.08);
+    }
+
+    .form-note {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 13px;
+      background: #f8fafc;
+      color: #64748b;
+      line-height: 1.7;
+      font-size: .92rem;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 22px;
+      min-height: 48px;
+      border: 0;
+      border-radius: 13px;
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+      );
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .form-submit:hover {
+      transform: translateY(-1px);
+    }
+
+    .registration-status {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 13px;
+      line-height: 1.7;
+    }
+
+    .registration-status.show {
+      display: block;
+    }
+
+    .registration-status.info {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    @media (max-width: 680px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .register-form {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="ars-exam.html">ARS Exam</a>
+        <a href="exam-preparation.html">Preparation</a>
+        <a href="mock-test.html">Mock Test</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="register-page">
+
+    <div class="container">
+
+      <section class="register-box">
+
+        <div class="register-head">
+
+          <div class="icon">📝</div>
+
+          <h1>ARS Exam Registration</h1>
+
+          <p>
+            ARS Education & Talent Exam के proposed
+            registration framework में अपनी basic information
+            दर्ज करें।
+          </p>
+
+        </div>
+
+        <form
+          id="examRegistrationForm"
+          class="register-form"
+          novalidate>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="studentName">
+                Student Name *
+              </label>
+
+              <input
+                id="studentName"
+                name="studentName"
+                type="text"
+                maxlength="80"
+                required
+                autocomplete="name"
+                placeholder="विद्यार्थी का नाम">
+            </div>
+
+            <div class="form-group">
+              <label for="studentEmail">
+                Email *
+              </label>
+
+              <input
+                id="studentEmail"
+                name="studentEmail"
+                type="email"
+                maxlength="120"
+                required
+                autocomplete="email"
+                placeholder="example@email.com">
+            </div>
+
+            <div class="form-group">
+              <label for="studentClass">
+                Class *
+              </label>
+
+              <select
+                id="studentClass"
+                name="studentClass"
+                required>
+
+                <option value="">
+                  Select Class
+                </option>
+
+                <option value="5">Class 5</option>
+                <option value="6">Class 6</option>
+                <option value="7">Class 7</option>
+                <option value="8">Class 8</option>
+
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="schoolName">
+                School Name
+              </label>
+
+              <input
+                id="schoolName"
+                name="schoolName"
+                type="text"
+                maxlength="150"
+                placeholder="School name">
+            </div>
+
+            <div class="form-group">
+              <label for="city">
+                City
+              </label>
+
+              <input
+                id="city"
+                name="city"
+                type="text"
+                maxlength="80"
+                placeholder="City">
+            </div>
+
+            <div class="form-group">
+              <label for="state">
+                State
+              </label>
+
+              <input
+                id="state"
+                name="state"
+                type="text"
+                maxlength="80"
+                placeholder="State">
+            </div>
+
+          </div>
+
+          <div class="form-note">
+
+            🔐 <strong>Privacy:</strong>
+            केवल आवश्यक जानकारी ही दर्ज करें।
+            Password, OTP, bank details या कोई authentication
+            secret इस form में न डालें।
+
+            <br><br>
+
+            ⚠️ Registration अभी proposed examination workflow
+            के लिए है। Final exam date, eligibility, rules और
+            confirmation official announcement के अनुसार होंगे।
+
+          </div>
+
+          <button
+            type="submit"
+            class="form-submit">
+            Submit Registration
+          </button>
+
+          <div
+            id="registrationStatus"
+            class="registration-status">
+          </div>
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+    ↑
+  </button>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    (function () {
+
+      const form =
+        document.getElementById(
+          "examRegistrationForm"
+        );
+
+      const status =
+        document.getElementById(
+          "registrationStatus"
+        );
+
+      if (!form || !status) return;
+
+      form.addEventListener(
+        "submit",
+        async function (event) {
+
+          event.preventDefault();
+
+          if (!form.checkValidity()) {
+
+            form.reportValidity();
+
+            return;
+          }
+
+          status.className =
+            "registration-status show info";
+
+          status.textContent =
+            "Registration service अभी backend integration की प्रतीक्षा में है। Final registration तभी submit होगा जब secure exam API active होगी।";
+
+        }
+      );
+
+    })();
+  </script>
+
+</body>
+</html>
