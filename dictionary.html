@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Dictionary | ARS Official</title>
+
+  <meta
+    name="description"
+    content="ARS Dictionary — शब्द, अर्थ, उच्चारण, उदाहरण, समानार्थी और विलोम शब्द।"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+  <script src="dictionary.js" defer></script>
+
+  <style>
+    .dictionary-page {
+      padding: 42px 0 80px;
+    }
+
+    .dictionary-hero {
+      text-align: center;
+      padding: 48px 22px;
+      border-radius: 30px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37, 99, 235, .10),
+          rgba(236, 72, 153, .10),
+          rgba(147, 51, 234, .10)
+        );
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 14px 38px rgba(15,23,42,.07);
+    }
+
+    .dictionary-icon {
+      font-size: 3.6rem;
+      margin-bottom: 10px;
+    }
+
+    .dictionary-hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 6vw, 3.7rem);
+      background: linear-gradient(
+        90deg,
+        #2563eb,
+        #db2777,
+        #9333ea
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .dictionary-hero p {
+      max-width: 760px;
+      margin: auto;
+      color: #64748b;
+      line-height: 1.8;
+    }
+
+    .dictionary-search {
+      max-width: 780px;
+      margin: 28px auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .dictionary-search input {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 16px;
+      border: 1px solid #dbe4f0;
+      border-radius: 14px;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .dictionary-search input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99,102,241,.09);
+    }
+
+    .dictionary-search button {
+      border: 0;
+      border-radius: 14px;
+      padding: 0 22px;
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+      );
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .alphabet {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 25px auto;
+    }
+
+    .alphabet button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid #dbe4f0;
+      background: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .alphabet button:hover,
+    .alphabet button.active {
+      background: #eef2ff;
+      color: #4338ca;
+      border-color: #c7d2fe;
+    }
+
+    .dictionary-layout {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .word-list,
+    .word-detail {
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(15,23,42,.06);
+    }
+
+    .word-list {
+      padding: 18px;
+    }
+
+    .word-list h2,
+    .word-detail h2 {
+      margin-top: 0;
+      color: #172554;
+    }
+
+    .word-items {
+      display: grid;
+      gap: 8px;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .word-item {
+      width: 100%;
+      text-align: left;
+      padding: 12px 13px;
+      border: 1px solid transparent;
+      background: #f8fafc;
+      border-radius: 11px;
+      color: #334155;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .word-item:hover,
+    .word-item.active {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+      color: #4338ca;
+    }
+
+    .word-detail {
+      padding: 28px;
+      min-height: 350px;
+    }
+
+    .word-placeholder {
+      color: #94a3b8;
+      text-align: center;
+      padding: 70px 20px;
+      line-height: 1.8;
+    }
+
+    .word-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .word-heading h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: #172554;
+    }
+
+    .word-pos {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fdf2f8;
+      color: #be185d;
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    .word-meaning {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 15px;
+      background: #f8fafc;
+      color: #334155;
+      line-height: 1.8;
+    }
+
+    .word-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .word-info {
+      padding: 16px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+    }
+
+    .word-info strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #475569;
+      font-size: .9rem;
+    }
+
+    .word-info span {
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 800px) {
+      .dictionary-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .dictionary-search {
+        flex-direction: column;
+      }
+
+      .dictionary-search button {
+        min-height: 46px;
+      }
+
+      .word-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">Education</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="dictionary.html" class="active">Dictionary</a>
+        <a href="founder.html">Founder</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="dictionary-page">
+
+    <div class="container">
+
+      <section class="dictionary-hero">
+
+        <div class="dictionary-icon">📚</div>
+
+        <h1>ARS Dictionary</h1>
+
+        <p>
+          शब्द खोजें और उनका अर्थ, उच्चारण, part of speech,
+          example, synonym और antonym जैसी जानकारी देखें।
+        </p>
+
+      </section>
+
+      <form
+        id="dictionarySearchForm"
+        class="dictionary-search">
+
+        <input
+          id="dictionarySearch"
+          type="search"
+          maxlength="80"
+          placeholder="शब्द खोजें... जैसे: brave"
+          autocomplete="off"
+        >
+
+        <button type="submit">
+          🔎 Search
+        </button>
+
+      </form>
+
+      <div
+        id="alphabet"
+        class="alphabet"
+        aria-label="Alphabet">
+      </div>
+
+      <section class="dictionary-layout">
+
+        <aside class="word-list">
+
+          <h2>📖 Words</h2>
+
+          <div
+            id="wordItems"
+            class="word-items">
+          </div>
+
+        </aside>
+
+        <article
+          id="wordDetail"
+          class="word-detail">
+
+          <div class="word-placeholder">
+            ऊपर से कोई शब्द खोजें या alphabet में
+            कोई अक्षर चुनें।
+          </div>
+
+        </article>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+    ↑
+  </button>
+
+  <div id="toast" class="toast"></div>
+
+</body>
+</html>
