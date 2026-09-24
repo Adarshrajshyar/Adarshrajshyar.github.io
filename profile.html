@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Profile | ARS Official</title>
+  <meta name="description" content="Manage your ARS Official profile.">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    .profile-page {
+      min-height: calc(100vh - 80px);
+      padding: 45px 20px 70px;
+      background:
+        radial-gradient(circle at top left, rgba(110,168,254,.12), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(255,120,160,.10), transparent 30%);
+    }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 25px;
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .profile-side,
+    .profile-main {
+      background: #fff;
+      border: 1px solid #edf0f5;
+      border-radius: 24px;
+      box-shadow: 0 10px 35px rgba(50,70,120,.07);
+    }
+
+    .profile-side {
+      padding: 28px;
+      text-align: center;
+      height: fit-content;
+    }
+
+    .profile-avatar {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 17px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #4776e6, #c44cff);
+    }
+
+    .profile-side h2 {
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .profile-side p {
+      color: #667085;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .profile-nav {
+      display: grid;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .profile-nav a {
+      padding: 11px 13px;
+      border-radius: 11px;
+      text-align: left;
+      text-decoration: none;
+      color: #344054;
+      font-weight: 600;
+    }
+
+    .profile-nav a:hover {
+      background: #f4f7ff;
+      color: #4f46e5;
+    }
+
+    .profile-main {
+      padding: 32px;
+    }
+
+    .profile-main h1 {
+      margin-bottom: 7px;
+    }
+
+    .profile-intro {
+      color: #667085;
+      margin-bottom: 28px;
+    }
+
+    .profile-message {
+      display: none;
+      padding: 13px 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .profile-message.show {
+      display: block;
+    }
+
+    .profile-message.error {
+      background: #fff0f0;
+      color: #b42318;
+    }
+
+    .profile-message.success {
+      background: #ecfdf3;
+      color: #027a48;
+    }
+
+    .profile-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .info-box {
+      padding: 18px;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 1px solid #edf0f5;
+    }
+
+    .info-box.full {
+      grid-column: 1 / -1;
+    }
+
+    .info-label {
+      display: block;
+      color: #667085;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .info-value {
+      font-weight: 750;
+      word-break: break-word;
+    }
+
+    .profile-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .profile-actions a,
+    .profile-actions button {
+      padding: 12px 17px;
+      border-radius: 12px;
+      border: 1px solid #dfe4ed;
+      background: #fff;
+      color: #344054;
+      text-decoration: none;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .profile-actions a:hover,
+    .profile-actions button:hover {
+      background: #f7f9fc;
+    }
+
+    .danger-button {
+      color: #b42318 !important;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      color: #667085;
+    }
+
+    @media (max-width: 800px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-side {
+        max-width: 500px;
+        width: 100%;
+        margin: auto;
+        box-sizing: border-box;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .profile-main {
+        padding: 23px;
+      }
+
+      .profile-info {
+        grid-template-columns: 1fr;
+      }
+
+      .info-box.full {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-mark">🌹</span>
+        <span>
+          <strong>ARS</strong>
+          <small>Official</small>
+        </span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">Education</a>
+        <a href="ars-book.html">ARS Book</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="dashboard.html" class="btn btn-primary">Dashboard</a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="profile-page">
+
+    <div class="profile-layout">
+
+      <aside class="profile-side">
+
+        <div class="profile-avatar" id="avatar">
+          U
+        </div>
+
+        <h2 id="sideName">Loading...</h2>
+
+        <p id="sideEmail">Loading...</p>
+
+        <div class="profile-nav">
+          <a href="dashboard.html">🏠 Dashboard</a>
+          <a href="profile.html">👤 My Profile</a>
+          <a href="shayari.html">🌹 Shayari</a>
+          <a href="stories.html">📖 Stories</a>
+          <a href="education.html">🎓 Education</a>
+        </div>
+
+      </aside>
+
+      <section class="profile-main">
+
+        <h1>My Profile</h1>
+
+        <p class="profile-intro">
+          आपके account की saved information यहाँ दिखाई जाएगी।
+        </p>
+
+        <div id="profileMessage" class="profile-message"></div>
+
+        <div id="profileLoading" class="loading">
+          Profile information loading...
+        </div>
+
+        <div id="profileContent" style="display:none;">
+
+          <div class="profile-info">
+
+            <div class="info-box">
+              <span class="info-label">Full Name</span>
+              <span class="info-value" id="profileName">—</span>
+            </div>
+
+            <div class="info-box">
+              <span class="info-label">Email / Login ID</span>
+              <span class="info-value" id="profileEmail">—</span>
+            </div>
+
+            <div class="info-box">
+              <span class="info-label">Account Status</span>
+              <span class="info-value" id="profileStatus">Active</span>
+            </div>
+
+            <div class="info-box">
+              <span class="info-label">Member Since</span>
+              <span class="info-value" id="profileCreated">—</span>
+            </div>
+
+            <div class="info-box full">
+              <span class="info-label">User ID</span>
+              <span class="info-value" id="profileId">—</span>
+            </div>
+
+          </div>
+
+          <div class="profile-actions">
+
+            <a href="dashboard.html">
+              ← Back to Dashboard
+            </a>
+
+            <button type="button" id="logoutButton" class="danger-button">
+              Logout
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="footerYear"></span> ARS Official. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+
+      const apiBase =
+        window.ARS?.backend?.baseUrl ||
+        window.CONFIG?.backend?.baseUrl ||
+        "https://ars-backend-hbbk.onrender.com";
+
+      const loading = document.getElementById("profileLoading");
+      const content = document.getElementById("profileContent");
+      const message = document.getElementById("profileMessage");
+
+      document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+
+      function showError(text) {
+        message.textContent = text;
+        message.className = "profile-message show error";
+      }
+
+      function getInitial(name) {
+        return (name || "U").trim().charAt(0).toUpperCase();
+      }
+
+      function formatDate(value) {
+
+        if (!value) return "—";
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+          return "—";
+        }
+
+        return date.toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric"
+        });
+      }
+
+      try {
+
+        const response = await fetch(`${apiBase}/api/auth/me`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.success || !data.user) {
+
+          showError(
+            "Login session नहीं मिला। कृपया पहले login करें।"
+          );
+
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 1500);
+
+          return;
+        }
+
+        const user = data.user;
+
+        const name = user.name || user.fullName || "User";
+        const email = user.email || "—";
+
+        document.getElementById("avatar").textContent =
+          getInitial(name);
+
+        document.getElementById("sideName").textContent = name;
+        document.getElementById("sideEmail").textContent = email;
+
+        document.getElementById("profileName").textContent = name;
+        document.getElementById("profileEmail").textContent = email;
+
+        document.getElementById("profileStatus").textContent =
+          user.status || "Active";
+
+        document.getElementById("profileCreated").textContent =
+          formatDate(user.createdAt);
+
+        document.getElementById("profileId").textContent =
+          user.id || user.userId || "—";
+
+        loading.style.display = "none";
+        content.style.display = "block";
+
+      } catch (error) {
+
+        console.error("Profile error:", error);
+
+        loading.style.display = "none";
+
+        showError(
+          "Backend से profile information प्राप्त नहीं हो पाई।"
+        );
+
+      }
+
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", async () => {
+
+          try {
+
+            await fetch(`${apiBase}/api/auth/logout`, {
+              method: "POST",
+              credentials: "include"
+            });
+
+          } catch (error) {
+
+            console.error("Logout error:", error);
+
+          } finally {
+
+            window.location.href = "login.html";
+
+          }
+
+        });
+
+    });
+  </script>
+
+</body>
+</html>
