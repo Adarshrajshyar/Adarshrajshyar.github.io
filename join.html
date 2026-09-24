@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Join ARS | ARS Official</title>
+
+  <meta
+    name="description"
+    content="Apply to join ARS Official."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js" defer></script>
+  <script src="storage.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <div class="container nav-wrap">
+
+    <a href="index.html" class="brand">
+
+      <span class="brand-mark">ARS</span>
+
+      <span class="brand-text">
+        <strong>ARS Official</strong>
+        <small>Education • Creativity • Growth</small>
+      </span>
+
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+    <nav class="main-nav">
+
+      <a href="index.html">Home</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="stories.html">Stories</a>
+      <a href="education.html">Education</a>
+      <a href="ars-exam.html">ARS Exam</a>
+      <a href="join.html" class="active">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="contact.html">Contact</a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+<main>
+
+  <section class="page-hero">
+
+    <div class="container">
+
+      <span class="eyebrow">ARS Community</span>
+
+      <h1>🌹 Join ARS</h1>
+
+      <p>
+        ARS से जुड़ने के लिए application submit करें।
+        Approval होने के बाद joining certificate process आगे बढ़ेगा।
+      </p>
+
+    </div>
+
+  </section>
+
+  <section class="section">
+
+    <div class="container">
+
+      <div class="feature-grid" style="margin-bottom:32px;">
+
+        <article class="feature-card">
+
+          <div class="feature-icon">📝</div>
+
+          <h3>1. Application</h3>
+
+          <p>
+            अपनी basic information और joining purpose submit करें।
+          </p>
+
+        </article>
+
+        <article class="feature-card">
+
+          <div class="feature-icon">🔎</div>
+
+          <h3>2. Review</h3>
+
+          <p>
+            Application को ARS admin team review करेगी।
+          </p>
+
+        </article>
+
+        <article class="feature-card">
+
+          <div class="feature-icon">✅</div>
+
+          <h3>3. Approval</h3>
+
+          <p>
+            Approved application के बाद joining record बनाया जाएगा।
+          </p>
+
+        </article>
+
+        <article class="feature-card">
+
+          <div class="feature-icon">🏅</div>
+
+          <h3>4. Certificate</h3>
+
+          <p>
+            Eligible approved applicants के लिए joining certificate
+            generate किया जा सकता है।
+          </p>
+
+        </article>
+
+      </div>
+
+      <div class="form-card" style="max-width:800px;margin:auto;">
+
+        <span class="eyebrow">Join Application</span>
+
+        <h2>ARS Joining Form</h2>
+
+        <p class="muted">
+          अभी application frontend तैयार है। Final submission backend
+          verification और admin review के बाद होगा।
+        </p>
+
+        <form id="joinForm">
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="name">
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                id="name"
+                name="name"
+                maxlength="100"
+                autocomplete="name"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="email">
+                Email
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                maxlength="160"
+                autocomplete="email"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="city">
+                City
+              </label>
+
+              <input
+                type="text"
+                id="city"
+                name="city"
+                maxlength="80"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="state">
+                State
+              </label>
+
+              <input
+                type="text"
+                id="state"
+                name="state"
+                maxlength="80"
+                required
+              >
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="role">
+                Preferred Role
+              </label>
+
+              <select id="role" name="role" required>
+
+                <option value="">
+                  Select a role
+                </option>
+
+                <option value="writer">
+                  Writer
+                </option>
+
+                <option value="poet">
+                  Poet
+                </option>
+
+                <option value="story-contributor">
+                  Story Contributor
+                </option>
+
+                <option value="education-contributor">
+                  Education Contributor
+                </option>
+
+                <option value="volunteer">
+                  Volunteer
+                </option>
+
+                <option value="other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="form-group">
+
+              <label for="experience">
+                Experience
+              </label>
+
+              <select id="experience" name="experience">
+
+                <option value="">
+                  Select
+                </option>
+
+                <option value="beginner">
+                  Beginner
+                </option>
+
+                <option value="some-experience">
+                  Some Experience
+                </option>
+
+                <option value="experienced">
+                  Experienced
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+          <div class="form-group">
+
+            <label for="reason">
+              Why do you want to join ARS?
+            </label>
+
+            <textarea
+              id="reason"
+              name="reason"
+              rows="5"
+              maxlength="1000"
+              placeholder="Write a short reason..."
+              required
+            ></textarea>
+
+          </div>
+
+          <div class="form-group">
+
+            <label class="checkbox-label">
+
+              <input
+                type="checkbox"
+                id="agree"
+                required
+              >
+
+              <span>
+                I confirm that the information provided by me is
+                accurate to the best of my knowledge.
+              </span>
+
+            </label>
+
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Submit Joining Application
+          </button>
+
+        </form>
+
+        <div
+          id="joinMessage"
+          class="notice"
+          hidden
+          style="margin-top:20px;"
+        ></div>
+
+      </div>
+
+      <div
+        class="card"
+        style="max-width:800px;margin:30px auto 0;"
+      >
+
+        <h2>🔐 Important Safety Information</h2>
+
+        <ul class="clean-list">
+
+          <li>
+            Password, OTP, bank details या authentication secrets
+            इस form में नहीं मांगे जाते।
+          </li>
+
+          <li>
+            Joining certificate केवल approved application के बाद
+            जारी किया जाएगा।
+          </li>
+
+          <li>
+            Joining certificate को government-issued certificate
+            नहीं माना जाना चाहिए जब तक किसी वास्तविक authority द्वारा
+            ऐसा जारी न किया गया हो।
+          </li>
+
+          <li>
+            Application approval के लिए final rules ARS admin द्वारा
+            निर्धारित किए जाएंगे।
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+
+  <div class="container footer-grid">
+
+    <div>
+
+      <h3>ARS Official</h3>
+
+      <p>
+        A creative and educational platform by ARS.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h3>Quick Links</h3>
+
+      <a href="index.html">Home</a>
+      <a href="founder.html">Founder</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="contact.html">Contact</a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <p>
+      © <span data-current-year></span>
+      ARS Official. All rights reserved.
+    </p>
+
+  </div>
+
+</footer>
+
+<script>
+(function () {
+
+  const form = document.getElementById("joinForm");
+  const message = document.getElementById("joinMessage");
+
+  const apiBase =
+    window.CONFIG &&
+    window.CONFIG.backend &&
+    window.CONFIG.backend.apiBase
+      ? window.CONFIG.backend.apiBase
+      : "https://ars-backend-hbbk.onrender.com";
+
+  function showMessage(text, type) {
+
+    message.hidden = false;
+    message.textContent = text;
+    message.className = "notice " + (type || "info");
+
+  }
+
+  function clean(value, max) {
+
+    return String(value || "")
+      .trim()
+      .slice(0, max);
+
+  }
+
+  form.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+    const name = clean(
+      document.getElementById("name").value,
+      100
+    );
+
+    const email = clean(
+      document.getElementById("email").value,
+      160
+    );
+
+    const city = clean(
+      document.getElementById("city").value,
+      80
+    );
+
+    const state = clean(
+      document.getElementById("state").value,
+      80
+    );
+
+    const role = clean(
+      document.getElementById("role").value,
+      50
+    );
+
+    const experience = clean(
+      document.getElementById("experience").value,
+      50
+    );
+
+    const reason = clean(
+      document.getElementById("reason").value,
+      1000
+    );
+
+    const agreed =
+      document.getElementById("agree").checked;
+
+    if (!name || !email || !city || !state || !role || !reason) {
+
+      showMessage(
+        "Please complete all required fields.",
+        "warning"
+      );
+
+      return;
+    }
+
+    if (!agreed) {
+
+      showMessage(
+        "Please confirm the information declaration.",
+        "warning"
+      );
+
+      return;
+    }
+
+    showMessage(
+      "Submitting your application securely...",
+      "info"
+    );
+
+    try {
+
+      const response = await fetch(
+        apiBase + "/api/join/apply",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+
+          body: JSON.stringify({
+            name,
+            email,
+            city,
+            state,
+            role,
+            experience,
+            reason
+          })
+        }
+      );
+
+      const data = await response
+        .json()
+        .catch(() => ({}));
+
+      if (!response.ok || !data.success) {
+
+        throw new Error(
+          data.message ||
+          "Joining service is not available."
+        );
+
+      }
+
+      showMessage(
+        data.message ||
+        "Application submitted successfully. Please keep your application ID safe.",
+        "success"
+      );
+
+      form.reset();
+
+    } catch (error) {
+
+      showMessage(
+        "The secure joining service is not connected yet. Your application has not been falsely marked as submitted. Please try again after the backend joining service is enabled.",
+        "warning"
+      );
+
+    }
+
+  });
+
+})();
+</script>
+
+</body>
+</html>
