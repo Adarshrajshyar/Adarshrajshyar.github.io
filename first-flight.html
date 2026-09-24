@@ -1,400 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>First Flight | ARS Education</title>
+  <title>First Flight | ARS Official</title>
   <meta
     name="description"
-    content="ARS First Flight English Learning Portal — summaries, vocabulary, literature skills, grammar, practice and revision."
+    content="First Flight — ARS Official की रचनात्मक यात्रा और लेखन से जुड़ा विशेष क्षेत्र।"
   >
 
   <link rel="stylesheet" href="style.css">
 
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
   <style>
-    .ff-hero {
-      padding: 90px 20px 70px;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(255,255,255,.14), transparent 28%),
-        radial-gradient(circle at 90% 80%, rgba(255,255,255,.10), transparent 30%),
-        linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      text-align: center;
+    .flight-page {
+      padding: 42px 0 80px;
+    }
+
+    .flight-hero {
       position: relative;
       overflow: hidden;
+      text-align: center;
+      padding: 65px 24px;
+      border-radius: 30px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,99,235,.12),
+          rgba(236,72,153,.12),
+          rgba(147,51,234,.12)
+        );
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 14px 38px rgba(15,23,42,.07);
     }
 
-    .ff-hero::before,
-    .ff-hero::after {
+    .flight-hero::before,
+    .flight-hero::after {
       content: "";
       position: absolute;
-      border: 1px solid rgba(255,255,255,.14);
+      width: 170px;
+      height: 170px;
       border-radius: 50%;
+      filter: blur(2px);
+      opacity: .35;
     }
 
-    .ff-hero::before {
-      width: 330px;
-      height: 330px;
-      top: -180px;
-      left: -100px;
+    .flight-hero::before {
+      background: #93c5fd;
+      top: -80px;
+      left: -70px;
     }
 
-    .ff-hero::after {
-      width: 420px;
-      height: 420px;
-      bottom: -260px;
-      right: -130px;
+    .flight-hero::after {
+      background: #f9a8d4;
+      right: -70px;
+      bottom: -80px;
     }
 
-    .ff-hero-inner {
-      max-width: 900px;
-      margin: auto;
+    .flight-icon {
       position: relative;
       z-index: 1;
-    }
-
-    .ff-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.13);
-      border: 1px solid rgba(255,255,255,.22);
-      font-size: .9rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-
-    .ff-hero h1 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      margin: 0 0 15px;
-      line-height: 1.08;
-    }
-
-    .ff-hero p {
-      max-width: 720px;
-      margin: auto;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      opacity: .92;
-    }
-
-    .ff-section {
-      padding: 70px 20px;
-    }
-
-    .ff-container {
-      max-width: 1180px;
-      margin: auto;
-    }
-
-    .ff-section-head {
-      max-width: 760px;
-      margin: 0 auto 38px;
-      text-align: center;
-    }
-
-    .ff-section-head h2 {
+      font-size: 4rem;
       margin-bottom: 12px;
-      font-size: clamp(1.7rem, 3vw, 2.5rem);
     }
 
-    .ff-section-head p {
-      color: var(--text-muted);
+    .flight-hero h1 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 14px;
+      font-size: clamp(2.3rem, 6vw, 4rem);
+      background: linear-gradient(
+        90deg,
+        #2563eb,
+        #db2777,
+        #9333ea
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .flight-hero p {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: auto;
+      color: #475569;
+      line-height: 1.9;
+      font-size: 1.06rem;
+    }
+
+    .flight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .flight-card {
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 22px;
+      padding: 27px 22px;
+      box-shadow: 0 10px 28px rgba(15,23,42,.06);
+    }
+
+    .flight-card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .flight-card h2 {
+      margin: 0 0 10px;
+      color: #172554;
+      font-size: 1.25rem;
+    }
+
+    .flight-card p {
+      margin: 0;
+      color: #64748b;
       line-height: 1.75;
     }
 
-    .ff-notice {
-      display: grid;
-      grid-template-columns: 70px 1fr;
-      gap: 18px;
-      align-items: start;
-      padding: 24px;
-      border-radius: 20px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      margin-bottom: 45px;
-    }
-
-    .ff-notice-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 1.7rem;
-      background: var(--primary-soft);
-    }
-
-    .ff-notice h3 {
-      margin: 0 0 7px;
-    }
-
-    .ff-notice p {
-      margin: 0;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .ff-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .ff-card {
-      padding: 25px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: var(--surface);
-      box-shadow: var(--shadow-sm);
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-
-    .ff-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .ff-card-number {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--primary-soft);
-      color: var(--primary);
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    .ff-card h3 {
-      margin: 0 0 10px;
-      line-height: 1.35;
-    }
-
-    .ff-card p {
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 0;
-    }
-
-    .ff-unit-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .ff-unit {
-      padding: 23px;
-      border-radius: 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .ff-unit-top {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-
-    .ff-unit-icon {
-      flex: 0 0 42px;
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--primary-soft);
-      font-weight: 800;
-      color: var(--primary);
-    }
-
-    .ff-unit h3 {
-      margin: 0 0 6px;
-      font-size: 1.08rem;
-    }
-
-    .ff-unit p {
-      margin: 0;
-      color: var(--text-muted);
-      line-height: 1.6;
-      font-size: .93rem;
-    }
-
-    .ff-skill-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .ff-skill {
-      text-align: center;
-      padding: 25px 18px;
-      border-radius: 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-    }
-
-    .ff-skill-icon {
-      font-size: 2rem;
-      margin-bottom: 13px;
-    }
-
-    .ff-skill h3 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-    }
-
-    .ff-skill p {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: .9rem;
-      line-height: 1.55;
-    }
-
-    .ff-flow {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .ff-flow-step {
-      position: relative;
-      padding: 23px 15px;
-      text-align: center;
-      border-radius: 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-    }
-
-    .ff-flow-step strong {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .ff-flow-step span {
-      color: var(--text-muted);
-      font-size: .86rem;
-      line-height: 1.5;
-    }
-
-    .ff-grammar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .ff-grammar-item {
-      padding: 22px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-    }
-
-    .ff-grammar-item h3 {
-      margin: 0 0 8px;
-    }
-
-    .ff-grammar-item p {
-      margin: 0;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    .ff-cta {
-      padding: 65px 20px;
-      background: var(--surface-alt);
-    }
-
-    .ff-cta-box {
-      max-width: 900px;
-      margin: auto;
-      text-align: center;
-      padding: 45px 25px;
-      border-radius: 28px;
+    .flight-book {
+      margin-top: 28px;
+      padding: 32px 25px;
+      border-radius: 24px;
       background: linear-gradient(
         135deg,
-        var(--primary-soft),
-        var(--surface)
+        #fff7ed,
+        #fdf2f8
       );
-      border: 1px solid var(--border);
+      border: 1px solid #fed7aa;
+      text-align: center;
     }
 
-    .ff-cta-box h2 {
-      margin: 0 0 12px;
-      font-size: 2rem;
+    .flight-book h2 {
+      color: #9a3412;
+      margin-top: 0;
     }
 
-    .ff-cta-box p {
-      max-width: 680px;
-      margin: 0 auto 24px;
-      color: var(--text-muted);
+    .flight-book p {
+      max-width: 720px;
+      margin: auto;
+      color: #7c2d12;
+      line-height: 1.8;
+    }
+
+    .flight-note {
+      margin-top: 24px;
+      text-align: center;
+      color: #64748b;
       line-height: 1.7;
     }
 
-    .ff-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    @media (max-width: 1000px) {
-      .ff-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .ff-skill-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .ff-flow {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 760px) {
-      .ff-unit-grid,
-      .ff-grammar {
+    @media (max-width: 850px) {
+      .flight-grid {
         grid-template-columns: 1fr;
-      }
-
-      .ff-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .ff-flow {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 520px) {
-      .ff-hero {
-        padding: 70px 16px 55px;
-      }
-
-      .ff-section {
-        padding: 55px 16px;
-      }
-
-      .ff-notice {
-        grid-template-columns: 1fr;
-      }
-
-      .ff-skill-grid,
-      .ff-flow {
-        grid-template-columns: 1fr;
-      }
-
-      .ff-card,
-      .ff-unit,
-      .ff-grammar-item {
-        padding: 20px;
       }
     }
   </style>
@@ -407,10 +173,10 @@
   </div>
 
   <header class="site-header">
-    <div class="container nav-wrap">
+    <div class="container header-inner">
 
       <a href="index.html" class="brand">
-        <img src="logo.png" alt="ARS Official Logo">
+        <span class="brand-logo">🌹</span>
         <span>
           <strong>ARS Official</strong>
           <small>Adarsh Raj Shayar</small>
@@ -418,708 +184,122 @@
       </a>
 
       <button
-        class="mobile-menu-btn"
-        id="mobileMenuBtn"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-      >
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Menu">
         ☰
       </button>
 
       <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
-        <a href="founder.html">Founder</a>
         <a href="shayari.html">Shayari</a>
         <a href="stories.html">Stories</a>
-        <a href="education.html">ARS Education</a>
+        <a href="education.html">Education</a>
         <a href="first-flight.html" class="active">First Flight</a>
-        <a href="ars-ai.html">ARS AI</a>
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify</a>
+        <a href="founder.html">Founder</a>
         <a href="contact.html">Contact</a>
-
-        <div class="nav-mobile-extra">
-          <a href="publisher.html">Publisher</a>
-          <a href="admin.html">Admin</a>
-          <a href="policy.html">Policy</a>
-        </div>
+        <a href="login.html">Login</a>
       </nav>
 
     </div>
   </header>
 
-  <main>
+  <main class="flight-page">
+    <div class="container">
 
-    <!-- HERO -->
-    <section class="ff-hero">
-      <div class="ff-hero-inner">
+      <section class="flight-hero">
 
-        <div class="ff-badge">
-          ✈️ ARS Education • English Learning
-        </div>
+        <div class="flight-icon">✈️</div>
 
         <h1>First Flight</h1>
 
         <p>
-          A structured English learning companion for literature,
-          vocabulary, reading skills, grammar, practice and revision.
-          Learn concepts clearly and prepare with confidence.
+          <strong>First Flight</strong> ARS की रचनात्मक यात्रा,
+          लेखन की शुरुआत और नए विचारों को उड़ान देने से जुड़ा
+          विशेष क्षेत्र है।
         </p>
 
-      </div>
-    </section>
+      </section>
 
+      <section class="flight-grid">
 
-    <!-- INTRO -->
-    <section class="ff-section">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>Learn First Flight the Smart Way</h2>
+        <article class="flight-card">
+          <div class="flight-card-icon">✍️</div>
+          <h2>लेखन की शुरुआत</h2>
           <p>
-            ARS First Flight is designed as a learning companion.
-            It helps students understand literature and improve English
-            skills through summaries, concepts, vocabulary and practice.
+            हर बड़ी यात्रा एक छोटे कदम से शुरू होती है।
+            First Flight में लेखन, विचार और रचनात्मकता की
+            शुरुआत को स्थान दिया जाएगा।
           </p>
-        </div>
+        </article>
 
-        <div class="ff-notice">
-
-          <div class="ff-notice-icon">📖</div>
-
-          <div>
-            <h3>Important: Use the Official Textbook for Full Text</h3>
-            <p>
-              This portal does not reproduce the complete textbook chapters
-              or poems. Read the original lesson from your prescribed
-              textbook, then use ARS for explanation, revision, vocabulary,
-              practice and learning support.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- PROSE -->
-    <section class="ff-section">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>📚 Prose Units</h2>
+        <article class="flight-card">
+          <div class="flight-card-icon">💡</div>
+          <h2>विचारों की उड़ान</h2>
           <p>
-            Use these units to organise your literature preparation.
-            Chapter availability can vary by textbook edition.
+            कविताएँ, शायरी, कहानियाँ और नए विचार —
+            रचनात्मक सोच को आगे बढ़ाने के लिए एक
+            अलग space।
           </p>
-        </div>
+        </article>
 
-        <div class="ff-unit-grid">
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">01</div>
-              <div>
-                <h3>A Letter to God</h3>
-                <p>
-                  Focus on faith, hope, human kindness and the central
-                  ideas of the story.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">02</div>
-              <div>
-                <h3>Nelson Mandela – Long Walk to Freedom</h3>
-                <p>
-                  Explore freedom, equality, courage, responsibility
-                  and leadership.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">03</div>
-              <div>
-                <h3>Two Stories about Flying</h3>
-                <p>
-                  Study the ideas of fear, confidence, determination
-                  and overcoming challenges.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">04</div>
-              <div>
-                <h3>From the Diary of Anne Frank</h3>
-                <p>
-                  Understand diary writing, observation, emotions
-                  and personal reflection.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">05</div>
-              <div>
-                <h3>Glimpses of India</h3>
-                <p>
-                  Explore culture, places, traditions, people and
-                  India's diverse heritage.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">06</div>
-              <div>
-                <h3>Mijbil the Otter</h3>
-                <p>
-                  Focus on companionship, observation and the relationship
-                  between people and animals.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">07</div>
-              <div>
-                <h3>Madam Rides the Bus</h3>
-                <p>
-                  Study curiosity, independence, maturity and a child's
-                  experience of the outside world.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">08</div>
-              <div>
-                <h3>The Sermon at Benares</h3>
-                <p>
-                  Understand loss, acceptance, wisdom and the universal
-                  nature of human life.
-                </p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">09</div>
-              <div>
-                <h3>The Proposal</h3>
-                <p>
-                  Explore humour, relationships, argument and comic
-                  situations through drama.
-                </p>
-              </div>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- POETRY -->
-    <section class="ff-section" style="background:var(--surface-alt);">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>📝 Poetry Units</h2>
+        <article class="flight-card">
+          <div class="flight-card-icon">🌱</div>
+          <h2>सीखते हुए आगे बढ़ना</h2>
           <p>
-            Focus on theme, poetic devices, tone, message and interpretation
-            instead of memorising long passages.
+            शुरुआती प्रयासों से सीखना, गलतियों को सुधारना
+            और धीरे-धीरे अपनी लेखन शैली विकसित करना
+            इस यात्रा का हिस्सा है।
           </p>
-        </div>
+        </article>
 
-        <div class="ff-unit-grid">
+      </section>
 
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">01</div>
-              <div>
-                <h3>Dust of Snow</h3>
-                <p>Theme, change of mood, nature and positive transformation.</p>
-              </div>
-            </div>
-          </article>
+      <section class="flight-book">
 
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">02</div>
-              <div>
-                <h3>Fire and Ice</h3>
-                <p>Desire, hatred, destruction and contrasting ideas.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">03</div>
-              <div>
-                <h3>A Tiger in the Zoo</h3>
-                <p>Freedom, captivity, contrast and the natural world.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">04</div>
-              <div>
-                <h3>How to Tell Wild Animals</h3>
-                <p>Humour, description, rhyme and playful presentation.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">05</div>
-              <div>
-                <h3>The Ball Poem</h3>
-                <p>Loss, responsibility, maturity and emotional growth.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">06</div>
-              <div>
-                <h3>Amanda!</h3>
-                <p>Childhood, expectations, freedom and imagination.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">07</div>
-              <div>
-                <h3>Animals</h3>
-                <p>Human behaviour, simplicity and comparison with animals.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">08</div>
-              <div>
-                <h3>The Trees</h3>
-                <p>Freedom, nature, imagery and symbolic movement.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">09</div>
-              <div>
-                <h3>Fog</h3>
-                <p>Imagery, comparison, atmosphere and concise expression.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">10</div>
-              <div>
-                <h3>The Tale of Custard the Dragon</h3>
-                <p>Courage, appearance, humour and unexpected bravery.</p>
-              </div>
-            </div>
-          </article>
-
-          <article class="ff-unit">
-            <div class="ff-unit-top">
-              <div class="ff-unit-icon">11</div>
-              <div>
-                <h3>For Anne Gregory</h3>
-                <p>Beauty, appearance, identity and deeper values.</p>
-              </div>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- LEARNING SKILLS -->
-    <section class="ff-section">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>🎯 What You Will Learn</h2>
-          <p>
-            First Flight preparation should develop understanding as well
-            as examination skills.
-          </p>
-        </div>
-
-        <div class="ff-skill-grid">
-
-          <article class="ff-skill">
-            <div class="ff-skill-icon">📖</div>
-            <h3>Reading</h3>
-            <p>Improve comprehension and identify important information.</p>
-          </article>
-
-          <article class="ff-skill">
-            <div class="ff-skill-icon">💡</div>
-            <h3>Literature</h3>
-            <p>Understand themes, characters, messages and literary ideas.</p>
-          </article>
-
-          <article class="ff-skill">
-            <div class="ff-skill-icon">🔤</div>
-            <h3>Vocabulary</h3>
-            <p>Build useful word knowledge and understand context.</p>
-          </article>
-
-          <article class="ff-skill">
-            <div class="ff-skill-icon">✍️</div>
-            <h3>Writing</h3>
-            <p>Develop clear, organised and accurate written responses.</p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- STUDY FLOW -->
-    <section class="ff-section" style="background:var(--surface-alt);">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>🚀 ARS First Flight Study Flow</h2>
-          <p>
-            Follow the same simple sequence for every lesson.
-          </p>
-        </div>
-
-        <div class="ff-flow">
-
-          <div class="ff-flow-step">
-            <strong>1. Read</strong>
-            <span>Read the original lesson from your textbook.</span>
-          </div>
-
-          <div class="ff-flow-step">
-            <strong>2. Understand</strong>
-            <span>Review the concept and original summary.</span>
-          </div>
-
-          <div class="ff-flow-step">
-            <strong>3. Vocabulary</strong>
-            <span>Learn important words and meanings.</span>
-          </div>
-
-          <div class="ff-flow-step">
-            <strong>4. Practice</strong>
-            <span>Attempt questions and comprehension practice.</span>
-          </div>
-
-          <div class="ff-flow-step">
-            <strong>5. Revise</strong>
-            <span>Review key ideas before examination.</span>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- GRAMMAR -->
-    <section class="ff-section">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>🔤 English Grammar & Language Skills</h2>
-          <p>
-            Grammar support can be added alongside literature preparation
-            to build stronger English fundamentals.
-          </p>
-        </div>
-
-        <div class="ff-grammar">
-
-          <article class="ff-grammar-item">
-            <h3>Parts of Speech</h3>
-            <p>
-              Understand nouns, pronouns, verbs, adjectives, adverbs,
-              prepositions, conjunctions and related usage.
-            </p>
-          </article>
-
-          <article class="ff-grammar-item">
-            <h3>Tenses</h3>
-            <p>
-              Practise present, past and future forms and their correct
-              usage in sentences.
-            </p>
-          </article>
-
-          <article class="ff-grammar-item">
-            <h3>Subject–Verb Agreement</h3>
-            <p>
-              Learn how subjects and verbs work together correctly
-              in different sentence structures.
-            </p>
-          </article>
-
-          <article class="ff-grammar-item">
-            <h3>Reported Speech</h3>
-            <p>
-              Understand how direct statements and questions can be
-              expressed in reported form.
-            </p>
-          </article>
-
-          <article class="ff-grammar-item">
-            <h3>Modals</h3>
-            <p>
-              Practise expressions of ability, possibility, permission,
-              advice and obligation.
-            </p>
-          </article>
-
-          <article class="ff-grammar-item">
-            <h3>Writing Skills</h3>
-            <p>
-              Improve organisation, clarity, vocabulary, sentence
-              construction and presentation.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- EXAM PREPARATION -->
-    <section class="ff-section" style="background:var(--surface-alt);">
-      <div class="ff-container">
-
-        <div class="ff-section-head">
-          <h2>🧠 Literature Question Strategy</h2>
-          <p>
-            Good answers are based on understanding rather than memorising
-            complete textbook paragraphs.
-          </p>
-        </div>
-
-        <div class="ff-grid">
-
-          <article class="ff-card">
-            <div class="ff-card-number">01</div>
-            <h3>Understand the Question</h3>
-            <p>
-              Identify whether the question asks about a theme,
-              character, event, reason, message or interpretation.
-            </p>
-          </article>
-
-          <article class="ff-card">
-            <div class="ff-card-number">02</div>
-            <h3>Use Relevant Points</h3>
-            <p>
-              Select only the ideas that directly answer the question.
-              Avoid unnecessary information.
-            </p>
-          </article>
-
-          <article class="ff-card">
-            <div class="ff-card-number">03</div>
-            <h3>Write Clearly</h3>
-            <p>
-              Use complete sentences, appropriate vocabulary and a
-              logical sequence of ideas.
-            </p>
-          </article>
-
-          <article class="ff-card">
-            <div class="ff-card-number">04</div>
-            <h3>Revise Key Ideas</h3>
-            <p>
-              Before an exam, revise themes, characters, important
-              concepts, vocabulary and question patterns.
-            </p>
-          </article>
-
-          <article class="ff-card">
-            <div class="ff-card-number">05</div>
-            <h3>Practise Regularly</h3>
-            <p>
-              Short, regular practice sessions are useful for improving
-              comprehension and written answers.
-            </p>
-          </article>
-
-          <article class="ff-card">
-            <div class="ff-card-number">06</div>
-            <h3>Check Your Answer</h3>
-            <p>
-              Check grammar, spelling, sentence structure and whether
-              the answer actually addresses the question.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- OFFICIAL SOURCE -->
-    <section class="ff-cta">
-      <div class="ff-cta-box">
-
-        <h2>📘 Need the Official Textbook?</h2>
+        <h2>📖 Meri Pehli Udaan</h2>
 
         <p>
-          For the complete and current textbook content, always refer to
-          the official NCERT textbook source and your prescribed edition.
-          ARS provides supplementary learning support.
+          <strong>“Meri Pehli Udaan”</strong> ARS की रचनात्मक
+          यात्रा से जुड़ा एक प्रमुख साहित्यिक प्रोजेक्ट है।
+          इसका विस्तृत content ARS Book section में
+          व्यवस्थित रूप से प्रस्तुत किया जाएगा।
         </p>
 
-        <div class="ff-buttons">
-
+        <div style="margin-top:22px;">
           <a
-            href="https://ncert.nic.in/textbook.php"
-            class="btn btn-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open NCERT Textbooks
+            href="ars-book.html"
+            class="btn btn-primary">
+            ARS Book देखें
           </a>
-
-          <a href="education.html" class="btn btn-outline">
-            Back to ARS Education
-          </a>
-
         </div>
 
-      </div>
-    </section>
+      </section>
 
+      <p class="flight-note">
+        यह section समय के साथ ARS की verified और original
+        creative content के अनुसार विस्तारित किया जाएगा।
+      </p>
+
+    </div>
   </main>
 
-
   <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <div class="footer-brand">
-        <a href="index.html" class="brand">
-          <img src="logo.png" alt="ARS Official Logo">
-          <span>
-            <strong>ARS Official</strong>
-            <small>Adarsh Raj Shayar</small>
-          </span>
-        </a>
-
-        <p>
-          A creative and educational platform by Adarsh Raj Shayar,
-          bringing literature, learning and digital creativity together.
-        </p>
-      </div>
-
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <a href="index.html">Home</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories & Poetry</a>
-        <a href="education.html">ARS Education</a>
-        <a href="first-flight.html">First Flight</a>
-      </div>
-
-      <div class="footer-links">
-        <h3>Important</h3>
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify Certificate</a>
-        <a href="contact.html">Contact</a>
-        <a href="policy.html">Policy</a>
-      </div>
-
-      <div class="footer-founder">
-        <h3>Founder</h3>
-
-        <div class="footer-signature">
-          <span>Adarsh Raj</span>
-          <small>Founder of ARS Official</small>
-        </div>
-
-        <a href="founder.html" class="btn btn-outline">
-          About Founder
-        </a>
-      </div>
-
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
     </div>
-
-    <div class="footer-bottom">
-      <div class="container">
-        <span>
-          © <span id="footerYear"></span> ARS Official. All rights reserved.
-        </span>
-
-        <span>
-          Built with ❤️ by ARS
-        </span>
-      </div>
-    </div>
-
   </footer>
-
 
   <button
     id="backToTop"
     class="back-to-top"
-    type="button"
-    aria-label="Back to top"
-  >
+    aria-label="Back to top">
     ↑
   </button>
 
-
-  <div id="arsToast" class="ars-toast" role="status" aria-live="polite"></div>
-
-
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-  <script src="script.js"></script>
+  <div id="toast" class="toast"></div>
 
 </body>
 </html>
