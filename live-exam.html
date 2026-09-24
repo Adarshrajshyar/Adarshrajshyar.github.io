@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Live Exam | ARS Official</title>
+
+  <meta
+    name="description"
+    content="ARS Education & Talent Exam Live Examination Portal."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    .live-page {
+      padding: 35px 0 70px;
+    }
+
+    .live-warning {
+      max-width: 950px;
+      margin: 0 auto 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      line-height: 1.7;
+    }
+
+    .exam-shell {
+      max-width: 1050px;
+      margin: auto;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 24px;
+      box-shadow: 0 14px 38px rgba(15,23,42,.07);
+      overflow: hidden;
+    }
+
+    .exam-header {
+      padding: 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e5eaf2;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .exam-header h1 {
+      margin: 0;
+      color: #172554;
+      font-size: 1.35rem;
+    }
+
+    .exam-meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .meta-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    .live-body {
+      display: grid;
+      grid-template-columns: 1fr 250px;
+    }
+
+    .question-panel {
+      padding: 28px;
+    }
+
+    .question-number {
+      color: #64748b;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .question {
+      color: #172554;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 11px;
+    }
+
+    .answer {
+      padding: 14px;
+      border: 1px solid #dbe4f0;
+      border-radius: 13px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+      color: #334155;
+      font: inherit;
+    }
+
+    .answer.selected {
+      background: #eef2ff;
+      border-color: #6366f1;
+      color: #3730a3;
+      font-weight: 700;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .exam-btn {
+      min-height: 44px;
+      padding: 0 17px;
+      border: 0;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .exam-btn.primary {
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+      );
+      color: #fff;
+    }
+
+    .exam-btn.secondary {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .exam-sidebar {
+      padding: 20px;
+      background: #f8fafc;
+      border-left: 1px solid #e5eaf2;
+    }
+
+    .timer {
+      padding: 15px;
+      border-radius: 15px;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .timer strong {
+      display: block;
+      color: #172554;
+      font-size: 1.5rem;
+      margin-top: 5px;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(5,1fr);
+      gap: 7px;
+    }
+
+    .palette button {
+      aspect-ratio: 1;
+      border: 1px solid #dbe4f0;
+      background: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .palette button.answered {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: #166534;
+    }
+
+    .palette button.current {
+      background: #eef2ff;
+      border-color: #818cf8;
+      color: #4338ca;
+    }
+
+    .submit-area {
+      margin-top: 20px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      min-height: 45px;
+      border: 0;
+      border-radius: 12px;
+      background: #be123c;
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .disabled-overlay {
+      padding: 60px 25px;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .disabled-overlay h2 {
+      color: #172554;
+    }
+
+    @media (max-width: 800px) {
+      .live-body {
+        grid-template-columns: 1fr;
+      }
+
+      .exam-sidebar {
+        border-left: 0;
+        border-top: 1px solid #e5eaf2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="ars-exam.html">ARS Exam</a>
+        <a href="exam-preparation.html">Preparation</a>
+        <a href="mock-test.html">Mock Test</a>
+        <a href="admit-card.html">Admit Card</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="live-page">
+
+    <div class="container">
+
+      <div class="live-warning">
+
+        🔒 <strong>Live Examination Security:</strong>
+        Real examination शुरू होने से पहले verified
+        Exam ID और secure backend authorization आवश्यक होगा।
+        इस frontend demo में real examination submission
+        enabled नहीं है।
+
+        <br><br>
+
+        🤖 Live exam के दौरान ARS AI assistance उपलब्ध नहीं
+        होगी।
+
+      </div>
+
+      <section class="exam-shell">
+
+        <div class="exam-header">
+
+          <h1>
+            🏆 ARS Education & Talent Exam
+          </h1>
+
+          <div class="exam-meta">
+
+            <span class="meta-pill">
+              Class —
+            </span>
+
+            <span
+              id="timerPill"
+              class="meta-pill">
+              60:00
+            </span>
+
+          </div>
+
+        </div>
+
+        <div id="disabledExam" class="disabled-overlay">
+
+          <h2>Live Exam अभी Active नहीं है</h2>
+
+          <p>
+            Real examination को केवल verified backend,
+            valid Exam ID, official schedule और secure
+            authorization के बाद शुरू किया जाएगा।
+          </p>
+
+          <p>
+            कृपया official announcement के बाद ही
+            Live Exam portal का उपयोग करें।
+          </p>
+
+          <a
+            href="ars-exam.html"
+            class="exam-btn secondary">
+            ← Exam Details
+          </a>
+
+        </div>
+
+        <div
+          id="examInterface"
+          class="live-body"
+          style="display:none;">
+
+          <section class="question-panel">
+
+            <div
+              id="questionNumber"
+              class="question-number">
+              Question 1
+            </div>
+
+            <h2
+              id="questionText"
+              class="question">
+            </h2>
+
+            <div
+              id="answers"
+              class="answers">
+            </div>
+
+            <div class="question-actions">
+
+              <button
+                id="previousBtn"
+                class="exam-btn secondary"
+                type="button">
+                ← Previous
+              </button>
+
+              <button
+                id="nextBtn"
+                class="exam-btn primary"
+                type="button">
+                Next →
+              </button>
+
+            </div>
+
+          </section>
+
+          <aside class="exam-sidebar">
+
+            <div class="timer">
+
+              <span>Time Remaining</span>
+
+              <strong id="timer">
+                60:00
+              </strong>
+
+            </div>
+
+            <div
+              id="palette"
+              class="palette">
+            </div>
+
+            <div class="submit-area">
+
+              <button
+                id="submitExamBtn"
+                class="submit-btn"
+                type="button">
+                Submit Exam
+              </button>
+
+            </div>
+
+          </aside>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+    ↑
+  </button>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    (function () {
+
+      /*
+       * IMPORTANT:
+       * Real live exam activation must be controlled
+       * by the secure backend.
+       *
+       * This frontend intentionally keeps the live
+       * examination disabled until backend integration.
+       */
+
+      const LIVE_EXAM_ENABLED = false;
+
+      if (!LIVE_EXAM_ENABLED) {
+        return;
+      }
+
+      const questions = [
+        {
+          text: "Example question",
+          options: [
+            "Option A",
+            "Option B",
+            "Option C",
+            "Option D"
+          ]
+        }
+      ];
+
+      const interfaceBox =
+        document.getElementById(
+          "examInterface"
+        );
+
+      const disabledBox =
+        document.getElementById(
+          "disabledExam"
+        );
+
+      const questionNumber =
+        document.getElementById(
+          "questionNumber"
+        );
+
+      const questionText =
+        document.getElementById(
+          "questionText"
+        );
+
+      const answers =
+        document.getElementById("answers");
+
+      const palette =
+        document.getElementById("palette");
+
+      const timer =
+        document.getElementById("timer");
+
+      const previousBtn =
+        document.getElementById("previousBtn");
+
+      const nextBtn =
+        document.getElementById("nextBtn");
+
+      const submitBtn =
+        document.getElementById(
+          "submitExamBtn"
+        );
+
+      let current = 0;
+
+      const selectedAnswers =
+        new Array(questions.length).fill(null);
+
+      let seconds = 60 * 60;
+
+      function renderQuestion() {
+
+        const question =
+          questions[current];
+
+        questionNumber.textContent =
+          `Question ${current + 1} / ${questions.length}`;
+
+        questionText.textContent =
+          question.text;
+
+        answers.innerHTML =
+          question.options.map(
+            (option, index) => {
+
+              const selected =
+                selectedAnswers[current] === index
+                  ? "selected"
+                  : "";
+
+              return `
+                <button
+                  type="button"
+                  class="answer ${selected}"
+                  data-index="${index}">
+                  ${option}
+                </button>
+              `;
+
+            }
+          ).join("");
+
+        answers
+          .querySelectorAll(".answer")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                selectedAnswers[current] =
+                  Number(button.dataset.index);
+
+                renderQuestion();
+                renderPalette();
+
+              }
+            );
+
+          });
+
+        previousBtn.disabled =
+          current === 0;
+
+        nextBtn.textContent =
+          current === questions.length - 1
+            ? "Finish"
+            : "Next →";
+      }
+
+      function renderPalette() {
+
+        palette.innerHTML =
+          questions.map(
+            (_, index) => {
+
+              const answered =
+                selectedAnswers[index] !== null
+                  ? "answered"
+                  : "";
+
+              const currentClass =
+                current === index
+                  ? "current"
+                  : "";
+
+              return `
+                <button
+                  type="button"
+                  class="${answered} ${currentClass}"
+                  data-index="${index}">
+                  ${index + 1}
+                </button>
+              `;
+
+            }
+          ).join("");
+
+        palette
+          .querySelectorAll("button")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                current =
+                  Number(button.dataset.index);
+
+                renderQuestion();
+                renderPalette();
+
+              }
+            );
+
+          });
+      }
+
+      function updateTimer() {
+
+        const minutes =
+          Math.floor(seconds / 60)
+            .toString()
+            .padStart(2, "0");
+
+        const remaining =
+          (seconds % 60)
+            .toString()
+            .padStart(2, "0");
+
+        timer.textContent =
+          `${minutes}:${remaining}`;
+
+        if (seconds <= 0) {
+          submitExam();
+          return;
+        }
+
+        seconds--;
+      }
+
+      function submitExam() {
+
+        alert(
+          "Live exam submission backend integration अभी pending है।"
+        );
+
+      }
+
+      previousBtn.addEventListener(
+        "click",
+        () => {
+
+          if (current > 0) {
+            current--;
+            renderQuestion();
+            renderPalette();
+          }
+
+        }
+      );
+
+      nextBtn.addEventListener(
+        "click",
+        () => {
+
+          if (
+            current <
+            questions.length - 1
+          ) {
+
+            current++;
+            renderQuestion();
+            renderPalette();
+
+          }
+
+        }
+      );
+
+      submitBtn.addEventListener(
+        "click",
+        submitExam
+      );
+
+      disabledBox.style.display = "none";
+      interfaceBox.style.display = "grid";
+
+      renderQuestion();
+      renderPalette();
+
+      updateTimer();
+
+      setInterval(
+        updateTimer,
+        1000
+      );
+
+    })();
+  </script>
+
+</body>
+</html>
