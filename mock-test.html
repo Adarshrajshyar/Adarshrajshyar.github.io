@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Mock Test | ARS Official</title>
+
+  <meta
+    name="description"
+    content="ARS Education & Talent Exam Mock Test."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    .mock-page {
+      padding: 42px 0 80px;
+    }
+
+    .mock-hero {
+      text-align: center;
+      padding: 45px 22px;
+      border-radius: 28px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,99,235,.10),
+          rgba(236,72,153,.10)
+        );
+      border: 1px solid #e2e8f0;
+    }
+
+    .mock-hero-icon {
+      font-size: 3.2rem;
+    }
+
+    .mock-hero h1 {
+      margin: 10px 0;
+      color: #172554;
+    }
+
+    .mock-hero p {
+      max-width: 700px;
+      margin: auto;
+      color: #64748b;
+      line-height: 1.8;
+    }
+
+    .mock-info {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(180px,1fr)
+      );
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .info-card {
+      padding: 18px;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 17px;
+      text-align: center;
+    }
+
+    .info-card strong {
+      display: block;
+      font-size: 1.4rem;
+      color: #4338ca;
+      margin-bottom: 5px;
+    }
+
+    .info-card span {
+      color: #64748b;
+    }
+
+    .mock-box {
+      max-width: 850px;
+      margin: 25px auto 0;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 24px;
+      box-shadow: 0 12px 32px rgba(15,23,42,.06);
+      padding: 28px;
+    }
+
+    .question-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .question-count,
+    .mock-score {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-weight: 800;
+    }
+
+    .question-text {
+      color: #172554;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: grid;
+      gap: 11px;
+    }
+
+    .option {
+      padding: 14px;
+      border: 1px solid #dbe4f0;
+      border-radius: 13px;
+      background: #fff;
+      cursor: pointer;
+      color: #334155;
+    }
+
+    .option:hover {
+      background: #f8fafc;
+    }
+
+    .option.selected {
+      border-color: #6366f1;
+      background: #eef2ff;
+      color: #3730a3;
+      font-weight: 700;
+    }
+
+    .mock-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .mock-btn {
+      border: 0;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .mock-btn.primary {
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+      );
+      color: #fff;
+    }
+
+    .mock-btn.secondary {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 20px;
+      padding: 22px;
+      border-radius: 17px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+      text-align: center;
+    }
+
+    .result-box.show {
+      display: block;
+    }
+
+    .result-score {
+      font-size: 2rem;
+      font-weight: 900;
+      margin: 8px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="ars-exam.html">ARS Exam</a>
+        <a href="exam-preparation.html">Preparation</a>
+        <a href="mock-test.html" class="active">Mock Test</a>
+        <a href="exam-register.html">Registration</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="mock-page">
+
+    <div class="container">
+
+      <section class="mock-hero">
+
+        <div class="mock-hero-icon">🧠</div>
+
+        <h1>ARS Mock Test</h1>
+
+        <p>
+          ARS Education & Talent Exam की तैयारी के लिए
+          एक छोटा practice test। यह केवल practice purpose
+          के लिए है और official examination नहीं है।
+        </p>
+
+      </section>
+
+      <section class="mock-info">
+
+        <div class="info-card">
+          <strong>5</strong>
+          <span>Questions</span>
+        </div>
+
+        <div class="info-card">
+          <strong>5</strong>
+          <span>Marks</span>
+        </div>
+
+        <div class="info-card">
+          <strong>Practice</strong>
+          <span>Purpose</span>
+        </div>
+
+      </section>
+
+      <section class="mock-box">
+
+        <div class="question-top">
+
+          <span
+            id="questionCount"
+            class="question-count">
+            Question 1 / 5
+          </span>
+
+          <span
+            id="mockScore"
+            class="mock-score">
+            Score: 0
+          </span>
+
+        </div>
+
+        <div id="questionArea">
+
+          <h2
+            id="questionText"
+            class="question-text">
+          </h2>
+
+          <div
+            id="options"
+            class="options">
+          </div>
+
+        </div>
+
+        <div class="mock-actions">
+
+          <button
+            id="nextBtn"
+            class="mock-btn primary"
+            type="button">
+            Next →
+          </button>
+
+          <button
+            id="restartBtn"
+            class="mock-btn secondary"
+            type="button">
+            Restart
+          </button>
+
+        </div>
+
+        <div
+          id="resultBox"
+          class="result-box">
+
+          <div>🎉 Mock Test Completed</div>
+
+          <div
+            id="resultScore"
+            class="result-score">
+          </div>
+
+          <div>
+            यह practice result है।
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+    ↑
+  </button>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    (function () {
+
+      const questions = [
+        {
+          question: "12 × 5 का मान क्या है?",
+          options: ["50", "60", "70", "80"],
+          answer: 1
+        },
+        {
+          question: "पौधों में भोजन बनाने की प्रक्रिया क्या कहलाती है?",
+          options: [
+            "Respiration",
+            "Digestion",
+            "Photosynthesis",
+            "Circulation"
+          ],
+          answer: 2
+        },
+        {
+          question: "भारत की राजधानी क्या है?",
+          options: [
+            "Mumbai",
+            "Kolkata",
+            "New Delhi",
+            "Chennai"
+          ],
+          answer: 2
+        },
+        {
+          question: "यदि 2, 4, 6, 8 के बाद अगली संख्या क्या होगी?",
+          options: ["9", "10", "11", "12"],
+          answer: 1
+        },
+        {
+          question: "‘Brave’ का अर्थ क्या है?",
+          options: [
+            "डरपोक",
+            "साहसी",
+            "आलसी",
+            "कमजोर"
+          ],
+          answer: 1
+        }
+      ];
+
+      let current = 0;
+      let score = 0;
+      let selected = null;
+
+      const questionText =
+        document.getElementById("questionText");
+
+      const options =
+        document.getElementById("options");
+
+      const questionCount =
+        document.getElementById("questionCount");
+
+      const mockScore =
+        document.getElementById("mockScore");
+
+      const nextBtn =
+        document.getElementById("nextBtn");
+
+      const restartBtn =
+        document.getElementById("restartBtn");
+
+      const resultBox =
+        document.getElementById("resultBox");
+
+      const resultScore =
+        document.getElementById("resultScore");
+
+      function render() {
+
+        const item = questions[current];
+
+        selected = null;
+
+        questionCount.textContent =
+          `Question ${current + 1} / ${questions.length}`;
+
+        mockScore.textContent =
+          `Score: ${score}`;
+
+        questionText.textContent =
+          item.question;
+
+        options.innerHTML =
+          item.options.map(
+            (option, index) => `
+              <button
+                type="button"
+                class="option"
+                data-index="${index}">
+                ${option}
+              </button>
+            `
+          ).join("");
+
+        options
+          .querySelectorAll(".option")
+          .forEach(button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                selected =
+                  Number(button.dataset.index);
+
+                options
+                  .querySelectorAll(".option")
+                  .forEach(item =>
+                    item.classList.remove("selected")
+                  );
+
+                button.classList.add("selected");
+              }
+            );
+
+          });
+
+        nextBtn.textContent =
+          current === questions.length - 1
+            ? "Finish"
+            : "Next →";
+      }
+
+      function finish() {
+
+        questionText.textContent =
+          "Practice test पूरा हो गया।";
+
+        options.innerHTML = "";
+
+        questionCount.textContent =
+          "Completed";
+
+        mockScore.textContent =
+          `Score: ${score}`;
+
+        resultScore.textContent =
+          `${score} / ${questions.length}`;
+
+        resultBox.classList.add("show");
+
+        nextBtn.disabled = true;
+      }
+
+      nextBtn.addEventListener(
+        "click",
+        () => {
+
+          if (selected === null) {
+
+            alert("पहले एक option चुनें।");
+
+            return;
+          }
+
+          if (
+            selected === questions[current].answer
+          ) {
+            score++;
+          }
+
+          if (
+            current === questions.length - 1
+          ) {
+
+            finish();
+
+            return;
+          }
+
+          current++;
+
+          render();
+        }
+      );
+
+      restartBtn.addEventListener(
+        "click",
+        () => {
+
+          current = 0;
+          score = 0;
+          selected = null;
+
+          resultBox.classList.remove("show");
+
+          nextBtn.disabled = false;
+
+          render();
+        }
+      );
+
+      render();
+
+    })();
+  </script>
+
+</body>
+</html>
