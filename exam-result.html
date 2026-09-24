@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Result | ARS Official</title>
+  <meta name="description" content="Check ARS Education & Talent Exam result.">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="storage.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">ARS</span>
+      <span class="brand-text">
+        <strong>ARS Official</strong>
+        <small>Education • Creativity • Growth</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-label="Open menu">☰</button>
+
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="education.html">Education</a>
+      <a href="ars-exam.html" class="active">ARS Exam</a>
+      <a href="ars-ai.html">ARS AI</a>
+      <a href="ars-book.html">ARS Book</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" class="nav-login">Login</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">ARS Education & Talent Exam</span>
+      <h1>📊 Exam Result</h1>
+      <p>
+        Enter your Exam ID to check your result when the official result
+        service is available.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="form-card" style="max-width:650px;margin:auto;">
+        <h2>🔎 Check Result</h2>
+        <p class="muted">
+          Use the Exam ID provided by ARS after successful registration.
+        </p>
+
+        <form id="resultForm">
+
+          <div class="form-group">
+            <label for="examId">Exam ID</label>
+            <input
+              type="text"
+              id="examId"
+              name="examId"
+              placeholder="Example: ARS-2027-00001"
+              maxlength="40"
+              required
+            >
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Check Result
+          </button>
+
+        </form>
+
+        <div id="resultMessage" class="notice" hidden></div>
+      </div>
+
+      <div id="resultArea" hidden style="margin-top:32px;">
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <span class="eyebrow">Result</span>
+              <h2 id="studentName">Student</h2>
+            </div>
+
+            <span id="statusBadge" class="badge">Result</span>
+          </div>
+
+          <div class="stats-grid">
+
+            <div class="stat-card">
+              <span>Total Marks</span>
+              <strong id="totalMarks">60</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Obtained Marks</span>
+              <strong id="obtainedMarks">—</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Percentage</span>
+              <strong id="percentage">—</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Correct</span>
+              <strong id="correctAnswers">—</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Incorrect</span>
+              <strong id="incorrectAnswers">—</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Unattempted</span>
+              <strong id="unattemptedAnswers">—</strong>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:24px;">
+          <h2>📚 Section-wise Performance</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Maximum</th>
+                  <th>Obtained</th>
+                </tr>
+              </thead>
+
+              <tbody id="sectionTable">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:24px;">
+          <h2>📄 Result Information</h2>
+
+          <div class="info-list">
+            <p><strong>Exam ID:</strong> <span id="displayExamId">—</span></p>
+            <p><strong>Class:</strong> <span id="displayClass">—</span></p>
+            <p><strong>Result Date:</strong> <span id="resultDate">—</span></p>
+            <p><strong>Qualification:</strong> <span id="qualification">—</span></p>
+          </div>
+
+          <div class="button-row">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="window.print()"
+            >
+              🖨️ Print Result
+            </button>
+
+            <a href="certificate.html" class="btn btn-primary">
+              Certificate
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card" style="max-width:850px;margin:32px auto 0;">
+        <h2>⚠️ Important</h2>
+        <ul class="clean-list">
+          <li>Results will be displayed only after official evaluation.</li>
+          <li>Frontend demo data is not treated as an official result.</li>
+          <li>Rank, qualification and certificates depend on the final published rules.</li>
+          <li>Do not share your password, OTP or authentication information with anyone.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div>
+      <h3>ARS Official</h3>
+      <p>
+        A platform for education, creativity, literature and student growth.
+      </p>
+    </div>
+
+    <div>
+      <h3>Quick Links</h3>
+      <a href="education.html">Education</a>
+      <a href="ars-exam.html">ARS Exam</a>
+      <a href="contact.html">Contact</a>
+      <a href="policy.html">Policy</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <span data-current-year></span> ARS Official. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const form = document.getElementById("resultForm");
+  const message = document.getElementById("resultMessage");
+  const resultArea = document.getElementById("resultArea");
+
+  const apiBase =
+    window.CONFIG &&
+    window.CONFIG.backend &&
+    window.CONFIG.backend.apiBase
+      ? window.CONFIG.backend.apiBase
+      : "https://ars-backend-hbbk.onrender.com";
+
+  function showMessage(text, type = "info") {
+    message.hidden = false;
+    message.textContent = text;
+    message.className = "notice " + type;
+  }
+
+  function clean(value) {
+    return String(value || "").trim().slice(0, 40);
+  }
+
+  function renderResult(data) {
+    const result = data.result || data;
+
+    document.getElementById("studentName").textContent =
+      result.studentName || "Student";
+
+    document.getElementById("displayExamId").textContent =
+      result.examId || "—";
+
+    document.getElementById("displayClass").textContent =
+      result.className || result.class || "—";
+
+    document.getElementById("resultDate").textContent =
+      result.resultDate || "—";
+
+    document.getElementById("totalMarks").textContent =
+      result.totalMarks ?? 60;
+
+    document.getElementById("obtainedMarks").textContent =
+      result.obtainedMarks ?? "—";
+
+    document.getElementById("percentage").textContent =
+      result.percentage != null
+        ? result.percentage + "%"
+        : "—";
+
+    document.getElementById("correctAnswers").textContent =
+      result.correct ?? "—";
+
+    document.getElementById("incorrectAnswers").textContent =
+      result.incorrect ?? "—";
+
+    document.getElementById("unattemptedAnswers").textContent =
+      result.unattempted ?? "—";
+
+    document.getElementById("qualification").textContent =
+      result.qualificationStatus || "—";
+
+    const badge = document.getElementById("statusBadge");
+    badge.textContent = result.qualificationStatus || "Result";
+
+    const table = document.getElementById("sectionTable");
+    table.innerHTML = "";
+
+    const sections = Array.isArray(result.sections)
+      ? result.sections
+      : [];
+
+    sections.forEach(section => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${escapeHTML(section.name || "Section")}</td>
+        <td>${escapeHTML(section.maximum ?? "—")}</td>
+        <td>${escapeHTML(section.obtained ?? "—")}</td>
+      `;
+
+      table.appendChild(row);
+    });
+
+    resultArea.hidden = false;
+  }
+
+  function escapeHTML(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const examId = clean(
+      document.getElementById("examId").value
+    );
+
+    resultArea.hidden = true;
+
+    if (!examId) {
+      showMessage("Please enter your Exam ID.", "warning");
+      return;
+    }
+
+    showMessage(
+      "Checking the official result service...",
+      "info"
+    );
+
+    try {
+      const response = await fetch(
+        apiBase + "/api/exam/result/" +
+        encodeURIComponent(examId),
+        {
+          method: "GET",
+          headers: {
+            "Accept": "application/json"
+          }
+        }
+      );
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "Result is not available."
+        );
+      }
+
+      renderResult(data);
+
+      showMessage(
+        "Result loaded successfully.",
+        "success"
+      );
+
+    } catch (error) {
+      showMessage(
+        "Official result service is not available yet. Please try again after the result is officially published.",
+        "warning"
+      );
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
