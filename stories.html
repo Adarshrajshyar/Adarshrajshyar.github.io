@@ -5,217 +5,205 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Stories & Poetry | ARS Official</title>
-
-  <meta
-    name="description"
-    content="ARS Official पर पढ़ें मौलिक कहानियाँ और कविताएँ — जीवन, प्रेरणा, दोस्ती, सपनों, शिक्षा और कल्पना से जुड़ी रचनाएँ।"
-  >
-
-  <meta name="theme-color" content="#7c3aed">
+  <meta name="description" content="ARS Official पर मौलिक कहानियाँ और कविताएँ पढ़ें।">
 
   <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+  <script src="stories.js" defer></script>
 
   <style>
-    /* =========================================
-       ARS STORIES & POETRY PAGE
-    ========================================= */
-
-    .story-toolbar {
-      margin-top: 28px;
-      display: grid;
-      gap: 18px;
+    .stories-page {
+      padding: 40px 0 70px;
     }
 
-    .story-search {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 15px 18px;
-      border: 1px solid var(--border-color, rgba(127,127,127,.22));
-      border-radius: 14px;
-      background: var(--card-bg, rgba(255,255,255,.75));
-      color: var(--text-color, #222);
-      font-size: 15px;
-      outline: none;
-      transition: .25s ease;
+    .stories-hero {
+      background:
+        linear-gradient(135deg, rgba(91, 141, 239, .14), rgba(236, 72, 153, .12)),
+        #fff;
+      border: 1px solid rgba(91, 141, 239, .16);
+      border-radius: 28px;
+      padding: 42px 25px;
+      text-align: center;
+      box-shadow: 0 12px 35px rgba(30, 64, 175, .08);
+      margin-bottom: 30px;
     }
 
-    .story-search:focus {
-      border-color: var(--primary-color, #7c3aed);
-      box-shadow: 0 0 0 4px rgba(124,58,237,.10);
+    .stories-hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      background: linear-gradient(90deg, #2563eb, #db2777, #9333ea);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    .story-tabs {
+    .stories-hero p {
+      max-width: 750px;
+      margin: auto;
+      color: #64748b;
+      line-height: 1.8;
+    }
+
+    .stories-tools {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 25px;
     }
 
-    .story-tab {
-      border: 1px solid var(--border-color, rgba(127,127,127,.22));
-      background: var(--card-bg, rgba(255,255,255,.75));
-      color: inherit;
-      padding: 10px 16px;
+    .stories-search {
+      width: min(100%, 500px);
+      padding: 14px 18px;
+      border: 1px solid #dbe4f0;
+      border-radius: 999px;
+      outline: none;
+      background: #fff;
+      color: #1e293b;
+      font-size: 1rem;
+      box-shadow: 0 5px 18px rgba(15, 23, 42, .05);
+    }
+
+    .stories-search:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, .10);
+    }
+
+    .story-filters {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 5px 2px 14px;
+      margin-bottom: 28px;
+      scrollbar-width: thin;
+    }
+
+    .story-filter {
+      border: 1px solid #dbe4f0;
+      background: #fff;
+      color: #475569;
+      padding: 10px 17px;
       border-radius: 999px;
       cursor: pointer;
-      font-size: 14px;
-      transition: .25s ease;
+      white-space: nowrap;
+      transition: .2s ease;
     }
 
-    .story-tab:hover,
-    .story-tab.active {
-      background: var(--primary-color, #7c3aed);
+    .story-filter:hover,
+    .story-filter.active {
       color: #fff;
-      border-color: var(--primary-color, #7c3aed);
+      border-color: transparent;
+      background: linear-gradient(135deg, #2563eb, #9333ea);
       transform: translateY(-1px);
     }
 
-    .story-grid {
+    .stories-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
-      margin-top: 35px;
     }
 
     .story-card {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border-color, rgba(127,127,127,.18));
-      border-radius: 20px;
-      padding: 25px;
-      background: var(--card-bg, rgba(255,255,255,.75));
-      box-shadow: 0 12px 35px rgba(0,0,0,.06);
-      transition: .3s ease;
+      background: #fff;
+      border: 1px solid #e6edf6;
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, .06);
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
     .story-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 18px 45px rgba(0,0,0,.10);
-    }
-
-    .story-card::after {
-      content: "✦";
-      position: absolute;
-      right: 20px;
-      top: 15px;
-      font-size: 30px;
-      opacity: .08;
+      box-shadow: 0 16px 34px rgba(15, 23, 42, .10);
     }
 
     .story-type {
       display: inline-flex;
-      align-items: center;
+      width: fit-content;
       padding: 6px 11px;
       border-radius: 999px;
-      font-size: 12px;
+      background: #f3e8ff;
+      color: #7e22ce;
+      font-size: .78rem;
       font-weight: 700;
-      background: rgba(124,58,237,.10);
-      color: var(--primary-color, #7c3aed);
-      margin-bottom: 14px;
+      margin-bottom: 13px;
+    }
+
+    .story-card h2 {
+      margin: 0 0 9px;
+      color: #172554;
+      font-size: 1.25rem;
     }
 
     .story-category {
-      font-size: 12px;
-      opacity: .65;
-      margin-bottom: 10px;
-    }
-
-    .story-title {
-      margin: 0 0 14px;
-      font-size: 21px;
-      line-height: 1.35;
+      color: #64748b;
+      font-size: .86rem;
+      margin-bottom: 13px;
     }
 
     .story-excerpt {
-      margin: 0;
-      line-height: 1.8;
-      font-size: 15px;
-      opacity: .88;
-    }
-
-    .story-author {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--border-color, rgba(127,127,127,.15));
-      font-size: 13px;
-      opacity: .72;
+      color: #475569;
+      line-height: 1.75;
+      flex: 1;
     }
 
     .story-actions {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
       margin-top: 18px;
     }
 
     .story-action {
-      border: 1px solid var(--border-color, rgba(127,127,127,.18));
-      background: transparent;
-      color: inherit;
-      padding: 8px 11px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #475569;
       border-radius: 10px;
+      padding: 8px 11px;
       cursor: pointer;
-      font-size: 13px;
-      transition: .2s ease;
+      font-size: .85rem;
     }
 
-    .story-action:hover {
-      background: rgba(124,58,237,.09);
-      border-color: rgba(124,58,237,.35);
-    }
-
-    .story-read {
-      display: inline-flex;
-      margin-top: 18px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary-color, #7c3aed);
+    .story-action:hover,
+    .story-action.active {
+      background: #eef2ff;
+      color: #4338ca;
+      border-color: #c7d2fe;
     }
 
     .story-empty {
-      display: none;
+      grid-column: 1 / -1;
       text-align: center;
-      padding: 50px 20px;
-      margin-top: 30px;
-      border: 1px dashed var(--border-color, rgba(127,127,127,.25));
+      padding: 45px 20px;
       border-radius: 20px;
-      opacity: .75;
+      background: #fff;
+      border: 1px dashed #cbd5e1;
+      color: #64748b;
     }
 
-    .story-empty.show {
-      display: block;
-    }
-
-    .story-note {
-      margin-top: 25px;
-      text-align: center;
-      font-size: 14px;
-      opacity: .7;
-    }
-
-    @media (max-width: 1000px) {
-      .story-grid {
+    @media (max-width: 950px) {
+      .stories-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 650px) {
-      .story-grid {
+    @media (max-width: 620px) {
+      .stories-page {
+        padding-top: 25px;
+      }
+
+      .stories-hero {
+        padding: 32px 18px;
+        border-radius: 22px;
+      }
+
+      .stories-grid {
         grid-template-columns: 1fr;
-      }
-
-      .story-card {
-        padding: 21px;
-      }
-
-      .story-tabs {
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding-bottom: 5px;
-      }
-
-      .story-tab {
-        flex: 0 0 auto;
       }
     }
   </style>
@@ -223,1204 +211,87 @@
 
 <body>
 
-  <!-- =========================================
-       PAGE LOADER
-  ========================================== -->
-
-  <div class="page-loader" aria-hidden="true">
+  <div id="pageLoader" class="page-loader">
     <div class="loader-spinner"></div>
   </div>
 
-
-  <!-- =========================================
-       HEADER
-  ========================================== -->
-
   <header class="site-header">
-
     <div class="container header-inner">
 
       <a href="index.html" class="brand">
-
-        <img
-          src="logo.png"
-          alt="ARS Official Logo"
-          class="brand-logo"
-        >
-
-        <span class="brand-text">
-          <strong>ARS</strong>
-          <small>Official</small>
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
         </span>
-
       </a>
 
-
-      <button
-        class="menu-toggle"
-        type="button"
-        aria-label="Open navigation"
-        aria-expanded="false"
-      >
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
         ☰
       </button>
 
-
-      <nav class="main-nav" aria-label="Main Navigation">
-
+      <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
-
-        <a href="founder.html">Founder</a>
-
         <a href="shayari.html">Shayari</a>
-
-        <a href="stories.html" class="active">
-          Stories & Poetry
-        </a>
-
-        <a href="education.html">
-          ARS Education
-        </a>
-
-        <a href="first-flight.html">
-          First Flight
-        </a>
-
-        <a href="ars-ai.html">
-          ARS AI
-        </a>
-
-        <a href="joining.html">
-          Join ARS
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-        <a href="verify.html">
-          Verify
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="publisher.html">
-          Publisher
-        </a>
-
-        <a href="admin.html">
-          Admin
-        </a>
-
-        <a href="policy.html">
-          Policy
-        </a>
-
+        <a href="stories.html" class="active">Stories</a>
+        <a href="founder.html">Founder</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
       </nav>
 
     </div>
-
   </header>
 
-
-  <!-- =========================================
-       MAIN
-  ========================================== -->
-
-  <main>
-
-
-    <!-- =======================================
-         HERO
-    ======================================== -->
-
-    <section class="hero">
-
-      <div class="container hero-content reveal">
-
-        <span class="eyebrow">
-          📖 ARS Stories & Poetry
-        </span>
-
-        <h1>
-          कहानियों में दुनिया,
-          <span>कविताओं में एहसास</span>
-        </h1>
-
-        <p>
-          जीवन, सपनों, प्रेरणा, दोस्ती, शिक्षा और कल्पना
-          से जुड़ी मौलिक रचनाओं को पढ़िए और महसूस कीजिए।
-        </p>
-
-        <div class="hero-actions">
-
-          <a
-            href="#storiesCollection"
-            class="btn btn-primary"
-          >
-            रचनाएँ पढ़ें
-          </a>
-
-          <a
-            href="shayari.html"
-            class="btn btn-secondary"
-          >
-            Shayari देखें
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =======================================
-         COLLECTION
-    ======================================== -->
-
-    <section
-      class="section"
-      id="storiesCollection"
-    >
-
-      <div class="container">
-
-
-        <div class="section-heading reveal">
-
-          <span class="eyebrow">
-            ARS Collection
-          </span>
-
-          <h2>
-            Stories & Poetry
-          </h2>
-
-          <p>
-            अपनी पसंद की category चुनें या search करके
-            अपनी मनपसंद रचना खोजें।
-          </p>
-
-        </div>
-
-
-        <!-- SEARCH + FILTER -->
-
-        <div class="story-toolbar reveal">
-
-          <input
-            type="search"
-            class="story-search"
-            id="storySearch"
-            placeholder="🔍 कहानी या कविता खोजें..."
-            aria-label="Search Stories and Poetry"
-          >
-
-
-          <div
-            class="story-tabs"
-            aria-label="Stories and Poetry Categories"
-          >
-
-            <button
-              class="story-tab active"
-              type="button"
-              data-story-filter="all"
-            >
-              ✨ सभी
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="mystery"
-            >
-              🕵️ Mystery
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="horror"
-            >
-              🌙 Horror
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="biography"
-            >
-              👤 Biography
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="life"
-            >
-              🌱 Life
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="inspiration"
-            >
-              ✨ Inspiration
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="motivation"
-            >
-              🔥 Motivation
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="friendship"
-            >
-              🤝 Friendship
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="dream"
-            >
-              🌌 Dream
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="education"
-            >
-              📚 Education
-            </button>
-
-            <button
-              class="story-tab"
-              type="button"
-              data-story-filter="general"
-            >
-              📖 General
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <!-- =====================================
-             STORY / POETRY GRID
-        ====================================== -->
-
-        <div
-          class="story-grid"
-          id="storyGrid"
-        >
-
-
-          <!-- STORY 1 -->
-
-          <article
-            class="story-card reveal"
-            data-story-card
-            data-story-type="story"
-            data-category="inspiration"
-            data-search="प्रेरणा सपने मेहनत सफलता कहानी"
-          >
-
-            <span class="story-type">
-              📖 कहानी
-            </span>
-
-            <div class="story-category">
-              Inspiration • प्रेरणा
-            </div>
-
-            <h3 class="story-title">
-              सपनों की पहली सीढ़ी
-            </h3>
-
-            <p class="story-excerpt">
-              एक छोटे से गाँव का विद्यार्थी अपने बड़े सपने
-              को पूरा करने के लिए हर दिन एक नई कोशिश करता है।
-              रास्ते आसान नहीं थे, लेकिन उसने अपनी मेहनत को
-              कभी रुकने नहीं दिया।
-            </p>
-
-            <a
-              href="chapter.html?type=story&id=story-001"
-              class="story-read"
-            >
-              पूरी कहानी पढ़ें →
-            </a>
-
-            <div class="story-author">
-              — Adarsh Raj Shayar
-            </div>
-
-            <div class="story-actions">
-
-              <button
-                class="story-action"
-                type="button"
-                data-like-id="story-001"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-favorite-id="story-001"
-              >
-                ⭐ Favorite
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-save-id="story-001"
-              >
-                🔖 Save
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-share-text="सपनों की पहली सीढ़ी — ARS Stories"
-              >
-                ↗️ Share
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- POEM 1 -->
-
-          <article
-            class="story-card reveal"
-            data-story-card
-            data-story-type="poem"
-            data-category="motivation"
-            data-search="कविता प्रेरणा हिम्मत संघर्ष मेहनत"
-          >
-
-            <span class="story-type">
-              📝 कविता
-            </span>
-
-            <div class="story-category">
-              Motivation • प्रेरणा
-            </div>
-
-            <h3 class="story-title">
-              फिर से शुरुआत
-            </h3>
-
-            <p class="story-excerpt">
-              जब रास्ता मुश्किल हो जाए,
-              तब कदम रोकना नहीं।
-              एक बार गिर जाने से,
-              अपने सपनों को छोड़ना नहीं।
-            </p>
-
-            <a
-              href="chapter.html?type=poem&id=poem-001"
-              class="story-read"
-            >
-              पूरी कविता पढ़ें →
-            </a>
-
-            <div class="story-author">
-              — Adarsh Raj Shayar
-            </div>
-
-            <div class="story-actions">
-
-              <button
-                class="story-action"
-                type="button"
-                data-like-id="poem-001"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-favorite-id="poem-001"
-              >
-                ⭐ Favorite
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-save-id="poem-001"
-              >
-                🔖 Save
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-share-text="फिर से शुरुआत — ARS Poetry"
-              >
-                ↗️ Share
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- STORY 2 -->
-
-          <article
-            class="story-card reveal"
-            data-story-card
-            data-story-type="story"
-            data-category="friendship"
-            data-search="दोस्ती दोस्त यारी भरोसा कहानी"
-          >
-
-            <span class="story-type">
-              📖 कहानी
-            </span>
-
-            <div class="story-category">
-              Friendship • दोस्ती
-            </div>
-
-            <h3 class="story-title">
-              एक सच्चा दोस्त
-            </h3>
-
-            <p class="story-excerpt">
-              दो दोस्तों की कहानी, जिन्होंने मुश्किल समय में
-              एक-दूसरे का साथ देकर यह साबित किया कि सच्ची
-              दोस्ती शब्दों से नहीं, समय पर साथ देने से
-              पहचानी जाती है।
-            </p>
-
-            <a
-              href="chapter.html?type=story&id=story-002"
-              class="story-read"
-            >
-              पूरी कहानी पढ़ें →
-            </a>
-
-            <div class="story-author">
-              — Adarsh Raj Shayar
-            </div>
-
-            <div class="story-actions">
-
-              <button
-                class="story-action"
-                type="button"
-                data-like-id="story-002"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-favorite-id="story-002"
-              >
-                ⭐ Favorite
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-save-id="story-002"
-              >
-                🔖 Save
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-share-text="एक सच्चा दोस्त — ARS Stories"
-              >
-                ↗️ Share
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- POEM 2 -->
-
-          <article
-            class="story-card reveal"
-            data-story-card
-            data-story-type="poem"
-            data-category="life"
-            data-search="जीवन जिंदगी कविता अनुभव सीख"
-          >
-
-            <span class="story-type">
-              📝 कविता
-            </span>
-
-            <div class="story-category">
-              Life • जीवन
-            </div>
-
-            <h3 class="story-title">
-              जिंदगी का सफर
-            </h3>
-
-            <p class="story-excerpt">
-              जिंदगी हर दिन कुछ सिखाती है,
-              कभी हँसाती है, कभी रुलाती है।
-              जो सीखकर आगे बढ़ता रहता है,
-              वही अपनी राह बनाता है।
-            </p>
-
-            <a
-              href="chapter.html?type=poem&id=poem-002"
-              class="story-read"
-            >
-              पूरी कविता पढ़ें →
-            </a>
-
-            <div class="story-author">
-              — Adarsh Raj Shayar
-            </div>
-
-            <div class="story-actions">
-
-              <button
-                class="story-action"
-                type="button"
-                data-like-id="poem-002"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-favorite-id="poem-002"
-              >
-                ⭐ Favorite
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-save-id="poem-002"
-              >
-                🔖 Save
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-share-text="जिंदगी का सफर — ARS Poetry"
-              >
-                ↗️ Share
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- STORY 3 -->
-
-          <article
-            class="story-card reveal"
-            data-story-card
-            data-story-type="story"
-            data-category="education"
-            data-search="शिक्षा विद्यार्थी पढ़ाई ज्ञान कहानी"
-          >
-
-            <span class="story-type">
-              📖 कहानी
-            </span>
-
-            <div class="story-category">
-              Education • शिक्षा
-            </div>
-
-            <h3 class="story-title">
-              किताब का महत्व
-            </h3>
-
-            <p class="story-excerpt">
-              एक विद्यार्थी को एक पुरानी किताब मिलती है।
-              उस किताब के माध्यम से उसे पता चलता है कि
-              सही ज्ञान केवल परीक्षा के लिए नहीं,
-              बल्कि जीवन को समझने के लिए भी जरूरी है।
-            </p>
-
-            <a
-              href="chapter.html?type=story&id=story-003"
-              class="story-read"
-            >
-              पूरी कहानी पढ़ें →
-            </a>
-
-            <div class="story-author">
-              — Adarsh Raj Shayar
-            </div>
-
-            <div class="story-actions">
-
-              <button
-                class="story-action"
-                type="button"
-                data-like-id="story-003"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-favorite-id="story-003"
-              >
-                ⭐ Favorite
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-save-id="story-003"
-              >
-                🔖 Save
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-share-text="किताब का महत्व — ARS Stories"
-              >
-                ↗️ Share
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- POEM 3 -->
-
-          <article
-            class="story-card reveal"
-            data-story-card
-            data-story-type="poem"
-            data-category="dream"
-            data-search="सपना सपने कविता भविष्य लक्ष्य"
-          >
-
-            <span class="story-type">
-              📝 कविता
-            </span>
-
-            <div class="story-category">
-              Dream • सपने
-            </div>
-
-            <h3 class="story-title">
-              मेरा सपना
-            </h3>
-
-            <p class="story-excerpt">
-              सपना छोटा हो या बड़ा,
-              उसकी शुरुआत छोटी ही होती है।
-              एक कदम आज बढ़ाओ,
-              तो मंज़िल कल करीब होती है।
-            </p>
-
-            <a
-              href="chapter.html?type=poem&id=poem-003"
-              class="story-read"
-            >
-              पूरी कविता पढ़ें →
-            </a>
-
-            <div class="story-author">
-              — Adarsh Raj Shayar
-            </div>
-
-            <div class="story-actions">
-
-              <button
-                class="story-action"
-                type="button"
-                data-like-id="poem-003"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-favorite-id="poem-003"
-              >
-                ⭐ Favorite
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-save-id="poem-003"
-              >
-                🔖 Save
-              </button>
-
-              <button
-                class="story-action"
-                type="button"
-                data-share-text="मेरा सपना — ARS Poetry"
-              >
-                ↗️ Share
-              </button>
-
-            </div>
-
-          </article>
-
-
-        </div>
-
-
-        <!-- EMPTY STATE -->
-
-        <div
-          class="story-empty"
-          id="storyEmpty"
-        >
-
-          <h3>
-            कोई रचना नहीं मिली
-          </h3>
-
-          <p>
-            Search बदलकर या दूसरी category चुनकर
-            फिर से देखें।
-          </p>
-
-        </div>
-
-
-        <p class="story-note">
-          ✍️ ARS पर प्रकाशित रचनाएँ मौलिक सामग्री के रूप में
-          प्रस्तुत की जाती हैं। बिना अनुमति व्यावसायिक
-          पुनर्प्रकाशन न करें।
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- =======================================
-         CTA
-    ======================================== -->
-
-    <section class="section join-section">
-
-      <div class="container">
-
-        <div class="join-card reveal">
-
-          <span class="eyebrow">
-            🌹 ARS Official
-          </span>
-
-          <h2>
-            अपनी रचनात्मक यात्रा शुरू करें
-          </h2>
-
-          <p>
-            Shayari, Stories, Poetry और Education —
-            ARS के साथ सीखने और रचने की यात्रा जारी रखें।
-          </p>
-
-          <div class="hero-actions">
-
-            <a
-              href="shayari.html"
-              class="btn btn-primary"
-            >
-              Shayari पढ़ें
-            </a>
-
-            <a
-              href="first-flight.html"
-              class="btn btn-secondary"
-            >
-              First Flight
-            </a>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
-
-  <footer class="site-footer">
-
+  <main class="stories-page">
     <div class="container">
 
-      <div class="footer-grid">
-
-
-        <div class="footer-brand">
-
-          <a
-            href="index.html"
-            class="brand"
-          >
-
-            <img
-              src="logo.png"
-              alt="ARS Official Logo"
-              class="brand-logo"
-            >
-
-            <span class="brand-text">
-              <strong>ARS</strong>
-              <small>Official</small>
-            </span>
-
-          </a>
-
-          <p>
-            शिक्षा, साहित्य और रचनात्मकता को एक मंच पर
-            जोड़ने की एक पहल।
-          </p>
-
-          <div class="signature-box">
-
-            <span>Founder</span>
-
-            <strong>
-              Adarsh Raj
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <div>
-
-          <h3>
-            Quick Links
-          </h3>
-
-          <a href="index.html">
-            Home
-          </a>
-
-          <a href="founder.html">
-            Founder
-          </a>
-
-          <a href="education.html">
-            ARS Education
-          </a>
-
-          <a href="first-flight.html">
-            First Flight
-          </a>
-
-          <a href="ars-ai.html">
-            ARS AI
-          </a>
-
-        </div>
-
-
-        <div>
-
-          <h3>
-            ARS
-          </h3>
-
-          <a href="shayari.html">
-            Shayari
-          </a>
-
-          <a href="stories.html">
-            Stories & Poetry
-          </a>
-
-          <a href="joining.html">
-            Join ARS
-          </a>
-
-          <a href="certificate.html">
-            Certificate
-          </a>
-
-          <a href="verify.html">
-            Verify Certificate
-          </a>
-
-        </div>
-
-
-        <div>
-
-          <h3>
-            Support
-          </h3>
-
-          <a href="contact.html">
-            Contact
-          </a>
-
-          <a href="publisher.html">
-            Publisher
-          </a>
-
-          <a href="admin.html">
-            Admin
-          </a>
-
-          <a href="policy.html">
-            Policy
-          </a>
-
-        </div>
-
-
-      </div>
-
-
-      <div class="footer-bottom">
-
+      <section class="stories-hero">
+        <h1>📖 Stories & Poetry</h1>
         <p>
-          ©
-          <span data-current-year></span>
-          ARS Official. All Rights Reserved.
+          ARS Official पर मौलिक कहानियों और कविताओं की दुनिया में आपका स्वागत है।
+          यहाँ जीवन, दोस्ती, सपनों, शिक्षा और प्रेरणा से जुड़ी रचनाएँ पढ़ें।
         </p>
+      </section>
 
-        <p>
-          Made with ❤️ by ARS
-        </p>
+      <section class="stories-tools">
 
-      </div>
+        <input
+          type="search"
+          id="storySearch"
+          class="stories-search"
+          placeholder="कहानी या कविता खोजें..."
+          autocomplete="off"
+        >
+
+      </section>
+
+      <div id="storyFilters" class="story-filters"></div>
+
+      <section
+        id="storiesGrid"
+        class="stories-grid"
+        aria-live="polite">
+      </section>
 
     </div>
+  </main>
 
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
   </footer>
 
-
-  <!-- =========================================
-       BACK TO TOP
-  ========================================== -->
-
   <button
+    id="backToTop"
     class="back-to-top"
-    type="button"
-    aria-label="Back to top"
-  >
+    aria-label="Back to top">
     ↑
   </button>
 
-
-  <!-- =========================================
-       SCRIPTS
-  ========================================== -->
-
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-  <script src="script.js"></script>
-  <script src="story.js"></script>
-
-
-  <!-- =========================================
-       PAGE FILTER SCRIPT
-  ========================================== -->
-
-  <script>
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
-
-        const cards =
-          Array.from(
-            document.querySelectorAll(
-              "[data-story-card]"
-            )
-          );
-
-        const tabs =
-          Array.from(
-            document.querySelectorAll(
-              "[data-story-filter]"
-            )
-          );
-
-        const searchInput =
-          document.getElementById(
-            "storySearch"
-          );
-
-        const emptyState =
-          document.getElementById(
-            "storyEmpty"
-          );
-
-
-        let activeCategory = "all";
-
-
-        function updateStories() {
-
-          const search =
-            searchInput
-              ? searchInput.value
-                  .trim()
-                  .toLowerCase()
-              : "";
-
-          let visibleCount = 0;
-
-
-          cards.forEach(function (card) {
-
-            const category =
-              (
-                card.dataset.category ||
-                ""
-              ).toLowerCase();
-
-
-            const searchableText =
-              (
-                card.dataset.search ||
-                card.innerText ||
-                ""
-              ).toLowerCase();
-
-
-            const categoryMatch =
-              activeCategory === "all" ||
-              category === activeCategory;
-
-
-            const searchMatch =
-              !search ||
-              searchableText.includes(search);
-
-
-            const shouldShow =
-              categoryMatch &&
-              searchMatch;
-
-
-            card.style.display =
-              shouldShow
-                ? ""
-                : "none";
-
-
-            if (shouldShow) {
-              visibleCount++;
-            }
-
-          });
-
-
-          if (emptyState) {
-
-            emptyState.classList.toggle(
-              "show",
-              visibleCount === 0
-            );
-
-          }
-
-        }
-
-
-        tabs.forEach(function (tab) {
-
-          tab.addEventListener(
-            "click",
-            function () {
-
-              tabs.forEach(function (item) {
-
-                item.classList.remove(
-                  "active"
-                );
-
-              });
-
-
-              tab.classList.add(
-                "active"
-              );
-
-
-              activeCategory =
-                (
-                  tab.dataset.storyFilter ||
-                  "all"
-                ).toLowerCase();
-
-
-              updateStories();
-
-            }
-          );
-
-        });
-
-
-        if (searchInput) {
-
-          searchInput.addEventListener(
-            "input",
-            updateStories
-          );
-
-        }
-
-
-        updateStories();
-
-      }
-
-    );
-
-  </script>
+  <div id="toast" class="toast"></div>
 
 </body>
 </html>
