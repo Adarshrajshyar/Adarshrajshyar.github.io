@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARS Education & Talent Exam | ARS Official</title>
+
+  <meta
+    name="description"
+    content="ARS Education & Talent Exam — Classes 5 to 8 के विद्यार्थियों के लिए educational and talent assessment platform."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    .exam-page {
+      padding: 40px 0 80px;
+    }
+
+    .exam-hero {
+      padding: 52px 25px;
+      text-align: center;
+      border-radius: 30px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(37,99,235,.10),
+          rgba(236,72,153,.10),
+          rgba(147,51,234,.10)
+        );
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 14px 40px rgba(15,23,42,.07);
+    }
+
+    .exam-icon {
+      font-size: 3.7rem;
+    }
+
+    .exam-hero h1 {
+      margin: 12px 0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      background: linear-gradient(
+        90deg,
+        #2563eb,
+        #db2777,
+        #9333ea
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .exam-hero p {
+      max-width: 760px;
+      margin: auto;
+      color: #64748b;
+      line-height: 1.8;
+    }
+
+    .exam-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .exam-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 13px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .exam-btn.primary {
+      color: #fff;
+      background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+      );
+    }
+
+    .exam-btn.secondary {
+      color: #334155;
+      background: #fff;
+      border: 1px solid #dbe4f0;
+    }
+
+    .exam-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .exam-section {
+      margin-top: 28px;
+    }
+
+    .exam-section-title {
+      margin-bottom: 16px;
+      color: #172554;
+    }
+
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(220px, 1fr)
+      );
+      gap: 18px;
+    }
+
+    .exam-card {
+      padding: 23px;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 20px;
+      box-shadow: 0 9px 25px rgba(15,23,42,.05);
+    }
+
+    .exam-card-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .exam-card h3 {
+      margin: 0 0 8px;
+      color: #172554;
+    }
+
+    .exam-card p {
+      margin: 0;
+      color: #64748b;
+      line-height: 1.7;
+    }
+
+    .pattern-table-wrap {
+      overflow-x: auto;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 20px;
+      box-shadow: 0 9px 25px rgba(15,23,42,.05);
+    }
+
+    .pattern-table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+    }
+
+    .pattern-table th,
+    .pattern-table td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e5eaf2;
+    }
+
+    .pattern-table th {
+      background: #f8fafc;
+      color: #334155;
+    }
+
+    .pattern-table td {
+      color: #475569;
+    }
+
+    .notice-box {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      line-height: 1.7;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(150px, 1fr)
+      );
+      gap: 12px;
+    }
+
+    .flow-item {
+      padding: 17px;
+      text-align: center;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 16px;
+    }
+
+    .flow-number {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #eef2ff;
+      color: #4338ca;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .flow-item strong {
+      display: block;
+      color: #334155;
+      font-size: .92rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">Education</a>
+        <a href="ars-ai.html">ARS AI</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="dictionary.html">Dictionary</a>
+        <a href="ars-exam.html" class="active">ARS Exam</a>
+        <a href="founder.html">Founder</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="exam-page">
+
+    <div class="container">
+
+      <section class="exam-hero">
+
+        <div class="exam-icon">🏆</div>
+
+        <h1>ARS Education & Talent Exam</h1>
+
+        <p>
+          Classes 5 से 8 के विद्यार्थियों के लिए
+          learning, knowledge और talent assessment
+          पर केंद्रित ARS का proposed examination platform।
+        </p>
+
+        <div class="exam-actions">
+
+          <a
+            href="exam-register.html"
+            class="exam-btn primary">
+            📝 Registration
+          </a>
+
+          <a
+            href="exam-preparation.html"
+            class="exam-btn secondary">
+            📚 Preparation
+          </a>
+
+          <a
+            href="mock-test.html"
+            class="exam-btn secondary">
+            🧠 Mock Test
+          </a>
+
+        </div>
+
+      </section>
+
+      <section class="exam-section">
+
+        <h2 class="exam-section-title">
+          📌 Exam Overview
+        </h2>
+
+        <div class="exam-grid">
+
+          <article class="exam-card">
+            <div class="exam-card-icon">👨‍🎓</div>
+            <h3>Target Classes</h3>
+            <p>
+              Classes 5, 6, 7 और 8 के विद्यार्थियों के लिए
+              proposed first edition framework।
+            </p>
+          </article>
+
+          <article class="exam-card">
+            <div class="exam-card-icon">⏱️</div>
+            <h3>Duration</h3>
+            <p>
+              Proposed duration: 60 minutes.
+            </p>
+          </article>
+
+          <article class="exam-card">
+            <div class="exam-card-icon">❓</div>
+            <h3>Questions</h3>
+            <p>
+              Proposed pattern में कुल 60 objective questions।
+            </p>
+          </article>
+
+          <article class="exam-card">
+            <div class="exam-card-icon">🎯</div>
+            <h3>Maximum Marks</h3>
+            <p>
+              Proposed maximum score: 60 marks।
+            </p>
+          </article>
+
+        </div>
+
+      </section>
+
+      <section class="exam-section">
+
+        <h2 class="exam-section-title">
+          📊 Proposed Exam Pattern
+        </h2>
+
+        <div class="pattern-table-wrap">
+
+          <table class="pattern-table">
+
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>Questions</th>
+                <th>Marks</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr>
+                <td>Mathematics</td>
+                <td>15</td>
+                <td>15</td>
+              </tr>
+
+              <tr>
+                <td>Science</td>
+                <td>15</td>
+                <td>15</td>
+              </tr>
+
+              <tr>
+                <td>Language</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+
+              <tr>
+                <td>GK / Awareness</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+
+              <tr>
+                <td>Mental Ability</td>
+                <td>10</td>
+                <td>10</td>
+              </tr>
+
+              <tr>
+                <th>Total</th>
+                <th>60</th>
+                <th>60</th>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div class="notice-box">
+          ⚠️ यह pattern अभी <strong>proposed</strong> है।
+          Final syllabus, dates, rules, eligibility, marking
+          और examination instructions official announcement
+          के बाद ही final माने जाएंगे।
+        </div>
+
+      </section>
+
+      <section class="exam-section">
+
+        <h2 class="exam-section-title">
+          🔄 Exam Journey
+        </h2>
+
+        <div class="flow">
+
+          <div class="flow-item">
+            <span class="flow-number">1</span>
+            <strong>Registration</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">2</span>
+            <strong>Verification</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">3</span>
+            <strong>Exam ID</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">4</span>
+            <strong>Admit Card</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">5</span>
+            <strong>Mock Test</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">6</span>
+            <strong>Live Exam</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">7</span>
+            <strong>Evaluation</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">8</span>
+            <strong>Result</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">9</span>
+            <strong>Certificate</strong>
+          </div>
+
+          <div class="flow-item">
+            <span class="flow-number">10</span>
+            <strong>Verification</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="exam-section">
+
+        <h2 class="exam-section-title">
+          🛡️ Important Rules
+        </h2>
+
+        <div class="exam-grid">
+
+          <article class="exam-card">
+            <div class="exam-card-icon">🔐</div>
+            <h3>Secure Examination</h3>
+            <p>
+              Live examination में account और exam
+              verification जैसी security व्यवस्था रखी जाएगी।
+            </p>
+          </article>
+
+          <article class="exam-card">
+            <div class="exam-card-icon">🤖</div>
+            <h3>AI Restriction</h3>
+            <p>
+              Live exam के दौरान ARS AI assistance उपलब्ध
+              नहीं होगी।
+            </p>
+          </article>
+
+          <article class="exam-card">
+            <div class="exam-card-icon">📈</div>
+            <h3>Result Details</h3>
+            <p>
+              Score, percentage और correct, incorrect तथा
+              unattempted questions की जानकारी दिखाई जा सकती है।
+            </p>
+          </article>
+
+          <article class="exam-card">
+            <div class="exam-card-icon">📜</div>
+            <h3>Certificates</h3>
+            <p>
+              Qualification या participation rules के अनुसार
+              certificate categories उपलब्ध कराई जा सकती हैं।
+            </p>
+          </article>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+    ↑
+  </button>
+
+  <div id="toast" class="toast"></div>
+
+</body>
+</html>
