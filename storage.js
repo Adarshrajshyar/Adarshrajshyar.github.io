@@ -1,119 +1,90 @@
 /* =========================================================
-   ARS OFFICIAL — STORAGE LAYER
-   Frontend storage helper
+   ARS OFFICIAL
+   Secure Client Storage Helper
    ========================================================= */
 
 (function () {
   "use strict";
 
-  const STORAGE_PREFIX = "ARS_";
+  const STORAGE_PREFIX = "ars_";
 
   const KEYS = {
-    likes: "likes",
-    favorites: "favorites",
-    saved: "saved",
-    user: "user",
-    session: "session",
-    joining: "joining",
-    notifications: "notifications",
-    settings: "settings",
-    history: "history",
-    cache: "cache"
+    preferences: `${STORAGE_PREFIX}preferences`,
+    favorites: `${STORAGE_PREFIX}favorites`,
+    likes: `${STORAGE_PREFIX}likes`,
+    saved: `${STORAGE_PREFIX}saved`,
+    searchHistory: `${STORAGE_PREFIX}search_history`,
+    recentPages: `${STORAGE_PREFIX}recent_pages`
   };
 
-  function fullKey(key) {
-    return `${STORAGE_PREFIX}${key}`;
-  }
-
-  function read(key, fallback = null) {
+  function safeParse(value, fallback = null) {
     try {
-      const raw = localStorage.getItem(fullKey(key));
-
-      if (raw === null) {
-        return fallback;
-      }
-
-      return JSON.parse(raw);
+      return value ? JSON.parse(value) : fallback;
     } catch (error) {
-      console.error("ARS Storage Read Error:", error);
+      console.warn("ARS Storage parse error:", error);
       return fallback;
     }
   }
 
-  function write(key, value) {
+  function get(key, fallback = null) {
     try {
-      localStorage.setItem(
-        fullKey(key),
-        JSON.stringify(value)
-      );
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : safeParse(value, fallback);
+    } catch (error) {
+      console.warn("ARS Storage read error:", error);
+      return fallback;
+    }
+  }
 
+  function set(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
       return true;
     } catch (error) {
-      console.error("ARS Storage Write Error:", error);
+      console.warn("ARS Storage write error:", error);
       return false;
     }
   }
 
   function remove(key) {
     try {
-      localStorage.removeItem(fullKey(key));
+      localStorage.removeItem(key);
       return true;
     } catch (error) {
-      console.error("ARS Storage Remove Error:", error);
+      console.warn("ARS Storage remove error:", error);
       return false;
     }
   }
 
-  function clearAll() {
-    try {
-      Object.values(KEYS).forEach(key => {
-        localStorage.removeItem(fullKey(key));
-      });
-
-      return true;
-    } catch (error) {
-      console.error("ARS Storage Clear Error:", error);
-      return false;
-    }
-  }
-
-  function ensureArray(key) {
-    const value = read(key, []);
-
-    if (!Array.isArray(value)) {
-      write(key, []);
-      return [];
-    }
-
-    return value;
+  function getArray(key) {
+    const data = get(key, []);
+    return Array.isArray(data) ? data : [];
   }
 
   function addToArray(key, value) {
-    const list = ensureArray(key);
+    const items = getArray(key);
 
-    if (!list.includes(value)) {
-      list.push(value);
-      write(key, list);
+    if (!items.includes(value)) {
+      items.push(value);
+      set(key, items);
     }
 
-    return list;
+    return items;
   }
 
   function removeFromArray(key, value) {
-    const list = ensureArray(key);
-    const updated = list.filter(item => item !== value);
+    const items = getArray(key);
+    const updated = items.filter(item => item !== value);
 
-    write(key, updated);
+    set(key, updated);
 
     return updated;
   }
 
-  function hasInArray(key, value) {
-    return ensureArray(key).includes(value);
-  }
-
   function toggleArrayItem(key, value) {
-    if (hasInArray(key, value)) {
+    const items = getArray(key);
+
+    if (items.includes(value)) {
       return {
         active: false,
         items: removeFromArray(key, value)
@@ -126,225 +97,195 @@
     };
   }
 
-
-  /* =======================================================
-     LIKE SYSTEM
-     ======================================================= */
-
-  function hasLiked(id) {
-    return hasInArray(KEYS.likes, id);
+  function hasItem(key, value) {
+    return getArray(key).includes(value);
   }
 
-  function toggleLike(id) {
-    return toggleArrayItem(KEYS.likes, id);
-  }
-
-
-  /* =======================================================
-     FAVORITE SYSTEM
-     ======================================================= */
+  /* -------------------------
+     Favorites
+     ------------------------- */
 
   function isFavorite(id) {
-    return hasInArray(KEYS.favorites, id);
+    return hasItem(KEYS.favorites, String(id));
   }
 
   function toggleFavorite(id) {
-    return toggleArrayItem(KEYS.favorites, id);
+    return toggleArrayItem(KEYS.favorites, String(id));
   }
 
+  function getFavorites() {
+    return getArray(KEYS.favorites);
+  }
 
-  /* =======================================================
-     SAVE SYSTEM
-     ======================================================= */
+  /* -------------------------
+     Likes
+     ------------------------- */
+
+  function hasLiked(id) {
+    return hasItem(KEYS.likes, String(id));
+  }
+
+  function toggleLike(id) {
+    return toggleArrayItem(KEYS.likes, String(id));
+  }
+
+  function getLikes() {
+    return getArray(KEYS.likes);
+  }
+
+  /* -------------------------
+     Saved Items
+     ------------------------- */
 
   function isSaved(id) {
-    return hasInArray(KEYS.saved, id);
+    return hasItem(KEYS.saved, String(id));
   }
 
   function toggleSaved(id) {
-    return toggleArrayItem(KEYS.saved, id);
+    return toggleArrayItem(KEYS.saved, String(id));
   }
 
-
-  /* =======================================================
-     USER
-     ======================================================= */
-
-  function getUser() {
-    return read(KEYS.user, null);
+  function getSaved() {
+    return getArray(KEYS.saved);
   }
 
-  function setUser(user) {
-    return write(KEYS.user, user);
+  /* -------------------------
+     Preferences
+     ------------------------- */
+
+  function getPreferences() {
+    return get(KEYS.preferences, {});
   }
 
-  function removeUser() {
-    return remove(KEYS.user);
+  function savePreference(name, value) {
+    const preferences = getPreferences();
+
+    preferences[name] = value;
+
+    set(KEYS.preferences, preferences);
+
+    return preferences;
   }
 
-  function isLoggedIn() {
-    return Boolean(getUser());
+  function getPreference(name, fallback = null) {
+    const preferences = getPreferences();
+
+    return Object.prototype.hasOwnProperty.call(preferences, name)
+      ? preferences[name]
+      : fallback;
   }
 
+  /* -------------------------
+     Search History
+     ------------------------- */
 
-  /* =======================================================
-     SESSION
-     ======================================================= */
+  function addSearch(query) {
+    const cleanQuery = String(query || "").trim();
 
-  function getSession() {
-    return read(KEYS.session, null);
+    if (!cleanQuery) {
+      return [];
+    }
+
+    let history = getArray(KEYS.searchHistory);
+
+    history = history.filter(
+      item => item.toLowerCase() !== cleanQuery.toLowerCase()
+    );
+
+    history.unshift(cleanQuery);
+
+    history = history.slice(0, 10);
+
+    set(KEYS.searchHistory, history);
+
+    return history;
   }
 
-  function setSession(session) {
-    return write(KEYS.session, session);
+  function getSearchHistory() {
+    return getArray(KEYS.searchHistory);
   }
 
-  function clearSession() {
-    return remove(KEYS.session);
+  function clearSearchHistory() {
+    return remove(KEYS.searchHistory);
   }
 
+  /* -------------------------
+     Recent Pages
+     ------------------------- */
 
-  /* =======================================================
-     JOINING
-     ======================================================= */
+  function addRecentPage(page) {
+    const cleanPage = String(page || "").trim();
 
-  function getJoiningApplication() {
-    return read(KEYS.joining, null);
+    if (!cleanPage) {
+      return [];
+    }
+
+    let pages = getArray(KEYS.recentPages);
+
+    pages = pages.filter(item => item !== cleanPage);
+    pages.unshift(cleanPage);
+
+    pages = pages.slice(0, 10);
+
+    set(KEYS.recentPages, pages);
+
+    return pages;
   }
 
-  function saveJoiningApplication(application) {
-    return write(KEYS.joining, application);
+  function getRecentPages() {
+    return getArray(KEYS.recentPages);
   }
 
-  function clearJoiningApplication() {
-    return remove(KEYS.joining);
+  /* -------------------------
+     Clear Non-Auth Data
+     ------------------------- */
+
+  function clearUserContent() {
+    [
+      KEYS.favorites,
+      KEYS.likes,
+      KEYS.saved,
+      KEYS.searchHistory,
+      KEYS.recentPages,
+      KEYS.preferences
+    ].forEach(remove);
   }
 
+  /* -------------------------
+     Public API
+     ------------------------- */
 
-  /* =======================================================
-     NOTIFICATIONS
-     ======================================================= */
+  window.ARS_STORAGE = {
+    keys: KEYS,
 
-  function getNotifications() {
-    return read(KEYS.notifications, []);
-  }
-
-  function saveNotifications(notifications) {
-    return write(KEYS.notifications, notifications);
-  }
-
-  function addNotification(notification) {
-    const list = getNotifications();
-
-    list.unshift({
-      id:
-        notification.id ||
-        (typeof makeARSId === "function"
-          ? makeARSId("NOTIFY")
-          : `NOTIFY-${Date.now()}`),
-
-      title: notification.title || "ARS Notification",
-      message: notification.message || "",
-      type: notification.type || "info",
-      read: false,
-      createdAt:
-        notification.createdAt ||
-        new Date().toISOString()
-    });
-
-    return saveNotifications(list);
-  }
-
-
-  /* =======================================================
-     HISTORY
-     ======================================================= */
-
-  function getHistory() {
-    return read(KEYS.history, []);
-  }
-
-  function addHistory(item) {
-    const history = getHistory();
-
-    history.unshift({
-      ...item,
-      timestamp:
-        item.timestamp ||
-        new Date().toISOString()
-    });
-
-    return write(KEYS.history, history.slice(0, 100));
-  }
-
-  function clearHistory() {
-    return remove(KEYS.history);
-  }
-
-
-  /* =======================================================
-     SETTINGS
-     ======================================================= */
-
-  function getSettings() {
-    return read(KEYS.settings, {});
-  }
-
-  function saveSettings(settings) {
-    return write(KEYS.settings, settings);
-  }
-
-
-  /* =======================================================
-     PUBLIC API
-     ======================================================= */
-
-  const ARS_STORAGE = {
-    KEYS,
-
-    read,
-    write,
+    get,
+    set,
     remove,
-    clearAll,
-
-    hasLiked,
-    toggleLike,
 
     isFavorite,
     toggleFavorite,
+    getFavorites,
+
+    hasLiked,
+    toggleLike,
+    getLikes,
 
     isSaved,
     toggleSaved,
+    getSaved,
 
-    getUser,
-    setUser,
-    removeUser,
-    isLoggedIn,
+    getPreferences,
+    savePreference,
+    getPreference,
 
-    getSession,
-    setSession,
-    clearSession,
+    addSearch,
+    getSearchHistory,
+    clearSearchHistory,
 
-    getJoiningApplication,
-    saveJoiningApplication,
-    clearJoiningApplication,
+    addRecentPage,
+    getRecentPages,
 
-    getNotifications,
-    saveNotifications,
-    addNotification,
-
-    getHistory,
-    addHistory,
-    clearHistory,
-
-    getSettings,
-    saveSettings
+    clearUserContent
   };
-
-
-  if (typeof window !== "undefined") {
-    window.ARS_STORAGE = ARS_STORAGE;
-    window.ARSStorage = ARS_STORAGE;
-  }
 
 })();
