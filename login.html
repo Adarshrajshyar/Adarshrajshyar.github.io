@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | ARS Official</title>
+  <meta name="description" content="Login to your ARS Official account.">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+
+  <style>
+    .auth-page {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      background:
+        radial-gradient(circle at top left, rgba(116, 185, 255, .18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(255, 118, 150, .15), transparent 35%);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255,255,255,.96);
+      border-radius: 28px;
+      padding: 38px;
+      box-shadow: 0 20px 60px rgba(50, 70, 120, .14);
+      border: 1px solid rgba(120, 140, 200, .14);
+    }
+
+    .auth-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      background: linear-gradient(135deg, #eaf5ff, #ffeaf2);
+    }
+
+    .auth-card h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    .auth-form {
+      display: grid;
+      gap: 17px;
+    }
+
+    .auth-form label {
+      font-weight: 700;
+      margin-bottom: -8px;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d9dfeb;
+      border-radius: 13px;
+      outline: none;
+      font: inherit;
+      background: #fff;
+      transition: .2s ease;
+      box-sizing: border-box;
+    }
+
+    .auth-form input:focus {
+      border-color: #6ea8fe;
+      box-shadow: 0 0 0 4px rgba(110,168,254,.12);
+    }
+
+    .auth-submit {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 20px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #4776e6, #8e54e9);
+      transition: transform .2s ease, box-shadow .2s ease;
+      margin-top: 5px;
+    }
+
+    .auth-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(86, 91, 200, .22);
+    }
+
+    .auth-message {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .auth-message.show {
+      display: block;
+    }
+
+    .auth-message.error {
+      background: #fff0f0;
+      color: #b42318;
+    }
+
+    .auth-message.success {
+      background: #ecfdf3;
+      color: #027a48;
+    }
+
+    .auth-links {
+      text-align: center;
+      margin-top: 22px;
+      color: #6b7280;
+    }
+
+    .auth-links a {
+      color: #635bff;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+
+    .security-note {
+      margin-top: 24px;
+      padding: 13px;
+      border-radius: 13px;
+      background: #f7f9fc;
+      color: #667085;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 520px) {
+      .auth-card {
+        padding: 28px 20px;
+        border-radius: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-mark">🌹</span>
+        <span>
+          <strong>ARS</strong>
+          <small>Official</small>
+        </span>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="education.html">Education</a>
+        <a href="ars-book.html">ARS Book</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="register.html" class="btn btn-primary">Create Account</a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="auth-page">
+
+    <section class="auth-card">
+
+      <div class="auth-icon">🔐</div>
+
+      <h1>Welcome Back</h1>
+
+      <p class="auth-subtitle">
+        अपने ARS account में login करें
+      </p>
+
+      <div id="loginMessage" class="auth-message"></div>
+
+      <form id="loginForm" class="auth-form" novalidate>
+
+        <label for="email">Email</label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="your@email.com"
+          autocomplete="email"
+          required
+        >
+
+        <label for="password">Password</label>
+
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="अपना password डालें"
+          autocomplete="current-password"
+          required
+        >
+
+        <button type="submit" class="auth-submit" id="loginButton">
+          Login
+        </button>
+
+      </form>
+
+      <div class="auth-links">
+        Account नहीं है?
+        <a href="register.html">Create Account</a>
+      </div>
+
+      <div class="security-note">
+        🔒 आपका password browser में plain text के रूप में save नहीं किया जाएगा।
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="footerYear"></span> ARS Official. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const form = document.getElementById("loginForm");
+      const message = document.getElementById("loginMessage");
+      const button = document.getElementById("loginButton");
+
+      const apiBase =
+        window.ARS?.backend?.baseUrl ||
+        window.CONFIG?.backend?.baseUrl ||
+        "https://ars-backend-hbbk.onrender.com";
+
+      document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+
+      function showMessage(text, type = "error") {
+        message.textContent = text;
+        message.className = `auth-message show ${type}`;
+      }
+
+      form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+          showMessage("कृपया email और password दोनों भरें।");
+          return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Logging in...";
+
+        try {
+
+          const response = await fetch(`${apiBase}/api/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              email,
+              password
+            })
+          });
+
+          const data = await response.json().catch(() => ({}));
+
+          if (!response.ok || !data.success) {
+            throw new Error(
+              data.message || "Login failed. Please check your details."
+            );
+          }
+
+          showMessage("Login successful. Dashboard खोल रहे हैं...", "success");
+
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 700);
+
+        } catch (error) {
+
+          console.error("Login error:", error);
+
+          showMessage(
+            error.message ||
+            "Backend से connection नहीं हो पाया। थोड़ी देर बाद फिर कोशिश करें।"
+          );
+
+        } finally {
+
+          button.disabled = false;
+          button.textContent = "Login";
+
+        }
+
+      });
+
+    });
+  </script>
+
+</body>
+</html>
