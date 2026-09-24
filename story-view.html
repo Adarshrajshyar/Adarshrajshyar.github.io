@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Read Story | ARS Official</title>
+  <meta
+    name="description"
+    content="ARS Official पर कहानी और कविता पढ़ें।"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js" defer></script>
+  <script src="stories.js" defer></script>
+
+  <style>
+    .story-view-page {
+      padding: 45px 0 80px;
+    }
+
+    .story-view-card {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      border: 1px solid #e5eaf2;
+      border-radius: 28px;
+      padding: clamp(25px, 5vw, 55px);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, .08);
+    }
+
+    .story-view-top {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .story-view-type {
+      display: inline-flex;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .story-view-title {
+      margin: 0 0 12px;
+      color: #172554;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      line-height: 1.2;
+    }
+
+    .story-view-category {
+      color: #64748b;
+    }
+
+    .story-view-content {
+      color: #334155;
+      font-size: 1.08rem;
+      line-height: 2;
+      white-space: normal;
+    }
+
+    .story-view-content.poetry {
+      text-align: center;
+      font-size: 1.15rem;
+    }
+
+    .story-view-author {
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      color: #64748b;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .story-view-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .story-view-btn {
+      border: 1px solid #dbe4f0;
+      background: #f8fafc;
+      color: #334155;
+      border-radius: 12px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .story-view-btn:hover {
+      background: #eef2ff;
+      color: #4338ca;
+      border-color: #c7d2fe;
+      transform: translateY(-1px);
+    }
+
+    .story-not-found {
+      max-width: 700px;
+      margin: 70px auto;
+      text-align: center;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      padding: 45px 25px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, .06);
+    }
+
+    .story-not-found h1 {
+      color: #172554;
+    }
+
+    .story-back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #4f46e5;
+      font-weight: 700;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Adarsh Raj Shayar</small>
+        </span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Menu">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html" class="active">Stories</a>
+        <a href="founder.html">Founder</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html">Login</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="story-view-page">
+    <div class="container">
+
+      <div id="storyContainer"></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        © <span id="currentYear"></span> ARS Official — Adarsh Raj Shayar
+      </p>
+    </div>
+  </footer>
+
+  <button
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+    ↑
+  </button>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const container =
+        document.getElementById("storyContainer");
+
+      if (!container) return;
+
+      const params =
+        new URLSearchParams(window.location.search);
+
+      const id = params.get("id");
+
+      const item =
+        window.ARS_STORIES &&
+        typeof window.ARS_STORIES.getById === "function"
+          ? window.ARS_STORIES.getById(id)
+          : null;
+
+      if (!item) {
+        container.innerHTML = `
+          <div class="story-not-found">
+
+            <div style="font-size:3rem;">📖</div>
+
+            <h1>रचना नहीं मिली</h1>
+
+            <p>
+              यह कहानी या कविता उपलब्ध नहीं है
+              या इसका लिंक सही नहीं है।
+            </p>
+
+            <a
+              href="stories.html"
+              class="story-back">
+              ← Stories & Poetry पर वापस जाएँ
+            </a>
+
+          </div>
+        `;
+
+        return;
+      }
+
+      const typeName =
+        item.type === "poetry"
+          ? "📝 कविता"
+          : "📖 कहानी";
+
+      const categoryName =
+        window.ARS_STORIES.getCategoryName(item.category);
+
+      const content =
+        String(item.content || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;")
+          .replace(/\n/g, "<br>");
+
+      const title =
+        String(item.title || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+      const author =
+        String(item.author || "ARS Original")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+      container.innerHTML = `
+        <a
+          href="stories.html"
+          class="story-back">
+          ← Stories & Poetry
+        </a>
+
+        <article class="story-view-card">
+
+          <div class="story-view-top">
+
+            <span class="story-view-type">
+              ${typeName}
+            </span>
+
+            <h1 class="story-view-title">
+              ${title}
+            </h1>
+
+            <div class="story-view-category">
+              ${categoryName}
+            </div>
+
+          </div>
+
+          <div
+            class="story-view-content ${item.type === "poetry" ? "poetry" : ""}">
+            ${content}
+          </div>
+
+          <div class="story-view-author">
+            — ${author}
+          </div>
+
+          <div class="story-view-actions">
+
+            <button
+              type="button"
+              class="story-view-btn"
+              id="likeBtn">
+              🤍 Like
+            </button>
+
+            <button
+              type="button"
+              class="story-view-btn"
+              id="favoriteBtn">
+              ☆ Favorite
+            </button>
+
+            <button
+              type="button"
+              class="story-view-btn"
+              id="copyBtn">
+              📋 Copy
+            </button>
+
+            <button
+              type="button"
+              class="story-view-btn"
+              id="shareBtn">
+              🔗 Share
+            </button>
+
+          </div>
+
+        </article>
+      `;
+
+      const likeBtn =
+        document.getElementById("likeBtn");
+
+      const favoriteBtn =
+        document.getElementById("favoriteBtn");
+
+      const copyBtn =
+        document.getElementById("copyBtn");
+
+      const shareBtn =
+        document.getElementById("shareBtn");
+
+      function updateButtons() {
+
+        if (
+          window.ARS_STORAGE &&
+          typeof window.ARS_STORAGE.hasLiked === "function" &&
+          window.ARS_STORAGE.hasLiked(item.id)
+        ) {
+          likeBtn.textContent = "❤️ Liked";
+          likeBtn.classList.add("active");
+        }
+
+        if (
+          window.ARS_STORAGE &&
+          typeof window.ARS_STORAGE.isFavorite === "function" &&
+          window.ARS_STORAGE.isFavorite(item.id)
+        ) {
+          favoriteBtn.textContent = "⭐ Saved";
+          favoriteBtn.classList.add("active");
+        }
+      }
+
+      likeBtn.addEventListener("click", function () {
+
+        if (
+          window.ARS_STORAGE &&
+          typeof window.ARS_STORAGE.toggleLike === "function"
+        ) {
+          window.ARS_STORAGE.toggleLike(item.id);
+          updateButtons();
+        }
+
+      });
+
+      favoriteBtn.addEventListener("click", function () {
+
+        if (
+          window.ARS_STORAGE &&
+          typeof window.ARS_STORAGE.toggleFavorite === "function"
+        ) {
+          window.ARS_STORAGE.toggleFavorite(item.id);
+          updateButtons();
+
+          if (
+            window.ARS_APP &&
+            typeof window.ARS_APP.toast === "function"
+          ) {
+            window.ARS_APP.toast(
+              "Favorite update हो गया।"
+            );
+          }
+        }
+
+      });
+
+      copyBtn.addEventListener("click", async function () {
+
+        const copyContent =
+          `${item.title}\n\n${item.content}\n\n— ${item.author}`;
+
+        try {
+          await navigator.clipboard.writeText(copyContent);
+
+          if (
+            window.ARS_APP &&
+            typeof window.ARS_APP.toast === "function"
+          ) {
+            window.ARS_APP.toast(
+              "रचना copy हो गई।"
+            );
+          }
+
+        } catch (error) {
+
+          if (
+            window.ARS_APP &&
+            typeof window.ARS_APP.toast === "function"
+          ) {
+            window.ARS_APP.toast(
+              "Copy नहीं हो सका।"
+            );
+          }
+
+        }
+
+      });
+
+      shareBtn.addEventListener("click", async function () {
+
+        const shareData = {
+          title: item.title,
+          text: item.excerpt,
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+
+          try {
+            await navigator.share(shareData);
+          } catch (error) {
+            // User cancelled sharing.
+          }
+
+        } else {
+
+          try {
+
+            await navigator.clipboard.writeText(
+              window.location.href
+            );
+
+            if (
+              window.ARS_APP &&
+              typeof window.ARS_APP.toast === "function"
+            ) {
+              window.ARS_APP.toast(
+                "Link copy हो गया।"
+              );
+            }
+
+          } catch (error) {
+
+            if (
+              window.ARS_APP &&
+              typeof window.ARS_APP.toast === "function"
+            ) {
+              window.ARS_APP.toast(
+                "Share नहीं हो सका।"
+              );
+            }
+
+          }
+
+        }
+
+      });
+
+      updateButtons();
+
+      document.title =
+        `${item.title} | ARS Official`;
+
+    });
+  </script>
+
+</body>
+</html>
