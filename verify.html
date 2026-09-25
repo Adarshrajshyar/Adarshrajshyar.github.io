@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Verify Certificate | ARS Official</title>
+
   <meta
     name="description"
     content="Verify an ARS Official certificate using its certificate ID."
@@ -12,420 +13,184 @@
 
   <link rel="stylesheet" href="style.css">
 
-  <style>
-    .verify-hero {
-      padding: 80px 20px 65px;
-      text-align: center;
-      color: #fff;
-      background:
-        radial-gradient(circle at 15% 20%, rgba(255,255,255,.13), transparent 28%),
-        radial-gradient(circle at 85% 80%, rgba(255,255,255,.10), transparent 30%),
-        linear-gradient(135deg, var(--primary), var(--primary-dark));
-    }
-
-    .verify-hero-inner {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .verify-badge {
-      display: inline-flex;
-      padding: 9px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.13);
-      border: 1px solid rgba(255,255,255,.22);
-      font-weight: 700;
-      margin-bottom: 17px;
-    }
-
-    .verify-hero h1 {
-      margin: 0 0 13px;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-    }
-
-    .verify-hero p {
-      max-width: 680px;
-      margin: auto;
-      line-height: 1.8;
-      opacity: .92;
-    }
-
-    .verify-section {
-      padding: 65px 20px;
-    }
-
-    .verify-container {
-      max-width: 850px;
-      margin: auto;
-    }
-
-    .verify-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .verify-box h2 {
-      margin-top: 0;
-    }
-
-    .verify-description {
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 25px;
-    }
-
-    .verify-form {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-    }
-
-    .verify-form input {
-      min-width: 0;
-      padding: 14px 15px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font: inherit;
-      outline: none;
-      text-transform: uppercase;
-    }
-
-    .verify-form input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-soft);
-    }
-
-    .verify-result {
-      display: none;
-      margin-top: 25px;
-      padding: 24px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-    }
-
-    .verify-result.show {
-      display: block;
-    }
-
-    .verify-result.valid {
-      border-color: #35a853;
-      background: rgba(53,168,83,.07);
-    }
-
-    .verify-result.invalid {
-      border-color: #d93025;
-      background: rgba(217,48,37,.07);
-    }
-
-    .verify-status {
-      display: inline-flex;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: .82rem;
-      margin-bottom: 15px;
-    }
-
-    .verify-result.valid .verify-status {
-      background: rgba(53,168,83,.14);
-      color: #188038;
-    }
-
-    .verify-result.invalid .verify-status {
-      background: rgba(217,48,37,.12);
-      color: #b3261e;
-    }
-
-    .verify-details {
-      display: grid;
-      gap: 0;
-      margin-top: 15px;
-      border-top: 1px solid var(--border);
-    }
-
-    .verify-detail {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .verify-detail span:first-child {
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .verify-detail strong {
-      text-align: right;
-      word-break: break-word;
-    }
-
-    .verify-info {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-top: 25px;
-    }
-
-    .verify-info-card {
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      background: var(--surface-alt);
-    }
-
-    .verify-info-card strong {
-      display: block;
-      margin-bottom: 7px;
-    }
-
-    .verify-info-card span {
-      color: var(--text-muted);
-      font-size: .88rem;
-      line-height: 1.5;
-    }
-
-    .verify-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
-    }
-
-    @media (max-width: 650px) {
-      .verify-section {
-        padding: 50px 14px;
-      }
-
-      .verify-box {
-        padding: 22px;
-      }
-
-      .verify-form {
-        grid-template-columns: 1fr;
-      }
-
-      .verify-info {
-        grid-template-columns: 1fr;
-      }
-
-      .verify-detail {
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      .verify-detail strong {
-        text-align: left;
-      }
-    }
-  </style>
+  <script src="config.js" defer></script>
+  <script src="storage.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 
 <body>
 
-  <div id="pageLoader" class="page-loader">
-    <div class="loader-spinner"></div>
+<header class="site-header">
+
+  <div class="container nav-wrap">
+
+    <a href="index.html" class="brand">
+      <span class="brand-mark">ARS</span>
+
+      <span class="brand-text">
+        <strong>ARS Official</strong>
+        <small>Education • Creativity • Growth</small>
+      </span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Open menu"
+    >
+      ☰
+    </button>
+
+    <nav class="main-nav">
+
+      <a href="index.html">Home</a>
+      <a href="education.html">Education</a>
+      <a href="ars-exam.html">ARS Exam</a>
+      <a href="join.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="verify.html" class="active">Verify</a>
+      <a href="contact.html">Contact</a>
+
+    </nav>
+
   </div>
 
+</header>
 
-  <header class="site-header">
-    <div class="container nav-wrap">
+<main>
 
-      <a href="index.html" class="brand">
-        <img src="logo.png" alt="ARS Official Logo">
-        <span>
-          <strong>ARS Official</strong>
-          <small>Adarsh Raj Shayar</small>
-        </span>
-      </a>
+  <section class="page-hero">
 
-      <button
-        class="mobile-menu-btn"
-        id="mobileMenuBtn"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-      >
-        ☰
-      </button>
+    <div class="container">
 
-      <nav class="main-nav" id="mainNav">
+      <span class="eyebrow">Certificate Verification</span>
 
-        <a href="index.html">Home</a>
-        <a href="founder.html">Founder</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories</a>
-        <a href="education.html">ARS Education</a>
-        <a href="first-flight.html">First Flight</a>
-        <a href="ars-ai.html">ARS AI</a>
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html" class="active">Verify</a>
-        <a href="contact.html">Contact</a>
+      <h1>🔎 Verify Certificate</h1>
 
-        <div class="nav-mobile-extra">
-          <a href="publisher.html">Publisher</a>
-          <a href="admin.html">Admin</a>
-          <a href="policy.html">Policy</a>
-        </div>
-
-      </nav>
+      <p>
+        Enter the Certificate ID to check its official verification
+        status.
+      </p>
 
     </div>
-  </header>
 
+  </section>
 
-  <main>
+  <section class="section">
 
-    <section class="verify-hero">
+    <div class="container">
 
-      <div class="verify-hero-inner">
+      <div
+        class="form-card"
+        style="max-width:700px;margin:auto;"
+      >
 
-        <div class="verify-badge">
-          🔎 Certificate Verification
-        </div>
+        <h2>Certificate ID</h2>
 
-        <h1>Verify Certificate</h1>
-
-        <p>
-          Enter an ARS certificate ID to check the certificate
-          record stored by the ARS website.
+        <p class="muted">
+          Example: ARS-CERT-2027-00001
         </p>
 
-      </div>
+        <form id="verifyForm">
 
-    </section>
+          <div class="form-group">
 
-
-    <section class="verify-section">
-
-      <div class="verify-container">
-
-        <div class="verify-box">
-
-          <h2>Certificate ID</h2>
-
-          <p class="verify-description">
-            Enter the complete certificate ID printed on the
-            certificate. Both normal ARS certificates and approved
-            ARS joining certificates can be checked here.
-          </p>
-
-
-          <form
-            id="verifyForm"
-            class="verify-form"
-          >
+            <label for="certificateId">
+              Certificate ID
+            </label>
 
             <input
-              type="text"
               id="certificateId"
               name="certificateId"
-              placeholder="Example: ARS-CERT-XXXXXX"
+              type="text"
+              maxlength="60"
               autocomplete="off"
-              maxlength="100"
+              placeholder="Enter Certificate ID"
               required
             >
 
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              🔎 Verify
-            </button>
+          </div>
 
-          </form>
-
-
-          <div
-            id="verifyResult"
-            class="verify-result"
-            aria-live="polite"
+          <button
+            type="submit"
+            class="btn btn-primary"
           >
+            Verify Certificate
+          </button>
 
-            <div
-              id="verifyStatus"
-              class="verify-status"
+        </form>
+
+        <div
+          id="verifyMessage"
+          class="notice"
+          hidden
+          style="margin-top:20px;"
+        ></div>
+
+      </div>
+
+      <div
+        id="verificationResult"
+        hidden
+        style="max-width:850px;margin:30px auto 0;"
+      >
+
+        <div class="card">
+
+          <div class="card-header">
+
+            <div>
+
+              <span class="eyebrow">
+                Verification Result
+              </span>
+
+              <h2 id="verificationTitle">
+                Certificate Status
+              </h2>
+
+            </div>
+
+            <span
+              id="verificationBadge"
+              class="badge"
             >
-              Verification Result
-            </div>
-
-            <h3 id="verifyTitle">
-              Certificate Verification
-            </h3>
-
-            <p id="verifyMessage"></p>
-
-
-            <div
-              id="verifyDetails"
-              class="verify-details"
-            ></div>
-
-
-            <div class="verify-actions">
-
-              <a
-                href="certificate.html"
-                class="btn btn-outline"
-              >
-                Generate Certificate
-              </a>
-
-              <a
-                href="joining.html"
-                class="btn btn-outline"
-              >
-                Join ARS
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="verify-info">
-
-          <div class="verify-info-card">
-
-            <strong>🔐 Certificate ID</strong>
-
-            <span>
-              Every generated certificate should have a unique
-              certificate identification number.
+              —
             </span>
 
           </div>
 
+          <div class="info-list">
 
-          <div class="verify-info-card">
+            <p>
+              <strong>Certificate ID:</strong>
+              <span id="resultCertificateId">—</span>
+            </p>
 
-            <strong>📋 Record Check</strong>
+            <p>
+              <strong>Name:</strong>
+              <span id="resultName">—</span>
+            </p>
 
-            <span>
-              Verification checks the certificate records available
-              to this frontend application.
-            </span>
+            <p>
+              <strong>Certificate Type:</strong>
+              <span id="resultType">—</span>
+            </p>
 
-          </div>
+            <p>
+              <strong>Activity:</strong>
+              <span id="resultActivity">—</span>
+            </p>
 
+            <p>
+              <strong>Issue Date:</strong>
+              <span id="resultDate">—</span>
+            </p>
 
-          <div class="verify-info-card">
-
-            <strong>⚠️ Important</strong>
-
-            <span>
-              Production verification should use a secure centralized
-              server and database.
-            </span>
+            <p>
+              <strong>Issuer:</strong>
+              <span id="resultIssuer">—</span>
+            </p>
 
           </div>
 
@@ -433,611 +198,236 @@
 
       </div>
 
-    </section>
+      <div
+        class="card"
+        style="max-width:850px;margin:30px auto 0;"
+      >
 
-  </main>
+        <h2>🔐 Verification Safety</h2>
 
+        <ul class="clean-list">
 
-  <footer class="site-footer">
+          <li>
+            Verification should be based on the ARS backend record,
+            not only on a screenshot or printed document.
+          </li>
 
-    <div class="container footer-grid">
+          <li>
+            A certificate ID alone does not prove authenticity until
+            the official verification service confirms it.
+          </li>
 
-      <div class="footer-brand">
+          <li>
+            Do not share passwords, OTPs or authentication secrets
+            while requesting certificate verification.
+          </li>
 
-        <a href="index.html" class="brand">
-          <img src="logo.png" alt="ARS Official Logo">
-          <span>
-            <strong>ARS Official</strong>
-            <small>Adarsh Raj Shayar</small>
-          </span>
-        </a>
-
-        <p>
-          A creative and educational platform by Adarsh Raj Shayar,
-          bringing literature, learning and digital creativity together.
-        </p>
-
-      </div>
-
-
-      <div class="footer-links">
-
-        <h3>Quick Links</h3>
-
-        <a href="index.html">Home</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories & Poetry</a>
-        <a href="education.html">ARS Education</a>
-        <a href="first-flight.html">First Flight</a>
-
-      </div>
-
-
-      <div class="footer-links">
-
-        <h3>Important</h3>
-
-        <a href="joining.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-        <a href="verify.html">Verify Certificate</a>
-        <a href="contact.html">Contact</a>
-        <a href="policy.html">Policy</a>
-
-      </div>
-
-
-      <div class="footer-founder">
-
-        <h3>Founder</h3>
-
-        <div class="footer-signature">
-          <span>Adarsh Raj</span>
-          <small>Founder of ARS Official</small>
-        </div>
-
-        <a
-          href="founder.html"
-          class="btn btn-outline"
-        >
-          About Founder
-        </a>
+        </ul>
 
       </div>
 
     </div>
 
+  </section>
 
-    <div class="footer-bottom">
+</main>
 
-      <div class="container">
+<footer class="site-footer">
 
-        <span>
-          © <span id="footerYear"></span> ARS Official.
-          All rights reserved.
-        </span>
+  <div class="container footer-grid">
 
-        <span>
-          Built with ❤️ by ARS
-        </span>
+    <div>
 
-      </div>
+      <h3>ARS Official</h3>
+
+      <p>
+        Education, creativity, literature and student development.
+      </p>
 
     </div>
 
-  </footer>
+    <div>
+
+      <h3>Quick Links</h3>
+
+      <a href="certificate.html">Certificate</a>
+      <a href="join.html">Join ARS</a>
+      <a href="ars-exam.html">ARS Exam</a>
+      <a href="contact.html">Contact</a>
+
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+
+    <p>
+      © <span data-current-year></span>
+      ARS Official. All rights reserved.
+    </p>
+
+  </div>
+
+</footer>
+
+<script>
+(function () {
+
+  const form = document.getElementById("verifyForm");
+  const message = document.getElementById("verifyMessage");
+  const result = document.getElementById("verificationResult");
+
+  const apiBase =
+    window.CONFIG &&
+    window.CONFIG.backend &&
+    window.CONFIG.backend.apiBase
+      ? window.CONFIG.backend.apiBase
+      : "https://ars-backend-hbbk.onrender.com";
+
+  function clean(value) {
+    return String(value || "")
+      .trim()
+      .slice(0, 60);
+  }
+
+  function showMessage(text, type) {
+    message.hidden = false;
+    message.textContent = text;
+    message.className = "notice " + (type || "info");
+  }
+
+  function hideResult() {
+    result.hidden = true;
+  }
+
+  function renderResult(data) {
+
+    const item =
+      data.certificate ||
+      data.result ||
+      data;
+
+    document.getElementById(
+      "resultCertificateId"
+    ).textContent =
+      item.certificateId || "—";
+
+    document.getElementById(
+      "resultName"
+    ).textContent =
+      item.name ||
+      item.recipientName ||
+      "—";
+
+    document.getElementById(
+      "resultType"
+    ).textContent =
+      item.type ||
+      item.certificateType ||
+      "—";
+
+    document.getElementById(
+      "resultActivity"
+    ).textContent =
+      item.activity ||
+      "—";
+
+    document.getElementById(
+      "resultDate"
+    ).textContent =
+      item.issueDate ||
+      item.certificateDate ||
+      "—";
+
+    document.getElementById(
+      "resultIssuer"
+    ).textContent =
+      item.issuer ||
+      "ARS Official";
+
+    document.getElementById(
+      "verificationTitle"
+    ).textContent =
+      "Certificate Verified";
 
+    document.getElementById(
+      "verificationBadge"
+    ).textContent =
+      "VALID";
 
-  <button
-    id="backToTop"
-    class="back-to-top"
-    type="button"
-    aria-label="Back to top"
-  >
-    ↑
-  </button>
+    result.hidden = false;
+  }
 
+  form.addEventListener("submit", async function (event) {
 
-  <div
-    id="arsToast"
-    class="ars-toast"
-    role="status"
-    aria-live="polite"
-  ></div>
+    event.preventDefault();
 
+    hideResult();
 
-  <script src="config.js"></script>
-  <script src="storage.js"></script>
-  <script src="script.js"></script>
-  <script src="verify-storage.js"></script>
-
-
-  <script>
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
-
-        const form =
-          document.getElementById("verifyForm");
-
-        const idInput =
-          document.getElementById("certificateId");
-
-        const result =
-          document.getElementById("verifyResult");
-
-        const status =
-          document.getElementById("verifyStatus");
-
-        const title =
-          document.getElementById("verifyTitle");
-
-        const message =
-          document.getElementById("verifyMessage");
-
-        const details =
-          document.getElementById("verifyDetails");
-
-
-        function showToast(text) {
-
-          if (
-            typeof arsToast === "function"
-          ) {
-            arsToast(text);
-          }
-
-        }
-
-
-        function escapeHTML(value) {
-
-          return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-        }
-
-
-        function getRecords(key) {
-
-          try {
-
-            return JSON.parse(
-              localStorage.getItem(key) || "[]"
-            );
-
-          } catch (error) {
-
-            return [];
-
-          }
-
-        }
-
-
-        function findCertificate(id) {
-
-          const normalized =
-            String(id)
-              .trim()
-              .toUpperCase();
-
-
-          /*
-           * First use verify-storage.js if the
-           * existing verification engine exposes
-           * a compatible function.
-           */
-
-          try {
-
-            if (
-              window.ARS_VERIFY &&
-              typeof window.ARS_VERIFY.find ===
-                "function"
-            ) {
-
-              const found =
-                window.ARS_VERIFY.find(normalized);
-
-              if (found) {
-                return found;
-              }
-
-            }
-
-          } catch (error) {
-
-            console.warn(
-              "ARS verification engine error:",
-              error
-            );
-
-          }
-
-
-          /*
-           * Normal certificate records.
-           */
-
-          const certificates = [
-            ...getRecords("ARS_CERTIFICATES"),
-            ...getRecords("ARS_STORAGE_CERTIFICATES")
-          ];
-
-
-          const normalCertificate =
-            certificates.find(function (item) {
-
-              return String(
-                item.certificateId ||
-                item.id ||
-                ""
-              ).toUpperCase() === normalized;
-
-            });
-
-
-          if (normalCertificate) {
-            return {
-              ...normalCertificate,
-              recordType: "Normal Certificate"
-            };
-          }
-
-
-          /*
-           * Joining certificate records.
-           */
-
-          const joiningCertificates = [
-            ...getRecords("ARS_JOINING_CERTIFICATES"),
-            ...getRecords("ARS_STORAGE_JOINING_CERTIFICATES")
-          ];
-
-
-          const joiningCertificate =
-            joiningCertificates.find(function (item) {
-
-              return String(
-                item.certificateId ||
-                item.id ||
-                ""
-              ).toUpperCase() === normalized;
-
-            });
-
-
-          if (joiningCertificate) {
-            return {
-              ...joiningCertificate,
-              recordType: "ARS Joining Certificate"
-            };
-          }
-
-
-          /*
-           * Some storage versions may keep joining
-           * application records with a certificate ID.
-           */
-
-          const applications =
-            getRecords("ARS_JOINING_APPLICATIONS");
-
-
-          const application =
-            applications.find(function (item) {
-
-              return String(
-                item.certificateId ||
-                ""
-              ).toUpperCase() === normalized;
-
-            });
-
-
-          if (
-            application &&
-            application.status === "approved"
-          ) {
-
-            return {
-              ...application,
-              recordType: "ARS Joining Certificate"
-            };
-
-          }
-
-
-          return null;
-
-        }
-
-
-        function displayDetails(data) {
-
-          const rows = [];
-
-          const name =
-            data.recipientName ||
-            data.fullName ||
-            data.name ||
-            "";
-
-          const type =
-            data.typeLabel ||
-            data.certificateType ||
-            data.recordType ||
-            "";
-
-          const achievement =
-            data.achievement ||
-            data.title ||
-            data.message ||
-            "";
-
-          const date =
-            data.issueDate ||
-            data.date ||
-            data.submittedAt ||
-            "";
-
-          const organization =
-            data.organization ||
-            data.organizationName ||
-            data.event ||
-            "";
-
-          if (name) {
-
-            rows.push(
-              "<div class='verify-detail'>" +
-              "<span>Recipient</span>" +
-              "<strong>" +
-              escapeHTML(name) +
-              "</strong>" +
-              "</div>"
-            );
-
-          }
-
-
-          if (type) {
-
-            rows.push(
-              "<div class='verify-detail'>" +
-              "<span>Certificate Type</span>" +
-              "<strong>" +
-              escapeHTML(type) +
-              "</strong>" +
-              "</div>"
-            );
-
-          }
-
-
-          if (achievement) {
-
-            rows.push(
-              "<div class='verify-detail'>" +
-              "<span>Achievement / Title</span>" +
-              "<strong>" +
-              escapeHTML(achievement) +
-              "</strong>" +
-              "</div>"
-            );
-
-          }
-
-
-          if (organization) {
-
-            rows.push(
-              "<div class='verify-detail'>" +
-              "<span>Organization / Event</span>" +
-              "<strong>" +
-              escapeHTML(organization) +
-              "</strong>" +
-              "</div>"
-            );
-
-          }
-
-
-          if (date) {
-
-            let formattedDate = date;
-
-            try {
-
-              const parsed =
-                new Date(date);
-
-              if (!Number.isNaN(
-                parsed.getTime()
-              )) {
-
-                formattedDate =
-                  parsed.toLocaleDateString(
-                    "en-IN",
-                    {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric"
-                    }
-                  );
-
-              }
-
-            } catch (error) {}
-
-            rows.push(
-              "<div class='verify-detail'>" +
-              "<span>Date</span>" +
-              "<strong>" +
-              escapeHTML(formattedDate) +
-              "</strong>" +
-              "</div>"
-            );
-
-          }
-
-
-          rows.push(
-            "<div class='verify-detail'>" +
-            "<span>Certificate ID</span>" +
-            "<strong>" +
-            escapeHTML(
-              data.certificateId ||
-              data.id ||
-              idInput.value.trim()
-            ) +
-            "</strong>" +
-            "</div>"
-          );
-
-
-          details.innerHTML =
-            rows.join("");
-
-        }
-
-
-        function showValid(data) {
-
-          result.className =
-            "verify-result show valid";
-
-          status.textContent =
-            "✓ Certificate Record Found";
-
-          title.textContent =
-            "Certificate is available";
-
-          message.textContent =
-            "The entered certificate ID matches a certificate record available in the ARS verification system.";
-
-          displayDetails(data);
-
-          showToast(
-            "Certificate verified successfully."
-          );
-
-        }
-
-
-        function showInvalid() {
-
-          result.className =
-            "verify-result show invalid";
-
-          status.textContent =
-            "✕ Certificate Not Found";
-
-          title.textContent =
-            "Certificate could not be verified";
-
-          message.textContent =
-            "No matching certificate record was found for this ID. Check the certificate ID and try again.";
-
-          details.innerHTML = "";
-
-          showToast(
-            "No matching certificate record found."
-          );
-
-        }
-
-
-        function verify(id) {
-
-          const normalized =
-            String(id || "")
-              .trim()
-              .toUpperCase();
-
-
-          if (!normalized) {
-
-            result.className =
-              "verify-result show invalid";
-
-            status.textContent =
-              "✕ Certificate ID Required";
-
-            title.textContent =
-              "Enter a certificate ID";
-
-            message.textContent =
-              "Please enter the certificate ID printed on the certificate.";
-
-            details.innerHTML = "";
-
-            return;
-
-          }
-
-
-          const certificate =
-            findCertificate(normalized);
-
-
-          if (certificate) {
-
-            showValid(certificate);
-
-          } else {
-
-            showInvalid();
-
-          }
-
-        }
-
-
-        form.addEventListener(
-          "submit",
-          function (event) {
-
-            event.preventDefault();
-
-            verify(idInput.value);
-
-          }
-        );
-
-
-        /*
-         * Allow direct verification through:
-         *
-         * verify.html?id=ARS-CERT-XXXX
-         */
-
-        const params =
-          new URLSearchParams(
-            window.location.search
-          );
-
-        const urlId =
-          params.get("id") ||
-          params.get("certificateId");
-
-
-        if (urlId) {
-
-          idInput.value =
-            urlId;
-
-          verify(urlId);
-
-        }
-
-      }
+    const certificateId = clean(
+      document.getElementById("certificateId").value
     );
-  </script>
+
+    if (!certificateId) {
+
+      showMessage(
+        "Please enter a Certificate ID.",
+        "warning"
+      );
+
+      return;
+    }
+
+    showMessage(
+      "Checking official certificate records...",
+      "info"
+    );
+
+    try {
+
+      const response = await fetch(
+        apiBase +
+        "/api/certificates/verify/" +
+        encodeURIComponent(certificateId),
+        {
+          method: "GET",
+          headers: {
+            "Accept": "application/json"
+          }
+        }
+      );
+
+      const data = await response
+        .json()
+        .catch(() => ({}));
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message ||
+          "Certificate could not be verified."
+        );
+      }
+
+      renderResult(data);
+
+      showMessage(
+        "Certificate verification completed.",
+        "success"
+      );
+
+    } catch (error) {
+
+      showMessage(
+        "The official verification service is not connected yet, or this Certificate ID could not be verified.",
+        "warning"
+      );
+
+    }
+
+  });
+
+})();
+</script>
 
 </body>
 </html>
