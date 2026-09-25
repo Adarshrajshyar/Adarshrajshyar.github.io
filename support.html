@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ARS Official Support Center">
+  <title>Support | ARS Official</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="pageLoader" class="page-loader">
+    <div class="loader-spinner"></div>
+    <p>Loading ARS Support...</p>
+  </div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+
+      <a href="index.html" class="brand">
+        <span class="brand-logo">🌹</span>
+        <span>
+          <strong>ARS Official</strong>
+          <small>Support Center</small>
+        </span>
+      </a>
+
+      <button
+        type="button"
+        class="menu-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="container page-section">
+
+    <section class="hero-card">
+      <span class="eyebrow">HELP & SUPPORT</span>
+
+      <h1>ARS Support Center</h1>
+
+      <p>
+        अगर आपको ARS account, registration, exam, certificate,
+        profile या technical problem से संबंधित सहायता चाहिए,
+        तो यहाँ से support request भेज सकते हैं।
+      </p>
+    </section>
+
+    <section class="content-section">
+
+      <div class="card-grid">
+
+        <article class="ars-card">
+          <h2>🔐 Login / Registration</h2>
+          <p>
+            Login, registration, account access या profile
+            से संबंधित समस्या।
+          </p>
+        </article>
+
+        <article class="ars-card">
+          <h2>📝 ARS Exam</h2>
+          <p>
+            Exam registration, admit card, mock test,
+            live exam या result से संबंधित सहायता।
+          </p>
+        </article>
+
+        <article class="ars-card">
+          <h2>📜 Certificate</h2>
+          <p>
+            Certificate ID, certificate generation या
+            verification से संबंधित समस्या।
+          </p>
+        </article>
+
+        <article class="ars-card">
+          <h2>⚙️ Technical Issue</h2>
+          <p>
+            Website, page loading, form submission या
+            अन्य technical समस्या।
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+    <section class="content-section">
+
+      <div class="ars-card">
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">SUPPORT TICKET</span>
+            <h2>Support Request</h2>
+          </div>
+        </div>
+
+        <div
+          id="supportMessage"
+          class="notice-box"
+          hidden
+          role="status"
+        ></div>
+
+        <form id="supportForm" class="ars-form">
+
+          <div class="form-group">
+            <label for="supportName">Name</label>
+            <input
+              type="text"
+              id="supportName"
+              name="name"
+              autocomplete="name"
+              maxlength="100"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="supportEmail">Email</label>
+            <input
+              type="email"
+              id="supportEmail"
+              name="email"
+              autocomplete="email"
+              maxlength="150"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="supportCategory">Category</label>
+
+            <select
+              id="supportCategory"
+              name="category"
+              required
+            >
+              <option value="">Select issue</option>
+              <option value="login">
+                Login / Registration
+              </option>
+              <option value="profile">
+                Profile Correction
+              </option>
+              <option value="exam">
+                Exam
+              </option>
+              <option value="certificate">
+                Certificate
+              </option>
+              <option value="technical">
+                Technical Issue
+              </option>
+              <option value="other">
+                Other
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="supportSubject">Subject</label>
+
+            <input
+              type="text"
+              id="supportSubject"
+              name="subject"
+              maxlength="150"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="supportMessageText">
+              Message
+            </label>
+
+            <textarea
+              id="supportMessageText"
+              name="message"
+              rows="7"
+              maxlength="2000"
+              required
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="ars-btn ars-btn-primary"
+            id="supportSubmit"
+          >
+            Submit Support Request
+          </button>
+
+        </form>
+
+      </div>
+
+    </section>
+
+    <section class="content-section">
+
+      <div class="ars-card">
+
+        <h2>Important Privacy Note</h2>
+
+        <p>
+          कृपया support request में password, OTP, payment
+          PIN, API key या कोई अन्य secret information न भेजें।
+        </p>
+
+        <p>
+          विद्यार्थियों की privacy और safety को ध्यान में रखते
+          हुए अनावश्यक private communication से बचें।
+        </p>
+
+        <a href="policy.html" class="ars-btn">
+          Read ARS Policy
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+
+      <div>
+        <strong>🌹 ARS Official</strong>
+        <p>Adarsh Raj Shayar</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="contact.html">Contact</a>
+        <a href="policy.html">Policy</a>
+        <a href="index.html">Home</a>
+      </div>
+
+      <p>
+        © <span id="currentYear"></span> ARS Official
+      </p>
+
+    </div>
+  </footer>
+
+  <button
+    type="button"
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top"
+  >
+    ↑
+  </button>
+
+  <script src="config.js"></script>
+  <script src="storage.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const CONFIG = window.ARS_CONFIG || {};
+
+      const API_BASE =
+        CONFIG.backend?.baseUrl ||
+        CONFIG.apiBaseUrl ||
+        "https://ars-backend-hbbk.onrender.com";
+
+      const form = document.getElementById("supportForm");
+      const message = document.getElementById("supportMessage");
+      const submitButton =
+        document.getElementById("supportSubmit");
+
+      function showMessage(text, type = "info") {
+        if (!message) return;
+
+        message.textContent = text;
+        message.dataset.type = type;
+        message.hidden = false;
+      }
+
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const payload = {
+          name: document.getElementById("supportName")?.value.trim(),
+          email: document.getElementById("supportEmail")?.value.trim(),
+          category:
+            document.getElementById("supportCategory")?.value,
+          subject:
+            document.getElementById("supportSubject")?.value.trim(),
+          message:
+            document
+              .getElementById("supportMessageText")
+              ?.value.trim()
+        };
+
+        if (
+          !payload.name ||
+          !payload.email ||
+          !payload.category ||
+          !payload.subject ||
+          !payload.message
+        ) {
+          showMessage(
+            "कृपया सभी आवश्यक जानकारी भरें।",
+            "warning"
+          );
+          return;
+        }
+
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
+
+        try {
+          const response = await fetch(
+            `${API_BASE}/api/support/tickets`,
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+            }
+          );
+
+          let data = {};
+
+          try {
+            data = await response.json();
+          } catch {
+            data = {};
+          }
+
+          if (!response.ok || !data.success) {
+            throw new Error(
+              data.message ||
+                "Support service is currently unavailable."
+            );
+          }
+
+          showMessage(
+            data.message ||
+              "Support request submitted successfully.",
+            "success"
+          );
+
+          form.reset();
+
+        } catch (error) {
+          showMessage(
+            error.message ||
+              "Support service is currently unavailable. Please try again later.",
+            "error"
+          );
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent =
+            "Submit Support Request";
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
