@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+Disallow: /admin.html
+Disallow: /publisher.html
+Disallow: /dashboard.html
+Disallow: /profile.html
+Disallow: /login.html
+Disallow: /register.html
+
 Sitemap: https://adarshrajshyar.github.io/sitemap.xml
