@@ -1,0 +1,118 @@
+/* =================================
+   ARS — Dark Mode
+================================= */
+
+body.dark-mode {
+  --bg: #171717;
+  --surface: #222222;
+  --surface-soft: #1d1d1d;
+
+  --text: #f5f5f5;
+  --text-soft: #bdbdbd;
+
+  --border: #3a3a3a;
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+
+/* Header */
+
+body.dark-mode .site-header {
+  background: rgba(23, 23, 23, 0.96);
+  border-color: var(--border);
+}
+
+body.dark-mode .main-nav a {
+  color: #f5f5f5;
+}
+
+body.dark-mode .main-nav a:hover {
+  color: #ffffff;
+}
+
+body.dark-mode .nav-actions button {
+  background: var(--surface);
+  color: #ffffff;
+  border-color: var(--border);
+}
+
+
+/* Mobile menu */
+
+body.dark-mode .mobile-menu {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+
+/* Hero */
+
+body.dark-mode .hero {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(212, 175, 55, 0.10),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      rgba(122, 31, 61, 0.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #191919,
+      #202020
+    );
+}
+
+
+/* Cards */
+
+body.dark-mode .content-card,
+body.dark-mode .social-card {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+body.dark-mode .content-card:hover,
+body.dark-mode .social-card:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+}
+
+
+/* Light sections */
+
+body.dark-mode .light-section {
+  background: var(--surface-soft);
+}
+
+
+/* Text */
+
+body.dark-mode .section-text,
+body.dark-mode .content-card p,
+body.dark-mode .social-card span {
+  color: var(--text-soft);
+}
+
+
+/* Footer */
+
+body.dark-mode .site-footer {
+  background: #101010;
+}
+
+
+/* Buttons */
+
+body.dark-mode .secondary-btn {
+  color: #ffffff;
+  border-color: var(--gold);
+}
+
+body.dark-mode .secondary-btn:hover {
+  background: rgba(212, 175, 55, 0.10);
+}
