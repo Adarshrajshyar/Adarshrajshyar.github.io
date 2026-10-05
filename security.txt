@@ -1,0 +1,4 @@
+Contact: https://adarshrajshyar.github.io/contact.html
+Policy: https://adarshrajshyar.github.io/privacy.html
+Canonical: https://adarshrajshyar.github.io/.well-known/security.txt
+Preferred-Languages: en, hi
