@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Registration | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Register for ARS Education Talent Research Examination."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .registration-page {
+            padding: 45px 20px 65px;
+        }
+
+        .registration-wrapper {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .registration-header {
+            text-align: center;
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dae6e8;
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .registration-header img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .registration-header h1 {
+            color: #123b5d;
+            margin: 0 0 8px;
+        }
+
+        .registration-header p {
+            color: #66757d;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .registration-card {
+            background: #ffffff;
+            border: 1px solid #e0e7ea;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 7px 22px rgba(0, 0, 0, 0.05);
+        }
+
+        .registration-card h2 {
+            margin-top: 0;
+            color: #16705e;
+            margin-bottom: 17px;
+        }
+
+        .exam-details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .detail-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .detail-box span {
+            display: block;
+            color: #6d797f;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .detail-box strong {
+            color: #185b72;
+            font-size: 15px;
+        }
+
+        .registration-form {
+            display: grid;
+            gap: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #29404d;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 17px;
+        }
+
+        .checkbox-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #50616a;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .checkbox-row input {
+            margin-top: 5px;
+        }
+
+        .register-btn {
+            border: none;
+            padding: 14px 20px;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            opacity: 0.94;
+        }
+
+        .registration-message {
+            display: none;
+            padding: 13px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .registration-message.info {
+            display: block;
+            background: #eef7fb;
+            color: #17546c;
+        }
+
+        .registration-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #9a2828;
+        }
+
+        .registration-message.success {
+            display: block;
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .important-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 15px;
+            color: #66542c;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .existing-login {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .existing-login a {
+            color: #176d8f;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        @media (max-width: 750px) {
+            .exam-details-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+            .registration-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .registration-card,
+            .registration-header {
+                padding: 22px 18px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .exam-details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="registration-page">
+
+            <div class="registration-wrapper">
+
+                <div class="registration-header">
+
+                    <img src="assets/logo.png" alt="ARS Logo">
+
+                    <h1>Exam Registration</h1>
+
+                    <p>
+                        ARS Education Talent Research Examination —
+                        Stage 1
+                    </p>
+
+                </div>
+
+                <!-- Exam Details -->
+                <div class="registration-card">
+
+                    <h2>Examination Details</h2>
+
+                    <div class="exam-details-grid">
+
+                        <div class="detail-box">
+                            <span>Exam Mode</span>
+                            <strong>Online</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Classes</span>
+                            <strong>5–8</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Questions</span>
+                            <strong>60</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Duration</span>
+                            <strong>1 Hour</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Total Marks</span>
+                            <strong>120</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Negative Marking</span>
+                            <strong>No</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Exam Date</span>
+                            <strong>13 December 2026</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Registration</span>
+                            <strong>10 Nov – 10 Dec 2026</strong>
+                        </div>
+
+                        <div class="detail-box">
+                            <span>Attempt</span>
+                            <strong>One Attempt</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Registration Form -->
+                <div class="registration-card">
+
+                    <h2>Student Registration</h2>
+
+                    <form
+                        id="examRegistrationForm"
+                        class="registration-form"
+                    >
+
+                        <div class="two-column">
+
+                            <div class="form-group">
+
+                                <label for="studentFullName">
+                                    Full Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="studentFullName"
+                                    placeholder="Enter student's full name"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="studentClass">
+                                    Class
+                                </label>
+
+                                <select id="studentClass" required>
+
+                                    <option value="">
+                                        Select class
+                                    </option>
+
+                                    <option value="5">Class 5</option>
+                                    <option value="6">Class 6</option>
+                                    <option value="7">Class 7</option>
+                                    <option value="8">Class 8</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="two-column">
+
+                            <div class="form-group">
+
+                                <label for="studentEmail">
+                                    Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="studentEmail"
+                                    placeholder="Enter email"
+                                    required
+                                >
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="studentMobile">
+                                    Mobile Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="studentMobile"
+                                    placeholder="10-digit mobile number"
+                                    maxlength="10"
+                                    inputmode="numeric"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="studentSchool">
+                                School / Institution
+                                <span style="font-weight:400;">
+                                    (optional)
+                                </span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="studentSchool"
+                                placeholder="Enter school name"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="studentState">
+                                State
+                            </label>
+
+                            <input
+                                type="text"
+                                id="studentState"
+                                placeholder="Enter state"
+                                required
+                            >
+
+                        </div>
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="rulesAgreement"
+                                required
+                            >
+
+                            <span>
+                                I have read the examination information and
+                                agree to follow the published ARS
+                                Examination Rules and applicable terms.
+                            </span>
+
+                        </label>
+
+                        <label class="checkbox-row">
+
+                            <input
+                                type="checkbox"
+                                id="accuracyAgreement"
+                                required
+                            >
+
+                            <span>
+                                I confirm that the information provided in
+                                this registration form is accurate to the
+                                best of my knowledge.
+                            </span>
+
+                        </label>
+
+                        <button
+                            type="submit"
+                            class="register-btn"
+                        >
+                            Submit Exam Registration
+                        </button>
+
+                        <div
+                            id="registrationMessage"
+                            class="registration-message"
+                        ></div>
+
+                    </form>
+
+                    <div class="existing-login">
+
+                        Already registered?
+                        <a href="exam-login.html">
+                            Go to Exam Login
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- Notice -->
+                <div class="registration-card">
+
+                    <h2>Important</h2>
+
+                    <div class="important-note">
+
+                        After successful backend registration, the student
+                        should receive a unique Registration ID and
+                        confirmation through the registered contact method.
+
+                        <br><br>
+
+                        The real system must validate eligibility, prevent
+                        duplicate registrations where applicable, securely
+                        store registration records and generate the official
+                        registration ID.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const examRegistrationForm =
+            document.getElementById("examRegistrationForm");
+
+        const registrationMessage =
+            document.getElementById("registrationMessage");
+
+        examRegistrationForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const mobile =
+                document.getElementById("studentMobile").value.trim();
+
+            if (!/^[0-9]{10}$/.test(mobile)) {
+
+                registrationMessage.textContent =
+                    "Please enter a valid 10-digit mobile number.";
+
+                registrationMessage.className =
+                    "registration-message error";
+
+                return;
+            }
+
+            /*
+             * BACKEND FLOW
+             *
+             * Student Details
+             *      ↓
+             * Eligibility Check
+             *      ↓
+             * Duplicate Registration Check
+             *      ↓
+             * Registration Record
+             *      ↓
+             * Registration ID
+             *      ↓
+             * Confirmation
+             *
+             * Real registration must NOT be stored only in
+             * frontend/localStorage.
+             */
+
+            registrationMessage.textContent =
+                "Registration form validated. Secure backend registration is required to generate the official Registration ID.";
+
+            registrationMessage.className =
+                "registration-message info";
+
+        });
+
+    </script>
+
+</body>
+</html>
