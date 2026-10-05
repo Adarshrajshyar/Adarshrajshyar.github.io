@@ -1,0 +1,31 @@
+{
+  "name": "ARS — Adarsh Ke Alfaz",
+  "short_name": "ARS",
+  "description": "ARS — Adarsh Ke Alfaz: Education, Knowledge, Exams and Literature.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "lang": "en-IN",
+  "categories": [
+    "education",
+    "books",
+    "literature"
+  ],
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
