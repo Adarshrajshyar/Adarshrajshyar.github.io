@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>MCQ Practice | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Practice multiple-choice questions for Class 5 to 8 on ARS."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .mcq-page {
+            padding: 40px 20px 65px;
+            background: #f4f7f8;
+        }
+
+        .mcq-wrapper {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .mcq-hero {
+            text-align: center;
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 22px;
+        }
+
+        .mcq-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .mcq-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .mcq-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .mcq-controls {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .mcq-control-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .control-group label {
+            display: block;
+            color: #29404d;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .control-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border: 1px solid #ccd7dc;
+            border-radius: 8px;
+            background: white;
+            outline: none;
+        }
+
+        .start-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 17px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .practice-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .practice-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e7ecee;
+            margin-bottom: 20px;
+        }
+
+        .practice-top strong {
+            color: #123b5d;
+        }
+
+        .practice-score {
+            color: #166b59;
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .mcq-question {
+            color: #243746;
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 19px;
+        }
+
+        .mcq-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .mcq-option {
+            border: 1px solid #dce5e8;
+            border-radius: 10px;
+            padding: 13px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .mcq-option:hover {
+            background: #f8fbfc;
+        }
+
+        .mcq-option input {
+            margin-right: 8px;
+        }
+
+        .mcq-feedback {
+            display: none;
+            margin-top: 17px;
+            padding: 13px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .mcq-feedback.correct {
+            display: block;
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .mcq-feedback.incorrect {
+            display: block;
+            background: #fff0f0;
+            color: #9b2828;
+        }
+
+        .practice-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .practice-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 16px;
+            cursor: pointer;
+            background: #eef3f5;
+            color: #405760;
+            font-weight: 700;
+        }
+
+        .practice-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .result-summary {
+            display: none;
+            margin-top: 20px;
+            background: #eef7f7;
+            border: 1px solid #cfe2df;
+            border-radius: 11px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .result-summary strong {
+            color: #166b59;
+            font-size: 28px;
+        }
+
+        .practice-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+
+            .mcq-control-row {
+                grid-template-columns: 1fr;
+            }
+
+            .start-btn {
+                width: 100%;
+            }
+
+            .mcq-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .mcq-hero {
+                padding: 23px 18px;
+            }
+
+            .practice-card {
+                padding: 21px 17px;
+            }
+
+            .mcq-question {
+                font-size: 17px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="mcq-page">
+
+            <div class="mcq-wrapper">
+
+                <div class="mcq-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>MCQ Practice</h1>
+
+                    <p>
+                        Practice subject-wise multiple-choice questions
+                        and improve your preparation.
+                    </p>
+
+                </div>
+
+                <div class="mcq-controls">
+
+                    <div class="mcq-control-row">
+
+                        <div class="control-group">
+
+                            <label for="practiceClass">
+                                Class
+                            </label>
+
+                            <select id="practiceClass">
+
+                                <option value="5">
+                                    Class 5
+                                </option>
+
+                                <option value="6">
+                                    Class 6
+                                </option>
+
+                                <option value="7">
+                                    Class 7
+                                </option>
+
+                                <option value="8">
+                                    Class 8
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label for="practiceSubject">
+                                Subject
+                            </label>
+
+                            <select id="practiceSubject">
+
+                                <option value="science">
+                                    Science
+                                </option>
+
+                                <option value="maths">
+                                    Mathematics
+                                </option>
+
+                                <option value="english">
+                                    English
+                                </option>
+
+                                <option value="hindi">
+                                    Hindi
+                                </option>
+
+                                <option value="sst">
+                                    Social Studies
+                                </option>
+
+                                <option value="reasoning">
+                                    Reasoning
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="start-btn"
+                            id="startPracticeBtn"
+                        >
+                            Start Practice
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="practice-card">
+
+                    <div class="practice-top">
+
+                        <strong id="questionCounter">
+                            Question 1 of 5
+                        </strong>
+
+                        <span
+                            class="practice-score"
+                            id="practiceScore"
+                        >
+                            Score: 0
+                        </span>
+
+                    </div>
+
+                    <div
+                        id="mcqQuestion"
+                        class="mcq-question"
+                    >
+                        Click "Start Practice" to begin.
+                    </div>
+
+                    <div
+                        id="mcqOptions"
+                        class="mcq-options"
+                    ></div>
+
+                    <div
+                        id="mcqFeedback"
+                        class="mcq-feedback"
+                    ></div>
+
+                    <div class="practice-actions">
+
+                        <button
+                            type="button"
+                            class="practice-btn"
+                            id="checkAnswerBtn"
+                        >
+                            Check Answer
+                        </button>
+
+                        <button
+                            type="button"
+                            class="practice-btn primary"
+                            id="nextQuestionBtn"
+                        >
+                            Next Question
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="practiceResult"
+                        class="result-summary"
+                    >
+
+                        Practice Complete
+
+                        <br>
+
+                        <strong id="finalPracticeScore">
+                            0 / 5
+                        </strong>
+
+                        <p>
+                            Keep practicing to improve your preparation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="practice-note">
+
+                    <strong>Practice Notice:</strong>
+                    These practice questions are separate from the official
+                    ARS examination question pool. Practice activity should
+                    not affect official examination results or certificates.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION PRACTICE QUESTIONS
+         *
+         * Production:
+         * Questions should be loaded from the published ARS
+         * practice-question database.
+         */
+
+        const practiceQuestions = [
+
+            {
+                subject: "science",
+                question:
+                    "Which part of a plant mainly absorbs water from the soil?",
+                options: [
+                    "Root",
+                    "Leaf",
+                    "Flower",
+                    "Fruit"
+                ],
+                answer: 0
+            },
+
+            {
+                subject: "maths",
+                question:
+                    "What is 12 × 5?",
+                options: [
+                    "50",
+                    "55",
+                    "60",
+                    "65"
+                ],
+                answer: 2
+            },
+
+            {
+                subject: "english",
+                question:
+                    "Which word is a noun?",
+                options: [
+                    "Run",
+                    "Beautiful",
+                    "School",
+                    "Quickly"
+                ],
+                answer: 2
+            },
+
+            {
+                subject: "hindi",
+                question:
+                    "‘विद्यालय’ शब्द का अर्थ क्या है?",
+                options: [
+                    "घर",
+                    "स्कूल",
+                    "बाजार",
+                    "अस्पताल"
+                ],
+                answer: 1
+            },
+
+            {
+                subject: "reasoning",
+                question:
+                    "Find the next number: 2, 4, 6, 8, ?",
+                options: [
+                    "9",
+                    "10",
+                    "11",
+                    "12"
+                ],
+                answer: 1
+            }
+
+        ];
+
+        let activeQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const questionCounter =
+            document.getElementById(
+                "questionCounter"
+            );
+
+        const practiceScore =
+            document.getElementById(
+                "practiceScore"
+            );
+
+        const mcqQuestion =
+            document.getElementById(
+                "mcqQuestion"
+            );
+
+        const mcqOptions =
+            document.getElementById(
+                "mcqOptions"
+            );
+
+        const mcqFeedback =
+            document.getElementById(
+                "mcqFeedback"
+            );
+
+        const practiceResult =
+            document.getElementById(
+                "practiceResult"
+            );
+
+        function renderQuestion() {
+
+            if (
+                !activeQuestions.length
+            ) {
+
+                mcqQuestion.textContent =
+                    "Click \"Start Practice\" to begin.";
+
+                mcqOptions.innerHTML = "";
+
+                return;
+
+            }
+
+            if (
+                currentIndex >=
+                activeQuestions.length
+            ) {
+
+                finishPractice();
+
+                return;
+
+            }
+
+            const question =
+                activeQuestions[currentIndex];
+
+            answered = false;
+
+            questionCounter.textContent =
+                "Question " +
+                (currentIndex + 1) +
+                " of " +
+                activeQuestions.length;
+
+            practiceScore.textContent =
+                "Score: " + score;
+
+            mcqQuestion.textContent =
+                question.question;
+
+            mcqOptions.innerHTML = "";
+
+            mcqFeedback.textContent = "";
+
+            mcqFeedback.className =
+                "mcq-feedback";
+
+            question.options.forEach(
+                function(option, index) {
+
+                    const label =
+                        document.createElement(
+                            "label"
+                        );
+
+                    label.className =
+                        "mcq-option";
+
+                    label.innerHTML = `
+                        <input
+                            type="radio"
+                            name="practiceOption"
+                            value="${index}"
+                        >
+
+                        ${escapeHTML(option)}
+                    `;
+
+                    mcqOptions.appendChild(
+                        label
+                    );
+
+                }
+            );
+
+            practiceResult.style.display =
+                "none";
+
+        }
+
+        function checkAnswer() {
+
+            if (
+                answered ||
+                !activeQuestions.length
+            ) {
+                return;
+            }
+
+            const selected =
+                document.querySelector(
+                    'input[name="practiceOption"]:checked'
+                );
+
+            if (!selected) {
+
+                mcqFeedback.textContent =
+                    "Please select an answer first.";
+
+                mcqFeedback.className =
+                    "mcq-feedback incorrect";
+
+                return;
+
+            }
+
+            answered = true;
+
+            const selectedIndex =
+                Number(
+                    selected.value
+                );
+
+            const question =
+                activeQuestions[currentIndex];
+
+            if (
+                selectedIndex ===
+                question.answer
+            ) {
+
+                score++;
+
+                mcqFeedback.textContent =
+                    "Correct! Good job.";
+
+                mcqFeedback.className =
+                    "mcq-feedback correct";
+
+            } else {
+
+                mcqFeedback.textContent =
+                    "Incorrect. Review the concept and try again in the next question.";
+
+                mcqFeedback.className =
+                    "mcq-feedback incorrect";
+
+            }
+
+            practiceScore.textContent =
+                "Score: " + score;
+
+        }
+
+        function nextQuestion() {
+
+            if (
+                !activeQuestions.length
+            ) {
+                return;
+            }
+
+            if (!answered) {
+
+                mcqFeedback.textContent =
+                    "Check your answer before moving to the next question.";
+
+                mcqFeedback.className =
+                    "mcq-feedback incorrect";
+
+                return;
+
+            }
+
+            currentIndex++;
+
+            renderQuestion();
+
+        }
+
+        function finishPractice() {
+
+            questionCounter.textContent =
+                "Practice Complete";
+
+            mcqQuestion.textContent =
+                "You have completed this practice set.";
+
+            mcqOptions.innerHTML = "";
+
+            mcqFeedback.textContent = "";
+
+            mcqFeedback.className =
+                "mcq-feedback";
+
+            document.getElementById(
+                "finalPracticeScore"
+            ).textContent =
+                score +
+                " / " +
+                activeQuestions.length;
+
+            practiceResult.style.display =
+                "block";
+
+        }
+
+        document
+            .getElementById("startPracticeBtn")
+            .addEventListener(
+                "click",
+                function() {
+
+                    const selectedSubject =
+                        document.getElementById(
+                            "practiceSubject"
+                        ).value;
+
+                    activeQuestions =
+                        practiceQuestions.filter(
+                            question =>
+                                question.subject ===
+                                selectedSubject
+                        );
+
+                    /*
+                     * Some subjects have only one demonstration question.
+                     * Production backend will provide larger question pools.
+                     */
+
+                    if (!activeQuestions.length) {
+
+                        mcqQuestion.textContent =
+                            "Practice questions for this subject are not loaded yet.";
+
+                        mcqOptions.innerHTML = "";
+
+                        return;
+
+                    }
+
+                    currentIndex = 0;
+                    score = 0;
+
+                    renderQuestion();
+
+                }
+            );
+
+        document
+            .getElementById("checkAnswerBtn")
+            .addEventListener(
+                "click",
+                checkAnswer
+            );
+
+        document
+            .getElementById("nextQuestionBtn")
+            .addEventListener(
+                "click",
+                nextQuestion
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+    </script>
+
+</body>
+</html>
