@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Exams | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="View registered and completed examinations in your ARS student account."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .my-exams-page {
+            padding: 45px 20px 65px;
+        }
+
+        .my-exams-wrapper {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .my-exams-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .my-exams-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .my-exams-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .my-exams-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .exam-tabs {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .exam-tab {
+            border: 1px solid #d8e2e5;
+            background: #ffffff;
+            color: #405760;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .exam-tab.active {
+            background: #eef7f7;
+            color: #166b59;
+            border-color: #c2deda;
+        }
+
+        .exam-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .exam-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 21px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+        }
+
+        .exam-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .exam-card h2 {
+            margin: 0 0 6px;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .exam-card-subtitle {
+            color: #6a777d;
+            font-size: 13px;
+        }
+
+        .exam-badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .badge-upcoming {
+            background: #eef7fb;
+            color: #175a72;
+        }
+
+        .badge-completed {
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .badge-not-started {
+            background: #fff7df;
+            color: #765d1d;
+        }
+
+        .exam-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 11px;
+            margin-top: 18px;
+        }
+
+        .exam-info {
+            background: #f8fbfc;
+            border: 1px solid #e0e7ea;
+            border-radius: 9px;
+            padding: 13px;
+        }
+
+        .exam-info span {
+            display: block;
+            font-size: 10px;
+            color: #738087;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .exam-info strong {
+            color: #185b72;
+            font-size: 13px;
+        }
+
+        .exam-card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .exam-card-btn {
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: #eef3f5;
+            color: #405760;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .exam-card-btn.primary {
+            color: white;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+        }
+
+        .empty-exams {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            color: #6c797f;
+        }
+
+        .my-exams-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .exam-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .my-exams-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .my-exams-hero {
+                padding: 23px 18px;
+            }
+
+            .exam-card-header {
+                flex-direction: column;
+            }
+
+            .exam-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="my-exams-page">
+
+            <div class="my-exams-wrapper">
+
+                <div class="my-exams-hero">
+
+                    <img src="assets/logo.png" alt="ARS Logo">
+
+                    <h1>My Exams</h1>
+
+                    <p>
+                        View upcoming, registered and completed
+                        ARS examinations.
+                    </p>
+
+                </div>
+
+                <div class="exam-tabs">
+
+                    <button
+                        type="button"
+                        class="exam-tab active"
+                        data-filter="all"
+                    >
+                        All
+                    </button>
+
+                    <button
+                        type="button"
+                        class="exam-tab"
+                        data-filter="upcoming"
+                    >
+                        Upcoming
+                    </button>
+
+                    <button
+                        type="button"
+                        class="exam-tab"
+                        data-filter="completed"
+                    >
+                        Completed
+                    </button>
+
+                </div>
+
+                <div
+                    id="examList"
+                    class="exam-list"
+                ></div>
+
+                <div
+                    id="emptyExams"
+                    class="empty-exams"
+                >
+                    No examinations found in your account.
+                </div>
+
+                <div class="my-exams-note">
+
+                    <strong>Important:</strong>
+                    Examination access is available only when the backend
+                    confirms registration, eligibility, exam status,
+                    examination window and attempt availability.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION DATA
+         *
+         * Production version:
+         * load only the authenticated student's authorized exams.
+         */
+
+        const exams = [
+            {
+                id: 1,
+                name:
+                    "ARS Education Talent Research Examination",
+                stage:
+                    "Stage 1",
+                mode:
+                    "Online",
+                questions:
+                    "60",
+                duration:
+                    "1 Hour",
+                marks:
+                    "120",
+                date:
+                    "13 December 2026",
+                type:
+                    "upcoming",
+                status:
+                    "Scheduled"
+            }
+        ];
+
+        const examList =
+            document.getElementById("examList");
+
+        const emptyExams =
+            document.getElementById("emptyExams");
+
+        const tabs =
+            document.querySelectorAll(".exam-tab");
+
+        function renderExams(filterValue) {
+
+            const filtered =
+                filterValue === "all"
+                    ? exams
+                    : exams.filter(
+                        exam => exam.type === filterValue
+                    );
+
+            examList.innerHTML = "";
+
+            if (!filtered.length) {
+
+                emptyExams.style.display =
+                    "block";
+
+                return;
+            }
+
+            emptyExams.style.display =
+                "none";
+
+            filtered.forEach(function(exam) {
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "exam-card";
+
+                const badgeClass =
+                    exam.type === "completed"
+                        ? "badge-completed"
+                        : "badge-upcoming";
+
+                card.innerHTML = `
+                    <div class="exam-card-header">
+
+                        <div>
+                            <h2>
+                                ${escapeHTML(exam.name)}
+                            </h2>
+
+                            <div class="exam-card-subtitle">
+                                ${escapeHTML(exam.stage)}
+                                · ${escapeHTML(exam.mode)}
+                            </div>
+                        </div>
+
+                        <span class="exam-badge ${badgeClass}">
+                            ${escapeHTML(exam.status)}
+                        </span>
+
+                    </div>
+
+                    <div class="exam-info-grid">
+
+                        <div class="exam-info">
+                            <span>Exam Date</span>
+                            <strong>${escapeHTML(exam.date)}</strong>
+                        </div>
+
+                        <div class="exam-info">
+                            <span>Questions</span>
+                            <strong>${escapeHTML(exam.questions)}</strong>
+                        </div>
+
+                        <div class="exam-info">
+                            <span>Duration</span>
+                            <strong>${escapeHTML(exam.duration)}</strong>
+                        </div>
+
+                        <div class="exam-info">
+                            <span>Total Marks</span>
+                            <strong>${escapeHTML(exam.marks)}</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="exam-card-actions">
+
+                        ${
+                            exam.type === "upcoming"
+                                ? `
+                                    <a
+                                        href="exam-login.html"
+                                        class="exam-card-btn primary"
+                                    >
+                                        Exam Login
+                                    </a>
+                                  `
+                                : `
+                                    <a
+                                        href="exam-result.html"
+                                        class="exam-card-btn primary"
+                                    >
+                                        View Result
+                                    </a>
+                                  `
+                        }
+
+                        <a
+                            href="exam-rules.html"
+                            class="exam-card-btn"
+                        >
+                            Exam Rules
+                        </a>
+
+                    </div>
+                `;
+
+                examList.appendChild(card);
+
+            });
+
+        }
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        tabs.forEach(function(tab) {
+
+            tab.addEventListener(
+                "click",
+                function() {
+
+                    tabs.forEach(
+                        item =>
+                            item.classList.remove("active")
+                    );
+
+                    this.classList.add("active");
+
+                    renderExams(
+                        this.dataset.filter
+                    );
+
+                }
+            );
+
+        });
+
+        renderExams("all");
+    </script>
+
+</body>
+</html>
