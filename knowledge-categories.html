@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Knowledge Power | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Explore Knowledge Power categories including Science, Bihar, India, World, Technology and more."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .knowledge-page {
+            padding: 45px 20px 65px;
+        }
+
+        .knowledge-wrapper {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .knowledge-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 34px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .knowledge-hero img {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .knowledge-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .knowledge-hero p {
+            max-width: 800px;
+            margin: auto;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .knowledge-search-box {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 17px;
+            margin-bottom: 20px;
+        }
+
+        .knowledge-search {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .knowledge-search:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .knowledge-search-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 19px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .category-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+            transition: 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            border-color: #bdd3d9;
+        }
+
+        .category-icon {
+            font-size: 31px;
+            margin-bottom: 9px;
+        }
+
+        .category-card h2 {
+            margin: 0 0 8px;
+            color: #123b5d;
+            font-size: 19px;
+        }
+
+        .category-card p {
+            color: #68757d;
+            line-height: 1.65;
+            font-size: 13px;
+            margin: 0 0 14px;
+        }
+
+        .category-card a {
+            display: inline-block;
+            text-decoration: none;
+            color: #176d8f;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .category-tag {
+            display: inline-block;
+            margin-top: 11px;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #166b59;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .knowledge-note {
+            margin-top: 21px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        .search-message {
+            display: none;
+            margin-bottom: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #eef7fb;
+            color: #17546c;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .knowledge-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .knowledge-hero {
+                padding: 24px 18px;
+            }
+
+            .knowledge-search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .knowledge-search-btn {
+                width: 100%;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="knowledge-page">
+
+            <div class="knowledge-wrapper">
+
+                <div class="knowledge-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Knowledge Power</h1>
+
+                    <p>
+                        Explore useful knowledge across science, Bihar,
+                        India, the world, technology, environment,
+                        history, geography and general knowledge.
+                    </p>
+
+                </div>
+
+                <form
+                    id="knowledgeSearchForm"
+                    class="knowledge-search-box"
+                >
+
+                    <input
+                        type="search"
+                        id="knowledgeSearch"
+                        class="knowledge-search"
+                        placeholder="Search Knowledge Power..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        type="submit"
+                        class="knowledge-search-btn"
+                    >
+                        Search
+                    </button>
+
+                </form>
+
+                <div
+                    id="searchMessage"
+                    class="search-message"
+                ></div>
+
+                <div
+                    id="categoryGrid"
+                    class="category-grid"
+                ></div>
+
+                <div class="knowledge-note">
+
+                    <strong>Publisher Managed:</strong>
+                    Knowledge Power is a separate section from Education.
+                    Authorized ARS Publishers can add, edit, draft,
+                    preview, publish, unpublish and manage knowledge
+                    articles through the backend.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const categories = [
+
+            {
+                name: "Science",
+                icon: "🔬",
+                description:
+                    "Science concepts, discoveries, experiments and useful scientific knowledge.",
+                category: "science"
+            },
+
+            {
+                name: "Bihar",
+                icon: "📍",
+                description:
+                    "Knowledge related to Bihar, its geography, history, culture and important facts.",
+                category: "bihar"
+            },
+
+            {
+                name: "India",
+                icon: "🇮🇳",
+                description:
+                    "Important facts and knowledge about India, society, geography and heritage.",
+                category: "india"
+            },
+
+            {
+                name: "World",
+                icon: "🌍",
+                description:
+                    "Useful knowledge about countries, continents, global events and world geography.",
+                category: "world"
+            },
+
+            {
+                name: "Technology",
+                icon: "💻",
+                description:
+                    "Technology, computers, digital tools, innovation and emerging ideas.",
+                category: "technology"
+            },
+
+            {
+                name: "Environment",
+                icon: "🌱",
+                description:
+                    "Environmental awareness, sustainability, nature and conservation.",
+                category: "environment"
+            },
+
+            {
+                name: "History",
+                icon: "🏛️",
+                description:
+                    "Historical events, people, civilizations and important developments.",
+                category: "history"
+            },
+
+            {
+                name: "Geography",
+                icon: "🗺️",
+                description:
+                    "Maps, landforms, climate, places and geographic knowledge.",
+                category: "geography"
+            },
+
+            {
+                name: "General Knowledge",
+                icon: "🧠",
+                description:
+                    "Useful GK, facts, everyday knowledge and learning-oriented information.",
+                category: "gk"
+            },
+
+            {
+                name: "Interesting Facts",
+                icon: "💡",
+                description:
+                    "Interesting facts designed to encourage curiosity and learning.",
+                category: "facts"
+            }
+
+        ];
+
+        const categoryGrid =
+            document.getElementById(
+                "categoryGrid"
+            );
+
+        const searchForm =
+            document.getElementById(
+                "knowledgeSearchForm"
+            );
+
+        const searchInput =
+            document.getElementById(
+                "knowledgeSearch"
+            );
+
+        const searchMessage =
+            document.getElementById(
+                "searchMessage"
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function renderCategories(list) {
+
+            categoryGrid.innerHTML = "";
+
+            list.forEach(function(item) {
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+                card.className =
+                    "category-card";
+
+                card.innerHTML = `
+
+                    <div class="category-icon">
+                        ${escapeHTML(item.icon)}
+                    </div>
+
+                    <h2>
+                        ${escapeHTML(item.name)}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(item.description)}
+                    </p>
+
+                    <a
+                        href="knowledge-article.html?category=${encodeURIComponent(item.category)}"
+                    >
+                        Explore →
+                    </a>
+
+                    <span class="category-tag">
+                        Knowledge Power
+                    </span>
+
+                `;
+
+                categoryGrid.appendChild(
+                    card
+                );
+
+            });
+
+        }
+
+        function searchCategories() {
+
+            const query =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+            if (!query) {
+
+                renderCategories(categories);
+
+                searchMessage.style.display =
+                    "none";
+
+                return;
+
+            }
+
+            const results =
+                categories.filter(
+                    item =>
+                        (
+                            item.name +
+                            " " +
+                            item.description
+                        ).toLowerCase()
+                            .includes(query)
+                );
+
+            renderCategories(results);
+
+            searchMessage.textContent =
+                results.length +
+                " category(s) found.";
+
+            searchMessage.style.display =
+                "block";
+
+            if (!results.length) {
+
+                searchMessage.textContent =
+                    "No Knowledge Power category found for your search.";
+
+            }
+
+        }
+
+        searchForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                searchCategories();
+
+            }
+        );
+
+        searchInput.addEventListener(
+            "input",
+            searchCategories
+        );
+
+        renderCategories(categories);
+
+    </script>
+
+</body>
+</html>
