@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ARS Contact Success">
+    <title>Message Sent | ARS — Adarsh Ke Alfaz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+
+        <a href="index.html" class="brand">
+            <img src="assets/logo.png" alt="ARS Logo" class="brand-logo">
+            <div>
+                <h1>ARS</h1>
+                <span>Adarsh Ke Alfaz</span>
+            </div>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            ☰
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="education.html">Education</a>
+            <a href="knowledge-power.html">Knowledge Power</a>
+            <a href="exams.html">Exams</a>
+            <a href="shayari.html">Shayari</a>
+            <a href="stories.html">Stories</a>
+            <a href="poetry.html">Poetry</a>
+            <a href="biography.html">Biography</a>
+            <a href="ars-book.html">ARS Book</a>
+            <a href="updates.html">Updates</a>
+            <a href="join-ars.html">Join ARS</a>
+            <a href="certificate.html">Certificate</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="sponsor.html">Sponsor</a>
+            <a href="search.html">Search</a>
+            <a href="theme.html">Theme</a>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">SUCCESS</span>
+        <h2>Thank You!</h2>
+        <p>Your message has been submitted successfully.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <div class="card text-center success-page-card">
+
+            <div class="success-icon">✓</div>
+
+            <h2 id="successTitle">Message Received</h2>
+
+            <p id="successText">
+                Thank you for contacting ARS — Adarsh Ke Alfaz.
+                Your message has been received through the website.
+            </p>
+
+            <p>
+                Our team can review the enquiry and respond through the
+                contact details provided by you.
+            </p>
+
+            <div class="button-group">
+
+                <a href="index.html" class="btn btn-primary">
+                    Go to Home
+                </a>
+
+                <a href="contact.html" class="btn btn-secondary">
+                    Contact Again
+                </a>
+
+            </div>
+
+            <div class="info-box">
+                <strong>Note:</strong>
+                This frontend confirmation does not itself send an email.
+                Real email delivery requires backend/email-service integration.
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+
+        <div>
+            <h3>ARS — Adarsh Ke Alfaz</h3>
+            <p>Education • Knowledge • Literature • Growth</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="grievance.html">Grievance</a>
+            <a href="contact.html">Contact</a>
+            <a href="private.html">Private</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 ARS — Adarsh Ke Alfaz. All rights reserved.
+        </p>
+
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
+
+    const title = document.getElementById("successTitle");
+    const text = document.getElementById("successText");
+
+    if (type === "sponsor") {
+        title.textContent = "Sponsor Enquiry Received";
+        text.textContent =
+            "Thank you for your interest in supporting ARS — Adarsh Ke Alfaz. Your sponsorship enquiry has been received.";
+    }
+
+});
+</script>
+
+</body>
+</html>
