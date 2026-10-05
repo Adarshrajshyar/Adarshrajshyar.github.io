@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Content Category | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Browse category-based content on ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .category-page {
+            padding: 45px 20px 65px;
+        }
+
+        .category-wrapper {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .category-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 33px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .category-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .category-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .category-hero p {
+            max-width: 780px;
+            margin: auto;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .category-toolbar {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 17px;
+            margin-bottom: 20px;
+        }
+
+        .category-toolbar-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .category-search {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .category-search:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .category-search-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 18px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 13px;
+        }
+
+        .filter-btn {
+            border: 1px solid #d8e2e5;
+            border-radius: 8px;
+            padding: 8px 11px;
+            background: #f8fbfc;
+            color: #405760;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background: #eef7f7;
+            color: #166b59;
+            border-color: #c3ddd9;
+        }
+
+        .content-count {
+            color: #6d797f;
+            font-size: 13px;
+            margin-bottom: 13px;
+        }
+
+        .content-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .content-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+        }
+
+        .content-card-category {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #166b59;
+            font-size: 10px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .content-card h2 {
+            margin: 0 0 8px;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .content-card p {
+            color: #68757d;
+            line-height: 1.65;
+            font-size: 13px;
+            margin: 0 0 12px;
+        }
+
+        .content-card a {
+            color: #176d8f;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .content-empty {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            border-radius: 14px;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            color: #6c797f;
+        }
+
+        .content-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 800px) {
+
+            .content-list {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .category-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .category-hero {
+                padding: 24px 18px;
+            }
+
+            .category-toolbar-row {
+                grid-template-columns: 1fr;
+            }
+
+            .category-search-btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="category-page">
+
+            <div class="category-wrapper">
+
+                <div class="category-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1 id="categoryTitle">
+                        Content Category
+                    </h1>
+
+                    <p id="categoryDescription">
+                        Explore published ARS content by category.
+                    </p>
+
+                </div>
+
+                <div class="category-toolbar">
+
+                    <form
+                        id="categorySearchForm"
+                        class="category-toolbar-row"
+                    >
+
+                        <input
+                            type="search"
+                            id="categorySearch"
+                            class="category-search"
+                            placeholder="Search this category..."
+                            autocomplete="off"
+                        >
+
+                        <button
+                            type="submit"
+                            class="category-search-btn"
+                        >
+                            Search
+                        </button>
+
+                    </form>
+
+                    <div class="category-filters">
+
+                        <button
+                            type="button"
+                            class="filter-btn active"
+                            data-type="all"
+                        >
+                            All
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-type="shayari"
+                        >
+                            Shayari
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-type="stories"
+                        >
+                            Stories
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-type="poetry"
+                        >
+                            Poetry
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-type="knowledge"
+                        >
+                            Knowledge
+                        </button>
+
+                        <button
+                            type="button"
+                            class="filter-btn"
+                            data-type="education"
+                        >
+                            Education
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div
+                    id="contentCount"
+                    class="content-count"
+                >
+                    Loading content...
+                </div>
+
+                <div
+                    id="contentList"
+                    class="content-list"
+                ></div>
+
+                <div
+                    id="contentEmpty"
+                    class="content-empty"
+                >
+                    No content found in this category.
+                </div>
+
+                <div class="content-note">
+
+                    <strong>Backend Content System:</strong>
+                    The production page should receive a category identifier
+                    and retrieve only published ARS records from the secure
+                    backend. Private Admin and Publisher records must never
+                    appear in the public content index.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION PUBLIC CONTENT INDEX
+         *
+         * Production version:
+         * Load published records from the backend.
+         */
+
+        const publicContent = [
+
+            {
+                title: "मेहनत की राह",
+                type: "shayari",
+                category: "Motivation",
+                description:
+                    "Original four-line motivational Shayari.",
+                link:
+                    "shayari-detail.html?category=motivation&title=%E0%A4%AE%E0%A5%87%E0%A4%B9%E0%A4%A8%E0%A4%A4%20%E0%A4%95%E0%A5%80%20%E0%A4%B0%E0%A4%BE%E0%A4%B9"
+            },
+
+            {
+                title: "छोटी कोशिश, बड़ी सीख",
+                type: "stories",
+                category: "Moral",
+                description:
+                    "An original story about effort, consistency and learning.",
+                link:
+                    "story-detail.html?category=moral"
+            },
+
+            {
+                title: "एक नई सुबह",
+                type: "poetry",
+                category: "Life",
+                description:
+                    "Original poetry about hope, learning and moving forward.",
+                link:
+                    "poetry-detail.html?category=life"
+            },
+
+            {
+                title: "Understanding Our Environment",
+                type: "knowledge",
+                category: "Environment",
+                description:
+                    "A learning article about the environment and sustainable habits.",
+                link:
+                    "knowledge-article.html?category=environment"
+            },
+
+            {
+                title: "Study Material",
+                type: "education",
+                category: "Education",
+                description:
+                    "Class 5–8 study resources and topic-based learning.",
+                link:
+                    "study-material.html"
+            },
+
+            {
+                title: "MCQ Practice",
+                type: "education",
+                category: "Practice",
+                description:
+                    "Multiple-choice practice for educational preparation.",
+                link:
+                    "mcq-practice.html"
+            }
+
+        ];
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        let selectedCategory =
+            params.get("type") ||
+            "all";
+
+        const selectedTopic =
+            params.get("category");
+
+        const categoryNames = {
+
+            shayari: "Shayari",
+            stories: "Stories",
+            poetry: "Poetry",
+            knowledge: "Knowledge Power",
+            education: "Education",
+            all: "Content Category"
+
+        };
+
+        const categoryDescriptions = {
+
+            shayari:
+                "Explore published Shayari from ARS.",
+
+            stories:
+                "Read original stories published by ARS.",
+
+            poetry:
+                "Read original poetry published by ARS.",
+
+            knowledge:
+                "Explore Knowledge Power articles.",
+
+            education:
+                "Explore ARS educational resources.",
+
+            all:
+                "Explore published ARS content by category."
+
+        };
+
+        const categoryTitle =
+            document.getElementById(
+                "categoryTitle"
+            );
+
+        const categoryDescription =
+            document.getElementById(
+                "categoryDescription"
+            );
+
+        const contentList =
+            document.getElementById(
+                "contentList"
+            );
+
+        const contentEmpty =
+            document.getElementById(
+                "contentEmpty"
+            );
+
+        const contentCount =
+            document.getElementById(
+                "contentCount"
+            );
+
+        const categorySearch =
+            document.getElementById(
+                "categorySearch"
+            );
+
+        const filterButtons =
+            document.querySelectorAll(
+                ".filter-btn"
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function renderContent() {
+
+            const query =
+                categorySearch.value
+                    .trim()
+                    .toLowerCase();
+
+            let data =
+                selectedCategory === "all"
+                    ? publicContent
+                    : publicContent.filter(
+                        item =>
+                            item.type ===
+                            selectedCategory
+                    );
+
+            if (selectedTopic) {
+
+                data =
+                    data.filter(
+                        item =>
+                            item.category
+                                .toLowerCase()
+                                .includes(
+                                    selectedTopic.toLowerCase()
+                                ) ||
+                            item.description
+                                .toLowerCase()
+                                .includes(
+                                    selectedTopic.toLowerCase()
+                                )
+                    );
+
+            }
+
+            if (query) {
+
+                data =
+                    data.filter(
+                        item =>
+                            (
+                                item.title +
+                                " " +
+                                item.category +
+                                " " +
+                                item.description
+                            ).toLowerCase()
+                                .includes(query)
+                    );
+
+            }
+
+            contentList.innerHTML = "";
+
+            contentCount.textContent =
+                data.length +
+                " content item(s) found.";
+
+            if (!data.length) {
+
+                contentEmpty.style.display =
+                    "block";
+
+                return;
+
+            }
+
+            contentEmpty.style.display =
+                "none";
+
+            data.forEach(function(item) {
+
+                const card =
+                    document.createElement(
+                        "article"
+                    );
+
+                card.className =
+                    "content-card";
+
+                card.innerHTML = `
+
+                    <span class="content-card-category">
+                        ${escapeHTML(item.category)}
+                    </span>
+
+                    <h2>
+                        ${escapeHTML(item.title)}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(item.description)}
+                    </p>
+
+                    <a href="${escapeHTML(item.link)}">
+                        Open Content →
+                    </a>
+
+                `;
+
+                contentList.appendChild(
+                    card
+                );
+
+            });
+
+        }
+
+        function updateCategoryHeader() {
+
+            const name =
+                categoryNames[
+                    selectedCategory
+                ] ||
+                "Content Category";
+
+            const description =
+                categoryDescriptions[
+                    selectedCategory
+                ] ||
+                "Explore published ARS content.";
+
+            categoryTitle.textContent =
+                name;
+
+            categoryDescription.textContent =
+                description;
+
+            filterButtons.forEach(
+                button => {
+
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.type ===
+                        selectedCategory
+                    );
+
+                }
+            );
+
+        }
+
+        document
+            .getElementById(
+                "categorySearchForm"
+            )
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+                    renderContent();
+
+                }
+            );
+
+        categorySearch.addEventListener(
+            "input",
+            renderContent
+        );
+
+        filterButtons.forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        selectedCategory =
+                            this.dataset.type;
+
+                        const url =
+                            new URL(
+                                window.location.href
+                            );
+
+                        url.searchParams.set(
+                            "type",
+                            selectedCategory
+                        );
+
+                        window.history.replaceState(
+                            {},
+                            "",
+                            url
+                        );
+
+                        updateCategoryHeader();
+                        renderContent();
+
+                    }
+                );
+
+            }
+        );
+
+        updateCategoryHeader();
+        renderContent();
+
+    </script>
+
+</body>
+</html>
