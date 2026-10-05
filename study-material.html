@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Study Material | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Class 5 to 8 study material, notes and learning resources on ARS."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .study-page {
+            padding: 45px 20px 65px;
+        }
+
+        .study-wrapper {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .study-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .study-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .study-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .study-hero p {
+            margin: 0 auto;
+            max-width: 760px;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .class-selector {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .class-selector h2 {
+            margin: 0 0 13px;
+            color: #16705e;
+            font-size: 18px;
+        }
+
+        .class-buttons {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .class-btn {
+            border: 1px solid #d8e2e5;
+            background: #f8fbfc;
+            color: #405760;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .class-btn.active {
+            background: #eef7f7;
+            border-color: #bfded9;
+            color: #166b59;
+        }
+
+        .study-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 17px;
+        }
+
+        .study-count {
+            color: #6b777d;
+            font-size: 13px;
+        }
+
+        .study-search {
+            width: 280px;
+            padding: 10px 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccd7dc;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .study-search:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .subject-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 21px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+        }
+
+        .subject-card h2 {
+            margin: 0 0 8px;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .subject-card p {
+            margin: 0 0 13px;
+            color: #67757c;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+
+        .topic-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .topic-link {
+            display: block;
+            padding: 10px 11px;
+            border-radius: 8px;
+            background: #f8fbfc;
+            border: 1px solid #e0e7ea;
+            text-decoration: none;
+            color: #185b72;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .topic-link:hover {
+            background: #eef7f7;
+        }
+
+        .material-status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #edf9f2;
+            color: #176438;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .study-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        .empty-material {
+            display: none;
+            text-align: center;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 40px 20px;
+            color: #6c797f;
+        }
+
+        @media (max-width: 900px) {
+            .subject-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .study-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .study-hero {
+                padding: 23px 18px;
+            }
+
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .study-search {
+                width: 100%;
+            }
+
+            .study-toolbar {
+                align-items: stretch;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="study-page">
+
+            <div class="study-wrapper">
+
+                <div class="study-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Study Material</h1>
+
+                    <p>
+                        Class 5–8 notes, topic-wise learning resources,
+                        practice support and revision material.
+                    </p>
+
+                </div>
+
+                <div class="class-selector">
+
+                    <h2>Select Your Class</h2>
+
+                    <div class="class-buttons">
+
+                        <button
+                            type="button"
+                            class="class-btn active"
+                            data-class="5"
+                        >
+                            Class 5
+                        </button>
+
+                        <button
+                            type="button"
+                            class="class-btn"
+                            data-class="6"
+                        >
+                            Class 6
+                        </button>
+
+                        <button
+                            type="button"
+                            class="class-btn"
+                            data-class="7"
+                        >
+                            Class 7
+                        </button>
+
+                        <button
+                            type="button"
+                            class="class-btn"
+                            data-class="8"
+                        >
+                            Class 8
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="study-toolbar">
+
+                    <div
+                        class="study-count"
+                        id="studyCount"
+                    >
+                        Showing Class 5 material
+                    </div>
+
+                    <input
+                        type="search"
+                        id="studySearch"
+                        class="study-search"
+                        placeholder="Search subject or topic..."
+                    >
+
+                </div>
+
+                <div
+                    id="subjectGrid"
+                    class="subject-grid"
+                ></div>
+
+                <div
+                    id="emptyMaterial"
+                    class="empty-material"
+                >
+                    No matching study material found.
+                </div>
+
+                <div class="study-note">
+
+                    <strong>Publisher System:</strong>
+                    Study material will be added, edited, saved as draft,
+                    previewed and published through the authorized ARS
+                    Publisher backend. Only published material should appear
+                    on the public student-facing page.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION CONTENT
+         *
+         * Production version:
+         * Load published study material from the ARS backend.
+         */
+
+        const studyData = {
+
+            "5": [
+                {
+                    subject: "Mathematics",
+                    description: "Concepts, examples and practice support.",
+                    topics: [
+                        "Number System",
+                        "Fractions",
+                        "Decimals"
+                    ]
+                },
+                {
+                    subject: "Science",
+                    description: "Basic science concepts and observations.",
+                    topics: [
+                        "Living Things",
+                        "Matter Around Us",
+                        "Environment"
+                    ]
+                },
+                {
+                    subject: "English",
+                    description: "Reading, grammar and language practice.",
+                    topics: [
+                        "Grammar Basics",
+                        "Comprehension",
+                        "Vocabulary"
+                    ]
+                },
+                {
+                    subject: "Hindi",
+                    description: "Language, grammar and comprehension.",
+                    topics: [
+                        "व्याकरण",
+                        "पठन",
+                        "शब्द ज्ञान"
+                    ]
+                },
+                {
+                    subject: "Social Studies",
+                    description: "Society, geography and basic history concepts.",
+                    topics: [
+                        "India",
+                        "Maps",
+                        "Our Society"
+                    ]
+                },
+                {
+                    subject: "Reasoning",
+                    description: "Logical thinking and practice questions.",
+                    topics: [
+                        "Patterns",
+                        "Classification",
+                        "Analogy"
+                    ]
+                }
+            ],
+
+            "6": [],
+            "7": [],
+            "8": []
+
+        };
+
+        let selectedClass = "5";
+
+        const classButtons =
+            document.querySelectorAll(
+                ".class-btn"
+            );
+
+        const subjectGrid =
+            document.getElementById(
+                "subjectGrid"
+            );
+
+        const emptyMaterial =
+            document.getElementById(
+                "emptyMaterial"
+            );
+
+        const studySearch =
+            document.getElementById(
+                "studySearch"
+            );
+
+        const studyCount =
+            document.getElementById(
+                "studyCount"
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function renderStudyMaterial() {
+
+            const query =
+                studySearch.value
+                    .trim()
+                    .toLowerCase();
+
+            let material =
+                studyData[selectedClass] || [];
+
+            if (query) {
+
+                material =
+                    material.filter(
+                        item => {
+
+                            const text =
+                                (
+                                    item.subject +
+                                    " " +
+                                    item.description +
+                                    " " +
+                                    item.topics.join(" ")
+                                ).toLowerCase();
+
+                            return text.includes(query);
+
+                        }
+                    );
+
+            }
+
+            subjectGrid.innerHTML = "";
+
+            studyCount.textContent =
+                "Showing Class " +
+                selectedClass +
+                " material" +
+                (
+                    query
+                        ? " · " + material.length + " matching item(s)"
+                        : ""
+                );
+
+            if (!material.length) {
+
+                emptyMaterial.style.display =
+                    "block";
+
+                return;
+
+            }
+
+            emptyMaterial.style.display =
+                "none";
+
+            material.forEach(function(subject) {
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "subject-card";
+
+                const topics =
+                    subject.topics
+                        .map(
+                            topic =>
+                                `
+                                <a
+                                    href="#"
+                                    class="topic-link"
+                                    data-topic="${escapeHTML(topic)}"
+                                >
+                                    ${escapeHTML(topic)}
+                                </a>
+                                `
+                        )
+                        .join("");
+
+                card.innerHTML = `
+
+                    <h2>
+                        ${escapeHTML(subject.subject)}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(subject.description)}
+                    </p>
+
+                    <div class="topic-list">
+                        ${topics}
+                    </div>
+
+                    <span class="material-status">
+                        Learning Material
+                    </span>
+
+                `;
+
+                subjectGrid.appendChild(card);
+
+            });
+
+            document
+                .querySelectorAll("[data-topic]")
+                .forEach(function(link) {
+
+                    link.addEventListener(
+                        "click",
+                        function(event) {
+
+                            event.preventDefault();
+
+                            /*
+                             * Production:
+                             * Open the selected published topic/page
+                             * from the backend content record.
+                             */
+
+                            alert(
+                                "Topic selected: " +
+                                this.dataset.topic
+                            );
+
+                        }
+                    );
+
+                });
+
+        }
+
+        classButtons.forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    classButtons.forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+                    this.classList.add("active");
+
+                    selectedClass =
+                        this.dataset.class;
+
+                    studySearch.value = "";
+
+                    renderStudyMaterial();
+
+                }
+            );
+
+        });
+
+        studySearch.addEventListener(
+            "input",
+            renderStudyMaterial
+        );
+
+        renderStudyMaterial();
+
+    </script>
+
+</body>
+</html>
