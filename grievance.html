@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Grievance & Support | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Grievance, support and complaint process for ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .grievance-page {
+            padding: 45px 20px 65px;
+        }
+
+        .grievance-wrapper {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .grievance-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dae6e8;
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .grievance-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .grievance-hero h1 {
+            color: #123b5d;
+            margin-bottom: 8px;
+        }
+
+        .grievance-hero p {
+            color: #65737b;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .grievance-card {
+            background: #ffffff;
+            border: 1px solid #e0e7ea;
+            border-radius: 15px;
+            padding: 27px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .grievance-card h2 {
+            color: #16705e;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .grievance-card p,
+        .grievance-card li {
+            color: #4f5d65;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .grievance-card ol,
+        .grievance-card ul {
+            padding-left: 23px;
+        }
+
+        .grievance-highlight {
+            background: #eef7fb;
+            border-left: 4px solid #1877a6;
+            border-radius: 8px;
+            padding: 15px 17px;
+            color: #405a66;
+            line-height: 1.7;
+        }
+
+        .grievance-form {
+            display: grid;
+            gap: 17px;
+            margin-top: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            color: #29404d;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 145px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .submit-btn {
+            padding: 13px 20px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.94;
+        }
+
+        .form-message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-message.info {
+            display: block;
+            background: #eef7fb;
+            color: #17546c;
+        }
+
+        .form-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #9b2626;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+            margin-top: 18px;
+        }
+
+        .support-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            padding: 17px;
+            text-align: center;
+        }
+
+        .support-box strong {
+            display: block;
+            color: #185b72;
+            margin-bottom: 7px;
+        }
+
+        .support-box span {
+            color: #69767d;
+            font-size: 13px;
+        }
+
+        .grievance-date {
+            text-align: center;
+            color: #7a858b;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 750px) {
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grievance-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .grievance-card,
+            .grievance-hero {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="grievance-page">
+
+            <div class="grievance-wrapper">
+
+                <div class="grievance-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Grievance & Support</h1>
+
+                    <p>
+                        Submit a concern, complaint, technical issue or
+                        service-related request to ARS.
+                    </p>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>1. Purpose</h2>
+
+                    <p>
+                        ARS provides this channel for users who need to
+                        report service issues, certificate concerns,
+                        examination problems, account issues, content
+                        concerns or other legitimate grievances.
+                    </p>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>2. Common Support Categories</h2>
+
+                    <div class="support-grid">
+
+                        <div class="support-box">
+                            <strong>Exam</strong>
+                            <span>
+                                Registration, attempt or technical concerns
+                            </span>
+                        </div>
+
+                        <div class="support-box">
+                            <strong>Certificate</strong>
+                            <span>
+                                Verification or record-related concerns
+                            </span>
+                        </div>
+
+                        <div class="support-box">
+                            <strong>Account</strong>
+                            <span>
+                                Login and profile-related issues
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>3. Recommended Complaint Information</h2>
+
+                    <p>
+                        To help ARS investigate a complaint, include
+                        accurate information such as:
+                    </p>
+
+                    <ul>
+                        <li>Name and contact information</li>
+                        <li>Relevant registration or application ID</li>
+                        <li>Exam or certificate information where applicable</li>
+                        <li>Date and approximate time of the issue</li>
+                        <li>A clear description of the problem</li>
+                        <li>Relevant supporting information where appropriate</li>
+                    </ul>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>4. Review Process</h2>
+
+                    <ol>
+
+                        <li>
+                            The grievance is received through the available
+                            ARS support channel.
+                        </li>
+
+                        <li>
+                            Relevant details are reviewed.
+                        </li>
+
+                        <li>
+                            Additional information may be requested where
+                            necessary.
+                        </li>
+
+                        <li>
+                            The issue is assigned to an authorized person
+                            or department where applicable.
+                        </li>
+
+                        <li>
+                            The outcome or next step is communicated through
+                            the available contact method.
+                        </li>
+
+                    </ol>
+
+                    <div class="grievance-highlight">
+
+                        Important examination, result and certificate
+                        decisions should be handled through the applicable
+                        authorized workflow and should be recorded where
+                        an audit record is required.
+
+                    </div>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>5. Submit a Grievance</h2>
+
+                    <form
+                        id="grievanceForm"
+                        class="grievance-form"
+                    >
+
+                        <div class="form-group">
+
+                            <label for="grievanceName">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="grievanceName"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="grievanceEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="grievanceEmail"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="grievanceCategory">
+                                Category
+                            </label>
+
+                            <select
+                                id="grievanceCategory"
+                                required
+                            >
+
+                                <option value="">
+                                    Select category
+                                </option>
+
+                                <option value="exam">
+                                    Examination
+                                </option>
+
+                                <option value="result">
+                                    Result
+                                </option>
+
+                                <option value="certificate">
+                                    Certificate
+                                </option>
+
+                                <option value="account">
+                                    Account
+                                </option>
+
+                                <option value="join">
+                                    Join ARS
+                                </option>
+
+                                <option value="content">
+                                    Content
+                                </option>
+
+                                <option value="technical">
+                                    Technical Issue
+                                </option>
+
+                                <option value="other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="grievanceId">
+                                Registration / Application / Certificate ID
+                                <span style="font-weight:400;">
+                                    (optional)
+                                </span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="grievanceId"
+                                placeholder="Enter relevant ID"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="grievanceMessage">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="grievanceMessage"
+                                placeholder="Describe your concern clearly..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                        >
+                            Submit Grievance
+                        </button>
+
+                        <div
+                            id="grievanceMessageBox"
+                            class="form-message"
+                        ></div>
+
+                    </form>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>6. Important Note</h2>
+
+                    <p>
+                        Do not submit passwords, OTPs, payment card details,
+                        private authentication credentials or other
+                        unnecessary sensitive information through a grievance
+                        form.
+                    </p>
+
+                    <p>
+                        For urgent account-security concerns, use the official
+                        ARS support channel as soon as possible.
+                    </p>
+
+                </div>
+
+                <div class="grievance-card">
+
+                    <h2>7. Contact</h2>
+
+                    <p>
+                        General enquiries can also be submitted through the
+                        official ARS Contact page.
+                    </p>
+
+                    <p>
+                        <a href="contact.html">
+                            Go to ARS Contact
+                        </a>
+                    </p>
+
+                </div>
+
+                <div class="grievance-date">
+
+                    Last Updated:
+                    <span id="grievanceDate"></span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        document.getElementById("grievanceDate").textContent =
+            new Date().toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            });
+
+        const grievanceForm =
+            document.getElementById("grievanceForm");
+
+        const grievanceMessageBox =
+            document.getElementById("grievanceMessageBox");
+
+        grievanceForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            const name =
+                document.getElementById("grievanceName").value.trim();
+
+            const email =
+                document.getElementById("grievanceEmail").value.trim();
+
+            const category =
+                document.getElementById("grievanceCategory").value;
+
+            const message =
+                document.getElementById("grievanceMessage").value.trim();
+
+            if (!name || !email || !category || !message) {
+
+                grievanceMessageBox.textContent =
+                    "Please complete all required fields.";
+
+                grievanceMessageBox.className =
+                    "form-message error";
+
+                return;
+            }
+
+            /*
+             * BACKEND INTEGRATION
+             *
+             * Future flow:
+             *
+             * Form
+             *   ↓
+             * Secure backend
+             *   ↓
+             * Grievance/Application ID
+             *   ↓
+             * Admin/Priority assignment
+             *   ↓
+             * Status tracking
+             *   ↓
+             * Response
+             *
+             * Important:
+             * Do not rely only on frontend JavaScript for
+             * complaint storage or access control.
+             */
+
+            grievanceMessageBox.textContent =
+                "Your grievance form is ready for secure backend submission.";
+
+            grievanceMessageBox.className =
+                "form-message info";
+
+        });
+
+    </script>
+
+</body>
+</html>
