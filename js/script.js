@@ -451,3 +451,33 @@ function initSmoothInternalLinks() {
    ========================================================= */
 
 window.ARS = ARS;
+
+/* =========================================================
+   ARS — CENTRAL JAVASCRIPT MODULE LOADER
+   ========================================================= */
+
+(function loadARSModules() {
+
+  "use strict";
+
+  const modules = [
+    "site-config.js",
+    "page-loader.js",
+    "pwa-register.js"
+  ];
+
+  modules.forEach(function (file) {
+
+    const script =
+      document.createElement("script");
+
+    script.src =
+      "js/" + file;
+
+    script.defer = true;
+
+    document.head.appendChild(script);
+
+  });
+
+})();
