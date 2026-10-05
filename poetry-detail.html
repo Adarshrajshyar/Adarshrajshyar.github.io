@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Poetry | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Read original poetry published on ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .poetry-detail-page {
+            padding: 45px 20px 65px;
+        }
+
+        .poetry-detail-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .poetry-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+        }
+
+        .poetry-header {
+            text-align: center;
+            border-bottom: 1px solid #e5eaec;
+            padding-bottom: 24px;
+            margin-bottom: 25px;
+        }
+
+        .poetry-header img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 9px;
+        }
+
+        .poetry-category {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #166b59;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .poetry-header h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+            font-size: 31px;
+        }
+
+        .poetry-header p {
+            margin: 0;
+            color: #6a777d;
+            line-height: 1.6;
+        }
+
+        .poetry-content {
+            max-width: 720px;
+            margin: auto;
+            color: #465861;
+            line-height: 2;
+            font-size: 18px;
+        }
+
+        .poetry-stanza {
+            margin-bottom: 25px;
+        }
+
+        .poetry-stanza p {
+            margin: 0 0 5px;
+        }
+
+        .poetry-highlight {
+            background: #eef7fb;
+            border-left: 4px solid #1877a6;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 22px 0;
+            color: #405a66;
+            line-height: 1.8;
+        }
+
+        .poetry-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+            padding-top: 22px;
+            border-top: 1px solid #e5eaec;
+        }
+
+        .poetry-meta-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 9px;
+            padding: 13px;
+        }
+
+        .poetry-meta-box span {
+            display: block;
+            color: #748087;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .poetry-meta-box strong {
+            color: #294754;
+            font-size: 13px;
+        }
+
+        .poetry-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .poetry-btn {
+            display: inline-block;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            background: #eef3f5;
+            color: #405760;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .poetry-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .poetry-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+
+            .poetry-detail-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .poetry-card {
+                padding: 24px 17px;
+            }
+
+            .poetry-header h1 {
+                font-size: 25px;
+            }
+
+            .poetry-content {
+                font-size: 16px;
+                line-height: 1.9;
+            }
+
+            .poetry-meta {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="poetry-detail-page">
+
+            <div class="poetry-detail-wrapper">
+
+                <article class="poetry-card">
+
+                    <header class="poetry-header">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                        >
+
+                        <div
+                            id="poetryCategory"
+                            class="poetry-category"
+                        >
+                            Life
+                        </div>
+
+                        <h1 id="poetryTitle">
+                            एक नई सुबह
+                        </h1>
+
+                        <p>
+                            Original poetry from ARS — Adarsh Ke Alfaz
+                        </p>
+
+                    </header>
+
+                    <div class="poetry-content">
+
+                        <div class="poetry-stanza">
+
+                            <p>
+                                जब रात लंबी लगती है,
+                            </p>
+
+                            <p>
+                                तब सुबह पास ही होती है।
+                            </p>
+
+                            <p>
+                                छोटी-सी आशा मन में रखो,
+                            </p>
+
+                            <p>
+                                नई राह फिर तैयार होती है।
+                            </p>
+
+                        </div>
+
+                        <div class="poetry-stanza">
+
+                            <p>
+                                गिरकर सीखो, रुककर सोचो,
+                            </p>
+
+                            <p>
+                                फिर अपने कदम बढ़ाना।
+                            </p>
+
+                            <p>
+                                कल जैसा दिन हो या न हो,
+                            </p>
+
+                            <p>
+                                आज को बेहतर बनाना।
+                            </p>
+
+                        </div>
+
+                        <div class="poetry-highlight">
+
+                            <strong>
+                                कविता का भाव:
+                            </strong>
+
+                            कठिन समय के बीच आशा, सीख और
+                            आगे बढ़ने की भावना को बनाए रखना।
+
+                        </div>
+
+                    </div>
+
+                    <div class="poetry-meta">
+
+                        <div class="poetry-meta-box">
+
+                            <span>
+                                Category
+                            </span>
+
+                            <strong id="poetryMetaCategory">
+                                Life
+                            </strong>
+
+                        </div>
+
+                        <div class="poetry-meta-box">
+
+                            <span>
+                                Format
+                            </span>
+
+                            <strong>
+                                Original Poetry
+                            </strong>
+
+                        </div>
+
+                        <div class="poetry-meta-box">
+
+                            <span>
+                                Status
+                            </span>
+
+                            <strong>
+                                Published Content
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="poetry-actions">
+
+                        <a
+                            href="poetry.html"
+                            class="poetry-btn primary"
+                        >
+                            More Poetry
+                        </a>
+
+                        <button
+                            type="button"
+                            class="poetry-btn"
+                            id="sharePoetry"
+                        >
+                            Share
+                        </button>
+
+                        <a
+                            href="search.html"
+                            class="poetry-btn"
+                        >
+                            Search ARS
+                        </a>
+
+                    </div>
+
+                    <div class="poetry-note">
+
+                        <strong>Publisher Note:</strong>
+                        In production, the selected poem should be loaded
+                        dynamically from the authorized ARS content database.
+                        Only published poetry should be available to public
+                        users.
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const category =
+            params.get("category");
+
+        const title =
+            params.get("title");
+
+        const categoryMap = {
+
+            life: "Life",
+            motivation: "Motivation",
+            emotional: "Emotional",
+            friendship: "Friendship",
+            nature: "Nature",
+            inspirational: "Inspirational",
+            educational: "Educational"
+
+        };
+
+        if (
+            category &&
+            categoryMap[category]
+        ) {
+
+            document.getElementById(
+                "poetryCategory"
+            ).textContent =
+                categoryMap[category];
+
+            document.getElementById(
+                "poetryMetaCategory"
+            ).textContent =
+                categoryMap[category];
+
+        }
+
+        if (title) {
+
+            document.getElementById(
+                "poetryTitle"
+            ).textContent =
+                title;
+
+        }
+
+        document
+            .getElementById("sharePoetry")
+            .addEventListener(
+                "click",
+                async function() {
+
+                    const shareData = {
+
+                        title:
+                            document.title,
+
+                        text:
+                            document.getElementById(
+                                "poetryTitle"
+                            ).textContent,
+
+                        url:
+                            window.location.href
+
+                    };
+
+                    try {
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share(
+                                shareData
+                            );
+
+                        } else {
+
+                            await navigator.clipboard.writeText(
+                                window.location.href
+                            );
+
+                            alert(
+                                "Page link copied."
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        /*
+                         * Sharing cancelled or unsupported.
+                         */
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
