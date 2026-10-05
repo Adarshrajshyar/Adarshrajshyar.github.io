@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Contact ARS — Adarsh Ke Alfaz for questions, suggestions, support and partnership enquiries."
+  >
+
+  <meta
+    name="author"
+    content="Adarsh Raj Shayar"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b4f8a"
+  >
+
+  <title>Contact | ARS — Adarsh Ke Alfaz</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="assets/logo.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+
+    <div class="container navbar">
+
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="ARS Home"
+      >
+
+        <div class="brand-logo-wrap">
+
+          <img
+            src="assets/logo.png"
+            alt="ARS Logo"
+            class="brand-logo"
+          >
+
+        </div>
+
+        <div class="brand-text">
+
+          <strong>ARS</strong>
+
+          <span>
+            Adarsh Ke Alfaz
+          </span>
+
+          <small>
+            Education • Knowledge • Power
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open Menu"
+        aria-expanded="false"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+
+      <nav
+        class="main-nav"
+        id="mainNav"
+        aria-label="Main Navigation"
+      >
+
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="knowledge-power.html">Knowledge Power</a>
+        <a href="exams.html">Exams</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="poetry.html">Poetry</a>
+        <a href="biography.html">Biography</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="updates.html">Updates</a>
+
+        <a
+          href="join-ars.html"
+          class="nav-special"
+        >
+          Join ARS
+        </a>
+
+        <a href="certificate.html">Certificate</a>
+        <a href="about.html">About</a>
+
+        <a
+          href="contact.html"
+          class="active"
+        >
+          Contact
+        </a>
+
+        <a href="sponsor.html">Sponsor</a>
+
+        <button
+          type="button"
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle Theme"
+        >
+          🌙
+        </button>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="section page-hero">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            CONTACT ARS
+          </span>
+
+          <h1>
+            हमसे संपर्क करें
+          </h1>
+
+          <p>
+            प्रश्न, सुझाव, technical support या general enquiry
+            के लिए message भेजें।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT CONTENT -->
+    <section class="section">
+
+      <div class="container">
+
+        <div class="certificate-box">
+
+          <!-- CONTACT FORM -->
+          <div class="certificate-copy">
+
+            <span class="eyebrow">
+              SEND MESSAGE
+            </span>
+
+            <h2>
+              अपना संदेश भेजें
+            </h2>
+
+            <p>
+              नीचे की form भरकर ARS से संपर्क करें।
+            </p>
+
+
+            <form
+              id="contactForm"
+              novalidate
+              style="margin-top:24px;"
+            >
+
+              <div
+                style="
+                  display:grid;
+                  grid-template-columns:repeat(2,minmax(0,1fr));
+                  gap:14px;
+                "
+              >
+
+                <div>
+                  <label
+                    for="contactName"
+                    style="
+                      display:block;
+                      margin-bottom:6px;
+                      font-size:13px;
+                      font-weight:800;
+                      color:var(--heading);
+                    "
+                  >
+                    Name
+                  </label>
+
+                  <input
+                    id="contactName"
+                    name="name"
+                    type="text"
+                    autocomplete="name"
+                    required
+                    placeholder="अपना नाम"
+                    style="
+                      width:100%;
+                      padding:13px 14px;
+                      border:1px solid var(--border);
+                      border-radius:12px;
+                      background:var(--white);
+                      color:var(--text);
+                      outline:none;
+                    "
+                  >
+
+                </div>
+
+
+                <div>
+
+                  <label
+                    for="contactEmail"
+                    style="
+                      display:block;
+                      margin-bottom:6px;
+                      font-size:13px;
+                      font-weight:800;
+                      color:var(--heading);
+                    "
+                  >
+                    Email
+                  </label>
+
+                  <input
+                    id="contactEmail"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    placeholder="your@email.com"
+                    style="
+                      width:100%;
+                      padding:13px 14px;
+                      border:1px solid var(--border);
+                      border-radius:12px;
+                      background:var(--white);
+                      color:var(--text);
+                      outline:none;
+                    "
+                  >
+
+                </div>
+
+              </div>
+
+
+              <div style="margin-top:14px;">
+
+                <label
+                  for="contactSubject"
+                  style="
+                    display:block;
+                    margin-bottom:6px;
+                    font-size:13px;
+                    font-weight:800;
+                    color:var(--heading);
+                  "
+                >
+                  Subject
+                </label>
+
+                <input
+                  id="contactSubject"
+                  name="subject"
+                  type="text"
+                  placeholder="Message का subject"
+                  style="
+                    width:100%;
+                    padding:13px 14px;
+                    border:1px solid var(--border);
+                    border-radius:12px;
+                    background:var(--white);
+                    color:var(--text);
+                    outline:none;
+                  "
+                >
+
+              </div>
+
+
+              <div style="margin-top:14px;">
+
+                <label
+                  for="contactMessage"
+                  style="
+                    display:block;
+                    margin-bottom:6px;
+                    font-size:13px;
+                    font-weight:800;
+                    color:var(--heading);
+                  "
+                >
+                  Message
+                </label>
+
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  rows="7"
+                  required
+                  placeholder="अपना message लिखें..."
+                  style="
+                    width:100%;
+                    padding:13px 14px;
+                    border:1px solid var(--border);
+                    border-radius:12px;
+                    background:var(--white);
+                    color:var(--text);
+                    outline:none;
+                    resize:vertical;
+                  "
+                ></textarea>
+
+              </div>
+
+
+              <div
+                id="contactStatus"
+                role="status"
+                aria-live="polite"
+                style="
+                  display:none;
+                  margin-top:14px;
+                  padding:12px 14px;
+                  border-radius:12px;
+                  background:var(--green-50);
+                  color:var(--green-900);
+                  font-size:13px;
+                "
+              ></div>
+
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="margin-top:17px;"
+              >
+                📩 Send Message
+              </button>
+
+            </form>
+
+          </div>
+
+
+          <!-- CONTACT INFO -->
+          <div>
+
+            <div class="section-heading left">
+
+              <span>
+                SUPPORT
+              </span>
+
+              <h2>
+                ARS से जुड़े रहें
+              </h2>
+
+            </div>
+
+
+            <div class="quick-grid">
+
+              <article class="quick-card">
+
+                <div class="quick-icon">
+                  📩
+                </div>
+
+                <h3>
+                  General Enquiry
+                </h3>
+
+                <p>
+                  General questions और suggestions के लिए contact form का उपयोग करें।
+                </p>
+
+              </article>
+
+
+              <article class="quick-card">
+
+                <div class="quick-icon">
+                  🛠️
+                </div>
+
+                <h3>
+                  Technical Support
+                </h3>
+
+                <p>
+                  Login, registration, exam और certificate जैसी technical problems बताएं।
+                </p>
+
+              </article>
+
+
+              <article class="quick-card">
+
+                <div class="quick-icon">
+                  🤝
+                </div>
+
+                <h3>
+                  Partnership
+                </h3>
+
+                <p>
+                  Sponsor या partnership के लिए dedicated Sponsor section देखें।
+                </p>
+
+                <a
+                  href="sponsor.html"
+                  class="text-link"
+                >
+                  Sponsor →
+                </a>
+
+              </article>
+
+
+              <article class="quick-card">
+
+                <div class="quick-icon">
+                  🔒
+                </div>
+
+                <h3>
+                  Private Area
+                </h3>
+
+                <p>
+                  Admin और Publisher access केवल website के Private area से होगा।
+                </p>
+
+              </article>
+
+            </div>
+
+
+            <div
+              class="about-founder-line"
+              style="margin-top:20px;"
+            >
+
+              <strong>
+                Founder:
+              </strong>
+
+              Adarsh Raj Shayar
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SOCIAL -->
+    <section class="section knowledge-section">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            SOCIAL MEDIA
+          </span>
+
+          <h2>
+            Connect with ARS
+          </h2>
+
+        </div>
+
+
+        <div class="social-grid">
+
+          <a
+            href="https://www.instagram.com/adarshkealfaz_/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-card instagram"
+          >
+
+            <span>
+              ◎
+            </span>
+
+            <strong>
+              Instagram
+            </strong>
+
+            <small>
+              @adarshkealfaz_
+            </small>
+
+          </a>
+
+
+          <a
+            href="https://www.youtube.com/@Adarshshyari"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-card youtube"
+          >
+
+            <span>
+              ▶
+            </span>
+
+            <strong>
+              YouTube
+            </strong>
+
+            <small>
+              ARS Channel
+            </small>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT NOTICE -->
+    <section class="section">
+
+      <div class="container">
+
+        <div class="updates-empty">
+
+          <div class="empty-icon">
+            📬
+          </div>
+
+          <h3>
+            Message Delivery
+          </h3>
+
+          <p>
+            Production version में contact form backend/email service
+            से connect किया जाएगा, ताकि message सुरक्षित रूप से ARS तक पहुँचे
+            और reply workflow बनाया जा सके।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <div class="footer-logo-wrap">
+          <img
+            src="assets/logo.png"
+            alt="ARS Logo"
+          >
+        </div>
+
+        <h3>
+          ARS — Adarsh Ke Alfaz
+        </h3>
+
+        <p>
+          Education • Knowledge • Power • Creativity
+        </p>
+
+        <p class="footer-founder">
+          Founder: Adarsh Raj Shayar
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Explore</h4>
+
+        <a href="education.html">Education</a>
+        <a href="knowledge-power.html">Knowledge Power</a>
+        <a href="exams.html">Exams</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>ARS</h4>
+
+        <a href="poetry.html">Poetry</a>
+        <a href="biography.html">Biography</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="join-ars.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Support</h4>
+
+        <a href="about.html">About</a>
+        <a href="sponsor.html">Sponsor</a>
+        <a href="policy.html">Privacy & Policy</a>
+        <a href="terms.html">Terms</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span>
+        ARS — Adarsh Ke Alfaz.
+        All Rights Reserved.
+      </p>
+
+      <a
+        href="private.html"
+        class="private-link"
+      >
+        🔒 Private
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <div
+    id="arsToast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script src="js/script.js"></script>
+
+  <script>
+
+    "use strict";
+
+
+    const contactForm =
+      document.getElementById(
+        "contactForm"
+      );
+
+    const contactStatus =
+      document.getElementById(
+        "contactStatus"
+      );
+
+
+    contactForm?.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+
+        const name =
+          document.getElementById(
+            "contactName"
+          ).value.trim();
+
+
+        const email =
+          document.getElementById(
+            "contactEmail"
+          ).value.trim();
+
+
+        const message =
+          document.getElementById(
+            "contactMessage"
+          ).value.trim();
+
+
+        if (
+          !name ||
+          !email ||
+          !message
+        ) {
+
+          contactStatus.style.display =
+            "block";
+
+          contactStatus.textContent =
+            "कृपया Name, Email और Message भरें।";
+
+          return;
+
+        }
+
+
+        contactStatus.style.display =
+          "block";
+
+        contactStatus.textContent =
+          "Form तैयार है। Production version में इसे secure backend/email service से connect किया जाएगा।";
+
+
+        contactForm.reset();
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
