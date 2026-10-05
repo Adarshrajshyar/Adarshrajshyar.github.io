@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Digital Scorecard | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Digital examination scorecard for ARS students."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .scorecard-page {
+            padding: 40px 20px 60px;
+            background: #f4f7f8;
+        }
+
+        .scorecard-wrapper {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .scorecard {
+            background: white;
+            border: 1px solid #d9e3e6;
+            border-radius: 6px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .scorecard-header {
+            text-align: center;
+            border-bottom: 2px solid #e1e8ea;
+            padding-bottom: 22px;
+            margin-bottom: 22px;
+        }
+
+        .scorecard-header img {
+            width: 85px;
+            height: 85px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+
+        .scorecard-header h1 {
+            color: #123b5d;
+            margin: 0 0 7px;
+        }
+
+        .scorecard-header h2 {
+            color: #16705e;
+            font-size: 18px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .scorecard-header p {
+            color: #68757d;
+            margin: 8px 0 0;
+        }
+
+        .scorecard-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border: 1px solid #dfe7ea;
+            margin-bottom: 22px;
+        }
+
+        .info-cell {
+            padding: 13px 15px;
+            border-bottom: 1px solid #dfe7ea;
+        }
+
+        .info-cell:nth-child(odd) {
+            border-right: 1px solid #dfe7ea;
+        }
+
+        .info-cell span {
+            display: block;
+            font-size: 11px;
+            color: #748087;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .info-cell strong {
+            color: #274654;
+            font-size: 14px;
+        }
+
+        .marks-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 22px;
+        }
+
+        .marks-table th,
+        .marks-table td {
+            border: 1px solid #dfe7ea;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .marks-table th {
+            background: #f4f8f9;
+            color: #385360;
+        }
+
+        .marks-table td:first-child,
+        .marks-table th:first-child {
+            text-align: left;
+        }
+
+        .total-row {
+            font-weight: 800;
+            background: #eef7f7;
+            color: #145f50;
+        }
+
+        .final-score {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .final-box {
+            text-align: center;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .final-box span {
+            display: block;
+            color: #6d797f;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .final-box strong {
+            color: #16705e;
+            font-size: 25px;
+        }
+
+        .scorecard-footer-note {
+            border-top: 1px solid #e0e7ea;
+            padding-top: 18px;
+            color: #67757c;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .scorecard-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .score-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 18px;
+            background: #eef3f5;
+            color: #405760;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .score-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        @media print {
+
+            body {
+                background: white !important;
+            }
+
+            .site-header,
+            .site-footer,
+            .scorecard-actions {
+                display: none !important;
+            }
+
+            .scorecard-page {
+                padding: 0 !important;
+                background: white !important;
+            }
+
+            .scorecard-wrapper {
+                max-width: none;
+            }
+
+            .scorecard {
+                box-shadow: none;
+                border: none;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .scorecard-page {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .scorecard {
+                padding: 22px 15px;
+            }
+
+            .scorecard-info {
+                grid-template-columns: 1fr;
+            }
+
+            .info-cell:nth-child(odd) {
+                border-right: none;
+            }
+
+            .final-score {
+                grid-template-columns: 1fr;
+            }
+
+            .marks-table {
+                min-width: 650px;
+            }
+
+            .table-scroll {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="scorecard-page">
+
+            <div class="scorecard-wrapper">
+
+                <div class="scorecard" id="scorecard">
+
+                    <div class="scorecard-header">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                        >
+
+                        <h1>ARS — Adarsh Ke Alfaz</h1>
+
+                        <h2>
+                            Digital Examination Scorecard
+                        </h2>
+
+                        <p>
+                            ARS Education Talent Research Examination —
+                            Stage 1
+                        </p>
+
+                    </div>
+
+                    <!-- Student Information -->
+                    <div class="scorecard-info">
+
+                        <div class="info-cell">
+                            <span>Student Name</span>
+                            <strong id="studentName">
+                                ARS Student
+                            </strong>
+                        </div>
+
+                        <div class="info-cell">
+                            <span>Registration ID</span>
+                            <strong id="registrationId">
+                                ARS-XXXXXXXX
+                            </strong>
+                        </div>
+
+                        <div class="info-cell">
+                            <span>Class</span>
+                            <strong id="studentClass">
+                                Class —
+                            </strong>
+                        </div>
+
+                        <div class="info-cell">
+                            <span>Exam Stage</span>
+                            <strong>
+                                Stage 1
+                            </strong>
+                        </div>
+
+                        <div class="info-cell">
+                            <span>Exam Date</span>
+                            <strong>
+                                13 December 2026
+                            </strong>
+                        </div>
+
+                        <div class="info-cell">
+                            <span>Result Status</span>
+                            <strong id="resultStatus">
+                                Published
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- Marks -->
+                    <div class="table-scroll">
+
+                        <table class="marks-table">
+
+                            <thead>
+
+                                <tr>
+                                    <th>Particular</th>
+                                    <th>Count</th>
+                                    <th>Marks</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+                                    <td>Total Questions</td>
+                                    <td>60</td>
+                                    <td>120</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Correct Answers</td>
+                                    <td id="correctCount">—</td>
+                                    <td id="correctMarks">—</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Incorrect Answers</td>
+                                    <td id="wrongCount">—</td>
+                                    <td id="wrongMarks">0</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Unanswered</td>
+                                    <td id="unansweredCount">—</td>
+                                    <td>0</td>
+                                </tr>
+
+                                <tr class="total-row">
+                                    <td>Final Score</td>
+                                    <td>—</td>
+                                    <td id="finalMarks">0 / 120</td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Final -->
+                    <div class="final-score">
+
+                        <div class="final-box">
+
+                            <span>Final Marks</span>
+
+                            <strong id="finalMarksBox">
+                                0
+                            </strong>
+
+                        </div>
+
+                        <div class="final-box">
+
+                            <span>Percentage</span>
+
+                            <strong id="percentage">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div class="final-box">
+
+                            <span>Status</span>
+
+                            <strong id="qualification">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="scorecard-footer-note">
+
+                        This digital scorecard is intended to represent
+                        the officially published examination result.
+                        Authenticity should be confirmed through the
+                        official ARS result/certificate verification system.
+
+                    </div>
+
+                </div>
+
+                <div class="scorecard-actions">
+
+                    <button
+                        type="button"
+                        class="score-btn primary"
+                        id="printScorecard"
+                    >
+                        Print / Save PDF
+                    </button>
+
+                    <a
+                        href="exam-result.html"
+                        class="score-btn"
+                    >
+                        Back to Result
+                    </a>
+
+                    <a
+                        href="student-dashboard.html"
+                        class="score-btn"
+                    >
+                        Dashboard
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * BACKEND DATA
+         *
+         * In production these values must be loaded from
+         * the authenticated student's published result.
+         */
+
+        const scoreData = {
+            published: false,
+            name: "ARS Student",
+            registrationId: "ARS-XXXXXXXX",
+            studentClass: "Class —",
+            correct: 0,
+            wrong: 0,
+            unanswered: 60,
+            score: 0,
+            totalMarks: 120,
+            qualified: false
+        };
+
+        const percentage =
+            scoreData.totalMarks > 0
+                ? (
+                    scoreData.score /
+                    scoreData.totalMarks *
+                    100
+                ).toFixed(2)
+                : "0.00";
+
+        document.getElementById("studentName").textContent =
+            scoreData.name;
+
+        document.getElementById("registrationId").textContent =
+            scoreData.registrationId;
+
+        document.getElementById("studentClass").textContent =
+            scoreData.studentClass;
+
+        document.getElementById("correctCount").textContent =
+            scoreData.correct;
+
+        document.getElementById("correctMarks").textContent =
+            scoreData.correct * 2;
+
+        document.getElementById("wrongCount").textContent =
+            scoreData.wrong;
+
+        document.getElementById("unansweredCount").textContent =
+            scoreData.unanswered;
+
+        document.getElementById("finalMarks").textContent =
+            scoreData.score + " / " + scoreData.totalMarks;
+
+        document.getElementById("finalMarksBox").textContent =
+            scoreData.score;
+
+        document.getElementById("percentage").textContent =
+            percentage + "%";
+
+        document.getElementById("qualification").textContent =
+            scoreData.published
+                ? (
+                    scoreData.qualified
+                        ? "Qualified"
+                        : "Not Qualified"
+                )
+                : "—";
+
+        document.getElementById("resultStatus").textContent =
+            scoreData.published
+                ? "Published"
+                : "Not Published";
+
+        document
+            .getElementById("printScorecard")
+            .addEventListener("click", function() {
+
+                window.print();
+
+            });
+
+    </script>
+
+</body>
+</html>
