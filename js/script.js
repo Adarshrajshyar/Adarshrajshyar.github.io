@@ -67,7 +67,9 @@ document.addEventListener(
     initTheme();
 
     initBackToTop();
-
+     
+    initFounderNavigation();
+     
     initActiveNavigation();
 
     initAssetFallbacks();
@@ -481,3 +483,62 @@ window.ARS = ARS;
   });
 
 })();
+
+/* =========================================================
+   FOUNDER NAVIGATION
+   ========================================================= */
+
+function initFounderNavigation() {
+
+  const nav =
+    document.getElementById("mainNav");
+
+  if (!nav) {
+    return;
+  }
+
+  /* Prevent duplicate Founder links */
+
+  const existingFounder =
+    nav.querySelector(
+      'a[href="founder.html"]'
+    );
+
+  if (existingFounder) {
+    return;
+  }
+
+  /* Create Founder link */
+
+  const founderLink =
+    document.createElement("a");
+
+  founderLink.href = "founder.html";
+  founderLink.textContent = "Founder";
+
+  /*
+   * Place Founder after Biography
+   */
+
+  const biographyLink =
+    nav.querySelector(
+      'a[href="biography.html"]'
+    );
+
+  if (biographyLink) {
+
+    biographyLink.insertAdjacentElement(
+      "afterend",
+      founderLink
+    );
+
+  } else {
+
+    nav.appendChild(
+      founderLink
+    );
+
+  }
+
+}
+
