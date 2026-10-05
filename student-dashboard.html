@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | ARS — Adarsh Ke Alfaz</title>
+    <meta
+        name="description"
+        content="Student dashboard for ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .dashboard-page {
+            padding: 40px 20px 60px;
+        }
+
+        .dashboard-wrapper {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .dashboard-top {
+            background: linear-gradient(135deg, #edf9f5, #edf7fb);
+            border: 1px solid #dbe8e8;
+            border-radius: 18px;
+            padding: 28px;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-top h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .dashboard-top p {
+            margin: 0;
+            color: #58656d;
+        }
+
+        .student-name {
+            font-weight: 800;
+            color: #16725f;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .dashboard-stat {
+            background: #ffffff;
+            border: 1px solid #e2e8eb;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-stat h3 {
+            margin: 0 0 8px;
+            font-size: 14px;
+            color: #68757d;
+        }
+
+        .dashboard-stat strong {
+            font-size: 28px;
+            color: #16725f;
+        }
+
+        .dashboard-main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 22px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+            border: 1px solid #e1e7eb;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-card h2 {
+            color: #123b5d;
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        .dashboard-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
+        .dashboard-menu a {
+            display: block;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: 1px solid #dce5e8;
+            background: #f8fbfc;
+            color: #165f79;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .dashboard-menu a:hover {
+            transform: translateY(-2px);
+            border-color: #9dc5cf;
+        }
+
+        .exam-item,
+        .notification-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #e8edef;
+        }
+
+        .exam-item:last-child,
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .exam-item strong,
+        .notification-item strong {
+            display: block;
+            color: #243746;
+            margin-bottom: 5px;
+        }
+
+        .exam-item span,
+        .notification-item span {
+            font-size: 13px;
+            color: #6c777d;
+        }
+
+        .profile-box {
+            text-align: center;
+        }
+
+        .profile-logo {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .profile-box h3 {
+            margin: 5px 0;
+            color: #16725f;
+        }
+
+        .profile-box p {
+            color: #68757d;
+            margin: 6px 0;
+            word-break: break-word;
+        }
+
+        .logout-btn {
+            width: 100%;
+            border: none;
+            padding: 12px;
+            margin-top: 17px;
+            border-radius: 9px;
+            cursor: pointer;
+            background: #eef2f4;
+            color: #42545f;
+            font-weight: 700;
+        }
+
+        .dashboard-notice {
+            background: #fffaf0;
+            border: 1px solid #f0dfb0;
+            color: #6b5728;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 18px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #edf9f2;
+            color: #176438;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1000px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dashboard-main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-menu {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .dashboard-top,
+            .dashboard-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="dashboard-page">
+
+            <div class="dashboard-wrapper">
+
+                <div class="dashboard-top">
+                    <h1>Student Dashboard</h1>
+
+                    <p>
+                        Welcome,
+                        <span class="student-name" id="studentName">
+                            ARS Student
+                        </span>
+                    </p>
+                </div>
+
+                <!-- Statistics -->
+                <div class="dashboard-grid">
+
+                    <div class="dashboard-stat">
+                        <h3>My Exams</h3>
+                        <strong id="examCount">0</strong>
+                    </div>
+
+                    <div class="dashboard-stat">
+                        <h3>Results</h3>
+                        <strong id="resultCount">0</strong>
+                    </div>
+
+                    <div class="dashboard-stat">
+                        <h3>Certificates</h3>
+                        <strong id="certificateCount">0</strong>
+                    </div>
+
+                    <div class="dashboard-stat">
+                        <h3>Join ARS Status</h3>
+                        <strong style="font-size:17px;">Pending</strong>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-main-grid">
+
+                    <!-- Main Area -->
+                    <div>
+
+                        <div class="dashboard-card">
+
+                            <h2>My ARS Account</h2>
+
+                            <div class="dashboard-menu">
+
+                                <a href="exams.html">
+                                    📝 Upcoming Exams
+                                </a>
+
+                                <a href="result.html">
+                                    📊 My Results
+                                </a>
+
+                                <a href="certificate.html">
+                                    📜 My Certificates
+                                </a>
+
+                                <a href="education.html">
+                                    📚 Study Material
+                                </a>
+
+                                <a href="join-ars.html">
+                                    🤝 Join ARS Status
+                                </a>
+
+                                <a href="updates.html">
+                                    🔔 Notifications
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Upcoming Exams -->
+                        <div class="dashboard-card">
+
+                            <h2>Upcoming Exams</h2>
+
+                            <div class="exam-item">
+
+                                <strong>
+                                    ARS Education Talent Research Examination
+                                </strong>
+
+                                <span>
+                                    Stage 1 · Classes 5–8 · Online
+                                </span>
+
+                                <br><br>
+
+                                <span class="status-badge">
+                                    Scheduled
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Notifications -->
+                        <div class="dashboard-card">
+
+                            <h2>Latest Notifications</h2>
+
+                            <div class="notification-item">
+                                <strong>ARS Student Portal</strong>
+                                <span>
+                                    Your examination, result and certificate
+                                    information will appear here.
+                                </span>
+                            </div>
+
+                            <div class="notification-item">
+                                <strong>Certificate Updates</strong>
+                                <span>
+                                    Eligible digital certificates will be
+                                    available after publication.
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside>
+
+                        <div class="dashboard-card profile-box">
+
+                            <img
+                                src="assets/logo.png"
+                                alt="ARS"
+                                class="profile-logo"
+                            >
+
+                            <h3 id="profileName">ARS Student</h3>
+
+                            <p id="profileEmail">
+                                student@example.com
+                            </p>
+
+                            <p>
+                                Student Account
+                            </p>
+
+                            <button
+                                type="button"
+                                class="logout-btn"
+                                id="logoutBtn"
+                            >
+                                Logout
+                            </button>
+
+                        </div>
+
+                        <div class="dashboard-card">
+
+                            <h2>Quick Access</h2>
+
+                            <div class="dashboard-menu"
+                                 style="grid-template-columns:1fr;">
+
+                                <a href="index.html">
+                                    🏠 Home
+                                </a>
+
+                                <a href="exams.html">
+                                    🎓 Exams
+                                </a>
+
+                                <a href="result.html">
+                                    📈 Results
+                                </a>
+
+                                <a href="contact.html">
+                                    📩 Contact ARS
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+                <div class="dashboard-notice">
+                    <strong>Important:</strong>
+                    This student dashboard is the frontend structure.
+                    Secure login, student records, exam attempts, results,
+                    certificates and application status will be connected
+                    to the ARS backend after authentication/database setup.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * FUTURE BACKEND FLOW
+         *
+         * 1. Check authenticated session.
+         * 2. Load student profile.
+         * 3. Load registered exams.
+         * 4. Load published results.
+         * 5. Load certificates.
+         * 6. Load Join ARS application status.
+         * 7. Load notifications.
+         */
+
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        logoutBtn.addEventListener("click", function () {
+
+            /*
+             * Replace with:
+             * await supabase.auth.signOut();
+             */
+
+            localStorage.removeItem("arsStudentSession");
+
+            window.location.href = "login.html";
+        });
+
+        /*
+         * Demo-safe display only.
+         * Real student information must come from authenticated backend data.
+         */
+
+        const demoStudent = {
+            name: "ARS Student",
+            email: "student@example.com"
+        };
+
+        document.getElementById("studentName").textContent =
+            demoStudent.name;
+
+        document.getElementById("profileName").textContent =
+            demoStudent.name;
+
+        document.getElementById("profileEmail").textContent =
+            demoStudent.email;
+    </script>
+
+</body>
+</html>
