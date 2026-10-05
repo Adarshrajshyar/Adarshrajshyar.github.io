@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Join ARS Status | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Check your ARS membership application status."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .join-status-page {
+            padding: 45px 20px 65px;
+        }
+
+        .join-status-wrapper {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .join-status-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .join-status-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .join-status-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .join-status-hero p {
+            margin: 0;
+            color: #66757d;
+            line-height: 1.6;
+        }
+
+        .join-status-card {
+            background: #ffffff;
+            border: 1px solid #e0e7ea;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.05);
+        }
+
+        .join-status-card h2 {
+            margin-top: 0;
+            color: #16705e;
+            margin-bottom: 17px;
+        }
+
+        .status-form {
+            display: grid;
+            gap: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            color: #29404d;
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .status-btn {
+            border: none;
+            padding: 13px 18px;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .status-btn:hover {
+            opacity: 0.94;
+        }
+
+        .status-message {
+            display: none;
+            padding: 13px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .status-message.info {
+            display: block;
+            background: #eef7fb;
+            color: #17546c;
+        }
+
+        .status-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #9a2929;
+        }
+
+        .application-result {
+            display: none;
+            margin-top: 22px;
+        }
+
+        .application-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+            margin-top: 17px;
+        }
+
+        .application-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .application-box span {
+            display: block;
+            font-size: 11px;
+            color: #718087;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .application-box strong {
+            color: #185b72;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            background: #fff7df;
+            color: #755b1d;
+        }
+
+        .status-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .flow-step {
+            text-align: center;
+            padding: 15px 10px;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            background: #f8fbfc;
+        }
+
+        .flow-step strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #185b72;
+        }
+
+        .flow-step span {
+            color: #6d797f;
+            font-size: 12px;
+        }
+
+        .join-status-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        .join-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .join-action {
+            display: inline-block;
+            text-decoration: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            background: #eef3f5;
+            color: #405760;
+            font-weight: 700;
+        }
+
+        .join-action.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        @media (max-width: 700px) {
+            .application-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-flow {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .join-status-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .join-status-card,
+            .join-status-hero {
+                padding: 22px 18px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .status-flow {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="join-status-page">
+
+            <div class="join-status-wrapper">
+
+                <div class="join-status-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Join ARS Application Status</h1>
+
+                    <p>
+                        Track your ARS membership application
+                        and approval status.
+                    </p>
+
+                </div>
+
+                <div class="join-status-card">
+
+                    <h2>Check Application Status</h2>
+
+                    <form
+                        id="joinStatusForm"
+                        class="status-form"
+                    >
+
+                        <div class="form-group">
+
+                            <label for="applicationId">
+                                Application ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="applicationId"
+                                placeholder="Enter your Application ID"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="applicationMobile">
+                                Registered Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="applicationMobile"
+                                placeholder="Enter registered mobile number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                required
+                            >
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="status-btn"
+                        >
+                            Check Status
+                        </button>
+
+                        <div
+                            id="statusMessage"
+                            class="status-message"
+                        ></div>
+
+                    </form>
+
+                    <div
+                        id="applicationResult"
+                        class="application-result"
+                    >
+
+                        <h2>Application Details</h2>
+
+                        <div class="application-grid">
+
+                            <div class="application-box">
+                                <span>Applicant Name</span>
+                                <strong id="applicantName">
+                                    ARS Applicant
+                                </strong>
+                            </div>
+
+                            <div class="application-box">
+                                <span>Application ID</span>
+                                <strong id="displayApplicationId">
+                                    ARS-JOIN-XXXXXXXX
+                                </strong>
+                            </div>
+
+                            <div class="application-box">
+                                <span>Application Date</span>
+                                <strong id="applicationDate">
+                                    —
+                                </strong>
+                            </div>
+
+                            <div class="application-box">
+                                <span>Status</span>
+                                <strong>
+                                    <span
+                                        id="applicationStatus"
+                                        class="status-badge"
+                                    >
+                                        Pending Review
+                                    </span>
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <div class="join-actions">
+
+                            <a
+                                href="join-ars.html"
+                                class="join-action"
+                            >
+                                Join ARS Page
+                            </a>
+
+                            <a
+                                href="student-dashboard.html"
+                                class="join-action primary"
+                            >
+                                Student Dashboard
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="join-status-card">
+
+                    <h2>Application Process</h2>
+
+                    <div class="status-flow">
+
+                        <div class="flow-step">
+                            <strong>1</strong>
+                            <span>Application Submitted</span>
+                        </div>
+
+                        <div class="flow-step">
+                            <strong>2</strong>
+                            <span>Review</span>
+                        </div>
+
+                        <div class="flow-step">
+                            <strong>3</strong>
+                            <span>Approval / Rejection</span>
+                        </div>
+
+                        <div class="flow-step">
+                            <strong>4</strong>
+                            <span>Joining Certificate</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="join-status-card">
+
+                    <div class="join-status-note">
+
+                        <strong>Important:</strong>
+                        The actual application status must be retrieved
+                        from the secure ARS backend. Status values may
+                        include Pending, Under Review, Approved or Rejected.
+                        An approved application may proceed to the official
+                        member record and joining certificate workflow.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const joinStatusForm =
+            document.getElementById("joinStatusForm");
+
+        const statusMessage =
+            document.getElementById("statusMessage");
+
+        const applicationResult =
+            document.getElementById("applicationResult");
+
+        joinStatusForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                const applicationId =
+                    document.getElementById(
+                        "applicationId"
+                    ).value.trim();
+
+                const mobile =
+                    document.getElementById(
+                        "applicationMobile"
+                    ).value.trim();
+
+                applicationResult.style.display = "none";
+
+                if (!applicationId || !mobile) {
+
+                    statusMessage.textContent =
+                        "Please enter your Application ID and registered mobile number.";
+
+                    statusMessage.className =
+                        "status-message error";
+
+                    return;
+                }
+
+                if (!/^[0-9]{10}$/.test(mobile)) {
+
+                    statusMessage.textContent =
+                        "Please enter a valid 10-digit mobile number.";
+
+                    statusMessage.className =
+                        "status-message error";
+
+                    return;
+                }
+
+                /*
+                 * BACKEND FLOW
+                 *
+                 * Application ID
+                 *       ↓
+                 * Registered Mobile Verification
+                 *       ↓
+                 * OTP / secure verification
+                 *       ↓
+                 * Application record
+                 *       ↓
+                 * Current status
+                 *
+                 * Real application data must never be trusted
+                 * from client-side JavaScript.
+                 */
+
+                statusMessage.textContent =
+                    "Application lookup requires the secure ARS backend connection.";
+
+                statusMessage.className =
+                    "status-message info";
+
+                /*
+                 * Frontend demonstration only.
+                 */
+                document.getElementById(
+                    "displayApplicationId"
+                ).textContent = applicationId;
+
+                applicationResult.style.display =
+                    "block";
+            }
+        );
+
+    </script>
+
+</body>
+</html>
