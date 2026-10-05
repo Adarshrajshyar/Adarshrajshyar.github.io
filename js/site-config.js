@@ -28,9 +28,9 @@ window.ARS_CONFIG = Object.freeze({
     siteUrl: "https://adarshrajshyar.github.io",
 
     /* Public social links */
-    instagram:
-        "https://www.instagram.com/adarshkealfaz_/",
-
+   instagram:
+    "https://www.instagram.com/adarshkealfaaz_/",
+    
     youtube:
         "https://www.youtube.com/@Adarshshyari",
 
