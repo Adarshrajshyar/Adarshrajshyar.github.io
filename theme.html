@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Theme Settings | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Theme and appearance settings for ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        :root {
+            --theme-preview-bg: #ffffff;
+            --theme-preview-text: #20333f;
+            --theme-preview-border: #dfe7ea;
+        }
+
+        body.dark-preview {
+            --theme-preview-bg: #17242c;
+            --theme-preview-text: #e8f0f2;
+            --theme-preview-border: #344750;
+        }
+
+        .theme-page {
+            padding: 45px 20px 65px;
+        }
+
+        .theme-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .theme-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .theme-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .theme-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .theme-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .theme-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 16px;
+            padding: 27px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .theme-card h2 {
+            margin-top: 0;
+            color: #16705e;
+            margin-bottom: 17px;
+        }
+
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .theme-option {
+            border: 1px solid #dfe7ea;
+            border-radius: 12px;
+            padding: 18px;
+            background: #f8fbfc;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .theme-option:hover {
+            transform: translateY(-1px);
+            border-color: #b7cdd3;
+        }
+
+        .theme-option.selected {
+            border-color: #7fb8ba;
+            box-shadow: 0 0 0 3px rgba(22,122,109,0.10);
+        }
+
+        .theme-swatch {
+            height: 70px;
+            border-radius: 9px;
+            border: 1px solid #d9e2e5;
+            margin-bottom: 12px;
+        }
+
+        .light-swatch {
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #ffffff 55%,
+                    #eef7f7 55%,
+                    #eef7f7 100%
+                );
+        }
+
+        .dark-swatch {
+            background:
+                linear-gradient(
+                    135deg,
+                    #17242c 0%,
+                    #17242c 55%,
+                    #214453 55%,
+                    #214453 100%
+                );
+        }
+
+        .system-swatch {
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff 0%,
+                    #ffffff 50%,
+                    #17242c 50%,
+                    #17242c 100%
+                );
+        }
+
+        .theme-option strong {
+            display: block;
+            color: #185b72;
+            margin-bottom: 5px;
+        }
+
+        .theme-option span {
+            color: #6a777d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .theme-preview {
+            background: var(--theme-preview-bg);
+            color: var(--theme-preview-text);
+            border: 1px solid var(--theme-preview-border);
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .theme-preview h3 {
+            margin-top: 0;
+        }
+
+        .theme-preview-box {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 9px;
+            border: 1px solid var(--theme-preview-border);
+            background: transparent;
+        }
+
+        .theme-switch-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 14px 0;
+            border-bottom: 1px solid #e6ecee;
+        }
+
+        .theme-switch-row:last-child {
+            border-bottom: none;
+        }
+
+        .theme-switch-row strong {
+            color: #294754;
+        }
+
+        .theme-switch-row span {
+            color: #68777d;
+            font-size: 13px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .toggle {
+            width: 48px;
+            height: 27px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: #ccd7dc;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            width: 21px;
+            height: 21px;
+            left: 3px;
+            top: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.2s;
+        }
+
+        .toggle input:checked + .slider {
+            background: #167a6d;
+        }
+
+        .toggle input:checked + .slider:before {
+            transform: translateX(21px);
+        }
+
+        .theme-message {
+            display: none;
+            margin-top: 17px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #edf9f2;
+            color: #176438;
+            font-size: 14px;
+        }
+
+        .theme-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 750px) {
+
+            .theme-options {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .theme-card,
+            .theme-hero {
+                padding: 22px 18px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="theme-page">
+
+            <div class="theme-wrapper">
+
+                <div class="theme-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Theme & Appearance</h1>
+
+                    <p>
+                        Choose how ARS looks on your device.
+                    </p>
+
+                </div>
+
+                <div class="theme-card">
+
+                    <h2>Choose Theme</h2>
+
+                    <div class="theme-options">
+
+                        <button
+                            type="button"
+                            class="theme-option selected"
+                            data-theme="light"
+                        >
+
+                            <div class="theme-swatch light-swatch"></div>
+
+                            <strong>Light Mode</strong>
+
+                            <span>
+                                Recommended primary ARS appearance.
+                            </span>
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="theme-option"
+                            data-theme="dark"
+                        >
+
+                            <div class="theme-swatch dark-swatch"></div>
+
+                            <strong>Dark Mode</strong>
+
+                            <span>
+                                A darker appearance for comfortable viewing.
+                            </span>
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="theme-option"
+                            data-theme="system"
+                        >
+
+                            <div class="theme-swatch system-swatch"></div>
+
+                            <strong>System</strong>
+
+                            <span>
+                                Follow the device/browser preference.
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="themeMessage"
+                        class="theme-message"
+                    ></div>
+
+                </div>
+
+                <div class="theme-card">
+
+                    <h2>Display Preferences</h2>
+
+                    <div class="theme-switch-row">
+
+                        <div>
+
+                            <strong>Reduce Motion</strong>
+
+                            <span>
+                                Reduce optional interface animations.
+                            </span>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="reduceMotion"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                    <div class="theme-switch-row">
+
+                        <div>
+
+                            <strong>Large Text</strong>
+
+                            <span>
+                                Increase readable text size.
+                            </span>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                id="largeText"
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="theme-card">
+
+                    <h2>Preview</h2>
+
+                    <div
+                        id="themePreview"
+                        class="theme-preview"
+                    >
+
+                        <h3>ARS — Adarsh Ke Alfaz</h3>
+
+                        <p>
+                            This preview demonstrates the selected
+                            appearance preference.
+                        </p>
+
+                        <div class="theme-preview-box">
+                            Education · Knowledge Power · Literature
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="theme-card">
+
+                    <div class="theme-note">
+
+                        <strong>Exam Notice:</strong>
+                        Theme preferences should never weaken examination
+                        security or alter the essential examination controls.
+                        During exams, the examination interface may use
+                        a controlled appearance where required.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const themeOptions =
+            document.querySelectorAll(
+                ".theme-option"
+            );
+
+        const themeMessage =
+            document.getElementById(
+                "themeMessage"
+            );
+
+        const reduceMotion =
+            document.getElementById(
+                "reduceMotion"
+            );
+
+        const largeText =
+            document.getElementById(
+                "largeText"
+            );
+
+        const savedTheme =
+            localStorage.getItem(
+                "arsTheme"
+            ) || "light";
+
+        const savedMotion =
+            localStorage.getItem(
+                "arsReduceMotion"
+            ) === "true";
+
+        const savedLargeText =
+            localStorage.getItem(
+                "arsLargeText"
+            ) === "true";
+
+        reduceMotion.checked =
+            savedMotion;
+
+        largeText.checked =
+            savedLargeText;
+
+        function applyTheme(theme) {
+
+            let actualTheme =
+                theme;
+
+            if (theme === "system") {
+
+                actualTheme =
+                    window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches
+                        ? "dark"
+                        : "light";
+
+            }
+
+            document.body.classList.toggle(
+                "dark-preview",
+                actualTheme === "dark"
+            );
+
+            themeOptions.forEach(
+                option => {
+
+                    option.classList.toggle(
+                        "selected",
+                        option.dataset.theme === theme
+                    );
+
+                }
+            );
+
+        }
+
+        function savePreferences() {
+
+            localStorage.setItem(
+                "arsTheme",
+                document.querySelector(
+                    ".theme-option.selected"
+                ).dataset.theme
+            );
+
+            localStorage.setItem(
+                "arsReduceMotion",
+                String(
+                    reduceMotion.checked
+                )
+            );
+
+            localStorage.setItem(
+                "arsLargeText",
+                String(
+                    largeText.checked
+                )
+            );
+
+        }
+
+        function showThemeMessage() {
+
+            themeMessage.textContent =
+                "Appearance preferences saved on this device.";
+
+            themeMessage.style.display =
+                "block";
+
+            setTimeout(
+                function() {
+
+                    themeMessage.style.display =
+                        "none";
+
+                },
+                1800
+            );
+
+        }
+
+        themeOptions.forEach(
+            function(option) {
+
+                option.addEventListener(
+                    "click",
+                    function() {
+
+                        applyTheme(
+                            this.dataset.theme
+                        );
+
+                        savePreferences();
+
+                        showThemeMessage();
+
+                    }
+                );
+
+            }
+        );
+
+        reduceMotion.addEventListener(
+            "change",
+            function() {
+
+                savePreferences();
+                showThemeMessage();
+
+            }
+        );
+
+        largeText.addEventListener(
+            "change",
+            function() {
+
+                document.documentElement.style.fontSize =
+                    this.checked
+                        ? "17px"
+                        : "";
+
+                savePreferences();
+                showThemeMessage();
+
+            }
+        );
+
+        applyTheme(savedTheme);
+
+        if (savedLargeText) {
+            document.documentElement.style.fontSize =
+                "17px";
+        }
+
+    </script>
+
+</body>
+</html>
