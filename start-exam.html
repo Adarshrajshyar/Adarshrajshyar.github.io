@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Start Exam | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="ARS online examination interface."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body.exam-running {
+            background: #f4f7f8;
+        }
+
+        .exam-shell {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .exam-topbar {
+            background: #ffffff;
+            border-bottom: 1px solid #dfe7ea;
+            padding: 13px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .exam-topbar-inner {
+            max-width: 1300px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .exam-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            color: #123b5d;
+        }
+
+        .exam-brand img {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+        }
+
+        .exam-title-small {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .exam-stage {
+            color: #6a777e;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .timer-box {
+            background: #eef7f7;
+            border: 1px solid #cfe2df;
+            border-radius: 10px;
+            padding: 10px 16px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .timer-label {
+            display: block;
+            font-size: 11px;
+            color: #68787e;
+            margin-bottom: 2px;
+        }
+
+        #examTimer {
+            color: #166b5a;
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .exam-content {
+            width: 100%;
+            max-width: 1300px;
+            margin: auto;
+            padding: 25px 20px 40px;
+            box-sizing: border-box;
+            flex: 1;
+        }
+
+        .exam-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        .question-panel {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 26px;
+            box-shadow: 0 5px 17px rgba(0,0,0,0.05);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #e7ecee;
+            padding-bottom: 17px;
+            margin-bottom: 22px;
+        }
+
+        .question-number {
+            font-weight: 800;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .question-mark {
+            font-size: 13px;
+            color: #6b777d;
+        }
+
+        .question-text {
+            font-size: 19px;
+            color: #243746;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            border: 1px solid #dce5e8;
+            border-radius: 10px;
+            padding: 14px;
+            cursor: pointer;
+            transition: 0.15s;
+            background: #ffffff;
+        }
+
+        .option:hover {
+            background: #f8fbfc;
+            border-color: #b8cdd3;
+        }
+
+        .option input {
+            margin-top: 4px;
+        }
+
+        .option span {
+            color: #40535d;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .question-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px solid #e7ecee;
+            flex-wrap: wrap;
+        }
+
+        .exam-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 17px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .exam-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .exam-btn.secondary {
+            background: #eef3f5;
+            color: #405760;
+        }
+
+        .exam-btn.review {
+            background: #fff7df;
+            color: #765d1d;
+        }
+
+        .question-nav-panel {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 84px;
+        }
+
+        .question-nav-panel h2 {
+            margin: 0 0 7px;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .question-nav-panel p {
+            margin: 0 0 16px;
+            color: #6d797f;
+            font-size: 13px;
+        }
+
+        .question-numbers {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 7px;
+            max-height: 390px;
+            overflow-y: auto;
+        }
+
+        .number-btn {
+            border: 1px solid #d8e2e5;
+            background: #f8fbfc;
+            border-radius: 7px;
+            height: 38px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #4d6069;
+        }
+
+        .number-btn.active {
+            background: #eef7fb;
+            border-color: #9ec7d2;
+            color: #185b72;
+        }
+
+        .number-btn.answered {
+            background: #edf9f2;
+            color: #176438;
+            border-color: #b7ddc5;
+        }
+
+        .number-btn.review {
+            background: #fff7df;
+            color: #765d1d;
+            border-color: #ead798;
+        }
+
+        .exam-legend {
+            margin-top: 17px;
+            padding-top: 15px;
+            border-top: 1px solid #e7ecee;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #64727a;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            border: 1px solid #d2dde0;
+            background: #f8fbfc;
+        }
+
+        .legend-dot.answered {
+            background: #edf9f2;
+            border-color: #b7ddc5;
+        }
+
+        .legend-dot.review {
+            background: #fff7df;
+            border-color: #ead798;
+        }
+
+        .fullscreen-notice {
+            display: none;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 12px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .submit-area {
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #e7ecee;
+        }
+
+        .submit-exam-btn {
+            width: 100%;
+            border: none;
+            border-radius: 9px;
+            padding: 14px;
+            cursor: pointer;
+            background: #195e74;
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .exam-status {
+            margin-top: 15px;
+            text-align: center;
+            color: #6b777d;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .confirmation-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.38);
+            z-index: 1000;
+        }
+
+        .confirmation-box {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.20);
+        }
+
+        .confirmation-box h2 {
+            color: #123b5d;
+            margin-top: 0;
+        }
+
+        .confirmation-box p {
+            color: #586870;
+            line-height: 1.7;
+        }
+
+        .confirmation-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+
+            .exam-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .question-nav-panel {
+                position: static;
+            }
+
+            .question-numbers {
+                max-height: 220px;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .exam-topbar {
+                padding: 10px 12px;
+            }
+
+            .exam-topbar-inner {
+                align-items: flex-start;
+            }
+
+            .exam-title-small {
+                font-size: 12px;
+            }
+
+            .exam-brand img {
+                width: 38px;
+                height: 38px;
+            }
+
+            .timer-box {
+                min-width: 95px;
+                padding: 8px 10px;
+            }
+
+            #examTimer {
+                font-size: 17px;
+            }
+
+            .exam-content {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .question-panel {
+                padding: 20px 16px;
+            }
+
+            .question-text {
+                font-size: 17px;
+            }
+
+            .question-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .question-actions .exam-btn {
+                width: 100%;
+            }
+
+            .submit-exam-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body class="exam-running">
+
+    <div class="exam-shell">
+
+        <!-- Exam Top Bar -->
+        <header class="exam-topbar">
+
+            <div class="exam-topbar-inner">
+
+                <div class="exam-brand">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <div>
+
+                        <div class="exam-title-small">
+                            ARS Education Talent Research Examination
+                        </div>
+
+                        <div class="exam-stage">
+                            Stage 1 · 60 Questions · 120 Marks
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="timer-box">
+
+                    <span class="timer-label">
+                        Time Remaining
+                    </span>
+
+                    <span id="examTimer">
+                        60:00
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <main class="exam-content">
+
+            <div class="fullscreen-notice" id="fullscreenNotice">
+                The examination is designed for a focused online
+                environment. Full-screen mode may be requested where
+                supported by the browser and examination configuration.
+            </div>
+
+            <div class="exam-layout">
+
+                <!-- Question -->
+                <section class="question-panel">
+
+                    <div class="question-header">
+
+                        <div
+                            class="question-number"
+                            id="questionNumber"
+                        >
+                            Question 1 of 60
+                        </div>
+
+                        <div class="question-mark">
+                            2 Marks · No Negative Marking
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="question-text"
+                        id="questionText"
+                    >
+                        Loading question...
+                    </div>
+
+                    <div
+                        class="options"
+                        id="optionsContainer"
+                    ></div>
+
+                    <div class="question-actions">
+
+                        <button
+                            type="button"
+                            class="exam-btn secondary"
+                            id="previousBtn"
+                        >
+                            ← Previous
+                        </button>
+
+                        <button
+                            type="button"
+                            class="exam-btn review"
+                            id="reviewBtn"
+                        >
+                            Mark for Review
+                        </button>
+
+                        <button
+                            type="button"
+                            class="exam-btn secondary"
+                            id="clearBtn"
+                        >
+                            Clear Answer
+                        </button>
+
+                        <button
+                            type="button"
+                            class="exam-btn primary"
+                            id="nextBtn"
+                        >
+                            Next →
+                        </button>
+
+                    </div>
+
+                    <div class="submit-area">
+
+                        <button
+                            type="button"
+                            class="submit-exam-btn"
+                            id="submitExamBtn"
+                        >
+                            Submit Examination
+                        </button>
+
+                        <div class="exam-status">
+
+                            One Attempt · Auto Submit on Time Expiry
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- Question Navigation -->
+                <aside class="question-nav-panel">
+
+                    <h2>Question Palette</h2>
+
+                    <p>
+                        Select a question to navigate.
+                    </p>
+
+                    <div
+                        class="question-numbers"
+                        id="questionNumbers"
+                    ></div>
+
+                    <div class="exam-legend">
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot answered"></span>
+
+                            Answered
+
+                        </div>
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot review"></span>
+
+                            Marked for Review
+
+                        </div>
+
+                        <div class="legend-item">
+
+                            <span class="legend-dot"></span>
+
+                            Not Answered
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <!-- Submit Confirmation -->
+    <div
+        class="confirmation-overlay"
+        id="confirmationOverlay"
+    >
+
+        <div class="confirmation-box">
+
+            <h2>Submit Examination?</h2>
+
+            <p>
+                You are about to submit your examination.
+                After final submission, the attempt should normally
+                not be editable.
+            </p>
+
+            <p id="answeredSummary">
+                Answered: 0 / 60
+            </p>
+
+            <div class="confirmation-actions">
+
+                <button
+                    type="button"
+                    class="exam-btn secondary"
+                    id="cancelSubmitBtn"
+                >
+                    Continue Exam
+                </button>
+
+                <button
+                    type="button"
+                    class="exam-btn primary"
+                    id="confirmSubmitBtn"
+                >
+                    Confirm Submit
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        /*
+         * IMPORTANT
+         * This is the FRONTEND EXAM INTERFACE.
+         *
+         * Real examination logic must be connected to a secure backend.
+         * Questions, correct answers, attempts, timing and submissions
+         * must NOT depend only on client-side JavaScript.
+         */
+
+        const TOTAL_QUESTIONS = 60;
+        const EXAM_DURATION_SECONDS = 60 * 60;
+
+        let currentQuestion = 1;
+        let remainingSeconds = EXAM_DURATION_SECONDS;
+        let submitted = false;
+
+        const answers = {};
+        const markedForReview = new Set();
+
+        /*
+         * Demonstration question structure.
+         *
+         * In production, questions should be loaded securely from
+         * the backend after authentication and examination validation.
+         */
+
+        const questions = Array.from(
+            { length: TOTAL_QUESTIONS },
+            (_, index) => {
+
+                const questionNo = index + 1;
+
+                return {
+                    id: "q" + questionNo,
+
+                    text:
+                        questionNo === 1
+                            ? "Which of the following best represents a sustainable approach to environmental protection?"
+                            : "Question " + questionNo + " will be loaded from the authorized examination question pool.",
+
+                    options: [
+                        "Option A",
+                        "Option B",
+                        "Option C",
+                        "Option D",
+                        "Option E"
+                    ]
+
+                };
+
+            }
+        );
+
+        const questionNumber =
+            document.getElementById("questionNumber");
+
+        const questionText =
+            document.getElementById("questionText");
+
+        const optionsContainer =
+            document.getElementById("optionsContainer");
+
+        const questionNumbers =
+            document.getElementById("questionNumbers");
+
+        const examTimer =
+            document.getElementById("examTimer");
+
+        const previousBtn =
+            document.getElementById("previousBtn");
+
+        const nextBtn =
+            document.getElementById("nextBtn");
+
+        const reviewBtn =
+            document.getElementById("reviewBtn");
+
+        const clearBtn =
+            document.getElementById("clearBtn");
+
+        const submitExamBtn =
+            document.getElementById("submitExamBtn");
+
+        const confirmationOverlay =
+            document.getElementById("confirmationOverlay");
+
+        const cancelSubmitBtn =
+            document.getElementById("cancelSubmitBtn");
+
+        const confirmSubmitBtn =
+            document.getElementById("confirmSubmitBtn");
+
+        const answeredSummary =
+            document.getElementById("answeredSummary");
+
+        const fullscreenNotice =
+            document.getElementById("fullscreenNotice");
+
+
+        function renderQuestionPalette() {
+
+            questionNumbers.innerHTML = "";
+
+            for (
+                let i = 1;
+                i <= TOTAL_QUESTIONS;
+                i++
+            ) {
+
+                const button =
+                    document.createElement("button");
+
+                button.type = "button";
+
+                button.textContent = i;
+
+                button.className = "number-btn";
+
+                if (i === currentQuestion) {
+                    button.classList.add("active");
+                }
+
+                if (answers[i] !== undefined) {
+                    button.classList.add("answered");
+                }
+
+                if (markedForReview.has(i)) {
+                    button.classList.add("review");
+                }
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        saveCurrentAnswer();
+
+                        currentQuestion = i;
+
+                        renderQuestion();
+                        renderQuestionPalette();
+
+                    }
+                );
+
+                questionNumbers.appendChild(button);
+            }
+
+        }
+
+
+        function renderQuestion() {
+
+            const question =
+                questions[currentQuestion - 1];
+
+            questionNumber.textContent =
+                "Question " +
+                currentQuestion +
+                " of " +
+                TOTAL_QUESTIONS;
+
+            questionText.textContent =
+                question.text;
+
+            optionsContainer.innerHTML = "";
+
+            question.options.forEach(
+                function(optionText, index) {
+
+                    const label =
+                        document.createElement("label");
+
+                    label.className = "option";
+
+                    const radio =
+                        document.createElement("input");
+
+                    radio.type = "radio";
+
+                    radio.name = "currentQuestion";
+
+                    radio.value = index;
+
+                    if (
+                        answers[currentQuestion] === index
+                    ) {
+                        radio.checked = true;
+                    }
+
+                    radio.addEventListener(
+                        "change",
+                        function() {
+
+                            answers[currentQuestion] =
+                                Number(this.value);
+
+                            renderQuestionPalette();
+
+                        }
+                    );
+
+                    const span =
+                        document.createElement("span");
+
+                    span.textContent =
+                        String.fromCharCode(65 + index) +
+                        ". " +
+                        optionText;
+
+                    label.appendChild(radio);
+                    label.appendChild(span);
+
+                    optionsContainer.appendChild(label);
+
+                }
+            );
+
+            previousBtn.disabled =
+                currentQuestion === 1;
+
+            nextBtn.disabled =
+                currentQuestion === TOTAL_QUESTIONS;
+
+            reviewBtn.textContent =
+                markedForReview.has(currentQuestion)
+                    ? "Remove Review Mark"
+                    : "Mark for Review";
+
+        }
+
+
+        function saveCurrentAnswer() {
+
+            const selected =
+                document.querySelector(
+                    'input[name="currentQuestion"]:checked'
+                );
+
+            if (selected) {
+
+                answers[currentQuestion] =
+                    Number(selected.value);
+
+            }
+
+        }
+
+
+        previousBtn.addEventListener(
+            "click",
+            function() {
+
+                saveCurrentAnswer();
+
+                if (currentQuestion > 1) {
+
+                    currentQuestion--;
+
+                    renderQuestion();
+                    renderQuestionPalette();
+
+                }
+
+            }
+        );
+
+
+        nextBtn.addEventListener(
+            "click",
+            function() {
+
+                saveCurrentAnswer();
+
+                if (
+                    currentQuestion <
+                    TOTAL_QUESTIONS
+                ) {
+
+                    currentQuestion++;
+
+                    renderQuestion();
+                    renderQuestionPalette();
+
+                }
+
+            }
+        );
+
+
+        reviewBtn.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    markedForReview.has(currentQuestion)
+                ) {
+
+                    markedForReview.delete(
+                        currentQuestion
+                    );
+
+                } else {
+
+                    markedForReview.add(
+                        currentQuestion
+                    );
+
+                }
+
+                renderQuestion();
+                renderQuestionPalette();
+
+            }
+        );
+
+
+        clearBtn.addEventListener(
+            "click",
+            function() {
+
+                delete answers[currentQuestion];
+
+                renderQuestion();
+                renderQuestionPalette();
+
+            }
+        );
+
+
+        function getAnsweredCount() {
+
+            return Object.keys(answers).length;
+
+        }
+
+
+        submitExamBtn.addEventListener(
+            "click",
+            function() {
+
+                saveCurrentAnswer();
+
+                answeredSummary.textContent =
+                    "Answered: " +
+                    getAnsweredCount() +
+                    " / " +
+                    TOTAL_QUESTIONS;
+
+                confirmationOverlay.style.display =
+                    "flex";
+
+            }
+        );
+
+
+        cancelSubmitBtn.addEventListener(
+            "click",
+            function() {
+
+                confirmationOverlay.style.display =
+                    "none";
+
+            }
+        );
+
+
+        confirmSubmitBtn.addEventListener(
+            "click",
+            function() {
+
+                finalizeExam();
+
+            }
+        );
+
+
+        function finalizeExam() {
+
+            if (submitted) {
+                return;
+            }
+
+            submitted = true;
+
+            /*
+             * PRODUCTION BACKEND FLOW
+             *
+             * Answers
+             *   ↓
+             * Secure Submission
+             *   ↓
+             * Server-side Evaluation
+             *   ↓
+             * Attempt Locked
+             *   ↓
+             * Provisional Result
+             *   ↓
+             * Authorized Review
+             *   ↓
+             * Final Result
+             */
+
+            confirmationOverlay.style.display =
+                "none";
+
+            clearInterval(timerInterval);
+
+            document.body.innerHTML = `
+                <div style="
+                    min-height:100vh;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    padding:20px;
+                    box-sizing:border-box;
+                    font-family:Arial,sans-serif;
+                    background:#f4f7f8;
+                ">
+
+                    <div style="
+                        width:100%;
+                        max-width:550px;
+                        background:#ffffff;
+                        border:1px solid #dfe7ea;
+                        border-radius:18px;
+                        padding:35px;
+                        text-align:center;
+                        box-shadow:0 10px 35px rgba(0,0,0,0.08);
+                    ">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                            style="
+                                width:80px;
+                                height:80px;
+                                object-fit:contain;
+                                margin-bottom:15px;
+                            "
+                        >
+
+                        <h1 style="color:#123b5d;">
+                            Examination Submitted
+                        </h1>
+
+                        <p style="
+                            color:#5d6c74;
+                            line-height:1.7;
+                        ">
+                            Your examination attempt has been submitted.
+                            The official result will be processed through
+                            the ARS result management workflow.
+                        </p>
+
+                        <p style="
+                            background:#eef7f7;
+                            border-radius:9px;
+                            padding:13px;
+                            color:#166b5a;
+                            font-weight:700;
+                        ">
+                            Answered Questions:
+                            ${getAnsweredCount()} / ${TOTAL_QUESTIONS}
+                        </p>
+
+                        <a
+                            href="result.html"
+                            style="
+                                display:inline-block;
+                                margin-top:10px;
+                                padding:12px 18px;
+                                border-radius:9px;
+                                text-decoration:none;
+                                background:linear-gradient(
+                                    90deg,
+                                    #167a6d,
+                                    #1877a6
+                                );
+                                color:white;
+                                font-weight:700;
+                            "
+                        >
+                            Go to Results
+                        </a>
+
+                    </div>
+
+                </div>
+            `;
+
+        }
+
+
+        function formatTime(totalSeconds) {
+
+            const minutes =
+                Math.floor(totalSeconds / 60);
+
+            const seconds =
+                totalSeconds % 60;
+
+            return (
+                String(minutes).padStart(2, "0") +
+                ":" +
+                String(seconds).padStart(2, "0")
+            );
+
+        }
+
+
+        function updateTimer() {
+
+            if (submitted) {
+                return;
+            }
+
+            examTimer.textContent =
+                formatTime(remainingSeconds);
+
+            if (remainingSeconds <= 0) {
+
+                finalizeExam();
+
+                return;
+            }
+
+            remainingSeconds--;
+
+        }
+
+
+        const timerInterval =
+            setInterval(
+                updateTimer,
+                1000
+            );
+
+
+        /*
+         * Full-screen prompt.
+         *
+         * Browser support and user permissions vary.
+         * Full-screen behavior must not be treated as foolproof exam
+         * integrity protection.
+         */
+
+        fullscreenNotice.style.display =
+            "block";
+
+        document.addEventListener(
+            "fullscreenchange",
+            function() {
+
+                /*
+                 * Future backend:
+                 * record relevant examination events when configured.
+                 */
+
+            }
+        );
+
+
+        /*
+         * Prevent accidental page navigation only as a UX warning.
+         * Real exam security cannot rely solely on this client-side code.
+         */
+
+        window.addEventListener(
+            "beforeunload",
+            function(event) {
+
+                if (!submitted) {
+
+                    event.preventDefault();
+
+                    event.returnValue =
+                        "Your examination is still in progress.";
+
+                }
+
+            }
+        );
+
+
+        renderQuestion();
+        renderQuestionPalette();
+        updateTimer();
+
+    </script>
+
+</body>
+</html>
