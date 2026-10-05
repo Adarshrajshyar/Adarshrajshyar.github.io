@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Story | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Read original stories published on ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .story-page {
+            padding: 45px 20px 65px;
+        }
+
+        .story-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .story-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+        }
+
+        .story-header {
+            text-align: center;
+            border-bottom: 1px solid #e5eaec;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        .story-header img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 9px;
+        }
+
+        .story-category {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #166b59;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .story-header h1 {
+            margin: 0 0 9px;
+            color: #123b5d;
+            font-size: 31px;
+        }
+
+        .story-header p {
+            margin: 0;
+            color: #6a777d;
+            line-height: 1.6;
+        }
+
+        .story-content {
+            color: #465861;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .story-content p {
+            margin: 0 0 17px;
+        }
+
+        .story-content h2 {
+            color: #16705e;
+            margin-top: 30px;
+            margin-bottom: 11px;
+        }
+
+        .story-content h3 {
+            color: #185b72;
+            margin-top: 24px;
+        }
+
+        .moral-box {
+            background: #eef7f7;
+            border-left: 4px solid #167a6d;
+            border-radius: 8px;
+            padding: 16px;
+            color: #405960;
+            line-height: 1.7;
+            margin: 22px 0;
+        }
+
+        .story-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+            padding-top: 22px;
+            border-top: 1px solid #e5eaec;
+        }
+
+        .story-meta-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 9px;
+            padding: 13px;
+        }
+
+        .story-meta-box span {
+            display: block;
+            color: #748087;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .story-meta-box strong {
+            color: #294754;
+            font-size: 13px;
+        }
+
+        .story-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .story-btn {
+            display: inline-block;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            background: #eef3f5;
+            color: #405760;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .story-btn.primary {
+            color: white;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+        }
+
+        .story-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 700px) {
+
+            .story-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .story-card {
+                padding: 24px 17px;
+            }
+
+            .story-header h1 {
+                font-size: 25px;
+            }
+
+            .story-content {
+                font-size: 15px;
+            }
+
+            .story-meta {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="story-page">
+
+            <div class="story-wrapper">
+
+                <article class="story-card">
+
+                    <header class="story-header">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                        >
+
+                        <div
+                            id="storyCategory"
+                            class="story-category"
+                        >
+                            Moral
+                        </div>
+
+                        <h1 id="storyTitle">
+                            छोटी कोशिश, बड़ी सीख
+                        </h1>
+
+                        <p>
+                            An original story from ARS — Adarsh Ke Alfaz
+                        </p>
+
+                    </header>
+
+                    <div class="story-content">
+
+                        <p>
+                            एक छोटे से गाँव में आरव नाम का एक विद्यार्थी
+                            रहता था। वह पढ़ाई में ठीक था, लेकिन किसी भी
+                            कठिन काम को देखते ही सोचता था कि यह उसके बस की
+                            बात नहीं है।
+                        </p>
+
+                        <p>
+                            एक दिन विद्यालय में विद्यार्थियों को पौधों की
+                            देखभाल का कार्य दिया गया। आरव ने शुरुआत में
+                            काम टालना चाहा, लेकिन उसने सोचा कि वह केवल एक
+                            छोटा-सा कदम उठाकर देखेगा।
+                        </p>
+
+                        <h2>
+                            पहली कोशिश
+                        </h2>
+
+                        <p>
+                            उसने विद्यालय के एक छोटे पौधे के लिए पानी की
+                            व्यवस्था की और प्रतिदिन कुछ समय उसकी देखभाल
+                            करने लगा। कुछ दिनों बाद उसने देखा कि पौधा
+                            पहले से अधिक स्वस्थ दिखाई दे रहा था।
+                        </p>
+
+                        <p>
+                            इस छोटी सफलता ने आरव का आत्मविश्वास बढ़ाया।
+                            उसने समझा कि बड़ी उपलब्धियाँ हमेशा बड़े कदमों
+                            से शुरू नहीं होतीं। लगातार की गई छोटी कोशिशें
+                            भी महत्वपूर्ण परिणाम दे सकती हैं।
+                        </p>
+
+                        <h2>
+                            नई सीख
+                        </h2>
+
+                        <p>
+                            इसके बाद आरव ने पढ़ाई में भी यही तरीका अपनाया।
+                            वह पूरी किताब एक साथ पूरा करने के बजाय रोज़
+                            थोड़ा-थोड़ा पढ़ने लगा। कुछ समय बाद कठिन विषय
+                            भी उसे पहले से आसान लगने लगे।
+                        </p>
+
+                        <div class="moral-box">
+
+                            <strong>
+                                Moral:
+                            </strong>
+
+                            छोटी और निरंतर कोशिशें आत्मविश्वास बढ़ाती हैं
+                            और बड़े लक्ष्यों की ओर आगे बढ़ने में मदद करती हैं।
+
+                        </div>
+
+                    </div>
+
+                    <div class="story-meta">
+
+                        <div class="story-meta-box">
+
+                            <span>
+                                Category
+                            </span>
+
+                            <strong id="storyMetaCategory">
+                                Moral
+                            </strong>
+
+                        </div>
+
+                        <div class="story-meta-box">
+
+                            <span>
+                                Content
+                            </span>
+
+                            <strong>
+                                Original ARS Story
+                            </strong>
+
+                        </div>
+
+                        <div class="story-meta-box">
+
+                            <span>
+                                Status
+                            </span>
+
+                            <strong>
+                                Published Content
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="story-actions">
+
+                        <a
+                            href="stories.html"
+                            class="story-btn primary"
+                        >
+                            More Stories
+                        </a>
+
+                        <button
+                            type="button"
+                            class="story-btn"
+                            id="shareStory"
+                        >
+                            Share
+                        </button>
+
+                        <a
+                            href="search.html"
+                            class="story-btn"
+                        >
+                            Search ARS
+                        </a>
+
+                    </div>
+
+                    <div class="story-note">
+
+                        <strong>Publisher Note:</strong>
+                        The final production page should retrieve the
+                        selected story from the authorized ARS content
+                        database. Only published content should be visible
+                        to public visitors.
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const category =
+            params.get("category");
+
+        const title =
+            params.get("title");
+
+        const categoryMap = {
+
+            moral: "Moral",
+            mystery: "Mystery",
+            horror: "Horror",
+            motivational: "Motivational",
+            emotional: "Emotional",
+            friendship: "Friendship",
+            life: "Life",
+            educational: "Educational"
+
+        };
+
+        if (
+            category &&
+            categoryMap[category]
+        ) {
+
+            document.getElementById(
+                "storyCategory"
+            ).textContent =
+                categoryMap[category];
+
+            document.getElementById(
+                "storyMetaCategory"
+            ).textContent =
+                categoryMap[category];
+
+        }
+
+        if (title) {
+
+            document.getElementById(
+                "storyTitle"
+            ).textContent =
+                title;
+
+        }
+
+        document
+            .getElementById("shareStory")
+            .addEventListener(
+                "click",
+                async function() {
+
+                    const shareData = {
+
+                        title:
+                            document.title,
+
+                        text:
+                            document.getElementById(
+                                "storyTitle"
+                            ).textContent,
+
+                        url:
+                            window.location.href
+
+                    };
+
+                    try {
+
+                        if (
+                            navigator.share
+                        ) {
+
+                            await navigator.share(
+                                shareData
+                            );
+
+                        } else {
+
+                            await navigator.clipboard.writeText(
+                                window.location.href
+                            );
+
+                            alert(
+                                "Page link copied."
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        /*
+                         * Sharing cancelled or unsupported.
+                         */
+
+                    }
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
