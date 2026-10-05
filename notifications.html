@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Notifications | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Student notifications and announcements for ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .notifications-page {
+            padding: 45px 20px 65px;
+        }
+
+        .notifications-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .notifications-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .notifications-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .notifications-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .notifications-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .notification-toolbar {
+            background: #ffffff;
+            border: 1px solid #e0e7ea;
+            border-radius: 14px;
+            padding: 17px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .notification-count {
+            color: #50616a;
+            font-size: 14px;
+        }
+
+        .notification-filter {
+            padding: 9px 11px;
+            border: 1px solid #ccd7dc;
+            border-radius: 8px;
+            background: white;
+            color: #405760;
+        }
+
+        .notification-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .notification-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+        }
+
+        .notification-card.unread {
+            border-left: 4px solid #167a6d;
+        }
+
+        .notification-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .notification-title {
+            margin: 0 0 6px;
+            color: #123b5d;
+            font-size: 17px;
+        }
+
+        .notification-date {
+            color: #7a858b;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .notification-card p {
+            margin: 9px 0 0;
+            color: #5a6870;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .notification-tag {
+            display: inline-block;
+            margin-top: 13px;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #176b59;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            color: #6c797f;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+        }
+
+        .notification-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .notification-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 11px;
+            cursor: pointer;
+            background: #eef3f5;
+            color: #405760;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .notification-btn:hover {
+            opacity: 0.92;
+        }
+
+        .notifications-footer-box {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .notifications-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .notifications-hero {
+                padding: 23px 18px;
+            }
+
+            .notification-top {
+                flex-direction: column;
+            }
+
+            .notification-date {
+                white-space: normal;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="notifications-page">
+
+            <div class="notifications-wrapper">
+
+                <div class="notifications-hero">
+
+                    <img src="assets/logo.png" alt="ARS Logo">
+
+                    <h1>Notifications</h1>
+
+                    <p>
+                        Important ARS updates, examination notices,
+                        result announcements and account notifications.
+                    </p>
+
+                </div>
+
+                <div class="notification-toolbar">
+
+                    <div class="notification-count">
+                        <strong id="unreadCount">0</strong>
+                        unread notification(s)
+                    </div>
+
+                    <select
+                        id="notificationFilter"
+                        class="notification-filter"
+                    >
+                        <option value="all">All Notifications</option>
+                        <option value="unread">Unread</option>
+                        <option value="read">Read</option>
+                        <option value="exam">Examination</option>
+                        <option value="result">Results</option>
+                        <option value="certificate">Certificates</option>
+                        <option value="account">Account</option>
+                    </select>
+
+                </div>
+
+                <div
+                    id="notificationList"
+                    class="notification-list"
+                ></div>
+
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                >
+                    No notifications available.
+                </div>
+
+                <div class="notifications-footer-box">
+
+                    <strong>Important:</strong>
+                    Personal student notifications should be loaded from
+                    the authenticated ARS backend. Public website updates
+                    may also appear separately on the Updates page.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION DATA
+         *
+         * Production version:
+         * load notifications from the authenticated backend.
+         */
+
+        const notifications = [
+            {
+                id: 1,
+                title: "ARS Student Portal",
+                message:
+                    "Your account notifications, examination notices and certificate updates will appear here.",
+                date: "—",
+                category: "account",
+                read: false
+            },
+            {
+                id: 2,
+                title: "ARS Education Talent Research Examination",
+                message:
+                    "Stage 1 examination information is available in the Exams section.",
+                date: "—",
+                category: "exam",
+                read: false
+            },
+            {
+                id: 3,
+                title: "Result & Scorecard",
+                message:
+                    "Published examination results will be made available through the result section.",
+                date: "—",
+                category: "result",
+                read: true
+            },
+            {
+                id: 4,
+                title: "Certificate Updates",
+                message:
+                    "Eligible certificates will appear after the relevant certificate record is officially generated.",
+                date: "—",
+                category: "certificate",
+                read: true
+            }
+        ];
+
+        const notificationList =
+            document.getElementById("notificationList");
+
+        const emptyState =
+            document.getElementById("emptyState");
+
+        const filter =
+            document.getElementById("notificationFilter");
+
+        const unreadCount =
+            document.getElementById("unreadCount");
+
+        function getFilteredNotifications() {
+
+            const value = filter.value;
+
+            return notifications.filter(function(item) {
+
+                if (value === "all") {
+                    return true;
+                }
+
+                if (value === "unread") {
+                    return !item.read;
+                }
+
+                if (value === "read") {
+                    return item.read;
+                }
+
+                return item.category === value;
+
+            });
+
+        }
+
+        function renderNotifications() {
+
+            const filtered =
+                getFilteredNotifications();
+
+            notificationList.innerHTML = "";
+
+            unreadCount.textContent =
+                notifications.filter(
+                    item => !item.read
+                ).length;
+
+            if (!filtered.length) {
+
+                emptyState.style.display =
+                    "block";
+
+                return;
+            }
+
+            emptyState.style.display =
+                "none";
+
+            filtered.forEach(function(item) {
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "notification-card" +
+                    (item.read ? "" : " unread");
+
+                card.innerHTML = `
+                    <div class="notification-top">
+                        <div>
+                            <h2 class="notification-title">
+                                ${escapeHTML(item.title)}
+                            </h2>
+                        </div>
+
+                        <div class="notification-date">
+                            ${escapeHTML(item.date)}
+                        </div>
+                    </div>
+
+                    <p>
+                        ${escapeHTML(item.message)}
+                    </p>
+
+                    <span class="notification-tag">
+                        ${escapeHTML(item.category)}
+                    </span>
+
+                    <div class="notification-actions">
+
+                        ${
+                            item.read
+                                ? ""
+                                : `
+                                    <button
+                                        type="button"
+                                        class="notification-btn"
+                                        data-read-id="${item.id}"
+                                    >
+                                        Mark as Read
+                                    </button>
+                                  `
+                        }
+
+                    </div>
+                `;
+
+                notificationList.appendChild(card);
+
+            });
+
+            document
+                .querySelectorAll("[data-read-id]")
+                .forEach(function(button) {
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            const id =
+                                Number(
+                                    this.dataset.readId
+                                );
+
+                            const item =
+                                notifications.find(
+                                    notification =>
+                                        notification.id === id
+                                );
+
+                            if (item) {
+                                item.read = true;
+                            }
+
+                            renderNotifications();
+
+                        }
+                    );
+
+                });
+
+        }
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        filter.addEventListener(
+            "change",
+            renderNotifications
+        );
+
+        renderNotifications();
+    </script>
+
+</body>
+</html>
