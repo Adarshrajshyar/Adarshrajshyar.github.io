@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Certificate Download | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Download and verify your ARS digital examination certificate."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .certificate-download-page {
+            padding: 45px 20px 65px;
+            background: #f4f7f8;
+        }
+
+        .certificate-download-wrapper {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .certificate-download-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .certificate-download-header h1 {
+            color: #123b5d;
+            margin-bottom: 8px;
+        }
+
+        .certificate-download-header p {
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .certificate-paper {
+            position: relative;
+            background: #ffffff;
+            border: 8px double #d8e1e4;
+            padding: 42px;
+            min-height: 650px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+        }
+
+        .certificate-inner {
+            border: 1px solid #dce5e8;
+            min-height: 560px;
+            padding: 35px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+        }
+
+        .certificate-logo {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            margin-bottom: 7px;
+        }
+
+        .certificate-inner h1 {
+            margin: 0;
+            color: #123b5d;
+            font-size: 30px;
+        }
+
+        .certificate-inner h2 {
+            color: #16705e;
+            margin: 9px 0 25px;
+            font-size: 20px;
+        }
+
+        .certificate-presented {
+            color: #65737b;
+            margin-bottom: 9px;
+            font-size: 15px;
+        }
+
+        .certificate-name {
+            color: #185b72;
+            font-size: 30px;
+            font-weight: 800;
+            margin: 12px 0;
+        }
+
+        .certificate-body {
+            max-width: 720px;
+            margin: 0 auto;
+            color: #4f6068;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .certificate-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 700px;
+            margin: 28px auto;
+            text-align: left;
+        }
+
+        .certificate-detail {
+            border: 1px solid #dfe7ea;
+            border-radius: 8px;
+            padding: 11px 13px;
+            background: #fafcfc;
+        }
+
+        .certificate-detail span {
+            display: block;
+            font-size: 10px;
+            color: #738087;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .certificate-detail strong {
+            color: #294754;
+            font-size: 13px;
+        }
+
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 25px;
+            margin-top: 35px;
+        }
+
+        .signature-area {
+            text-align: center;
+            width: 180px;
+        }
+
+        .signature-area img {
+            width: 145px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .signature-line {
+            border-top: 1px solid #7b858a;
+            padding-top: 5px;
+            color: #5f6b72;
+            font-size: 12px;
+        }
+
+        .verification-area {
+            width: 180px;
+            text-align: center;
+        }
+
+        .qr-placeholder {
+            width: 75px;
+            height: 75px;
+            border: 1px dashed #9aa8ae;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 6px;
+            color: #78858b;
+            font-size: 11px;
+        }
+
+        .verification-area small {
+            color: #65737a;
+            line-height: 1.5;
+        }
+
+        .certificate-id {
+            margin-top: 19px;
+            color: #68767d;
+            font-size: 12px;
+        }
+
+        .certificate-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .certificate-btn {
+            border: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            background: #eef3f5;
+            color: #405760;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .certificate-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .certificate-btn:hover {
+            opacity: 0.94;
+        }
+
+        .certificate-notice {
+            margin-top: 22px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #66542a;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media print {
+
+            body {
+                background: white !important;
+            }
+
+            .site-header,
+            .site-footer,
+            .certificate-download-header,
+            .certificate-actions,
+            .certificate-notice {
+                display: none !important;
+            }
+
+            .certificate-download-page {
+                padding: 0 !important;
+                background: white !important;
+            }
+
+            .certificate-download-wrapper {
+                max-width: none;
+            }
+
+            .certificate-paper {
+                box-shadow: none;
+                border: 8px double #d8e1e4;
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .certificate-download-page {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .certificate-paper {
+                padding: 18px;
+                border-width: 5px;
+            }
+
+            .certificate-inner {
+                padding: 22px 14px;
+            }
+
+            .certificate-inner h1 {
+                font-size: 24px;
+            }
+
+            .certificate-name {
+                font-size: 23px;
+            }
+
+            .certificate-details {
+                grid-template-columns: 1fr;
+            }
+
+            .certificate-footer {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="certificate-download-page">
+
+            <div class="certificate-download-wrapper">
+
+                <div class="certificate-download-header">
+
+                    <h1>Digital Certificate</h1>
+
+                    <p>
+                        Official certificate view for eligible ARS
+                        examination participants.
+                    </p>
+
+                </div>
+
+                <div
+                    class="certificate-paper"
+                    id="certificatePaper"
+                >
+
+                    <div class="certificate-inner">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                            class="certificate-logo"
+                        >
+
+                        <h1>
+                            ARS — Adarsh Ke Alfaz
+                        </h1>
+
+                        <h2>
+                            Certificate of Participation
+                        </h2>
+
+                        <div class="certificate-presented">
+                            This certificate is presented to
+                        </div>
+
+                        <div
+                            class="certificate-name"
+                            id="certificateName"
+                        >
+                            ARS Student
+                        </div>
+
+                        <div class="certificate-body">
+
+                            For successfully participating in the
+
+                            <strong>
+                                ARS Education Talent Research Examination
+                            </strong>
+
+                            — Stage 1.
+
+                            <br>
+
+                            This digital certificate is issued subject to
+                            the applicable ARS Certificate Terms and the
+                            official examination record.
+
+                        </div>
+
+                        <div class="certificate-details">
+
+                            <div class="certificate-detail">
+                                <span>Registration ID</span>
+                                <strong id="registrationId">
+                                    ARS-XXXXXXXX
+                                </strong>
+                            </div>
+
+                            <div class="certificate-detail">
+                                <span>Certificate ID</span>
+                                <strong id="certificateId">
+                                    CERT-XXXXXXXX
+                                </strong>
+                            </div>
+
+                            <div class="certificate-detail">
+                                <span>Class</span>
+                                <strong id="studentClass">
+                                    Class —
+                                </strong>
+                            </div>
+
+                            <div class="certificate-detail">
+                                <span>Exam Date</span>
+                                <strong>
+                                    13 December 2026
+                                </strong>
+                            </div>
+
+                            <div class="certificate-detail">
+                                <span>Issue Date</span>
+                                <strong id="issueDate">
+                                    —
+                                </strong>
+                            </div>
+
+                            <div class="certificate-detail">
+                                <span>Status</span>
+                                <strong id="certificateStatus">
+                                    Pending
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <div class="certificate-footer">
+
+                            <div class="signature-area">
+
+                                <img
+                                    src="assets/signature.png"
+                                    alt="Authorized Signature"
+                                >
+
+                                <div class="signature-line">
+                                    Authorized Signature
+                                </div>
+
+                            </div>
+
+                            <div class="verification-area">
+
+                                <div class="qr-placeholder">
+                                    QR
+                                </div>
+
+                                <small>
+                                    Scan / verify using the official
+                                    ARS verification system.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="certificate-id">
+
+                            Certificate verification:
+                            <strong id="verificationText">
+                                Not available until certificate is officially issued.
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="certificate-actions">
+
+                    <button
+                        type="button"
+                        class="certificate-btn primary"
+                        id="downloadCertificateBtn"
+                    >
+                        Print / Save Certificate PDF
+                    </button>
+
+                    <a
+                        href="verify.html"
+                        class="certificate-btn"
+                    >
+                        Verify Certificate
+                    </a>
+
+                    <a
+                        href="student-dashboard.html"
+                        class="certificate-btn"
+                    >
+                        Dashboard
+                    </a>
+
+                </div>
+
+                <div class="certificate-notice">
+
+                    <strong>Important:</strong>
+
+                    This page is a certificate-view frontend.
+                    The real certificate must be generated only after
+                    eligibility is confirmed and the certificate record is
+                    officially created in the secure ARS backend.
+
+                    Certificate status should support:
+                    Valid, Revoked, Cancelled and Not Found.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="certificate-terms.html">
+                    Certificate Terms
+                </a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * BACKEND INTEGRATION
+         *
+         * Certificate data should be fetched from the authenticated
+         * certificate record.
+         *
+         * Required checks:
+         * 1. Student authentication
+         * 2. Certificate ownership/authorization
+         * 3. Eligibility
+         * 4. Certificate status
+         * 5. Official certificate ID
+         * 6. QR verification URL
+         */
+
+        const certificateData = {
+
+            issued: false,
+
+            name: "ARS Student",
+
+            registrationId:
+                "ARS-XXXXXXXX",
+
+            certificateId:
+                "CERT-XXXXXXXX",
+
+            studentClass:
+                "Class —",
+
+            issueDate:
+                "—",
+
+            status:
+                "Pending"
+
+        };
+
+        document.getElementById("certificateName").textContent =
+            certificateData.name;
+
+        document.getElementById("registrationId").textContent =
+            certificateData.registrationId;
+
+        document.getElementById("certificateId").textContent =
+            certificateData.certificateId;
+
+        document.getElementById("studentClass").textContent =
+            certificateData.studentClass;
+
+        document.getElementById("issueDate").textContent =
+            certificateData.issueDate;
+
+        document.getElementById("certificateStatus").textContent =
+            certificateData.status;
+
+        if (certificateData.issued) {
+
+            document.getElementById("verificationText").textContent =
+                "Verify using Certificate ID and the official ARS verification page.";
+
+        }
+
+        document
+            .getElementById("downloadCertificateBtn")
+            .addEventListener("click", function() {
+
+                window.print();
+
+            });
+
+    </script>
+
+</body>
+</html>
