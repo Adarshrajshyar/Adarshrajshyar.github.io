@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Certificates | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="View and access your ARS digital certificates."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .my-certificates-page {
+            padding: 45px 20px 65px;
+        }
+
+        .my-certificates-wrapper {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .certificates-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            margin-bottom: 23px;
+        }
+
+        .certificates-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .certificates-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .certificates-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .certificate-tabs {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .certificate-tab {
+            border: 1px solid #d8e2e5;
+            background: #ffffff;
+            color: #405760;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .certificate-tab.active {
+            background: #eef7f7;
+            color: #166b59;
+            border-color: #c2deda;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 17px;
+        }
+
+        .certificate-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 22px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+        }
+
+        .certificate-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .certificate-card h2 {
+            margin: 0 0 6px;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .certificate-type {
+            color: #68757d;
+            font-size: 13px;
+        }
+
+        .certificate-status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .status-valid {
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .status-pending {
+            background: #fff7df;
+            color: #765d1d;
+        }
+
+        .certificate-info {
+            display: grid;
+            gap: 9px;
+            margin-top: 17px;
+        }
+
+        .certificate-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid #edf0f1;
+            font-size: 13px;
+        }
+
+        .certificate-row span:first-child {
+            color: #748087;
+        }
+
+        .certificate-row span:last-child {
+            color: #294754;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .certificate-card-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 18px;
+        }
+
+        .certificate-card-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: #eef3f5;
+            color: #405760;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .certificate-card-btn.primary {
+            color: white;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+        }
+
+        .certificates-empty {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            color: #6c797f;
+        }
+
+        .certificate-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 800px) {
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .my-certificates-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .certificates-hero {
+                padding: 23px 18px;
+            }
+
+            .certificate-card-top {
+                flex-direction: column;
+            }
+
+            .certificate-status {
+                white-space: normal;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="my-certificates-page">
+
+            <div class="my-certificates-wrapper">
+
+                <div class="certificates-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>My Certificates</h1>
+
+                    <p>
+                        Access your ARS joining, participation,
+                        achievement and merit certificates.
+                    </p>
+
+                </div>
+
+                <div class="certificate-tabs">
+
+                    <button
+                        type="button"
+                        class="certificate-tab active"
+                        data-filter="all"
+                    >
+                        All Certificates
+                    </button>
+
+                    <button
+                        type="button"
+                        class="certificate-tab"
+                        data-filter="joining"
+                    >
+                        Joining
+                    </button>
+
+                    <button
+                        type="button"
+                        class="certificate-tab"
+                        data-filter="participation"
+                    >
+                        Participation
+                    </button>
+
+                    <button
+                        type="button"
+                        class="certificate-tab"
+                        data-filter="achievement"
+                    >
+                        Achievement
+                    </button>
+
+                    <button
+                        type="button"
+                        class="certificate-tab"
+                        data-filter="merit"
+                    >
+                        Merit
+                    </button>
+
+                </div>
+
+                <div
+                    id="certificatesGrid"
+                    class="certificates-grid"
+                ></div>
+
+                <div
+                    id="certificatesEmpty"
+                    class="certificates-empty"
+                >
+                    No certificates are currently available in your account.
+                </div>
+
+                <div class="certificate-note">
+
+                    <strong>Important:</strong>
+
+                    A certificate should appear here only after its
+                    corresponding record has been officially issued.
+                    Certificate status may be Valid, Revoked, Cancelled
+                    or otherwise unavailable according to the official
+                    certificate record.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="certificate-terms.html">
+                    Certificate Terms
+                </a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">
+                    Private
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION DATA
+         *
+         * Production version must load certificate records from
+         * the authenticated backend.
+         */
+
+        const certificates = [
+            {
+                id: 1,
+                title:
+                    "ARS Joining Certificate",
+                type:
+                    "joining",
+                typeLabel:
+                    "Membership Joining Certificate",
+                certificateId:
+                    "JOIN-CERT-XXXXXXXX",
+                issueDate:
+                    "—",
+                status:
+                    "Pending",
+                statusClass:
+                    "status-pending",
+                link:
+                    "join-ars-certificate.html"
+            },
+            {
+                id: 2,
+                title:
+                    "ARS Participation Certificate",
+                type:
+                    "participation",
+                typeLabel:
+                    "Examination Participation",
+                certificateId:
+                    "CERT-XXXXXXXX",
+                issueDate:
+                    "—",
+                status:
+                    "Pending",
+                statusClass:
+                    "status-pending",
+                link:
+                    "certificate-download.html"
+            }
+        ];
+
+        const certificatesGrid =
+            document.getElementById(
+                "certificatesGrid"
+            );
+
+        const certificatesEmpty =
+            document.getElementById(
+                "certificatesEmpty"
+            );
+
+        const tabs =
+            document.querySelectorAll(
+                ".certificate-tab"
+            );
+
+        function renderCertificates(filterValue) {
+
+            const filtered =
+                filterValue === "all"
+                    ? certificates
+                    : certificates.filter(
+                        certificate =>
+                            certificate.type === filterValue
+                    );
+
+            certificatesGrid.innerHTML = "";
+
+            if (!filtered.length) {
+
+                certificatesEmpty.style.display =
+                    "block";
+
+                return;
+            }
+
+            certificatesEmpty.style.display =
+                "none";
+
+            filtered.forEach(
+                function(certificate) {
+
+                    const card =
+                        document.createElement("article");
+
+                    card.className =
+                        "certificate-card";
+
+                    card.innerHTML = `
+
+                        <div class="certificate-card-top">
+
+                            <div>
+
+                                <h2>
+                                    ${escapeHTML(
+                                        certificate.title
+                                    )}
+                                </h2>
+
+                                <div class="certificate-type">
+                                    ${escapeHTML(
+                                        certificate.typeLabel
+                                    )}
+                                </div>
+
+                            </div>
+
+                            <span
+                                class="certificate-status
+                                ${certificate.statusClass}"
+                            >
+                                ${escapeHTML(
+                                    certificate.status
+                                )}
+                            </span>
+
+                        </div>
+
+                        <div class="certificate-info">
+
+                            <div class="certificate-row">
+
+                                <span>Certificate ID</span>
+
+                                <span>
+                                    ${escapeHTML(
+                                        certificate.certificateId
+                                    )}
+                                </span>
+
+                            </div>
+
+                            <div class="certificate-row">
+
+                                <span>Issue Date</span>
+
+                                <span>
+                                    ${escapeHTML(
+                                        certificate.issueDate
+                                    )}
+                                </span>
+
+                            </div>
+
+                            <div class="certificate-row">
+
+                                <span>Certificate Type</span>
+
+                                <span>
+                                    ${escapeHTML(
+                                        certificate.typeLabel
+                                    )}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="certificate-card-actions">
+
+                            <a
+                                href="${escapeHTML(
+                                    certificate.link
+                                )}"
+                                class="certificate-card-btn primary"
+                            >
+                                Open Certificate
+                            </a>
+
+                            <a
+                                href="verify.html"
+                                class="certificate-card-btn"
+                            >
+                                Verify
+                            </a>
+
+                        </div>
+
+                    `;
+
+                    certificatesGrid.appendChild(
+                        card
+                    );
+
+                }
+            );
+
+        }
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        tabs.forEach(function(tab) {
+
+            tab.addEventListener(
+                "click",
+                function() {
+
+                    tabs.forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+                    this.classList.add(
+                        "active"
+                    );
+
+                    renderCertificates(
+                        this.dataset.filter
+                    );
+
+                }
+            );
+
+        });
+
+        renderCertificates("all");
+
+    </script>
+
+</body>
+</html>
