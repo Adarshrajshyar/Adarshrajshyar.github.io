@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Biography | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Biography of Adarsh Raj Shayar and the journey of ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .biography-page {
+            padding: 45px 20px 65px;
+        }
+
+        .biography-wrapper {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .biography-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 34px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .biography-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .biography-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .biography-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 17px;
+            padding: 30px;
+            margin-bottom: 22px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.05);
+        }
+
+        .biography-intro {
+            display: grid;
+            grid-template-columns: 210px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .founder-photo-box {
+            text-align: center;
+        }
+
+        .founder-photo {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid #dfe7ea;
+            background: #f4f7f8;
+        }
+
+        .photo-caption {
+            margin-top: 9px;
+            color: #7a858b;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .biography-intro h2 {
+            margin-top: 0;
+            color: #16705e;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .founder-name {
+            color: #185b72;
+            font-size: 23px;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .biography-content {
+            color: #4b5c64;
+            font-size: 16px;
+            line-height: 1.9;
+        }
+
+        .biography-content p {
+            margin: 0 0 16px;
+        }
+
+        .biography-content h2 {
+            color: #16705e;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .biography-content ul {
+            padding-left: 23px;
+        }
+
+        .biography-content li {
+            margin-bottom: 8px;
+        }
+
+        .journey-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .journey-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 11px;
+            padding: 18px;
+        }
+
+        .journey-box strong {
+            display: block;
+            color: #185b72;
+            margin-bottom: 7px;
+        }
+
+        .journey-box span {
+            color: #68767d;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .biography-highlight {
+            background: #eef7fb;
+            border-left: 4px solid #1877a6;
+            border-radius: 8px;
+            padding: 16px;
+            color: #405a66;
+            line-height: 1.7;
+            margin: 20px 0;
+        }
+
+        .biography-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 23px;
+        }
+
+        .biography-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: #eef3f5;
+            color: #405760;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .biography-btn.primary {
+            color: white;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+        }
+
+        .biography-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 800px) {
+
+            .biography-intro {
+                grid-template-columns: 1fr;
+            }
+
+            .founder-photo-box {
+                text-align: center;
+            }
+
+            .journey-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .biography-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .biography-hero {
+                padding: 23px 18px;
+            }
+
+            .biography-card {
+                padding: 22px 18px;
+            }
+
+            .journey-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="biography-page">
+
+            <div class="biography-wrapper">
+
+                <div class="biography-hero">
+
+                    <h1>Biography</h1>
+
+                    <p>
+                        The journey behind ARS — Adarsh Ke Alfaz
+                        and its founder identity.
+                    </p>
+
+                </div>
+
+                <div class="biography-card">
+
+                    <div class="biography-intro">
+
+                        <div class="founder-photo-box">
+
+                            <img
+                                src="assets/founder.jpg"
+                                alt="Founder placeholder"
+                                class="founder-photo"
+                                onerror="
+                                    this.style.display='none';
+                                    this.nextElementSibling.style.display='block';
+                                "
+                            >
+
+                            <div
+                                class="photo-caption"
+                                style="display:none;"
+                            >
+                                Founder photo will be added later
+                                using <strong>assets/founder.jpg</strong>.
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <h2>Founder</h2>
+
+                            <div class="founder-name">
+                                Adarsh Raj Shayar
+                            </div>
+
+                            <div class="biography-content">
+
+                                <p>
+                                    Adarsh Raj Shayar is the founder identity
+                                    associated with ARS — Adarsh Ke Alfaz.
+                                    This page is intended to present the
+                                    approved biography and journey information
+                                    of the founder without mixing the founder
+                                    identity with the platform name.
+                                </p>
+
+                                <div class="biography-highlight">
+
+                                    <strong>
+                                        ARS Identity:
+                                    </strong>
+
+                                    The platform name is
+                                    <strong>ARS — Adarsh Ke Alfaz</strong>,
+                                    while the founder identity is
+                                    <strong>Adarsh Raj Shayar</strong>.
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="biography-card">
+
+                    <h2 style="color:#16705e;margin-top:0;">
+                        Early Life & Beginning
+                    </h2>
+
+                    <div class="biography-content">
+
+                        <p>
+                            The detailed early-life biography should be
+                            published only from verified information
+                            supplied and approved for the official ARS
+                            profile.
+                        </p>
+
+                        <p>
+                            Approved personal milestones, educational
+                            background and creative beginnings can be
+                            added here through the Publisher system.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="biography-card">
+
+                    <h2 style="color:#16705e;margin-top:0;">
+                        Creative Journey
+                    </h2>
+
+                    <div class="journey-grid">
+
+                        <div class="journey-box">
+
+                            <strong>
+                                Writing
+                            </strong>
+
+                            <span>
+                                Shayari, poetry and stories can be presented
+                                as part of the creator's literary journey.
+                            </span>
+
+                        </div>
+
+                        <div class="journey-box">
+
+                            <strong>
+                                Education
+                            </strong>
+
+                            <span>
+                                ARS combines educational resources with
+                                knowledge-oriented content.
+                            </span>
+
+                        </div>
+
+                        <div class="journey-box">
+
+                            <strong>
+                                ARS Platform
+                            </strong>
+
+                            <span>
+                                The platform brings education, literature,
+                                knowledge and student services together.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="biography-card">
+
+                    <h2 style="color:#16705e;margin-top:0;">
+                        Contribution & Vision
+                    </h2>
+
+                    <div class="biography-content">
+
+                        <p>
+                            ARS is designed as a space where students can
+                            learn, practice, explore knowledge and access
+                            educational services while also discovering
+                            original literary work.
+                        </p>
+
+                        <p>
+                            The long-term vision can be expanded as verified
+                            projects, achievements, publications,
+                            educational initiatives and partnerships are
+                            officially established.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="biography-card">
+
+                    <h2 style="color:#16705e;margin-top:0;">
+                        Achievements
+                    </h2>
+
+                    <div class="biography-content">
+
+                        <p>
+                            Verified achievements and milestones will be
+                            added here as they are officially documented.
+                        </p>
+
+                        <div class="biography-highlight">
+
+                            No unverified awards, partnerships,
+                            accreditation, rankings or achievements
+                            should be displayed as established facts.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="biography-card">
+
+                    <div class="biography-actions">
+
+                        <a
+                            href="ars-book.html"
+                            class="biography-btn primary"
+                        >
+                            Read ARS Book
+                        </a>
+
+                        <a
+                            href="shayari.html"
+                            class="biography-btn"
+                        >
+                            Shayari
+                        </a>
+
+                        <a
+                            href="poetry.html"
+                            class="biography-btn"
+                        >
+                            Poetry
+                        </a>
+
+                        <a
+                            href="stories.html"
+                            class="biography-btn"
+                        >
+                            Stories
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="biography-note">
+
+                    <strong>Publisher Note:</strong>
+                    The biography is intentionally structured so that
+                    unverified personal information is not invented.
+                    The authorized Publisher can update approved biography
+                    content through the backend.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+    </script>
+
+</body>
+</html>
