@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="ARS Certificate Verification — Verify an ARS digital certificate using Certificate ID."
+  >
+
+  <meta
+    name="author"
+    content="Adarsh Raj Shayar"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b4f8a"
+  >
+
+  <title>Verify Certificate | ARS — Adarsh Ke Alfaz</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="assets/logo.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+
+    <div class="container navbar">
+
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="ARS Home"
+      >
+
+        <div class="brand-logo-wrap">
+
+          <img
+            src="assets/logo.png"
+            alt="ARS Logo"
+            class="brand-logo"
+          >
+
+        </div>
+
+        <div class="brand-text">
+
+          <strong>ARS</strong>
+
+          <span>
+            Adarsh Ke Alfaz
+          </span>
+
+          <small>
+            Education • Knowledge • Power
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open Menu"
+        aria-expanded="false"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+
+      <nav
+        class="main-nav"
+        id="mainNav"
+        aria-label="Main Navigation"
+      >
+
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="knowledge-power.html">Knowledge Power</a>
+        <a href="exams.html">Exams</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="poetry.html">Poetry</a>
+        <a href="biography.html">Biography</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="updates.html">Updates</a>
+
+        <a
+          href="join-ars.html"
+          class="nav-special"
+        >
+          Join ARS
+        </a>
+
+        <a href="certificate.html">
+          Certificate
+        </a>
+
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="sponsor.html">Sponsor</a>
+
+        <button
+          type="button"
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle Theme"
+        >
+          🌙
+        </button>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="section page-hero">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            CERTIFICATE VERIFICATION
+          </span>
+
+          <h1>
+            Verify ARS Certificate
+          </h1>
+
+          <p>
+            Certificate ID डालकर certificate का current status check करें।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VERIFICATION -->
+    <section class="section education-section">
+
+      <div class="container">
+
+        <div class="certificate-box">
+
+          <!-- SEARCH -->
+          <div class="certificate-copy">
+
+            <span class="eyebrow">
+              ENTER CERTIFICATE ID
+            </span>
+
+            <h2>
+              Certificate verify करें
+            </h2>
+
+            <p>
+              Certificate पर दिए गए unique Certificate ID को यहाँ दर्ज करें।
+            </p>
+
+
+            <form
+              id="certificateVerifyForm"
+              novalidate
+              style="margin-top:22px;"
+            >
+
+              <input
+                id="certificateId"
+                name="certificateId"
+                type="text"
+                autocomplete="off"
+                required
+                placeholder="e.g. ARS-2026-XXXXXX"
+                style="
+                  width:100%;
+                  padding:14px 16px;
+                  border:1px solid var(--border);
+                  border-radius:12px;
+                  background:var(--white);
+                  color:var(--text);
+                  outline:none;
+                  text-transform:uppercase;
+                "
+              >
+
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="margin-top:12px;"
+              >
+                🔎 Verify
+              </button>
+
+            </form>
+
+
+            <div
+              id="verificationMessage"
+              role="status"
+              aria-live="polite"
+              style="
+                display:none;
+                margin-top:17px;
+                padding:14px;
+                border-radius:12px;
+                font-size:13px;
+              "
+            ></div>
+
+          </div>
+
+
+          <!-- RESULT -->
+          <div>
+
+            <div class="section-heading left">
+
+              <span>
+                VERIFICATION RESULT
+              </span>
+
+              <h2 id="verificationTitle">
+                Certificate Status
+              </h2>
+
+            </div>
+
+
+            <div
+              id="verificationResult"
+              class="updates-empty"
+              style="margin:0;"
+            >
+
+              <div class="empty-icon">
+                🔎
+              </div>
+
+              <h3>
+                Verification details यहाँ दिखाई देंगी
+              </h3>
+
+              <p>
+                Certificate ID दर्ज करके Verify button दबाएँ।
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- STATUS GUIDE -->
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            STATUS GUIDE
+          </span>
+
+          <h2>
+            Verification status का मतलब
+          </h2>
+
+        </div>
+
+
+        <div class="knowledge-grid">
+
+          <article class="knowledge-card">
+
+            <span>✅</span>
+
+            <strong>
+              Valid
+            </strong>
+
+            <small>
+              Certificate record valid दिखाई दे रहा है।
+            </small>
+
+          </article>
+
+
+          <article class="knowledge-card">
+
+            <span>⚠️</span>
+
+            <strong>
+              Revoked
+            </strong>
+
+            <small>
+              Certificate बाद में revoke किया गया है।
+            </small>
+
+          </article>
+
+
+          <article class="knowledge-card">
+
+            <span>❌</span>
+
+            <strong>
+              Cancelled
+            </strong>
+
+            <small>
+              Certificate record cancelled है।
+            </small>
+
+          </article>
+
+
+          <article class="knowledge-card">
+
+            <span>🔍</span>
+
+            <strong>
+              Not Found
+            </strong>
+
+            <small>
+              दिए गए ID से valid record नहीं मिला।
+            </small>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- QR -->
+    <section class="section knowledge-section">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            QR VERIFICATION
+          </span>
+
+          <h2>
+            Certificate पर QR Code
+          </h2>
+
+          <p>
+            Future certificate templates में QR code directly
+            official verification page से connect किया जाएगा।
+          </p>
+
+        </div>
+
+
+        <div
+          class="updates-empty"
+          style="max-width:700px;"
+        >
+
+          <div class="empty-icon">
+            📷
+          </div>
+
+          <h3>
+            Scan → Verify
+          </h3>
+
+          <p>
+            QR scan करने पर इसी verification system का
+            certificate-specific record खुलेगा।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TRUST -->
+    <section class="section">
+
+      <div class="container">
+
+        <div class="updates-empty">
+
+          <div class="empty-icon">
+            🛡️
+          </div>
+
+          <h3>
+            Verification Notice
+          </h3>
+
+          <p>
+            Verification page पर दिखने वाला status केवल ARS के
+            actual certificate record पर आधारित होगा। किसी external
+            image या manually edited document को valid नहीं माना जाएगा।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <div class="footer-logo-wrap">
+
+          <img
+            src="assets/logo.png"
+            alt="ARS Logo"
+          >
+
+        </div>
+
+        <h3>
+          ARS — Adarsh Ke Alfaz
+        </h3>
+
+        <p>
+          Education • Knowledge • Power • Creativity
+        </p>
+
+        <p class="footer-founder">
+          Founder: Adarsh Raj Shayar
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Explore</h4>
+
+        <a href="education.html">Education</a>
+        <a href="knowledge-power.html">Knowledge Power</a>
+        <a href="exams.html">Exams</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>ARS</h4>
+
+        <a href="poetry.html">Poetry</a>
+        <a href="biography.html">Biography</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="join-ars.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Support</h4>
+
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="sponsor.html">Sponsor</a>
+        <a href="policy.html">Privacy & Policy</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span>
+        ARS — Adarsh Ke Alfaz.
+        All Rights Reserved.
+      </p>
+
+      <a
+        href="private.html"
+        class="private-link"
+      >
+        🔒 Private
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <div
+    id="arsToast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script src="js/script.js"></script>
+
+
+  <script>
+
+    "use strict";
+
+
+    /* =====================================================
+       CERTIFICATE VERIFICATION
+       ===================================================== */
+
+
+    const form =
+      document.getElementById(
+        "certificateVerifyForm"
+      );
+
+
+    const input =
+      document.getElementById(
+        "certificateId"
+      );
+
+
+    const result =
+      document.getElementById(
+        "verificationResult"
+      );
+
+
+    const title =
+      document.getElementById(
+        "verificationTitle"
+      );
+
+
+    const message =
+      document.getElementById(
+        "verificationMessage"
+      );
+
+
+    /*
+      Temporary front-end demo records are intentionally
+      not treated as official certificate records.
+
+      Production version:
+      verification will query the secure backend/database.
+    */
+
+    const demoRecords = {};
+
+
+    function escapeHTML(value) {
+
+      return String(
+        value ?? ""
+      )
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    function showVerificationMessage(
+      text,
+      success
+    ) {
+
+      message.style.display =
+        "block";
+
+      message.textContent =
+        text;
+
+
+      if (success) {
+
+        message.style.background =
+          "var(--green-50)";
+
+        message.style.color =
+          "var(--green-900)";
+
+      } else {
+
+        message.style.background =
+          "#fff1f1";
+
+        message.style.color =
+          "#8a1f1f";
+
+      }
+
+    }
+
+
+    function showNotFound(
+      certificateId
+    ) {
+
+      title.textContent =
+        "Certificate Not Found";
+
+
+      result.innerHTML =
+        `
+          <div class="empty-icon">
+            ❌
+          </div>
+
+          <h3>
+            Certificate record नहीं मिला
+          </h3>
+
+          <p>
+            Certificate ID:
+            <strong>
+              ${escapeHTML(certificateId)}
+            </strong>
+          </p>
+
+          <p>
+            कृपया ID दोबारा check करें।
+          </p>
+        `;
+
+
+      showVerificationMessage(
+        "No valid certificate record found.",
+        false
+      );
+
+    }
+
+
+    function showValidCertificate(
+      certificate
+    ) {
+
+      title.textContent =
+        "Certificate Verified";
+
+
+      result.innerHTML =
+        `
+          <div
+            style="
+              width:64px;
+              height:64px;
+              display:grid;
+              place-items:center;
+              margin:0 auto 15px;
+              border-radius:50%;
+              background:var(--green-100);
+              color:var(--green-800);
+              font-size:30px;
+            "
+          >
+            ✓
+          </div>
+
+          <h3>
+            Certificate is Valid
+          </h3>
+
+          <p>
+            <strong>Name:</strong>
+            ${escapeHTML(certificate.name)}
+          </p>
+
+          <p>
+            <strong>Certificate Type:</strong>
+            ${escapeHTML(certificate.type)}
+          </p>
+
+          <p>
+            <strong>Certificate ID:</strong>
+            ${escapeHTML(certificate.id)}
+          </p>
+
+          <p>
+            <strong>Issue Date:</strong>
+            ${escapeHTML(certificate.issueDate)}
+          </p>
+
+          <p>
+            <strong>Status:</strong>
+            Valid
+          </p>
+
+          <div
+            style="
+              margin-top:15px;
+              padding:12px;
+              border-radius:12px;
+              background:var(--green-50);
+              color:var(--green-900);
+              font-size:12px;
+            "
+          >
+            This verification status is based on the
+            official ARS certificate record.
+          </div>
+        `;
+
+
+      showVerificationMessage(
+        "Certificate verified successfully.",
+        true
+      );
+
+    }
+
+
+    function verifyCertificate(
+      certificateId
+    ) {
+
+      const id =
+        String(
+          certificateId || ""
+        )
+          .trim()
+          .toUpperCase();
+
+
+      if (!id) {
+
+        showVerificationMessage(
+          "कृपया Certificate ID डालें।",
+          false
+        );
+
+        return;
+
+      }
+
+
+      /*
+        For now the page only demonstrates the verification
+        interface. Production implementation will query
+        the real certificate database.
+      */
+
+      if (
+        demoRecords[id]
+      ) {
+
+        showValidCertificate(
+          demoRecords[id]
+        );
+
+        return;
+
+      }
+
+
+      showNotFound(id);
+
+    }
+
+
+    form?.addEventListener(
+      "submit",
+      function (event) {
+
+        event.preventDefault();
+
+        verifyCertificate(
+          input.value
+        );
+
+      }
+    );
+
+
+    /* =====================================================
+       URL PARAMETER
+       ===================================================== */
+
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const urlId =
+      params.get("id");
+
+
+    if (urlId) {
+
+      input.value =
+        urlId;
+
+      verifyCertificate(
+        urlId
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
