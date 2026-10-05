@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Student profile page for ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .profile-page {
+            padding: 45px 20px 65px;
+        }
+
+        .profile-wrapper {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .profile-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 23px;
+        }
+
+        .profile-hero-inner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: white;
+            padding: 7px;
+            box-sizing: border-box;
+            border: 1px solid #dfe7ea;
+        }
+
+        .profile-hero h1 {
+            margin: 0 0 7px;
+            color: #123b5d;
+        }
+
+        .profile-hero p {
+            margin: 0;
+            color: #67767e;
+            line-height: 1.5;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 22px;
+        }
+
+        .profile-card {
+            background: #ffffff;
+            border: 1px solid #e0e7ea;
+            border-radius: 16px;
+            padding: 27px;
+            margin-bottom: 22px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.05);
+        }
+
+        .profile-card h2 {
+            margin-top: 0;
+            color: #16705e;
+            margin-bottom: 18px;
+        }
+
+        .profile-form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #29404d;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 13px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .form-group input[readonly] {
+            background: #f5f8f9;
+            color: #65737a;
+        }
+
+        .profile-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .profile-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: 700;
+            background: #eef3f5;
+            color: #405760;
+        }
+
+        .profile-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .profile-message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .profile-message.info {
+            display: block;
+            background: #eef7fb;
+            color: #17546c;
+        }
+
+        .profile-message.success {
+            display: block;
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .profile-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #9a2828;
+        }
+
+        .profile-summary {
+            display: grid;
+            gap: 12px;
+        }
+
+        .summary-box {
+            padding: 15px;
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+        }
+
+        .summary-box span {
+            display: block;
+            font-size: 11px;
+            color: #717e84;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .summary-box strong {
+            color: #185b72;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        .account-status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #edf9f2;
+            color: #176438;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .profile-links {
+            display: grid;
+            gap: 9px;
+        }
+
+        .profile-links a {
+            display: block;
+            padding: 12px;
+            border-radius: 9px;
+            text-decoration: none;
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            color: #185b72;
+            font-weight: 700;
+        }
+
+        .profile-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .profile-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .profile-hero,
+            .profile-card {
+                padding: 22px 18px;
+            }
+
+            .profile-hero-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="profile-page">
+
+            <div class="profile-wrapper">
+
+                <div class="profile-hero">
+
+                    <div class="profile-hero-inner">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS"
+                            class="profile-avatar"
+                        >
+
+                        <div>
+
+                            <h1 id="heroName">
+                                ARS Student
+                            </h1>
+
+                            <p>
+                                Student Profile · ARS — Adarsh Ke Alfaz
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="profile-grid">
+
+                    <!-- Main Profile -->
+                    <div>
+
+                        <div class="profile-card">
+
+                            <h2>Personal & Academic Details</h2>
+
+                            <form
+                                id="profileForm"
+                                class="profile-form"
+                            >
+
+                                <div class="two-column">
+
+                                    <div class="form-group">
+
+                                        <label for="fullName">
+                                            Full Name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="fullName"
+                                            value="ARS Student"
+                                            required
+                                        >
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="studentClass">
+                                            Class
+                                        </label>
+
+                                        <select
+                                            id="studentClass"
+                                            required
+                                        >
+
+                                            <option value="">
+                                                Select class
+                                            </option>
+
+                                            <option value="5">
+                                                Class 5
+                                            </option>
+
+                                            <option value="6">
+                                                Class 6
+                                            </option>
+
+                                            <option value="7">
+                                                Class 7
+                                            </option>
+
+                                            <option value="8">
+                                                Class 8
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="two-column">
+
+                                    <div class="form-group">
+
+                                        <label for="email">
+                                            Email Address
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            value="student@example.com"
+                                            readonly
+                                        >
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="mobile">
+                                            Registered Mobile
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            id="mobile"
+                                            value=""
+                                            maxlength="10"
+                                            inputmode="numeric"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="school">
+                                        School / Institution
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="school"
+                                        placeholder="Enter school name"
+                                    >
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <label for="state">
+                                        State
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="state"
+                                        placeholder="Enter state"
+                                    >
+
+                                </div>
+
+                                <div class="profile-buttons">
+
+                                    <button
+                                        type="submit"
+                                        class="profile-btn primary"
+                                    >
+                                        Save Profile
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="profile-btn"
+                                        id="resetProfile"
+                                    >
+                                        Reset
+                                    </button>
+
+                                </div>
+
+                                <div
+                                    id="profileMessage"
+                                    class="profile-message"
+                                ></div>
+
+                            </form>
+
+                        </div>
+
+                        <div class="profile-card">
+
+                            <h2>Account Security</h2>
+
+                            <div class="profile-buttons">
+
+                                <button
+                                    type="button"
+                                    class="profile-btn primary"
+                                    id="changePasswordBtn"
+                                >
+                                    Change Password
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="profile-btn"
+                                    id="logoutBtn"
+                                >
+                                    Logout
+                                </button>
+
+                            </div>
+
+                            <br>
+
+                            <div class="profile-note">
+
+                                Password changes and authentication must be
+                                handled by the secure backend. Passwords
+                                must never be stored in this HTML file,
+                                localStorage or public JavaScript.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Sidebar -->
+                    <aside>
+
+                        <div class="profile-card">
+
+                            <h2>Account Summary</h2>
+
+                            <div class="profile-summary">
+
+                                <div class="summary-box">
+
+                                    <span>Account Status</span>
+
+                                    <strong>
+                                        <span class="account-status">
+                                            Active
+                                        </span>
+                                    </strong>
+
+                                </div>
+
+                                <div class="summary-box">
+
+                                    <span>Student ID</span>
+
+                                    <strong id="studentId">
+                                        ARS-STUDENT-XXXXXXXX
+                                    </strong>
+
+                                </div>
+
+                                <div class="summary-box">
+
+                                    <span>Email Verification</span>
+
+                                    <strong>
+                                        Pending / Backend
+                                    </strong>
+
+                                </div>
+
+                                <div class="summary-box">
+
+                                    <span>Profile Completion</span>
+
+                                    <strong id="profileCompletion">
+                                        0%
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="profile-card">
+
+                            <h2>Quick Access</h2>
+
+                            <div class="profile-links">
+
+                                <a href="student-dashboard.html">
+                                    📊 Student Dashboard
+                                </a>
+
+                                <a href="result.html">
+                                    📈 My Results
+                                </a>
+
+                                <a href="certificate.html">
+                                    📜 Certificates
+                                </a>
+
+                                <a href="join-ars-status.html">
+                                    🤝 Join ARS Status
+                                </a>
+
+                                <a href="education.html">
+                                    📚 Study Material
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+                <div class="profile-note">
+
+                    <strong>Backend Requirement:</strong>
+                    The real profile must be associated with the authenticated
+                    student's account. Email, student ID and protected account
+                    fields should be loaded from the secure backend, and only
+                    authorized users should be allowed to edit permitted fields.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const profileForm =
+            document.getElementById("profileForm");
+
+        const profileMessage =
+            document.getElementById("profileMessage");
+
+        const fullName =
+            document.getElementById("fullName");
+
+        const studentClass =
+            document.getElementById("studentClass");
+
+        const mobile =
+            document.getElementById("mobile");
+
+        const school =
+            document.getElementById("school");
+
+        const state =
+            document.getElementById("state");
+
+        function showProfileMessage(
+            message,
+            type
+        ) {
+
+            profileMessage.textContent =
+                message;
+
+            profileMessage.className =
+                "profile-message " + type;
+
+        }
+
+        function updateProfileCompletion() {
+
+            const fields = [
+                fullName.value.trim(),
+                studentClass.value,
+                mobile.value.trim(),
+                school.value.trim(),
+                state.value.trim()
+            ];
+
+            const completed =
+                fields.filter(
+                    value => value !== ""
+                ).length;
+
+            const percentage =
+                Math.round(
+                    completed /
+                    fields.length *
+                    100
+                );
+
+            document.getElementById(
+                "profileCompletion"
+            ).textContent =
+                percentage + "%";
+
+        }
+
+        fullName.addEventListener(
+            "input",
+            function() {
+
+                document.getElementById(
+                    "heroName"
+                ).textContent =
+                    fullName.value.trim() ||
+                    "ARS Student";
+
+                updateProfileCompletion();
+
+            }
+        );
+
+        studentClass.addEventListener(
+            "change",
+            updateProfileCompletion
+        );
+
+        mobile.addEventListener(
+            "input",
+            updateProfileCompletion
+        );
+
+        school.addEventListener(
+            "input",
+            updateProfileCompletion
+        );
+
+        state.addEventListener(
+            "input",
+            updateProfileCompletion
+        );
+
+        profileForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                const mobileValue =
+                    mobile.value.trim();
+
+                if (
+                    mobileValue &&
+                    !/^[0-9]{10}$/.test(
+                        mobileValue
+                    )
+                ) {
+
+                    showProfileMessage(
+                        "Please enter a valid 10-digit mobile number.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                /*
+                 * BACKEND FLOW
+                 *
+                 * Authenticated session
+                 *       ↓
+                 * Load profile
+                 *       ↓
+                 * Validate editable fields
+                 *       ↓
+                 * Update database
+                 *       ↓
+                 * Audit important changes
+                 */
+
+                showProfileMessage(
+                    "Profile form validated. Secure backend save is required.",
+                    "info"
+                );
+
+                updateProfileCompletion();
+
+            }
+        );
+
+        document
+            .getElementById("resetProfile")
+            .addEventListener(
+                "click",
+                function() {
+
+                    fullName.value =
+                        "ARS Student";
+
+                    studentClass.value =
+                        "";
+
+                    mobile.value =
+                        "";
+
+                    school.value =
+                        "";
+
+                    state.value =
+                        "";
+
+                    document.getElementById(
+                        "heroName"
+                    ).textContent =
+                        "ARS Student";
+
+                    showProfileMessage(
+                        "Profile form reset.",
+                        "info"
+                    );
+
+                    updateProfileCompletion();
+
+                }
+            );
+
+        document
+            .getElementById("changePasswordBtn")
+            .addEventListener(
+                "click",
+                function() {
+
+                    showProfileMessage(
+                        "Password change will be handled by the secure authentication provider.",
+                        "info"
+                    );
+
+                }
+            );
+
+        document
+            .getElementById("logoutBtn")
+            .addEventListener(
+                "click",
+                function() {
+
+                    /*
+                     * Production:
+                     * await supabase.auth.signOut();
+                     */
+
+                    localStorage.removeItem(
+                        "arsStudentSession"
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                }
+            );
+
+        updateProfileCompletion();
+
+    </script>
+
+</body>
+</html>
