@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="ARS — Adarsh Ke Alfaz offline page">
+
+    <title>Offline | ARS — Adarsh Ke Alfaz</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .offline-page {
+            min-height: 72vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .offline-card {
+            max-width: 680px;
+            width: 100%;
+            text-align: center;
+            padding: 50px 30px;
+        }
+
+        .offline-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .offline-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .offline-card p {
+            max-width: 560px;
+            margin: 0 auto 25px;
+        }
+
+        .connection-status {
+            margin: 25px auto;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            max-width: 480px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+        <a href="index.html" class="brand">
+
+            <img src="assets/logo.png"
+                 alt="ARS Logo"
+                 class="brand-logo">
+
+            <div>
+                <h1>ARS</h1>
+                <span>Adarsh Ke Alfaz</span>
+            </div>
+
+        </a>
+
+        <button class="menu-toggle"
+                id="menuToggle"
+                aria-label="Toggle Menu">
+            ☰
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+
+            <a href="index.html">Home</a>
+            <a href="education.html">Education</a>
+            <a href="knowledge-power.html">Knowledge Power</a>
+            <a href="exams.html">Exams</a>
+            <a href="shayari.html">Shayari</a>
+            <a href="stories.html">Stories</a>
+            <a href="poetry.html">Poetry</a>
+            <a href="biography.html">Biography</a>
+            <a href="ars-book.html">ARS Book</a>
+            <a href="updates.html">Updates</a>
+            <a href="join-ars.html">Join ARS</a>
+            <a href="certificate.html">Certificate</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="sponsor.html">Sponsor</a>
+            <a href="search.html">Search</a>
+            <a href="theme.html">Theme</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<main>
+
+    <section class="offline-page">
+
+        <div class="card offline-card">
+
+            <div class="offline-icon">📡</div>
+
+            <h2>You Are Offline</h2>
+
+            <p>
+                Your internet connection appears to be unavailable.
+                Some previously opened ARS pages may still be accessible
+                from the installed app cache.
+            </p>
+
+            <div id="connectionStatus"
+                 class="connection-status">
+                Checking connection...
+            </div>
+
+            <button id="retryButton"
+                    class="btn btn-primary">
+                Try Again
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="container footer-inner">
+
+        <div>
+            <h3>ARS — Adarsh Ke Alfaz</h3>
+            <p>
+                Education • Knowledge • Literature • Growth
+            </p>
+        </div>
+
+        <div class="footer-links">
+
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="contact.html">Contact</a>
+            <a href="private.html">Private</a>
+
+        </div>
+
+        <p class="copyright">
+            © 2026 ARS — Adarsh Ke Alfaz. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const status = document.getElementById("connectionStatus");
+    const retryButton = document.getElementById("retryButton");
+
+    function updateConnectionStatus() {
+
+        if (navigator.onLine) {
+            status.textContent =
+                "Internet connection restored.";
+        } else {
+            status.textContent =
+                "Currently offline.";
+        }
+
+    }
+
+    retryButton.addEventListener("click", function () {
+
+        if (navigator.onLine) {
+            window.location.href = "index.html";
+        } else {
+            updateConnectionStatus();
+        }
+
+    });
+
+    window.addEventListener("online", updateConnectionStatus);
+    window.addEventListener("offline", updateConnectionStatus);
+
+    updateConnectionStatus();
+
+});
+</script>
+
+</body>
+</html>
