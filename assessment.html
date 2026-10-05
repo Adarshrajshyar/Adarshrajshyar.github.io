@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Assessment | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Learning assessment and self-evaluation for ARS students."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .assessment-page {
+            padding: 45px 20px 65px;
+            background: #f4f7f8;
+        }
+
+        .assessment-wrapper {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .assessment-hero {
+            text-align: center;
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 22px;
+        }
+
+        .assessment-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .assessment-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .assessment-hero p {
+            max-width: 760px;
+            margin: auto;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .assessment-controls {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .control-group label {
+            display: block;
+            color: #29404d;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .control-group select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border: 1px solid #ccd7dc;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .start-assessment-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 17px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+            font-weight: 700;
+        }
+
+        .assessment-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .assessment-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #e7ecee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .assessment-top strong {
+            color: #123b5d;
+        }
+
+        .assessment-score {
+            color: #166b59;
+            font-weight: 800;
+        }
+
+        .assessment-question {
+            color: #243746;
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 19px;
+        }
+
+        .assessment-options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .assessment-option {
+            border: 1px solid #dce5e8;
+            border-radius: 10px;
+            padding: 13px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .assessment-option:hover {
+            background: #f8fbfc;
+        }
+
+        .assessment-option input {
+            margin-right: 8px;
+        }
+
+        .assessment-feedback {
+            display: none;
+            margin-top: 17px;
+            padding: 13px;
+            border-radius: 9px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .assessment-feedback.success {
+            display: block;
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .assessment-feedback.error {
+            display: block;
+            background: #fff0f0;
+            color: #9b2828;
+        }
+
+        .assessment-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .assessment-btn {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 16px;
+            cursor: pointer;
+            background: #eef3f5;
+            color: #405760;
+            font-weight: 700;
+        }
+
+        .assessment-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .assessment-result {
+            display: none;
+            text-align: center;
+            background: #eef7f7;
+            border: 1px solid #cfe2df;
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 20px;
+        }
+
+        .assessment-result strong {
+            display: block;
+            color: #166b59;
+            font-size: 31px;
+            margin-bottom: 7px;
+        }
+
+        .assessment-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+
+            .control-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .start-assessment-btn {
+                width: 100%;
+            }
+
+            .assessment-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .assessment-hero {
+                padding: 23px 18px;
+            }
+
+            .assessment-card {
+                padding: 20px 17px;
+            }
+
+            .assessment-question {
+                font-size: 17px;
+            }
+
+            .assessment-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="assessment-page">
+
+            <div class="assessment-wrapper">
+
+                <div class="assessment-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Learning Assessment</h1>
+
+                    <p>
+                        Test your understanding after studying a topic.
+                        This assessment is for learning and self-evaluation,
+                        not for the official ARS examination.
+                    </p>
+
+                </div>
+
+                <div class="assessment-controls">
+
+                    <div class="control-grid">
+
+                        <div class="control-group">
+
+                            <label for="assessmentClass">
+                                Class
+                            </label>
+
+                            <select id="assessmentClass">
+
+                                <option value="5">
+                                    Class 5
+                                </option>
+
+                                <option value="6">
+                                    Class 6
+                                </option>
+
+                                <option value="7">
+                                    Class 7
+                                </option>
+
+                                <option value="8">
+                                    Class 8
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="control-group">
+
+                            <label for="assessmentSubject">
+                                Subject
+                            </label>
+
+                            <select id="assessmentSubject">
+
+                                <option value="science">
+                                    Science
+                                </option>
+
+                                <option value="maths">
+                                    Mathematics
+                                </option>
+
+                                <option value="english">
+                                    English
+                                </option>
+
+                                <option value="hindi">
+                                    Hindi
+                                </option>
+
+                                <option value="sst">
+                                    Social Studies
+                                </option>
+
+                                <option value="reasoning">
+                                    Reasoning
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="start-assessment-btn"
+                            id="startAssessment"
+                        >
+                            Start Assessment
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="assessment-card">
+
+                    <div class="assessment-top">
+
+                        <strong id="assessmentCounter">
+                            Question 1 of 5
+                        </strong>
+
+                        <span
+                            class="assessment-score"
+                            id="assessmentScore"
+                        >
+                            Score: 0
+                        </span>
+
+                    </div>
+
+                    <div
+                        id="assessmentQuestion"
+                        class="assessment-question"
+                    >
+                        Select a class and subject, then start the assessment.
+                    </div>
+
+                    <div
+                        id="assessmentOptions"
+                        class="assessment-options"
+                    ></div>
+
+                    <div
+                        id="assessmentFeedback"
+                        class="assessment-feedback"
+                    ></div>
+
+                    <div class="assessment-actions">
+
+                        <button
+                            type="button"
+                            class="assessment-btn"
+                            id="checkAssessment"
+                        >
+                            Check Answer
+                        </button>
+
+                        <button
+                            type="button"
+                            class="assessment-btn primary"
+                            id="nextAssessment"
+                        >
+                            Next
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="assessmentResult"
+                        class="assessment-result"
+                    >
+
+                        Assessment Completed
+
+                        <strong id="assessmentFinalScore">
+                            0 / 5
+                        </strong>
+
+                        <div>
+                            Review your weak areas and continue practicing.
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="assessment-note">
+
+                    <strong>Assessment Notice:</strong>
+                    This learning assessment is separate from the official
+                    ARS Education Talent Research Examination. Its score
+                    should not be used as an official exam result,
+                    qualification or certificate criterion.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const assessmentQuestions = {
+
+            science: [
+                {
+                    question:
+                        "Which gas is commonly used by plants during photosynthesis?",
+                    options: [
+                        "Oxygen",
+                        "Nitrogen",
+                        "Carbon dioxide",
+                        "Hydrogen"
+                    ],
+                    answer: 2
+                }
+            ],
+
+            maths: [
+                {
+                    question:
+                        "What is 15 + 27?",
+                    options: [
+                        "32",
+                        "40",
+                        "42",
+                        "45"
+                    ],
+                    answer: 2
+                }
+            ],
+
+            english: [
+                {
+                    question:
+                        "Which word is a verb?",
+                    options: [
+                        "Beautiful",
+                        "Run",
+                        "School",
+                        "Quick"
+                    ],
+                    answer: 1
+                }
+            ],
+
+            hindi: [
+                {
+                    question:
+                        "‘पुस्तक’ का सही अर्थ क्या है?",
+                    options: [
+                        "Book",
+                        "Pen",
+                        "School",
+                        "Table"
+                    ],
+                    answer: 0
+                }
+            ],
+
+            sst: [
+                {
+                    question:
+                        "Which country is known as the largest democracy in the world?",
+                    options: [
+                        "India",
+                        "Japan",
+                        "France",
+                        "Brazil"
+                    ],
+                    answer: 0
+                }
+            ],
+
+            reasoning: [
+                {
+                    question:
+                        "Complete the pattern: 5, 10, 15, 20, ?",
+                    options: [
+                        "22",
+                        "24",
+                        "25",
+                        "30"
+                    ],
+                    answer: 2
+                }
+            ]
+
+        };
+
+        let activeQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const counter =
+            document.getElementById(
+                "assessmentCounter"
+            );
+
+        const scoreBox =
+            document.getElementById(
+                "assessmentScore"
+            );
+
+        const questionBox =
+            document.getElementById(
+                "assessmentQuestion"
+            );
+
+        const optionsBox =
+            document.getElementById(
+                "assessmentOptions"
+            );
+
+        const feedbackBox =
+            document.getElementById(
+                "assessmentFeedback"
+            );
+
+        const resultBox =
+            document.getElementById(
+                "assessmentResult"
+            );
+
+        function renderAssessment() {
+
+            if (!activeQuestions.length) {
+
+                counter.textContent =
+                    "Question 1 of 5";
+
+                questionBox.textContent =
+                    "Select a class and subject, then start the assessment.";
+
+                optionsBox.innerHTML = "";
+
+                return;
+
+            }
+
+            if (
+                currentIndex >=
+                activeQuestions.length
+            ) {
+
+                finishAssessment();
+
+                return;
+
+            }
+
+            const item =
+                activeQuestions[currentIndex];
+
+            answered = false;
+
+            counter.textContent =
+                "Question " +
+                (currentIndex + 1) +
+                " of " +
+                activeQuestions.length;
+
+            scoreBox.textContent =
+                "Score: " + score;
+
+            questionBox.textContent =
+                item.question;
+
+            optionsBox.innerHTML = "";
+
+            feedbackBox.textContent = "";
+
+            feedbackBox.className =
+                "assessment-feedback";
+
+            item.options.forEach(
+                function(option, index) {
+
+                    const label =
+                        document.createElement(
+                            "label"
+                        );
+
+                    label.className =
+                        "assessment-option";
+
+                    label.innerHTML = `
+                        <input
+                            type="radio"
+                            name="assessmentOption"
+                            value="${index}"
+                        >
+
+                        ${escapeHTML(option)}
+                    `;
+
+                    optionsBox.appendChild(label);
+
+                }
+            );
+
+            resultBox.style.display =
+                "none";
+
+        }
+
+        function checkAssessmentAnswer() {
+
+            if (
+                answered ||
+                !activeQuestions.length
+            ) {
+                return;
+            }
+
+            const selected =
+                document.querySelector(
+                    'input[name="assessmentOption"]:checked'
+                );
+
+            if (!selected) {
+
+                feedbackBox.textContent =
+                    "Please select an answer first.";
+
+                feedbackBox.className =
+                    "assessment-feedback error";
+
+                return;
+
+            }
+
+            answered = true;
+
+            const selectedAnswer =
+                Number(
+                    selected.value
+                );
+
+            const current =
+                activeQuestions[currentIndex];
+
+            if (
+                selectedAnswer ===
+                current.answer
+            ) {
+
+                score++;
+
+                feedbackBox.textContent =
+                    "Correct answer.";
+
+                feedbackBox.className =
+                    "assessment-feedback success";
+
+            } else {
+
+                feedbackBox.textContent =
+                    "Not correct. Review the concept and try again.";
+
+                feedbackBox.className =
+                    "assessment-feedback error";
+
+            }
+
+            scoreBox.textContent =
+                "Score: " + score;
+
+        }
+
+        function nextAssessmentQuestion() {
+
+            if (!activeQuestions.length) {
+                return;
+            }
+
+            if (!answered) {
+
+                feedbackBox.textContent =
+                    "Please check your answer before continuing.";
+
+                feedbackBox.className =
+                    "assessment-feedback error";
+
+                return;
+
+            }
+
+            currentIndex++;
+
+            renderAssessment();
+
+        }
+
+        function finishAssessment() {
+
+            counter.textContent =
+                "Assessment Completed";
+
+            questionBox.textContent =
+                "You have completed this learning assessment.";
+
+            optionsBox.innerHTML = "";
+
+            feedbackBox.textContent = "";
+
+            feedbackBox.className =
+                "assessment-feedback";
+
+            document.getElementById(
+                "assessmentFinalScore"
+            ).textContent =
+                score +
+                " / " +
+                activeQuestions.length;
+
+            resultBox.style.display =
+                "block";
+
+        }
+
+        document
+            .getElementById("startAssessment")
+            .addEventListener(
+                "click",
+                function() {
+
+                    const subject =
+                        document.getElementById(
+                            "assessmentSubject"
+                        ).value;
+
+                    activeQuestions =
+                        assessmentQuestions[
+                            subject
+                        ] || [];
+
+                    currentIndex = 0;
+                    score = 0;
+
+                    renderAssessment();
+
+                }
+            );
+
+        document
+            .getElementById("checkAssessment")
+            .addEventListener(
+                "click",
+                checkAssessmentAnswer
+            );
+
+        document
+            .getElementById("nextAssessment")
+            .addEventListener(
+                "click",
+                nextAssessmentQuestion
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+    </script>
+
+</body>
+</html>
