@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Result | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="ARS examination result and result status page."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .exam-result-page {
+            padding: 45px 20px 65px;
+        }
+
+        .exam-result-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .result-hero {
+            text-align: center;
+            padding: 32px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe6e8;
+            margin-bottom: 24px;
+        }
+
+        .result-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .result-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .result-hero p {
+            margin: 0;
+            color: #66747c;
+            line-height: 1.6;
+        }
+
+        .result-card {
+            background: #ffffff;
+            border: 1px solid #e0e7ea;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 22px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.05);
+        }
+
+        .result-card h2 {
+            margin-top: 0;
+            color: #16705e;
+        }
+
+        .student-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .summary-item {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .summary-item span {
+            display: block;
+            color: #6c777d;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .summary-item strong {
+            color: #185b72;
+            font-size: 15px;
+        }
+
+        .score-highlight {
+            text-align: center;
+            background: #eef7f7;
+            border-radius: 13px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .score-highlight .score {
+            display: block;
+            font-size: 42px;
+            font-weight: 800;
+            color: #16705e;
+        }
+
+        .score-highlight .out-of {
+            color: #68777d;
+            font-size: 14px;
+        }
+
+        .status-box {
+            display: inline-block;
+            margin-top: 13px;
+            padding: 7px 13px;
+            border-radius: 20px;
+            background: #edf9f2;
+            color: #176438;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        .result-stat {
+            text-align: center;
+            padding: 17px;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            background: #f8fbfc;
+        }
+
+        .result-stat strong {
+            display: block;
+            font-size: 25px;
+            color: #185b72;
+            margin-bottom: 5px;
+        }
+
+        .result-stat span {
+            color: #6d797f;
+            font-size: 13px;
+        }
+
+        .result-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .result-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 17px;
+            cursor: pointer;
+            font-weight: 700;
+            background: #eef3f5;
+            color: #405760;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .result-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+        }
+
+        .result-btn:hover {
+            opacity: 0.94;
+        }
+
+        .notice-box {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 15px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            .student-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .exam-result-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .result-card,
+            .result-hero {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="exam-result-page">
+
+            <div class="exam-result-wrapper">
+
+                <div class="result-hero">
+
+                    <img src="assets/logo.png" alt="ARS Logo">
+
+                    <h1>Examination Result</h1>
+
+                    <p>
+                        ARS Education Talent Research Examination —
+                        Stage 1
+                    </p>
+
+                </div>
+
+                <div class="result-card">
+
+                    <h2>Student Details</h2>
+
+                    <div class="student-summary">
+
+                        <div class="summary-item">
+                            <span>Student Name</span>
+                            <strong id="studentName">ARS Student</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Registration ID</span>
+                            <strong id="registrationId">ARS-XXXXXXXX</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Class</span>
+                            <strong id="studentClass">Class —</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Exam Stage</span>
+                            <strong>Stage 1</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Exam Date</span>
+                            <strong>13 December 2026</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>Result Status</span>
+                            <strong>Published</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="result-card">
+
+                    <h2>Result Summary</h2>
+
+                    <div class="score-highlight">
+
+                        <span class="score" id="studentScore">
+                            0
+                        </span>
+
+                        <span class="out-of">
+                            Marks out of 120
+                        </span>
+
+                        <div class="status-box" id="qualificationStatus">
+                            Qualification Status Pending
+                        </div>
+
+                    </div>
+
+                    <div class="result-grid">
+
+                        <div class="result-stat">
+                            <strong id="correctAnswers">—</strong>
+                            <span>Correct Answers</span>
+                        </div>
+
+                        <div class="result-stat">
+                            <strong id="wrongAnswers">—</strong>
+                            <span>Incorrect Answers</span>
+                        </div>
+
+                        <div class="result-stat">
+                            <strong id="unanswered">—</strong>
+                            <span>Unanswered</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="result-card">
+
+                    <h2>Certificate Eligibility</h2>
+
+                    <div class="notice-box" id="certificateNotice">
+
+                        Certificate eligibility will be shown here according
+                        to the officially published criteria of the
+                        examination.
+
+                    </div>
+
+                    <br>
+
+                    <div class="result-actions">
+
+                        <a
+                            href="scorecard.html"
+                            class="result-btn primary"
+                        >
+                            View Scorecard
+                        </a>
+
+                        <a
+                            href="certificate-download.html"
+                            class="result-btn"
+                        >
+                            Certificate
+                        </a>
+
+                        <a
+                            href="student-dashboard.html"
+                            class="result-btn"
+                        >
+                            Student Dashboard
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="result-card">
+
+                    <h2>Result Date</h2>
+
+                    <p style="color:#56666e;line-height:1.7;">
+                        The planned result date for Stage 1 is
+                        <strong>1 January 2027</strong>, subject to the final
+                        official result publication workflow.
+                    </p>
+
+                    <div class="notice-box">
+                        Only the officially published result record should
+                        be treated as the final result.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * BACKEND INTEGRATION
+         *
+         * Result data must come from the authenticated backend.
+         *
+         * Example:
+         * studentName
+         * registrationId
+         * class
+         * score
+         * correct answers
+         * wrong answers
+         * unanswered
+         * qualification
+         * certificate eligibility
+         */
+
+        const resultData = {
+            published: false,
+            name: "ARS Student",
+            registrationId: "ARS-XXXXXXXX",
+            studentClass: "Class —",
+            score: 0,
+            correct: "—",
+            wrong: "—",
+            unanswered: "—",
+            qualified: false,
+            certificateEligible: false
+        };
+
+        document.getElementById("studentName").textContent =
+            resultData.name;
+
+        document.getElementById("registrationId").textContent =
+            resultData.registrationId;
+
+        document.getElementById("studentClass").textContent =
+            resultData.studentClass;
+
+        document.getElementById("studentScore").textContent =
+            resultData.score;
+
+        document.getElementById("correctAnswers").textContent =
+            resultData.correct;
+
+        document.getElementById("wrongAnswers").textContent =
+            resultData.wrong;
+
+        document.getElementById("unanswered").textContent =
+            resultData.unanswered;
+
+        const qualificationStatus =
+            document.getElementById("qualificationStatus");
+
+        if (!resultData.published) {
+            qualificationStatus.textContent =
+                "Result Not Loaded";
+        } else if (resultData.qualified) {
+            qualificationStatus.textContent =
+                "Qualified";
+        } else {
+            qualificationStatus.textContent =
+                "Not Qualified";
+        }
+
+        if (resultData.certificateEligible) {
+            document.getElementById("certificateNotice").textContent =
+                "You are eligible for the applicable certificate. The official certificate will be made available after generation.";
+        }
+
+    </script>
+
+</body>
+</html>
