@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="ARS — Adarsh Ke Alfaz | Latest examination, education, website and important updates."
+  >
+
+  <meta
+    name="author"
+    content="Adarsh Raj Shayar"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0b4f8a"
+  >
+
+  <title>Updates | ARS — Adarsh Ke Alfaz</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="assets/logo.png"
+  >
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+
+    <div class="container navbar">
+
+      <a
+        href="index.html"
+        class="brand"
+        aria-label="ARS Home"
+      >
+
+        <div class="brand-logo-wrap">
+
+          <img
+            src="assets/logo.png"
+            alt="ARS Logo"
+            class="brand-logo"
+          >
+
+        </div>
+
+        <div class="brand-text">
+
+          <strong>ARS</strong>
+
+          <span>
+            Adarsh Ke Alfaz
+          </span>
+
+          <small>
+            Education • Knowledge • Power
+          </small>
+
+        </div>
+
+      </a>
+
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open Menu"
+        aria-expanded="false"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+
+      <nav
+        class="main-nav"
+        id="mainNav"
+        aria-label="Main Navigation"
+      >
+
+        <a href="index.html">Home</a>
+        <a href="education.html">Education</a>
+        <a href="knowledge-power.html">Knowledge Power</a>
+        <a href="exams.html">Exams</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+        <a href="poetry.html">Poetry</a>
+        <a href="biography.html">Biography</a>
+        <a href="ars-book.html">ARS Book</a>
+
+        <a
+          href="updates.html"
+          class="active"
+        >
+          Updates
+        </a>
+
+        <a
+          href="join-ars.html"
+          class="nav-special"
+        >
+          Join ARS
+        </a>
+
+        <a href="certificate.html">Certificate</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="sponsor.html">Sponsor</a>
+
+        <button
+          type="button"
+          class="theme-toggle"
+          id="themeToggle"
+          aria-label="Toggle Theme"
+        >
+          🌙
+        </button>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="section page-hero">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            ARS UPDATES
+          </span>
+
+          <h1>
+            नई जानकारी हमेशा एक जगह
+          </h1>
+
+          <p>
+            Exam announcements, Education updates, Results,
+            Website updates और Important Notices।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FILTER
+    ========================== -->
+    <section class="section knowledge-section">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            FILTER UPDATES
+          </span>
+
+          <h2>
+            किस प्रकार की जानकारी चाहिए?
+          </h2>
+
+        </div>
+
+
+        <div class="knowledge-grid">
+
+          <button
+            type="button"
+            class="knowledge-card update-filter"
+            data-filter="all"
+          >
+            <span>📢</span>
+            <strong>All</strong>
+            <small>सभी updates</small>
+          </button>
+
+
+          <button
+            type="button"
+            class="knowledge-card update-filter"
+            data-filter="exam"
+          >
+            <span>📝</span>
+            <strong>Exam</strong>
+            <small>परीक्षा updates</small>
+          </button>
+
+
+          <button
+            type="button"
+            class="knowledge-card update-filter"
+            data-filter="education"
+          >
+            <span>📚</span>
+            <strong>Education</strong>
+            <small>Education updates</small>
+          </button>
+
+
+          <button
+            type="button"
+            class="knowledge-card update-filter"
+            data-filter="result"
+          >
+            <span>🏆</span>
+            <strong>Results</strong>
+            <small>Result announcements</small>
+          </button>
+
+
+          <button
+            type="button"
+            class="knowledge-card update-filter"
+            data-filter="website"
+          >
+            <span>🌐</span>
+            <strong>Website</strong>
+            <small>Website updates</small>
+          </button>
+
+
+          <button
+            type="button"
+            class="knowledge-card update-filter"
+            data-filter="important"
+          >
+            <span>⚠️</span>
+            <strong>Important</strong>
+            <small>Important notices</small>
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         UPDATE SEARCH
+    ========================== -->
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            SEARCH
+          </span>
+
+          <h2>
+            Update खोजें
+          </h2>
+
+        </div>
+
+
+        <div
+          class="updates-empty"
+          style="max-width:850px;"
+        >
+
+          <input
+            id="updateSearch"
+            type="search"
+            placeholder="Update title या keyword खोजें..."
+            aria-label="Search Updates"
+            style="
+              width:100%;
+              padding:14px 16px;
+              border:1px solid var(--border);
+              border-radius:12px;
+              background:var(--white);
+              color:var(--text);
+              outline:none;
+            "
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         UPDATES LIST
+    ========================== -->
+    <section class="section education-section">
+
+      <div class="container">
+
+        <div class="section-heading center">
+
+          <span>
+            LATEST
+          </span>
+
+          <h2>
+            Latest Updates
+          </h2>
+
+          <p>
+            Final announcements Publisher dashboard से publish होंगी।
+          </p>
+
+        </div>
+
+
+        <div
+          id="updatesList"
+          class="quick-grid"
+        >
+
+          <!-- SAMPLE UPDATE -->
+          <article
+            class="quick-card update-card"
+            data-category="website"
+            data-search="ARS website launch update"
+          >
+
+            <div class="quick-icon">
+              🌐
+            </div>
+
+            <span class="eyebrow">
+              WEBSITE
+            </span>
+
+            <h3>
+              ARS Website Update
+            </h3>
+
+            <p>
+              ARS website के नए sections और features समय के साथ
+              यहाँ announce किए जाएँगे।
+            </p>
+
+            <small
+              style="
+                display:block;
+                margin-top:12px;
+                color:var(--text-soft);
+              "
+            >
+              Published by ARS
+            </small>
+
+            <button
+              type="button"
+              class="btn btn-outline"
+              onclick="updateNotice()"
+              style="margin-top:15px;"
+            >
+              Read More →
+            </button>
+
+          </article>
+
+
+          <!-- SAMPLE UPDATE -->
+          <article
+            class="quick-card update-card"
+            data-category="exam"
+            data-search="ARS exam registration examination"
+          >
+
+            <div class="quick-icon">
+              📝
+            </div>
+
+            <span class="eyebrow">
+              EXAM
+            </span>
+
+            <h3>
+              Examination Announcement
+            </h3>
+
+            <p>
+              Examination registration, schedule और official instructions
+              publish होने पर यहाँ दिखाई देंगी।
+            </p>
+
+            <small
+              style="
+                display:block;
+                margin-top:12px;
+                color:var(--text-soft);
+              "
+            >
+              Official update
+            </small>
+
+            <button
+              type="button"
+              class="btn btn-outline"
+              onclick="updateNotice()"
+              style="margin-top:15px;"
+            >
+              Read More →
+            </button>
+
+          </article>
+
+
+          <!-- SAMPLE UPDATE -->
+          <article
+            class="quick-card update-card"
+            data-category="education"
+            data-search="education class 5 6 7 8"
+          >
+
+            <div class="quick-icon">
+              📚
+            </div>
+
+            <span class="eyebrow">
+              EDUCATION
+            </span>
+
+            <h3>
+              Education Content Update
+            </h3>
+
+            <p>
+              Classes 5–8 के नए notes, MCQ, practice और revision content
+              आने पर यहाँ जानकारी दी जाएगी।
+            </p>
+
+            <small
+              style="
+                display:block;
+                margin-top:12px;
+                color:var(--text-soft);
+              "
+            >
+              Education notice
+            </small>
+
+            <button
+              type="button"
+              class="btn btn-outline"
+              onclick="updateNotice()"
+              style="margin-top:15px;"
+            >
+              Read More →
+            </button>
+
+          </article>
+
+
+          <!-- SAMPLE UPDATE -->
+          <article
+            class="quick-card update-card"
+            data-category="result"
+            data-search="result score certificate"
+          >
+
+            <div class="quick-icon">
+              🏆
+            </div>
+
+            <span class="eyebrow">
+              RESULT
+            </span>
+
+            <h3>
+              Result Announcement
+            </h3>
+
+            <p>
+              Official result publication के बाद result-related
+              announcement यहाँ दिखाई जाएगी।
+            </p>
+
+            <small
+              style="
+                display:block;
+                margin-top:12px;
+                color:var(--text-soft);
+              "
+            >
+              Result notice
+            </small>
+
+            <button
+              type="button"
+              class="btn btn-outline"
+              onclick="updateNotice()"
+              style="margin-top:15px;"
+            >
+              Read More →
+            </button>
+
+          </article>
+
+        </div>
+
+
+        <!-- EMPTY STATE FOR FUTURE -->
+        <div
+          id="noUpdates"
+          class="updates-empty"
+          style="
+            display:none;
+            margin-top:22px;
+          "
+        >
+
+          <div class="empty-icon">
+            📭
+          </div>
+
+          <h3>
+            कोई update नहीं मिला
+          </h3>
+
+          <p>
+            Search/filter बदलकर फिर कोशिश करें।
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         PUBLISHER
+    ========================== -->
+    <section class="section">
+
+      <div class="container join-card">
+
+        <div>
+
+          <span class="eyebrow">
+            PUBLISHER
+          </span>
+
+          <h2>
+            Official Updates Publisher से आएँगी
+          </h2>
+
+          <p>
+            Publisher title, category, content, image, publication date,
+            draft, preview और publish status manage कर सकेगा।
+          </p>
+
+        </div>
+
+        <a
+          href="private.html"
+          class="btn btn-primary"
+        >
+          Private Area
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <div class="footer-brand">
+
+        <div class="footer-logo-wrap">
+
+          <img
+            src="assets/logo.png"
+            alt="ARS Logo"
+          >
+
+        </div>
+
+        <h3>
+          ARS — Adarsh Ke Alfaz
+        </h3>
+
+        <p>
+          Education • Knowledge • Power • Creativity
+        </p>
+
+        <p class="footer-founder">
+          Founder: Adarsh Raj Shayar
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Explore</h4>
+
+        <a href="education.html">Education</a>
+        <a href="knowledge-power.html">Knowledge Power</a>
+        <a href="exams.html">Exams</a>
+        <a href="shayari.html">Shayari</a>
+        <a href="stories.html">Stories</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>ARS</h4>
+
+        <a href="poetry.html">Poetry</a>
+        <a href="biography.html">Biography</a>
+        <a href="ars-book.html">ARS Book</a>
+        <a href="join-ars.html">Join ARS</a>
+        <a href="certificate.html">Certificate</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Support</h4>
+
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="sponsor.html">Sponsor</a>
+        <a href="policy.html">Privacy & Policy</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="container footer-bottom">
+
+      <p>
+        © <span id="currentYear"></span>
+        ARS — Adarsh Ke Alfaz.
+        All Rights Reserved.
+      </p>
+
+      <a
+        href="private.html"
+        class="private-link"
+      >
+        🔒 Private
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <div
+    id="arsToast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+  <script src="js/script.js"></script>
+
+  <script>
+
+    "use strict";
+
+
+    const updateSearch =
+      document.getElementById(
+        "updateSearch"
+      );
+
+    const updateCards =
+      Array.from(
+        document.querySelectorAll(
+          ".update-card"
+        )
+      );
+
+    const noUpdates =
+      document.getElementById(
+        "noUpdates"
+      );
+
+    let activeFilter = "all";
+
+
+    function filterUpdates() {
+
+      const query =
+        (
+          updateSearch?.value ||
+          ""
+        )
+          .trim()
+          .toLowerCase();
+
+
+      let visibleCount = 0;
+
+
+      updateCards.forEach(
+        function (card) {
+
+          const category =
+            (
+              card.dataset.category ||
+              ""
+            ).toLowerCase();
+
+
+          const searchableText =
+            (
+              card.innerText +
+              " " +
+              (
+                card.dataset.search ||
+                ""
+              )
+            ).toLowerCase();
+
+
+          const matchesFilter =
+            activeFilter === "all" ||
+            category === activeFilter;
+
+
+          const matchesSearch =
+            !query ||
+            searchableText.includes(
+              query
+            );
+
+
+          const visible =
+            matchesFilter &&
+            matchesSearch;
+
+
+          card.style.display =
+            visible
+              ? ""
+              : "block";
+
+          if (visible) {
+            visibleCount++;
+          }
+
+        }
+      );
+
+
+      noUpdates.style.display =
+        visibleCount === 0
+          ? "block"
+          : "none";
+
+    }
+
+
+    if (updateSearch) {
+
+      updateSearch.addEventListener(
+        "input",
+        filterUpdates
+      );
+
+    }
+
+
+    document
+      .querySelectorAll(
+        ".update-filter"
+      )
+      .forEach(
+        function (button) {
+
+          button.addEventListener(
+            "click",
+            function () {
+
+              activeFilter =
+                button.dataset.filter ||
+                "all";
+
+
+              document
+                .querySelectorAll(
+                  ".update-filter"
+                )
+                .forEach(
+                  function (item) {
+                    item.style.outline = "";
+                  }
+                );
+
+
+              button.style.outline =
+                "3px solid rgba(13,139,96,0.22)";
+
+
+              filterUpdates();
+
+            }
+          );
+
+        }
+      );
+
+
+    window.updateNotice =
+      function () {
+
+        ARS.showToast(
+          "Full official update Publisher से publish होने के बाद खुलेगी।"
+        );
+
+      };
+
+
+    filterUpdates();
+
+  </script>
+
+</body>
+</html>
