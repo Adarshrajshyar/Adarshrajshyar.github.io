@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Joining Certificate | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="ARS digital joining certificate for approved members."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .joining-certificate-page {
+            padding: 40px 20px 60px;
+            background: #f4f7f8;
+        }
+
+        .joining-wrapper {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .joining-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .joining-header h1 {
+            color: #123b5d;
+            margin-bottom: 8px;
+        }
+
+        .joining-header p {
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .joining-paper {
+            background: #ffffff;
+            border: 8px double #d8e1e4;
+            padding: 40px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+        }
+
+        .joining-inner {
+            border: 1px solid #dfe7ea;
+            padding: 36px;
+            text-align: center;
+            min-height: 570px;
+            box-sizing: border-box;
+        }
+
+        .joining-logo {
+            width: 85px;
+            height: 85px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+
+        .joining-inner h1 {
+            margin: 0;
+            color: #123b5d;
+            font-size: 30px;
+        }
+
+        .joining-inner h2 {
+            margin: 9px 0 28px;
+            color: #16705e;
+            font-size: 21px;
+        }
+
+        .joining-presented {
+            color: #66757d;
+            font-size: 15px;
+        }
+
+        .joining-name {
+            margin: 13px 0;
+            color: #185b72;
+            font-size: 31px;
+            font-weight: 800;
+        }
+
+        .joining-body {
+            max-width: 700px;
+            margin: auto;
+            color: #4f6068;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .joining-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            max-width: 720px;
+            margin: 27px auto;
+            text-align: left;
+        }
+
+        .joining-detail {
+            background: #fafcfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+
+        .joining-detail span {
+            display: block;
+            color: #748087;
+            text-transform: uppercase;
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+
+        .joining-detail strong {
+            color: #294754;
+            font-size: 13px;
+        }
+
+        .joining-bottom {
+            margin-top: 34px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 25px;
+        }
+
+        .joining-signature {
+            width: 190px;
+            text-align: center;
+        }
+
+        .joining-signature img {
+            width: 145px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .joining-signature-line {
+            border-top: 1px solid #7b858a;
+            padding-top: 5px;
+            color: #5f6b72;
+            font-size: 12px;
+        }
+
+        .joining-qr {
+            width: 190px;
+            text-align: center;
+        }
+
+        .qr-box {
+            width: 76px;
+            height: 76px;
+            border: 1px dashed #9aa8ae;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #78858b;
+        }
+
+        .joining-qr small {
+            display: block;
+            margin-top: 6px;
+            color: #65737a;
+            line-height: 1.5;
+        }
+
+        .joining-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 23px;
+        }
+
+        .joining-btn {
+            display: inline-block;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 9px;
+            background: #eef3f5;
+            color: #405760;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .joining-btn.primary {
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+        }
+
+        .joining-notice {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media print {
+
+            body {
+                background: white !important;
+            }
+
+            .site-header,
+            .site-footer,
+            .joining-header,
+            .joining-actions,
+            .joining-notice {
+                display: none !important;
+            }
+
+            .joining-certificate-page {
+                padding: 0 !important;
+                background: white !important;
+            }
+
+            .joining-wrapper {
+                max-width: none;
+            }
+
+            .joining-paper {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .joining-certificate-page {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .joining-paper {
+                padding: 18px;
+                border-width: 5px;
+            }
+
+            .joining-inner {
+                padding: 22px 14px;
+            }
+
+            .joining-inner h1 {
+                font-size: 24px;
+            }
+
+            .joining-name {
+                font-size: 23px;
+            }
+
+            .joining-details {
+                grid-template-columns: 1fr;
+            }
+
+            .joining-bottom {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="joining-certificate-page">
+
+            <div class="joining-wrapper">
+
+                <div class="joining-header">
+
+                    <h1>ARS Joining Certificate</h1>
+
+                    <p>
+                        Digital membership joining certificate
+                        for approved ARS members.
+                    </p>
+
+                </div>
+
+                <div class="joining-paper">
+
+                    <div class="joining-inner">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                            class="joining-logo"
+                        >
+
+                        <h1>
+                            ARS — Adarsh Ke Alfaz
+                        </h1>
+
+                        <h2>
+                            Joining Certificate
+                        </h2>
+
+                        <div class="joining-presented">
+                            This certificate confirms that
+                        </div>
+
+                        <div
+                            class="joining-name"
+                            id="memberName"
+                        >
+                            ARS Member
+                        </div>
+
+                        <div class="joining-body">
+
+                            has been approved for membership in the
+                            ARS community, subject to the applicable
+                            ARS membership terms and records.
+
+                            <br><br>
+
+                            This certificate represents an ARS joining
+                            record and is separate from examination
+                            participation or achievement certificates.
+
+                        </div>
+
+                        <div class="joining-details">
+
+                            <div class="joining-detail">
+                                <span>Application ID</span>
+                                <strong id="applicationId">
+                                    ARS-JOIN-XXXXXXXX
+                                </strong>
+                            </div>
+
+                            <div class="joining-detail">
+                                <span>Member ID</span>
+                                <strong id="memberId">
+                                    ARS-MEMBER-XXXXXXXX
+                                </strong>
+                            </div>
+
+                            <div class="joining-detail">
+                                <span>Certificate ID</span>
+                                <strong id="certificateId">
+                                    JOIN-CERT-XXXXXXXX
+                                </strong>
+                            </div>
+
+                            <div class="joining-detail">
+                                <span>Joining Date</span>
+                                <strong id="joiningDate">
+                                    —
+                                </strong>
+                            </div>
+
+                            <div class="joining-detail">
+                                <span>Status</span>
+                                <strong id="certificateStatus">
+                                    Pending
+                                </strong>
+                            </div>
+
+                            <div class="joining-detail">
+                                <span>Verification</span>
+                                <strong>
+                                    Official ARS Verification
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <div class="joining-bottom">
+
+                            <div class="joining-signature">
+
+                                <img
+                                    src="assets/signature.png"
+                                    alt="Authorized Signature"
+                                >
+
+                                <div class="joining-signature-line">
+                                    Authorized Signature
+                                </div>
+
+                            </div>
+
+                            <div class="joining-qr">
+
+                                <div class="qr-box">
+                                    QR
+                                </div>
+
+                                <small>
+                                    Scan to verify this joining
+                                    certificate through the official
+                                    ARS verification system.
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="joining-actions">
+
+                    <button
+                        type="button"
+                        class="joining-btn primary"
+                        id="printJoiningCertificate"
+                    >
+                        Print / Save PDF
+                    </button>
+
+                    <a
+                        href="verify.html"
+                        class="joining-btn"
+                    >
+                        Verify Certificate
+                    </a>
+
+                    <a
+                        href="join-ars-status.html"
+                        class="joining-btn"
+                    >
+                        Application Status
+                    </a>
+
+                </div>
+
+                <div class="joining-notice">
+
+                    <strong>Important:</strong>
+                    This certificate view is a frontend template.
+                    An official Joining Certificate must be generated
+                    only after the Join ARS application has been reviewed
+                    and approved through the secure backend.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="certificate-terms.html">
+                    Certificate Terms
+                </a>
+                <a href="contact.html">Contact</a>
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * BACKEND INTEGRATION
+         *
+         * The certificate data must be loaded only after:
+         *
+         * Approved Join ARS Application
+         *          ↓
+         * Member Record Created
+         *          ↓
+         * Joining Certificate Generated
+         *          ↓
+         * Certificate ID + Verification Record
+         */
+
+        const joiningCertificateData = {
+
+            issued: false,
+
+            memberName: "ARS Member",
+
+            applicationId:
+                "ARS-JOIN-XXXXXXXX",
+
+            memberId:
+                "ARS-MEMBER-XXXXXXXX",
+
+            certificateId:
+                "JOIN-CERT-XXXXXXXX",
+
+            joiningDate:
+                "—",
+
+            status:
+                "Pending"
+
+        };
+
+        document.getElementById("memberName").textContent =
+            joiningCertificateData.memberName;
+
+        document.getElementById("applicationId").textContent =
+            joiningCertificateData.applicationId;
+
+        document.getElementById("memberId").textContent =
+            joiningCertificateData.memberId;
+
+        document.getElementById("certificateId").textContent =
+            joiningCertificateData.certificateId;
+
+        document.getElementById("joiningDate").textContent =
+            joiningCertificateData.joiningDate;
+
+        document.getElementById("certificateStatus").textContent =
+            joiningCertificateData.status;
+
+        document
+            .getElementById("printJoiningCertificate")
+            .addEventListener(
+                "click",
+                function() {
+
+                    window.print();
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
