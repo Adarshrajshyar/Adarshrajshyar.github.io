@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Knowledge Article | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Knowledge Power article on ARS — Adarsh Ke Alfaz."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .article-page {
+            padding: 45px 20px 65px;
+        }
+
+        .article-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .article-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+        }
+
+        .article-header {
+            text-align: center;
+            border-bottom: 1px solid #e5eaec;
+            padding-bottom: 23px;
+            margin-bottom: 24px;
+        }
+
+        .article-logo {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 9px;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #166b59;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .article-header h1 {
+            margin: 0 0 9px;
+            color: #123b5d;
+            font-size: 31px;
+        }
+
+        .article-header p {
+            color: #6a777d;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .article-content {
+            color: #455860;
+            line-height: 1.85;
+            font-size: 16px;
+        }
+
+        .article-content h2 {
+            color: #16705e;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .article-content h3 {
+            color: #185b72;
+            margin-top: 24px;
+        }
+
+        .article-content p {
+            margin: 0 0 15px;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            padding-left: 23px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        .fact-box {
+            background: #eef7fb;
+            border-left: 4px solid #1877a6;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            color: #405a66;
+            line-height: 1.7;
+        }
+
+        .article-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 22px;
+            border-top: 1px solid #e5eaec;
+        }
+
+        .meta-box {
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 9px;
+            padding: 13px;
+        }
+
+        .meta-box span {
+            display: block;
+            color: #748087;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .meta-box strong {
+            color: #294754;
+            font-size: 13px;
+        }
+
+        .article-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .article-btn {
+            text-decoration: none;
+            display: inline-block;
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: #eef3f5;
+            color: #405760;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .article-btn.primary {
+            color: white;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+        }
+
+        .article-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 700px) {
+
+            .article-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .article-card {
+                padding: 23px 18px;
+            }
+
+            .article-header h1 {
+                font-size: 25px;
+            }
+
+            .article-content {
+                font-size: 15px;
+            }
+
+            .article-meta {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="article-page">
+
+            <div class="article-wrapper">
+
+                <article class="article-card">
+
+                    <header class="article-header">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                            class="article-logo"
+                        >
+
+                        <div
+                            id="articleCategory"
+                            class="article-category"
+                        >
+                            Knowledge Power
+                        </div>
+
+                        <h1 id="articleTitle">
+                            Understanding Our Environment
+                        </h1>
+
+                        <p id="articleSubtitle">
+                            A simple learning article from ARS Knowledge Power.
+                        </p>
+
+                    </header>
+
+                    <div
+                        id="articleContent"
+                        class="article-content"
+                    >
+
+                        <p>
+                            The environment includes the natural systems
+                            around us, such as air, water, soil, plants,
+                            animals and ecosystems. Understanding these
+                            systems helps us make better decisions about
+                            conservation and sustainable living.
+                        </p>
+
+                        <h2>
+                            Why Is the Environment Important?
+                        </h2>
+
+                        <p>
+                            Human life depends on healthy natural systems.
+                            Clean air, safe water, fertile soil and diverse
+                            ecosystems support communities and other forms
+                            of life.
+                        </p>
+
+                        <h2>
+                            How Can Students Help?
+                        </h2>
+
+                        <ul>
+
+                            <li>
+                                Avoid unnecessary waste.
+                            </li>
+
+                            <li>
+                                Use water carefully.
+                            </li>
+
+                            <li>
+                                Keep surroundings clean.
+                            </li>
+
+                            <li>
+                                Learn about plants and local biodiversity.
+                            </li>
+
+                            <li>
+                                Prefer practical and sustainable habits
+                                where possible.
+                            </li>
+
+                        </ul>
+
+                        <div class="fact-box">
+
+                            <strong>Learning Point:</strong>
+
+                            Small everyday choices can help students
+                            understand the connection between human
+                            activities and the environment.
+
+                        </div>
+
+                        <h2>
+                            Continue Learning
+                        </h2>
+
+                        <p>
+                            Explore the Environment, Science and General
+                            Knowledge categories of Knowledge Power for
+                            more learning resources.
+                        </p>
+
+                    </div>
+
+                    <div class="article-meta">
+
+                        <div class="meta-box">
+
+                            <span>Section</span>
+
+                            <strong>
+                                Knowledge Power
+                            </strong>
+
+                        </div>
+
+                        <div class="meta-box">
+
+                            <span>Status</span>
+
+                            <strong>
+                                Published Content
+                            </strong>
+
+                        </div>
+
+                        <div class="meta-box">
+
+                            <span>Source</span>
+
+                            <strong>
+                                ARS Publisher
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="article-actions">
+
+                        <a
+                            href="knowledge-categories.html"
+                            class="article-btn primary"
+                        >
+                            All Categories
+                        </a>
+
+                        <a
+                            href="search.html"
+                            class="article-btn"
+                        >
+                            Search ARS
+                        </a>
+
+                        <a
+                            href="index.html"
+                            class="article-btn"
+                        >
+                            Home
+                        </a>
+
+                    </div>
+
+                    <div class="article-note">
+
+                        <strong>Publisher System:</strong>
+                        The production version of this page will load
+                        the selected published article dynamically from
+                        the ARS backend using an authorized article ID or
+                        slug. Draft or unpublished content must not be
+                        publicly accessible.
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * Production article loading:
+         *
+         * knowledge-article.html?id=ARTICLE_ID
+         *
+         * Backend returns:
+         * title
+         * category
+         * description
+         * content
+         * author/publisher record
+         * publication date
+         * status
+         *
+         * Only "published" content should be exposed.
+         */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const category =
+            params.get("category");
+
+        const categoryTitles = {
+
+            science:
+                "Science Knowledge",
+
+            bihar:
+                "Bihar Knowledge",
+
+            india:
+                "India Knowledge",
+
+            world:
+                "World Knowledge",
+
+            technology:
+                "Technology Knowledge",
+
+            environment:
+                "Environment Knowledge",
+
+            history:
+                "History Knowledge",
+
+            geography:
+                "Geography Knowledge",
+
+            gk:
+                "General Knowledge",
+
+            facts:
+                "Interesting Facts"
+
+        };
+
+        if (
+            category &&
+            categoryTitles[category]
+        ) {
+
+            document.getElementById(
+                "articleCategory"
+            ).textContent =
+                categoryTitles[category];
+
+            document.getElementById(
+                "articleTitle"
+            ).textContent =
+                categoryTitles[category];
+
+            document.getElementById(
+                "articleSubtitle"
+            ).textContent =
+                "Explore published learning content from this Knowledge Power category.";
+
+        }
+
+    </script>
+
+</body>
+</html>
