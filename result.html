@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Results | ARS — Adarsh Ke Alfaz</title>
+    <meta
+        name="description"
+        content="Check ARS examination results and download digital scorecards."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .result-page {
+            padding: 50px 20px;
+            min-height: 70vh;
+        }
+
+        .result-wrapper {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .result-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .result-heading h1 {
+            color: #123b5d;
+            margin-bottom: 10px;
+        }
+
+        .result-heading p {
+            color: #666;
+        }
+
+        .result-card {
+            background: #ffffff;
+            border: 1px solid #e1e7eb;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .result-card h2 {
+            color: #167a6d;
+            margin-top: 0;
+        }
+
+        .result-form {
+            display: grid;
+            gap: 17px;
+        }
+
+        .result-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 7px;
+            color: #243746;
+        }
+
+        .result-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #ccd6dd;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .result-btn {
+            border: none;
+            padding: 13px 20px;
+            border-radius: 9px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .result-btn:hover {
+            opacity: 0.94;
+        }
+
+        .result-message {
+            margin-top: 15px;
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .result-message.info {
+            display: block;
+            background: #eaf5fb;
+            color: #14506b;
+        }
+
+        .result-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #9b2323;
+        }
+
+        .result-message.success {
+            display: block;
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .login-result-link {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .login-result-link a {
+            text-decoration: none;
+            color: #126f91;
+            font-weight: 700;
+        }
+
+        .result-example {
+            margin-top: 22px;
+            background: #f6fafb;
+            padding: 18px;
+            border-radius: 10px;
+            color: #53616a;
+            line-height: 1.7;
+        }
+
+        .result-info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .result-info-box {
+            padding: 18px;
+            border: 1px solid #e2e8eb;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result-info-box strong {
+            display: block;
+            font-size: 25px;
+            color: #15735f;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 700px) {
+            .result-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-card {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="result-page">
+
+            <div class="result-wrapper">
+
+                <div class="result-heading">
+                    <h1>ARS Examination Results</h1>
+                    <p>
+                        View your published result and download your digital scorecard.
+                    </p>
+                </div>
+
+                <div class="result-card">
+
+                    <h2>Check Result</h2>
+
+                    <form id="resultForm" class="result-form">
+
+                        <div class="result-group">
+                            <label for="registrationId">
+                                Registration ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="registrationId"
+                                placeholder="Enter your Registration ID"
+                                required
+                            >
+                        </div>
+
+                        <div class="result-group">
+                            <label for="registeredMobile">
+                                Registered Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="registeredMobile"
+                                placeholder="Enter registered mobile number"
+                                inputmode="numeric"
+                                maxlength="10"
+                                required
+                            >
+                        </div>
+
+                        <button type="submit" class="result-btn">
+                            Find Result
+                        </button>
+
+                    </form>
+
+                    <div id="resultMessage" class="result-message"></div>
+
+                    <div class="login-result-link">
+                        Already have an ARS account?
+                        <a href="login.html">Login to view My Results</a>
+                    </div>
+
+                    <div class="result-example">
+                        <strong>Result Access:</strong><br>
+                        Published results can be accessed through student login
+                        or through the approved Registration ID + registered
+                        mobile verification process.
+                    </div>
+
+                </div>
+
+                <div class="result-card">
+
+                    <h2>Student Benefits</h2>
+
+                    <div class="result-info-grid">
+
+                        <div class="result-info-box">
+                            <strong>01</strong>
+                            Digital Result
+                        </div>
+
+                        <div class="result-info-box">
+                            <strong>02</strong>
+                            Scorecard Download
+                        </div>
+
+                        <div class="result-info-box">
+                            <strong>03</strong>
+                            Eligible Certificate
+                        </div>
+
+                    </div>
+
+                    <div class="result-example">
+                        Certificate eligibility depends on the rules and
+                        qualification criteria announced for the particular exam.
+                        Merit recognition is subject to the published merit criteria.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const resultForm = document.getElementById("resultForm");
+        const resultMessage = document.getElementById("resultMessage");
+
+        function showResultMessage(message, type) {
+            resultMessage.textContent = message;
+            resultMessage.className = "result-message " + type;
+        }
+
+        resultForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const registrationId =
+                document.getElementById("registrationId").value.trim();
+
+            const mobile =
+                document.getElementById("registeredMobile").value.trim();
+
+            if (!registrationId || !mobile) {
+                showResultMessage(
+                    "Please enter your Registration ID and registered mobile number.",
+                    "error"
+                );
+                return;
+            }
+
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                showResultMessage(
+                    "Please enter a valid 10-digit mobile number.",
+                    "error"
+                );
+                return;
+            }
+
+            /*
+             * BACKEND INTEGRATION:
+             * This form will later call the secure backend.
+             *
+             * Suggested flow:
+             * Registration ID
+             *        ↓
+             * Registered Mobile Verification
+             *        ↓
+             * OTP
+             *        ↓
+             * Published Result Check
+             *        ↓
+             * Result / Scorecard PDF
+             */
+
+            showResultMessage(
+                "Result verification backend is not connected yet.",
+                "info"
+            );
+        });
+    </script>
+
+</body>
+</html>
