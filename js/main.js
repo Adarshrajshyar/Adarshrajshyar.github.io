@@ -1,4 +1,14 @@
-document.write('<script src="site-config.js"><\/script>');
-document.write('<script src="page-loader.js"><\/script>');
-document.write('<script src="script.js"><\/script>');
-document.write('<script src="pwa-register.js"><\/script>');
+/* =========================================================
+   ARS — MAIN JAVASCRIPT BRIDGE
+   ========================================================= */
+
+"use strict";
+
+/*
+ * Pages using main.js will load the same master
+ * script.js used by the rest of the ARS website.
+ */
+
+document.write(
+  '<script src="js/script.js"><\/script>'
+);
