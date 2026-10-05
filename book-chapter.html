@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ARS Book Chapter | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Read an ARS Book chapter online."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .book-page {
+            padding: 40px 20px 65px;
+            background: #f8f7f2;
+        }
+
+        .book-wrapper {
+            max-width: 950px;
+            margin: auto;
+        }
+
+        .book-header {
+            background: linear-gradient(135deg, #f3f8f4, #eef6f8);
+            border: 1px solid #dbe5e6;
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .book-header img {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+            margin-bottom: 9px;
+        }
+
+        .book-header h1 {
+            margin: 0 0 7px;
+            color: #4a493c;
+        }
+
+        .book-header p {
+            margin: 0;
+            color: #6e6b61;
+            line-height: 1.6;
+        }
+
+        .book-reader {
+            background: #fffef8;
+            border: 1px solid #e3dfd0;
+            border-radius: 8px;
+            padding: 45px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+
+        .book-chapter-label {
+            text-align: center;
+            color: #77715f;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 9px;
+        }
+
+        .book-reader h2 {
+            text-align: center;
+            color: #364d50;
+            margin: 0 0 27px;
+            font-size: 29px;
+        }
+
+        .book-content {
+            color: #46483f;
+            line-height: 2;
+            font-size: 17px;
+        }
+
+        .book-content p {
+            margin: 0 0 18px;
+        }
+
+        .book-content h3 {
+            color: #4d655f;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        .book-quote {
+            margin: 25px 0;
+            padding: 20px 23px;
+            border-left: 4px solid #7a9b87;
+            background: #f5f7ef;
+            color: #58665b;
+            font-style: italic;
+            line-height: 1.8;
+            border-radius: 6px;
+        }
+
+        .book-navigation {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .book-nav-btn {
+            text-decoration: none;
+            padding: 12px;
+            border: 1px solid #d9ded9;
+            border-radius: 8px;
+            text-align: center;
+            background: #f7f8f4;
+            color: #53665e;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .book-nav-btn.primary {
+            background: #eef5ef;
+            color: #456452;
+        }
+
+        .book-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .book-meta-box {
+            background: #f7f7f0;
+            border: 1px solid #e1e1d7;
+            border-radius: 8px;
+            padding: 13px;
+        }
+
+        .book-meta-box span {
+            display: block;
+            color: #827f72;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .book-meta-box strong {
+            color: #4f5c55;
+            font-size: 13px;
+        }
+
+        .book-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 700px) {
+
+            .book-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .book-header {
+                padding: 23px 18px;
+            }
+
+            .book-reader {
+                padding: 25px 18px;
+            }
+
+            .book-reader h2 {
+                font-size: 24px;
+            }
+
+            .book-content {
+                font-size: 15px;
+                line-height: 1.85;
+            }
+
+            .book-navigation {
+                grid-template-columns: 1fr;
+            }
+
+            .book-meta {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="book-page">
+
+            <div class="book-wrapper">
+
+                <div class="book-header">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>
+                        ARS Book
+                    </h1>
+
+                    <p>
+                        Read the selected chapter online.
+                    </p>
+
+                </div>
+
+                <article class="book-reader">
+
+                    <div class="book-chapter-label">
+                        Chapter <span id="chapterNumber">1</span>
+                    </div>
+
+                    <h2 id="chapterTitle">
+                        मेरी पहली उड़ान
+                    </h2>
+
+                    <div class="book-content">
+
+                        <p>
+                            हर यात्रा की शुरुआत एक छोटे से कदम से होती है।
+                            किसी सपने को शब्दों में बदलना आसान लग सकता है,
+                            लेकिन उसे लगातार आगे बढ़ाना धैर्य मांगता है।
+                        </p>
+
+                        <p>
+                            ARS Book के इस अध्याय का उद्देश्य उन विचारों को
+                            प्रस्तुत करना है जो सीखने, प्रयास करने और अपने
+                            अनुभवों को रचनात्मक रूप देने से जुड़े हैं।
+                        </p>
+
+                        <h3>
+                            शुरुआत
+                        </h3>
+
+                        <p>
+                            जब कोई व्यक्ति अपने मन की बात लिखना शुरू करता
+                            है, तो वह केवल शब्द नहीं लिखता। वह अपने विचार,
+                            अनुभव और उम्मीदों को एक रूप देता है।
+                        </p>
+
+                        <div class="book-quote">
+                            “एक छोटी शुरुआत भी भविष्य की बड़ी कहानी का
+                            पहला अध्याय बन सकती है।”
+                        </div>
+
+                        <h3>
+                            सीख और आगे की राह
+                        </h3>
+
+                        <p>
+                            रास्ते में कठिनाइयाँ आ सकती हैं। ऐसे समय में
+                            सीख को रोकने के बजाय उसे अनुभव का हिस्सा मानना
+                            उपयोगी होता है। हर नया प्रयास व्यक्ति को अपने
+                            लक्ष्य को बेहतर ढंग से समझने का अवसर देता है।
+                        </p>
+
+                        <p>
+                            आगे के अध्यायों में ARS Book के साहित्यिक,
+                            रचनात्मक और विचारात्मक भागों को क्रमबद्ध रूप
+                            से प्रस्तुत किया जा सकता है।
+                        </p>
+
+                    </div>
+
+                    <div class="book-meta">
+
+                        <div class="book-meta-box">
+
+                            <span>
+                                Book
+                            </span>
+
+                            <strong>
+                                ARS Book
+                            </strong>
+
+                        </div>
+
+                        <div class="book-meta-box">
+
+                            <span>
+                                Chapter
+                            </span>
+
+                            <strong id="metaChapter">
+                                1
+                            </strong>
+
+                        </div>
+
+                        <div class="book-meta-box">
+
+                            <span>
+                                Format
+                            </span>
+
+                            <strong>
+                                Online Reading
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="book-navigation">
+
+                        <a
+                            href="#"
+                            id="previousChapter"
+                            class="book-nav-btn"
+                        >
+                            ← Previous
+                        </a>
+
+                        <a
+                            href="ars-book.html"
+                            class="book-nav-btn primary"
+                        >
+                            Contents
+                        </a>
+
+                        <a
+                            href="#"
+                            id="nextChapter"
+                            class="book-nav-btn"
+                        >
+                            Next →
+                        </a>
+
+                    </div>
+
+                </article>
+
+                <div class="book-note">
+
+                    <strong>Publisher Note:</strong>
+                    The production book reader should retrieve chapter
+                    records from the authorized Publisher backend.
+                    Chapter navigation can use secure chapter IDs or
+                    slugs, while only published chapters are displayed
+                    publicly.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const requestedChapter =
+            Number(
+                params.get("chapter")
+            );
+
+        if (
+            Number.isInteger(requestedChapter) &&
+            requestedChapter > 0
+        ) {
+
+            document.getElementById(
+                "chapterNumber"
+            ).textContent =
+                requestedChapter;
+
+            document.getElementById(
+                "metaChapter"
+            ).textContent =
+                requestedChapter;
+
+        }
+
+        /*
+         * Production:
+         *
+         * chapter ID / slug
+         *        ↓
+         * backend published chapter
+         *        ↓
+         * reader
+         */
+
+        document
+            .getElementById("previousChapter")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    const current =
+                        requestedChapter > 0
+                            ? requestedChapter
+                            : 1;
+
+                    if (current > 1) {
+
+                        window.location.href =
+                            "book-chapter.html?chapter=" +
+                            (current - 1);
+
+                    } else {
+
+                        window.location.href =
+                            "ars-book.html";
+
+                    }
+
+                }
+            );
+
+        document
+            .getElementById("nextChapter")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    const current =
+                        requestedChapter > 0
+                            ? requestedChapter
+                            : 1;
+
+                    window.location.href =
+                        "book-chapter.html?chapter=" +
+                        (current + 1);
+
+                }
+            );
+
+    </script>
+
+</body>
+</html>
