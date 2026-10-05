@@ -1,7 +1,7 @@
 {
   "name": "ARS — Adarsh Ke Alfaz",
   "short_name": "ARS",
-  "description": "ARS — Adarsh Ke Alfaz: Education, Knowledge, Exams and Literature.",
+  "description": "ARS — Adarsh Ke Alfaz: Education, Knowledge, Exams and Literature.", 
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
