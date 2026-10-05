@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ARS Sponsor Enquiry - Adarsh Ke Alfaz">
+    <title>Sponsor Enquiry | ARS — Adarsh Ke Alfaz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+
+        <a href="index.html" class="brand">
+            <img src="assets/logo.png" alt="ARS Logo" class="brand-logo">
+            <div>
+                <h1>ARS</h1>
+                <span>Adarsh Ke Alfaz</span>
+            </div>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            ☰
+        </button>
+
+        <nav class="main-nav" id="mainNav">
+            <a href="index.html">Home</a>
+            <a href="education.html">Education</a>
+            <a href="knowledge-power.html">Knowledge Power</a>
+            <a href="exams.html">Exams</a>
+            <a href="shayari.html">Shayari</a>
+            <a href="stories.html">Stories</a>
+            <a href="poetry.html">Poetry</a>
+            <a href="biography.html">Biography</a>
+            <a href="ars-book.html">ARS Book</a>
+            <a href="updates.html">Updates</a>
+            <a href="join-ars.html">Join ARS</a>
+            <a href="certificate.html">Certificate</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="sponsor.html">Sponsor</a>
+            <a href="search.html">Search</a>
+            <a href="theme.html">Theme</a>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="section-tag">PARTNERSHIP</span>
+        <h2>Sponsor Enquiry</h2>
+        <p>
+            Connect with ARS — Adarsh Ke Alfaz for educational,
+            literary and youth-focused partnership opportunities.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <div class="content-grid">
+
+            <div class="card">
+                <h3>Become an ARS Sponsor</h3>
+                <p>
+                    Sponsors and partners can support educational activities,
+                    online examinations, digital learning, literary content
+                    and student-focused initiatives.
+                </p>
+
+                <div class="info-box">
+                    <strong>Important:</strong>
+                    Sponsorship proposals, benefits, branding and partnership
+                    terms are subject to actual discussion and approval.
+                    No unconfirmed benefit is promised through this form.
+                </div>
+
+                <h4>Enquiry Process</h4>
+                <p>Submit your details → ARS reviews the enquiry → Discussion → Proposal/Terms → Final confirmation.</p>
+            </div>
+
+            <div class="card">
+
+                <form id="sponsorEnquiryForm">
+
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required
+                               placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="organization">Organization / Company</label>
+                        <input type="text" id="organization" name="organization"
+                               placeholder="Organization or company name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required
+                               placeholder="Enter your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Mobile Number</label>
+                        <input type="tel" id="phone" name="phone"
+                               placeholder="Enter mobile number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Partnership Type *</label>
+                        <select id="type" name="type" required>
+                            <option value="">Select an option</option>
+                            <option value="education">Education Support</option>
+                            <option value="exam">Exam Sponsorship</option>
+                            <option value="literature">Literature / Content</option>
+                            <option value="technology">Technology Support</option>
+                            <option value="branding">Branding Partnership</option>
+                            <option value="csr">CSR Partnership</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Approximate Support / Budget</label>
+                        <input type="text" id="budget" name="budget"
+                               placeholder="Optional">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Proposal / Message *</label>
+                        <textarea id="message" name="message" rows="6" required
+                                  placeholder="Write your proposal or partnership idea"></textarea>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="consent" required>
+                            I confirm that the information submitted by me is
+                            accurate and may be used for partnership communication.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Submit Sponsor Enquiry
+                    </button>
+
+                </form>
+
+                <div id="sponsorFormMessage" class="form-message"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+
+        <div>
+            <h3>ARS — Adarsh Ke Alfaz</h3>
+            <p>Education • Knowledge • Literature • Growth</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="grievance.html">Grievance</a>
+            <a href="contact.html">Contact</a>
+            <a href="private.html">Private</a>
+        </div>
+
+        <p class="copyright">
+            © 2026 ARS — Adarsh Ke Alfaz. All rights reserved.
+        </p>
+
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("sponsorEnquiryForm");
+    const messageBox = document.getElementById("sponsorFormMessage");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const formData = {
+            name: document.getElementById("name").value.trim(),
+            organization: document.getElementById("organization").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            type: document.getElementById("type").value,
+            budget: document.getElementById("budget").value.trim(),
+            message: document.getElementById("message").value.trim(),
+            submittedAt: new Date().toISOString()
+        };
+
+        /*
+         * Production:
+         * Send this data to the real backend/database.
+         * Never put backend service keys or private credentials here.
+         */
+
+        localStorage.setItem(
+            "arsSponsorEnquiry",
+            JSON.stringify(formData)
+        );
+
+        messageBox.innerHTML = `
+            <div class="success-box">
+                <strong>Enquiry submitted successfully.</strong>
+                <p>Your sponsor enquiry has been recorded in this demo flow.</p>
+            </div>
+        `;
+
+        form.reset();
+
+        setTimeout(function () {
+            window.location.href = "contact-success.html?type=sponsor";
+        }, 1200);
+    });
+
+});
+</script>
+
+</body>
+</html>
