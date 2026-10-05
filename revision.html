@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Revision | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Revision planner and revision resources for ARS students."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .revision-page {
+            padding: 45px 20px 65px;
+        }
+
+        .revision-wrapper {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .revision-hero {
+            text-align: center;
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 23px;
+        }
+
+        .revision-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .revision-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .revision-hero p {
+            max-width: 760px;
+            margin: auto;
+            color: #68757d;
+            line-height: 1.7;
+        }
+
+        .revision-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        .revision-control label {
+            display: block;
+            color: #29404d;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .revision-control select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px 12px;
+            border: 1px solid #ccd7dc;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .revision-generate {
+            border: none;
+            border-radius: 8px;
+            padding: 11px 17px;
+            cursor: pointer;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+            font-weight: 700;
+        }
+
+        .revision-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .revision-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 23px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+        }
+
+        .revision-card h2 {
+            margin-top: 0;
+            color: #123b5d;
+            margin-bottom: 17px;
+        }
+
+        .revision-topic {
+            padding: 15px;
+            border: 1px solid #dfe7ea;
+            border-radius: 10px;
+            background: #f8fbfc;
+            margin-bottom: 10px;
+        }
+
+        .revision-topic:last-child {
+            margin-bottom: 0;
+        }
+
+        .revision-topic-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .revision-topic strong {
+            color: #185b72;
+        }
+
+        .revision-check {
+            accent-color: #167a6d;
+        }
+
+        .progress-area {
+            margin-top: 17px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: #68767c;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #e7edef;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: #167a6d;
+            transition: width 0.2s;
+        }
+
+        .revision-plan {
+            display: grid;
+            gap: 11px;
+        }
+
+        .plan-item {
+            display: flex;
+            gap: 11px;
+            padding: 13px;
+            background: #f8fbfc;
+            border: 1px solid #dfe7ea;
+            border-radius: 9px;
+        }
+
+        .plan-day {
+            min-width: 48px;
+            height: 48px;
+            border-radius: 9px;
+            background: #eef7f7;
+            color: #166b59;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .plan-item strong {
+            display: block;
+            color: #294754;
+            margin-bottom: 4px;
+        }
+
+        .plan-item span {
+            color: #69777e;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .revision-tips {
+            padding-left: 21px;
+            margin: 0;
+        }
+
+        .revision-tips li {
+            color: #50616a;
+            line-height: 1.7;
+            margin-bottom: 7px;
+            font-size: 14px;
+        }
+
+        .revision-note {
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 850px) {
+
+            .revision-layout {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .revision-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .revision-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .revision-hero {
+                padding: 23px 18px;
+            }
+
+            .revision-card {
+                padding: 20px 17px;
+            }
+
+            .revision-topic-top {
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="revision-page">
+
+            <div class="revision-wrapper">
+
+                <div class="revision-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                    >
+
+                    <h1>Revision Center</h1>
+
+                    <p>
+                        Organize your revision, track completed topics
+                        and prepare systematically for assessments.
+                    </p>
+
+                </div>
+
+                <div class="revision-controls">
+
+                    <div class="revision-control">
+
+                        <label for="revisionClass">
+                            Class
+                        </label>
+
+                        <select id="revisionClass">
+
+                            <option value="5">
+                                Class 5
+                            </option>
+
+                            <option value="6">
+                                Class 6
+                            </option>
+
+                            <option value="7">
+                                Class 7
+                            </option>
+
+                            <option value="8">
+                                Class 8
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="revision-control">
+
+                        <label for="revisionSubject">
+                            Subject
+                        </label>
+
+                        <select id="revisionSubject">
+
+                            <option value="science">
+                                Science
+                            </option>
+
+                            <option value="maths">
+                                Mathematics
+                            </option>
+
+                            <option value="english">
+                                English
+                            </option>
+
+                            <option value="hindi">
+                                Hindi
+                            </option>
+
+                            <option value="sst">
+                                Social Studies
+                            </option>
+
+                            <option value="reasoning">
+                                Reasoning
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="revision-generate"
+                        id="generateRevision"
+                    >
+                        Load Revision
+
+                    </button>
+
+                </div>
+
+                <div class="revision-layout">
+
+                    <div>
+
+                        <div class="revision-card">
+
+                            <h2>
+                                Revision Topics
+                            </h2>
+
+                            <div
+                                id="revisionTopics"
+                            ></div>
+
+                            <div class="progress-area">
+
+                                <div class="progress-label">
+
+                                    <span>
+                                        Revision Progress
+                                    </span>
+
+                                    <strong
+                                        id="revisionPercentage"
+                                    >
+                                        0%
+                                    </strong>
+
+                                </div>
+
+                                <div class="progress-bar">
+
+                                    <div
+                                        class="progress-fill"
+                                        id="progressFill"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="revision-card">
+
+                            <h2>
+                                Quick Revision Plan
+                            </h2>
+
+                            <div class="revision-plan">
+
+                                <div class="plan-item">
+
+                                    <div class="plan-day">
+                                        DAY 1
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Read & Understand
+                                        </strong>
+
+                                        <span>
+                                            Review the basic concepts
+                                            and important definitions.
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="plan-item">
+
+                                    <div class="plan-day">
+                                        DAY 2
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Practice
+                                        </strong>
+
+                                        <span>
+                                            Solve examples and MCQs
+                                            related to the topic.
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="plan-item">
+
+                                    <div class="plan-day">
+                                        DAY 3
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Self Test
+                                        </strong>
+
+                                        <span>
+                                            Test your understanding
+                                            without looking at notes.
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="plan-item">
+
+                                    <div class="plan-day">
+                                        DAY 4
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Final Revision
+                                        </strong>
+
+                                        <span>
+                                            Revise weak areas and
+                                            important points.
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <aside>
+
+                        <div class="revision-card">
+
+                            <h2>
+                                Revision Tips
+                            </h2>
+
+                            <ul class="revision-tips">
+
+                                <li>
+                                    Study in small focused sessions.
+                                </li>
+
+                                <li>
+                                    Revise difficult topics more than once.
+                                </li>
+
+                                <li>
+                                    Practice questions after learning
+                                    a concept.
+                                </li>
+
+                                <li>
+                                    Review mistakes and understand why
+                                    an answer was incorrect.
+                                </li>
+
+                                <li>
+                                    Keep your revision notes organized.
+                                </li>
+
+                                <li>
+                                    Take regular breaks during study.
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                        <div class="revision-card">
+
+                            <div class="revision-note">
+
+                                <strong>
+                                    Student Dashboard Integration:
+                                </strong>
+
+                                In the production system, revision
+                                progress can be saved to the authenticated
+                                student's profile so that progress is
+                                available across supported devices.
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">
+                    Private
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const revisionData = {
+
+            science: [
+                "Basic Concepts",
+                "Important Definitions",
+                "Key Examples",
+                "Practice Questions",
+                "Quick Self-Test"
+            ],
+
+            maths: [
+                "Important Formulas",
+                "Solved Examples",
+                "Practice Problems",
+                "Common Mistakes",
+                "Quick Self-Test"
+            ],
+
+            english: [
+                "Grammar Rules",
+                "Vocabulary",
+                "Reading Practice",
+                "Writing Skills",
+                "Quick Self-Test"
+            ],
+
+            hindi: [
+                "व्याकरण",
+                "शब्द ज्ञान",
+                "पठन अभ्यास",
+                "लेखन अभ्यास",
+                "स्व-मूल्यांकन"
+            ],
+
+            sst: [
+                "Important Facts",
+                "Maps & Geography",
+                "History Points",
+                "Civics Concepts",
+                "Quick Self-Test"
+            ],
+
+            reasoning: [
+                "Patterns",
+                "Analogy",
+                "Classification",
+                "Logical Questions",
+                "Quick Self-Test"
+            ]
+
+        };
+
+        const revisionTopics =
+            document.getElementById(
+                "revisionTopics"
+            );
+
+        const revisionPercentage =
+            document.getElementById(
+                "revisionPercentage"
+            );
+
+        const progressFill =
+            document.getElementById(
+                "progressFill"
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function renderRevision() {
+
+            const subject =
+                document.getElementById(
+                    "revisionSubject"
+                ).value;
+
+            const topics =
+                revisionData[subject] || [];
+
+            revisionTopics.innerHTML = "";
+
+            topics.forEach(
+                function(topic, index) {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+                    item.className =
+                        "revision-topic";
+
+                    item.innerHTML = `
+
+                        <div class="revision-topic-top">
+
+                            <strong>
+                                ${escapeHTML(topic)}
+                            </strong>
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    class="revision-check"
+                                    data-index="${index}"
+                                >
+
+                                <span
+                                    style="
+                                        font-size:12px;
+                                        color:#69777e;
+                                    "
+                                >
+                                    Completed
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    `;
+
+                    revisionTopics.appendChild(item);
+
+                }
+            );
+
+            updateProgress();
+
+            document
+                .querySelectorAll(
+                    ".revision-check"
+                )
+                .forEach(
+                    checkbox => {
+
+                        checkbox.addEventListener(
+                            "change",
+                            updateProgress
+                        );
+
+                    }
+                );
+
+        }
+
+        function updateProgress() {
+
+            const checkboxes =
+                document.querySelectorAll(
+                    ".revision-check"
+                );
+
+            const completed =
+                Array.from(checkboxes)
+                    .filter(
+                        checkbox =>
+                            checkbox.checked
+                    )
+                    .length;
+
+            const percentage =
+                checkboxes.length
+                    ? Math.round(
+                        completed /
+                        checkboxes.length *
+                        100
+                    )
+                    : 0;
+
+            revisionPercentage.textContent =
+                percentage + "%";
+
+            progressFill.style.width =
+                percentage + "%";
+
+            /*
+             * Production:
+             * Save revision progress to the authenticated
+             * student's backend profile.
+             */
+
+        }
+
+        document
+            .getElementById("generateRevision")
+            .addEventListener(
+                "click",
+                function() {
+
+                    renderRevision();
+
+                }
+            );
+
+        document
+            .getElementById("revisionSubject")
+            .addEventListener(
+                "change",
+                renderRevision
+            );
+
+        renderRevision();
+
+    </script>
+
+</body>
+</html>
