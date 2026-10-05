@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | ARS — Adarsh Ke Alfaz</title>
+    <meta name="description" content="Login to your ARS — Adarsh Ke Alfaz student account.">
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .login-page {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 480px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+            border: 1px solid #e5e5e5;
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .login-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #123b5d;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 28px;
+        }
+
+        .login-form-group {
+            margin-bottom: 18px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #234;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ccd6dd;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .login-form-group input:focus {
+            border-color: #1976a2;
+            box-shadow: 0 0 0 3px rgba(25, 118, 162, 0.10);
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 9px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: white;
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .login-message {
+            display: none;
+            margin-top: 15px;
+            padding: 11px 13px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .login-message.info {
+            display: block;
+            background: #eaf5fb;
+            color: #14506b;
+        }
+
+        .login-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #a12626;
+        }
+
+        .login-message.success {
+            display: block;
+            background: #edf9f2;
+            color: #176438;
+        }
+
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-links a {
+            color: #146f91;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-note {
+            margin-top: 22px;
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .login-divider {
+            margin: 25px 0;
+            border: 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        @media (max-width: 600px) {
+            .login-box {
+                padding: 25px 18px;
+            }
+
+            .login-page {
+                padding: 35px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <section class="login-page">
+
+            <div class="login-box">
+
+                <div class="login-logo">
+                    <img src="assets/logo.png" alt="ARS">
+                </div>
+
+                <h1 class="login-title">Student Login</h1>
+
+                <p class="login-subtitle">
+                    Access your ARS profile, exams, results and certificates.
+                </p>
+
+                <form id="studentLoginForm">
+
+                    <div class="login-form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="Enter your registered email"
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <div class="login-form-group">
+                        <label for="loginPassword">Password</label>
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        >
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        Login
+                    </button>
+
+                    <div id="loginMessage" class="login-message"></div>
+
+                </form>
+
+                <div class="login-links">
+                    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+
+                <hr class="login-divider">
+
+                <div class="login-links">
+                    <span>New to ARS?</span>
+                    <a href="join-ars.html"> Join ARS</a>
+                </div>
+
+                <p class="login-note">
+                    Your account will be connected to the secure ARS backend.
+                    Passwords must never be stored directly in public website code.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const loginForm = document.getElementById("studentLoginForm");
+        const loginMessage = document.getElementById("loginMessage");
+        const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+
+        function showLoginMessage(message, type) {
+            loginMessage.textContent = message;
+            loginMessage.className = "login-message " + type;
+        }
+
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            if (!email || !password) {
+                showLoginMessage(
+                    "Please enter your email and password.",
+                    "error"
+                );
+                return;
+            }
+
+            /*
+             * BACKEND INTEGRATION:
+             * Replace this section with the real Supabase authentication call.
+             *
+             * Example future flow:
+             * 1. Authenticate user using Supabase Auth.
+             * 2. Load the student's profile.
+             * 3. Store only the authenticated session.
+             * 4. Redirect to student-dashboard.html.
+             */
+
+            showLoginMessage(
+                "Login backend is not connected yet. Connect Supabase authentication here.",
+                "info"
+            );
+        });
+
+        forgotPasswordLink.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            showLoginMessage(
+                "Password recovery will use the registered email through the secure backend.",
+                "info"
+            );
+        });
+    </script>
+
+</body>
+</html>
