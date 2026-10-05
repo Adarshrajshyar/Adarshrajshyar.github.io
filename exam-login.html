@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Exam Login | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Secure student examination login for ARS."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .exam-login-page {
+            min-height: 73vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 45px 20px;
+        }
+
+        .exam-login-wrapper {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .exam-login-card {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 18px;
+            padding: 32px;
+            box-shadow: 0 10px 32px rgba(0,0,0,0.08);
+        }
+
+        .exam-login-logo {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .exam-login-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .exam-login-card h1 {
+            text-align: center;
+            color: #123b5d;
+            margin-bottom: 8px;
+        }
+
+        .exam-login-subtitle {
+            text-align: center;
+            color: #68757d;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .exam-name {
+            background: #eef7f7;
+            border-radius: 9px;
+            padding: 13px;
+            text-align: center;
+            color: #166b5a;
+            font-weight: 700;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        .login-group {
+            margin-bottom: 17px;
+        }
+
+        .login-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 700;
+            color: #29404d;
+        }
+
+        .login-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .login-group input:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .exam-login-btn {
+            width: 100%;
+            border: none;
+            border-radius: 9px;
+            padding: 14px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .exam-login-btn:hover {
+            opacity: 0.94;
+        }
+
+        .exam-login-message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .exam-login-message.info {
+            display: block;
+            background: #eef7fb;
+            color: #17546c;
+        }
+
+        .exam-login-message.error {
+            display: block;
+            background: #fff0f0;
+            color: #9b2828;
+        }
+
+        .login-options {
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .login-options a {
+            color: #176d8f;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .exam-warning {
+            margin-top: 22px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552a;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .exam-login-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .exam-login-card {
+                padding: 25px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="exam-login-page">
+
+            <div class="exam-login-wrapper">
+
+                <div class="exam-login-card">
+
+                    <div class="exam-login-logo">
+
+                        <img
+                            src="assets/logo.png"
+                            alt="ARS Logo"
+                        >
+
+                    </div>
+
+                    <h1>Exam Login</h1>
+
+                    <p class="exam-login-subtitle">
+                        Authorized participants can enter the examination
+                        through their approved registration.
+                    </p>
+
+                    <div class="exam-name">
+                        ARS Education Talent Research Examination<br>
+                        Stage 1
+                    </div>
+
+                    <form id="examLoginForm">
+
+                        <div class="login-group">
+
+                            <label for="examRegistrationId">
+                                Registration ID
+                            </label>
+
+                            <input
+                                type="text"
+                                id="examRegistrationId"
+                                placeholder="Enter Registration ID"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="login-group">
+
+                            <label for="examLoginMobile">
+                                Registered Mobile Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="examLoginMobile"
+                                placeholder="Enter registered mobile number"
+                                maxlength="10"
+                                inputmode="numeric"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="login-group">
+
+                            <label for="examLoginPassword">
+                                Exam Access Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="examLoginPassword"
+                                placeholder="Enter exam access password"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="exam-login-btn"
+                        >
+                            Verify & Continue
+                        </button>
+
+                        <div
+                            id="examLoginMessage"
+                            class="exam-login-message"
+                        ></div>
+
+                    </form>
+
+                    <div class="login-options">
+
+                        <a href="exam-registration.html">
+                            New Registration
+                        </a>
+
+                        &nbsp; | &nbsp;
+
+                        <a href="exam-rules.html">
+                            Exam Rules
+                        </a>
+
+                    </div>
+
+                    <div class="exam-warning">
+
+                        <strong>Important:</strong>
+                        Exam access must be controlled by the secure backend.
+                        The real system should verify the registration,
+                        eligibility, exam window and one-attempt restriction
+                        before allowing the participant to start.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="exam-rules.html">Exam Rules</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const examLoginForm =
+            document.getElementById("examLoginForm");
+
+        const examLoginMessage =
+            document.getElementById("examLoginMessage");
+
+        examLoginForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const mobile =
+                document.getElementById("examLoginMobile")
+                    .value.trim();
+
+            if (!/^[0-9]{10}$/.test(mobile)) {
+
+                examLoginMessage.textContent =
+                    "Please enter a valid 10-digit registered mobile number.";
+
+                examLoginMessage.className =
+                    "exam-login-message error";
+
+                return;
+            }
+
+            /*
+             * SECURE BACKEND FLOW
+             *
+             * Registration ID
+             *       ↓
+             * Registered Mobile Verification
+             *       ↓
+             * Authentication / OTP
+             *       ↓
+             * Eligibility Check
+             *       ↓
+             * Exam Window Check
+             *       ↓
+             * Previous Attempt Check
+             *       ↓
+             * Start Exam
+             *
+             * Never validate examination access only in JavaScript.
+             */
+
+            examLoginMessage.textContent =
+                "Exam access verification requires the secure backend connection.";
+
+            examLoginMessage.className =
+                "exam-login-message info";
+
+        });
+
+    </script>
+
+</body>
+</html>
