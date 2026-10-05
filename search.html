@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Search | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="Search education, Knowledge Power, exams and literary content on ARS."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .search-page {
+            padding: 45px 20px 65px;
+        }
+
+        .search-wrapper {
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        .search-hero {
+            text-align: center;
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 23px;
+        }
+
+        .search-hero img {
+            width: 78px;
+            height: 78px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .search-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .search-hero p {
+            margin: 0;
+            color: #68757d;
+            line-height: 1.6;
+        }
+
+        .search-box {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px 16px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .search-button {
+            border: none;
+            border-radius: 9px;
+            padding: 13px 21px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            opacity: 0.94;
+        }
+
+        .search-filter-row {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .search-filter {
+            border: 1px solid #d7e1e4;
+            background: #f8fbfc;
+            color: #405760;
+            border-radius: 8px;
+            padding: 9px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .search-filter.active {
+            background: #eef7f7;
+            color: #166b59;
+            border-color: #c4ddd9;
+        }
+
+        .search-meta {
+            color: #6d797f;
+            font-size: 13px;
+            margin-bottom: 14px;
+        }
+
+        .results-list {
+            display: grid;
+            gap: 13px;
+        }
+
+        .search-result {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 13px;
+            padding: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .search-result h2 {
+            margin: 0 0 6px;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .search-result-category {
+            display: inline-block;
+            margin-bottom: 9px;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #eef7f7;
+            color: #166b59;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .search-result p {
+            margin: 0 0 11px;
+            color: #5a6870;
+            line-height: 1.65;
+            font-size: 14px;
+        }
+
+        .search-result a {
+            color: #176d8f;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .search-empty {
+            display: none;
+            text-align: center;
+            padding: 45px 20px;
+            border: 1px solid #dfe7ea;
+            border-radius: 14px;
+            background: #ffffff;
+            color: #6d797f;
+        }
+
+        .search-note {
+            margin-top: 20px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .search-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .search-hero {
+                padding: 23px 18px;
+            }
+
+            .search-box {
+                padding: 17px;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="ARS Logo">
+                <span>ARS — Adarsh Ke Alfaz</span>
+            </a>
+
+            <nav class="main-nav">
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="search-page">
+
+            <div class="search-wrapper">
+
+                <div class="search-hero">
+
+                    <img src="assets/logo.png" alt="ARS Logo">
+
+                    <h1>Search ARS</h1>
+
+                    <p>
+                        Find education, Knowledge Power, exams,
+                        Shayari, stories, poetry, updates and more.
+                    </p>
+
+                </div>
+
+                <div class="search-box">
+
+                    <form
+                        id="searchForm"
+                        class="search-form"
+                    >
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            class="search-input"
+                            placeholder="Search ARS..."
+                            autocomplete="off"
+                            required
+                        >
+
+                        <button
+                            type="submit"
+                            class="search-button"
+                        >
+                            Search
+                        </button>
+
+                    </form>
+
+                    <div class="search-filter-row">
+
+                        <button
+                            type="button"
+                            class="search-filter active"
+                            data-category="all"
+                        >
+                            All
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="education"
+                        >
+                            Education
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="knowledge"
+                        >
+                            Knowledge Power
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="exam"
+                        >
+                            Exams
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="shayari"
+                        >
+                            Shayari
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="stories"
+                        >
+                            Stories
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="poetry"
+                        >
+                            Poetry
+                        </button>
+
+                        <button
+                            type="button"
+                            class="search-filter"
+                            data-category="updates"
+                        >
+                            Updates
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="search-meta" id="searchMeta">
+                    Enter a search term to begin.
+                </div>
+
+                <div
+                    id="resultsList"
+                    class="results-list"
+                ></div>
+
+                <div
+                    id="searchEmpty"
+                    class="search-empty"
+                >
+                    No matching results found.
+                </div>
+
+                <div class="search-note">
+
+                    <strong>Backend Search:</strong>
+                    The production ARS search should query authorized
+                    published content from the backend and should index
+                    major public content areas without exposing private
+                    administrative records.
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="private.html" class="private-link">Private</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        /*
+         * DEMONSTRATION SEARCH INDEX
+         *
+         * Production version should load/search published backend content.
+         * Private Admin/Publisher records must never be included here.
+         */
+
+        const searchData = [
+
+            {
+                title: "Education",
+                category: "education",
+                description:
+                    "Class 5–8 notes, study material, MCQs, practice, revision and assessment.",
+                link: "education.html"
+            },
+
+            {
+                title: "Knowledge Power",
+                category: "knowledge",
+                description:
+                    "Science, Bihar, India, World, Technology, Environment, History, Geography and General Knowledge.",
+                link: "knowledge-power.html"
+            },
+
+            {
+                title: "ARS Education Talent Research Examination",
+                category: "exam",
+                description:
+                    "Online examination information, registration, instructions, results and certificate workflow.",
+                link: "exams.html"
+            },
+
+            {
+                title: "Shayari",
+                category: "shayari",
+                description:
+                    "Original ARS four-line rhyming Shayari in Love, Attitude, Motivation, Sad and Emotional categories.",
+                link: "shayari.html"
+            },
+
+            {
+                title: "Stories",
+                category: "stories",
+                description:
+                    "Original stories including Moral, Mystery, Horror, Motivational, Emotional and Life themes.",
+                link: "stories.html"
+            },
+
+            {
+                title: "Poetry",
+                category: "poetry",
+                description:
+                    "Original poetry published by ARS.",
+                link: "poetry.html"
+            },
+
+            {
+                title: "ARS Book",
+                category: "poetry",
+                description:
+                    "Read the ARS Book section by section and chapter by chapter.",
+                link: "ars-book.html"
+            },
+
+            {
+                title: "Latest Updates",
+                category: "updates",
+                description:
+                    "ARS announcements, examination notices and platform updates.",
+                link: "updates.html"
+            },
+
+            {
+                title: "Biography",
+                category: "updates",
+                description:
+                    "Approved biography information associated with ARS.",
+                link: "biography.html"
+            }
+
+        ];
+
+        const searchForm =
+            document.getElementById("searchForm");
+
+        const searchInput =
+            document.getElementById("searchInput");
+
+        const resultsList =
+            document.getElementById("resultsList");
+
+        const searchEmpty =
+            document.getElementById("searchEmpty");
+
+        const searchMeta =
+            document.getElementById("searchMeta");
+
+        const filterButtons =
+            document.querySelectorAll(
+                ".search-filter"
+            );
+
+        let selectedCategory = "all";
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function performSearch() {
+
+            const query =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+            if (!query) {
+
+                resultsList.innerHTML = "";
+
+                searchEmpty.style.display =
+                    "none";
+
+                searchMeta.textContent =
+                    "Enter a search term to begin.";
+
+                return;
+
+            }
+
+            let data =
+                selectedCategory === "all"
+                    ? searchData
+                    : searchData.filter(
+                        item =>
+                            item.category ===
+                            selectedCategory
+                    );
+
+            const results =
+                data.filter(function(item) {
+
+                    const searchable =
+                        (
+                            item.title +
+                            " " +
+                            item.description +
+                            " " +
+                            item.category
+                        ).toLowerCase();
+
+                    return searchable.includes(query);
+
+                });
+
+            resultsList.innerHTML = "";
+
+            searchMeta.textContent =
+                results.length +
+                " result(s) found for \"" +
+                searchInput.value.trim() +
+                "\".";
+
+            if (!results.length) {
+
+                searchEmpty.style.display =
+                    "block";
+
+                return;
+
+            }
+
+            searchEmpty.style.display =
+                "none";
+
+            results.forEach(function(item) {
+
+                const card =
+                    document.createElement("article");
+
+                card.className =
+                    "search-result";
+
+                card.innerHTML = `
+
+                    <span class="search-result-category">
+                        ${escapeHTML(item.category)}
+                    </span>
+
+                    <h2>
+                        ${escapeHTML(item.title)}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(item.description)}
+                    </p>
+
+                    <a href="${escapeHTML(item.link)}">
+                        Open →
+                    </a>
+
+                `;
+
+                resultsList.appendChild(card);
+
+            });
+
+        }
+
+        searchForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                performSearch();
+
+            }
+        );
+
+        filterButtons.forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    filterButtons.forEach(
+                        item =>
+                            item.classList.remove("active")
+                    );
+
+                    this.classList.add("active");
+
+                    selectedCategory =
+                        this.dataset.category;
+
+                    if (searchInput.value.trim()) {
+                        performSearch();
+                    }
+
+                }
+            );
+
+        });
+
+        searchInput.addEventListener(
+            "input",
+            function() {
+
+                if (this.value.trim()) {
+                    performSearch();
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
