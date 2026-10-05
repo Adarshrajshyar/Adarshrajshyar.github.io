@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ARS AI | ARS — Adarsh Ke Alfaz</title>
+
+    <meta
+        name="description"
+        content="ARS AI educational and general assistance interface."
+    >
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        .ai-page {
+            padding: 40px 20px 60px;
+            background: #f4f7f8;
+        }
+
+        .ai-wrapper {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .ai-hero {
+            background: linear-gradient(135deg, #edf9f5, #eef7fb);
+            border: 1px solid #dbe7e8;
+            border-radius: 18px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .ai-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 9px;
+        }
+
+        .ai-hero h1 {
+            margin: 0 0 8px;
+            color: #123b5d;
+        }
+
+        .ai-hero p {
+            margin: 0 auto;
+            max-width: 750px;
+            color: #66757d;
+            line-height: 1.7;
+        }
+
+        .ai-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 20px;
+        }
+
+        .ai-sidebar {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            padding: 18px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .ai-sidebar h2 {
+            margin-top: 0;
+            color: #123b5d;
+            font-size: 18px;
+        }
+
+        .ai-category {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: 1px solid #dfe7ea;
+            background: #f8fbfc;
+            color: #405760;
+            border-radius: 8px;
+            padding: 11px 12px;
+            margin-bottom: 7px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .ai-category:hover,
+        .ai-category.active {
+            background: #eef7f7;
+            color: #166b59;
+        }
+
+        .ai-main {
+            min-width: 0;
+        }
+
+        .ai-chat {
+            background: #ffffff;
+            border: 1px solid #dfe7ea;
+            border-radius: 15px;
+            min-height: 560px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        }
+
+        .ai-chat-header {
+            padding: 17px 20px;
+            border-bottom: 1px solid #e7ecee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ai-chat-header strong {
+            color: #123b5d;
+        }
+
+        .ai-online {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #edf9f2;
+            color: #176438;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            min-height: 380px;
+            max-height: 520px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 14px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 78%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .message.ai .message-bubble {
+            background: #eef7f7;
+            color: #3e555e;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message.user .message-bubble {
+            background: #1877a6;
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            border-top: 1px solid #e7ecee;
+            padding: 14px;
+            background: #fbfcfc;
+        }
+
+        .chat-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 9px;
+        }
+
+        .chat-input {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 47px;
+            max-height: 120px;
+            resize: vertical;
+            padding: 12px 13px;
+            border: 1px solid #ccd7dc;
+            border-radius: 9px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #1877a6;
+            box-shadow: 0 0 0 3px rgba(24,119,166,0.10);
+        }
+
+        .chat-send {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            background: linear-gradient(90deg, #167a6d, #1877a6);
+            color: #ffffff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .chat-send:hover {
+            opacity: 0.94;
+        }
+
+        .ai-shortcuts {
+            padding: 15px 20px 2px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .shortcut {
+            border: 1px solid #dfe7ea;
+            background: #f8fbfc;
+            color: #405760;
+            padding: 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .shortcut:hover {
+            background: #eef7f7;
+        }
+
+        .ai-note {
+            margin-top: 18px;
+            background: #fffaf0;
+            border: 1px solid #eedfb7;
+            border-radius: 9px;
+            padding: 14px;
+            color: #67552b;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        .ai-status {
+            margin-top: 11px;
+            text-align: center;
+            color: #7a858b;
+            font-size: 11px;
+        }
+
+        @media (max-width: 850px) {
+
+            .ai-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-sidebar {
+                position: static;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .ai-page {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .ai-hero {
+                padding: 23px 18px;
+            }
+
+            .ai-chat {
+                min-height: 500px;
+            }
+
+            .chat-form {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-send {
+                width: 100%;
+            }
+
+            .message-bubble {
+                max-width: 90%;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a href="index.html" class="brand">
+
+                <img
+                    src="assets/logo.png"
+                    alt="ARS Logo"
+                >
+
+                <span>
+                    ARS — Adarsh Ke Alfaz
+                </span>
+
+            </a>
+
+            <nav class="main-nav">
+
+                <a href="index.html">Home</a>
+                <a href="education.html">Education</a>
+                <a href="knowledge-power.html">Knowledge Power</a>
+                <a href="exams.html">Exams</a>
+                <a href="shayari.html">Shayari</a>
+                <a href="stories.html">Stories</a>
+                <a href="poetry.html">Poetry</a>
+                <a href="biography.html">Biography</a>
+                <a href="ars-book.html">ARS Book</a>
+                <a href="updates.html">Updates</a>
+                <a href="join-ars.html">Join ARS</a>
+                <a href="certificate.html">Certificate</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="sponsor.html">Sponsor</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <section class="ai-page">
+
+            <div class="ai-wrapper">
+
+                <div class="ai-hero">
+
+                    <img
+                        src="assets/logo.png"
+                        alt="ARS Logo"
+                        class="ai-logo"
+                    >
+
+                    <h1>ARS AI</h1>
+
+                    <p>
+                        Educational and general-purpose assistance for
+                        learning, mathematics, writing, grammar, translation,
+                        ideas and general questions.
+                    </p>
+
+                </div>
+
+                <div class="ai-layout">
+
+                    <!-- Sidebar -->
+                    <aside class="ai-sidebar">
+
+                        <h2>AI Help Categories</h2>
+
+                        <button
+                            type="button"
+                            class="ai-category active"
+                            data-prompt="Help me with my studies."
+                        >
+                            📚 Study Help
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ai-category"
+                            data-prompt="Help me solve a mathematics problem step by step."
+                        >
+                            ➗ Mathematics
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ai-category"
+                            data-prompt="Help me improve my English grammar and writing."
+                        >
+                            ✍️ Grammar & Writing
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ai-category"
+                            data-prompt="Help me translate this text clearly."
+                        >
+                            🌐 Translation
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ai-category"
+                            data-prompt="Give me ideas for an educational project."
+                        >
+                            💡 Ideas
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ai-category"
+                            data-prompt="Answer my general knowledge question."
+                        >
+                            🧠 General Questions
+                        </button>
+
+                        <button
+                            type="button"
+                            class="ai-category"
+                            data-prompt="Help me understand a science topic."
+                        >
+                            🔬 Science
+                        </button>
+
+                    </aside>
+
+                    <!-- Chat -->
+                    <div class="ai-main">
+
+                        <div class="ai-chat">
+
+                            <div class="ai-chat-header">
+
+                                <strong>
+                                    ARS AI Assistant
+                                </strong>
+
+                                <span class="ai-online">
+                                    Educational Mode
+                                </span>
+
+                            </div>
+
+                            <div class="ai-shortcuts">
+
+                                <button
+                                    type="button"
+                                    class="shortcut"
+                                    data-shortcut="Explain this topic simply."
+                                >
+                                    Explain Simply
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="shortcut"
+                                    data-shortcut="Give me an example."
+                                >
+                                    Example
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="shortcut"
+                                    data-shortcut="Give me practice questions."
+                                >
+                                    Practice Questions
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="shortcut"
+                                    data-shortcut="Summarize this for revision."
+                                >
+                                    Revision
+                                </button>
+
+                            </div>
+
+                            <div
+                                id="chatMessages"
+                                class="chat-messages"
+                            >
+
+                                <div class="message ai">
+
+                                    <div class="message-bubble">
+
+                                        Hello! I am ARS AI.
+                                        Ask me about studies,
+                                        mathematics, writing,
+                                        grammar, translation,
+                                        science or general questions.
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="chat-input-area">
+
+                                <form
+                                    id="aiChatForm"
+                                    class="chat-form"
+                                >
+
+                                    <textarea
+                                        id="aiInput"
+                                        class="chat-input"
+                                        placeholder="Ask ARS AI something..."
+                                        maxlength="2000"
+                                        required
+                                    ></textarea>
+
+                                    <button
+                                        type="submit"
+                                        class="chat-send"
+                                    >
+                                        Send
+                                    </button>
+
+                                </form>
+
+                                <div class="ai-status">
+                                    AI backend connection:
+                                    <span id="aiConnectionStatus">
+                                        Not Connected
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ai-note">
+
+                            <strong>Important:</strong>
+                            ARS AI is intended for educational and general
+                            assistance. It should not provide answers or
+                            assistance that violate the rules of an active
+                            examination. During an active ARS exam, AI access
+                            should be disabled or restricted according to
+                            the examination configuration.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © <span id="footerYear"></span>
+                ARS — Adarsh Ke Alfaz. All Rights Reserved.
+            </p>
+
+            <div>
+
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+
+                <a
+                    href="private.html"
+                    class="private-link"
+                >
+                    Private
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="js/script.js"></script>
+
+    <script>
+
+        document.getElementById("footerYear").textContent =
+            new Date().getFullYear();
+
+        const chatMessages =
+            document.getElementById(
+                "chatMessages"
+            );
+
+        const aiChatForm =
+            document.getElementById(
+                "aiChatForm"
+            );
+
+        const aiInput =
+            document.getElementById(
+                "aiInput"
+            );
+
+        const aiConnectionStatus =
+            document.getElementById(
+                "aiConnectionStatus"
+            );
+
+        const categoryButtons =
+            document.querySelectorAll(
+                ".ai-category"
+            );
+
+        const shortcutButtons =
+            document.querySelectorAll(
+                ".shortcut"
+            );
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function addMessage(
+            text,
+            sender
+        ) {
+
+            const message =
+                document.createElement(
+                    "div"
+                );
+
+            message.className =
+                "message " + sender;
+
+            const bubble =
+                document.createElement(
+                    "div"
+                );
+
+            bubble.className =
+                "message-bubble";
+
+            bubble.innerHTML =
+                escapeHTML(text)
+                    .replace(/\n/g, "<br>");
+
+            message.appendChild(
+                bubble
+            );
+
+            chatMessages.appendChild(
+                message
+            );
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+        }
+
+        /*
+         * Frontend demonstration response.
+         *
+         * Production:
+         * send the authenticated request to the secure ARS AI backend.
+         */
+
+        function generateDemoResponse(
+            question
+        ) {
+
+            const lower =
+                question.toLowerCase();
+
+            if (
+                lower.includes("math") ||
+                lower.includes("calculate") ||
+                lower.includes("equation")
+            ) {
+
+                return (
+                    "ARS AI demo mode: For mathematics, " +
+                    "send the complete problem and the connected " +
+                    "AI backend can provide a step-by-step explanation."
+                );
+
+            }
+
+            if (
+                lower.includes("grammar") ||
+                lower.includes("english")
+            ) {
+
+                return (
+                    "ARS AI demo mode: Send the sentence or paragraph, " +
+                    "and the connected AI service can help explain grammar, " +
+                    "correct usage and writing improvements."
+                );
+
+            }
+
+            if (
+                lower.includes("science")
+            ) {
+
+                return (
+                    "ARS AI demo mode: Send the science topic you want " +
+                    "to understand, and the connected AI service can " +
+                    "explain it at an appropriate learning level."
+                );
+
+            }
+
+            return (
+                "ARS AI demo mode: Your question was received. " +
+                "Connect the secure ARS AI backend to generate the " +
+                "actual educational response."
+            );
+
+        }
+
+        aiChatForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                const question =
+                    aiInput.value.trim();
+
+                if (!question) {
+                    return;
+                }
+
+                addMessage(
+                    question,
+                    "user"
+                );
+
+                aiInput.value = "";
+
+                /*
+                 * REAL BACKEND FLOW
+                 *
+                 * Authenticated User
+                 *       ↓
+                 * ARS AI API
+                 *       ↓
+                 * Safety / Exam-State Check
+                 *       ↓
+                 * AI Response
+                 *       ↓
+                 * Student
+                 *
+                 * Never place a private AI API key in public JS.
+                 */
+
+                aiConnectionStatus.textContent =
+                    "Demo Mode";
+
+                const response =
+                    generateDemoResponse(
+                        question
+                    );
+
+                setTimeout(
+                    function() {
+
+                        addMessage(
+                            response,
+                            "ai"
+                        );
+
+                    },
+                    350
+                );
+
+            }
+        );
+
+        categoryButtons.forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        categoryButtons.forEach(
+                            item =>
+                                item.classList.remove(
+                                    "active"
+                                )
+                        );
+
+                        this.classList.add(
+                            "active"
+                        );
+
+                        aiInput.value =
+                            this.dataset.prompt;
+
+                        aiInput.focus();
+
+                    }
+                );
+
+            }
+        );
+
+        shortcutButtons.forEach(
+            function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        aiInput.value =
+                            this.dataset.shortcut;
+
+                        aiInput.focus();
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
