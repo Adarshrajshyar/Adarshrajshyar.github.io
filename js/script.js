@@ -70,6 +70,8 @@ document.addEventListener(
      
     initFounderNavigation();
      
+    initManifest();
+     
     initActiveNavigation();
 
     initAssetFallbacks();
@@ -537,6 +539,44 @@ function initFounderNavigation() {
     nav.appendChild(
       founderLink
     );
+
+  }
+
+}
+
+/* =========================================================
+   PWA MANIFEST
+   ========================================================= */
+
+function initManifest() {
+
+  const existingManifest =
+    document.querySelector('link[rel="manifest"]');
+
+  if (existingManifest) {
+    return;
+  }
+
+  const manifest =
+    document.createElement("link");
+
+  manifest.rel = "manifest";
+  manifest.href = "manifest.json";
+
+  document.head.appendChild(manifest);
+
+  const existingThemeColor =
+    document.querySelector('meta[name="theme-color"]');
+
+  if (!existingThemeColor) {
+
+    const themeColor =
+      document.createElement("meta");
+
+    themeColor.name = "theme-color";
+    themeColor.content = "#0f766e";
+
+    document.head.appendChild(themeColor);
 
   }
 
