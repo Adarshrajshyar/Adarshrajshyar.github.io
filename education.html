@@ -1,864 +1,327 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="ARS Education — Class 5 to 8 learning resources, notes, MCQ, practice and revision."
-  >
-
-  <meta
-    name="author"
-    content="Adarsh Raj Shayar"
-  >
-
-  <meta
-    name="theme-color"
-    content="#0b4f8a"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087f8c">
+  <meta name="description" content="ARS Education पर कक्षा 5–8 के लिए नोट्स, आसान व्याख्या, MCQ और अभ्यास सामग्री।">
   <title>Education | ARS — Adarsh Ke Alfaz</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="assets/logo.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/style.css"
-  >
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/site-config.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    .page-hero {
+      padding: 48px 7%;
+      background: linear-gradient(125deg, #e1f7ef, #e8f6fb);
+      color: #19333a;
+    }
+    .page-hero h1 { margin: 8px 0; font-size: clamp(2rem, 5vw, 3.2rem); }
+    .page-hero p { max-width: 760px; color: #526e72; }
+    .page-hero img {
+      display: block; width: 100%; max-height: 280px;
+      object-fit: contain; margin-top: 25px; border-radius: 18px;
+    }
+    .filter-panel {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 14px; padding: 20px; margin-bottom: 28px;
+      border: 1px solid var(--border); border-radius: 18px;
+      background: var(--surface);
+    }
+    .filter-panel label { display: block; font-size: .88rem; font-weight: 700; }
+    .filter-panel input, .filter-panel select {
+      display: block; width: 100%; min-height: 44px; margin-top: 6px;
+      padding: 9px 11px; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--page); color: var(--text);
+    }
+    .subject-heading { margin: 34px 0 16px; }
+    .lesson-card ul { padding-left: 22px; color: var(--muted); }
+    .lesson-card details { margin-top: 13px; }
+    .lesson-card summary { color: var(--primary); font-weight: 750; cursor: pointer; }
+    .answer-box {
+      padding: 13px 15px; margin-top: 10px;
+      border-radius: 12px; background: var(--accent);
+    }
+    .level-label {
+      display: inline-block; padding: 4px 9px; border-radius: 25px;
+      background: var(--accent); color: var(--primary-dark);
+      font-size: .78rem; font-weight: 800;
+    }
+    .source-note { font-size: .9rem; color: var(--muted); }
+    @media (max-width: 700px) {
+      .filter-panel { grid-template-columns: 1fr; }
+      .page-hero { padding: 36px 5%; }
+    }
+  </style>
 </head>
-
 <body>
-
-  <!-- HEADER -->
   <header class="site-header">
-
-    <div class="container navbar">
-
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="ARS Home"
-      >
-
-        <div class="brand-logo-wrap">
-
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-            class="brand-logo"
-            onerror="this.style.display='none'"
-          >
-
-        </div>
-
-        <div class="brand-text">
-
-          <strong>ARS</strong>
-
-          <span>
-            Adarsh Ke Alfaz
-          </span>
-
-          <small>
-            Education • Knowledge • Power
-          </small>
-
-        </div>
-
-      </a>
-
-
-      <button
-        type="button"
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open Menu"
-        aria-expanded="false"
-      >
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </button>
-
-
-      <nav
-        class="main-nav"
-        id="mainNav"
-        aria-label="Main Navigation"
-      >
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a
-          href="education.html"
-          class="active"
-        >
-          Education
-        </a>
-
-        <a href="knowledge-power.html">
-          Knowledge Power
-        </a>
-
-        <a href="exams.html">
-          Exams
-        </a>
-
-        <a href="shayari.html">
-          Shayari
-        </a>
-
-        <a href="stories.html">
-          Stories
-        </a>
-
-        <a href="poetry.html">
-          Poetry
-        </a>
-
-        <a href="biography.html">
-          Biography
-        </a>
-
-        <a href="ars-book.html">
-          ARS Book
-        </a>
-
-        <a href="updates.html">
-          Updates
-        </a>
-
-        <a
-          href="join-ars.html"
-          class="nav-special"
-        >
-          Join ARS
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="sponsor.html">
-          Sponsor
-        </a>
-
-        <button
-          type="button"
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle Theme"
-        >
-          🌙
-        </button>
-
-      </nav>
-
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="assets/logo.png" alt="ARS Logo">
+      <span><strong>ARS</strong><small>Adarsh Ke Alfaz</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="मेन्यू खोलें"
+      aria-expanded="false" aria-controls="mainNav">☰</button>
+    <nav class="main-nav" id="mainNav" aria-label="मुख्य नेविगेशन">
+      <a href="index.html">Home</a>
+      <a href="education.html">Education</a>
+      <a href="knowledge-power.html">Knowledge Power</a>
+      <a href="exams.html">Exams</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="stories.html">Stories</a>
+      <a href="poetry.html">Poetry</a>
+      <a href="biography.html">Biography</a>
+      <a href="founder.html">Founder</a>
+      <a href="ars-book.html">ARS Book</a>
+      <a href="updates.html">Updates</a>
+      <a href="join-ars.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="sponsor.html">Sponsor</a>
+    </nav>
+    <div class="header-tools">
+      <button id="themeToggle" class="tool-button" type="button" aria-label="थीम बदलें">◐</button>
+      <a class="search-link" href="search.html">⌕ Search</a>
     </div>
-
   </header>
 
-
   <main>
-
-    <!-- PAGE HERO -->
-    <section class="section page-hero">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            ARS EDUCATION
-          </span>
-
-          <h1>
-            Class 5 से 8 तक सीखने का व्यवस्थित मंच
-          </h1>
-
-          <p>
-            Notes, Study Material, MCQ, Practice,
-            Revision और Assessment एक ही जगह।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CLASS SELECTOR -->
-    <section class="section education-section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            SELECT YOUR CLASS
-          </span>
-
-          <h2>
-            अपनी कक्षा चुनें
-          </h2>
-
-        </div>
-
-
-        <div class="class-grid">
-
-          <a
-            href="#class5"
-            class="class-card"
-          >
-
-            <span>05</span>
-
-            <h3>
-              Class 5
-            </h3>
-
-            <p>
-              Learn • Practice • Revise
-            </p>
-
-          </a>
-
-
-          <a
-            href="#class6"
-            class="class-card"
-          >
-
-            <span>06</span>
-
-            <h3>
-              Class 6
-            </h3>
-
-            <p>
-              Learn • Practice • Revise
-            </p>
-
-          </a>
-
-
-          <a
-            href="#class7"
-            class="class-card"
-          >
-
-            <span>07</span>
-
-            <h3>
-              Class 7
-            </h3>
-
-            <p>
-              Learn • Practice • Revise
-            </p>
-
-          </a>
-
-
-          <a
-            href="#class8"
-            class="class-card"
-          >
-
-            <span>08</span>
-
-            <h3>
-              Class 8
-            </h3>
-
-            <p>
-              Learn • Practice • Revise
-            </p>
-
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- LEARNING FLOW -->
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            LEARNING FLOW
-          </span>
-
-          <h2>
-            हर chapter का आसान flow
-          </h2>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              📘
-            </div>
-
-            <h3>
-              Notes
-            </h3>
-
-            <p>
-              Chapter-wise सरल और व्यवस्थित notes।
-            </p>
-
-          </article>
-
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              📚
-            </div>
-
-            <h3>
-              Study Material
-            </h3>
-
-            <p>
-              पढ़ाई के लिए useful supporting material।
-            </p>
-
-          </article>
-
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              📝
-            </div>
-
-            <h3>
-              MCQ
-            </h3>
-
-            <p>
-              Objective questions से practice।
-            </p>
-
-          </article>
-
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              🎯
-            </div>
-
-            <h3>
-              Practice & Revision
-            </h3>
-
-            <p>
-              तैयारी मजबूत करने के लिए practice और revision।
-            </p>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CLASS 5 -->
-    <section
-      class="section education-section"
-      id="class5"
-    >
-
-      <div class="container">
-
-        <div class="section-heading left">
-
-          <span>
-            CLASS 5
-          </span>
-
-          <h2>
-            Class 5 Learning
-          </h2>
-
-          <p>
-            Subject और chapter के अनुसार learning content।
-          </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">📐</div>
-            <h3>Mathematics</h3>
-            <p>Notes • MCQ • Practice</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🔬</div>
-            <h3>Science</h3>
-            <p>Notes • Concepts • MCQ</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">📖</div>
-            <h3>Language</h3>
-            <p>Reading • Grammar • Practice</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🌍</div>
-            <h3>Social Learning</h3>
-            <p>Practice • Revision • Assessment</p>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CLASS 6 -->
-    <section
-      class="section"
-      id="class6"
-    >
-
-      <div class="container">
-
-        <div class="section-heading left">
-
-          <span>
-            CLASS 6
-          </span>
-
-          <h2>
-            Class 6 Learning
-          </h2>
-
-          <p>
-            Concepts को समझने और practice करने के लिए organized material।
-          </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">📐</div>
-            <h3>Mathematics</h3>
-            <p>Concepts • Questions • Practice</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🔬</div>
-            <h3>Science</h3>
-            <p>Concepts • Notes • MCQ</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🗣️</div>
-            <h3>Hindi / English</h3>
-            <p>Language • Grammar • Practice</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🌎</div>
-            <h3>SST</h3>
-            <p>History • Geography • Civics</p>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CLASS 7 -->
-    <section
-      class="section education-section"
-      id="class7"
-    >
-
-      <div class="container">
-
-        <div class="section-heading left">
-
-          <span>
-            CLASS 7
-          </span>
-
-          <h2>
-            Class 7 Learning
-          </h2>
-
-          <p>
-            Academic preparation और revision support।
-          </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">📐</div>
-            <h3>Mathematics</h3>
-            <p>Concepts • Practice • Revision</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🧪</div>
-            <h3>Science</h3>
-            <p>Concepts • Notes • MCQ</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">📚</div>
-            <h3>Languages</h3>
-            <p>Grammar • Reading • Practice</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🗺️</div>
-            <h3>SST</h3>
-            <p>History • Geography • Civics</p>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- CLASS 8 -->
-    <section
-      class="section"
-      id="class8"
-    >
-
-      <div class="container">
-
-        <div class="section-heading left">
-
-          <span>
-            CLASS 8
-          </span>
-
-          <h2>
-            Class 8 Learning
-          </h2>
-
-          <p>
-            Exam preparation और concept reinforcement।
-          </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">📐</div>
-            <h3>Mathematics</h3>
-            <p>Concepts • Practice • Revision</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🔭</div>
-            <h3>Science</h3>
-            <p>Concepts • Notes • MCQ</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">✍️</div>
-            <h3>Languages</h3>
-            <p>Grammar • Writing • Reading</p>
-          </a>
-
-          <a class="quick-card" href="#">
-            <div class="quick-icon">🏛️</div>
-            <h3>SST</h3>
-            <p>History • Geography • Civics</p>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PRACTICAL AWARENESS -->
-    <section class="section education-section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            PRACTICAL AWARENESS
-          </span>
-
-          <h2>
-            पढ़ाई के साथ जीवन से जुड़ी जानकारी
-          </h2>
-
-          <p>
-            उपयुक्त Education content में health awareness,
-            food/nutrition basics, environment और cleanliness जैसे topics भी जोड़े जा सकते हैं।
-          </p>
-
-        </div>
-
-
-        <div class="knowledge-grid">
-
-          <article class="knowledge-card">
-            <span>🧼</span>
-            <strong>Cleanliness</strong>
-            <small>साफ-सफाई और hygiene awareness</small>
-          </article>
-
-          <article class="knowledge-card">
-            <span>🥗</span>
-            <strong>Food Awareness</strong>
-            <small>खान-पान की basic जानकारी</small>
-          </article>
-
-          <article class="knowledge-card">
-            <span>🌱</span>
-            <strong>Environment</strong>
-            <small>पर्यावरण से जुड़ी learning</small>
-          </article>
-
-          <article class="knowledge-card">
-            <span>💧</span>
-            <strong>Daily Life</strong>
-            <small>दैनिक जीवन में उपयोगी जानकारी</small>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- LOGIN CTA -->
-    <section class="section">
-
-      <div class="container join-card">
-
-        <div>
-
-          <span class="eyebrow">
-            STUDENT AREA
-          </span>
-
-          <h2>
-            अपनी learning journey शुरू करें
-          </h2>
-
-          <p>
-            Student account के माध्यम से future में
-            study material, exams, results और certificates
-            एक ही dashboard से access किए जा सकेंगे।
-          </p>
-
-        </div>
-
-        <a
-          href="login.html"
-          class="btn btn-primary"
-        >
-          Student Login
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <div class="footer-brand">
-
-        <div class="footer-logo-wrap">
-
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-            onerror="this.style.display='none'"
-          >
-
-        </div>
-
-        <h3>
-          ARS — Adarsh Ke Alfaz
-        </h3>
-
-        <p>
-          Education • Knowledge • Power • Creativity
-        </p>
-
-        <p class="footer-founder">
-          Founder: Adarsh Raj Shayar
-        </p>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Education</h4>
-
-        <a href="#class5">
-          Class 5
-        </a>
-
-        <a href="#class6">
-          Class 6
-        </a>
-
-        <a href="#class7">
-          Class 7
-        </a>
-
-        <a href="#class8">
-          Class 8
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Explore</h4>
-
-        <a href="knowledge-power.html">
-          Knowledge Power
-        </a>
-
-        <a href="exams.html">
-          Exams
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-        <a href="join-ars.html">
-          Join ARS
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Support</h4>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="sponsor.html">
-          Sponsor
-        </a>
-
-        <a href="policy.html">
-          Privacy & Policy
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="container footer-bottom">
-
+    <section class="page-hero">
+      <span class="eyebrow">ARS LEARNING CENTRE</span>
+      <h1>Education — पढ़ें, समझें और अभ्यास करें</h1>
       <p>
-        © <span id="currentYear"></span>
-        ARS — Adarsh Ke Alfaz.
-        All Rights Reserved.
+        कक्षा 5, 6, 7 और 8 के विद्यार्थियों के लिए आसान भाषा में
+        अध्ययन सामग्री, अध्यायवार नोट्स, महत्वपूर्ण प्रश्न और MCQ अभ्यास।
+        सामग्री को अपने पाठ्यक्रम से मिलाकर पढ़ें।
+      </p>
+      <a class="btn btn-primary" href="#study-material">अध्ययन सामग्री देखें ↓</a>
+      <img src="assets/education-banner.png" alt="ARS Education बैनर"
+        onerror="this.style.display='none'">
+    </section>
+
+    <section class="section" id="study-material">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">FIND YOUR LESSON</span>
+          <h2>अपनी कक्षा और विषय चुनें</h2>
+        </div>
+      </div>
+
+      <div class="filter-panel" aria-label="अध्ययन सामग्री के फ़िल्टर">
+        <label>
+          नोट्स या प्रश्न खोजें
+          <input type="search" data-filter-search
+            placeholder="जैसे: भिन्न, पौधे, व्याकरण...">
+        </label>
+        <label>
+          कक्षा चुनें
+          <select data-filter-class>
+            <option value="">सभी कक्षाएँ</option>
+            <option value="5">कक्षा 5</option>
+            <option value="6">कक्षा 6</option>
+            <option value="7">कक्षा 7</option>
+            <option value="8">कक्षा 8</option>
+          </select>
+        </label>
+        <label>
+          विषय चुनें
+          <select data-filter-subject>
+            <option value="">सभी विषय</option>
+            <option value="Hindi">Hindi</option>
+            <option value="English">English</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="Social Science">Social Science</option>
+            <option value="Reasoning">Reasoning</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="source-note">
+        नोट: नीचे दिया गया कंटेंट शुरुआती नमूना है। अपनी कक्षा की पुस्तक,
+        शिक्षक के निर्देश और आधिकारिक पाठ्यक्रम से मिलाकर अध्ययन करें।
       </p>
 
-      <a
-        href="private.html"
-        class="private-link"
-      >
-        🔒 Private
-      </a>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-icon">📘</span>
+          <h3>Chapter-wise Notes</h3>
+          <p>मुख्य बिंदु, परिभाषाएँ और सरल व्याख्या।</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">✅</span>
+          <h3>MCQ Practice</h3>
+          <p>बहुविकल्पीय प्रश्नों से अपनी समझ जाँचें।</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-icon">🔁</span>
+          <h3>Revision</h3>
+          <p>दोहराने के लिए संक्षिप्त नोट्स और अभ्यास।</p>
+        </article>
+      </div>
 
+      <h2 class="subject-heading">शुरुआती अध्ययन सामग्री</h2>
+      <div class="feature-grid" id="lessonCards">
+        <article class="content-card lesson-card" data-searchable data-class="5" data-subject="Mathematics">
+          <span class="level-label">कक्षा 5 • Mathematics</span>
+          <h3>भिन्न (Fractions)</h3>
+          <p>भिन्न किसी पूरे के बराबर भागों में से लिए गए भाग को दर्शाती है। उदाहरण: 3/4 में 3 अंश और 4 हर है।</p>
+          <ul>
+            <li>अंश ऊपर लिखा जाता है।</li>
+            <li>हर नीचे लिखा जाता है और शून्य नहीं हो सकता।</li>
+            <li>समान हर वाली भिन्नों को जोड़ते समय अंश जोड़े जाते हैं।</li>
+          </ul>
+          <details>
+            <summary>अभ्यास प्रश्न देखें</summary>
+            <p>2/7 + 3/7 = ?</p>
+            <div class="answer-box">उत्तर: 5/7</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="5" data-subject="Science">
+          <span class="level-label">कक्षा 5 • Science</span>
+          <h3>पौधों के भाग</h3>
+          <p>पौधे की जड़, तना, पत्तियाँ, फूल, फल और बीज अलग-अलग काम करते हैं। जड़ पानी और खनिज लेने में मदद करती है।</p>
+          <ul>
+            <li>तना पौधे को सहारा देता है।</li>
+            <li>पत्तियाँ प्रकाश की सहायता से भोजन बनाने में मदद करती हैं।</li>
+          </ul>
+          <details>
+            <summary>अभ्यास प्रश्न देखें</summary>
+            <p>पौधे के कौन-से भाग से सामान्यतः पानी और खनिज अवशोषित होते हैं?</p>
+            <div class="answer-box">उत्तर: जड़</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="6" data-subject="English">
+          <span class="level-label">कक्षा 6 • English</span>
+          <h3>Nouns</h3>
+          <p>A noun is a word used to name a person, place, animal, thing, or idea.</p>
+          <ul>
+            <li>Person: teacher</li>
+            <li>Place: school</li>
+            <li>Thing: book</li>
+          </ul>
+          <details>
+            <summary>Practice question</summary>
+            <p>Identify the noun: “Rita reads a book.”</p>
+            <div class="answer-box">Answer: Rita and book</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="6" data-subject="Hindi">
+          <span class="level-label">कक्षा 6 • Hindi</span>
+          <h3>संज्ञा</h3>
+          <p>किसी व्यक्ति, वस्तु, स्थान या भाव के नाम को संज्ञा कहते हैं।</p>
+          <ul>
+            <li>व्यक्ति: राम</li>
+            <li>स्थान: विद्यालय</li>
+            <li>वस्तु: पुस्तक</li>
+          </ul>
+          <details>
+            <summary>अभ्यास प्रश्न देखें</summary>
+            <p>“बिहार एक राज्य है।” वाक्य में स्थान का नाम क्या है?</p>
+            <div class="answer-box">उत्तर: बिहार</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="7" data-subject="Science">
+          <span class="level-label">कक्षा 7 • Science</span>
+          <h3>प्रकाश संश्लेषण</h3>
+          <p>हरे पौधे प्रकाश की ऊर्जा का उपयोग करके पानी और कार्बन डाइऑक्साइड से भोजन बनाते हैं। इस प्रक्रिया में सामान्यतः ऑक्सीजन निकलती है।</p>
+          <ul>
+            <li>क्लोरोफिल प्रकाश ऊर्जा को ग्रहण करने में मदद करता है।</li>
+            <li>प्रकाश, पानी और कार्बन डाइऑक्साइड महत्त्वपूर्ण हैं।</li>
+          </ul>
+          <details>
+            <summary>अभ्यास प्रश्न देखें</summary>
+            <p>पौधों में प्रकाश ऊर्जा ग्रहण करने वाला हरा वर्णक कौन-सा है?</p>
+            <div class="answer-box">उत्तर: क्लोरोफिल</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="7" data-subject="Social Science">
+          <span class="level-label">कक्षा 7 • Social Science</span>
+          <h3>इतिहास का अध्ययन</h3>
+          <p>इतिहास में हम अतीत के लोगों, स्थानों और घटनाओं का अध्ययन करते हैं। स्रोतों में लिखित अभिलेख, सिक्के और इमारतें शामिल हो सकते हैं।</p>
+          <details>
+            <summary>अभ्यास प्रश्न देखें</summary>
+            <p>पुराने सिक्के अतीत के अध्ययन में किस प्रकार सहायक हो सकते हैं?</p>
+            <div class="answer-box">उत्तर: उनसे शासकों, अर्थव्यवस्था और उस समय की कला के बारे में जानकारी मिल सकती है।</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="8" data-subject="Mathematics">
+          <span class="level-label">कक्षा 8 • Mathematics</span>
+          <h3>रैखिक समीकरण</h3>
+          <p>जिस समीकरण में चर की सबसे बड़ी घात 1 हो, वह एक चर में रैखिक समीकरण हो सकता है।</p>
+          <p>उदाहरण: x + 5 = 12</p>
+          <details>
+            <summary>हल देखें</summary>
+            <div class="answer-box">
+              x + 5 = 12<br>
+              x = 12 − 5<br>
+              x = 7
+            </div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="8" data-subject="Science">
+          <span class="level-label">कक्षा 8 • Science</span>
+          <h3>बल और दाब</h3>
+          <p>बल किसी वस्तु की गति या आकार बदल सकता है। दाब प्रति इकाई क्षेत्रफल पर लगने वाला बल है।</p>
+          <details>
+            <summary>अभ्यास प्रश्न देखें</summary>
+            <p>दाब की SI इकाई क्या है?</p>
+            <div class="answer-box">उत्तर: पास्कल (Pa)</div>
+          </details>
+        </article>
+
+        <article class="content-card lesson-card" data-searchable data-class="8" data-subject="Reasoning">
+          <span class="level-label">कक्षा 8 • Reasoning</span>
+          <h3>संख्या श्रृंखला</h3>
+          <p>श्रृंखला में संख्याओं के बीच के नियम को खोजने का प्रयास करें।</p>
+          <details>
+            <summary>प्रश्न और उत्तर देखें</summary>
+            <p>2, 4, 6, 8, □</p>
+            <div class="answer-box">उत्तर: 10 — हर बार 2 जोड़ा गया है।</div>
+          </details>
+        </article>
+      </div>
+
+      <p data-filter-empty hidden role="status">
+        कोई सामग्री नहीं मिली। कक्षा, विषय या खोज के शब्द बदलकर देखें।
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="sponsor-strip">
+        <span class="eyebrow">STUDY SMART</span>
+        <h2>रोज थोड़ा अभ्यास करें</h2>
+        <p>पहले अवधारणा समझें, फिर उदाहरण हल करें और अंत में स्वयं प्रश्नों के उत्तर दें।</p>
+        <a class="btn btn-primary" href="exams.html">Exam Practice देखें</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="ARS Logo">
+        <div><strong>ARS — Adarsh Ke Alfaz</strong><p>सीखिए • सोचिए • आगे बढ़िए</p></div>
+      </div>
+      <div><h3>Learning</h3><a href="education.html">Education</a><a href="knowledge-power.html">Knowledge Power</a><a href="exams.html">Exams</a></div>
+      <div><h3>Community</h3><a href="join-ars.html">Join ARS</a><a href="certificate.html">Certificate</a><a href="contact.html">Contact</a></div>
+      <div><h3>Policies</h3><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="exam-rules.html">Exam Rules</a></div>
     </div>
-
+    <div class="footer-bottom">
+      <p>© <span id="currentYear">2026</span> ARS — Adarsh Ke Alfaz</p>
+      <p>Founder: Adarsh Raj Shayar</p>
+      <a class="private-link" href="private.html">Private</a>
+    </div>
   </footer>
-
-
-  <div
-    id="arsToast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-
-  <script src="js/main.js"></script>
-
+  <button id="backToTop" class="back-to-top" type="button" aria-label="ऊपर जाएँ">↑</button>
 </body>
 </html>
