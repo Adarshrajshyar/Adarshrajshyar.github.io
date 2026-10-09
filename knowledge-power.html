@@ -1,801 +1,281 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="ARS Knowledge Power — Science, Bihar, India, World, Technology, Environment, History, Geography and useful knowledge."
-  >
-
-  <meta
-    name="author"
-    content="Adarsh Raj Shayar"
-  >
-
-  <meta
-    name="theme-color"
-    content="#0b4f8a"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#087f8c">
+  <meta name="description" content="ARS Knowledge Power: विज्ञान, बिहार, भारत, विश्व, तकनीक, पर्यावरण, इतिहास, भूगोल और रोचक तथ्य।">
   <title>Knowledge Power | ARS — Adarsh Ke Alfaz</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="assets/logo.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/style.css"
-  >
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/site-config.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    .knowledge-hero {
+      padding: 50px 7%;
+      background: linear-gradient(130deg, #e1f7ef, #e6f3fb);
+      color: #19333a;
+    }
+    .knowledge-hero h1 {
+      margin: 8px 0;
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.2;
+    }
+    .knowledge-hero p { max-width: 780px; color: #526e72; }
+    .knowledge-search {
+      width: 100%; max-width: 540px; min-height: 48px;
+      margin-top: 18px; padding: 12px 15px;
+      border: 1px solid #c6dfd9; border-radius: 12px;
+      background: #fff; color: #19333a; font: inherit;
+    }
+    .knowledge-card {
+      display: flex; flex-direction: column; min-height: 235px;
+      padding: 23px; border: 1px solid var(--border);
+      border-radius: 20px; background: var(--surface);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .knowledge-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .knowledge-icon {
+      display: grid; place-items: center; width: 52px; height: 52px;
+      border-radius: 15px; background: var(--accent); font-size: 1.6rem;
+    }
+    .knowledge-card h2 { margin: 14px 0 4px; font-size: 1.2rem; }
+    .knowledge-card p { margin: 6px 0 14px; color: var(--muted); font-size: .93rem; }
+    .knowledge-card a { margin-top: auto; color: var(--primary); font-weight: 800; }
+    .fact-panel {
+      padding: 25px; border: 1px solid var(--border);
+      border-radius: 20px; background: var(--surface);
+    }
+    .fact-panel h3 { margin-top: 0; }
+    .fact-panel li { margin: 10px 0; color: var(--muted); }
+    .accuracy-note {
+      margin-top: 20px; padding: 15px;
+      border-left: 4px solid var(--secondary);
+      border-radius: 8px; background: var(--accent);
+      color: var(--text); font-size: .92rem;
+    }
+    @media (max-width: 700px) {
+      .knowledge-hero { padding: 36px 5%; }
+    }
+  </style>
 </head>
-
 <body>
-
-  <!-- HEADER -->
   <header class="site-header">
-
-    <div class="container navbar">
-
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="ARS Home"
-      >
-
-        <div class="brand-logo-wrap">
-
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-            class="brand-logo"
-            onerror="this.style.display='none'"
-          >
-
-        </div>
-
-        <div class="brand-text">
-
-          <strong>ARS</strong>
-
-          <span>
-            Adarsh Ke Alfaz
-          </span>
-
-          <small>
-            Education • Knowledge • Power
-          </small>
-
-        </div>
-
-      </a>
-
-
-      <button
-        type="button"
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open Menu"
-        aria-expanded="false"
-      >
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </button>
-
-
-      <nav
-        class="main-nav"
-        id="mainNav"
-        aria-label="Main Navigation"
-      >
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="education.html">
-          Education
-        </a>
-
-        <a
-          href="knowledge-power.html"
-          class="active"
-        >
-          Knowledge Power
-        </a>
-
-        <a href="exams.html">
-          Exams
-        </a>
-
-        <a href="shayari.html">
-          Shayari
-        </a>
-
-        <a href="stories.html">
-          Stories
-        </a>
-
-        <a href="poetry.html">
-          Poetry
-        </a>
-
-        <a href="biography.html">
-          Biography
-        </a>
-
-        <a href="ars-book.html">
-          ARS Book
-        </a>
-
-        <a href="updates.html">
-          Updates
-        </a>
-
-        <a
-          href="join-ars.html"
-          class="nav-special"
-        >
-          Join ARS
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="sponsor.html">
-          Sponsor
-        </a>
-
-        <button
-          type="button"
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle Theme"
-        >
-          🌙
-        </button>
-
-      </nav>
-
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="assets/logo.png" alt="ARS Logo">
+      <span><strong>ARS</strong><small>Adarsh Ke Alfaz</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="मेन्यू खोलें"
+      aria-expanded="false" aria-controls="mainNav">☰</button>
+    <nav class="main-nav" id="mainNav" aria-label="मुख्य नेविगेशन">
+      <a href="index.html">Home</a>
+      <a href="education.html">Education</a>
+      <a href="knowledge-power.html">Knowledge Power</a>
+      <a href="exams.html">Exams</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="stories.html">Stories</a>
+      <a href="poetry.html">Poetry</a>
+      <a href="biography.html">Biography</a>
+      <a href="founder.html">Founder</a>
+      <a href="ars-book.html">ARS Book</a>
+      <a href="updates.html">Updates</a>
+      <a href="join-ars.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="sponsor.html">Sponsor</a>
+    </nav>
+    <div class="header-tools">
+      <button id="themeToggle" class="tool-button" type="button" aria-label="थीम बदलें">◐</button>
+      <a class="search-link" href="search.html">⌕ Search</a>
     </div>
-
   </header>
 
-
   <main>
-
-    <!-- HERO -->
-    <section class="section page-hero">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            KNOWLEDGE POWER
-          </span>
-
-          <h1>
-            Education से अलग, Knowledge की नई दुनिया
-          </h1>
-
-          <p>
-            Science से Bihar और India तक—
-            useful, informative और interesting knowledge।
-          </p>
-
-        </div>
-
-      </div>
-
+    <section class="knowledge-hero">
+      <span class="eyebrow">EXPLORE • DISCOVER • LEARN</span>
+      <h1>Knowledge Power</h1>
+      <p>
+        दुनिया को समझने की शुरुआत सवाल पूछने से होती है।
+        विज्ञान, बिहार, भारत, विश्व, तकनीक, पर्यावरण और इतिहास
+        जैसे विषयों पर उपयोगी तथा ज्ञानवर्धक जानकारी पढ़ें।
+      </p>
+      <a class="btn btn-primary" href="#knowledge-categories">कैटेगरी देखें ↓</a>
+      <br>
+      <input class="knowledge-search" type="search" id="knowledgeSearch"
+        placeholder="कैटेगरी खोजें, जैसे Science, Bihar, History..."
+        aria-label="Knowledge Power कैटेगरी खोजें">
     </section>
 
-
-    <!-- CATEGORIES -->
-    <section class="section knowledge-section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            EXPLORE
-          </span>
-
-          <h2>
-            Knowledge Categories
-          </h2>
-
-          <p>
-            अपनी पसंद का topic चुनें।
-          </p>
-
-        </div>
-
-
-        <div class="knowledge-grid">
-
-          <a
-            href="#science"
-            class="knowledge-card"
-          >
-            <span>🔬</span>
-            <strong>Science</strong>
-            <small>विज्ञान की जानकारी</small>
-          </a>
-
-
-          <a
-            href="#bihar"
-            class="knowledge-card"
-          >
-            <span>🏞️</span>
-            <strong>Bihar</strong>
-            <small>बिहार से जुड़ी जानकारी</small>
-          </a>
-
-
-          <a
-            href="#india"
-            class="knowledge-card"
-          >
-            <span>🇮🇳</span>
-            <strong>India</strong>
-            <small>भारत से जुड़ी जानकारी</small>
-          </a>
-
-
-          <a
-            href="#world"
-            class="knowledge-card"
-          >
-            <span>🌍</span>
-            <strong>World</strong>
-            <small>दुनिया के बारे में</small>
-          </a>
-
-
-          <a
-            href="#technology"
-            class="knowledge-card"
-          >
-            <span>💻</span>
-            <strong>Technology</strong>
-            <small>Technology & Digital World</small>
-          </a>
-
-
-          <a
-            href="#environment"
-            class="knowledge-card"
-          >
-            <span>🌱</span>
-            <strong>Environment</strong>
-            <small>पर्यावरण और प्रकृति</small>
-          </a>
-
-
-          <a
-            href="#history"
-            class="knowledge-card"
-          >
-            <span>🏛️</span>
-            <strong>History</strong>
-            <small>इतिहास से जुड़ी जानकारी</small>
-          </a>
-
-
-          <a
-            href="#geography"
-            class="knowledge-card"
-          >
-            <span>🗺️</span>
-            <strong>Geography</strong>
-            <small>भूगोल की जानकारी</small>
-          </a>
-
-
-          <a
-            href="#gk"
-            class="knowledge-card"
-          >
-            <span>🧠</span>
-            <strong>General Knowledge</strong>
-            <small>सामान्य ज्ञान</small>
-          </a>
-
-
-          <a
-            href="#interesting"
-            class="knowledge-card"
-          >
-            <span>💡</span>
-            <strong>Interesting Facts</strong>
-            <small>रोचक facts</small>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SCIENCE -->
-    <section
-      class="section"
-      id="science"
-    >
-
-      <div class="container">
-
-        <div class="section-heading left">
-
-          <span>
-            SCIENCE
-          </span>
-
-          <h2>
-            Science Knowledge
-          </h2>
-
-          <p>
-            Scientific concepts, discoveries और useful facts।
-          </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <article class="quick-card">
-            <div class="quick-icon">🔭</div>
-            <h3>Space</h3>
-            <p>
-              Planets, stars, space missions और universe-related learning।
-            </p>
-          </article>
-
-          <article class="quick-card">
-            <div class="quick-icon">⚛️</div>
-            <h3>Scientific Concepts</h3>
-            <p>
-              रोज़मर्रा की दुनिया से जुड़े सरल scientific explanations।
-            </p>
-          </article>
-
-          <article class="quick-card">
-            <div class="quick-icon">🧪</div>
-            <h3>Discoveries</h3>
-            <p>
-              प्रमुख scientific discoveries और inventions।
-            </p>
-          </article>
-
-          <article class="quick-card">
-            <div class="quick-icon">💡</div>
-            <h3>Science Facts</h3>
-            <p>
-              Useful और interesting science facts।
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- BIHAR -->
-    <section
-      class="section knowledge-section"
-      id="bihar"
-    >
-
-      <div class="container">
-
-        <div class="section-heading left">
-
-          <span>
-            BIHAR
-          </span>
-
-          <h2>
-            बिहार को जानिए
-          </h2>
-
-          <p>
-            बिहार के इतिहास, संस्कृति, भूगोल, प्रमुख स्थानों और महत्वपूर्ण
-            व्यक्तित्वों से जुड़ी जानकारी।
-          </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <article class="quick-card">
-            <div class="quick-icon">🏛️</div>
-            <h3>History</h3>
-            <p>
-              बिहार से जुड़ा ऐतिहासिक knowledge।
-            </p>
-          </article>
-
-          <article class="quick-card">
-            <div class="quick-icon">🗺️</div>
-            <h3>Geography</h3>
-            <p>
-              नदियाँ, जिले, भौगोलिक क्षेत्र और प्रकृति।
-            </p>
-          </article>
-
-          <article class="quick-card">
-            <div class="quick-icon">🎭</div>
-            <h3>Culture</h3>
-            <p>
-              संस्कृति, परंपरा और विविधता।
-            </p>
-          </article>
-
-          <article class="quick-card">
-            <div class="quick-icon">⭐</div>
-            <h3>Personalities</h3>
-            <p>
-              प्रमुख व्यक्तित्वों से जुड़ी verified information।
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- INDIA -->
-    <section
-      class="section"
-      id="india"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            INDIA
-          </span>
-
-          <h2>
-            भारत से जुड़ी जानकारी
-          </h2>
-
-        </div>
-
-
-        <div class="knowledge-grid">
-
-          <article class="knowledge-card">
-            <span>🇮🇳</span>
-            <strong>States</strong>
-            <small>राज्यों से जुड़ी जानकारी</small>
-          </article>
-
-          <article class="knowledge-card">
-            <span>🏛️</span>
-            <strong>Heritage</strong>
-            <small>ऐतिहासिक और सांस्कृतिक विरासत</small>
-          </article>
-
-          <article class="knowledge-card">
-            <span>🚀</span>
-            <strong>Achievements</strong>
-            <small>भारत की प्रमुख उपलब्धियाँ</small>
-          </article>
-
-          <article class="knowledge-card">
-            <span>📖</span>
-            <strong>Basic Civic Knowledge</strong>
-            <small>नागरिक जीवन से जुड़ी basic जानकारी</small>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- OTHER CATEGORIES -->
-    <section
-      class="section knowledge-section"
-      id="world"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            MORE KNOWLEDGE
-          </span>
-
-          <h2>
-            और भी बहुत कुछ
-          </h2>
-
-        </div>
-
-
-        <div class="knowledge-grid">
-
-          <article
-            class="knowledge-card"
-            id="technology"
-          >
-            <span>💻</span>
-            <strong>Technology</strong>
-            <small>
-              AI, internet, computers और digital technology।
-            </small>
-          </article>
-
-
-          <article
-            class="knowledge-card"
-            id="environment"
-          >
-            <span>🌱</span>
-            <strong>Environment</strong>
-            <small>
-              Nature, environment और sustainability।
-            </small>
-          </article>
-
-
-          <article
-            class="knowledge-card"
-            id="history"
-          >
-            <span>🏛️</span>
-            <strong>History</strong>
-            <small>
-              इतिहास से जुड़ी educational information।
-            </small>
-          </article>
-
-
-          <article
-            class="knowledge-card"
-            id="geography"
-          >
-            <span>🗺️</span>
-            <strong>Geography</strong>
-            <small>
-              पृथ्वी, जगहों और भौगोलिक facts।
-            </small>
-          </article>
-
-
-          <article
-            class="knowledge-card"
-            id="gk"
-          >
-            <span>🧠</span>
-            <strong>General Knowledge</strong>
-            <small>
-              Useful general awareness।
-            </small>
-          </article>
-
-
-          <article
-            class="knowledge-card"
-            id="interesting"
-          >
-            <span>💡</span>
-            <strong>Interesting Facts</strong>
-            <small>
-              रोचक और informative facts।
-            </small>
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PUBLISHER NOTE -->
-    <section class="section">
-
-      <div class="container join-card">
-
+    <section class="section" id="knowledge-categories">
+      <div class="section-heading">
         <div>
-
-          <span class="eyebrow">
-            PUBLISHER MANAGED
-          </span>
-
-          <h2>
-            Knowledge Power लगातार बढ़ता रहेगा
-          </h2>
-
-          <p>
-            नए articles, categories, images और knowledge courses/content
-            बाद में Publisher dashboard से add, edit, preview और publish किए जा सकेंगे।
-          </p>
-
+          <span class="eyebrow">NINE KNOWLEDGE AREAS</span>
+          <h2>अपनी पसंद का विषय चुनें</h2>
         </div>
-
-        <a
-          href="exams.html"
-          class="btn btn-primary"
-        >
-          Explore Exams
-        </a>
-
+        <p>हर कैटेगरी में अलग सामग्री और उदाहरण होंगे।</p>
       </div>
 
+      <div class="feature-grid" id="knowledgeGrid">
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🔬</span>
+          <h2>Science</h2>
+          <p>पदार्थ, ऊर्जा, जीव-जगत, अंतरिक्ष, प्रयोग और वैज्ञानिक खोजों की जानकारी।</p>
+          <a href="knowledge-science.html">विज्ञान पढ़ें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🏞️</span>
+          <h2>Bihar GK</h2>
+          <p>बिहार के जिले, नदियाँ, इतिहास, संस्कृति, भाषा और प्रमुख स्थान।</p>
+          <a href="knowledge-bihar.html">बिहार जानें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🇮🇳</span>
+          <h2>India GK</h2>
+          <p>भारत का संविधान, राष्ट्रीय प्रतीक, भूगोल, संस्कृति और स्वतंत्रता आंदोलन।</p>
+          <a href="knowledge-india.html">भारत जानें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🌍</span>
+          <h2>World GK</h2>
+          <p>महाद्वीप, महासागर, देश, विश्व की प्रमुख संस्थाएँ और भौगोलिक तथ्य।</p>
+          <a href="knowledge-world.html">विश्व जानें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">💻</span>
+          <h2>Technology</h2>
+          <p>कंप्यूटर, इंटरनेट, डिजिटल सुरक्षा, रोबोटिक्स और आधुनिक आविष्कार।</p>
+          <a href="knowledge-technology.html">तकनीक जानें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🌱</span>
+          <h2>Environment</h2>
+          <p>प्रदूषण, जैव विविधता, जल संरक्षण, जलवायु और प्रकृति की सुरक्षा।</p>
+          <a href="knowledge-environment.html">पर्यावरण जानें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🏛️</span>
+          <h2>History</h2>
+          <p>प्राचीन सभ्यताएँ, ऐतिहासिक घटनाएँ, आंदोलन और महत्त्वपूर्ण व्यक्तित्व।</p>
+          <a href="knowledge-history.html">इतिहास पढ़ें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">🗺️</span>
+          <h2>Geography</h2>
+          <p>पृथ्वी, महाद्वीप, नदियाँ, पर्वत, मौसम, जलवायु और मानचित्र।</p>
+          <a href="knowledge-geography.html">भूगोल पढ़ें →</a>
+        </article>
+
+        <article class="knowledge-card" data-knowledge-card>
+          <span class="knowledge-icon">✨</span>
+          <h2>Interesting Facts</h2>
+          <p>प्रकृति, विज्ञान, अंतरिक्ष, पशु-पक्षियों और दुनिया से जुड़े रोचक तथ्य।</p>
+          <a href="knowledge-facts.html">रोचक तथ्य पढ़ें →</a>
+        </article>
+      </div>
+
+      <p id="knowledgeEmpty" hidden role="status">
+        इस नाम से कोई कैटेगरी नहीं मिली। दूसरा शब्द खोजकर देखें।
+      </p>
     </section>
 
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">QUICK KNOWLEDGE</span>
+          <h2>आज के कुछ ज्ञानवर्धक तथ्य</h2>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <article class="fact-panel">
+          <span class="knowledge-icon">🌿</span>
+          <h3>Science</h3>
+          <p>हरे पौधों में प्रकाश संश्लेषण की प्रक्रिया के दौरान प्रकाश ऊर्जा का उपयोग करके भोजन बनाया जाता है।</p>
+        </article>
+
+        <article class="fact-panel">
+          <span class="knowledge-icon">🌏</span>
+          <h3>Geography</h3>
+          <p>पृथ्वी की सतह का बड़ा भाग महासागरों से ढका हुआ है। ग्लोब और मानचित्र पृथ्वी को समझने के उपयोगी साधन हैं।</p>
+        </article>
+
+        <article class="fact-panel">
+          <span class="knowledge-icon">♻️</span>
+          <h3>Environment</h3>
+          <p>पानी की बचत, कचरे को अलग करना और दोबारा उपयोग योग्य वस्तुओं का इस्तेमाल पर्यावरण संरक्षण में मदद करता है।</p>
+        </article>
+      </div>
+
+      <div class="accuracy-note">
+        <strong>जानकारी की विश्वसनीयता:</strong>
+        परीक्षा, सरकारी पदों, वर्तमान आँकड़ों और बदलने वाली जानकारी को
+        प्रकाशित करने से पहले आधिकारिक स्रोत से सत्यापित किया जाएगा।
+        जहाँ आवश्यक हो, प्रत्येक लेख में स्रोत और अद्यतन तिथि दी जाएगी।
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="join-banner">
+        <div>
+          <span class="eyebrow">KEEP EXPLORING</span>
+          <h2>सीखना कभी बंद न करें</h2>
+          <p>अपने ज्ञान को जाँचने के लिए ARS Education और Exam सेक्शन भी देखें।</p>
+        </div>
+        <a class="btn btn-light" href="education.html">Education खोलें</a>
+        <a class="btn btn-light" href="exams.html">Exams खोलें</a>
+      </div>
+    </section>
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="site-footer">
-
-    <div class="container footer-grid">
-
+    <div class="footer-main">
       <div class="footer-brand">
-
-        <div class="footer-logo-wrap">
-
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-            onerror="this.style.display='none'"
-          >
-
-        </div>
-
-        <h3>
-          ARS — Adarsh Ke Alfaz
-        </h3>
-
-        <p>
-          Education • Knowledge • Power • Creativity
-        </p>
-
-        <p class="footer-founder">
-          Founder: Adarsh Raj Shayar
-        </p>
-
+        <img src="assets/logo.png" alt="ARS Logo">
+        <div><strong>ARS — Adarsh Ke Alfaz</strong><p>सीखिए • सोचिए • आगे बढ़िए</p></div>
       </div>
-
-
-      <div class="footer-column">
-
-        <h4>Explore</h4>
-
-        <a href="education.html">
-          Education
-        </a>
-
-        <a href="exams.html">
-          Exams
-        </a>
-
-        <a href="shayari.html">
-          Shayari
-        </a>
-
-        <a href="stories.html">
-          Stories
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>ARS</h4>
-
-        <a href="ars-book.html">
-          ARS Book
-        </a>
-
-        <a href="updates.html">
-          Updates
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-        <a href="join-ars.html">
-          Join ARS
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Support</h4>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="sponsor.html">
-          Sponsor
-        </a>
-
-        <a href="policy.html">
-          Privacy & Policy
-        </a>
-
-      </div>
-
+      <div><h3>Explore</h3><a href="education.html">Education</a><a href="exams.html">Exams</a><a href="stories.html">Stories</a></div>
+      <div><h3>Community</h3><a href="join-ars.html">Join ARS</a><a href="certificate.html">Certificate</a><a href="contact.html">Contact</a></div>
+      <div><h3>Policies</h3><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="exam-rules.html">Exam Rules</a></div>
     </div>
-
-
-    <div class="container footer-bottom">
-
-      <p>
-        © <span id="currentYear"></span>
-        ARS — Adarsh Ke Alfaz.
-        All Rights Reserved.
-      </p>
-
-      <a
-        href="private.html"
-        class="private-link"
-      >
-        🔒 Private
-      </a>
-
+    <div class="footer-bottom">
+      <p>© <span id="currentYear">2026</span> ARS — Adarsh Ke Alfaz</p>
+      <p>Founder: Adarsh Raj Shayar</p>
+      <a class="private-link" href="private.html">Private</a>
     </div>
-
   </footer>
 
+  <button id="backToTop" class="back-to-top" type="button" aria-label="ऊपर जाएँ">↑</button>
 
-  <div
-    id="arsToast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
+  <script>
+    (function () {
+      const search = document.getElementById("knowledgeSearch");
+      const cards = Array.from(document.querySelectorAll("[data-knowledge-card]"));
+      const empty = document.getElementById("knowledgeEmpty");
 
+      if (!search) return;
 
- <script src="js/main.js"></script>
-  
+      search.addEventListener("input", function () {
+        const query = search.value.trim().toLocaleLowerCase();
+        let count = 0;
+
+        cards.forEach(function (card) {
+          const matches = card.textContent.toLocaleLowerCase().includes(query);
+          card.hidden = !matches;
+          if (matches) count++;
+        });
+
+        if (empty) empty.hidden = count !== 0;
+      });
+    })();
+  </script>
 </body>
 </html>
