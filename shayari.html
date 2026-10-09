@@ -1,1005 +1,187 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta
-    name="description"
-    content="ARS — Adarsh Ke Alfaz | Original Shayari in Love, Attitude, Motivation, Sad and Emotional categories."
-  >
-
-  <meta
-    name="author"
-    content="Adarsh Raj Shayar"
-  >
-
-  <meta
-    name="theme-color"
-    content="#0b4f8a"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ARS Shayari: प्रेम, प्रेरणा, जीवन और भावनाओं पर मौलिक हिंदी शायरी।">
   <title>Shayari | ARS — Adarsh Ke Alfaz</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="assets/logo.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/style.css"
-  >
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/site-config.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <style>
+    .shayari-hero { padding:48px 7%; background:linear-gradient(130deg,#e1f7ef,#e8f4fc); color:#19333a; }
+    .shayari-hero h1 { font-size:clamp(2rem,5vw,3.2rem); margin:8px 0; }
+    .shayari-hero p { max-width:740px; color:#526e72; }
+    .category-row { display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 30px; }
+    .category-row button { border:1px solid var(--border); border-radius:30px; padding:9px 15px; background:var(--surface); color:var(--text); cursor:pointer; }
+    .category-row button.active, .category-row button:hover { background:var(--primary); color:white; }
+    .shayari-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .shayari-card { padding:24px; border:1px solid var(--border); border-radius:18px; background:var(--surface); }
+    .shayari-card h2 { font-size:1.05rem; margin:10px 0; }
+    .shayari-text { color:var(--text); line-height:2; white-space:pre-line; }
+    .shayari-meta { color:var(--muted); font-size:.85rem; }
+    .copy-shayari { margin-top:12px; border:1px solid var(--border); border-radius:9px; background:var(--page); color:var(--primary); padding:8px 12px; cursor:pointer; }
+    @media(max-width:850px) { .shayari-grid {grid-template-columns:repeat(2,minmax(0,1fr));} }
+    @media(max-width:600px) { .shayari-hero {padding:35px 5%;} .shayari-grid {grid-template-columns:1fr;} }
+  </style>
 </head>
-
 <body>
+<header class="site-header">
+  <a class="brand" href="index.html"><img class="brand-logo" src="assets/logo.png" alt="ARS Logo"><span><strong>ARS</strong><small>Adarsh Ke Alfaz</small></span></a>
+  <button class="menu-toggle" id="menuToggle" aria-label="मेन्यू खोलें" aria-expanded="false" aria-controls="mainNav">☰</button>
+  <nav class="main-nav" id="mainNav" aria-label="मुख्य नेविगेशन">
+    <a href="index.html">Home</a><a href="education.html">Education</a><a href="knowledge-power.html">Knowledge Power</a><a href="exams.html">Exams</a><a href="shayari.html">Shayari</a><a href="stories.html">Stories</a><a href="poetry.html">Poetry</a><a href="biography.html">Biography</a><a href="founder.html">Founder</a><a href="ars-book.html">ARS Book</a><a href="updates.html">Updates</a><a href="join-ars.html">Join ARS</a><a href="certificate.html">Certificate</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="sponsor.html">Sponsor</a>
+  </nav>
+  <div class="header-tools"><button id="themeToggle" class="tool-button" type="button" aria-label="थीम बदलें">◐</button><a class="search-link" href="search.html">⌕ Search</a></div>
+</header>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
-  <header class="site-header">
+<main>
+  <section class="shayari-hero">
+    <span class="eyebrow">ALFAAZ JO DIL SE NIKLEIN</span>
+    <h1>ARS Shayari</h1>
+    <p>कभी हौसला, कभी मुस्कान, कभी दिल की बात—मौलिक शायरी के इस कोने में अपने मन की भावना से जुड़ें।</p>
+    <a class="btn btn-primary" href="#shayariCollection">शायरी पढ़ें ↓</a>
+  </section>
 
-    <div class="container navbar">
-
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="ARS Home"
-      >
-
-        <div class="brand-logo-wrap">
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-            class="brand-logo"
-          >
-        </div>
-
-        <div class="brand-text">
-          <strong>ARS</strong>
-          <span>Adarsh Ke Alfaz</span>
-          <small>Education • Knowledge • Power</small>
-        </div>
-
-      </a>
-
-      <button
-        type="button"
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open Menu"
-        aria-expanded="false"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <nav
-        class="main-nav"
-        id="mainNav"
-        aria-label="Main Navigation"
-      >
-
-        <a href="index.html">Home</a>
-        <a href="education.html">Education</a>
-        <a href="knowledge-power.html">Knowledge Power</a>
-        <a href="exams.html">Exams</a>
-
-        <a
-          href="shayari.html"
-          class="active"
-        >
-          Shayari
-        </a>
-
-        <a href="stories.html">Stories</a>
-        <a href="poetry.html">Poetry</a>
-        <a href="biography.html">Biography</a>
-        <a href="ars-book.html">ARS Book</a>
-        <a href="updates.html">Updates</a>
-
-        <a
-          href="join-ars.html"
-          class="nav-special"
-        >
-          Join ARS
-        </a>
-
-        <a href="certificate.html">Certificate</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="sponsor.html">Sponsor</a>
-
-        <button
-          type="button"
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle Theme"
-        >
-          🌙
-        </button>
-
-      </nav>
-
+  <section class="section" id="shayariCollection">
+    <div class="section-heading"><div><span class="eyebrow">SHAYARI COLLECTION</span><h2>अपनी पसंद की कैटेगरी चुनें</h2></div></div>
+    <div class="category-row" id="categoryButtons" aria-label="शायरी कैटेगरी">
+      <button class="active" type="button" data-category="All">All</button>
+      <button type="button" data-category="Love">Love</button>
+      <button type="button" data-category="Attitude">Attitude</button>
+      <button type="button" data-category="Motivation">Motivation</button>
+      <button type="button" data-category="Sad">Sad</button>
+      <button type="button" data-category="Emotional">Emotional</button>
+      <button type="button" data-category="Life">Life</button>
     </div>
 
-  </header>
-
-
-  <main>
-
-    <!-- =========================
-         PAGE HERO
-    ========================== -->
-    <section class="section page-hero">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>ARS SHAYARI</span>
-
-          <h1>
-            शब्दों में एहसास, एहसास में कहानी
-          </h1>
-
-          <p>
-            ARS पर original चार-पंक्ति rhyming/tukbandi Shayari
-            पढ़ें, साझा करें और अपनी पसंदीदा रचना save करें।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         CATEGORY FILTER
-    ========================== -->
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>CATEGORIES</span>
-
-          <h2>
-            अपनी पसंद की Shayari चुनें
-          </h2>
-
-        </div>
-
-        <div class="knowledge-grid">
-
-          <a
-            href="#love"
-            class="knowledge-card"
-          >
-            <span>❤️</span>
-            <strong>Love</strong>
-            <small>प्यार और एहसास</small>
-          </a>
-
-          <a
-            href="#attitude"
-            class="knowledge-card"
-          >
-            <span>🔥</span>
-            <strong>Attitude</strong>
-            <small>आत्मविश्वास और अंदाज़</small>
-          </a>
-
-          <a
-            href="#motivation"
-            class="knowledge-card"
-          >
-            <span>🚀</span>
-            <strong>Motivation</strong>
-            <small>हौसला और प्रेरणा</small>
-          </a>
-
-          <a
-            href="#sad"
-            class="knowledge-card"
-          >
-            <span>💙</span>
-            <strong>Sad</strong>
-            <small>दर्द और खामोशी</small>
-          </a>
-
-          <a
-            href="#emotional"
-            class="knowledge-card"
-          >
-            <span>💭</span>
-            <strong>Emotional</strong>
-            <small>दिल को छू जाने वाले एहसास</small>
-          </a>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SEARCH
-    ========================== -->
-    <section class="section knowledge-section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>FIND A SHAYARI</span>
-
-          <h2>
-            अपनी पसंद की रचना खोजें
-          </h2>
-
-        </div>
-
-        <div
-          class="updates-empty"
-          style="max-width: 820px;"
-        >
-
-          <input
-            id="shayariSearch"
-            type="search"
-            placeholder="Shayari, category या keyword search करें..."
-            aria-label="Search Shayari"
-            style="
-              width:100%;
-              padding:14px 16px;
-              border:1px solid var(--border);
-              border-radius:12px;
-              background:var(--white);
-              color:var(--text);
-              outline:none;
-            "
-          >
-
-          <p style="margin-top:14px;">
-            Publisher द्वारा published Shayari यहाँ
-            dynamically दिखाई जाएँगी।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SHAYARI DATA AREA
-    ========================== -->
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>ORIGINAL COLLECTION</span>
-
-          <h2>
-            ARS Shayari Collection
-          </h2>
-
-          <p>
-            अभी sample layout रखा गया है। Final content Publisher
-            dashboard से add और publish किया जाएगा।
-          </p>
-
-        </div>
-
-
-        <div
-          id="shayariList"
-          class="quick-grid"
-        >
-
-          <!-- SAMPLE CARD 1 -->
-          <article
-            class="quick-card shayari-card"
-            data-category="motivation"
-            data-search="motivation mehnat hausla safar"
-          >
-
-            <div class="quick-icon">
-              ✍️
-            </div>
-
-            <h3>
-              हौसले की राह
-            </h3>
-
-            <p>
-              राह कठिन हो तो कदम रोकना नहीं,<br>
-              थक जाओ तो सपनों को टोकना नहीं,<br>
-              कोशिश छोटी हो तो भी जारी रखना,<br>
-              अपनी उड़ान को कभी छोड़ना नहीं।
-            </p>
-
-            <div
-              style="
-                margin-top:15px;
-                display:flex;
-                flex-wrap:wrap;
-                gap:8px;
-              "
-            >
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('like')"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('share')"
-              >
-                🔗 Share
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('copy')"
-              >
-                📋 Copy
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- SAMPLE CARD 2 -->
-          <article
-            class="quick-card shayari-card"
-            data-category="love"
-            data-search="love mohabbat dil"
-          >
-
-            <div class="quick-icon">
-              ❤️
-            </div>
-
-            <h3>
-              एहसास
-            </h3>
-
-            <p>
-              कुछ बातें लफ़्ज़ों से कही नहीं जातीं,<br>
-              कुछ यादें दिल से कभी गई नहीं जातीं,<br>
-              दूर रहकर भी जो पास महसूस हों,<br>
-              ऐसी मोहब्बतें कभी भुलाई नहीं जातीं।
-            </p>
-
-            <div
-              style="
-                margin-top:15px;
-                display:flex;
-                flex-wrap:wrap;
-                gap:8px;
-              "
-            >
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('like')"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('share')"
-              >
-                🔗 Share
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('copy')"
-              >
-                📋 Copy
-              </button>
-
-            </div>
-
-          </article>
-
-
-          <!-- SAMPLE CARD 3 -->
-          <article
-            class="quick-card shayari-card"
-            data-category="attitude"
-            data-search="attitude confidence identity"
-          >
-
-            <div class="quick-icon">
-              🔥
-            </div>
-
-            <h3>
-              अपनी पहचान
-            </h3>
-
-            <p>
-              भीड़ में चलना मेरी आदत नहीं,<br>
-              अपनी राह छोड़ना मेरी फितरत नहीं,<br>
-              पहचान वक्त नहीं मेहनत बनाती है,<br>
-              और मेहनत कभी बेकार जाती नहीं।
-            </p>
-
-            <div
-              style="
-                margin-top:15px;
-                display:flex;
-                flex-wrap:wrap;
-                gap:8px;
-              "
-            >
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('like')"
-              >
-                ❤️ Like
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('share')"
-              >
-                🔗 Share
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-outline"
-                onclick="shayariAction('copy')"
-              >
-                📋 Copy
-              </button>
-
-            </div>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         LOVE
-    ========================== -->
-    <section
-      class="section literature-section"
-      id="love"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>LOVE</span>
-
-          <h2>
-            Love Shayari
-          </h2>
-
-          <p>
-            प्रेम, अपनापन और खूबसूरत एहसासों से जुड़ी original रचनाएँ।
-          </p>
-
-        </div>
-
-        <div class="updates-empty">
-
-          <div class="empty-icon">❤️</div>
-
-          <h3>
-            Love Collection
-          </h3>
-
-          <p>
-            Published Love Shayari यहाँ दिखाई जाएगी।
-            Publisher नई रचनाएँ जोड़ सकेगा।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         ATTITUDE
-    ========================== -->
-    <section
-      class="section"
-      id="attitude"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>ATTITUDE</span>
-
-          <h2>
-            Attitude Shayari
-          </h2>
-
-          <p>
-            आत्मविश्वास, मेहनत और अपनी पहचान पर आधारित रचनाएँ।
-          </p>
-
-        </div>
-
-        <div class="updates-empty">
-
-          <div class="empty-icon">🔥</div>
-
-          <h3>
-            Attitude Collection
-          </h3>
-
-          <p>
-            Published Attitude Shayari यहाँ दिखाई जाएगी।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         MOTIVATION
-    ========================== -->
-    <section
-      class="section literature-section"
-      id="motivation"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>MOTIVATION</span>
-
-          <h2>
-            Motivation Shayari
-          </h2>
-
-          <p>
-            सपनों, मेहनत, संघर्ष और उम्मीद को शब्द देने वाली रचनाएँ।
-          </p>
-
-        </div>
-
-        <div class="updates-empty">
-
-          <div class="empty-icon">🚀</div>
-
-          <h3>
-            Motivation Collection
-          </h3>
-
-          <p>
-            Published Motivation Shayari यहाँ दिखाई जाएगी।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         SAD
-    ========================== -->
-    <section
-      class="section"
-      id="sad"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>SAD</span>
-
-          <h2>
-            Sad Shayari
-          </h2>
-
-          <p>
-            भावनाओं, यादों और खामोशी को अभिव्यक्त करने वाली original रचनाएँ।
-          </p>
-
-        </div>
-
-        <div class="updates-empty">
-
-          <div class="empty-icon">💙</div>
-
-          <h3>
-            Sad Collection
-          </h3>
-
-          <p>
-            Published Sad Shayari यहाँ दिखाई जाएगी।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         EMOTIONAL
-    ========================== -->
-    <section
-      class="section literature-section"
-      id="emotional"
-    >
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>EMOTIONAL</span>
-
-          <h2>
-            Emotional Shayari
-          </h2>
-
-          <p>
-            दिल के गहरे एहसासों और जीवन के अनुभवों से जुड़ी रचनाएँ।
-          </p>
-
-        </div>
-
-        <div class="updates-empty">
-
-          <div class="empty-icon">💭</div>
-
-          <h3>
-            Emotional Collection
-          </h3>
-
-          <p>
-            Published Emotional Shayari यहाँ दिखाई जाएगी।
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =========================
-         PUBLISHER CTA
-    ========================== -->
-    <section class="section">
-
-      <div class="container join-card">
-
-        <div>
-
-          <span class="eyebrow">
-            PUBLISHER
-          </span>
-
-          <h2>
-            नई Shayari publish होगी
-          </h2>
-
-          <p>
-            Future में Publisher dashboard से title, category,
-            चार-line Shayari, tags और publish status manage किया जाएगा।
-          </p>
-
-        </div>
-
-        <a
-          href="private.html"
-          class="btn btn-primary"
-        >
-          Private Area
-        </a>
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <div class="footer-brand">
-
-        <div class="footer-logo-wrap">
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-          >
-        </div>
-
-        <h3>ARS — Adarsh Ke Alfaz</h3>
-
-        <p>
-          Education • Knowledge • Power • Creativity
-        </p>
-
-        <p class="footer-founder">
-          Founder: Adarsh Raj Shayar
-        </p>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Explore</h4>
-
-        <a href="education.html">Education</a>
-        <a href="knowledge-power.html">Knowledge Power</a>
-        <a href="exams.html">Exams</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories</a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>ARS</h4>
-
-        <a href="poetry.html">Poetry</a>
-        <a href="biography.html">Biography</a>
-        <a href="ars-book.html">ARS Book</a>
-        <a href="join-ars.html">Join ARS</a>
-        <a href="certificate.html">Certificate</a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Support</h4>
-
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="sponsor.html">Sponsor</a>
-        <a href="policy.html">Privacy & Policy</a>
-
-      </div>
-
+    <div class="shayari-grid" id="shayariGrid">
+      <article class="shayari-card" data-shayari-category="Love">
+        <span class="category-tag">Love</span><h2>मोहब्बत</h2>
+        <p class="shayari-text">तेरी मुस्कान से दिन सँवर जाता है,
+तेरा ज़िक्र आए तो दिल ठहर जाता है।
+दूरी रहे फिर भी एहसास पास रहता है,
+सच्चा अपनापन हर पल साथ रहता है।</p>
+        <p class="shayari-meta">मौलिक रचना • ARS</p>
+        <button class="copy-shayari" type="button">शायरी कॉपी करें</button>
+      </article>
+
+      <article class="shayari-card" data-shayari-category="Attitude">
+        <span class="category-tag">Attitude</span><h2>अपनी पहचान</h2>
+        <p class="shayari-text">अपनी राह पर चलना सीखा है,
+मुश्किल में भी संभलना सीखा है।
+नाम नहीं, काम से पहचान बने,
+हर दिन खुद को बदलना सीखा है।</p>
+        <p class="shayari-meta">मौलिक रचना • ARS</p>
+        <button class="copy-shayari" type="button">शायरी कॉपी करें</button>
+      </article>
+
+      <article class="shayari-card" data-shayari-category="Motivation">
+        <span class="category-tag">Motivation</span><h2>नई उड़ान</h2>
+        <p class="shayari-text">छोटे कदम भी मंज़िल तक जाते हैं,
+मेहनत के दीप अँधेरों को हराते हैं।
+जो सीखते हैं गिरकर फिर उठना,
+वही अपने सपनों को सच बनाते हैं।</p>
+        <p class="shayari-meta">मौलिक रचना • ARS</p>
+        <button class="copy-shayari" type="button">शायरी कॉपी करें</button>
+      </article>
+
+      <article class="shayari-card" data-shayari-category="Sad">
+        <span class="category-tag">Sad</span><h2>खामोशी</h2>
+        <p class="shayari-text">कुछ बातें लफ़्ज़ों में ढलती नहीं,
+हर भावना आसानी से मिलती नहीं।
+खामोशी भी कहानी कह जाती है,
+हर मुस्कान हमेशा खिलती नहीं।</p>
+        <p class="shayari-meta">मौलिक रचना • ARS</p>
+        <button class="copy-shayari" type="button">शायरी कॉपी करें</button>
+      </article>
+
+      <article class="shayari-card" data-shayari-category="Emotional">
+        <span class="category-tag">Emotional</span><h2>अपनों का साथ</h2>
+        <p class="shayari-text">थोड़ा-सा साथ बड़ा सहारा है,
+अपनों का विश्वास सबसे प्यारा है।
+जब कोई कहे, “तुम कर सकते हो”,
+मन में जागे उम्मीद का सितारा है।</p>
+        <p class="shayari-meta">मौलिक रचना • ARS</p>
+        <button class="copy-shayari" type="button">शायरी कॉपी करें</button>
+      </article>
+
+      <article class="shayari-card" data-shayari-category="Life">
+        <span class="category-tag">Life</span><h2>ज़िंदगी का सफ़र</h2>
+        <p class="shayari-text">हर सुबह नया पैगाम लाती है,
+हर ठोकर कुछ सिखा जाती है।
+जो सीख को अपना साथी बना ले,
+ज़िंदगी उसे आगे बढ़ाती है।</p>
+        <p class="shayari-meta">मौलिक रचना • ARS</p>
+        <button class="copy-shayari" type="button">शायरी कॉपी करें</button>
+      </article>
     </div>
-
-
-    <div class="container footer-bottom">
-
-      <p>
-        © <span id="currentYear"></span>
-        ARS — Adarsh Ke Alfaz.
-        All Rights Reserved.
-      </p>
-
-      <a
-        href="private.html"
-        class="private-link"
-      >
-        🔒 Private
-      </a>
-
-    </div>
-
-  </footer>
-
-
-  <div
-    id="arsToast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-
-  <script src="js/script.js"></script>
-
-  <script>
-
-    "use strict";
-
-
-    /* =========================
-       SHAYARI SEARCH
-    ========================== */
-
-    const shayariSearch =
-      document.getElementById(
-        "shayariSearch"
-      );
-
-    const shayariCards =
-      Array.from(
-        document.querySelectorAll(
-          ".shayari-card"
-        )
-      );
-
-
-    if (shayariSearch) {
-
-      shayariSearch.addEventListener(
-        "input",
-        function () {
-
-          const query =
-            shayariSearch.value
-              .trim()
-              .toLowerCase();
-
-
-          shayariCards.forEach(
-            function (card) {
-
-              const searchableText =
-                (
-                  card.innerText +
-                  " " +
-                  (
-                    card.dataset.search ||
-                    ""
-                  )
-                ).toLowerCase();
-
-
-              card.style.display =
-                searchableText.includes(query)
-                  ? ""
-                  : "none";
-
-            }
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =========================
-       SHAYARI ACTIONS
-    ========================== */
-
-    window.shayariAction =
-      async function (action) {
-
-        if (action === "like") {
-
-          ARS.showToast(
-            "Shayari liked ❤️"
-          );
-
-          return;
-        }
-
-
-        if (action === "share") {
-
-          if (
-            navigator.share
-          ) {
-
-            try {
-
-              await navigator.share({
-                title:
-                  "ARS — Adarsh Ke Alfaz",
-                text:
-                  "ARS Shayari",
-                url:
-                  window.location.href
-              });
-
-            } catch (error) {
-
-              /* User cancelled share */
-
-            }
-
-          } else {
-
-            ARS.showToast(
-              "Share option आपके device में उपलब्ध नहीं है।"
-            );
-
-          }
-
-          return;
-        }
-
-
-        if (action === "copy") {
-
-          try {
-
-            const selection =
-              window.getSelection()
-                .toString()
-                .trim();
-
-
-            if (!selection) {
-
-              ARS.showToast(
-                "Copy करने के लिए Shayari text select करें।"
-              );
-
-              return;
-
-            }
-
-
-            await navigator.clipboard.writeText(
-              selection
-            );
-
-            ARS.showToast(
-              "Text copied successfully."
-            );
-
-          } catch (error) {
-
-            ARS.showToast(
-              "Text copy नहीं हो पाया।"
-            );
-
-          }
-
-        }
-
-      };
-
-  <script src="js/main.js"></script>
-  
+    <p id="shayariEmpty" hidden role="status">इस कैटेगरी में अभी शायरी उपलब्ध नहीं है।</p>
+    <p class="source-note">ये शुरुआती मौलिक नमूना रचनाएँ हैं। इन्हें आगे संपादित और बढ़ाया जा सकता है।</p>
+  </section>
+
+  <section class="section">
+    <div class="join-banner"><div><span class="eyebrow">YOUR WORDS MATTER</span><h2>अपनी रचना साझा करना चाहते हैं?</h2><p>अपनी मौलिक शायरी भेजने के लिए Contact पेज देखें। प्रकाशन से पहले संपादकीय समीक्षा आवश्यक हो सकती है।</p></div><a class="btn btn-light" href="contact.html">Contact ARS</a></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand"><img src="assets/logo.png" alt="ARS Logo"><div><strong>ARS — Adarsh Ke Alfaz</strong><p>सीखिए • सोचिए • आगे बढ़िए</p></div></div>
+    <div><h3>Explore</h3><a href="education.html">Education</a><a href="knowledge-power.html">Knowledge Power</a><a href="stories.html">Stories</a></div>
+    <div><h3>Community</h3><a href="join-ars.html">Join ARS</a><a href="ars-book.html">ARS Book</a><a href="contact.html">Contact</a></div>
+    <div><h3>Policies</h3><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="exam-rules.html">Exam Rules</a></div>
+  </div>
+  <div class="footer-bottom"><p>© <span id="currentYear">2026</span> ARS — Adarsh Ke Alfaz</p><p>Founder: Adarsh Raj Shayar</p><a class="private-link" href="private.html">Private</a></div>
+</footer>
+<button id="backToTop" class="back-to-top" type="button" aria-label="ऊपर जाएँ">↑</button>
+
+<script>
+(function () {
+  const buttons = document.querySelectorAll("[data-category]");
+  const cards = document.querySelectorAll("[data-shayari-category]");
+  const empty = document.getElementById("shayariEmpty");
+
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const category = button.dataset.category;
+
+      buttons.forEach(function (item) {
+        item.classList.toggle("active", item === button);
+      });
+
+      let count = 0;
+      cards.forEach(function (card) {
+        const visible = category === "All" || card.dataset.shayariCategory === category;
+        card.hidden = !visible;
+        if (visible) count++;
+      });
+
+      if (empty) empty.hidden = count !== 0;
+    });
+  });
+
+  document.querySelectorAll(".copy-shayari").forEach(function (button) {
+    button.addEventListener("click", async function () {
+      const card = button.closest(".shayari-card");
+      const paragraph = card ? card.querySelector(".shayari-text") : null;
+      if (!paragraph) return;
+
+      try {
+        await navigator.clipboard.writeText(paragraph.innerText);
+        button.textContent = "कॉपी हो गया ✓";
+      } catch (error) {
+        button.textContent = "कॉपी नहीं हुआ — टेक्स्ट चुनें";
+      }
+
+      window.setTimeout(function () {
+        button.textContent = "शायरी कॉपी करें";
+      }, 1800);
+    });
+  });
+})();
+</script>
 </body>
 </html>
