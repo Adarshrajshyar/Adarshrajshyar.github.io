@@ -1,0 +1,21 @@
+{
+  "name": "ars-backend-scaffold",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend scaffold for ARS; health endpoint only until secure auth and persistence are implemented.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^8.0.1",
+    "dotenv": "^16.6.1"
+  }
+}

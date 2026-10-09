@@ -1,16 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://adarshrajshyar.github.io/sitemap.xml
-
-Disallow: /admin.html
-Disallow: /publisher.html
-Disallow: /private.html
-Disallow: /login.html
-Disallow: /exam-login.html
-Disallow: /start-exam.html
-Disallow: /student-dashboard.html
-Disallow: /student-profile.html
-Disallow: /notifications.html
-Disallow: /my-exams.html
-Disallow: /my-certificates.html

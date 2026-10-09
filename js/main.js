@@ -1,228 +1,41 @@
-
-/* ARS — Adarsh Ke Alfaz
-   Main site interactions
-*/
-
-(function () {
-  "use strict";
-
-  function ready(callback) {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", callback);
-    } else {
-      callback();
-    }
+(() => {
+  const cfg = window.ARS_CONFIG || {name:"ARS — Adarsh Ke Alfaz", founder:"Adarsh Raj Shayar", backendConnected:false};
+  const nav = [
+    ["Home","index.html"],["Education","education.html"],["Knowledge Power","knowledge-power.html"],
+    ["Exams","exams.html"],["Entrance Prep","exam-prep.html"],["Shayari","shayari.html"],
+    ["Stories","stories.html"],["Poetry","poetry.html"],["Biography","biography.html"],
+    ["Founder","founder.html"],["ARS Book","ars-book.html"],["SJR–ARS Book","sjr-ars-book.html"],
+    ["Updates","updates.html"],["Join ARS","join-ars.html"],["Certificate","certificate.html"],
+    ["About","about.html"],["Contact","contact.html"],["Sponsor","sponsor.html"]
+  ];
+  const current = location.pathname.split('/').pop() || 'index.html';
+  const headerHost = document.getElementById('site-header');
+  if (headerHost) {
+    headerHost.innerHTML = `<a class="skip-link" href="#main-content">Skip to content</a>
+      <header class="site-header"><div class="header-inner"><a class="brand" href="index.html" aria-label="ARS home"><img src="assets/logo.png" alt="ARS logo"><span><b>ARS</b><small>Adarsh Ke Alfaz</small></span></a>
+      <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav class="main-nav" aria-label="Main navigation">${nav.map(([label,url])=>`<a href="${url}" ${current===url?'aria-current="page"':''}>${label}</a>`).join('')}<a href="search.html" ${current==='search.html'?'aria-current="page"':''}>Search</a></nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle colour theme" title="Toggle theme">◐</button></div></header>`;
   }
-
-  ready(function () {
-    const body = document.body;
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-    const themeToggle = document.getElementById("themeToggle");
-    const backToTop = document.getElementById("backToTop");
-    const year = document.getElementById("currentYear");
-
-    // Automatically update the footer year.
-    if (year) {
-      year.textContent = String(new Date().getFullYear());
-    }
-
-    // Mobile navigation menu.
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener("click", function () {
-        const isOpen = mainNav.classList.toggle("open");
-        menuToggle.setAttribute("aria-expanded", String(isOpen));
-        menuToggle.setAttribute(
-          "aria-label",
-          isOpen ? "मेन्यू बंद करें" : "मेन्यू खोलें"
-        );
-        menuToggle.textContent = isOpen ? "✕" : "☰";
-      });
-
-      mainNav.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          mainNav.classList.remove("open");
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.setAttribute("aria-label", "मेन्यू खोलें");
-          menuToggle.textContent = "☰";
-        });
-      });
-
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          mainNav.classList.remove("open");
-          menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.textContent = "☰";
-        }
-      });
-    }
-
-    // Saved light/dark theme preference.
-    const themeKey = "ars-theme";
-
-    function applyTheme(theme) {
-      const dark = theme === "dark";
-      body.classList.toggle("dark-theme", dark);
-
-      if (themeToggle) {
-        themeToggle.textContent = dark ? "☀" : "◐";
-        themeToggle.setAttribute(
-          "aria-label",
-          dark ? "लाइट थीम चुनें" : "डार्क थीम चुनें"
-        );
-        themeToggle.setAttribute("aria-pressed", String(dark));
-      }
-    }
-
-    let savedTheme = "light";
-
-    try {
-      savedTheme = localStorage.getItem(themeKey) || "light";
-    } catch (error) {
-      // The site still works if browser storage is unavailable.
-    }
-
-    applyTheme(savedTheme);
-
-    if (themeToggle) {
-      themeToggle.addEventListener("click", function () {
-        const newTheme = body.classList.contains("dark-theme")
-          ? "light"
-          : "dark";
-
-        applyTheme(newTheme);
-
-        try {
-          localStorage.setItem(themeKey, newTheme);
-        } catch (error) {
-          // Theme changes still apply to the current page.
-        }
-      });
-    }
-
-    // Highlight the navigation link for the current page.
-    const currentFile = (
-      window.location.pathname.split("/").pop() || "index.html"
-    ).toLowerCase();
-
-    document.querySelectorAll(".main-nav a").forEach(function (link) {
-      const href = link.getAttribute("href");
-      if (!href) return;
-
-      const linkFile = href.split("/").pop().toLowerCase();
-
-      if (linkFile === currentFile) {
-        link.classList.add("active");
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.classList.remove("active");
-        link.removeAttribute("aria-current");
-      }
-    });
-
-    // Back-to-top button.
-    function updateBackToTop() {
-      if (!backToTop) return;
-      backToTop.classList.toggle("visible", window.scrollY > 350);
-    }
-
-    window.addEventListener("scroll", updateBackToTop, { passive: true });
-    updateBackToTop();
-
-    if (backToTop) {
-      backToTop.addEventListener("click", function () {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-    }
-
-    // Reusable filtering for pages with data attributes.
-    // Supported attributes:
-    // data-filter-search, data-filter-class, data-filter-subject,
-    // data-filter-category, data-searchable, data-class,
-    // data-subject and data-category.
-    const filterSearch = document.querySelector("[data-filter-search]");
-    const classFilter = document.querySelector("[data-filter-class]");
-    const subjectFilter = document.querySelector("[data-filter-subject]");
-    const categoryFilter = document.querySelector("[data-filter-category]");
-    const filterItems = Array.from(
-      document.querySelectorAll("[data-searchable]")
-    );
-    const emptyMessage = document.querySelector("[data-filter-empty]");
-
-    function applyFilters() {
-      if (!filterItems.length) return;
-
-      const query = filterSearch
-        ? filterSearch.value.trim().toLocaleLowerCase()
-        : "";
-
-      const selectedClass = classFilter ? classFilter.value : "";
-      const selectedSubject = subjectFilter ? subjectFilter.value : "";
-      const selectedCategory = categoryFilter ? categoryFilter.value : "";
-
-      let visibleCount = 0;
-
-      filterItems.forEach(function (item) {
-        const text = (item.textContent || "").toLocaleLowerCase();
-        const itemClass = item.dataset.class || "";
-        const itemSubject = item.dataset.subject || "";
-        const itemCategory = item.dataset.category || "";
-
-        const matchesQuery = !query || text.includes(query);
-        const matchesClass = !selectedClass || itemClass === selectedClass;
-        const matchesSubject =
-          !selectedSubject || itemSubject === selectedSubject;
-        const matchesCategory =
-          !selectedCategory || itemCategory === selectedCategory;
-
-        const visible =
-          matchesQuery && matchesClass && matchesSubject && matchesCategory;
-
-        item.hidden = !visible;
-        if (visible) visibleCount++;
-      });
-
-      if (emptyMessage) {
-        emptyMessage.hidden = visibleCount !== 0;
-      }
-    }
-
-    [filterSearch, classFilter, subjectFilter, categoryFilter].forEach(
-      function (control) {
-        if (!control) return;
-        control.addEventListener("input", applyFilters);
-        control.addEventListener("change", applyFilters);
-      }
-    );
-
-    applyFilters();
-
-    // Optional expandable FAQ sections.
-    document.querySelectorAll("[data-faq-toggle]").forEach(function (button) {
-      button.addEventListener("click", function () {
-        const panelId = button.getAttribute("aria-controls");
-        const panel = panelId ? document.getElementById(panelId) : null;
-        if (!panel) return;
-
-        const willOpen = panel.hidden;
-        panel.hidden = !willOpen;
-        button.setAttribute("aria-expanded", String(willOpen));
-      });
-    });
-
-    // Keep external links opening safely in a new tab protected.
-    document.querySelectorAll('a[target="_blank"]').forEach(function (link) {
-      const rel = new Set((link.getAttribute("rel") || "").split(/\s+/));
-      rel.add("noopener");
-      rel.add("noreferrer");
-      link.setAttribute("rel", Array.from(rel).join(" ").trim());
-    });
+  const footerHost = document.getElementById('site-footer');
+  if (footerHost) footerHost.innerHTML = `<footer class="site-footer"><div class="footer-grid"><div><a class="footer-brand" href="index.html">ARS — Adarsh Ke Alfaz</a><p>Education, knowledge, literature and learner growth in one place.</p><p class="small">Founder: Adarsh Raj Shayar</p></div><div><b>Explore</b><a href="education.html">Education</a><a href="exam-prep.html">Entrance preparation</a><a href="ars-book.html">ARS Book</a><a href="sjr-ars-book.html">SJR–ARS Book</a></div><div><b>Support</b><a href="about.html">About ARS</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="exam-rules.html">Exam rules</a></div><div><b>Connect</b><a href="${cfg.social?.instagram||'#'}" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="${cfg.social?.youtube||'#'}" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a href="sponsor.html">Sponsor ARS</a><a class="private-link" href="private.html">Private</a></div></div><div class="footer-bottom"><span>© <span data-year></span> ARS — Adarsh Ke Alfaz</span><span>Learning • Fairness • Creativity</span></div></footer>`;
+  document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().getFullYear());
+  const toggle=document.querySelector('.menu-toggle');
+  const navEl=document.querySelector('.main-nav');
+  if(toggle&&navEl) toggle.addEventListener('click',()=>{const open=navEl.classList.toggle('is-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'✕':'☰';});
+  const themeBtn=document.querySelector('.theme-toggle');
+  const savedTheme=localStorage.getItem('ars-theme');
+  if(savedTheme==='dark') document.documentElement.dataset.theme='dark';
+  if(themeBtn) themeBtn.addEventListener('click',()=>{const dark=document.documentElement.dataset.theme!=='dark';if(dark)document.documentElement.dataset.theme='dark';else delete document.documentElement.dataset.theme;localStorage.setItem('ars-theme',dark?'dark':'light');});
+  document.querySelectorAll('[data-filter-group]').forEach(group=>{
+    const targetSelector=group.dataset.filterTarget; const target=document.querySelector(targetSelector);
+    if(!target)return; const items=[...target.querySelectorAll('[data-category]')];
+    group.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{group.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b===button));const f=button.dataset.filter;items.forEach(item=>item.hidden=f!=='all'&&!item.dataset.category.split(' ').includes(f));}));
   });
-
-  // Shared namespace for any future ARS page scripts.
-  window.ARS = window.ARS || {};
-  window.ARS.version = "1.0.0";
+  const searchInput=document.querySelector('[data-site-search]');
+  if(searchInput){ const results=document.querySelector('[data-search-results]'); const pages=[['Home','index.html','Explore all sections of ARS'],['Education','education.html','Learning resources for classes 5–8'],['Knowledge Power','knowledge-power.html','Science, India, Bihar, environment and more'],['Exams','exams.html','ARS examination information'],['Sainik, JNV and RMS preparation','exam-prep.html','Notes, revision, practice and study plan'],['Shayari','shayari.html','Original shayari collection'],['Stories','stories.html','Stories and lessons'],['Poetry','poetry.html','Poems about life, hope and nature'],['Biography','biography.html','Writer biography draft'],['Founder','founder.html','Founder vision'],['ARS Book','ars-book.html','Literary book page'],['SJR–ARS Entrance Preparation Book','sjr-ars-book.html','Separate entrance preparation book'],['Join ARS','join-ars.html','Join ARS application overview'],['Certificate','certificate.html','Certificate information'],['Contact','contact.html','Contact options'],['Sponsor','sponsor.html','Sponsor proposal overview']]; const draw=()=>{const q=searchInput.value.trim().toLowerCase();results.innerHTML=pages.filter(p=>!q||(p.join(' ').toLowerCase().includes(q))).map(p=>`<a class="result-card" href="${p[1]}"><b>${p[0]}</b><span>${p[2]}</span><span class="result-arrow">Explore →</span></a>`).join('')||'<p class="notice">No matching sections found. Try another keyword.</p>';};searchInput.addEventListener('input',draw);draw(); }
+  document.querySelectorAll('[data-demo-form]').forEach(form=>form.addEventListener('submit',ev=>{ev.preventDefault();const msg=form.querySelector('[data-form-message]');if(msg)msg.textContent='Demo only: no information has been sent or saved. A verified backend/email service must be connected first.';}));
+  document.querySelectorAll('[data-copy]').forEach(btn=>btn.addEventListener('click',async()=>{const el=document.querySelector(btn.dataset.copy);if(!el)return;try{await navigator.clipboard.writeText(el.innerText);btn.textContent='Copied!';}catch{btn.textContent='Select text to copy';}}));
+  const sampleQuiz=document.querySelector('[data-sample-quiz]');
+  if(sampleQuiz)sampleQuiz.addEventListener('submit',ev=>{ev.preventDefault();const picked=sampleQuiz.querySelector('input[name="sample-answer"]:checked');const out=document.querySelector('[data-quiz-feedback]');if(!out)return;out.textContent=picked?(picked.value==='b'?'Well done! This sample answer is correct.':'Review the concept and try again. The sample answer is option B.'):'Please select an answer.';});
 })();
