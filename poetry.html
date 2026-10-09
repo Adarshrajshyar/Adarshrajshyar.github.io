@@ -1,816 +1,149 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="ARS — Adarsh Ke Alfaz | Original Poetry and creative writing."
-  >
-
-  <meta
-    name="author"
-    content="Adarsh Raj Shayar"
-  >
-
-  <meta
-    name="theme-color"
-    content="#0b4f8a"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087f8c">
   <title>Poetry | ARS — Adarsh Ke Alfaz</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="assets/logo.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="css/style.css"
-  >
+  <meta name="description" content="Explore original poetry about life, dreams, hope and nature at ARS — Adarsh Ke Alfaz.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/site-config.js"></script>
 </head>
-
 <body>
-
-  <!-- HEADER -->
   <header class="site-header">
-
-    <div class="container navbar">
-
-      <a
-        href="index.html"
-        class="brand"
-        aria-label="ARS Home"
-      >
-
-        <div class="brand-logo-wrap">
-
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-            class="brand-logo"
-          >
-
-        </div>
-
-        <div class="brand-text">
-
-          <strong>ARS</strong>
-
-          <span>
-            Adarsh Ke Alfaz
-          </span>
-
-          <small>
-            Education • Knowledge • Power
-          </small>
-
-        </div>
-
-      </a>
-
-
-      <button
-        type="button"
-        class="menu-toggle"
-        id="menuToggle"
-        aria-label="Open Menu"
-        aria-expanded="false"
-      >
-
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </button>
-
-
-      <nav
-        class="main-nav"
-        id="mainNav"
-        aria-label="Main Navigation"
-      >
-
-        <a href="index.html">Home</a>
-        <a href="education.html">Education</a>
-        <a href="knowledge-power.html">Knowledge Power</a>
-        <a href="exams.html">Exams</a>
-        <a href="shayari.html">Shayari</a>
-        <a href="stories.html">Stories</a>
-
-        <a
-          href="poetry.html"
-          class="active"
-        >
-          Poetry
-        </a>
-
-        <a href="biography.html">Biography</a>
-        <a href="ars-book.html">ARS Book</a>
-        <a href="updates.html">Updates</a>
-
-        <a
-          href="join-ars.html"
-          class="nav-special"
-        >
-          Join ARS
-        </a>
-
-        <a href="certificate.html">Certificate</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="sponsor.html">Sponsor</a>
-
-        <button
-          type="button"
-          class="theme-toggle"
-          id="themeToggle"
-          aria-label="Toggle Theme"
-        >
-          🌙
-        </button>
-
-      </nav>
-
-    </div>
-
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="ARS Logo" onerror="this.style.display='none'">
+      <span>ARS <small>Adarsh Ke Alfaz</small></span>
+    </a>
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="education.html">Education</a>
+      <a href="knowledge-power.html">Knowledge Power</a>
+      <a href="exams.html">Exams</a>
+      <a href="shayari.html">Shayari</a>
+      <a href="stories.html">Stories</a>
+      <a class="active" href="poetry.html">Poetry</a>
+      <a href="biography.html">Biography</a>
+      <a href="founder.html">Founder</a>
+      <a href="ars-book.html">ARS Book</a>
+      <a href="updates.html">Updates</a>
+      <a href="join-ars.html">Join ARS</a>
+      <a href="certificate.html">Certificate</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-
   <main>
-
-    <!-- HERO -->
-    <section class="section page-hero">
-
+    <section class="hero">
       <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            ARS POETRY
-          </span>
-
-          <h1>
-            कविता जहाँ विचार बन जाती है
-          </h1>
-
-          <p>
-            Original poetry, creative writing और भावनाओं को
-            एक clean reading experience में पढ़ें।
-          </p>
-
-        </div>
-
+        <p class="eyebrow">WORDS • FEELINGS • IMAGINATION</p>
+        <h1>Poetry That Speaks to the Heart</h1>
+        <p>Poems about life, hope, nature, dreams and the courage to begin again.</p>
+        <a class="btn" href="#poetry-list">Explore Poetry</a>
       </div>
-
     </section>
 
+    <section class="section container" id="poetry-list">
+      <h2>Poetry Collection</h2>
+      <p>Choose a category and discover a poem.</p>
 
-    <!-- FEATURED POETRY -->
-    <section class="section">
+      <div class="filter-bar" role="group" aria-label="Poetry categories">
+        <button class="filter-btn active" data-poetry-filter="all">All</button>
+        <button class="filter-btn" data-poetry-filter="life">Life</button>
+        <button class="filter-btn" data-poetry-filter="hope">Hope</button>
+        <button class="filter-btn" data-poetry-filter="nature">Nature</button>
+        <button class="filter-btn" data-poetry-filter="dreams">Dreams</button>
+      </div>
 
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            FEATURED
-          </span>
-
-          <h2>
-            आज की Poetry
-          </h2>
-
+      <div class="feature-grid" id="poetry-grid">
+        <article class="feature-card" data-poetry-category="life">
+          <h3>The Journey of Life</h3>
           <p>
-            नीचे sample reading layout है।
-            Final poetry Publisher से publish होगी।
+            Every road has turns unknown,<br>
+            Every seed has time to be grown.<br>
+            Take one step when skies are gray,<br>
+            Small steps can shape a brighter day.
           </p>
-
-        </div>
-
-
-        <article
-          class="quick-card"
-          style="
-            max-width:820px;
-            margin:0 auto;
-            padding:40px;
-          "
-        >
-
-          <div class="quick-icon">
-            ✍️
-          </div>
-
-          <span class="eyebrow">
-            SAMPLE POETRY
-          </span>
-
-          <h3
-            style="
-              font-size:30px;
-              margin-top:12px;
-            "
-          >
-            एक कदम और
-          </h3>
-
-
-          <div
-            style="
-              margin-top:22px;
-              color:var(--text-soft);
-              font-size:17px;
-              line-height:2;
-            "
-          >
-
-            <p>
-              रास्ते चाहे लंबे हों,<br>
-              कदम अपना रुकने न दें,<br>
-              सपनों की रोशनी लेकर,<br>
-              मन को कभी झुकने न दें।
-            </p>
-
-            <p>
-              गिरना भी एक सीख है,<br>
-              ठोकर भी कुछ कहती है,<br>
-              जो फिर से उठकर चलता है,<br>
-              मंज़िल उसी की रहती है।
-            </p>
-
-          </div>
-
-
-          <div
-            style="
-              display:flex;
-              flex-wrap:wrap;
-              gap:10px;
-              margin-top:24px;
-            "
-          >
-
-            <button
-              type="button"
-              class="btn btn-primary"
-              onclick="copyPoetry()"
-            >
-              📋 Copy Poetry
-            </button>
-
-            <button
-              type="button"
-              class="btn btn-outline"
-              onclick="sharePoetry()"
-            >
-              🔗 Share
-            </button>
-
-          </div>
-
+          <button class="btn btn-outline copy-poem">Copy Poem</button>
         </article>
 
-      </div>
-
-    </section>
-
-
-    <!-- POETRY COLLECTION -->
-    <section class="section knowledge-section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            POETRY COLLECTION
-          </span>
-
-          <h2>
-            Latest Poetry
-          </h2>
-
+        <article class="feature-card" data-poetry-category="hope">
+          <h3>A Little Hope</h3>
           <p>
-            New poetry pieces Publisher dashboard से add और publish होंगी।
+            When the night feels long and wide,<br>
+            Keep a little hope inside.<br>
+            Dawn may come beyond your view,<br>
+            And bring a sky of brighter blue.
           </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              🌅
-            </div>
-
-            <span class="eyebrow">
-              LIFE
-            </span>
-
-            <h3>
-              जीवन की राह
-            </h3>
-
-            <p>
-              जीवन, संघर्ष और आगे बढ़ने की भावना पर आधारित poetry।
-            </p>
-
-            <button
-              type="button"
-              class="btn btn-outline"
-              onclick="poetryNotice()"
-            >
-              Read →
-            </button>
-
-          </article>
-
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              🌱
-            </div>
-
-            <span class="eyebrow">
-              MOTIVATION
-            </span>
-
-            <h3>
-              उम्मीद
-            </h3>
-
-            <p>
-              सपनों और उम्मीद को शब्दों में व्यक्त करने वाली कविता।
-            </p>
-
-            <button
-              type="button"
-              class="btn btn-outline"
-              onclick="poetryNotice()"
-            >
-              Read →
-            </button>
-
-          </article>
-
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              ❤️
-            </div>
-
-            <span class="eyebrow">
-              EMOTION
-            </span>
-
-            <h3>
-              एहसास
-            </h3>
-
-            <p>
-              दिल और भावनाओं की दुनिया पर आधारित creative writing।
-            </p>
-
-            <button
-              type="button"
-              class="btn btn-outline"
-              onclick="poetryNotice()"
-            >
-              Read →
-            </button>
-
-          </article>
-
-
-          <article class="quick-card">
-
-            <div class="quick-icon">
-              ✨
-            </div>
-
-            <span class="eyebrow">
-              DREAMS
-            </span>
-
-            <h3>
-              नई उड़ान
-            </h3>
-
-            <p>
-              कोशिश, सपने और नई शुरुआत से जुड़ी poetry।
-            </p>
-
-            <button
-              type="button"
-              class="btn btn-outline"
-              onclick="poetryNotice()"
-            >
-              Read →
-            </button>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- READING EXPERIENCE -->
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            READING EXPERIENCE
-          </span>
-
-          <h2>
-            Poetry पढ़ने का आसान तरीका
-          </h2>
-
-        </div>
-
-
-        <div class="benefit-grid">
-
-          <article class="benefit-card">
-
-            <div>
-              📖
-            </div>
-
-            <h3>
-              Clean Reading
-            </h3>
-
-            <p>
-              कविता बिना distraction के पढ़ने के लिए clean layout।
-            </p>
-
-          </article>
-
-
-          <article class="benefit-card">
-
-            <div>
-              🔗
-            </div>
-
-            <h3>
-              Share
-            </h3>
-
-            <p>
-              पसंदीदा poetry का link share करें।
-            </p>
-
-          </article>
-
-
-          <article class="benefit-card">
-
-            <div>
-              📋
-            </div>
-
-            <h3>
-              Copy
-            </h3>
-
-            <p>
-              जहाँ content policy और permissions allow करें वहाँ
-              text copy सुविधा।
-            </p>
-
-          </article>
-
-
-          <article class="benefit-card">
-
-            <div>
-              ❤️
-            </div>
-
-            <h3>
-              Save / Like
-            </h3>
-
-            <p>
-              Future account system में पसंदीदा content save/like किया जा सकेगा।
-            </p>
-
-          </article>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- PUBLISHER -->
-    <section class="section education-section">
-
-      <div class="container join-card">
-
-        <div>
-
-          <span class="eyebrow">
-            PUBLISHER MANAGED
-          </span>
-
-          <h2>
-            नई Poetry आसानी से publish होगी
-          </h2>
-
+          <button class="btn btn-outline copy-poem">Copy Poem</button>
+        </article>
+
+        <article class="feature-card" data-poetry-category="nature">
+          <h3>Whispers of Nature</h3>
           <p>
-            Publisher title, poem, category, author information,
-            image, tags, draft और publication status manage कर सकेगा।
+            The leaves move softly in the breeze,<br>
+            The clouds sail slowly past the trees.<br>
+            The earth has stories, calm and deep,<br>
+            In every flower, a dream to keep.
           </p>
+          <button class="btn btn-outline copy-poem">Copy Poem</button>
+        </article>
 
-        </div>
-
-        <a
-          href="private.html"
-          class="btn btn-primary"
-        >
-          Private Area
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- CREATIVE MESSAGE -->
-    <section class="section">
-
-      <div class="container">
-
-        <div class="section-heading center">
-
-          <span>
-            ARS CREATIVE SPACE
-          </span>
-
-          <h2>
-            शब्द लिखे जाते हैं, यादें बनती हैं
-          </h2>
-
+        <article class="feature-card" data-poetry-category="dreams">
+          <h3>Dreams Take Flight</h3>
           <p>
-            ARS Poetry section original creative writing को
-            एक सुंदर और आसान digital reading space देने के लिए तैयार किया गया है।
+            A dream begins with one small spark,<br>
+            A steady heart can light the dark.<br>
+            Learn, keep trying, rise once more,<br>
+            Each new day opens another door.
           </p>
-
-        </div>
-
+          <button class="btn btn-outline copy-poem">Copy Poem</button>
+        </article>
       </div>
-
+      <p id="poetry-status" aria-live="polite"></p>
+      <p class="notice">These are starter poems for the website. Add or replace content with your original work before publishing.</p>
     </section>
-
   </main>
 
-
-  <!-- FOOTER -->
   <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <div class="footer-brand">
-
-        <div class="footer-logo-wrap">
-
-          <img
-            src="assets/logo.png"
-            alt="ARS Logo"
-          >
-
-        </div>
-
-        <h3>
-          ARS — Adarsh Ke Alfaz
-        </h3>
-
-        <p>
-          Education • Knowledge • Power • Creativity
-        </p>
-
-        <p class="footer-founder">
-          Founder: Adarsh Raj Shayar
-        </p>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Explore</h4>
-
-        <a href="education.html">
-          Education
-        </a>
-
-        <a href="knowledge-power.html">
-          Knowledge Power
-        </a>
-
-        <a href="exams.html">
-          Exams
-        </a>
-
-        <a href="shayari.html">
-          Shayari
-        </a>
-
-        <a href="stories.html">
-          Stories
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>ARS</h4>
-
-        <a href="poetry.html">
-          Poetry
-        </a>
-
-        <a href="biography.html">
-          Biography
-        </a>
-
-        <a href="ars-book.html">
-          ARS Book
-        </a>
-
-        <a href="join-ars.html">
-          Join ARS
-        </a>
-
-        <a href="certificate.html">
-          Certificate
-        </a>
-
-      </div>
-
-
-      <div class="footer-column">
-
-        <h4>Support</h4>
-
-        <a href="about.html">
-          About
-        </a>
-
-        <a href="contact.html">
-          Contact
-        </a>
-
-        <a href="sponsor.html">
-          Sponsor
-        </a>
-
-        <a href="policy.html">
-          Privacy & Policy
-        </a>
-
-      </div>
-
-    </div>
-
-
-    <div class="container footer-bottom">
-
-      <p>
-        © <span id="currentYear"></span>
-        ARS — Adarsh Ke Alfaz.
-        All Rights Reserved.
-      </p>
-
-      <a
-        href="private.html"
-        class="private-link"
-      >
-        🔒 Private
-      </a>
-
-    </div>
-
+    <p>© <span class="current-year">2026</span> ARS — Adarsh Ke Alfaz. All rights reserved.</p>
+    <p><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></p>
+    <a class="private-link" href="private.html">Private</a>
   </footer>
 
-
-  <div
-    id="arsToast"
-    class="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-
-  <script src="js/script.js"></script>
-
+  <script src="js/main.js"></script>
   <script>
+    const poetryButtons = document.querySelectorAll("[data-poetry-filter]");
+    const poetryCards = document.querySelectorAll("[data-poetry-category]");
+    poetryButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        poetryButtons.forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        const category = button.dataset.poetryFilter;
+        poetryCards.forEach(card => {
+          card.hidden = category !== "all" && card.dataset.poetryCategory !== category;
+        });
+      });
+    });
 
-    "use strict";
-
-
-    const samplePoetry =
-      `रास्ते चाहे लंबे हों,
-कदम अपना रुकने न दें,
-सपनों की रोशनी लेकर,
-मन को कभी झुकने न दें।
-
-गिरना भी एक सीख है,
-ठोकर भी कुछ कहती है,
-जो फिर से उठकर चलता है,
-मंज़िल उसी की रहती है।`;
-
-
-    window.copyPoetry =
-      async function () {
-
+    document.querySelectorAll(".copy-poem").forEach(button => {
+      button.addEventListener("click", async () => {
+        const poem = button.closest(".feature-card").querySelector("p").innerText;
+        const status = document.getElementById("poetry-status");
         try {
-
-          await navigator.clipboard.writeText(
-            samplePoetry
-          );
-
-          ARS.showToast(
-            "Poetry copied successfully."
-          );
-
-        } catch (error) {
-
-          ARS.showToast(
-            "Poetry copy नहीं हो पाई।"
-          );
-
+          await navigator.clipboard.writeText(poem);
+          status.textContent = "Poem copied!";
+        } catch {
+          status.textContent = "Copy not available in this browser. Please select the poem and copy it manually.";
         }
-
-      };
-
-
-    window.sharePoetry =
-      async function () {
-
-        if (
-          navigator.share
-        ) {
-
-          try {
-
-            await navigator.share({
-              title:
-                "ARS Poetry — Adarsh Ke Alfaz",
-              text:
-                samplePoetry,
-              url:
-                window.location.href
-            });
-
-          } catch (error) {
-            /* User cancelled share */
-          }
-
-        } else {
-
-          ARS.showToast(
-            "Share option आपके device में उपलब्ध नहीं है।"
-          );
-
-        }
-
-      };
-
-
-    window.poetryNotice =
-      function () {
-
-        ARS.showToast(
-          "Full published poetry यहाँ open होगी।"
-        );
-
-      };
-
+      });
+    });
   </script>
-
+  <script src="js/pwa-register.js"></script>
 </body>
 </html>
+```
